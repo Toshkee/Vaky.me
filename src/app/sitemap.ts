@@ -1,0 +1,20 @@
+import type { MetadataRoute } from "next";
+import { site } from "@/config/site";
+
+export const dynamic = "force-static";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  // Demo sites are intentionally excluded — they carry robots noindex.
+  return [
+    {
+      url: `${site.url}/`,
+      changeFrequency: "monthly",
+      priority: 1,
+    },
+    {
+      url: `${site.url}/en/`,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+  ];
+}

@@ -1,0 +1,424 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── VibeCode brand — sampled from the logo. Four colors, no fifth. ── */
+  --color-ink: #0a0a0a;
+  --color-ink-2: #141416;
+  --color-ink-3: #1e1e21;
+  --color-red: #d0202a;
+  --color-red-bright: #e8323c;
+  /* tint of the brand red — small informational text on dark (AA 4.5:1) */
+  --color-red-soft: #f0565f;
+  --color-gold: #c9a227;
+  --color-muted: #a1a1a6;
+  --color-line: #26262a;
+
+  --font-display: var(--font-barlow);
+  --font-sans: var(--font-schibsted);
+
+  /* Demo-site palettes (used only under /demo) */
+  --color-konoba-bg: #17120d;
+  --color-konoba-card: #221a12;
+  --color-konoba-cream: #f2e8d8;
+  --color-konoba-terra: #c4682f;
+  --color-konoba-olive: #7d8a5a;
+
+  --color-titan-bg: #0b0c0e;
+  --color-titan-card: #141619;
+  --color-titan-volt: #c8f31d;
+  --color-titan-steel: #8b939e;
+
+  --color-barber-bg: #f5efe4;
+  --color-barber-card: #fffaf0;
+  --color-barber-green: #16382b;
+  --color-barber-gold: #b08d3e;
+  --color-barber-red: #a4342c;
+}
+
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--color-ink);
+  color: #ffffff;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-red);
+  color: #ffffff;
+}
+
+/* ── Film grain over the whole page — the "street" texture layer ── */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── Poster headline setting — heavy condensed italic caps, like the logo ── */
+.headline {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   MOTION SYSTEM
+   One load sequence (hero), scroll-driven effects as pure-CSS progressive
+   enhancement, IntersectionObserver reveals gated behind the .js class so
+   content is never hidden without JavaScript. Reduced motion kills it all.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ── Hero load choreography ─────────────────────────────────────────
+   .mask-line wraps each headline line; .mask-rise is the inner span that
+   rises out of it. .load-fade elements fade up on a --d delay. */
+.mask-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em; /* italic descenders */
+  margin-bottom: -0.08em;
+  padding-right: 0.06em; /* italic overhang */
+}
+
+.mask-rise {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mask-rise {
+    animation: mask-rise 0.75s var(--ease-out) both;
+    animation-delay: var(--d, 0s);
+  }
+
+  .load-fade {
+    animation: load-fade 0.7s var(--ease-out) both;
+    animation-delay: var(--d, 0s);
+  }
+
+  .nav-drop {
+    animation: nav-drop 0.5s var(--ease-out) both;
+  }
+}
+
+@keyframes mask-rise {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes load-fade {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes nav-drop {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* ── Nav materializes on scroll (scroll-driven; solid fallback) ── */
+.nav-bar {
+  background: color-mix(in srgb, var(--color-ink) 85%, transparent);
+  border-bottom: 1px solid var(--color-line);
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .nav-bar {
+      background: transparent;
+      border-bottom-color: transparent;
+      animation: nav-solid linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 140px;
+    }
+  }
+}
+
+@keyframes nav-solid {
+  to {
+    background: color-mix(in srgb, var(--color-ink) 85%, transparent);
+    border-bottom-color: var(--color-line);
+  }
+}
+
+/* ── Scroll reveals (IntersectionObserver; .js-gated) ── */
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.65s var(--ease-out),
+      transform 0.65s var(--ease-out);
+    transition-delay: var(--d, 0s);
+  }
+
+  .js .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Ticker — slow marquee strip ── */
+.ticker {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ticker-track {
+  display: inline-flex;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ticker-track {
+    animation: ticker 36s linear infinite;
+  }
+}
+
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ── Kinetic text fill — the statement fills as you scroll through it ── */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fill-text {
+      background: linear-gradient(to right, #ffffff 50%, #3a3a3f 50%);
+      background-size: 200% 100%;
+      background-position: 100% 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fill-text linear both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 55%;
+    }
+
+    .fill-text .fill-accent {
+      -webkit-text-fill-color: var(--color-red);
+    }
+  }
+}
+
+@keyframes fill-text {
+  to {
+    background-position: 0% 0;
+  }
+}
+
+/* ── Poster parallax — content drifts inside its clipped frame ── */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .poster-drift {
+      scale: 1.1;
+      animation: poster-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+@keyframes poster-drift {
+  from {
+    translate: 0 4%;
+  }
+  to {
+    translate: 0 -4%;
+  }
+}
+
+/* ── The brush circle draws itself around the featured price ── */
+.brush-draw path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .brush-draw path {
+      animation: brush-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 40% entry 100%;
+    }
+    .brush-draw path + path {
+      animation-range: entry 60% contain 20%;
+    }
+  }
+}
+
+@keyframes brush-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── FAB appears once the hero is behind you ── */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fab-appear {
+      animation: fab-appear 0.4s var(--ease-out) both;
+      animation-timeline: scroll(root);
+      animation-range: 300px 600px;
+    }
+  }
+}
+
+@keyframes fab-appear {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Link underline sweep ── */
+.sweep {
+  position: relative;
+  text-decoration: none;
+}
+
+.sweep::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.35em;
+  height: 2px;
+  background: var(--color-red);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.sweep:hover::after,
+.sweep:focus-visible::after,
+.group:hover .sweep::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweep::after {
+    transition: none;
+  }
+}
+
+/* ── Before/after wipe (hero) ─────────────────────────────────────────
+   --ba is set by the range input; the "new" layer is clipped to it. */
+.ba-panel {
+  --ba: 55%;
+}
+
+.ba-new {
+  clip-path: inset(0 calc(100% - var(--ba)) 0 0);
+}
+
+.ba-handle {
+  left: var(--ba);
+}
+
+.ba-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: ew-resize;
+  touch-action: none;
+}
+
+/* the range input is invisible — surface keyboard focus on the panel */
+.ba-panel:has(.ba-range:focus-visible) {
+  outline: 2px solid var(--color-red-bright);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ba-intro .ba-new {
+    animation: ba-sweep 1.5s cubic-bezier(0.6, 0, 0.2, 1) 1.25s both;
+  }
+  .ba-intro .ba-handle {
+    animation: ba-sweep-handle 1.5s cubic-bezier(0.6, 0, 0.2, 1) 1.25s both;
+  }
+}
+
+@keyframes ba-sweep {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 calc(100% - var(--ba)) 0 0);
+  }
+}
+
+@keyframes ba-sweep-handle {
+  from {
+    left: 0%;
+  }
+  to {
+    left: var(--ba);
+  }
+}
+
+/* ── Native <details> FAQ rows ── */
+details.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+details.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+details.faq-item .faq-toggle {
+  transition: transform 0.22s ease;
+}
+
+details.faq-item[open] .faq-toggle {
+  transform: rotate(45deg);
+}
