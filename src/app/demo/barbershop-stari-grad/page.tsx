@@ -106,7 +106,7 @@ export default function Page() {
           </p>
           <nav
             aria-label="Glavna navigacija"
-            className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2"
+            className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4"
           >
             <a
               href="#cjenovnik"

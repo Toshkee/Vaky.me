@@ -11,7 +11,7 @@ import { BeforeAfter } from "./BeforeAfter";
 export function Hero({ dict }: { dict: Dictionary }) {
   return (
     <section className="overflow-hidden">
-      <div className="mx-auto grid max-w-6xl gap-14 px-5 pb-20 pt-14 sm:px-8 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:pb-28">
+      <div className="mx-auto grid max-w-6xl gap-9 px-5 pb-14 pt-10 sm:gap-14 sm:px-8 sm:pb-20 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:pb-28">
         <div>
           <h1 className="headline text-[clamp(2.6rem,10vw,6.8rem)]">
             <span className="mask-line">
@@ -30,14 +30,14 @@ export function Hero({ dict }: { dict: Dictionary }) {
           </h1>
 
           <p
-            className="load-fade mt-7 max-w-md text-lg leading-relaxed text-muted"
+            className="load-fade mt-5 max-w-md text-lg leading-relaxed text-muted sm:mt-7"
             style={{ "--d": "0.5s" } as React.CSSProperties}
           >
             {dict.hero.sub}
           </p>
 
           <div
-            className="load-fade mt-9 flex flex-wrap items-center gap-x-8 gap-y-5"
+            className="load-fade mt-7 flex flex-wrap items-center gap-x-8 gap-y-4 sm:mt-9 sm:gap-y-5"
             style={{ "--d": "0.62s" } as React.CSSProperties}
           >
             <PaintedButton
@@ -47,13 +47,13 @@ export function Hero({ dict }: { dict: Dictionary }) {
             >
               {dict.hero.ctaPrimary}
             </PaintedButton>
-            <a href="#radovi" className="sweep font-semibold text-white">
+            <a href="#radovi" className="sweep tap font-semibold text-white">
               {dict.hero.ctaSecondary} ↓
             </a>
           </div>
 
           <p
-            className="load-fade mt-10 text-sm text-muted"
+            className="load-fade mt-7 text-sm text-muted sm:mt-10"
             style={{ "--d": "0.74s" } as React.CSSProperties}
           >
             {dict.hero.trust.map((t, i) => (

@@ -8,7 +8,7 @@ import type { Dictionary } from "@/i18n";
 export function Statement({ dict }: { dict: Dictionary }) {
   return (
     <section className="bg-ink-2">
-      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-28">
         <p className="fill-text headline max-w-4xl text-[clamp(2rem,5.4vw,3.8rem)]">
           <span className="fill-accent text-red">{dict.statement.figure}</span>{" "}
           {dict.statement.rest}

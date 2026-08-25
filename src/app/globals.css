@@ -35,90 +35,336 @@
   --color-barber-red: #a4342c;
 }
 
-:root {
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-}
+/* Everything below lives in `base` or `components` on purpose: unlayered CSS
+   outranks ALL of Tailwind's layered utilities regardless of specificity, so
+   an unlayered `.headline { font-style: italic }` would defeat `not-italic`,
+   and an unlayered `position: relative` would defeat `fixed`. */
 
-html {
-  scroll-behavior: smooth;
-}
+@layer base {
+  :root {
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
 
-@media (prefers-reduced-motion: reduce) {
   html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background: var(--color-ink);
+    color: #ffffff;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-red);
+    color: #ffffff;
   }
 }
 
-body {
-  background: var(--color-ink);
-  color: #ffffff;
-  font-family: var(--font-sans), system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
+@layer components {
+  /* ── Film grain over the whole page — the "street" texture layer ── */
+  .grain::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
 
-::selection {
-  background: var(--color-red);
-  color: #ffffff;
-}
+  /* ── Poster headline setting — heavy condensed italic caps, like the logo ── */
+  .headline {
+    font-family: var(--font-display), var(--font-sans), sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    text-transform: uppercase;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+  }
 
-/* ── Film grain over the whole page — the "street" texture layer ── */
-.grain::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+  /* ── Hero load choreography ── */
+  .mask-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em; /* italic descenders */
+    margin-bottom: -0.08em;
+    padding-right: 0.06em; /* italic overhang */
+  }
 
-/* ── Poster headline setting — heavy condensed italic caps, like the logo ── */
-.headline {
-  font-family: var(--font-display), var(--font-sans), sans-serif;
-  font-weight: 800;
-  font-style: italic;
-  text-transform: uppercase;
-  line-height: 0.92;
-  letter-spacing: -0.01em;
-}
-
-/* ════════════════════════════════════════════════════════════════════
-   MOTION SYSTEM
-   One load sequence (hero), scroll-driven effects as pure-CSS progressive
-   enhancement, IntersectionObserver reveals gated behind the .js class so
-   content is never hidden without JavaScript. Reduced motion kills it all.
-   ════════════════════════════════════════════════════════════════════ */
-
-/* ── Hero load choreography ─────────────────────────────────────────
-   .mask-line wraps each headline line; .mask-rise is the inner span that
-   rises out of it. .load-fade elements fade up on a --d delay. */
-.mask-line {
-  display: block;
-  overflow: hidden;
-  padding-bottom: 0.08em; /* italic descenders */
-  margin-bottom: -0.08em;
-  padding-right: 0.06em; /* italic overhang */
-}
-
-.mask-rise {
-  display: block;
-}
-
-@media (prefers-reduced-motion: no-preference) {
   .mask-rise {
-    animation: mask-rise 0.75s var(--ease-out) both;
-    animation-delay: var(--d, 0s);
+    display: block;
   }
 
-  .load-fade {
-    animation: load-fade 0.7s var(--ease-out) both;
-    animation-delay: var(--d, 0s);
+  @media (prefers-reduced-motion: no-preference) {
+    .mask-rise {
+      animation: mask-rise 0.75s var(--ease-out) both;
+      animation-delay: var(--d, 0s);
+    }
+
+    .load-fade {
+      animation: load-fade 0.7s var(--ease-out) both;
+      animation-delay: var(--d, 0s);
+    }
+
+    .nav-drop {
+      animation: nav-drop 0.5s var(--ease-out) both;
+    }
   }
 
-  .nav-drop {
-    animation: nav-drop 0.5s var(--ease-out) both;
+  /* ── Nav materializes on scroll (scroll-driven; solid fallback) ── */
+  .nav-bar {
+    background: color-mix(in srgb, var(--color-ink) 85%, transparent);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .nav-bar {
+        background: transparent;
+        border-bottom-color: transparent;
+        animation: nav-solid linear both;
+        animation-timeline: scroll(root);
+        animation-range: 0 140px;
+      }
+    }
+  }
+
+  /* ── Scroll reveals (IntersectionObserver; .js-gated) ── */
+  @media (prefers-reduced-motion: no-preference) {
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition:
+        opacity 0.65s var(--ease-out),
+        transform 0.65s var(--ease-out);
+      transition-delay: var(--d, 0s);
+    }
+
+    .js .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* ── Ticker — slow marquee strip ── */
+  .ticker {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-track {
+    display: inline-flex;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ticker-track {
+      animation: ticker 36s linear infinite;
+    }
+  }
+
+  .ticker:hover .ticker-track {
+    animation-play-state: paused;
+  }
+
+  /* ── Kinetic text fill — the statement fills as you scroll through it ── */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .fill-text {
+        background: linear-gradient(to right, #ffffff 50%, #3a3a3f 50%);
+        background-size: 200% 100%;
+        background-position: 100% 0;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: fill-text linear both;
+        animation-timeline: view();
+        animation-range: entry 30% cover 55%;
+      }
+
+      .fill-text .fill-accent {
+        -webkit-text-fill-color: var(--color-red);
+      }
+    }
+  }
+
+  /* ── Poster parallax — content drifts inside its clipped frame ── */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .poster-drift {
+        scale: 1.1;
+        animation: poster-drift linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+    }
+  }
+
+  /* ── The brush circle draws itself around the featured price ── */
+  .brush-draw path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .brush-draw path {
+        animation: brush-draw linear both;
+        animation-timeline: view();
+        animation-range: entry 40% entry 100%;
+      }
+      .brush-draw path + path {
+        animation-range: entry 60% contain 20%;
+      }
+    }
+  }
+
+  /* ── FAB appears once the hero is behind you ── */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .fab-appear {
+        animation: fab-appear 0.4s var(--ease-out) both;
+        animation-timeline: scroll(root);
+        animation-range: 300px 600px;
+      }
+    }
+  }
+
+  /* ── Tap target: expands the hit area to 44px without moving the text.
+     Uses ::before so it never collides with .sweep's ::after underline. ── */
+  .tap {
+    position: relative;
+  }
+
+  .tap::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    min-width: 44px;
+    height: 100%;
+    min-height: 44px;
+  }
+
+  /* Same guarantee for nav links and one-tap contact links across every page,
+     including the demo sites — phones need 44px even when the text is 12px. */
+  :where(nav a, a[href^="tel:"], a[href^="viber:"], a[href*="wa.me"]) {
+    position: relative;
+  }
+
+  :where(nav a, a[href^="tel:"], a[href^="viber:"], a[href*="wa.me"])::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    min-width: 44px;
+    height: 100%;
+    min-height: 44px;
+  }
+
+  /* ── Link underline sweep ── */
+  .sweep {
+    position: relative;
+    text-decoration: none;
+  }
+
+  .sweep::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.35em;
+    height: 2px;
+    background: var(--color-red);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .sweep:hover::after,
+  .sweep:focus-visible::after,
+  .group:hover .sweep::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sweep::after {
+      transition: none;
+    }
+  }
+
+  /* ── Before/after wipe (hero, ≥640px) ──
+     --ba is set by the range input; the "new" layer is clipped to it. */
+  .ba-panel {
+    --ba: 55%;
+  }
+
+  .ba-new {
+    clip-path: inset(0 calc(100% - var(--ba)) 0 0);
+  }
+
+  .ba-handle {
+    left: var(--ba);
+  }
+
+  .ba-range {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: ew-resize;
+    touch-action: none;
+  }
+
+  /* the range input is invisible — surface keyboard focus on the panel */
+  .ba-panel:has(.ba-range:focus-visible) {
+    outline: 2px solid var(--color-red-bright);
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ba-intro .ba-new {
+      animation: ba-sweep 1.5s cubic-bezier(0.6, 0, 0.2, 1) 1.25s both;
+    }
+    .ba-intro .ba-handle {
+      animation: ba-sweep-handle 1.5s cubic-bezier(0.6, 0, 0.2, 1) 1.25s both;
+    }
+  }
+
+  /* ── Native <details> FAQ rows ── */
+  details.faq-item summary {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  details.faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details.faq-item .faq-toggle {
+    transition: transform 0.22s ease;
+  }
+
+  details.faq-item[open] .faq-toggle {
+    transform: rotate(45deg);
   }
 }
+
+/* @keyframes are not affected by cascade layers — kept at top level. */
 
 @keyframes mask-rise {
   from {
@@ -149,67 +395,11 @@ body {
   }
 }
 
-/* ── Nav materializes on scroll (scroll-driven; solid fallback) ── */
-.nav-bar {
-  background: color-mix(in srgb, var(--color-ink) 85%, transparent);
-  border-bottom: 1px solid var(--color-line);
-}
-
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .nav-bar {
-      background: transparent;
-      border-bottom-color: transparent;
-      animation: nav-solid linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 140px;
-    }
-  }
-}
-
 @keyframes nav-solid {
   to {
     background: color-mix(in srgb, var(--color-ink) 85%, transparent);
     border-bottom-color: var(--color-line);
   }
-}
-
-/* ── Scroll reveals (IntersectionObserver; .js-gated) ── */
-@media (prefers-reduced-motion: no-preference) {
-  .js .reveal {
-    opacity: 0;
-    transform: translateY(16px);
-    transition:
-      opacity 0.65s var(--ease-out),
-      transform 0.65s var(--ease-out);
-    transition-delay: var(--d, 0s);
-  }
-
-  .js .reveal.in {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* ── Ticker — slow marquee strip ── */
-.ticker {
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.ticker-track {
-  display: inline-flex;
-  will-change: transform;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .ticker-track {
-    animation: ticker 36s linear infinite;
-  }
-}
-
-.ticker:hover .ticker-track {
-  animation-play-state: paused;
 }
 
 @keyframes ticker {
@@ -218,42 +408,9 @@ body {
   }
 }
 
-/* ── Kinetic text fill — the statement fills as you scroll through it ── */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .fill-text {
-      background: linear-gradient(to right, #ffffff 50%, #3a3a3f 50%);
-      background-size: 200% 100%;
-      background-position: 100% 0;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: fill-text linear both;
-      animation-timeline: view();
-      animation-range: entry 30% cover 55%;
-    }
-
-    .fill-text .fill-accent {
-      -webkit-text-fill-color: var(--color-red);
-    }
-  }
-}
-
 @keyframes fill-text {
   to {
     background-position: 0% 0;
-  }
-}
-
-/* ── Poster parallax — content drifts inside its clipped frame ── */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .poster-drift {
-      scale: 1.1;
-      animation: poster-drift linear both;
-      animation-timeline: view();
-      animation-range: cover 0% cover 100%;
-    }
   }
 }
 
@@ -266,42 +423,12 @@ body {
   }
 }
 
-/* ── The brush circle draws itself around the featured price ── */
-.brush-draw path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
-
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .brush-draw path {
-      animation: brush-draw linear both;
-      animation-timeline: view();
-      animation-range: entry 40% entry 100%;
-    }
-    .brush-draw path + path {
-      animation-range: entry 60% contain 20%;
-    }
-  }
-}
-
 @keyframes brush-draw {
   from {
     stroke-dashoffset: 1;
   }
   to {
     stroke-dashoffset: 0;
-  }
-}
-
-/* ── FAB appears once the hero is behind you ── */
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .fab-appear {
-      animation: fab-appear 0.4s var(--ease-out) both;
-      animation-timeline: scroll(root);
-      animation-range: 300px 600px;
-    }
   }
 }
 
@@ -313,77 +440,6 @@ body {
   to {
     opacity: 1;
     transform: none;
-  }
-}
-
-/* ── Link underline sweep ── */
-.sweep {
-  position: relative;
-  text-decoration: none;
-}
-
-.sweep::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.35em;
-  height: 2px;
-  background: var(--color-red);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.35s var(--ease-out);
-}
-
-.sweep:hover::after,
-.sweep:focus-visible::after,
-.group:hover .sweep::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sweep::after {
-    transition: none;
-  }
-}
-
-/* ── Before/after wipe (hero) ─────────────────────────────────────────
-   --ba is set by the range input; the "new" layer is clipped to it. */
-.ba-panel {
-  --ba: 55%;
-}
-
-.ba-new {
-  clip-path: inset(0 calc(100% - var(--ba)) 0 0);
-}
-
-.ba-handle {
-  left: var(--ba);
-}
-
-.ba-range {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: ew-resize;
-  touch-action: none;
-}
-
-/* the range input is invisible — surface keyboard focus on the panel */
-.ba-panel:has(.ba-range:focus-visible) {
-  outline: 2px solid var(--color-red-bright);
-  outline-offset: 4px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .ba-intro .ba-new {
-    animation: ba-sweep 1.5s cubic-bezier(0.6, 0, 0.2, 1) 1.25s both;
-  }
-  .ba-intro .ba-handle {
-    animation: ba-sweep-handle 1.5s cubic-bezier(0.6, 0, 0.2, 1) 1.25s both;
   }
 }
 
@@ -403,22 +459,4 @@ body {
   to {
     left: var(--ba);
   }
-}
-
-/* ── Native <details> FAQ rows ── */
-details.faq-item summary {
-  list-style: none;
-  cursor: pointer;
-}
-
-details.faq-item summary::-webkit-details-marker {
-  display: none;
-}
-
-details.faq-item .faq-toggle {
-  transition: transform 0.22s ease;
-}
-
-details.faq-item[open] .faq-toggle {
-  transform: rotate(45deg);
 }

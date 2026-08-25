@@ -50,7 +50,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
 
   return (
     <section id="kontakt" className="scroll-mt-16 border-t border-line bg-ink-2">
-      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-28">
         <Reveal>
           <h2 className="headline max-w-3xl text-[clamp(3rem,9vw,6.5rem)]">
             {dict.contact.title}
@@ -79,7 +79,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
                   aria-hidden="true"
                   className="ml-2 inline-block transition-transform group-hover:translate-x-1"
                 >
-                  ↗
+                  â†—
                 </span>
               </span>
             </a>

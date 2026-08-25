@@ -8,9 +8,9 @@ import { Reveal } from "@/components/motion/Reveal";
 export function Process({ dict }: { dict: Dictionary }) {
   return (
     <section className="border-t border-line bg-ink-2">
-      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
         <Reveal>
-          <h2 className="headline text-5xl sm:text-6xl">{dict.process.title}</h2>
+          <h2 className="headline text-4xl sm:text-6xl">{dict.process.title}</h2>
           <p className="mt-4 max-w-xl text-lg text-muted">{dict.process.sub}</p>
         </Reveal>
 

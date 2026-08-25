@@ -30,18 +30,21 @@ export function Nav({ dict }: { dict: Dictionary }) {
             <ul className="hidden items-center gap-8 sm:flex">
               {links.map((l) => (
                 <li key={l.href}>
-                  <a href={l.href} className="sweep text-sm font-medium text-white/90">
+                  <a href={l.href} className="sweep tap text-sm font-medium text-white/90">
                     {l.label}
                   </a>
                 </li>
               ))}
             </ul>
-            <a href="#kontakt" className="sweep text-sm font-medium text-white/90 sm:hidden">
+            <a
+              href="#kontakt"
+              className="sweep tap text-sm font-medium text-white/90 sm:hidden"
+            >
               {dict.nav.contact}
             </a>
             <Link
               href={dict.nav.langHref}
-              className="sweep text-sm font-bold"
+              className="sweep tap text-sm font-bold"
               aria-label={dict.lang === "en" ? "Crnogorski" : "English"}
             >
               {dict.nav.langLabel}

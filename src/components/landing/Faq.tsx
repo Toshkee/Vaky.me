@@ -4,9 +4,9 @@ import { Reveal } from "@/components/motion/Reveal";
 export function Faq({ dict }: { dict: Dictionary }) {
   return (
     <section>
-      <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-24">
+      <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
         <Reveal>
-          <h2 className="headline text-5xl sm:text-6xl">{dict.faq.title}</h2>
+          <h2 className="headline text-4xl sm:text-6xl">{dict.faq.title}</h2>
         </Reveal>
 
         <div className="mt-10">
