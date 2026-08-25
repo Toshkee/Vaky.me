@@ -1,12 +1,10 @@
 import type { Dictionary } from "@/i18n";
 import { whatsappLink } from "@/config/site";
-import { BrushCircle } from "@/components/brush/BrushCircle";
 import { Reveal } from "@/components/motion/Reveal";
 
 /**
- * Pricing as a typographic table, not cards. The featured price gets a
- * hand-drawn red circle that draws itself as you scroll to it — the way a
- * good deal gets marked on a board.
+ * Pricing as a typographic table, not cards. The featured plan is marked by
+ * its red badge alone — no decoration over the numbers.
  *
  * Mobile order is name → tagline → price → what's included → CTA, so a price
  * is never read before the thing it belongs to.
@@ -22,7 +20,6 @@ export function Pricing({ dict }: { dict: Dictionary }) {
 
         <div className="mt-10 sm:mt-14">
           {dict.pricing.plans.map((plan) => {
-            const featured = Boolean(plan.badge);
             return (
               <a
                 key={plan.name}
@@ -43,12 +40,8 @@ export function Pricing({ dict }: { dict: Dictionary }) {
                   <p className="mt-2 text-sm text-muted">{plan.tagline}</p>
                 </div>
 
-                {/* w-fit keeps the brush circle hugging the price, not the column */}
-                <div className="relative w-fit lg:col-start-3 lg:row-start-1">
+                <div className="lg:col-start-3 lg:row-start-1">
                   <span className="headline block text-4xl sm:text-6xl">{plan.price}</span>
-                  {featured && (
-                    <BrushCircle className="brush-draw pointer-events-none absolute -inset-x-5 -inset-y-3 h-[calc(100%+1.5rem)] w-[calc(100%+2.5rem)] text-red" />
-                  )}
                 </div>
 
                 <div className="lg:col-start-2 lg:row-start-1 lg:pt-1.5">

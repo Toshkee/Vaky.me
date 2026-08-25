@@ -208,25 +208,6 @@
     }
   }
 
-  /* ── The brush circle draws itself around the featured price ── */
-  .brush-draw path {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 0;
-  }
-
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .brush-draw path {
-        animation: brush-draw linear both;
-        animation-timeline: view();
-        animation-range: entry 40% entry 100%;
-      }
-      .brush-draw path + path {
-        animation-range: entry 60% contain 20%;
-      }
-    }
-  }
-
   /* ── FAB appears once the hero is behind you ── */
   @supports (animation-timeline: scroll()) {
     @media (prefers-reduced-motion: no-preference) {
@@ -420,15 +401,6 @@
   }
   to {
     translate: 0 -4%;
-  }
-}
-
-@keyframes brush-draw {
-  from {
-    stroke-dashoffset: 1;
-  }
-  to {
-    stroke-dashoffset: 0;
   }
 }
 
