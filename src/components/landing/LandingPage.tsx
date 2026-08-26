@@ -8,10 +8,12 @@ import { Faq } from "./Faq";
 import { Contact } from "./Contact";
 import { Footer } from "./Footer";
 import { WhatsAppFab } from "./WhatsAppFab";
+import { StructuredData } from "@/components/StructuredData";
 
 export function LandingPage({ dict }: { dict: Dictionary }) {
   return (
     <>
+      <StructuredData dict={dict} />
       <Nav dict={dict} />
       <main>
         <Hero dict={dict} />

@@ -36,5 +36,10 @@ npx vercel        # first time: login + link project
 npx vercel --prod
 ```
 
-When the `vibelab.me` domain is purchased: Vercel dashboard → Project → Settings → Domains →
-add `vibelab.me`, then set the two DNS records Vercel shows at the registrar.
+Currently served from the free Vercel domain `vibelab-me.vercel.app`, which is also what
+`site.url` in `src/config/site.ts` declares as canonical.
+
+Note: `vibelab.me` and `vibecode.me` are both registered to third parties (checked 2026-08-26).
+When a domain you own is purchased: Vercel dashboard → Project → Settings → Domains → add it,
+set the DNS records Vercel shows at the registrar, then update `site.url` — that single value
+drives canonicals, the sitemap, robots.txt and the structured data.

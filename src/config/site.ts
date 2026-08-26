@@ -4,7 +4,12 @@
  */
 export const site = {
   name: "VibeLab.me",
-  url: "https://vibelab.me",
+  /* The free Vercel domain. vibelab.me and vibecode.me are both registered to
+     other people, so nothing here may claim them — this value feeds every
+     canonical tag, the sitemap, robots.txt and the JSON-LD @id, and pointing
+     those at a domain we do not own hands our search signals to a stranger.
+     One-line change the day a real domain is bought. */
+  url: "https://vibelab-me.vercel.app",
 
   /** International format, digits only — used for wa.me / viber links */
   whatsappNumber: "38267474438",
