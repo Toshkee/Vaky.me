@@ -1,0 +1,14 @@
+# Line endings are decided here rather than by each machine's core.autocrlf, so
+# a checkout on Windows and the Linux checkout Vercel builds from are identical.
+#
+# LF everywhere. Every tool in this stack — Next, ESLint, TypeScript, VS Code —
+# reads and writes LF happily on Windows, and pinning it means an editor or a
+# script that writes LF no longer trips the "LF will be replaced by CRLF"
+# warning on `git add`. There are no .bat/.cmd/.ps1 files here that would need
+# CRLF; add an explicit `eol=crlf` line for them if that ever changes.
+* text=auto eol=lf
+
+# Assets git must never translate. `text=auto` already detects these, but being
+# explicit keeps a stray heuristic from corrupting the logo files.
+*.png binary
+*.jpg binary
