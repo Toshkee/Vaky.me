@@ -371,7 +371,7 @@ export default function Page() {
               href="/"
               className={`${goldText} font-semibold underline-offset-4 transition-colors hover:underline ${focusDark}`}
             >
-              VibeLab.me
+              VibeLab
             </Link>
           </p>
         </div>

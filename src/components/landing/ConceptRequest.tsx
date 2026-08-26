@@ -32,14 +32,25 @@ export function ConceptRequest({ dict }: { dict: Dictionary }) {
     window.location.href = emailHref;
   }
 
-  function sendInstagram() {
-    if (link.trim()) {
-      navigator.clipboard
-        .writeText(message())
-        .then(() => setCopied(true))
-        .catch(() => setCopied(false));
+  /**
+   * Two taps, not one. Opening Instagram in the same gesture that writes the
+   * clipboard means the app takes over the screen before the "copied" line can
+   * render — the visitor lands in an empty thread never knowing the message was
+   * waiting to be pasted. So the first tap copies and relabels the button, and
+   * only the second one leaves the page. With no link typed there is nothing to
+   * copy, so that case still goes straight through.
+   */
+  async function sendInstagram() {
+    if (!link.trim() || copied) {
+      window.open(instagramDmLink(), "_blank", "noopener,noreferrer");
+      return;
     }
-    window.open(instagramDmLink(), "_blank", "noopener,noreferrer");
+    try {
+      await navigator.clipboard.writeText(message());
+      setCopied(true);
+    } catch {
+      window.open(instagramDmLink(), "_blank", "noopener,noreferrer");
+    }
   }
 
   return (
@@ -85,7 +96,7 @@ export function ConceptRequest({ dict }: { dict: Dictionary }) {
         onClick={sendInstagram}
         className="mt-2.5 block min-h-12 w-full border-2 border-ink px-6 py-3 text-center font-semibold text-ink transition-colors hover:border-red hover:text-red"
       >
-        {c.submitInstagram}
+        {copied ? c.submitInstagramCopied : c.submitInstagram}
       </button>
 
       <p role="status" className="mt-3 text-xs leading-relaxed text-muted">

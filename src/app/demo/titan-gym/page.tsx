@@ -125,7 +125,7 @@ export default function TitanGymPage() {
         </section>
       </main>
 
-      <footer className="bg-[#17191b] text-white"><div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-5 py-10 text-center"><p className={`${display} text-lg`}>Titan Gym</p><p className="text-sm text-white/50">Bulevar Josipa Broza 44 · Podgorica</p><p className="mt-3 text-xs text-white/45">Koncept: <Link href="/" className={`font-semibold text-[#c8f31d] hover:underline ${focus}`}>VibeLab.me</Link></p></div></footer>
+      <footer className="bg-[#17191b] text-white"><div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-5 py-10 text-center"><p className={`${display} text-lg`}>Titan Gym</p><p className="text-sm text-white/50">Bulevar Josipa Broza 44 · Podgorica</p><p className="mt-3 text-xs text-white/45">Koncept: <Link href="/" className={`font-semibold text-[#c8f31d] hover:underline ${focus}`}>VibeLab</Link></p></div></footer>
       <a href="tel:+38267000000" className={`fixed inset-x-4 bottom-4 z-50 inline-flex min-h-14 items-center justify-center bg-[#17191b] px-5 text-sm font-bold text-white shadow-xl md:hidden ${focus}`}>Zakaži probni trening</a>
     </div>
   );

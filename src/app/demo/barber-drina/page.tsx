@@ -288,7 +288,7 @@ export default function BarberDrinaPage() {
             <p className="mt-2">
               Koncept:{" "}
               <Link href="/" className={`font-bold text-white hover:underline ${focusDark}`}>
-                VibeLab.me
+                VibeLab
               </Link>
             </p>
           </div>

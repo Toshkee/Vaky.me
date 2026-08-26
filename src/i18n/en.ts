@@ -31,6 +31,7 @@ export const en: Dictionary = {
       placeholder: "your-site.me or @instagram",
       submitEmail: "Send email",
       submitInstagram: "Open Instagram DM",
+      submitInstagramCopied: "Message copied — open Instagram",
       copied: "Message copied — just paste it into the Instagram DM.",
       note: "Your email opens with the link already written in. We reply the same day.",
       prefill: "Hi! This is my site/Instagram: {link} — could I get a free concept?",
@@ -158,6 +159,84 @@ export const en: Dictionary = {
         badge: null,
       },
     ],
+    compare: {
+      title: "Compare packages",
+      featureLabel: "What you get",
+      rows: [
+        {
+          label: "Number of pages",
+          values: ["1", "up to 5", "as agreed"],
+          explain:
+            "How many separate pages the site has — for example Home, Services, Gallery, Contact.",
+        },
+        {
+          label: "Perfect on phones",
+          values: [true, true, true],
+          explain:
+            "The site reflows for phone, tablet and desktop. Most of your visitors arrive on a phone.",
+        },
+        {
+          label: "Contact buttons of your choice",
+          values: [true, true, true],
+          explain:
+            "Buttons that go straight to Instagram, WhatsApp, Viber, a phone call or email — you pick which ones.",
+        },
+        {
+          label: "Google Maps & contact",
+          values: [true, true, true],
+          explain: "A map pinned to your exact location, plus address and opening hours.",
+        },
+        {
+          label: "SEO basics",
+          values: [true, true, true],
+          explain:
+            "Title, description, sitemap and robots.txt — what Google needs to find and index the site.",
+        },
+        {
+          label: "Menu or price list",
+          values: [false, true, true],
+          explain:
+            "Your menu or price list as real text rather than an image — readable on a phone and easy to update.",
+        },
+        {
+          label: "Photo gallery",
+          values: [false, true, true],
+          explain: "A gallery with photos prepared so they load fast.",
+        },
+        {
+          label: "Google Business profile",
+          values: [false, true, true],
+          explain:
+            "Setting up or cleaning up the profile that shows in Google Search and on Google Maps.",
+        },
+        {
+          label: "Custom design",
+          values: [false, false, true],
+          explain: "A design built for your brand instead of an adapted template.",
+        },
+        {
+          label: "English version",
+          values: [false, false, true],
+          explain: "A full translation of the site and a language switcher for visitors from abroad.",
+        },
+        {
+          label: "Online reservations",
+          values: [false, false, true],
+          explain: "A form your guests use to request a booking or an appointment.",
+        },
+        {
+          label: "Advanced SEO",
+          values: [false, false, true],
+          explain:
+            "Structured data, social sharing cards and load-speed optimisation.",
+        },
+      ],
+    },
+    detailsAction: "What exactly do I get?",
+    detailsIntro: "Everything in this package, explained without the jargon.",
+    detailsIncluded: "Included",
+    detailsExcluded: "Not in this package",
+    detailsClose: "Close",
     maintenance: {
       title: "Maintenance & hosting — €20/month",
       body: "first month free, no contract lock-in.",
@@ -218,7 +297,7 @@ export const en: Dictionary = {
   fab: "Message us on Instagram",
 
   meta: {
-    title: "VibeLab.me — Websites that bring customers | Web studio Podgorica",
+    title: "VibeLab — Websites that bring customers | Web studio Podgorica",
     description:
       "A modern website for your business — done in 7 days, from €100. Restaurants, gyms, salons and small businesses in Montenegro. Free concept before you pay.",
   },

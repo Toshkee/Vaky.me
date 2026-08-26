@@ -17,7 +17,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
     {
       label: dict.contact.emailLabel,
       value: site.email,
-      href: emailLink(dict.contact.emailSubject),
+      href: emailLink(dict.contact.emailSubject, dict.contact.prefill),
       external: false,
       primary: false,
     },

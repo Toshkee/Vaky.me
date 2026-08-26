@@ -9,7 +9,7 @@ export function Footer({ dict }: { dict: Dictionary }) {
   return (
     <footer className="border-t-2 border-ink">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-8 gap-y-3 px-5 py-6 text-sm text-muted sm:px-8">
-        <Link href={home} className="flex items-center gap-2.5" aria-label="VibeLab.me">
+        <Link href={home} className="flex items-center gap-2.5" aria-label="VibeLab">
           <Image src="/logo.png" alt="" width={22} height={22} className="rounded-full" />
           <span>
             © {new Date().getFullYear()} {site.name} — {site.city},{" "}

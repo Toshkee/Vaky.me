@@ -114,7 +114,7 @@ export default function KonobaSkadarPage() {
         </section>
       </main>
 
-      <footer className="bg-[#211812] text-[#f7f0e4]"><div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-5 py-10 text-center"><p className={`${display} text-lg`}>Konoba Skadar</p><p className="text-sm text-[#f7f0e4]/50">Obala 13, Virpazar · 10–23h</p><p className="mt-3 text-xs text-[#f7f0e4]/45">Koncept: <Link href="/" className="font-semibold text-[#e39a70] hover:underline">VibeLab.me</Link></p></div></footer>
+      <footer className="bg-[#211812] text-[#f7f0e4]"><div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-5 py-10 text-center"><p className={`${display} text-lg`}>Konoba Skadar</p><p className="text-sm text-[#f7f0e4]/50">Obala 13, Virpazar · 10–23h</p><p className="mt-3 text-xs text-[#f7f0e4]/45">Koncept: <Link href="/" className="font-semibold text-[#e39a70] hover:underline">VibeLab</Link></p></div></footer>
       <a href="tel:+38267000000" className={`fixed inset-x-4 bottom-4 z-50 inline-flex min-h-14 items-center justify-center bg-[#2c2119] px-5 text-sm font-semibold text-[#f7f0e4] shadow-xl md:hidden ${focus}`}>Rezerviši sto</a>
     </div>
   );

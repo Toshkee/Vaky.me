@@ -4,7 +4,7 @@ import { instagramLink, site } from "@/config/site";
 /**
  * JSON-LD for the studio itself and for the FAQ.
  *
- * This is what names the business to a search engine: without it, "VibeLab.me"
+ * This is what names the business to a search engine: without it, "VibeLab"
  * is just words in a <title>, and the rename leaves no trace Google can attach
  * to an entity. Everything here is derived from `site.ts` and the active
  * dictionary, so it cannot drift from what the page actually says.

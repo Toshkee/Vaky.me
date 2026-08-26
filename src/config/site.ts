@@ -1,6 +1,6 @@
 /** Central brand and public contact configuration. */
 export const site = {
-  name: "VibeLab.me",
+  name: "VibeLab",
   /* The free Vercel domain. vibelab.me and vibecode.me are both registered to
      other people, so nothing here may claim them — this value feeds every
      canonical tag, the sitemap, robots.txt and the JSON-LD @id, and pointing

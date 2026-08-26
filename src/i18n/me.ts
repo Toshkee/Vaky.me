@@ -29,6 +29,7 @@ export const me = {
       placeholder: "tvoj-sajt.me ili @instagram",
       submitEmail: "Pošalji email",
       submitInstagram: "Otvori Instagram DM",
+      submitInstagramCopied: "Poruka kopirana — otvori Instagram",
       copied: "Poruka je kopirana — samo je nalijepi u Instagram DM.",
       note: "Email se otvara sa tvojim linkom već upisanim. Javimo se isti dan.",
       /* {link} is replaced with whatever the visitor typed */
@@ -157,6 +158,87 @@ export const me = {
         badge: null,
       },
     ],
+    compare: {
+      title: "Uporedi pakete",
+      featureLabel: "Šta dobijaš",
+      /* Derived from the three plan feature lists above — a plan's "Sve iz X
+         paketa" line is expanded here so nobody has to hold two lists in their
+         head. `explain` is what the detail dialog shows. */
+      rows: [
+        {
+          label: "Broj stranica",
+          values: ["1", "do 5", "po dogovoru"],
+          explain:
+            "Koliko odvojenih stranica sajt ima — na primjer Početna, Usluge, Galerija, Kontakt.",
+        },
+        {
+          label: "Savršen na telefonu",
+          values: [true, true, true],
+          explain:
+            "Sajt se prelama za telefon, tablet i računar. Većina tvojih posjetilaca dolazi sa telefona.",
+        },
+        {
+          label: "Kontakt dugmad po izboru",
+          values: [true, true, true],
+          explain:
+            "Dugmad koja vode direktno na Instagram, WhatsApp, Viber, poziv ili email — biraš koja ti trebaju.",
+        },
+        {
+          label: "Google mapa i kontakt",
+          values: [true, true, true],
+          explain: "Mapa sa tačnom lokacijom tvog objekta, adresa i radno vrijeme.",
+        },
+        {
+          label: "Osnovni SEO",
+          values: [true, true, true],
+          explain:
+            "Naslov, opis, sitemap i robots.txt — ono što je potrebno da Google može da pronađe i indeksira sajt.",
+        },
+        {
+          label: "Meni ili cjenovnik",
+          values: [false, true, true],
+          explain:
+            "Meni ili cjenovnik kao pravi tekst, a ne slika — čitljiv na telefonu i lak za izmjenu.",
+        },
+        {
+          label: "Galerija fotografija",
+          values: [false, true, true],
+          explain: "Galerija sa fotografijama pripremljenim tako da se brzo učitavaju.",
+        },
+        {
+          label: "Google Business profil",
+          values: [false, true, true],
+          explain:
+            "Postavljanje ili sređivanje profila koji se pojavljuje u Google pretrazi i na Google mapama.",
+        },
+        {
+          label: "Dizajn po mjeri",
+          values: [false, false, true],
+          explain: "Dizajn rađen za tvoj brend, umjesto prilagođavanja gotovog šablona.",
+        },
+        {
+          label: "Verzija na engleskom",
+          values: [false, false, true],
+          explain: "Kompletan prevod sajta i prebacivanje jezika za goste iz inostranstva.",
+        },
+        {
+          label: "Online rezervacije",
+          values: [false, false, true],
+          explain: "Forma preko koje gosti ostavljaju zahtjev za termin ili rezervaciju.",
+        },
+        {
+          label: "Napredni SEO",
+          values: [false, false, true],
+          explain:
+            "Strukturirani podaci, kartice za dijeljenje na društvenim mrežama i optimizacija brzine učitavanja.",
+        },
+      ],
+    },
+    detailsAction: "Šta tačno dobijaš?",
+    detailsIntro: "Sve iz ovog paketa, objašnjeno bez tehničkih riječi.",
+    detailsIncluded: "Uključeno",
+    detailsExcluded: "Nije u ovom paketu",
+    detailsClose: "Zatvori",
     maintenance: {
       title: "Održavanje i hosting — €20/mjesečno",
       body: "prvi mjesec gratis, bez ugovorne obaveze.",
@@ -217,7 +299,7 @@ export const me = {
   fab: "Piši nam na Instagramu",
 
   meta: {
-    title: "VibeLab.me — Sajtovi koji donose klijente | Web studio Podgorica",
+    title: "VibeLab — Sajtovi koji donose klijente | Web studio Podgorica",
     description:
       "Moderan sajt za tvoj biznis — gotov za 7 dana, od €100. Restorani, teretane, saloni i mali biznisi u Crnoj Gori. Besplatan koncept prije plaćanja.",
   },

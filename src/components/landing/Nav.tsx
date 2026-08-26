@@ -49,9 +49,9 @@ export function Nav({ dict }: { dict: Dictionary }) {
         <Link
           href={home}
           className="tap headline shrink-0 text-lg tracking-[0.01em] uppercase sm:text-xl"
-          aria-label="VibeLab.me"
+          aria-label="VibeLab"
         >
-          VibeLab<span className="text-red">.me</span>
+          Vibe<span className="text-red">Lab</span>
         </Link>
 
         <nav className="hidden items-center gap-5 text-sm md:flex">

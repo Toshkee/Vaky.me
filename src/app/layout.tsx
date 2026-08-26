@@ -15,11 +15,11 @@ const franklin = Libre_Franklin({
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: "VibeLab.me — Sajtovi koji donose klijente | Web studio Podgorica",
+  title: "VibeLab — Sajtovi koji donose klijente | Web studio Podgorica",
   description:
     "Moderan sajt za tvoj biznis — gotov za 7 dana, od €100. Restorani, teretane, saloni i mali biznisi u Crnoj Gori. Besplatan koncept prije plaćanja.",
   openGraph: {
-    siteName: "VibeLab.me",
+    siteName: "VibeLab",
     type: "website",
     images: ["/og.png"],
   },
