@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Playfair_Display, Lora } from "next/font/google";
-import { VibeCodeBar } from "@/components/demo/VibeCodeBar";
+import { VibeLabBar } from "@/components/demo/VibeLabBar";
 import { menuCategories, reviews } from "./data";
 
 const playfair = Playfair_Display({
@@ -50,7 +50,7 @@ export default function KonobaSkadarPage() {
     <div
       className={`${playfair.variable} ${lora.variable} min-h-screen bg-konoba-bg text-konoba-cream antialiased [font-family:var(--font-lora)]`}
     >
-      <VibeCodeBar />
+      <VibeLabBar />
 
       {/* Nav */}
       <header className="sticky top-0 z-40 border-b border-konoba-cream/10 bg-konoba-bg">
@@ -373,7 +373,7 @@ export default function KonobaSkadarPage() {
             href="/"
             className={`${focusRing} underline decoration-konoba-terra/60 underline-offset-4 transition-colors hover:text-konoba-terra`}
           >
-            VibeCode.me
+            VibeLab.me
           </Link>
         </p>
       </footer>

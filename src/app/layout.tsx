@@ -1,28 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Schibsted_Grotesk } from "next/font/google";
+import { Libre_Franklin } from "next/font/google";
 import { site } from "@/config/site";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
-  weight: ["700", "800"],
-  subsets: ["latin", "latin-ext"],
-  display: "swap",
-});
-
-const schibsted = Schibsted_Grotesk({
-  variable: "--font-schibsted",
+/* Libre Franklin is a revival of ATF Franklin Gothic (1902) — the face that
+   set newspaper headlines for a century. One variable family carries the whole
+   page: masthead, headlines, tables and body. Its caron on š/č stays open at
+   display sizes, which is where geometric sans faces fail on Montenegrin. */
+const franklin = Libre_Franklin({
+  variable: "--font-franklin",
   subsets: ["latin", "latin-ext"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: "VibeCode.me — Sajtovi koji donose klijente | Web studio Podgorica",
+  title: "VibeLab.me — Sajtovi koji donose klijente | Web studio Podgorica",
   description:
     "Moderan sajt za tvoj biznis — gotov za 7 dana, od €100. Restorani, teretane, saloni i mali biznisi u Crnoj Gori. Besplatan koncept prije plaćanja.",
   openGraph: {
-    siteName: "VibeCode.me",
+    siteName: "VibeLab.me",
     type: "website",
     images: ["/og.png"],
   },
@@ -32,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f7f4ef",
+  themeColor: "#faf8f4",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -41,7 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="sr-ME"
-      className={`${bricolage.variable} ${schibsted.variable} h-full antialiased`}
+      className={`${franklin.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">

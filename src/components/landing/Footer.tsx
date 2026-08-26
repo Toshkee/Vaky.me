@@ -7,10 +7,10 @@ export function Footer({ dict }: { dict: Dictionary }) {
   const home = dict.lang === "en" ? "/en/" : "/";
 
   return (
-    <footer className="border-t border-line">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-8 gap-y-4 px-5 py-8 text-sm text-muted sm:px-8">
-        <Link href={home} className="flex items-center gap-2.5" aria-label="VibeCode.me">
-          <Image src="/logo.png" alt="" width={26} height={26} className="rounded-full" />
+    <footer className="border-t-2 border-ink">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-8 gap-y-3 px-5 py-6 text-sm text-muted sm:px-8">
+        <Link href={home} className="flex items-center gap-2.5" aria-label="VibeLab.me">
+          <Image src="/logo.png" alt="" width={22} height={22} className="rounded-full" />
           <span>
             © {new Date().getFullYear()} {site.name} — {site.city},{" "}
             {dict.lang === "en" ? "Montenegro" : "Crna Gora"}

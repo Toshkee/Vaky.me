@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Anton } from "next/font/google";
 import Link from "next/link";
-import { VibeCodeBar } from "@/components/demo/VibeCodeBar";
+import { VibeLabBar } from "@/components/demo/VibeLabBar";
 import { plans, programs, schedule, stats, trainers } from "./data";
 
 const anton = Anton({
@@ -40,7 +40,7 @@ export default function TitanGymPage() {
     <div
       className={`${anton.variable} min-h-screen bg-titan-bg font-sans text-white`}
     >
-      <VibeCodeBar />
+      <VibeLabBar />
 
       {/* ————— Nav ————— */}
       <header className="sticky top-0 z-40 border-b border-white/10 bg-titan-bg/95 backdrop-blur">
@@ -402,7 +402,7 @@ export default function TitanGymPage() {
               href="/"
               className={`font-semibold text-titan-volt underline-offset-4 hover:underline ${focusRing}`}
             >
-              VibeCode.me
+              VibeLab.me
             </Link>
           </p>
         </div>

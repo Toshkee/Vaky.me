@@ -10,47 +10,45 @@ export const en: Dictionary = {
     contact: "Contact",
     langLabel: "ME",
     langHref: "/",
-    cta: "Message us",
   },
 
   hero: {
     eyebrow: "Web studio — Podgorica, Montenegro",
     titleA: "Websites that",
     titleB: "bring customers.",
-    sub: "A fast, modern website for your business — done in 7 days. No complications, no hidden costs.",
+    sub: "A fast, modern website for your business — done in 7 days.",
     ctaPrimary: "Message us on WhatsApp",
     ctaSecondary: "See our work",
-    trust: ["Done in 7 days", "From €100", "One month of maintenance free"],
-    panel: {
-      url: "konoba-primjer.me",
-      oldLabel: "2015",
-      newLabel: "2026",
-      dragHint: "Drag",
-      caption: "This is what we do: your website, before and after.",
+    concept: {
+      eyebrow: "Free concept",
+      title: "Already have a site or an Instagram?",
+      body: "Send us the link and see what your business could look like — before you pay a cent.",
+      placeholder: "konoba-primjer.me or @konoba.primjer",
+      submitEmail: "Send by email",
+      or: "Or:",
+      copied: "Link copied — paste it into the message.",
+      note: "The message opens with your link already written in. We reply the same day.",
+      prefill: "Hi! This is my site/Instagram: {link} — could I get a free concept?",
     },
   },
 
   work: {
     title: "Work",
-    sub: "Click and try — every site is real. Open it on your own phone.",
-    open: "Open site",
+    sub: "Every site is real — click and try it on your own phone.",
     items: [
       {
         name: "Konoba Skadar",
         tag: "Restaurant",
-        desc: "Homemade cuisine on the shore of Lake Skadar — menu, gallery and reservations.",
         href: "/demo/konoba-skadar/",
       },
       {
         name: "Titan Gym",
         tag: "Gym",
-        desc: "Memberships, class schedule and trainers — a site that signs up new members.",
         href: "/demo/titan-gym/",
       },
       {
         name: "Barbershop Stari Grad",
         tag: "Barber",
-        desc: "Price list, barbers and one-tap booking.",
         href: "/demo/barbershop-stari-grad/",
       },
     ],
@@ -58,7 +56,6 @@ export const en: Dictionary = {
 
   process: {
     title: "How we work",
-    sub: "From a message to a live website — no meetings, no complications.",
     steps: [
       {
         day: "Day 1",
@@ -85,7 +82,7 @@ export const en: Dictionary = {
 
   pricing: {
     title: "Pricing",
-    sub: "Clear prices, no fine print. You pay 50% up front, 50% when you're happy.",
+    sub: "Clear prices, no fine print.",
     plans: [
       {
         name: "Start",
@@ -105,12 +102,11 @@ export const en: Dictionary = {
         price: "€200",
         tagline: "A complete small-business website.",
         features: [
+          "Everything in Start",
           "Multiple pages",
           "Menu or price list",
           "Photo gallery",
           "Google Business profile",
-          "SEO basics",
-          "Everything in Start",
         ],
         badge: "Most popular",
       },
@@ -119,19 +115,18 @@ export const en: Dictionary = {
         price: "from €350",
         tagline: "For those who want it all.",
         features: [
+          "Everything in Business",
           "Custom design",
           "English version",
           "Online reservations",
           "Advanced SEO",
-          "Priority support",
-          "Everything in Business",
         ],
         badge: null,
       },
     ],
     maintenance: {
       title: "Maintenance & hosting — €20/month",
-      body: "First month free. Small updates, hosting and technical care — all included, no contract lock-in.",
+      body: "first month free, no contract lock-in.",
     },
     addonsTitle: "Add-ons",
     addons: [
@@ -166,7 +161,7 @@ export const en: Dictionary = {
 
   contact: {
     title: "Ready for a new website?",
-    sub: "Message us — we reply the same day. Free concept, no obligation.",
+    sub: "Message us — we reply the same day.",
     whatsapp: "WhatsApp",
     viber: "Viber",
     instagram: "Instagram",
@@ -184,7 +179,7 @@ export const en: Dictionary = {
   fab: "Message us",
 
   meta: {
-    title: "VibeCode.me — Websites that bring customers | Web studio Podgorica",
+    title: "VibeLab.me — Websites that bring customers | Web studio Podgorica",
     description:
       "A modern website for your business — done in 7 days, from €100. Restaurants, gyms, salons and small businesses in Montenegro. Free concept before you pay.",
   },

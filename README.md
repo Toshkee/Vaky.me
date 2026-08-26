@@ -1,6 +1,6 @@
-# VibeCode.me
+# VibeLab.me
 
-Marketing site for VibeCode.me — web studio from Podgorica. Bilingual (ME/EN), fully static,
+Marketing site for VibeLab.me — web studio from Podgorica. Bilingual (ME/EN), fully static,
 zero backend, free to host.
 
 ## Run locally
@@ -36,5 +36,5 @@ npx vercel        # first time: login + link project
 npx vercel --prod
 ```
 
-When the `vibecode.me` domain is purchased: Vercel dashboard → Project → Settings → Domains →
-add `vibecode.me`, then set the two DNS records Vercel shows at the registrar.
+When the `vibelab.me` domain is purchased: Vercel dashboard → Project → Settings → Domains →
+add `vibelab.me`, then set the two DNS records Vercel shows at the registrar.

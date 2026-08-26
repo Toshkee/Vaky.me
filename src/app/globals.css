@@ -1,22 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── VibeCode — warm editorial. Paper, ink, and the brand red. ── */
-  --color-paper: #f7f4ef;
-  --color-paper-2: #efeae1;
-  --color-paper-3: #e7e0d5;
-  --color-ink: #16161a;
-  /* muted body copy — #6b6862 on paper is 4.9:1 (AA) */
-  --color-muted: #6b6862;
-  --color-line: #e0dad0;
-  --color-red: #d0202a;
-  /* red on paper is 4.9:1, so it is safe for small text as well as fills */
-  --color-red-deep: #a3161e;
-  /* the flag's gold — decorative accents only (rules, marks), not body text */
-  --color-gold: #b8942e;
+  /* ── VibeLab — "Oglas". The page is a printed notice: ground, ink, rules,
+     and one red. No tinted sections, no cards, no shadows. ── */
+  --color-paper: #faf8f4;
+  /* the only tinted surface on the site: the mock browser chrome in the hero */
+  --color-paper-2: #f0ede7;
+  --color-ink: #101010;
+  /* #5c5c58 is 6.33:1 on paper, 5.75:1 on the chrome bar */
+  --color-muted: #5c5c58;
+  --color-line: #cfcdc6;
+  /* 5.87:1 as text on paper, and white on it is 6.22:1 — safe both ways */
+  --color-red: #c1121f;
+  --color-red-deep: #8f0d18;
+  /* the brand red only reaches 3.06:1 on near-black, so anything red set on a
+     dark ground (the demo back-link bar) uses this instead — 5.11:1 */
+  --color-red-bright: #ef4550;
 
-  --font-display: var(--font-bricolage);
-  --font-sans: var(--font-schibsted);
+  --font-sans: var(--font-franklin);
 
   /* Demo-site palettes (used only under /demo — each demo is its own brand) */
   --color-konoba-bg: #17120d;
@@ -79,37 +80,25 @@
 
 @layer components {
   /* ── Editorial headline setting — serif, sentence case, tight ── */
+  /* One family sets the whole page. Headlines are the same Franklin Gothic as
+     the body, just heavier and tighter — a masthead, not a second voice. */
   .headline {
-    font-family: var(--font-display), var(--font-sans), sans-serif;
-    font-weight: 800;
-    line-height: 1.04;
-    letter-spacing: -0.015em;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.018em;
+  }
+
+  /* Prices and figures line up in columns */
+  .tnum {
+    font-variant-numeric: tabular-nums lining-nums;
   }
 
   /* Small caps label — the counterweight to the serif headlines */
   .eyebrow {
-    font-family: var(--font-sans), system-ui, sans-serif;
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-  }
-
-  /* ── Nav gains a hairline once you leave the hero ── */
-  .nav-bar {
-    background: color-mix(in srgb, var(--color-paper) 88%, transparent);
-    border-bottom: 1px solid var(--color-line);
-  }
-
-  @supports (animation-timeline: scroll()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .nav-bar {
-        border-bottom-color: transparent;
-        animation: nav-solid linear both;
-        animation-timeline: scroll(root);
-        animation-range: 0 120px;
-      }
-    }
   }
 
   /* ── Scroll reveals (IntersectionObserver; .js-gated) ── */
@@ -208,45 +197,6 @@
     }
   }
 
-  /* ── Before/after wipe (hero, ≥640px) ──
-     --ba is set by the range input; the "new" layer is clipped to it. */
-  .ba-panel {
-    --ba: 55%;
-  }
-
-  .ba-new {
-    clip-path: inset(0 calc(100% - var(--ba)) 0 0);
-  }
-
-  .ba-handle {
-    left: var(--ba);
-  }
-
-  .ba-range {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: ew-resize;
-    touch-action: none;
-  }
-
-  /* the range input is invisible — surface keyboard focus on the panel */
-  .ba-panel:has(.ba-range:focus-visible) {
-    outline: 2px solid var(--color-red);
-    outline-offset: 4px;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .ba-intro .ba-new {
-      animation: ba-sweep 1.4s cubic-bezier(0.6, 0, 0.2, 1) 0.7s both;
-    }
-    .ba-intro .ba-handle {
-      animation: ba-sweep-handle 1.4s cubic-bezier(0.6, 0, 0.2, 1) 0.7s both;
-    }
-  }
-
   /* ── Native <details> FAQ rows ── */
   details.faq-item summary {
     list-style: none;
@@ -268,12 +218,6 @@
 
 /* @keyframes are not affected by cascade layers — kept at top level. */
 
-@keyframes nav-solid {
-  to {
-    border-bottom-color: var(--color-line);
-  }
-}
-
 @keyframes fab-appear {
   from {
     opacity: 0;
@@ -285,20 +229,3 @@
   }
 }
 
-@keyframes ba-sweep {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
-  to {
-    clip-path: inset(0 calc(100% - var(--ba)) 0 0);
-  }
-}
-
-@keyframes ba-sweep-handle {
-  from {
-    left: 0%;
-  }
-  to {
-    left: var(--ba);
-  }
-}

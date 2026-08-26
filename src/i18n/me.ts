@@ -8,47 +8,46 @@ export const me = {
     contact: "Kontakt",
     langLabel: "EN",
     langHref: "/en/",
-    cta: "Piši nam",
   },
 
   hero: {
     eyebrow: "Web studio — Podgorica",
     titleA: "Sajtovi koji",
     titleB: "donose klijente.",
-    sub: "Brz, moderan sajt za tvoj biznis — gotov za 7 dana. Bez komplikacija i bez skrivenih troškova.",
+    sub: "Brz, moderan sajt za tvoj biznis — gotov za 7 dana.",
     ctaPrimary: "Piši nam na WhatsApp",
     ctaSecondary: "Pogledaj radove",
-    trust: ["Gotovo za 7 dana", "Od €100", "Mjesec dana održavanja gratis"],
-    panel: {
-      url: "konoba-primjer.me",
-      oldLabel: "2015.",
-      newLabel: "2026.",
-      dragHint: "Povuci",
-      caption: "Ovo radimo: tvoj sajt, prije i poslije.",
+    concept: {
+      eyebrow: "Besplatan koncept",
+      title: "Već imaš sajt ili Instagram?",
+      body: "Pošalji nam link i vidiš kako bi tvoj biznis mogao da izgleda — prije nego što platiš i cent.",
+      placeholder: "konoba-primjer.me ili @konoba.primjer",
+      submitEmail: "Pošalji na email",
+      or: "Ili:",
+      copied: "Link kopiran — nalijepi ga u poruku.",
+      note: "Poruka se otvara sa tvojim linkom već upisanim. Javimo se isti dan.",
+      /* {link} is replaced with whatever the visitor typed */
+      prefill: "Zdravo! Ovo je moj sajt/Instagram: {link} — može besplatan koncept?",
     },
   },
 
   work: {
     title: "Radovi",
-    sub: "Klikni i probaj — svaki sajt je pravi. Otvori ga na svom telefonu.",
-    open: "Otvori sajt",
+    sub: "Svaki sajt je pravi — klikni i probaj ga na svom telefonu.",
     items: [
       {
         name: "Konoba Skadar",
         tag: "Restoran",
-        desc: "Domaća kuhinja na obali Skadarskog jezera — meni, galerija i rezervacije.",
         href: "/demo/konoba-skadar/",
       },
       {
         name: "Titan Gym",
         tag: "Teretana",
-        desc: "Članarine, raspored treninga i treneri — sajt koji upisuje nove članove.",
         href: "/demo/titan-gym/",
       },
       {
         name: "Barbershop Stari Grad",
         tag: "Frizer",
-        desc: "Cjenovnik, majstori i zakazivanje jednim klikom.",
         href: "/demo/barbershop-stari-grad/",
       },
     ],
@@ -56,7 +55,6 @@ export const me = {
 
   process: {
     title: "Kako radimo",
-    sub: "Od poruke do sajta — bez sastanaka i komplikacija.",
     steps: [
       {
         day: "Dan 1",
@@ -83,7 +81,7 @@ export const me = {
 
   pricing: {
     title: "Cijene",
-    sub: "Jasne cijene, bez sitnih slova. Plaćaš 50% na početku, 50% kad si zadovoljan.",
+    sub: "Jasne cijene, bez sitnih slova.",
     plans: [
       {
         name: "Start",
@@ -103,12 +101,11 @@ export const me = {
         price: "€200",
         tagline: "Kompletan sajt za mali biznis.",
         features: [
+          "Sve iz Start paketa",
           "Više stranica",
           "Meni ili cjenovnik",
           "Galerija fotografija",
           "Google Business profil",
-          "Osnovni SEO",
-          "Sve iz Start paketa",
         ],
         badge: "Najtraženiji",
       },
@@ -117,19 +114,18 @@ export const me = {
         price: "od €350",
         tagline: "Za one koji žele sve.",
         features: [
+          "Sve iz Biznis paketa",
           "Dizajn po mjeri",
           "Verzija na engleskom",
           "Online rezervacije",
           "Napredni SEO",
-          "Prioritetna podrška",
-          "Sve iz Biznis paketa",
         ],
         badge: null,
       },
     ],
     maintenance: {
       title: "Održavanje i hosting — €20/mjesečno",
-      body: "Prvi mjesec gratis. Sitne izmjene, hosting i tehnička briga — sve uključeno, bez ugovorne obaveze.",
+      body: "prvi mjesec gratis, bez ugovorne obaveze.",
     },
     addonsTitle: "Dodaci",
     addons: [
@@ -164,7 +160,7 @@ export const me = {
 
   contact: {
     title: "Spreman za novi sajt?",
-    sub: "Piši nam — odgovaramo isti dan. Besplatan koncept, bez obaveze.",
+    sub: "Piši nam — odgovaramo isti dan.",
     whatsapp: "WhatsApp",
     viber: "Viber",
     instagram: "Instagram",
@@ -182,7 +178,7 @@ export const me = {
   fab: "Piši nam",
 
   meta: {
-    title: "VibeCode.me — Sajtovi koji donose klijente | Web studio Podgorica",
+    title: "VibeLab.me — Sajtovi koji donose klijente | Web studio Podgorica",
     description:
       "Moderan sajt za tvoj biznis — gotov za 7 dana, od €100. Restorani, teretane, saloni i mali biznisi u Crnoj Gori. Besplatan koncept prije plaćanja.",
   },

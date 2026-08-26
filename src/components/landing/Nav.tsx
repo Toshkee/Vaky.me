@@ -1,7 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/i18n";
 
+/**
+ * A masthead, not a floating nav bar: name left, sections right, one heavy
+ * rule under the lot. It scrolls away like the top of a printed page — the
+ * WhatsApp FAB is what stays within reach once you are past the hero.
+ */
 export function Nav({ dict }: { dict: Dictionary }) {
   const links = [
     { label: dict.nav.work, href: "#radovi" },
@@ -12,35 +16,29 @@ export function Nav({ dict }: { dict: Dictionary }) {
   const home = dict.lang === "en" ? "/en/" : "/";
 
   return (
-    <header className="sticky top-0 z-50">
-      <div className="nav-bar backdrop-blur-md">
-        <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
-          <Link href={home} className="flex shrink-0 items-center gap-2.5" aria-label="VibeCode.me">
-            <Image src="/logo.png" alt="" width={32} height={32} className="rounded-full" priority />
-            <span className="headline text-lg tracking-tight">VibeCode</span>
-          </Link>
+    <header className="border-b-2 border-ink">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-baseline justify-between gap-x-6 px-5 sm:px-8">
+        <Link
+          href={home}
+          className="tap headline inline-block py-3 text-lg tracking-[0.01em] uppercase sm:text-xl"
+          aria-label="VibeLab.me"
+        >
+          VibeLab<span className="text-red">.me</span>
+        </Link>
 
-          <div className="flex items-center gap-6 sm:gap-8">
-            <ul className="hidden items-center gap-8 sm:flex">
-              {links.map((l) => (
-                <li key={l.href}>
-                  <a href={l.href} className="sweep tap text-sm font-medium text-ink/80">
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <a href="#kontakt" className="sweep tap text-sm font-medium text-ink/80 sm:hidden">
-              {dict.nav.contact}
+        <nav className="flex items-baseline gap-5 text-xs sm:gap-7 sm:text-sm">
+          {links.map((l) => (
+            <a key={l.href} href={l.href} className="sweep inline-block py-3 font-medium">
+              {l.label}
             </a>
-            <Link
-              href={dict.nav.langHref}
-              className="sweep tap text-sm font-bold"
-              aria-label={dict.lang === "en" ? "Crnogorski" : "English"}
-            >
-              {dict.nav.langLabel}
-            </Link>
-          </div>
+          ))}
+          <Link
+            href={dict.nav.langHref}
+            className="sweep inline-block py-3 font-bold"
+            aria-label={dict.lang === "en" ? "Crnogorski" : "English"}
+          >
+            {dict.nav.langLabel}
+          </Link>
         </nav>
       </div>
     </header>

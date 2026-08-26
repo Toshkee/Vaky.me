@@ -10,7 +10,7 @@ export function WhatsAppFab({ dict }: { dict: Dictionary }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`WhatsApp: ${dict.fab}`}
-      className="fab-appear fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-red text-white shadow-[0_8px_24px_rgba(22,22,26,0.28)] transition-transform active:scale-90 md:hidden"
+      className="fab-appear fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-red text-white transition-transform active:scale-90 md:hidden"
     >
       <WhatsAppIcon className="h-7 w-7" />
     </a>
