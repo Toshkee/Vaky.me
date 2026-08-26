@@ -122,48 +122,27 @@ export const me = {
         name: "Start",
         price: "€100",
         tagline: "Jedna stranica koja prodaje.",
-        features: [
-          "Jedna moderna stranica",
-          "Savršen na telefonu",
-          "Kontakt dugmad po izboru",
-          "Google mapa i kontakt",
-          "Osnovni SEO",
-        ],
         badge: null,
       },
       {
         name: "Biznis",
         price: "€200",
         tagline: "Kompletan sajt za mali biznis.",
-        features: [
-          "Sve iz Start paketa",
-          "Do 5 stranica",
-          "Meni ili cjenovnik",
-          "Galerija fotografija",
-          "Google Business profil",
-        ],
         badge: "Najtraženiji",
       },
       {
         name: "Premium",
         price: "od €350",
         tagline: "Za one koji žele sve.",
-        features: [
-          "Sve iz Biznis paketa",
-          "Dizajn po mjeri",
-          "Verzija na engleskom",
-          "Online rezervacije",
-          "Napredni SEO",
-        ],
         badge: null,
       },
     ],
     compare: {
       title: "Uporedi pakete",
       featureLabel: "Šta dobijaš",
-      /* Derived from the three plan feature lists above — a plan's "Sve iz X
-         paketa" line is expanded here so nobody has to hold two lists in their
-         head. `explain` is what the detail dialog shows. */
+      /* The single source of truth for what each package contains: the cards,
+         the desktop table and the detail dialog all render these rows.
+         `explain` is what the dialog shows under each line. */
       rows: [
         {
           label: "Broj stranica",
@@ -206,20 +185,14 @@ export const me = {
           explain: "Galerija sa fotografijama pripremljenim tako da se brzo učitavaju.",
         },
         {
-          label: "Google Business profil",
+          label: "Verzija na engleskom",
           values: [false, true, true],
-          explain:
-            "Postavljanje ili sređivanje profila koji se pojavljuje u Google pretrazi i na Google mapama.",
+          explain: "Kompletan prevod sajta i prebacivanje jezika za goste iz inostranstva.",
         },
         {
           label: "Dizajn po mjeri",
           values: [false, false, true],
           explain: "Dizajn rađen za tvoj brend, umjesto prilagođavanja gotovog šablona.",
-        },
-        {
-          label: "Verzija na engleskom",
-          values: [false, false, true],
-          explain: "Kompletan prevod sajta i prebacivanje jezika za goste iz inostranstva.",
         },
         {
           label: "Online rezervacije",
@@ -240,16 +213,11 @@ export const me = {
     detailsExcluded: "Nije u ovom paketu",
     detailsClose: "Zatvori",
     maintenance: {
-      title: "Održavanje i hosting — €20/mjesečno",
-      body: "prvi mjesec gratis, bez ugovorne obaveze.",
+      title: "Održavanje i hosting",
+      price: "€20/mjesečno",
+      body: "Prvi mjesec gratis, bez ugovorne obaveze.",
     },
-    addonsTitle: "Dodaci",
-    addons: [
-      "Engleska verzija +€80",
-      "Google Business profil +€50",
-      "Dodatna stranica +€40",
-      "Logo i branding +€60",
-    ],
+    addons: "Dodaci se dogovaraju posebno, prema tome šta ti zaista treba.",
     planAction: "Odaberi paket",
     packagePrefill:
       "Zdravo! Zanima me {package} paket za moj biznis. Možemo li dogovoriti detalje?",

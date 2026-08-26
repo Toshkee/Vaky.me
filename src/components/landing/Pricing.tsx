@@ -21,16 +21,20 @@ export function Pricing({ dict }: { dict: Dictionary }) {
 
         <PlanMatrix dict={dict} />
 
-        {/* The only recurring line on the page, so it gets a rule of its own
-            rather than sitting in the small print under the table. */}
-        <div className="mt-8 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-t-2 border-ink pt-4">
-          <p className="font-semibold">{dict.pricing.maintenance.title}</p>
-          <p className="text-sm text-muted">{dict.pricing.maintenance.body}</p>
+        {/* The one recurring charge, and the only number on the page a visitor
+            can be surprised by later — so it is set at package weight under a
+            rule of its own instead of hiding in the small print. */}
+        <div className="mt-10 border-t-2 border-ink pt-5">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+            <h3 className="headline text-xl sm:text-2xl">{dict.pricing.maintenance.title}</h3>
+            <p className="headline tnum text-2xl sm:text-3xl">{dict.pricing.maintenance.price}</p>
+          </div>
+          <p className="mt-2 font-semibold text-red sm:text-lg">
+            {dict.pricing.maintenance.body}
+          </p>
         </div>
 
-        <p className="mt-4 text-sm leading-relaxed text-muted">
-          {dict.pricing.addonsTitle}: {dict.pricing.addons.join(" · ")}
-        </p>
+        <p className="mt-5 text-sm leading-relaxed text-muted">{dict.pricing.addons}</p>
 
         <div className="mt-10 flex flex-col items-start justify-between gap-6 border-2 border-ink p-5 sm:flex-row sm:items-center sm:p-7">
           <div>
