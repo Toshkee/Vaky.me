@@ -7,6 +7,7 @@ const targets = [
   { name: "konoba", path: "/demo/konoba-skadar/" },
   { name: "titan", path: "/demo/titan-gym/" },
   { name: "barber", path: "/demo/barbershop-stari-grad/" },
+  { name: "drina", path: "/demo/barber-drina/" },
 ];
 
 const browser = await chromium.launch();

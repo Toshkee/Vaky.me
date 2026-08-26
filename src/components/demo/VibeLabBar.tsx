@@ -14,7 +14,7 @@ export function VibeLabBar() {
       href="/"
       className="group flex flex-wrap items-center justify-center gap-x-2 bg-ink px-4 py-2.5 text-center text-xs font-medium tracking-wide text-white/85 transition-colors hover:text-white"
     >
-      <span>Demo — ovakav sajt za tvoj biznis</span>
+      <span>Svaki demo je dizajn koncept sa ilustrativnim podacima o biznisu.</span>
       <span className="font-semibold text-red-bright underline-offset-2 group-hover:underline">
         VibeLab.me <span aria-hidden="true">→</span>
       </span>

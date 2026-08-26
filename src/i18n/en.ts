@@ -16,25 +16,31 @@ export const en: Dictionary = {
     eyebrow: "Web studio — Podgorica, Montenegro",
     titleA: "Websites that",
     titleB: "bring customers.",
-    sub: "A fast, modern website for your business — done in 7 days.",
-    ctaPrimary: "Message us on WhatsApp",
+    sub: "A fast, modern website for your business — done in 7 days, from €100.",
+    ctaPrimary: "Message us on Instagram",
     ctaSecondary: "See our work",
+    proof: [
+      "Built for mobile",
+      "SEO basics included",
+      "Domain and launch handled",
+    ],
     concept: {
       eyebrow: "Free concept",
       title: "Already have a site or an Instagram?",
       body: "Send us the link and see what your business could look like — before you pay a cent.",
-      placeholder: "konoba-primjer.me or @konoba.primjer",
-      submitEmail: "Send by email",
-      or: "Or:",
-      copied: "Link copied — paste it into the message.",
-      note: "The message opens with your link already written in. We reply the same day.",
+      placeholder: "your-site.me or @instagram",
+      submitEmail: "Send email",
+      submitInstagram: "Open Instagram DM",
+      copied: "Message copied — just paste it into the Instagram DM.",
+      note: "Your email opens with the link already written in. We reply the same day.",
       prefill: "Hi! This is my site/Instagram: {link} — could I get a free concept?",
     },
   },
 
   work: {
     title: "Work",
-    sub: "Every site is real — click and try it on your own phone.",
+    sub: "Interactive design concepts — open and try them on your own phone.",
+    conceptLabel: "Design concept",
     items: [
       {
         name: "Konoba Skadar",
@@ -51,6 +57,34 @@ export const en: Dictionary = {
         tag: "Barber",
         href: "/demo/barbershop-stari-grad/",
       },
+      {
+        name: "Barber Drina",
+        tag: "Barber · Stari Aerodrom",
+        href: "/demo/barber-drina/",
+      },
+    ],
+  },
+
+  why: {
+    title: "Why VibeLab?",
+    sub: "A simple process, a clear agreement, and a website ready to work for your business.",
+    items: [
+      {
+        title: "See the concept first",
+        body: "Get an initial design direction before you make a commitment.",
+      },
+      {
+        title: "Clear scope and price",
+        body: "Know what your package includes and what it costs before work begins.",
+      },
+      {
+        title: "Everything handled",
+        body: "Design, content, domain, launch, and technical maintenance in one place.",
+      },
+      {
+        title: "No lock-in",
+        body: "Maintenance has no contract lock-in and can be cancelled.",
+      },
     ],
   },
 
@@ -60,7 +94,7 @@ export const en: Dictionary = {
       {
         day: "Day 1",
         title: "You reach out",
-        body: "WhatsApp, Viber or Instagram DM. Tell us what your business does.",
+        body: "Instagram DM or email. Tell us what your business does and what you need.",
       },
       {
         day: "Day 1–2",
@@ -91,7 +125,7 @@ export const en: Dictionary = {
         features: [
           "One modern page",
           "Perfect on phones",
-          "WhatsApp / Viber button",
+          "Contact buttons of your choice",
           "Google Maps & contact",
           "SEO basics",
         ],
@@ -103,7 +137,7 @@ export const en: Dictionary = {
         tagline: "A complete small-business website.",
         features: [
           "Everything in Start",
-          "Multiple pages",
+          "Up to 5 pages",
           "Menu or price list",
           "Photo gallery",
           "Google Business profile",
@@ -135,6 +169,14 @@ export const en: Dictionary = {
       "Extra page +€40",
       "Logo & branding +€60",
     ],
+    planAction: "Choose package",
+    packagePrefill:
+      "Hi! I'm interested in the {package} package for my business. Can we discuss the details?",
+    cta: {
+      title: "Send us your website or Instagram",
+      body: "Get a free starting concept and a clear package recommendation, with no obligation.",
+      action: "Request a concept",
+    },
   },
 
   faq: {
@@ -161,11 +203,8 @@ export const en: Dictionary = {
 
   contact: {
     title: "Ready for a new website?",
-    sub: "Message us — we reply the same day.",
-    whatsapp: "WhatsApp",
-    viber: "Viber",
+    sub: "Send an Instagram DM or email — we reply the same day.",
     instagram: "Instagram",
-    call: "Call us",
     emailLabel: "Email",
     prefill: "Hi! I'm interested in a website for my business. Can I get a free concept?",
     emailSubject: "Website for my business",
@@ -176,7 +215,7 @@ export const en: Dictionary = {
     rights: "All rights reserved.",
   },
 
-  fab: "Message us",
+  fab: "Message us on Instagram",
 
   meta: {
     title: "VibeLab.me — Websites that bring customers | Web studio Podgorica",

@@ -15,7 +15,7 @@ npm run build    # static export → out/
 
 | What | Where |
 |---|---|
-| Phone / WhatsApp / Instagram / email | `src/config/site.ts` — the ONLY place contact info lives |
+| Instagram / email | `src/config/site.ts` — the ONLY place public contact info lives |
 | All text + **prices/packages** | `src/i18n/me.ts` (Montenegrin) and `src/i18n/en.ts` (English) |
 | Colors / fonts | `src/app/globals.css` (`@theme` block) and `src/app/layout.tsx` |
 | Landing page sections | `src/components/landing/` |
@@ -26,7 +26,7 @@ npm run build    # static export → out/
 
 - `/` — Montenegrin landing page
 - `/en` — English landing page
-- `/demo/konoba-skadar`, `/demo/titan-gym`, `/demo/barbershop-stari-grad` — clickable portfolio
+- `/demo/barber-drina`, `/demo/barbershop-stari-grad`, `/demo/konoba-skadar`, `/demo/titan-gym` — clickable portfolio
   demos (fictional businesses, `noindex`)
 
 ## Deploy (Vercel, free)

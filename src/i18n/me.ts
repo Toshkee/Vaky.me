@@ -14,18 +14,23 @@ export const me = {
     eyebrow: "Web studio — Podgorica",
     titleA: "Sajtovi koji",
     titleB: "donose klijente.",
-    sub: "Brz, moderan sajt za tvoj biznis — gotov za 7 dana.",
-    ctaPrimary: "Piši nam na WhatsApp",
+    sub: "Brz, moderan sajt za tvoj biznis — gotov za 7 dana, od €100.",
+    ctaPrimary: "Piši nam na Instagramu",
     ctaSecondary: "Pogledaj radove",
+    proof: [
+      "Savršen na telefonu",
+      "Osnovni SEO uključen",
+      "Domena i objava sređeni",
+    ],
     concept: {
       eyebrow: "Besplatan koncept",
       title: "Već imaš sajt ili Instagram?",
       body: "Pošalji nam link i vidiš kako bi tvoj biznis mogao da izgleda — prije nego što platiš i cent.",
-      placeholder: "konoba-primjer.me ili @konoba.primjer",
-      submitEmail: "Pošalji na email",
-      or: "Ili:",
-      copied: "Link kopiran — nalijepi ga u poruku.",
-      note: "Poruka se otvara sa tvojim linkom već upisanim. Javimo se isti dan.",
+      placeholder: "tvoj-sajt.me ili @instagram",
+      submitEmail: "Pošalji email",
+      submitInstagram: "Otvori Instagram DM",
+      copied: "Poruka je kopirana — samo je nalijepi u Instagram DM.",
+      note: "Email se otvara sa tvojim linkom već upisanim. Javimo se isti dan.",
       /* {link} is replaced with whatever the visitor typed */
       prefill: "Zdravo! Ovo je moj sajt/Instagram: {link} — može besplatan koncept?",
     },
@@ -33,7 +38,8 @@ export const me = {
 
   work: {
     title: "Radovi",
-    sub: "Svaki sajt je pravi — klikni i probaj ga na svom telefonu.",
+    sub: "Interaktivni dizajn koncepti — otvori ih i probaj na svom telefonu.",
+    conceptLabel: "Dizajn koncept",
     items: [
       {
         name: "Konoba Skadar",
@@ -50,6 +56,34 @@ export const me = {
         tag: "Frizer",
         href: "/demo/barbershop-stari-grad/",
       },
+      {
+        name: "Barber Drina",
+        tag: "Barber · Stari Aerodrom",
+        href: "/demo/barber-drina/",
+      },
+    ],
+  },
+
+  why: {
+    title: "Zašto VibeLab?",
+    sub: "Jednostavan proces, jasan dogovor i sajt spreman da radi za tvoj biznis.",
+    items: [
+      {
+        title: "Prvo vidiš koncept",
+        body: "Dobiješ početni pravac dizajna prije nego što se obavežeš.",
+      },
+      {
+        title: "Jasan obim i cijena",
+        body: "Znaš šta paket uključuje i koliko košta prije početka rada.",
+      },
+      {
+        title: "Sve sređujemo",
+        body: "Dizajn, sadržaj, domena, objava i tehničko održavanje na jednom mjestu.",
+      },
+      {
+        title: "Bez vezivanja",
+        body: "Održavanje je bez ugovorne obaveze i može se prekinuti.",
+      },
     ],
   },
 
@@ -59,7 +93,7 @@ export const me = {
       {
         day: "Dan 1",
         title: "Javiš se",
-        body: "WhatsApp, Viber ili DM na Instagramu. Kažeš nam čime se baviš.",
+        body: "Instagram DM ili email. Kažeš nam čime se baviš i šta ti treba.",
       },
       {
         day: "Dan 1–2",
@@ -90,7 +124,7 @@ export const me = {
         features: [
           "Jedna moderna stranica",
           "Savršen na telefonu",
-          "WhatsApp / Viber dugme",
+          "Kontakt dugmad po izboru",
           "Google mapa i kontakt",
           "Osnovni SEO",
         ],
@@ -102,7 +136,7 @@ export const me = {
         tagline: "Kompletan sajt za mali biznis.",
         features: [
           "Sve iz Start paketa",
-          "Više stranica",
+          "Do 5 stranica",
           "Meni ili cjenovnik",
           "Galerija fotografija",
           "Google Business profil",
@@ -134,6 +168,14 @@ export const me = {
       "Dodatna stranica +€40",
       "Logo i branding +€60",
     ],
+    planAction: "Odaberi paket",
+    packagePrefill:
+      "Zdravo! Zanima me {package} paket za moj biznis. Možemo li dogovoriti detalje?",
+    cta: {
+      title: "Pošalji nam svoj sajt ili Instagram",
+      body: "Dobićeš besplatan početni koncept i jasnu preporuku paketa, bez obaveze.",
+      action: "Zatraži koncept",
+    },
   },
 
   faq: {
@@ -160,11 +202,8 @@ export const me = {
 
   contact: {
     title: "Spreman za novi sajt?",
-    sub: "Piši nam — odgovaramo isti dan.",
-    whatsapp: "WhatsApp",
-    viber: "Viber",
+    sub: "Pošalji Instagram DM ili email — odgovaramo isti dan.",
     instagram: "Instagram",
-    call: "Pozovi",
     emailLabel: "Email",
     prefill: "Zdravo! Zanima me sajt za moj biznis. Mogu li dobiti besplatan koncept?",
     emailSubject: "Sajt za moj biznis",
@@ -175,7 +214,7 @@ export const me = {
     rights: "Sva prava zadržana.",
   },
 
-  fab: "Piši nam",
+  fab: "Piši nam na Instagramu",
 
   meta: {
     title: "VibeLab.me — Sajtovi koji donose klijente | Web studio Podgorica",

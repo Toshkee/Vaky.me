@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { DM_Serif_Display } from "next/font/google";
 import { VibeLabBar } from "@/components/demo/VibeLabBar";
-import { barbers, hours, prices, quote } from "./data";
+import { barbers, hours, prices } from "./data";
 
 const dmSerif = DM_Serif_Display({
   variable: "--font-dm-serif",
@@ -33,11 +33,6 @@ const focusLight =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-barber-red";
 const focusDark =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-barber-gold";
-/* The barber pole. Appears exactly once — a vertical strip at the hero's
-   left edge, where the pole would stand beside the shop door. */
-const poleStripes =
-  "bg-[repeating-linear-gradient(-45deg,#16382b_0px,#16382b_9px,#f5efe4_9px,#f5efe4_13px,#a4342c_13px,#a4342c_22px,#f5efe4_22px,#f5efe4_26px,#b08d3e_26px,#b08d3e_35px,#f5efe4_35px,#f5efe4_39px)]";
-
 /* ── Emblem — the frosted-glass mark ─────────────────────────────── */
 
 function Emblem({ className }: { className?: string }) {
@@ -136,13 +131,9 @@ export default function Page() {
         </div>
       </header>
 
-      <main>
-        {/* ── Hero — letterhead lockup beside the pole ── */}
-        <section className="relative">
-          <span
-            aria-hidden="true"
-            className={`absolute inset-y-0 left-0 w-2 sm:w-2.5 ${poleStripes}`}
-          />
+      <main className="pb-20 md:pb-0">
+        {/* ── Hero — letterhead lockup ── */}
+        <section>
           <div className="mx-auto max-w-5xl px-6 pb-16 pt-14 sm:px-8 sm:pb-24 sm:pt-20">
             <div className="max-w-2xl">
               <Emblem className="h-20 w-auto text-barber-green sm:h-24" />
@@ -194,8 +185,8 @@ export default function Page() {
           id="cjenovnik"
           className="scroll-mt-6 border-t border-barber-green/15"
         >
-          <div className="mx-auto max-w-5xl px-5 py-16 sm:py-24">
-            <div className="mx-auto max-w-lg border border-barber-green/40 bg-barber-card p-1.5">
+          <div className="mx-auto max-w-5xl px-6 py-16 sm:px-8 sm:py-24">
+            <div className="max-w-lg border border-barber-green/40 bg-barber-card p-1.5">
               <div className="border border-barber-green/20 px-6 py-10 sm:px-10 sm:py-12">
                 <h2
                   className={`${display} text-center text-2xl uppercase tracking-[0.28em] sm:text-3xl`}
@@ -238,7 +229,7 @@ export default function Page() {
 
         {/* ── Majstori — roster, set like a playbill ── */}
         <section id="majstori" className="scroll-mt-6">
-          <div className="mx-auto max-w-5xl px-5 pb-16 sm:pb-24">
+          <div className="mx-auto max-w-5xl px-6 pb-16 sm:px-8 sm:pb-24">
             <p className={`${smallCapsWide} text-barber-red`}>Naš tim</p>
             <h2 className={`${display} mt-3 text-3xl sm:text-4xl`}>
               Majstori zanata
@@ -255,7 +246,7 @@ export default function Page() {
                       {barber.role}
                     </p>
                   </div>
-                  <p className="text-sm leading-relaxed text-barber-green/75 sm:self-center sm:text-[15px]">
+                  <p className="text-sm leading-relaxed text-barber-green/75 sm:self-start sm:text-[15px]">
                     {barber.desc}
                   </p>
                 </li>
@@ -264,28 +255,12 @@ export default function Page() {
           </div>
         </section>
 
-        {/* ── Jedna riječ mušterije ── */}
-        <section className="border-y border-barber-green/15 bg-barber-card">
-          <div className="mx-auto max-w-2xl px-5 py-14 text-center sm:py-20">
-            <blockquote>
-              <p
-                className={`${display} text-2xl italic leading-snug sm:text-3xl`}
-              >
-                „{quote.text}“
-              </p>
-              <footer className={`${smallCaps} mt-6 text-barber-red`}>
-                — {quote.name}
-              </footer>
-            </blockquote>
-          </div>
-        </section>
-
         {/* ── Radno vrijeme + Kontakt ── */}
         <section
           id="kontakt"
           className="scroll-mt-6 bg-barber-green text-barber-bg"
         >
-          <div className="mx-auto max-w-5xl px-5 py-16 sm:py-24">
+          <div className="mx-auto max-w-5xl px-6 py-16 sm:px-8 sm:py-24">
             <p className={`${smallCapsWide} ${goldText}`}>Kontakt</p>
             <h2 className={`${display} mt-3 text-3xl sm:text-4xl`}>
               Radno vrijeme i zakazivanje
@@ -358,7 +333,7 @@ export default function Page() {
             {/* Mapa */}
             <div className="mt-14 border border-barber-bg/25 p-1.5">
               <iframe
-                src="https://www.google.com/maps?q=Stara+Varo%C5%A1,+Podgorica,+Crna+Gora&output=embed"
+                src="https://www.google.com/maps?q=Njego%C5%A1eva%2027%2C%2081000%20Podgorica%2C%20Stara%20Varo%C5%A1%2C%20Crna%20Gora&output=embed"
                 title="Mapa — Barbershop Stari Grad, Njegoševa 27, Stara Varoš, Podgorica"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -369,6 +344,13 @@ export default function Page() {
           </div>
         </section>
       </main>
+
+      <a
+        href="viber://chat?number=%2B38267000000"
+        className={`fixed inset-x-4 bottom-4 z-50 inline-flex items-center justify-center bg-barber-green px-6 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-barber-bg shadow-lg transition-colors hover:bg-[#1e4a39] md:hidden ${focusLight}`}
+      >
+        Zakaži preko Vibera
+      </a>
 
       {/* ── Footer ── */}
       <footer className="bg-[#102b21] text-barber-bg">

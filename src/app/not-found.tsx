@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { whatsappLink } from "@/config/site";
-import { dictionaries } from "@/i18n";
+import { instagramLink } from "@/config/site";
 import { Button } from "@/components/ui/Button";
 
 export default function NotFound() {
@@ -12,7 +11,7 @@ export default function NotFound() {
         Kao ni tvoj sajt… <span className="font-semibold text-ink">još.</span>
       </p>
       <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-5">
-        <Button href={whatsappLink(dictionaries.me.contact.prefill)} external>
+        <Button href={instagramLink()} external>
           Napravimo ga
         </Button>
         <Link

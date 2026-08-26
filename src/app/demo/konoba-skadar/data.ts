@@ -188,30 +188,3 @@ export const menuCategories: MenuCategory[] = [
     ],
   },
 ];
-
-export type Review = {
-  quote: string;
-  name: string;
-  note: string;
-};
-
-export const reviews: Review[] = [
-  {
-    quote:
-      "Riblja čorba kao kod moje bake. Dolazimo svake nedjelje na krap — vrijedi svakog kilometra od Podgorice.",
-    name: "Marko",
-    note: "Podgorica",
-  },
-  {
-    quote:
-      "Terasa uz jezero u suton — nema ljepšeg mjesta za večeru u Crnoj Gori. Priganice s medom su obavezne.",
-    name: "Jelena",
-    note: "Bar",
-  },
-  {
-    quote:
-      "Grilled eel from the lake and a glass of house Vranac while the sun sets over Skadar — the highlight of our Montenegro trip.",
-    name: "Emma",
-    note: "Ujedinjeno Kraljevstvo",
-  },
-];

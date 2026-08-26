@@ -42,16 +42,6 @@ export const barbers: Barber[] = [
   },
 ];
 
-export type Quote = {
-  name: string;
-  text: string;
-};
-
-export const quote: Quote = {
-  name: "Vuk",
-  text: "Royal brijanje toplim peškirom je pravi ritual — pola sata mira i izađeš kao nov.",
-};
-
 export type HoursRow = {
   days: string;
   time: string;

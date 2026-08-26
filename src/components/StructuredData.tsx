@@ -22,7 +22,6 @@ export function StructuredData({ dict }: { dict: Dictionary }) {
       url: site.url,
       image: `${site.url}/og.png`,
       description: dict.meta.description,
-      telephone: `+${site.whatsappNumber}`,
       email: site.email,
       priceRange: "€100–€350",
       address: {

@@ -1,35 +1,18 @@
 import type { Dictionary } from "@/i18n";
-import {
-  emailLink,
-  instagramLink,
-  site,
-  viberLink,
-  whatsappLink,
-} from "@/config/site";
+import { emailLink, instagramLink, site } from "@/config/site";
 import { Reveal } from "@/components/motion/Reveal";
 
 /**
- * The close: headline on the left, three plain contact rows on the right.
- *
- * WhatsApp, Viber and "Pozovi" are all the same number, so printing it three
- * times read as padding. The number appears once, as the primary row; the
- * other two ways to reach it are a single line underneath.
+ * The close: headline on the left, Instagram and email on the right.
  */
 export function Contact({ dict }: { dict: Dictionary }) {
   const rows = [
-    {
-      label: dict.contact.whatsapp,
-      value: site.phoneDisplay,
-      href: whatsappLink(dict.contact.prefill),
-      external: true,
-      primary: true,
-    },
     {
       label: dict.contact.instagram,
       value: `@${site.instagram}`,
       href: instagramLink(),
       external: true,
-      primary: false,
+      primary: true,
     },
     {
       label: dict.contact.emailLabel,
@@ -41,7 +24,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
   ];
 
   return (
-    <section id="kontakt" className="scroll-mt-4 border-t border-line">
+    <section id="kontakt" className="scroll-mt-28 border-t border-line md:scroll-mt-16">
       <div className="mx-auto grid max-w-5xl gap-8 px-5 py-12 sm:px-8 sm:py-16 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
         <Reveal>
           <h2 className="headline text-2xl sm:text-3xl">{dict.contact.title}</h2>
@@ -70,16 +53,6 @@ export function Contact({ dict }: { dict: Dictionary }) {
               </span>
             </a>
           ))}
-
-          <p className="mt-4 text-sm text-muted">
-            <a href={viberLink()} className="sweep tap font-semibold text-ink">
-              {dict.contact.viber}
-            </a>
-            <span aria-hidden="true"> · </span>
-            <a href={site.phoneHref} className="sweep tap font-semibold text-ink">
-              {dict.contact.call}
-            </a>
-          </p>
         </div>
       </div>
     </section>

@@ -1,5 +1,5 @@
 import type { Dictionary } from "@/i18n";
-import { whatsappLink } from "@/config/site";
+import { instagramDmLink } from "@/config/site";
 import { Button } from "@/components/ui/Button";
 import { ConceptRequest } from "./ConceptRequest";
 
@@ -17,13 +17,22 @@ export function Hero({ dict }: { dict: Dictionary }) {
           <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">{dict.hero.sub}</p>
 
           <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">
-            <Button href={whatsappLink(dict.contact.prefill)} external>
+            <Button href={instagramDmLink()} external>
               {dict.hero.ctaPrimary}
             </Button>
             <a href="#radovi" className="sweep tap font-semibold">
               {dict.hero.ctaSecondary} ↓
             </a>
           </div>
+
+          <ul className="mt-7 grid max-w-lg gap-2 border-t border-line pt-4 text-sm sm:grid-cols-3 sm:gap-4">
+            {dict.hero.proof.map((item) => (
+              <li key={item} className="flex gap-2 leading-snug text-muted">
+                <span aria-hidden="true" className="font-bold text-red">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <ConceptRequest dict={dict} />

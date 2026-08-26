@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Anton } from "next/font/google";
 import type { Dictionary } from "@/i18n";
 import { Reveal } from "@/components/motion/Reveal";
@@ -12,14 +13,14 @@ const anton = Anton({
 });
 
 /**
- * Three real, clickable demo sites shown as a plate of three specimens. Each
+ * Clickable demo sites shown as a plate of distinct specimens. Each
  * poster is set in that demo's own palette and typography — the row should
- * read as three different studios' work, because each demo IS a different
- * design. All three grounds are dark and distinct in hue, so the trio has
+ * read as different studios' work, because each demo is a different design.
+ * The dark grounds remain distinct in hue, so the collection has
  * rhythm against the paper and no panel disappears into the page.
  *
  * The posters render at ~350px wide on every viewport (full width on mobile,
- * one third of the measure on desktop), so they need one type scale, not two.
+ * one quarter of the measure on wide screens), so they need one type scale.
  */
 const POSTERS = [
   // Konoba Skadar — rustic serif, dusk warmth
@@ -78,11 +79,25 @@ const POSTERS = [
       }}
     />
   </div>,
+
+  // Barber Drina — current monochrome lockup from the business profile
+  <div
+    key="drina"
+    className="relative flex h-full items-center justify-center overflow-hidden bg-black"
+  >
+    <Image
+      src="/barber-drina-logo.jpg"
+      alt=""
+      width={400}
+      height={400}
+      className="h-full w-full object-cover"
+    />
+  </div>,
 ];
 
 export function Work({ dict }: { dict: Dictionary }) {
   return (
-    <section id="radovi" className="scroll-mt-4 border-t border-line">
+    <section id="radovi" className="scroll-mt-28 border-t border-line md:scroll-mt-16">
       <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
@@ -93,17 +108,23 @@ export function Work({ dict }: { dict: Dictionary }) {
           </div>
         </Reveal>
 
-        <ul className="mt-6 grid gap-7 sm:mt-8 sm:grid-cols-3 sm:gap-7">
+        <ul className="mt-6 grid gap-7 sm:mt-8 sm:grid-cols-2 sm:gap-7 lg:grid-cols-4">
           {dict.work.items.map((item, i) => (
             <li key={item.name}>
               <Link href={item.href} className="group block">
                 <div className="aspect-[3/2] overflow-hidden transition-transform duration-300 group-hover:-translate-y-1">
                   {POSTERS[i]}
                 </div>
-                <h3 className="headline mt-3 border-t border-line pt-2.5 text-lg transition-colors duration-300 group-hover:text-red">
-                  {item.name}
-                </h3>
+                <div className="mt-3 flex items-center justify-between gap-3 border-t border-line pt-2.5">
+                  <h3 className="headline text-lg transition-colors duration-300 group-hover:text-red">
+                    {item.name}
+                  </h3>
+                  <span className="shrink-0 text-lg transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                    →
+                  </span>
+                </div>
                 <p className="mt-0.5 text-sm text-muted">{item.tag}</p>
+                <p className="eyebrow mt-2 text-red">{dict.work.conceptLabel}</p>
               </Link>
             </li>
           ))}
