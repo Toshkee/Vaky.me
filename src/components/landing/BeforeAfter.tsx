@@ -1,16 +1,12 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import type { Dictionary } from "@/i18n";
 
 /**
- * The signature of the site: a 2015-era website next to its 2026 redesign.
- *
- * Two presentations, because one does not fit both devices:
- *  · phone  — the two pages stacked, each at full width, nothing cropped.
- *             A vertical wipe at ~350px slices words in half and reads as a
- *             rendering bug, which is the opposite of the point.
- *  · ≥640px — the draggable wipe, where there is width for it to work.
+ * The signature of the site: a 2015-era website next to its 2026 redesign,
+ * compared with a draggable wipe. One presentation on every device — the drag
+ * IS the pitch, so phones get the same interaction as desktop.
  */
 export function BeforeAfter({ dict }: { dict: Dictionary }) {
   const [value, setValue] = useState(52);
@@ -18,30 +14,13 @@ export function BeforeAfter({ dict }: { dict: Dictionary }) {
 
   return (
     <figure className="w-full">
-      {/* ── phone: stacked, both complete ── */}
-      <div className="flex flex-col sm:hidden">
-        <Frame label={dict.hero.panel.oldLabel} tone="old" url={dict.hero.panel.url}>
-          <OldSite />
-        </Frame>
-
-        <div className="flex items-center gap-3 py-3" aria-hidden="true">
-          <span className="h-px flex-1 bg-line" />
-          <span className="text-2xl leading-none text-red">↓</span>
-          <span className="h-px flex-1 bg-line" />
-        </div>
-
-        <Frame label={dict.hero.panel.newLabel} tone="new" url={dict.hero.panel.url}>
-          <NewSite />
-        </Frame>
-      </div>
-
-      {/* ── desktop: the draggable wipe ── */}
+      {/* ── the draggable wipe ── */}
       <div
-        className={`ba-panel relative hidden w-full border border-line bg-ink-2 shadow-[0_24px_70px_rgba(0,0,0,0.55)] sm:block sm:rotate-[0.8deg] ${intro ? "ba-intro" : ""}`}
+        className={`ba-panel relative w-full border border-line bg-paper-3 shadow-[0_18px_50px_rgba(22,22,26,0.14)] ${intro ? "ba-intro" : ""}`}
         style={{ "--ba": `${value}%` } as React.CSSProperties}
       >
         <div className="flex items-center gap-2 border-b border-line px-4 py-2.5">
-          <span className="h-2 w-2 rounded-full bg-white/20" aria-hidden="true" />
+          <span className="h-2 w-2 rounded-full bg-ink/15" aria-hidden="true" />
           <span className="select-none text-xs tracking-wide text-muted">
             {dict.hero.panel.url}
           </span>
@@ -55,15 +34,17 @@ export function BeforeAfter({ dict }: { dict: Dictionary }) {
             <NewSite />
           </div>
 
+          {/* bottom corners: both mock sites put their own header at the top,
+              and a year badge there lands straight on their titles */}
           <span
             aria-hidden="true"
-            className="absolute left-2 top-2 z-[5] bg-red px-2 py-0.5 text-[11px] font-bold tracking-wide text-white"
+            className="absolute bottom-2 left-2 z-[5] bg-red px-2 py-0.5 text-[11px] font-bold tracking-wide text-white"
           >
             {dict.hero.panel.newLabel}
           </span>
           <span
             aria-hidden="true"
-            className="absolute right-2 top-2 z-[5] bg-black/75 px-2 py-0.5 text-[11px] font-bold tracking-wide text-white/80"
+            className="absolute right-2 bottom-2 z-[5] bg-black/75 px-2 py-0.5 text-[11px] font-bold tracking-wide text-white/80"
           >
             {dict.hero.panel.oldLabel}
           </span>
@@ -100,51 +81,12 @@ export function BeforeAfter({ dict }: { dict: Dictionary }) {
       </div>
 
       <figcaption className="mt-4 flex items-center gap-2 text-sm text-muted">
-        <span aria-hidden="true" className="hidden text-red-bright sm:inline">
+        <span aria-hidden="true" className="text-red">
           ↔
         </span>
         {dict.hero.panel.caption}
       </figcaption>
     </figure>
-  );
-}
-
-/** One labelled browser frame — used for the stacked phone layout. */
-function Frame({
-  label,
-  tone,
-  url,
-  children,
-}: {
-  label: string;
-  tone: "old" | "new";
-  url: string;
-  children: ReactNode;
-}) {
-  const isNew = tone === "new";
-  return (
-    <div
-      className={`overflow-hidden border ${
-        isNew ? "border-red/45 shadow-[0_16px_44px_rgba(0,0,0,0.5)]" : "border-line"
-      }`}
-    >
-      <div className="flex items-center justify-between gap-2 border-b border-line bg-ink-2 px-3 py-2">
-        <span className="flex items-center gap-2 truncate">
-          <span className="h-2 w-2 shrink-0 rounded-full bg-white/20" aria-hidden="true" />
-          <span className="truncate text-[11px] tracking-wide text-muted">{url}</span>
-        </span>
-        <span
-          className={`shrink-0 px-2 py-0.5 text-[11px] font-bold tracking-wide ${
-            isNew ? "bg-red text-white" : "bg-white/10 text-white/70"
-          }`}
-        >
-          {label}
-        </span>
-      </div>
-      <div className={`aspect-[4/3.1] ${isNew ? "" : "opacity-90 saturate-[0.85]"}`}>
-        {children}
-      </div>
-    </div>
   );
 }
 

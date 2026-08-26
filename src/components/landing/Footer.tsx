@@ -12,7 +12,8 @@ export function Footer({ dict }: { dict: Dictionary }) {
         <Link href={home} className="flex items-center gap-2.5" aria-label="VibeCode.me">
           <Image src="/logo.png" alt="" width={26} height={26} className="rounded-full" />
           <span>
-            © {new Date().getFullYear()} {site.name} — {site.city}
+            © {new Date().getFullYear()} {site.name} — {site.city},{" "}
+            {dict.lang === "en" ? "Montenegro" : "Crna Gora"}
           </span>
         </Link>
         <p className="hidden md:block">{dict.footer.tagline}</p>
@@ -20,7 +21,7 @@ export function Footer({ dict }: { dict: Dictionary }) {
           href={instagramLink()}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline-offset-4 transition-colors hover:text-white hover:underline"
+          className="underline-offset-4 transition-colors hover:text-ink hover:underline"
         >
           @{site.instagram}
         </a>

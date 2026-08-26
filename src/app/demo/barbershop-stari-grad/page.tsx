@@ -100,35 +100,35 @@ export default function Page() {
 
       {/* ── Nav ── */}
       <header className="border-b border-barber-green/15">
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-5 py-5 sm:flex-row sm:justify-between">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-y-0 px-5 py-1 sm:flex-row sm:justify-between sm:py-2">
           <p className={`${display} text-xl leading-none`}>
             Barbershop <span className="text-barber-red">Stari Grad</span>
           </p>
           <nav
             aria-label="Glavna navigacija"
-            className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4"
+            className="flex flex-wrap items-center justify-center gap-x-6"
           >
             <a
               href="#cjenovnik"
-              className={`${smallCaps} transition-colors hover:text-barber-red ${focusLight}`}
+              className={`${smallCaps} py-3.5 transition-colors hover:text-barber-red ${focusLight}`}
             >
               Cjenovnik
             </a>
             <a
               href="#majstori"
-              className={`${smallCaps} transition-colors hover:text-barber-red ${focusLight}`}
+              className={`${smallCaps} py-3.5 transition-colors hover:text-barber-red ${focusLight}`}
             >
               Majstori
             </a>
             <a
               href="#kontakt"
-              className={`${smallCaps} transition-colors hover:text-barber-red ${focusLight}`}
+              className={`${smallCaps} py-3.5 transition-colors hover:text-barber-red ${focusLight}`}
             >
               Kontakt
             </a>
             <a
               href="tel:+38267000000"
-              className={`text-sm font-semibold transition-colors hover:text-barber-red ${focusLight}`}
+              className={`py-3.5 text-sm font-semibold transition-colors hover:text-barber-red ${focusLight}`}
             >
               +382 67 000 000
             </a>

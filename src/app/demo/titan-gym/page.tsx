@@ -79,13 +79,13 @@ export default function TitanGymPage() {
           eats ~40% of a phone screen. */}
       <nav
         aria-label="Sekcije stranice"
-        className="flex gap-6 overflow-x-auto border-b border-white/10 px-4 py-3.5 md:hidden"
+        className="flex gap-6 overflow-x-auto border-b border-white/10 px-4 md:hidden"
       >
         {navLinks.map((link) => (
           <a
             key={link.href}
             href={link.href}
-            className={`text-xs font-semibold tracking-wider whitespace-nowrap text-white/70 uppercase transition-colors hover:text-titan-volt ${focusRing}`}
+            className={`py-4 text-xs font-semibold tracking-wider whitespace-nowrap text-white/70 uppercase transition-colors hover:text-titan-volt ${focusRing}`}
           >
             {link.label}
           </a>

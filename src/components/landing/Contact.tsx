@@ -8,7 +8,7 @@ import {
 } from "@/config/site";
 import { Reveal } from "@/components/motion/Reveal";
 
-/** The close: a poster headline and five plain rows. No tiles, no icons. */
+/** The close: headline on the left, five plain contact rows on the right. */
 export function Contact({ dict }: { dict: Dictionary }) {
   const rows = [
     {
@@ -49,37 +49,31 @@ export function Contact({ dict }: { dict: Dictionary }) {
   ];
 
   return (
-    <section id="kontakt" className="scroll-mt-16 border-t border-line bg-ink-2">
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-28">
+    <section id="kontakt" className="scroll-mt-16 border-t border-line bg-paper-2">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
         <Reveal>
-          <h2 className="headline max-w-3xl text-[clamp(3rem,9vw,6.5rem)]">
-            {dict.contact.title}
-          </h2>
-          <p className="mt-6 max-w-md text-lg text-muted">{dict.contact.sub}</p>
+          <h2 className="headline text-4xl sm:text-6xl">{dict.contact.title}</h2>
+          <p className="mt-5 max-w-md text-lg text-muted">{dict.contact.sub}</p>
         </Reveal>
 
-        <div className="mt-14 max-w-3xl">
+        <div className="self-center">
           {rows.map((row) => (
             <a
               key={row.label}
               href={row.href}
               {...(row.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className="group flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 border-t border-line py-5 last:border-b"
+              className="group flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 border-t border-line py-4 last:border-b sm:py-5"
             >
-              <span
-                className={`text-sm font-bold tracking-[0.16em] uppercase ${
-                  row.primary ? "text-red-soft" : "text-muted"
-                }`}
-              >
+              <span className={`eyebrow ${row.primary ? "text-red" : "text-muted"}`}>
                 {row.label}
               </span>
-              <span className="text-xl font-semibold transition-colors group-hover:text-red-bright sm:text-2xl">
+              <span className="text-lg font-semibold transition-colors group-hover:text-red sm:text-xl">
                 {row.value}
                 <span
                   aria-hidden="true"
                   className="ml-2 inline-block transition-transform group-hover:translate-x-1"
                 >
-                  â†—
+                  ↗
                 </span>
               </span>
             </a>

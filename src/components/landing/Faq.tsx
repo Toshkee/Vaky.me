@@ -3,13 +3,13 @@ import { Reveal } from "@/components/motion/Reveal";
 
 export function Faq({ dict }: { dict: Dictionary }) {
   return (
-    <section>
-      <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
+    <section className="border-t border-line">
+      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
         <Reveal>
-          <h2 className="headline text-4xl sm:text-6xl">{dict.faq.title}</h2>
+          <h2 className="headline text-3xl sm:text-5xl">{dict.faq.title}</h2>
         </Reveal>
 
-        <div className="mt-10">
+        <div className="mt-8 max-w-3xl">
           {dict.faq.items.map((item) => (
             <details key={item.q} className="faq-item border-t border-line last:border-b">
               <summary className="flex items-center justify-between gap-6 py-5 text-lg font-semibold">

@@ -6,7 +6,6 @@ export const en: Dictionary = {
 
   nav: {
     work: "Work",
-    services: "Services",
     pricing: "Pricing",
     contact: "Contact",
     langLabel: "ME",
@@ -21,7 +20,7 @@ export const en: Dictionary = {
     sub: "A fast, modern website for your business — done in 7 days. No complications, no hidden costs.",
     ctaPrimary: "Message us on WhatsApp",
     ctaSecondary: "See our work",
-    trust: ["Done in 7 days", "From €150", "3 months of maintenance free"],
+    trust: ["Done in 7 days", "From €100", "One month of maintenance free"],
     panel: {
       url: "konoba-primjer.me",
       oldLabel: "2015",
@@ -29,54 +28,6 @@ export const en: Dictionary = {
       dragHint: "Drag",
       caption: "This is what we do: your website, before and after.",
     },
-  },
-
-  ticker: [
-    "Restaurants",
-    "Gyms",
-    "Barbers",
-    "Salons",
-    "Hotels",
-    "Apartments",
-    "Cafés",
-  ],
-
-  statement: {
-    figure: "8 out of 10",
-    rest: "of your customers look you up on their phone first.",
-    small:
-      "If your site falls apart there, they're already at your competitor's. If Google can't find you, you don't exist. That's why we build every site for the phone first — then everything else.",
-  },
-
-  services: {
-    title: "What you get",
-    sub: "Everything a small business actually needs — nothing it doesn't.",
-    items: [
-      {
-        title: "Perfect on phones",
-        body: "Designed mobile-first, because that's where your customers are. Everything readable, everything tappable.",
-      },
-      {
-        title: "Google finds you",
-        body: "Solid SEO basics + Google Maps, so customers find you when they search for what they need.",
-      },
-      {
-        title: "One-tap booking",
-        body: "WhatsApp and Viber buttons — a customer reaches you in 5 seconds, no forms.",
-      },
-      {
-        title: "Menu & price list",
-        body: "Always accurate, always readable. Price change? Tell us and it's updated the same day.",
-      },
-      {
-        title: "A gallery that sells",
-        body: "Your photos arranged so your venue, food or work looks straight out of a magazine.",
-      },
-      {
-        title: "English version",
-        body: "For tourists and international guests — a website that works beyond season and borders.",
-      },
-    ],
   },
 
   work: {
@@ -138,7 +89,7 @@ export const en: Dictionary = {
     plans: [
       {
         name: "Start",
-        price: "€150",
+        price: "€100",
         tagline: "One page that sells.",
         features: [
           "One modern page",
@@ -151,7 +102,7 @@ export const en: Dictionary = {
       },
       {
         name: "Business",
-        price: "€250",
+        price: "€200",
         tagline: "A complete small-business website.",
         features: [
           "Multiple pages",
@@ -165,7 +116,7 @@ export const en: Dictionary = {
       },
       {
         name: "Premium",
-        price: "from €400",
+        price: "from €350",
         tagline: "For those who want it all.",
         features: [
           "Custom design",
@@ -179,8 +130,8 @@ export const en: Dictionary = {
       },
     ],
     maintenance: {
-      title: "Maintenance & hosting — €15/month",
-      body: "First 3 months free. Small updates, hosting and technical care — all included, no contract lock-in.",
+      title: "Maintenance & hosting — €20/month",
+      body: "First month free. Small updates, hosting and technical care — all included, no contract lock-in.",
     },
     addonsTitle: "Add-ons",
     addons: [
@@ -199,16 +150,8 @@ export const en: Dictionary = {
         a: "Typically 7 days from the moment we receive your materials (text, photos, price list). Simpler sites even faster.",
       },
       {
-        q: "What if I want changes later?",
-        a: "Small updates (prices, opening hours, photos) are included in maintenance. Bigger changes are agreed separately — you always know the price up front.",
-      },
-      {
         q: "Do I need a domain and hosting?",
         a: "We handle everything. A domain is ~€25/year and hosting is included in maintenance. You don't need to know anything technical.",
-      },
-      {
-        q: "Who maintains the site afterwards?",
-        a: "We do — €15/month, first 3 months free. No contract lock-in, cancel any time.",
       },
       {
         q: "I already have a website. Can you redesign it?",
@@ -243,6 +186,6 @@ export const en: Dictionary = {
   meta: {
     title: "VibeCode.me — Websites that bring customers | Web studio Podgorica",
     description:
-      "A modern website for your business — done in 7 days, from €150. Restaurants, gyms, salons and small businesses in Montenegro. Free concept before you pay.",
+      "A modern website for your business — done in 7 days, from €100. Restaurants, gyms, salons and small businesses in Montenegro. Free concept before you pay.",
   },
 };

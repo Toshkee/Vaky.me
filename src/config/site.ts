@@ -13,7 +13,7 @@ export const site = {
   phoneHref: "tel:+38267474438",
 
   instagram: "vibecode.me",
-  email: "tosiicsftw@gmail.com",
+  email: "vibecodemne@gmail.com",
 
   city: "Podgorica",
 } as const;

@@ -1,74 +1,75 @@
 import type { Dictionary } from "@/i18n";
 import { whatsappLink } from "@/config/site";
-import { PaintedButton } from "@/components/brush/PaintedButton";
+import { Button } from "@/components/ui/Button";
 import { BeforeAfter } from "./BeforeAfter";
 
-/**
- * Load choreography: headline lines rise out of masks (0.1s / 0.25s),
- * sub → CTAs → trust fade up behind them, the panel enters last and its
- * wipe sweep starts at 1.25s (timed in globals.css).
- */
 export function Hero({ dict }: { dict: Dictionary }) {
   return (
-    <section className="overflow-hidden">
-      <div className="mx-auto grid max-w-6xl gap-9 px-5 pb-14 pt-10 sm:gap-14 sm:px-8 sm:pb-20 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:pb-28">
+    <section>
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 pt-12 pb-16 sm:px-8 sm:pt-16 sm:pb-20 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-14">
         <div>
-          <h1 className="headline text-[clamp(2.6rem,10vw,6.8rem)]">
-            <span className="mask-line">
-              <span className="mask-rise" style={{ "--d": "0.1s" } as React.CSSProperties}>
-                {dict.hero.titleA}
-              </span>
-            </span>
-            <span className="mask-line">
-              <span
-                className="mask-rise text-red"
-                style={{ "--d": "0.25s" } as React.CSSProperties}
-              >
-                {dict.hero.titleB}
-              </span>
-            </span>
-          </h1>
-
-          <p
-            className="load-fade mt-5 max-w-md text-lg leading-relaxed text-muted sm:mt-7"
-            style={{ "--d": "0.5s" } as React.CSSProperties}
-          >
-            {dict.hero.sub}
+          <p className="eyebrow flex items-center gap-2.5 text-red">
+            {/* the flag: red field, gold border */}
+            <span
+              aria-hidden="true"
+              className="inline-block h-3 w-[18px] rounded-[2px] border border-gold bg-red"
+            />
+            {dict.hero.eyebrow}
           </p>
 
-          <div
-            className="load-fade mt-7 flex flex-wrap items-center gap-x-8 gap-y-4 sm:mt-9 sm:gap-y-5"
-            style={{ "--d": "0.62s" } as React.CSSProperties}
-          >
-            <PaintedButton
-              href={whatsappLink(dict.contact.prefill)}
-              external
-              className="text-lg"
-            >
+          <h1 className="headline mt-5 text-[clamp(2.6rem,6.6vw,4.6rem)]">
+            {dict.hero.titleA}{" "}
+            <span className="text-red">{dict.hero.titleB}</span>
+          </h1>
+
+          <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">{dict.hero.sub}</p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <Button href={whatsappLink(dict.contact.prefill)} external>
               {dict.hero.ctaPrimary}
-            </PaintedButton>
-            <a href="#radovi" className="sweep tap font-semibold text-white">
+            </Button>
+            <a href="#radovi" className="sweep tap font-semibold">
               {dict.hero.ctaSecondary} ↓
             </a>
           </div>
 
-          <p
-            className="load-fade mt-7 text-sm text-muted sm:mt-10"
-            style={{ "--d": "0.74s" } as React.CSSProperties}
-          >
-            {dict.hero.trust.map((t, i) => (
-              <span key={t}>
-                {i > 0 && <span className="mx-2.5 font-bold text-red-bright">/</span>}
+          <ul className="mt-9 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
+            {dict.hero.trust.map((t) => (
+              <li key={t} className="flex items-center gap-2">
+                <span aria-hidden="true" className="text-red">
+                  —
+                </span>
                 {t}
-              </span>
+              </li>
             ))}
-          </p>
+          </ul>
         </div>
 
-        <div className="load-fade" style={{ "--d": "0.9s" } as React.CSSProperties}>
-          <BeforeAfter dict={dict} />
-        </div>
+        <BeforeAfter dict={dict} />
       </div>
+
+      {/* section divider drawn as a mountain ridgeline — Crna Gora, quietly */}
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 1440 44"
+        preserveAspectRatio="none"
+        className="block h-8 w-full sm:h-11"
+        fill="none"
+      >
+        <path
+          d="M0 43 L170 43 L310 16 L430 34 L560 6 L700 38 L860 12 L1010 36 L1150 20 L1290 40 L1440 43"
+          stroke="var(--color-line)"
+          strokeWidth="1.5"
+          vectorEffect="non-scaling-stroke"
+        />
+        {/* the highest peak gets the flag's gold */}
+        <path
+          d="M430 34 L560 6 L700 38"
+          stroke="var(--color-gold)"
+          strokeWidth="1.5"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
     </section>
   );
 }

@@ -11,14 +11,14 @@ import { Reveal } from "@/components/motion/Reveal";
  */
 export function Pricing({ dict }: { dict: Dictionary }) {
   return (
-    <section id="cijene" className="scroll-mt-16">
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24 lg:py-28">
+    <section id="cijene" className="scroll-mt-16 border-t border-line">
+      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
         <Reveal>
-          <h2 className="headline text-4xl sm:text-6xl">{dict.pricing.title}</h2>
+          <h2 className="headline text-3xl sm:text-5xl">{dict.pricing.title}</h2>
           <p className="mt-4 max-w-xl text-lg text-muted">{dict.pricing.sub}</p>
         </Reveal>
 
-        <div className="mt-10 sm:mt-14">
+        <div className="mt-8 sm:mt-12">
           {dict.pricing.plans.map((plan) => {
             return (
               <a
@@ -26,13 +26,13 @@ export function Pricing({ dict }: { dict: Dictionary }) {
                 href={whatsappLink(dict.contact.prefill)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group grid items-start gap-x-10 gap-y-4 border-t border-line py-9 transition-colors last:border-b hover:bg-white/[0.025] sm:py-10 lg:grid-cols-[210px_minmax(0,1fr)_auto]"
+                className="group grid items-start gap-x-10 gap-y-4 border-t border-line py-8 transition-colors last:border-b hover:bg-ink/[0.025] sm:py-9 lg:grid-cols-[220px_minmax(0,1fr)_auto]"
               >
                 <div className="lg:col-start-1 lg:row-start-1">
-                  <h3 className="headline flex flex-wrap items-center gap-x-3 gap-y-2 text-3xl">
+                  <h3 className="headline flex flex-wrap items-center gap-x-3 gap-y-2 text-2xl">
                     {plan.name}
                     {plan.badge && (
-                      <span className="inline-block -rotate-3 bg-red px-2 py-0.5 text-[11px] font-bold tracking-wide text-white not-italic">
+                      <span className="eyebrow inline-block bg-red px-2 py-1 text-white">
                         {plan.badge}
                       </span>
                     )}
@@ -41,14 +41,14 @@ export function Pricing({ dict }: { dict: Dictionary }) {
                 </div>
 
                 <div className="lg:col-start-3 lg:row-start-1">
-                  <span className="headline block text-4xl sm:text-6xl">{plan.price}</span>
+                  <span className="headline block text-3xl sm:text-5xl">{plan.price}</span>
                 </div>
 
-                <div className="lg:col-start-2 lg:row-start-1 lg:pt-1.5">
+                <div className="lg:col-start-2 lg:row-start-1 lg:pt-1">
                   <p className="max-w-lg leading-relaxed text-muted">
                     {plan.features.join(" · ")}
                   </p>
-                  <span className="sweep mt-3 inline-block text-sm font-semibold text-red-soft">
+                  <span className="sweep mt-3 inline-block text-sm font-semibold text-red">
                     {dict.nav.cta} →
                   </span>
                 </div>
@@ -57,15 +57,15 @@ export function Pricing({ dict }: { dict: Dictionary }) {
           })}
         </div>
 
-        <p className="mt-8 text-sm leading-relaxed text-muted">
+        <p className="mt-7 text-sm leading-relaxed text-muted">
           {dict.pricing.addonsTitle}: {dict.pricing.addons.join(" · ")}
         </p>
       </div>
 
       {/* the one solid red field on the page — recurring revenue deserves it */}
       <div className="bg-red">
-        <div className="mx-auto max-w-6xl px-5 py-11 sm:px-8 sm:py-14">
-          <p className="headline text-2xl text-white sm:text-4xl">
+        <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-12">
+          <p className="headline text-2xl text-white sm:text-3xl">
             {dict.pricing.maintenance.title}
           </p>
           <p className="mt-3 max-w-2xl leading-relaxed text-white/90">

@@ -1,22 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── VibeCode brand — sampled from the logo. Four colors, no fifth. ── */
-  --color-ink: #0a0a0a;
-  --color-ink-2: #141416;
-  --color-ink-3: #1e1e21;
+  /* ── VibeCode — warm editorial. Paper, ink, and the brand red. ── */
+  --color-paper: #f7f4ef;
+  --color-paper-2: #efeae1;
+  --color-paper-3: #e7e0d5;
+  --color-ink: #16161a;
+  /* muted body copy — #6b6862 on paper is 4.9:1 (AA) */
+  --color-muted: #6b6862;
+  --color-line: #e0dad0;
   --color-red: #d0202a;
-  --color-red-bright: #e8323c;
-  /* tint of the brand red — small informational text on dark (AA 4.5:1) */
-  --color-red-soft: #f0565f;
-  --color-gold: #c9a227;
-  --color-muted: #a1a1a6;
-  --color-line: #26262a;
+  /* red on paper is 4.9:1, so it is safe for small text as well as fills */
+  --color-red-deep: #a3161e;
+  /* the flag's gold — decorative accents only (rules, marks), not body text */
+  --color-gold: #b8942e;
 
-  --font-display: var(--font-barlow);
+  --font-display: var(--font-bricolage);
   --font-sans: var(--font-schibsted);
 
-  /* Demo-site palettes (used only under /demo) */
+  /* Demo-site palettes (used only under /demo — each demo is its own brand) */
   --color-konoba-bg: #17120d;
   --color-konoba-card: #221a12;
   --color-konoba-cream: #f2e8d8;
@@ -56,8 +58,8 @@
   }
 
   body {
-    background: var(--color-ink);
-    color: #ffffff;
+    background: var(--color-paper);
+    color: var(--color-ink);
     font-family: var(--font-sans), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
@@ -66,73 +68,46 @@
     background: var(--color-red);
     color: #ffffff;
   }
+
+  /* Keyboard focus. The demo sites each define their own ring in their own
+     palette; this is the one for the landing pages. */
+  :focus-visible {
+    outline: 2px solid var(--color-red);
+    outline-offset: 3px;
+  }
 }
 
 @layer components {
-  /* ── Film grain over the whole page — the "street" texture layer ── */
-  .grain::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 60;
-    pointer-events: none;
-    opacity: 0.05;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* ── Poster headline setting — heavy condensed italic caps, like the logo ── */
+  /* ── Editorial headline setting — serif, sentence case, tight ── */
   .headline {
     font-family: var(--font-display), var(--font-sans), sans-serif;
     font-weight: 800;
-    font-style: italic;
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+  }
+
+  /* Small caps label — the counterweight to the serif headlines */
+  .eyebrow {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    line-height: 0.92;
-    letter-spacing: -0.01em;
   }
 
-  /* ── Hero load choreography ── */
-  .mask-line {
-    display: block;
-    overflow: hidden;
-    padding-bottom: 0.08em; /* italic descenders */
-    margin-bottom: -0.08em;
-    padding-right: 0.06em; /* italic overhang */
-  }
-
-  .mask-rise {
-    display: block;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .mask-rise {
-      animation: mask-rise 0.75s var(--ease-out) both;
-      animation-delay: var(--d, 0s);
-    }
-
-    .load-fade {
-      animation: load-fade 0.7s var(--ease-out) both;
-      animation-delay: var(--d, 0s);
-    }
-
-    .nav-drop {
-      animation: nav-drop 0.5s var(--ease-out) both;
-    }
-  }
-
-  /* ── Nav materializes on scroll (scroll-driven; solid fallback) ── */
+  /* ── Nav gains a hairline once you leave the hero ── */
   .nav-bar {
-    background: color-mix(in srgb, var(--color-ink) 85%, transparent);
+    background: color-mix(in srgb, var(--color-paper) 88%, transparent);
     border-bottom: 1px solid var(--color-line);
   }
 
   @supports (animation-timeline: scroll()) {
     @media (prefers-reduced-motion: no-preference) {
       .nav-bar {
-        background: transparent;
         border-bottom-color: transparent;
         animation: nav-solid linear both;
         animation-timeline: scroll(root);
-        animation-range: 0 140px;
+        animation-range: 0 120px;
       }
     }
   }
@@ -141,10 +116,10 @@
   @media (prefers-reduced-motion: no-preference) {
     .js .reveal {
       opacity: 0;
-      transform: translateY(16px);
+      transform: translateY(12px);
       transition:
-        opacity 0.65s var(--ease-out),
-        transform 0.65s var(--ease-out);
+        opacity 0.6s var(--ease-out),
+        transform 0.6s var(--ease-out);
       transition-delay: var(--d, 0s);
     }
 
@@ -154,67 +129,13 @@
     }
   }
 
-  /* ── Ticker — slow marquee strip ── */
-  .ticker {
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .ticker-track {
-    display: inline-flex;
-    will-change: transform;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .ticker-track {
-      animation: ticker 36s linear infinite;
-    }
-  }
-
-  .ticker:hover .ticker-track {
-    animation-play-state: paused;
-  }
-
-  /* ── Kinetic text fill — the statement fills as you scroll through it ── */
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .fill-text {
-        background: linear-gradient(to right, #ffffff 50%, #3a3a3f 50%);
-        background-size: 200% 100%;
-        background-position: 100% 0;
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: fill-text linear both;
-        animation-timeline: view();
-        animation-range: entry 30% cover 55%;
-      }
-
-      .fill-text .fill-accent {
-        -webkit-text-fill-color: var(--color-red);
-      }
-    }
-  }
-
-  /* ── Poster parallax — content drifts inside its clipped frame ── */
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .poster-drift {
-        scale: 1.1;
-        animation: poster-drift linear both;
-        animation-timeline: view();
-        animation-range: cover 0% cover 100%;
-      }
-    }
-  }
-
   /* ── FAB appears once the hero is behind you ── */
   @supports (animation-timeline: scroll()) {
     @media (prefers-reduced-motion: no-preference) {
       .fab-appear {
-        animation: fab-appear 0.4s var(--ease-out) both;
+        animation: fab-appear 0.35s var(--ease-out) both;
         animation-timeline: scroll(root);
-        animation-range: 300px 600px;
+        animation-range: 300px 560px;
       }
     }
   }
@@ -266,12 +187,12 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -0.35em;
-    height: 2px;
+    bottom: -0.3em;
+    height: 1.5px;
     background: var(--color-red);
     transform: scaleX(0);
     transform-origin: right;
-    transition: transform 0.35s var(--ease-out);
+    transition: transform 0.32s var(--ease-out);
   }
 
   .sweep:hover::after,
@@ -313,16 +234,16 @@
 
   /* the range input is invisible — surface keyboard focus on the panel */
   .ba-panel:has(.ba-range:focus-visible) {
-    outline: 2px solid var(--color-red-bright);
+    outline: 2px solid var(--color-red);
     outline-offset: 4px;
   }
 
   @media (prefers-reduced-motion: no-preference) {
     .ba-intro .ba-new {
-      animation: ba-sweep 1.5s cubic-bezier(0.6, 0, 0.2, 1) 1.25s both;
+      animation: ba-sweep 1.4s cubic-bezier(0.6, 0, 0.2, 1) 0.7s both;
     }
     .ba-intro .ba-handle {
-      animation: ba-sweep-handle 1.5s cubic-bezier(0.6, 0, 0.2, 1) 1.25s both;
+      animation: ba-sweep-handle 1.4s cubic-bezier(0.6, 0, 0.2, 1) 0.7s both;
     }
   }
 
@@ -347,60 +268,9 @@
 
 /* @keyframes are not affected by cascade layers — kept at top level. */
 
-@keyframes mask-rise {
-  from {
-    transform: translateY(110%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes load-fade {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes nav-drop {
-  from {
-    transform: translateY(-100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
 @keyframes nav-solid {
   to {
-    background: color-mix(in srgb, var(--color-ink) 85%, transparent);
     border-bottom-color: var(--color-line);
-  }
-}
-
-@keyframes ticker {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes fill-text {
-  to {
-    background-position: 0% 0;
-  }
-}
-
-@keyframes poster-drift {
-  from {
-    translate: 0 4%;
-  }
-  to {
-    translate: 0 -4%;
   }
 }
 

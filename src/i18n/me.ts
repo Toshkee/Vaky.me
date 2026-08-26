@@ -4,7 +4,6 @@ export const me = {
 
   nav: {
     work: "Radovi",
-    services: "Usluge",
     pricing: "Cijene",
     contact: "Kontakt",
     langLabel: "EN",
@@ -19,7 +18,7 @@ export const me = {
     sub: "Brz, moderan sajt za tvoj biznis — gotov za 7 dana. Bez komplikacija i bez skrivenih troškova.",
     ctaPrimary: "Piši nam na WhatsApp",
     ctaSecondary: "Pogledaj radove",
-    trust: ["Gotovo za 7 dana", "Od €150", "3 mjeseca održavanja gratis"],
+    trust: ["Gotovo za 7 dana", "Od €100", "Mjesec dana održavanja gratis"],
     panel: {
       url: "konoba-primjer.me",
       oldLabel: "2015.",
@@ -27,54 +26,6 @@ export const me = {
       dragHint: "Povuci",
       caption: "Ovo radimo: tvoj sajt, prije i poslije.",
     },
-  },
-
-  ticker: [
-    "Restorani",
-    "Teretane",
-    "Frizeri",
-    "Saloni",
-    "Hoteli",
-    "Apartmani",
-    "Kafići",
-  ],
-
-  statement: {
-    figure: "8 od 10",
-    rest: "tvojih gostiju prvo te pogleda na telefonu.",
-    small:
-      "Ako se sajt tamo raspada, gost je već kod konkurencije. Ako te nema na Googlu, kao da ne postojiš. Zato svaki sajt pravimo prvo za telefon — pa za sve ostalo.",
-  },
-
-  services: {
-    title: "Šta dobijaš",
-    sub: "Sve što malom biznisu zaista treba — ništa što mu ne treba.",
-    items: [
-      {
-        title: "Savršen na telefonu",
-        body: "Dizajniran prvo za telefon, jer tu su tvoji gosti. Sve se čita, sve se klikće.",
-      },
-      {
-        title: "Google te nalazi",
-        body: "Osnovni SEO + Google mapa, da te gosti nađu kad ukucaju šta im treba.",
-      },
-      {
-        title: "Rezervacija jednim klikom",
-        body: "WhatsApp i Viber dugme — gost te dobija u poruci za 5 sekundi, bez formulara.",
-      },
-      {
-        title: "Meni i cjenovnik",
-        body: "Uvijek tačan, uvijek čitljiv. Promjena cijene? Javiš nam i gotovo je isti dan.",
-      },
-      {
-        title: "Galerija koja prodaje",
-        body: "Tvoje fotografije složene tako da lokal, hrana ili rad izgledaju kao sa magazina.",
-      },
-      {
-        title: "Verzija na engleskom",
-        body: "Za turiste i strane goste — sajt koji radi i van sezone i van granica.",
-      },
-    ],
   },
 
   work: {
@@ -136,7 +87,7 @@ export const me = {
     plans: [
       {
         name: "Start",
-        price: "€150",
+        price: "€100",
         tagline: "Jedna stranica koja prodaje.",
         features: [
           "Jedna moderna stranica",
@@ -149,7 +100,7 @@ export const me = {
       },
       {
         name: "Biznis",
-        price: "€250",
+        price: "€200",
         tagline: "Kompletan sajt za mali biznis.",
         features: [
           "Više stranica",
@@ -163,7 +114,7 @@ export const me = {
       },
       {
         name: "Premium",
-        price: "od €400",
+        price: "od €350",
         tagline: "Za one koji žele sve.",
         features: [
           "Dizajn po mjeri",
@@ -177,8 +128,8 @@ export const me = {
       },
     ],
     maintenance: {
-      title: "Održavanje i hosting — €15/mjesečno",
-      body: "Prva 3 mjeseca gratis. Sitne izmjene, hosting i tehnička briga — sve uključeno, bez ugovorne obaveze.",
+      title: "Održavanje i hosting — €20/mjesečno",
+      body: "Prvi mjesec gratis. Sitne izmjene, hosting i tehnička briga — sve uključeno, bez ugovorne obaveze.",
     },
     addonsTitle: "Dodaci",
     addons: [
@@ -197,16 +148,8 @@ export const me = {
         a: "Standardno 7 dana od kad dobijemo materijale (tekst, fotografije, cjenovnik). Jednostavniji sajtovi i brže.",
       },
       {
-        q: "Šta ako kasnije želim izmjene?",
-        a: "Sitne izmjene (cijene, radno vrijeme, fotografije) uključene su u održavanje. Veće dorade dogovaramo posebno — cijenu uvijek znaš unaprijed.",
-      },
-      {
         q: "Treba li mi domen i hosting?",
         a: "Sve sređujemo mi. Domen je ~€25 godišnje, a hosting je uključen u održavanje. Ti ne moraš ništa tehničko da znaš.",
-      },
-      {
-        q: "Ko održava sajt poslije?",
-        a: "Mi — €15 mjesečno, prva 3 mjeseca gratis. Bez ugovorne obaveze, otkazuješ kad hoćeš.",
       },
       {
         q: "Već imam sajt. Možete li ga prepraviti?",
@@ -241,6 +184,6 @@ export const me = {
   meta: {
     title: "VibeCode.me — Sajtovi koji donose klijente | Web studio Podgorica",
     description:
-      "Moderan sajt za tvoj biznis — gotov za 7 dana, od €150. Restorani, teretane, saloni i mali biznisi u Crnoj Gori. Besplatan koncept prije plaćanja.",
+      "Moderan sajt za tvoj biznis — gotov za 7 dana, od €100. Restorani, teretane, saloni i mali biznisi u Crnoj Gori. Besplatan koncept prije plaćanja.",
   },
 } as const;
