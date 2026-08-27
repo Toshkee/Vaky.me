@@ -1,7 +1,7 @@
 import type { Dictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
 import { OsBadge } from "@/components/ui/OsBadge";
-import { CheckIcon, CursorIcon, SparkleIcon } from "./icons";
+import { CheckIcon, SparkleIcon } from "./icons";
 import { Workstation } from "./Workstation";
 
 export function Hero({ dict }: { dict: Dictionary }) {
@@ -37,12 +37,11 @@ export function Hero({ dict }: { dict: Dictionary }) {
           </ul>
         </div>
 
-        {/* The workstation on its dot-grid patch, with the page's only three
-            loose decorations pinned to the patch corners. */}
+        {/* The workstation on its dot-grid patch, with two loose
+            decorations pinned to the patch corners. */}
         <div className="px-grid relative px-3 pt-8 pb-0 sm:px-6 sm:pt-10">
           <SparkleIcon className="absolute top-2 left-4 w-4 text-red" />
           <SparkleIcon className="absolute top-8 right-8 w-3 text-ink" />
-          <CursorIcon className="absolute right-2 bottom-10 hidden w-4 text-ink lg:block" />
           <Workstation />
         </div>
       </div>
