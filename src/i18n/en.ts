@@ -17,10 +17,10 @@ export const en: Dictionary = {
     eyebrow: "Web studio — Podgorica, Montenegro",
     titleA: "Websites that",
     titleB: "bring customers.",
-    sub: "A fast, modern website for your business — done in 7 days, from €100.",
+    sub: "We design and build bespoke websites — for a restaurant, a gym, a clinic, an agency or any other line of work.",
+    offer: "We take it from the first sketch to launch, and maintain the site afterwards. Delivered within 10 days, from €100.",
     ctaPrimary: "Get your free concept",
     ctaSecondary: "See our work",
-    reply: "We reply the same day",
     proof: [
       "Built for mobile",
       "SEO basics included",
@@ -35,7 +35,7 @@ export const en: Dictionary = {
       submitInstagram: "Open Instagram DM",
       submitInstagramCopied: "Message copied — open Instagram",
       copied: "Message copied — just paste it into the Instagram DM.",
-      note: "Your email opens with the link already written in. We reply the same day.",
+      note: "Your email opens with the link already written in. We get back to you as soon as we can.",
       emailFallback: "Email app didn't open?",
       emailFallbackAction: "Open Gmail in the browser",
       prefill: "Hi! This is my site/Instagram: {link} — could I get a free concept?",
@@ -107,14 +107,14 @@ export const en: Dictionary = {
         body: "We sketch your new website — before you pay a cent.",
       },
       {
-        day: "Day 2–6",
+        day: "Day 3–9",
         title: "We build",
-        body: "Design, copy, photos, launch. You focus on your business.",
+        body: "Design, copy, photos and the technical work. You focus on your business.",
       },
       {
-        day: "Day 7",
+        day: "By day 10",
         title: "Live",
-        body: "Your site is on your domain, working for you. We keep it maintained.",
+        body: "Your site is on your domain. We keep it maintained from there.",
       },
     ],
   },
@@ -126,19 +126,19 @@ export const en: Dictionary = {
       {
         name: "Start",
         price: "€100",
-        tagline: "One page that sells.",
+        tagline: "Everything that matters, on one page.",
         badge: null,
       },
       {
         name: "Business",
         price: "€200",
-        tagline: "A complete small-business website.",
+        tagline: "A complete website for your company.",
         badge: "Most popular",
       },
       {
         name: "Premium",
         price: "from €350",
-        tagline: "For those who want it all.",
+        tagline: "Custom design and the features you need.",
         badge: null,
       },
     ],
@@ -230,7 +230,7 @@ export const en: Dictionary = {
     items: [
       {
         q: "How long does it take?",
-        a: "Typically 7 days from the moment we receive your materials (text, photos, price list). Simpler sites even faster.",
+        a: "Up to 10 days from the moment we have your materials (text, photos, price list). Simpler sites are often ready sooner; for larger projects we agree the deadline up front.",
       },
       {
         q: "Do I need a domain and hosting?",
@@ -249,7 +249,7 @@ export const en: Dictionary = {
 
   contact: {
     title: "Ready for a new website?",
-    sub: "Send an Instagram DM or email — we reply the same day.",
+    sub: "Send an Instagram DM or email — we usually reply the same day.",
     action: "Message us on Instagram",
     instagram: "Instagram",
     emailLabel: "Email",
@@ -267,6 +267,6 @@ export const en: Dictionary = {
   meta: {
     title: "VibeLab — Websites that bring customers | Web studio Podgorica",
     description:
-      "A modern website for your business — done in 7 days, from €100. Restaurants, gyms, salons and small businesses in Montenegro. Free concept before you pay.",
+      "Bespoke website design and development — delivered within 10 days, from €100. A web studio in Podgorica, Montenegro. Free concept before you pay.",
   },
 };

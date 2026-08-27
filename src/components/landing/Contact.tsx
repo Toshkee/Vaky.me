@@ -3,7 +3,7 @@ import { emailLink, instagramDmLink, instagramLink, site } from "@/config/site";
 import { Button } from "@/components/ui/Button";
 import { PixelWindow } from "@/components/ui/PixelWindow";
 import { TonyPlay } from "@/components/mascot/TonyPlay";
-import { HeartIcon } from "./icons";
+import { BubbleIcon } from "./icons";
 import { SectionHead } from "./SectionHead";
 
 /**
@@ -33,7 +33,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
   return (
     <section id="kontakt" className="scroll-mt-24 border-t border-line">
       <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
-        <SectionHead icon={<HeartIcon />} title={dict.contact.title} />
+        <SectionHead icon={<BubbleIcon />} title={dict.contact.title} />
 
         <PixelWindow chrome className="mt-7">
           <div className="grid gap-2 p-5 sm:p-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10">

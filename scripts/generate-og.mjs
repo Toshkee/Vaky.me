@@ -59,7 +59,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
     </div>
     <div class="bottom">
       <span>Od <b>€100</b></span><span class="dot">·</span>
-      <span>Gotov za <b>7 dana</b></span><span class="dot">·</span>
+      <span>Rok <b>do 10 dana</b></span><span class="dot">·</span>
       <span>Besplatan koncept</span>
     </div>
   </div>

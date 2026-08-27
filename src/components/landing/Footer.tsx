@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Dictionary } from "@/i18n";
 import { instagramLink, site } from "@/config/site";
-import { HeartIcon } from "./icons";
 
 export function Footer({ dict }: { dict: Dictionary }) {
   const home = dict.lang === "en" ? "/en/" : "/";
@@ -23,10 +22,7 @@ export function Footer({ dict }: { dict: Dictionary }) {
             {dict.lang === "en" ? "Montenegro" : "Crna Gora"}
           </span>
         </Link>
-        <p className="hidden items-center gap-2 md:flex">
-          {dict.footer.tagline}
-          <HeartIcon className="w-3.5 text-red" />
-        </p>
+        <p className="hidden md:block">{dict.footer.tagline}</p>
         <a
           href={instagramLink()}
           target="_blank"

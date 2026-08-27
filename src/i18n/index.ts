@@ -19,4 +19,3 @@ type Widen<T> = T extends string
 export type Dictionary = Widen<typeof me>;
 
 export const dictionaries = { me, en } as const;
-export type Lang = keyof typeof dictionaries;

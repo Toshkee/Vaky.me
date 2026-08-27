@@ -2,7 +2,6 @@ export type MenuItem = {
   name: string;
   description: string;
   price: string;
-  special?: boolean;
 };
 
 export type MenuCategory = {
@@ -20,7 +19,6 @@ export const menuCategories: MenuCategory[] = [
         name: "Riblja čorba",
         description: "Gusta čorba od jezerske ribe, po babinom receptu iz 1987.",
         price: "4,50 €",
-        special: true,
       },
       {
         name: "Njeguški pršut i sir",
@@ -73,13 +71,11 @@ export const menuCategories: MenuCategory[] = [
         name: "Krap na tavu",
         description: "Krap iz jezera pržen na tavi, sa suvim šljivama i jabukom.",
         price: "12,00 €",
-        special: true,
       },
       {
         name: "Jegulja na žaru",
         description: "Jutarnji ulov sa žara, maslinovo ulje, bijeli luk i peršun.",
         price: "14,00 €",
-        special: true,
       },
       {
         name: "Pastrmka na žaru",
@@ -132,7 +128,6 @@ export const menuCategories: MenuCategory[] = [
         name: "Priganice s medom",
         description: "Tople priganice, med iz Crmnice i mljeveni orasi.",
         price: "4,50 €",
-        special: true,
       },
       {
         name: "Palačinke s orasima",

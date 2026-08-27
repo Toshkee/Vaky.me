@@ -4,41 +4,34 @@ export type TonyDirection = "front" | "right" | "back" | "left";
  * What he is doing.
  *
  * `idle` `walk` `roll` and `jump` are the drawn poses played straight.
- * `hop` `patrol` and `tumble` are behaviours built out of them: a jump with a
- * rest after it, and two out-and-back runs that turn around at each end.
+ * `patrol` is an out-and-back run that turns around at each end.
  * `work` and `look` are the two quiet ones — leaning in over a desk, and
  * glancing around while waiting — built by animating only the frame and only
  * the facing respectively.
- * `stand` `crouch` `air` and `tuck` are single held frames — stills for the
- * scenes where he poses rather than moves (idle itself is the frame with the
- * concept document in his hand). All of them are defined in globals.css and
- * none of them need JavaScript.
+ * `stand` is a single held frame for scenes where he poses rather than moves
+ * (idle itself is the frame with the concept document in his hand). All of
+ * them are defined in globals.css and none of them need JavaScript.
  */
 export type TonyPose =
   | "idle"
   | "stand"
-  | "crouch"
-  | "air"
-  | "tuck"
   | "walk"
   | "jump"
   | "roll"
-  | "hop"
   | "work"
   | "look"
-  | "patrol"
-  | "tumble";
+  | "patrol";
 
 type TonyProps = {
   /** Which way he faces. Nine poses were drawn for each of the four.
-   *  `patrol` and `tumble` animate the facing themselves; this is what they
-   *  fall back to when motion is off. */
+   *  `patrol` animates the facing itself; this is what it falls back to when
+   *  motion is off. */
   direction?: TonyDirection;
   pose?: TonyPose;
   /** Fraction of the sheet's native 127x232 frame. 0.5 is the intended size:
    *  the art is drawn at 2x so it stays sharp on a retina screen. */
   scale?: number;
-  /** Seconds for one out-and-back run. `patrol` and `tumble` only. */
+  /** Seconds for one out-and-back run. `patrol` only. */
   lap?: number;
   /** How many times a one-shot `jump` plays. */
   jumps?: number;

@@ -15,12 +15,12 @@ export const me = {
     eyebrow: "Web studio — Podgorica",
     titleA: "Sajtovi koji",
     titleB: "donose klijente.",
-    sub: "Brz, moderan sajt za tvoj biznis — gotov za 7 dana, od €100.",
+    sub: "Dizajniramo i izrađujemo sajtove po mjeri — za restoran, teretanu, ordinaciju, agenciju ili bilo koji drugi posao.",
+    offer: "Vodimo posao od prve skice do objave, i održavamo sajt poslije. Rok izrade je do 10 dana, cijena od €100.",
     ctaPrimary: "Zatraži besplatan koncept",
     ctaSecondary: "Pogledaj radove",
-    reply: "Odgovaramo isti dan",
     proof: [
-      "Savršen na telefonu",
+      "Napravljen za telefon",
       "Osnovni SEO uključen",
       "Domena i objava sređeni",
     ],
@@ -33,7 +33,7 @@ export const me = {
       submitInstagram: "Otvori Instagram DM",
       submitInstagramCopied: "Poruka kopirana — otvori Instagram",
       copied: "Poruka je kopirana — samo je nalijepi u Instagram DM.",
-      note: "Email se otvara sa tvojim linkom već upisanim. Javimo se isti dan.",
+      note: "Email se otvara sa tvojim linkom već upisanim. Javimo se u najkraćem roku.",
       emailFallback: "Ne otvara ti se email program?",
       emailFallbackAction: "Otvori Gmail u browseru",
       /* {link} is replaced with whatever the visitor typed */
@@ -103,17 +103,17 @@ export const me = {
       {
         day: "Dan 1–2",
         title: "Besplatan koncept",
-        body: "Napravimo ti skicu novog sajta — prije nego što platiš i cent.",
+        body: "Napravimo skicu tvog sajta — prije nego što platiš i cent.",
       },
       {
-        day: "Dan 2–6",
+        day: "Dan 3–9",
         title: "Izrada",
-        body: "Dizajn, tekst, fotografije, objava. Ti se baviš svojim poslom.",
+        body: "Dizajn, tekst, fotografije i tehnika. Ti se baviš svojim poslom.",
       },
       {
-        day: "Dan 7",
+        day: "Do 10. dana",
         title: "Online",
-        body: "Sajt je na tvom domenu i radi za tebe. Mi ga održavamo dalje.",
+        body: "Sajt je na tvom domenu. Dalje ga mi održavamo.",
       },
     ],
   },
@@ -125,19 +125,19 @@ export const me = {
       {
         name: "Start",
         price: "€100",
-        tagline: "Jedna stranica koja prodaje.",
+        tagline: "Sve najvažnije na jednoj stranici.",
         badge: null,
       },
       {
         name: "Biznis",
         price: "€200",
-        tagline: "Kompletan sajt za mali biznis.",
+        tagline: "Kompletan sajt za tvoju firmu.",
         badge: "Najtraženiji",
       },
       {
         name: "Premium",
         price: "od €350",
-        tagline: "Za one koji žele sve.",
+        tagline: "Dizajn po mjeri i funkcije koje ti trebaju.",
         badge: null,
       },
     ],
@@ -232,7 +232,7 @@ export const me = {
     items: [
       {
         q: "Koliko traje izrada?",
-        a: "Standardno 7 dana od kad dobijemo materijale (tekst, fotografije, cjenovnik). Jednostavniji sajtovi i brže.",
+        a: "Do 10 dana od trenutka kada dobijemo materijale (tekst, fotografije, cjenovnik). Jednostavniji sajtovi budu gotovi i ranije; za obimnije projekte rok dogovaramo unaprijed.",
       },
       {
         q: "Treba li mi domen i hosting?",
@@ -251,7 +251,7 @@ export const me = {
 
   contact: {
     title: "Spreman za novi sajt?",
-    sub: "Pošalji Instagram DM ili email — odgovaramo isti dan.",
+    sub: "Pošalji Instagram DM ili email — obično odgovorimo istog dana.",
     action: "Piši nam na Instagramu",
     instagram: "Instagram",
     emailLabel: "Email",
@@ -269,6 +269,6 @@ export const me = {
   meta: {
     title: "VibeLab — Sajtovi koji donose klijente | Web studio Podgorica",
     description:
-      "Moderan sajt za tvoj biznis — gotov za 7 dana, od €100. Restorani, teretane, saloni i mali biznisi u Crnoj Gori. Besplatan koncept prije plaćanja.",
+      "Dizajn i izrada sajtova po mjeri — rok do 10 dana, cijena od €100. Web studio iz Podgorice. Besplatan koncept prije nego što išta platiš.",
   },
 } as const;

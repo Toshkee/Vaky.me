@@ -58,7 +58,6 @@ export const publicDetails = {
    * geocode, so this opens the storefront itself rather than a street-wide
    * address search. Source: linktr.ee/barberdrina, checked 26 August 2026.
    */
-  plusCode: "C7JH+9XG",
   mapUrl: "https://www.google.com/maps?q=C7JH%2B9XG%20Podgorica&output=embed",
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=C7JH%2B9XG%20Podgorica",
   hours: "Ponedjeljak–subota · 09:00–21:00",

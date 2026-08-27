@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   ...sharedMetadata,
   title: "VibeLab — Sajtovi koji donose klijente | Web studio Podgorica",
   description:
-    "Moderan sajt za tvoj biznis — gotov za 7 dana, od €100. Restorani, teretane, saloni i mali biznisi u Crnoj Gori. Besplatan koncept prije plaćanja.",
+    "Dizajn i izrada sajtova po mjeri — rok do 10 dana, cijena od €100. Web studio iz Podgorice. Besplatan koncept prije nego što išta platiš.",
 };
 
 export default function MontenegrinLayout({ children }: { children: ReactNode }) {

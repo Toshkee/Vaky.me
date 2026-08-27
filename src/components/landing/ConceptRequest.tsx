@@ -5,7 +5,7 @@ import type { Dictionary } from "@/i18n";
 import { emailLink, gmailComposeLink, instagramDmLink } from "@/config/site";
 import { PixelWindow } from "@/components/ui/PixelWindow";
 import { Tony } from "@/components/mascot/Tony";
-import { HeartIcon } from "./icons";
+import { CheckIcon, SparkleIcon } from "./icons";
 
 /**
  * The reply coupon, now a full section — the funnel's heart, one screen after
@@ -17,7 +17,7 @@ import { HeartIcon } from "./icons";
  * thread.
  *
  * Tony watches the form. He faces the page by default, turns toward the
- * input while it has the visitor's attention, offers a heart once the link
+ * input while it has the visitor's attention, ticks the link off once it
  * looks real, and jumps once when the message is sent. Pose swaps are held
  * frames, not animations, so they survive reduced-motion; only the jump is
  * a real animation and that one is gated in CSS.
@@ -109,7 +109,7 @@ export function ConceptRequest({ dict }: { dict: Dictionary }) {
             <form onSubmit={sendEmail}>
               <p>
                 <span className="px inline-flex items-center gap-2 border-2 border-red bg-paper px-2.5 py-1 text-[1.15rem] leading-none text-red uppercase">
-                  <HeartIcon className="w-3.5" />
+                  <SparkleIcon className="w-3.5" />
                   {c.eyebrow}
                 </span>
               </p>
@@ -183,7 +183,7 @@ export function ConceptRequest({ dict }: { dict: Dictionary }) {
             >
               {valid && (
                 <span className="px-card absolute bottom-28 left-1/2 ml-6 px-2 py-1.5 lg:bottom-40 lg:ml-9">
-                  <HeartIcon className="w-4 text-red" />
+                  <CheckIcon className="w-4 text-ok" />
                 </span>
               )}
               <div className="tony-track w-full justify-center">

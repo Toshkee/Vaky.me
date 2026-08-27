@@ -5,12 +5,12 @@ import { BubbleIcon, DocIcon, FlagIcon, RocketIcon, HammerIcon } from "./icons";
 import { SectionHead } from "./SectionHead";
 
 /**
- * From the first message to a live site in seven days, as a journey: message,
- * concept, build, launch. From lg up the four stations sit on one horizontal
- * dashed line; below that the line turns and runs down the left edge so the
- * steps read top to bottom instead of being crushed into columns.
+ * From the first message to a live site, as a journey: message, concept,
+ * build, launch. From lg up the four stations sit on one horizontal dashed
+ * line; below that the line turns and runs down the left edge so the steps
+ * read top to bottom instead of being crushed into columns.
  *
- * Underneath, Tony walks the seven days himself — out to launch day and back.
+ * Underneath, Tony walks the route himself — out to launch day and back.
  * He is decorative and hidden from screen readers: the list is the content.
  */
 const STEP_ICONS: ReactNode[] = [
@@ -58,7 +58,7 @@ export function Process({ dict }: { dict: Dictionary }) {
           ))}
         </ol>
 
-        {/* The seven days, walked — out to launch and back again. */}
+        {/* The route, walked — out to launch day and back again. */}
         <div className="tony-track mt-6 sm:mt-8">
           <Tony direction="right" pose="patrol" scale={0.5} lap={16} />
         </div>

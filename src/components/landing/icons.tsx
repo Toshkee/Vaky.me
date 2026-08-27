@@ -65,11 +65,6 @@ export function PlusIcon(props: IconProps) {
   return <PixelGlyph {...props} d="M7 3h2v10H7zM3 7h10v2H3z" />;
 }
 
-/** The "not included" mark in the plan details dialog. */
-export function DashIcon(props: IconProps) {
-  return <PixelGlyph {...props} d="M3 7h10v2H3z" />;
-}
-
 /** Instagram glyph — used by the mobile contact shortcut. */
 export function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -245,29 +240,6 @@ export function QuestionIcon(props: IconProps) {
   );
 }
 
-/** Heart — the contact marker, Tony's speech bubble and the footer sign-off. */
-export function HeartIcon(props: IconProps) {
-  return (
-    <PixelArt
-      {...props}
-      rows={[
-        "............",
-        "..###..###..",
-        ".##########.",
-        ".##########.",
-        ".##########.",
-        ".##########.",
-        "..########..",
-        "...######...",
-        "....####....",
-        ".....##.....",
-        "............",
-        "............",
-      ]}
-    />
-  );
-}
-
 /** Speech bubble with typing dots — "you reach out". */
 export function BubbleIcon(props: IconProps) {
   return (
@@ -338,7 +310,7 @@ export function HammerIcon(props: IconProps) {
   );
 }
 
-/** Rocket at launch — "online in seven days". */
+/** Rocket at launch — "your site is live". */
 export function RocketIcon(props: IconProps) {
   return (
     <PixelArt
@@ -432,8 +404,8 @@ export function CursorIcon(props: IconProps) {
   );
 }
 
-/** The heart mug on the workstation desk. Art sits flush with the bottom
-    edge of its box so the mug actually touches the desk it stands on. */
+/** The mug on the workstation desk, banded in the brand red. Art sits flush
+    with the bottom edge of its box so the mug touches the desk it stands on. */
 export function MugIcon(props: IconProps) {
   return (
     <PixelArt
@@ -446,8 +418,8 @@ export function MugIcon(props: IconProps) {
         "............",
         ".#######....",
         ".#######.##.",
-        ".##RRR##..#.",
-        ".##.R.##..#.",
+        ".#RRRRR#..#.",
+        ".#######..#.",
         ".#######.##.",
         ".#######....",
         "..#####.....",

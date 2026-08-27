@@ -26,18 +26,7 @@
 
   --font-sans: var(--font-franklin);
 
-  /* Demo-site palettes (used only under /demo — each demo is its own brand) */
-  --color-konoba-bg: #17120d;
-  --color-konoba-card: #221a12;
-  --color-konoba-cream: #f2e8d8;
-  --color-konoba-terra: #c4682f;
-  --color-konoba-olive: #7d8a5a;
-
-  --color-titan-bg: #0b0c0e;
-  --color-titan-card: #141619;
-  --color-titan-volt: #c8f31d;
-  --color-titan-steel: #8b939e;
-
+  /* Barbershop demo palette (used only under /demo/barbershop-stari-grad) */
   --color-barber-bg: #f5efe4;
   --color-barber-card: #fffaf0;
   --color-barber-green: #16382b;
@@ -330,13 +319,6 @@
     }
   }
 
-  /* Raster pixel art only — never text. Authored at 96x64 and shown at an
-     integer multiple, so every source pixel lands on a whole number of
-     device pixels instead of being resampled into mush. */
-  .px-art {
-    image-rendering: pixelated;
-  }
-
   /* A section rule where the printer ran out of ink. Used on two sections
      only — everywhere else keeps its hairline, or the texture stops being an
      accent and becomes wallpaper. */
@@ -386,20 +368,11 @@
     background-position: 0 0;
   }
 
-  /* Static frames beyond the default idle (column 0, the pose with the
-     concept document in hand). These are stills, not animations, so they are
-     outside the reduced-motion gate on purpose — a pose is not motion. */
+  /* The static standing frame beyond the default idle (column 0, the pose
+     with the concept document in hand). It is outside the reduced-motion gate
+     on purpose — a pose is not motion. */
   .tony--stand {
     background-position-x: calc(-5 * var(--tony-w));
-  }
-  .tony--crouch {
-    background-position-x: calc(-3 * var(--tony-w));
-  }
-  .tony--air {
-    background-position-x: calc(-4 * var(--tony-w));
-  }
-  .tony--tuck {
-    background-position-x: calc(-8 * var(--tony-w));
   }
 
   /* `work` and `look` are behaviours, but both rest on the standing frame, so
@@ -445,19 +418,6 @@
       animation: tony-jump 0.9s step-end var(--tony-jumps, 1);
     }
 
-    /* ── Hopping in place ──
-       Two thirds of the cycle is him standing still, which is what keeps a
-       perpetual animation from reading as a fidget: the eye gets a beat of
-       rest between jumps.
-
-       No transform is involved. The apex frame is drawn with his feet 29 to
-       42px above the sheet's ground line depending on which way he faces, and
-       every frame was cut around that same line — so swapping the frame IS
-       the lift, at exactly the height the artist drew. */
-    .tony--hop {
-      animation: tony-hop 3.4s step-end infinite;
-    }
-
     /* ── At the desk ──
        He leans in and straightens again on the crouch and standing frames.
        Most of the cycle is upright, so it reads as attention rather than a
@@ -492,16 +452,6 @@
         tony-lap var(--tony-lap, 14s) linear infinite;
     }
 
-    /* ── Tumbling a track ──
-       Same shape as patrol on the roll frames. The source art keeps his head
-       upright through all three, so this reads as a scooting tuck rather than
-       a somersault — which is the pose that exists, not the one that doesn't. */
-    .tony--tumble {
-      animation:
-        tony-roll 0.32s step-end infinite,
-        tony-turn var(--tony-lap, 14s) step-end infinite,
-        tony-lap var(--tony-lap, 14s) linear infinite;
-    }
   }
 
   /* A strip of ground for him to cross. The rule is the floor. */
@@ -554,6 +504,15 @@
 
   details.faq-item[open] .faq-toggle {
     transform: rotate(45deg);
+  }
+
+  details.faq-item .faq-dot {
+    transition: background-color 0.22s ease;
+  }
+
+  details.faq-item[open] .faq-dot,
+  details.faq-item summary:hover .faq-dot {
+    background: var(--color-red);
   }
 }
 
@@ -1208,23 +1167,6 @@
   }
   66.66% {
     background-position-x: calc(-8 * var(--tony-w));
-  }
-}
-
-/* Stand, crouch, fly, land, stand — then wait. The rest at the end is two
-   thirds of the cycle and is the reason this can loop without nagging. */
-@keyframes tony-hop {
-  0% {
-    background-position-x: calc(-3 * var(--tony-w));
-  }
-  7% {
-    background-position-x: calc(-4 * var(--tony-w));
-  }
-  20% {
-    background-position-x: calc(-5 * var(--tony-w));
-  }
-  27% {
-    background-position-x: 0;
   }
 }
 

@@ -37,14 +37,12 @@ export interface ScheduleSlot {
 
 export interface ScheduleDay {
   day: string;
-  short: string;
   slots: ScheduleSlot[];
 }
 
 export const schedule: ScheduleDay[] = [
   {
     day: "Ponedjeljak",
-    short: "Pon",
     slots: [
       { time: "07:00", name: "CrossFit" },
       { time: "18:00", name: "HIIT" },
@@ -53,7 +51,6 @@ export const schedule: ScheduleDay[] = [
   },
   {
     day: "Utorak",
-    short: "Uto",
     slots: [
       { time: "07:00", name: "HIIT" },
       { time: "18:00", name: "Snaga — tehnika" },
@@ -62,7 +59,6 @@ export const schedule: ScheduleDay[] = [
   },
   {
     day: "Srijeda",
-    short: "Sri",
     slots: [
       { time: "07:00", name: "CrossFit" },
       { time: "18:00", name: "Kružni trening" },
@@ -71,7 +67,6 @@ export const schedule: ScheduleDay[] = [
   },
   {
     day: "Četvrtak",
-    short: "Čet",
     slots: [
       { time: "07:00", name: "HIIT" },
       { time: "18:00", name: "CrossFit" },
@@ -80,7 +75,6 @@ export const schedule: ScheduleDay[] = [
   },
   {
     day: "Petak",
-    short: "Pet",
     slots: [
       { time: "07:00", name: "Snaga — tehnika" },
       { time: "18:00", name: "HIIT" },
@@ -89,7 +83,6 @@ export const schedule: ScheduleDay[] = [
   },
   {
     day: "Subota",
-    short: "Sub",
     slots: [
       { time: "09:00", name: "CrossFit" },
       { time: "10:30", name: "Kružni trening" },
@@ -143,28 +136,4 @@ export const plans: Plan[] = [
     ],
     highlighted: false,
   },
-];
-
-export interface Trainer {
-  name: string;
-  specialty: string;
-}
-
-export const trainers: Trainer[] = [
-  { name: "Nikola Đukanović", specialty: "Snaga i powerlifting" },
-  { name: "Milica Perović", specialty: "Grupni treninzi i HIIT" },
-  { name: "Stefan Kovačević", specialty: "CrossFit" },
-  { name: "Jovana Radonjić", specialty: "Joga i mobilnost" },
-];
-
-export interface Stat {
-  value: string;
-  label: string;
-}
-
-export const stats: Stat[] = [
-  { value: "1200 m²", label: "prostora na dva nivoa" },
-  { value: "80+", label: "sprava i tegova" },
-  { value: "900+", label: "aktivnih članova" },
-  { value: "06–23h", label: "radnim danima" },
 ];

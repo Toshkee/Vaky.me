@@ -26,13 +26,13 @@ export function Work({ dict }: { dict: Dictionary }) {
         <p className="mt-3 max-w-md text-muted">{dict.work.sub}</p>
 
         <ul className="snap-row mt-7 -mx-5 gap-4 px-5 sm:mx-0 sm:mt-8 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-visible sm:px-0">
-          {dict.work.items.map((item, i) => {
+          {dict.work.items.map((item) => {
             const slug = item.href.split("/")[2];
             return (
               <li key={item.name} className="w-[82%] shrink-0 sm:w-auto">
                 <Link href={item.href} className="group block">
                   <PixelWindow
-                    title={`PROJECT_0${i + 1}`}
+                    title={slug}
                     className="transition-transform duration-100 group-hover:-translate-y-0.5 group-active:translate-x-1 group-active:translate-y-1 motion-reduce:transition-none"
                   >
                     <div className="aspect-[3/2] overflow-hidden border-b-2 border-ink">

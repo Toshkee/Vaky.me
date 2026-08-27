@@ -29,9 +29,6 @@ for (const [engineName, engine] of engines) {
 
     for (const t of targets) {
       await page.goto(BASE + t.path, { waitUntil: "networkidle" });
-      await page.evaluate(() =>
-        document.querySelectorAll(".reveal").forEach((el) => el.classList.add("in")),
-      );
       await page.waitForTimeout(300);
 
       const d = await page.evaluate(() => {
