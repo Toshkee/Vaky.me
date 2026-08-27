@@ -16,12 +16,6 @@ const page = await ctx.newPage();
 await page.goto(BASE + PATH_, { waitUntil: "networkidle" });
 await page.waitForTimeout(500);
 
-// force any scroll-reveal into visible state so slices aren't blank
-await page.evaluate(() => {
-  document.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
-});
-await page.waitForTimeout(200);
-
 const { total, vh } = await page.evaluate(() => ({
   total: document.documentElement.scrollHeight,
   vh: window.innerHeight,

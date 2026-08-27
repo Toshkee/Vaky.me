@@ -1,5 +1,4 @@
 import type { Dictionary } from "@/i18n";
-import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/Button";
 import { PixelWindow } from "@/components/ui/PixelWindow";
 import { PlanMatrix } from "./PlanMatrix";
@@ -15,10 +14,8 @@ export function Pricing({ dict }: { dict: Dictionary }) {
   return (
     <section id="cijene" className="scroll-mt-28 border-t border-line md:scroll-mt-16">
       <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
-        <Reveal>
-          <h2 className="headline text-2xl sm:text-3xl">{dict.pricing.title}</h2>
-          <p className="mt-3 max-w-xl text-muted">{dict.pricing.sub}</p>
-        </Reveal>
+        <h2 className="headline text-2xl sm:text-3xl">{dict.pricing.title}</h2>
+        <p className="mt-3 max-w-xl text-muted">{dict.pricing.sub}</p>
 
         <PlanMatrix dict={dict} />
 

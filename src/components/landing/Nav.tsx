@@ -9,8 +9,9 @@ import type { Dictionary } from "@/i18n";
  * rule under the lot. The sticky treatment keeps the work, pricing and contact
  * sections within reach without turning the masthead into a large app bar.
  *
- * The section you are in is filled rather than underlined — the one place the
- * page states where you are, so it can afford to say it loudly.
+ * The section you are in is marked with a red rule under the label, drawn in
+ * CSS off `aria-current` so the indicator and the announced state can never
+ * disagree. It is the page's only moving part.
  *
  * Labels are NOT set in the pixel face, though the buttons are. Rendered at
  * 4x, Pixelify's B, C and E proved ambiguous at nav sizes: the wordmark read
@@ -45,8 +46,8 @@ export function Nav({ dict }: { dict: Dictionary }) {
   }, []);
 
   const linkClass = (href: string) =>
-    `inline-flex min-h-11 items-center px-2 font-semibold transition-colors ${
-      active === href ? "bg-red text-white" : "hover:text-red"
+    `nav-link inline-flex min-h-11 items-center px-2 font-semibold transition-colors ${
+      active === href ? "text-red" : "hover:text-red"
     }`;
 
   return (
@@ -86,10 +87,12 @@ export function Nav({ dict }: { dict: Dictionary }) {
           <a
             key={link.href}
             href={link.href}
-            className={linkClass(link.href)}
+            /* w-fit so the indicator rule hugs the label here too, rather than
+               stretching to the full grid cell as it would by default */
+            className={`${linkClass(link.href)} mx-auto w-fit`}
             aria-current={active === link.href ? "location" : undefined}
           >
-            <span className="mx-auto">{link.label}</span>
+            {link.label}
           </a>
         ))}
         <Link

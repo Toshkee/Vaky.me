@@ -101,20 +101,38 @@
     text-transform: uppercase;
   }
 
-  /* ── Scroll reveals (IntersectionObserver; .js-gated) ── */
-  @media (prefers-reduced-motion: no-preference) {
-    .js .reveal {
-      opacity: 0;
-      transform: translateY(12px);
-      transition:
-        opacity 0.6s var(--ease-out),
-        transform 0.6s var(--ease-out);
-      transition-delay: var(--d, 0s);
-    }
+  /* ── Nav section indicator ──
+     The section you are in used to be a filled red block, which read as a
+     pressed button rather than a position marker — and it changed under the
+     reader's eye as they scrolled, which is a lot of movement for a fact
+     nobody asked about. It is now the same 2px red rule the page uses to
+     head its sections, drawn under the label it belongs to.
 
-    .js .reveal.in {
-      opacity: 1;
-      transform: none;
+     It is the only place on the page where motion is doing real work: the
+     rule slides across as the section changes, so the eye follows one object
+     between labels instead of watching two blocks blink. ── */
+  .nav-link {
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0.25rem;
+    bottom: 0.35rem;
+    height: 2px;
+    background: var(--color-red);
+    transform: scaleX(0);
+    transform-origin: center;
+  }
+
+  .nav-link[aria-current]::after {
+    transform: scaleX(1);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .nav-link::after {
+      transition: transform 0.32s var(--ease-out);
     }
   }
 
@@ -201,11 +219,15 @@
      Aliased frames, beveled controls and a pixel display face.
 
      The rule that keeps this from reading as a toy: it never touches the
-     reading layer. A rendered specimen at 12/16/24/48px settled where the
-     face may go — its euro sign is near-indistinguishable from 0 and 8
-     ("€350" reads "03S0") and it mushes at the 12px/0.18em eyebrow setting,
-     so headlines, body copy, eyebrows and every price stay in Franklin.
-     Controls, nav, the wordmark and the step numerals are its whole remit. ── */
+     reading layer. Headlines, body copy, eyebrows and every price stay in
+     Franklin; button labels are the pixel face's whole remit.
+
+     Jersey 10 is drawn against a ~10px reference height, so it fills much
+     less of its em box than a text face does. Button labels are therefore
+     set at 20px (1.25rem) rather than the 17px the rest of the controls use
+     — two whole 10px cells, which is both the size that reads correctly and
+     the size that lands the bitmap on exact pixel boundaries. Changing the
+     pixel family means re-checking that number against the new grid. ── */
 
   .px {
     font-family: var(--font-pixel), ui-monospace, monospace;

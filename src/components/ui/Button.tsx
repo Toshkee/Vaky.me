@@ -21,7 +21,7 @@ export function Button({
     <a
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className={`px px-btn px-btn--primary inline-flex items-center justify-center bg-red px-7 py-3.5 text-[1.0625rem] font-semibold text-white hover:bg-red-deep ${className}`}
+      className={`px px-btn px-btn--primary inline-flex items-center justify-center bg-red px-7 py-3.5 text-[1.25rem] text-white hover:bg-red-deep ${className}`}
     >
       {children}
     </a>

@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Anton } from "next/font/google";
 import type { Dictionary } from "@/i18n";
-import { Reveal } from "@/components/motion/Reveal";
 import { PixelWindow } from "@/components/ui/PixelWindow";
 import { ArrowIcon } from "./icons";
 
@@ -104,14 +103,12 @@ export function Work({ dict }: { dict: Dictionary }) {
   return (
     <section id="radovi" className="scroll-mt-28 border-t border-line md:scroll-mt-16">
       <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
-        <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <h2 className="headline text-2xl sm:text-3xl">{dict.work.title}</h2>
-            <p className="max-w-xs text-sm leading-relaxed text-muted sm:text-right">
-              {dict.work.sub}
-            </p>
-          </div>
-        </Reveal>
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <h2 className="headline text-2xl sm:text-3xl">{dict.work.title}</h2>
+          <p className="max-w-xs text-sm leading-relaxed text-muted sm:text-right">
+            {dict.work.sub}
+          </p>
+        </div>
 
         <ul className="mt-6 grid gap-7 sm:mt-8 sm:grid-cols-2 sm:gap-7 lg:grid-cols-4">
           {dict.work.items.map((item, i) => (

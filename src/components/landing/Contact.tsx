@@ -1,6 +1,5 @@
 import type { Dictionary } from "@/i18n";
 import { emailLink, instagramLink, site } from "@/config/site";
-import { Reveal } from "@/components/motion/Reveal";
 
 /**
  * The close: headline on the left, Instagram and email on the right.
@@ -26,10 +25,11 @@ export function Contact({ dict }: { dict: Dictionary }) {
   return (
     <section id="kontakt" className="scroll-mt-28 border-t border-line md:scroll-mt-16">
       <div className="mx-auto grid max-w-5xl gap-8 px-5 py-12 sm:px-8 sm:py-16 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
-        <Reveal>
+        {/* wrapper is the grid's first column — not decorative */}
+        <div>
           <h2 className="headline text-2xl sm:text-3xl">{dict.contact.title}</h2>
           <p className="mt-3 max-w-md text-muted">{dict.contact.sub}</p>
-        </Reveal>
+        </div>
 
         <div className="self-center">
           {rows.map((row) => (

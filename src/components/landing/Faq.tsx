@@ -1,14 +1,11 @@
 import type { Dictionary } from "@/i18n";
-import { Reveal } from "@/components/motion/Reveal";
 import { PlusIcon } from "./icons";
 
 export function Faq({ dict }: { dict: Dictionary }) {
   return (
     <section className="border-t border-line">
       <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
-        <Reveal>
-          <h2 className="headline text-2xl sm:text-3xl">{dict.faq.title}</h2>
-        </Reveal>
+        <h2 className="headline text-2xl sm:text-3xl">{dict.faq.title}</h2>
 
         <div className="mt-6 max-w-3xl border-t-2 border-ink">
           {dict.faq.items.map((item) => (

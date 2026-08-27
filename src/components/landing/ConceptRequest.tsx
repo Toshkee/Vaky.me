@@ -99,7 +99,7 @@ export function ConceptRequest({ dict }: { dict: Dictionary }) {
 
         <button
           type="submit"
-          className="px px-btn px-btn--primary mt-5 block min-h-12 w-full bg-red px-6 py-3.5 text-center text-[1.0625rem] font-semibold text-white hover:bg-red-deep"
+          className="px px-btn px-btn--primary mt-5 block min-h-12 w-full bg-red px-6 py-3.5 text-center text-[1.25rem] text-white hover:bg-red-deep"
         >
           {c.submitEmail}
         </button>
@@ -107,7 +107,7 @@ export function ConceptRequest({ dict }: { dict: Dictionary }) {
         <button
           type="button"
           onClick={sendInstagram}
-          className="px px-btn mt-4 block min-h-12 w-full bg-paper px-6 py-3 text-center text-[1.0625rem] font-semibold text-ink transition-colors hover:text-red"
+          className="px px-btn mt-4 block min-h-12 w-full bg-paper px-6 py-3 text-center text-[1.25rem] text-ink transition-colors hover:text-red"
         >
           {copied ? c.submitInstagramCopied : c.submitInstagram}
         </button>

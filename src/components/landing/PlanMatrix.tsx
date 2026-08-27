@@ -68,14 +68,14 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
             <div className="grid gap-2 border-t border-line p-4">
               <a
                 href={enquiryHref(plan.name)}
-                className="px px-btn px-btn--primary tap inline-flex min-h-12 items-center justify-center bg-red px-6 text-[1.0625rem] font-semibold text-white hover:bg-red-deep"
+                className="px px-btn px-btn--primary tap inline-flex min-h-12 items-center justify-center bg-red px-6 text-[1.25rem] text-white hover:bg-red-deep"
               >
                 {dict.pricing.planAction}
               </a>
               <button
                 type="button"
                 onClick={() => setOpenPlan(index)}
-                className="px px-btn tap mt-1.5 inline-flex min-h-12 items-center justify-center bg-paper px-6 text-[1.0625rem] font-semibold transition-colors hover:text-red"
+                className="tap mx-auto inline-flex min-h-11 items-center justify-center text-sm font-semibold underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
               >
                 {dict.pricing.detailsAction}
               </button>
@@ -141,14 +141,14 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
                 <td key={plan.name} className="pl-6 pt-5 align-top">
                   <a
                     href={enquiryHref(plan.name)}
-                    className="px px-btn px-btn--primary inline-flex min-h-11 w-full items-center justify-center bg-red px-5 font-semibold text-white hover:bg-red-deep"
+                    className="px px-btn px-btn--primary inline-flex min-h-11 w-full items-center justify-center bg-red px-5 text-[1.25rem] text-white hover:bg-red-deep"
                   >
                     {dict.pricing.planAction}
                   </a>
                   <button
                     type="button"
                     onClick={() => setOpenPlan(index)}
-                    className="px px-btn mt-3.5 inline-flex min-h-11 w-full items-center justify-center bg-paper px-5 text-sm font-semibold transition-colors hover:text-red"
+                    className="mt-3 inline-flex min-h-11 w-full items-center justify-center text-sm font-semibold underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
                   >
                     {dict.pricing.detailsAction}
                   </button>
@@ -281,7 +281,7 @@ function PlanDialog({
                 dict.contact.emailSubject,
                 dict.pricing.packagePrefill.replace("{package}", plan.name),
               )}
-              className="px px-btn px-btn--primary tap inline-flex min-h-12 w-full items-center justify-center bg-red px-6 text-[1.0625rem] font-semibold text-white hover:bg-red-deep"
+              className="px px-btn px-btn--primary tap inline-flex min-h-12 w-full items-center justify-center bg-red px-6 text-[1.25rem] text-white hover:bg-red-deep"
             >
               {dict.pricing.planAction}
             </a>

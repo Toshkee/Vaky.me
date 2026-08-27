@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { dictionaries } from "@/i18n";
 import { LandingPage } from "@/components/landing/LandingPage";
-import { SetHtmlLang } from "@/components/SetHtmlLang";
 
 const dict = dictionaries.en;
 
@@ -24,10 +23,5 @@ export const metadata: Metadata = {
 };
 
 export default function HomeEn() {
-  return (
-    <>
-      <SetHtmlLang lang="en" />
-      <LandingPage dict={dict} />
-    </>
-  );
+  return <LandingPage dict={dict} />;
 }
