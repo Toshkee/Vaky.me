@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Jersey_10, Libre_Franklin } from "next/font/google";
 import { site } from "@/config/site";
+import { Analytics } from "@/components/Analytics";
 
 /* Libre Franklin is a revival of ATF Franklin Gothic (1902) — the face that
    set newspaper headlines for a century. One variable family carries the whole
@@ -60,7 +61,10 @@ export function RootHtml({ lang, children }: { lang: string; children: ReactNode
       lang={lang}
       className={`${franklin.variable} ${pixel.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

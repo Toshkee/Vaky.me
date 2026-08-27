@@ -18,19 +18,35 @@ export const en: Dictionary = {
     titleA: "Websites that",
     titleB: "bring customers.",
     sub: "We design and build bespoke websites — for a restaurant, a gym, a clinic, an agency or any other line of work.",
-    offer: "We take it from the first sketch to launch, and maintain the site afterwards. Delivered within 10 days, from €100.",
+    offer: "We take it from the first sketch to launch, and maintain the site afterwards.",
     ctaPrimary: "Get your free concept",
     ctaSecondary: "See our work",
-    proof: [
-      "Built for mobile",
-      "SEO basics included",
-      "Domain and launch handled",
+    facts: [
+      { label: "Based in", value: "Podgorica" },
+      { label: "Delivered in", value: "up to 10 days" },
+      { label: "From", value: "€100" },
+      { label: "Languages", value: "ME + EN" },
     ],
     concept: {
       eyebrow: "Free concept",
       title: "Already have a site or an Instagram?",
       body: "Send us the link and see what your business could look like — before you pay a cent.",
       placeholder: "your-site.me or @instagram",
+      linkLabel: "Site or Instagram",
+      contactLabel: "Where we reply",
+      contactPlaceholder: "email or @instagram",
+      goalLabel: "What you need (optional)",
+      goalPlaceholder: "Briefly: what you do and what the site should do for you.",
+      required: "required",
+      submit: "Send request",
+      sending: "Sending…",
+      success: "Got it. We'll reply to the contact you left.",
+      errorRequired: "We need your site or Instagram link, and a contact to reply to.",
+      errorChallenge: "Give the check a second to finish, then send again.",
+      errorOffline: "You appear to be offline. Check the connection and try again.",
+      errorSpam: "Too many attempts in a short time. Wait a minute and try again.",
+      errorProvider: "Sending isn't working right now. Try again, or write to us directly.",
+      fallbackTitle: "Rather do it directly?",
       submitEmail: "Send email",
       submitInstagram: "Open Instagram DM",
       submitInstagramCopied: "Message copied — open Instagram",
@@ -46,26 +62,45 @@ export const en: Dictionary = {
     title: "Work",
     sub: "Interactive design concepts — open and try them on your own phone.",
     conceptLabel: "Design concept",
+    briefLabel: "Brief",
+    solutionLabel: "Approach",
+    includesLabel: "Includes",
+    swipeHint: "Swipe for the other projects",
+    counter: "{n} of {total}",
+    prev: "Previous project",
+    next: "Next project",
     items: [
       {
         name: "Konoba Skadar",
         tag: "Restaurant",
         href: "/demo/konoba-skadar/",
+        brief: "Guests pick a place on their phone and want the menu and a free table.",
+        solution: "The menu as text by category, calling and booking one tap away.",
+        includes: ["Menu", "Bookings", "Map"],
       },
       {
         name: "Titan Gym",
         tag: "Gym",
         href: "/demo/titan-gym/",
+        brief: "Memberships and the class timetable get asked for over messages all week.",
+        solution: "Prices and the weekly timetable on the site, a trial session as the main button.",
+        includes: ["Memberships", "Timetable", "Programmes"],
       },
       {
         name: "Barbershop Stari Grad",
         tag: "Barber",
         href: "/demo/barbershop-stari-grad/",
+        brief: "Booking happens over Viber, and the price list is nowhere to be found.",
+        solution: "Prices, opening hours and the team on one page, Viber within thumb's reach.",
+        includes: ["Price list", "Opening hours", "Viber"],
       },
       {
         name: "Barber Drina",
         tag: "Barber · Stari Aerodrom",
         href: "/demo/barber-drina/",
+        brief: "The price list lives in an Instagram post customers have to scroll back to find.",
+        solution: "The price list as a table, and a helper that writes the booking DM for you.",
+        includes: ["Price list", "Booking by DM", "Map"],
       },
     ],
   },
@@ -209,6 +244,7 @@ export const en: Dictionary = {
         },
       ],
     },
+    inherits: "Everything in {plan}, plus:",
     detailsAction: "What do I get?",
     detailsIntro: "Everything in this package, explained without the jargon.",
     detailsIncluded: "Included",
@@ -260,6 +296,81 @@ export const en: Dictionary = {
   footer: {
     tagline: "Web studio from Podgorica. Websites that bring customers.",
     rights: "All rights reserved.",
+    privacy: "Privacy",
+  },
+
+  privacy: {
+    title: "Privacy",
+    updated: "Updated 27 August 2026.",
+    intro:
+      "This site is a small studio's calling card. There are no accounts, no logins and nothing is sold here — so there is no reason for us to know anything about you beyond what you send us yourself.",
+    sections: [
+      {
+        when: "always",
+        title: "Who handles your data",
+        body: [
+          "VibeLab, a web studio in Podgorica. For anything about your data, write to vibecodemne@gmail.com.",
+        ],
+      },
+      {
+        when: "form",
+        title: "When you send a concept request",
+        body: [
+          "The form is handled by Basin (usebasin.com), which forwards submissions to our inbox. Only what you typed is sent: your site or Instagram link, the contact to reply to, your message, and the page language.",
+          "We use it to reply to you and nothing else. No newsletter, no sharing with third parties, no advertising. We delete the message once the conversation is over, and within a year at the latest.",
+        ],
+      },
+      {
+        when: "always",
+        title: "When you write by email or Instagram",
+        body: [
+          "Those buttons only open your mail app or Instagram with a message already written. The site never sees or stores what you send that way — from there it is Google's or Meta's terms, depending on where you write.",
+        ],
+      },
+      {
+        when: "turnstile",
+        title: "Spam protection",
+        body: [
+          "The form is protected by Cloudflare Turnstile. It loads only once you start filling the form in, and at that point Cloudflare sees your IP address and basic browser information in order to tell a person from a bot. Turnstile may set a technical cookie for that check.",
+        ],
+      },
+      {
+        when: "analytics",
+        title: "Visitor statistics",
+        body: [
+          "We use Umami, a cookieless page counter. It records which page was opened, which site you arrived from, a rough country-level location and the type of device. It does not store your IP address, does not build a profile of you and does not follow you between sites.",
+          "Query strings — everything after a ? — are dropped, and if your browser sends Do Not Track, nothing is recorded at all. What you type into the form is never sent to analytics.",
+        ],
+      },
+      {
+        when: "cloudflare",
+        title: "Cloudflare visitor measurement",
+        body: [
+          "The site is served through Cloudflare, which adds its own page counter to every response. It sets no cookies and builds no profile of a visitor — it counts page opens and basic loading data. That data stays with Cloudflare, under their terms.",
+        ],
+      },
+      {
+        when: "always",
+        title: "Google Maps on the demo pages",
+        body: [
+          "The map on a demo page does not load by itself. Until you press “Show map”, Google receives no request from this page at all. Once you open it, Google sees your IP address and browser details under its own terms.",
+        ],
+      },
+      {
+        when: "always",
+        title: "Cookies",
+        body: [
+          "The site sets no cookies of its own, and has no consent banner because there is nothing to ask consent for.",
+        ],
+      },
+      {
+        when: "always",
+        title: "The demo pages",
+        body: [
+          "The projects under /demo/ are design concepts. Contact details on them are examples, unless the business owner has explicitly asked for the real ones to be shown.",
+        ],
+      },
+    ],
   },
 
   fab: "Message us on Instagram",

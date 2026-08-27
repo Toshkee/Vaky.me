@@ -1,5 +1,6 @@
 import { chromium } from "playwright";
 import fs from "node:fs";
+import sharp from "sharp";
 
 /**
  * One-off processing of the brand PNGs (exported with a flat white ground and
@@ -87,7 +88,13 @@ async function process_(srcPath, opts) {
     },
     { data, opts },
   );
-  fs.writeFileSync(opts.out, Buffer.from(out, "base64"));
+  /* Canvas writes a full 8-bit RGBA PNG. These marks are flat pixel art with
+     a handful of colours, so a palette costs nothing visible and cut the
+     favicon from 62KB to 11KB — a file every visitor fetches on every page. */
+  const compressed = await sharp(Buffer.from(out, "base64"))
+    .png({ compressionLevel: 9, palette: true })
+    .toBuffer();
+  fs.writeFileSync(opts.out, compressed);
   const kb = Math.round(fs.statSync(opts.out).size / 1024);
   console.log(`${opts.out}: ${kb}KB`);
 }

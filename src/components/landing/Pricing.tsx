@@ -11,7 +11,7 @@ import { PlanMatrix } from "./PlanMatrix";
 export function Pricing({ dict }: { dict: Dictionary }) {
   return (
     <section id="cijene" className="scroll-mt-24 border-t border-line bg-paper-warm">
-      <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
+      <div className="shell py-12 sm:py-16">
         <SectionHead icon={<EuroIcon />} title={dict.pricing.title} />
         <p className="mt-3 max-w-xl text-muted">{dict.pricing.sub}</p>
 

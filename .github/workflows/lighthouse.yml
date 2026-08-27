@@ -1,0 +1,33 @@
+name: Lighthouse
+
+# Mobile Lighthouse against production, on the budgets in lighthouserc.json.
+# Accessibility, SEO and layout shift are hard failures — they are met today
+# and a regression is a bug. Performance and LCP are warnings until production
+# clears 90 / 2.5s on its own; flip them to "error" in lighthouserc.json on the
+# day it does, so the budget stops being advice.
+on:
+  schedule:
+    - cron: "30 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+      # Not a project dependency: Lighthouse drags in a Puppeteer chain with
+      # its own advisories, and `npm audit` in CI would fail on a tool the site
+      # never ships. Pinned exactly instead.
+      - run: npx --yes @lhci/cli@0.15.1 autorun
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: lighthouse-report
+          path: .lighthouseci
+          retention-days: 14

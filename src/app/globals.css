@@ -89,6 +89,24 @@
     font-variant-numeric: tabular-nums lining-nums;
   }
 
+  /* ── The page rail ──
+     One width and one gutter for the masthead, every section and the footer,
+     so the left edge of the site is a single unbroken line down the page.
+     72rem rather than 64: on a laptop the old rail left the portfolio
+     screenshots smaller than the phones they are meant to be judged on. */
+  .shell {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 72rem;
+    padding-inline: 1.25rem;
+  }
+
+  @media (width >= 40rem) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+
   /* Small caps label — the counterweight to the serif headlines */
   .eyebrow {
     font-size: 0.75rem;

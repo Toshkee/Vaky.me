@@ -95,7 +95,7 @@ export function Nav({ dict }: { dict: Dictionary }) {
 
   return (
     <header className="sticky top-0 z-50 border-b-2 border-ink bg-paper/95 backdrop-blur-sm">
-      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-5 sm:px-8">
+      <div className="shell flex h-16 items-center justify-between gap-4">
         <Link href={home} className="tap shrink-0">
           <Image
             src="/logo-lockup.png"

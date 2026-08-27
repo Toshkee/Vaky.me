@@ -93,7 +93,7 @@ const SCENES: ReactNode[] = [
 export function Why({ dict }: { dict: Dictionary }) {
   return (
     <section className="px-rule">
-      <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
+      <div className="shell py-12 sm:py-16">
         <SectionHead icon={<SparkleIcon />} title={dict.why.title} />
         <p className="mt-3 max-w-lg text-muted">{dict.why.sub}</p>
 

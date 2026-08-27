@@ -12,10 +12,12 @@ import { emailLink } from "@/config/site";
  * pick — wears the red band, sits a step higher from lg up, and has Tony
  * perched on its top edge, concept document in hand.
  *
- * Every card reads `dict.pricing.compare.rows` and lists only what it
- * includes; the full plain-language explanation of every line lives in the
- * dialog behind "Šta tačno dobijaš?", which is the part a café owner needs
- * and the feature names alone do not give.
+ * Every card reads `dict.pricing.compare.rows`, and lists only what its
+ * package adds over the one to its left — the rest is carried by the
+ * "everything in X" line, the way a price list is actually read. The full
+ * plain-language explanation of every line, including what a package does
+ * not have, lives in the dialog behind "Šta tačno dobijaš?" — the part a
+ * café owner needs and the feature names alone do not give.
  */
 export function PlanMatrix({ dict }: { dict: Dictionary }) {
   const { plans, compare } = dict.pricing;
@@ -60,27 +62,43 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
                   <p className="mt-1.5 text-sm text-muted">{plan.tagline}</p>
                 </div>
 
-                <ul className="grid gap-2 p-5">
-                  {compare.rows.map((row) => {
-                    const value = row.values[index];
-                    if (value === false) return null;
-                    return (
-                      <li key={row.label} className="flex items-baseline gap-2.5 text-sm">
-                        <CheckIcon className="w-4 shrink-0 self-center text-red" />
-                        <span>
-                          {row.label}
-                          {typeof value === "string" && (
-                            <span className="tnum font-semibold"> — {value}</span>
-                          )}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
+                <div className="p-5">
+                  {index > 0 && (
+                    <p className="mb-3 text-sm font-semibold">
+                      {dict.pricing.inherits.replace("{plan}", plans[index - 1].name)}
+                    </p>
+                  )}
+                  <ul className="grid gap-2">
+                    {compare.rows.map((row, rowIndex) => {
+                      const value = row.values[index];
+                      if (value === false) return null;
+                      /* Only what this package adds over the one before it.
+                         The middle card used to repeat eight lines the Start
+                         card had already made, and Premium eleven — a wall
+                         nobody compares. What the packages share is said once,
+                         in the "everything in X" line above. */
+                      const previous = index > 0 ? compare.rows[rowIndex].values[index - 1] : null;
+                      if (previous === value) return null;
+                      return (
+                        <li key={row.label} className="flex items-baseline gap-2.5 text-sm">
+                          <CheckIcon className="w-4 shrink-0 self-center text-red" />
+                          <span>
+                            {row.label}
+                            {typeof value === "string" && (
+                              <span className="tnum font-semibold"> — {value}</span>
+                            )}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
 
                 <div className="mt-auto grid gap-2 border-t border-line p-5">
                   <a
                     href={enquiryHref(plan.name)}
+                    data-umami-event="plan_enquiry"
+                    data-umami-event-plan={plan.name}
                     className={`px px-btn tap inline-flex min-h-12 items-center justify-center px-6 text-[1.25rem] ${
                       featured
                         ? "px-btn--primary bg-red text-white hover:bg-red-deep"

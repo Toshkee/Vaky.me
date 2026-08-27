@@ -1,0 +1,30 @@
+name: ZAP baseline
+
+# Passive only. The baseline scan spiders and reads; it never attacks. Do not
+# swap this for zaproxy/action-full-scan against production — that one does
+# send active payloads at whatever it is pointed at.
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      target:
+        description: URL to scan
+        default: https://vibelab.it.com
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: zaproxy/action-baseline@de8ad967d3548d44ef623df22cf95c3b0baf8b25 # v0.15.0
+        with:
+          target: ${{ inputs.target || 'https://vibelab.it.com' }}
+          # The run's artifacts carry the report; opening issues would need
+          # write access to the repository, which this workflow does not have.
+          allow_issue_writing: false
+          cmd_options: "-a"

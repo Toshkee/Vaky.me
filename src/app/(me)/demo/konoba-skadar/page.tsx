@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Lora, Playfair_Display } from "next/font/google";
+import { MapEmbed } from "@/components/demo/MapEmbed";
 import { VibeLabBar } from "@/components/demo/VibeLabBar";
 import { menuCategories } from "./data";
 
@@ -41,12 +42,12 @@ export default function KonobaSkadarPage() {
               <p className={`${label} text-[#a84f28]`}>Virpazar · Skadarsko jezero</p>
               <h1 className={`${display} mt-4 text-5xl leading-tight sm:text-7xl`}>Domaća kuhinja uz jezero.</h1>
               <p className={`${display} mt-7 text-2xl italic sm:text-3xl`}>Riba, vino i miran sto.</p>
-              <p className="mt-4 max-w-lg text-sm leading-relaxed text-[#2c2119]/65 sm:text-base">
+              <p className="mt-4 max-w-lg text-sm leading-relaxed text-[#2c2119]/70 sm:text-base">
                 Jednostavan jelovnik sa jezerskom ribom i domaćim jelima. Za sto na terasi rezervišite unaprijed.
               </p>
               <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-7">
                 <a href="tel:+38267000000" className={primary}>Rezerviši sto</a>
-                <p className="text-sm text-[#2c2119]/55">Svakog dana · 10:00–23:00</p>
+                <p className="text-sm text-[#2c2119]/70">Svakog dana · 10:00–23:00</p>
               </div>
             </div>
           </div>
@@ -57,7 +58,7 @@ export default function KonobaSkadarPage() {
             <p className={`${label} text-[#a84f28]`}>Jelovnik</p>
             <div className="mt-3 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
               <h2 className={`${display} text-3xl sm:text-4xl`}>Šta se služi</h2>
-              <p className="max-w-sm text-sm text-[#2c2119]/55 sm:text-right">Otvorite kategoriju da pogledate jela i cijene.</p>
+              <p className="max-w-sm text-sm text-[#2c2119]/70 sm:text-right">Otvorite kategoriju da pogledate jela i cijene.</p>
             </div>
             <div className="mt-9 grid gap-x-10 lg:grid-cols-2">
               {menuCategories.map((category, index) => (
@@ -73,14 +74,14 @@ export default function KonobaSkadarPage() {
                           <h3 className="font-semibold">{item.name}</h3>
                           <span className="font-semibold tabular-nums">{item.price}</span>
                         </div>
-                        <p className="mt-1 text-sm leading-relaxed text-[#2c2119]/55">{item.description}</p>
+                        <p className="mt-1 text-sm leading-relaxed text-[#2c2119]/70">{item.description}</p>
                       </li>
                     ))}
                   </ul>
                 </details>
               ))}
             </div>
-            <p className="mt-6 text-xs text-[#2c2119]/50">Ilustrativni jelovnik i cijene za potrebe koncepta — potvrditi prije objave.</p>
+            <p className="mt-6 text-xs text-[#2c2119]/70">Ilustrativni jelovnik i cijene za potrebe koncepta — potvrditi prije objave.</p>
           </div>
         </section>
 
@@ -94,7 +95,7 @@ export default function KonobaSkadarPage() {
                 ["02", "Potvrdite sto", "Za veće grupe javite se dan ranije."],
                 ["03", "Dođite na obalu", "Sto vas čeka u dogovoreno vrijeme."],
               ].map(([number, title, body]) => (
-                <div key={number} className="border-t border-[#2c2119]/20 pt-4"><p className={`${label} text-[#a84f28]`}>{number}</p><h3 className={`${display} mt-2 text-xl font-semibold`}>{title}</h3><p className="mt-2 text-sm leading-relaxed text-[#2c2119]/60">{body}</p></div>
+                <div key={number} className="border-t border-[#2c2119]/20 pt-4"><p className={`${label} text-[#a84f28]`}>{number}</p><h3 className={`${display} mt-2 text-xl font-semibold`}>{title}</h3><p className="mt-2 text-sm leading-relaxed text-[#2c2119]/70">{body}</p></div>
               ))}
             </div>
             <a href="tel:+38267000000" className={`${primary} mt-9`}>+382 67 000 000</a>
@@ -109,12 +110,20 @@ export default function KonobaSkadarPage() {
               <address className="mt-7 not-italic"><p className="font-semibold">Obala 13, 81305 Virpazar, Crna Gora</p><p className="mt-3 text-sm text-[#f7f0e4]/60">Ponedjeljak–Nedjelja · 10:00–23:00</p></address>
               <a href="viber://chat?number=%2B38267000000" className="mt-8 inline-flex min-h-12 items-center justify-center bg-[#f7f0e4] px-7 font-semibold text-[#2c2119] hover:bg-white">Pošalji poruku</a>
             </div>
-            <div className="border border-[#f7f0e4]/20 p-1.5"><iframe src="https://www.google.com/maps?q=Obala%2013%2C%2081305%20Virpazar%2C%20Crna%20Gora&output=embed" title="Mapa — Obala 13, 81305 Virpazar, Crna Gora" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-72 w-full border-0 grayscale-[30%] sm:h-80" /></div>
+            <div className="border border-[#f7f0e4]/20 p-1.5">
+              <MapEmbed
+                query="Obala 13, 81305 Virpazar, Crna Gora"
+                title="Mapa — Obala 13, 81305 Virpazar, Crna Gora"
+                className="h-72 w-full border-0 grayscale-[30%] sm:h-80"
+                buttonClassName={`inline-flex min-h-11 items-center justify-center bg-[#f7f0e4] px-5 text-sm font-semibold text-[#2c2119] hover:bg-white ${focus}`}
+                linkClassName={`text-xs underline underline-offset-4 hover:text-[#e39a70] ${focus}`}
+              />
+            </div>
           </div>
         </section>
       </main>
 
-      <footer className="bg-[#211812] text-[#f7f0e4]"><div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-5 py-10 text-center"><p className={`${display} text-lg`}>Konoba Skadar</p><p className="text-sm text-[#f7f0e4]/50">Obala 13, Virpazar · 10–23h</p><p className="mt-3 text-xs text-[#f7f0e4]/45">Koncept: <Link href="/" className="font-semibold text-[#e39a70] hover:underline">VibeLab</Link></p></div></footer>
+      <footer className="bg-[#211812] text-[#f7f0e4]"><div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-5 py-10 text-center"><p className={`${display} text-lg`}>Konoba Skadar</p><p className="text-sm text-[#f7f0e4]/65">Obala 13, Virpazar · 10–23h</p><p className="mt-3 text-xs text-[#f7f0e4]/60">Koncept: <Link href="/" className="font-semibold text-[#e39a70] hover:underline">VibeLab</Link></p></div></footer>
       <a href="tel:+38267000000" className={`fixed inset-x-4 bottom-4 z-50 inline-flex min-h-14 items-center justify-center bg-[#2c2119] px-5 text-sm font-semibold text-[#f7f0e4] shadow-xl md:hidden ${focus}`}>Rezerviši sto</a>
     </div>
   );

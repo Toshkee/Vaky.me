@@ -13,6 +13,7 @@ export function Button({
   variant = "primary",
   arrow = false,
   className = "",
+  event,
 }: {
   href: string;
   children: ReactNode;
@@ -21,6 +22,8 @@ export function Button({
   /** Trailing pixel arrow, for the actions that go somewhere. */
   arrow?: boolean;
   className?: string;
+  /** Analytics event name. Umami reads it off the element; no handler needed. */
+  event?: string;
 }) {
   const look =
     variant === "primary"
@@ -31,6 +34,7 @@ export function Button({
     <a
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      {...(event ? { "data-umami-event": event } : {})}
       className={`px px-btn inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-[1.25rem] ${look} ${className}`}
     >
       {children}

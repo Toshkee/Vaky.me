@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DM_Serif_Display } from "next/font/google";
+import { MapEmbed } from "@/components/demo/MapEmbed";
 import { VibeLabBar } from "@/components/demo/VibeLabBar";
 import { barbers, hours, prices } from "./data";
 
@@ -332,13 +333,12 @@ export default function Page() {
 
             {/* Mapa */}
             <div className="mt-14 border border-barber-bg/25 p-1.5">
-              <iframe
-                src="https://www.google.com/maps?q=Njego%C5%A1eva%2027%2C%2081000%20Podgorica%2C%20Stara%20Varo%C5%A1%2C%20Crna%20Gora&output=embed"
+              <MapEmbed
+                query="Njegoševa 27, 81000 Podgorica, Stara Varoš, Crna Gora"
                 title="Mapa — Barbershop Stari Grad, Njegoševa 27, Stara Varoš, Podgorica"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="h-72 w-full sepia-[.2] sm:h-80"
-                style={{ border: 0 }}
+                className="h-72 w-full border-0 sepia-[.2] sm:h-80"
+                buttonClassName={`inline-flex min-h-11 items-center justify-center bg-barber-bg px-5 text-sm font-semibold text-[#102b21] hover:bg-white ${focusDark}`}
+                linkClassName={`text-xs underline underline-offset-4 ${goldText} ${focusDark}`}
               />
             </div>
           </div>

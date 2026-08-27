@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "check:mobile": "node scripts/mobile-check.mjs",
+    "test:security": "node scripts/security-check.mjs",
+    "check:a11y": "node scripts/a11y-check.mjs",
+    "shots:visual": "node scripts/visual-shots.mjs",
     "shots:mobile": "node scripts/mobile-shots.mjs"
   },
   "dependencies": {
@@ -16,13 +19,17 @@
     "react-dom": "19.2.8"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.3",
+    "pixelmatch": "^7.2.0",
     "playwright": "^1.62.1",
+    "pngjs": "^7.0.0",
+    "sharp": "^0.35.4",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

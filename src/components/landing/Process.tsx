@@ -23,7 +23,7 @@ const STEP_ICONS: ReactNode[] = [
 export function Process({ dict }: { dict: Dictionary }) {
   return (
     <section className="px-rule">
-      <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-14">
+      <div className="shell py-12 sm:py-14">
         <SectionHead icon={<FlagIcon />} title={dict.process.title} />
 
         <ol className="relative mt-7 grid gap-7 sm:mt-8 lg:grid-cols-4 lg:gap-8">

@@ -45,21 +45,21 @@ export const services: Service[] = priceGroups.flatMap((group) => group.items);
 export const publicDetails = {
   instagram: "barber_drina",
   instagramUrl: "https://www.instagram.com/barber_drina/",
-  ownerInstagram: "_matijadrincic_",
-  ownerInstagramUrl: "https://www.instagram.com/_matijadrincic_/",
   tiktok: "barber_drina",
   tiktokUrl: "https://www.tiktok.com/@barber_drina",
-  phoneDisplay: "+382 69 900 600",
-  phoneUrl: "tel:+38269900600",
-  address: "Miloša Obilića BB, Stari Aerodrom, Podgorica",
-  /**
-   * The pin is the Google Plus Code shown on Barber Drina's own Linktree map
-   * card (C7JH+9XG, Miloša Obilića, Podgorica). A Plus Code is an exact
-   * geocode, so this opens the storefront itself rather than a street-wide
-   * address search. Source: linktr.ee/barberdrina, checked 26 August 2026.
-   */
-  mapUrl: "https://www.google.com/maps?q=C7JH%2B9XG%20Podgorica&output=embed",
-  mapsUrl: "https://www.google.com/maps/search/?api=1&query=C7JH%2B9XG%20Podgorica",
+  /* Placeholder contact block. The shop's real phone number, its exact street
+     address and the owner's personal profile used to sit here, republished off
+     public profiles without anyone asking us to. A concept nobody commissioned
+     is no place for another person's contact details, so these are stand-ins
+     until the shop hands us the real ones to publish. The demo phone number
+     matches the obviously-fake one the other three concepts use. */
+  phoneDisplay: "+382 67 000 000",
+  phoneUrl: "tel:+38267000000",
+  address: "Stari Aerodrom, Podgorica",
+  /** Plain text, encoded where it is used. Points at the quarter, not a door. */
+  mapQuery: "Stari Aerodrom, Podgorica, Crna Gora",
+  mapsUrl:
+    "https://www.google.com/maps/search/?api=1&query=Stari%20Aerodrom%2C%20Podgorica",
   hours: "Ponedjeljak–subota · 09:00–21:00",
   shortHours: "Pon–sub · 09–21h",
   established: "2021",

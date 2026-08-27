@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Anton } from "next/font/google";
+import { MapEmbed } from "@/components/demo/MapEmbed";
 import { VibeLabBar } from "@/components/demo/VibeLabBar";
 import { plans, programs, schedule } from "./data";
 
@@ -120,12 +121,20 @@ export default function TitanGymPage() {
               <address className="mt-7 not-italic"><p className="font-semibold">Bulevar Josipa Broza 44, Podgorica</p><p className="mt-2 text-sm text-black/55">Pon–Pet 06–23h · Sub 08–22h · Ned 09–15h</p></address>
               <div className="mt-8 flex flex-col gap-3 sm:max-w-sm"><a href="tel:+38267000000" className={primary}>+382 67 000 000</a><a href="viber://chat?number=%2B38267000000" className={`inline-flex min-h-12 items-center justify-center border border-black/30 px-6 font-semibold hover:border-black ${focus}`}>Piši na Viber</a></div>
             </div>
-            <div className="border border-black/20 p-1.5"><iframe src="https://www.google.com/maps?q=Bulevar%20Josipa%20Broza%2044%2C%20Podgorica%2C%20Crna%20Gora&output=embed" title="Mapa — Bulevar Josipa Broza 44, Podgorica" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-72 w-full border-0 grayscale sm:h-80" /></div>
+            <div className="border border-black/20 p-1.5">
+              <MapEmbed
+                query="Bulevar Josipa Broza 44, Podgorica, Crna Gora"
+                title="Mapa — Bulevar Josipa Broza 44, Podgorica"
+                className="h-72 w-full border-0 grayscale sm:h-80"
+                buttonClassName={`inline-flex min-h-11 items-center justify-center bg-[#17191b] px-5 text-sm font-bold uppercase text-white hover:bg-[#719000] ${focus}`}
+                linkClassName={`text-xs underline underline-offset-4 hover:text-[#587100] ${focus}`}
+              />
+            </div>
           </div>
         </section>
       </main>
 
-      <footer className="bg-[#17191b] text-white"><div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-5 py-10 text-center"><p className={`${display} text-lg`}>Titan Gym</p><p className="text-sm text-white/50">Bulevar Josipa Broza 44 · Podgorica</p><p className="mt-3 text-xs text-white/45">Koncept: <Link href="/" className={`font-semibold text-[#c8f31d] hover:underline ${focus}`}>VibeLab</Link></p></div></footer>
+      <footer className="bg-[#17191b] text-white"><div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-5 py-10 text-center"><p className={`${display} text-lg`}>Titan Gym</p><p className="text-sm text-white/50">Bulevar Josipa Broza 44 · Podgorica</p><p className="mt-3 text-xs text-white/60">Koncept: <Link href="/" className={`font-semibold text-[#c8f31d] hover:underline ${focus}`}>VibeLab</Link></p></div></footer>
       <a href="tel:+38267000000" className={`fixed inset-x-4 bottom-4 z-50 inline-flex min-h-14 items-center justify-center bg-[#17191b] px-5 text-sm font-bold text-white shadow-xl md:hidden ${focus}`}>Zakaži probni trening</a>
     </div>
   );

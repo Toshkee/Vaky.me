@@ -8,8 +8,8 @@ export function Footer({ dict }: { dict: Dictionary }) {
 
   return (
     <footer className="border-t-2 border-ink">
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-8 gap-y-3 px-5 py-6 text-sm text-muted sm:px-8">
-        <Link href={home} className="flex items-center gap-2.5" aria-label="VibeLab">
+      <div className="shell flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-6 text-sm text-muted">
+        <Link href={home} className="flex items-center gap-2.5">
           <Image
             src="/tony-head.png"
             alt=""
@@ -23,6 +23,12 @@ export function Footer({ dict }: { dict: Dictionary }) {
           </span>
         </Link>
         <p className="hidden md:block">{dict.footer.tagline}</p>
+        <Link
+          href={dict.lang === "en" ? "/en/privacy/" : "/privacy/"}
+          className="underline-offset-4 transition-colors hover:text-ink hover:underline"
+        >
+          {dict.footer.privacy}
+        </Link>
         <a
           href={instagramLink()}
           target="_blank"

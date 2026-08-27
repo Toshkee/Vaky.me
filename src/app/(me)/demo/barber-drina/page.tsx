@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { MapEmbed } from "@/components/demo/MapEmbed";
 import { VibeLabBar } from "@/components/demo/VibeLabBar";
 import { BookingPlanner } from "./BookingPlanner";
 import { priceGroups, publicDetails } from "./data";
@@ -212,10 +213,6 @@ export default function BarberDrinaPage() {
                   href: publicDetails.instagramUrl,
                 },
                 { label: `TikTok · @${publicDetails.tiktok}`, href: publicDetails.tiktokUrl },
-                {
-                  label: `Vlasnik · @${publicDetails.ownerInstagram}`,
-                  href: publicDetails.ownerInstagramUrl,
-                },
               ].map((profile) => (
                 <a
                   key={profile.href}
@@ -263,12 +260,11 @@ export default function BarberDrinaPage() {
             </div>
           </div>
           <div className="min-h-[320px] min-w-0 overflow-hidden border-t border-black/20 lg:border-l lg:border-t-0">
-            <iframe
-              src={publicDetails.mapUrl}
+            <MapEmbed
+              query={publicDetails.mapQuery}
               title={`Mapa — ${publicDetails.address}`}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="block h-full min-h-[320px] w-full max-w-full border-0"
+              className="h-full min-h-[320px] w-full max-w-full border-0"
+              buttonClassName={`inline-flex min-h-11 items-center justify-center bg-black px-5 text-sm font-bold text-white hover:bg-black/75 ${focusLight}`}
             />
           </div>
         </section>
@@ -279,8 +275,8 @@ export default function BarberDrinaPage() {
           <div className="w-44">
             <BrandLockup compact />
             <p className="mt-3 text-xs leading-relaxed text-white/55">
-              Dizajn koncept. Poslovni podaci i cijene su preuzeti sa javnih profila i moraju se
-              potvrditi prije objave.
+              Dizajn koncept. Telefon, adresa i mapa su demo podaci — pravi kontakt ide na sajt
+              tek kada ga vlasnik potvrdi.
             </p>
           </div>
           <div className="text-sm text-white/60 sm:text-right">

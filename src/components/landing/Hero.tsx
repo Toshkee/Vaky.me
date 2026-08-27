@@ -1,40 +1,49 @@
 import type { Dictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
 import { OsBadge } from "@/components/ui/OsBadge";
-import { CheckIcon, SparkleIcon } from "./icons";
+import { ArrowIcon, SparkleIcon } from "./icons";
 import { Workstation } from "./Workstation";
 
 export function Hero({ dict }: { dict: Dictionary }) {
   return (
     <section>
-      <div className="mx-auto grid max-w-5xl gap-12 px-5 pt-10 pb-12 sm:px-8 sm:pt-14 sm:pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
+      <div className="shell grid gap-12 pt-10 pb-12 sm:pt-14 sm:pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16">
         <div>
           <OsBadge>{dict.hero.eyebrow}</OsBadge>
 
-          <h1 className="headline mt-5 text-[clamp(2.1rem,4.6vw,3.4rem)]">
+          <h1 className="headline mt-5 text-[clamp(2.3rem,5vw,3.8rem)]">
             {dict.hero.titleA} <span className="text-red">{dict.hero.titleB}</span>
           </h1>
 
           <p className="mt-5 max-w-md text-lg leading-relaxed">{dict.hero.sub}</p>
           <p className="mt-3 max-w-md leading-relaxed text-muted">{dict.hero.offer}</p>
 
-          <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-4">
-            <Button href="#koncept" arrow>
+          {/* One action carries the page. "See our work" is the same journey
+              one scroll further down, so it is a link, not a second slab
+              competing with the thing we actually want pressed. */}
+          <div className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-4">
+            <Button href="#koncept" arrow event="hero_primary_cta">
               {dict.hero.ctaPrimary}
             </Button>
-            <Button href="#radovi" variant="secondary">
+            <a
+              href="#radovi"
+              className="group inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-line decoration-2 underline-offset-[6px] transition-colors hover:text-red hover:decoration-red"
+            >
               {dict.hero.ctaSecondary}
-            </Button>
+              <ArrowIcon className="w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
           </div>
 
-          <ul className="mt-8 grid max-w-lg gap-2 border-t border-line pt-4 text-sm sm:grid-cols-3 sm:gap-4">
-            {dict.hero.proof.map((item) => (
-              <li key={item} className="flex gap-2 leading-snug text-muted">
-                <CheckIcon className="mt-1 w-4 shrink-0 text-red" />
-                <span>{item}</span>
-              </li>
+          {/* The masthead data line: where we are, how long it takes, what it
+              starts at, which languages. Set as a table, not as claims. */}
+          <dl className="mt-9 grid max-w-lg grid-cols-2 border-t-2 border-ink pt-4 sm:grid-cols-4">
+            {dict.hero.facts.map((fact) => (
+              <div key={fact.label} className="py-1">
+                <dt className="eyebrow text-muted">{fact.label}</dt>
+                <dd className="headline tnum mt-1 text-lg">{fact.value}</dd>
+              </div>
             ))}
-          </ul>
+          </dl>
         </div>
 
         {/* The workstation on its dot-grid patch, with two loose

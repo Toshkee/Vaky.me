@@ -32,7 +32,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
 
   return (
     <section id="kontakt" className="scroll-mt-24 border-t border-line">
-      <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
+      <div className="shell py-12 sm:py-16">
         <SectionHead icon={<BubbleIcon />} title={dict.contact.title} />
 
         <PixelWindow chrome className="mt-7">

@@ -5,7 +5,7 @@ import { SectionHead } from "./SectionHead";
 export function Faq({ dict }: { dict: Dictionary }) {
   return (
     <section className="border-t border-line">
-      <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
+      <div className="shell py-12 sm:py-16">
         <SectionHead icon={<QuestionIcon />} title={dict.faq.title} />
 
         <div className="mt-6 max-w-3xl border-t-2 border-ink">
