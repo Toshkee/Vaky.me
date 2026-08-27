@@ -6,6 +6,7 @@ export const me = {
     work: "Radovi",
     pricing: "Cijene",
     contact: "Kontakt",
+    cta: "Zakaži koncept",
     langLabel: "EN",
     langHref: "/en/",
   },
@@ -15,8 +16,9 @@ export const me = {
     titleA: "Sajtovi koji",
     titleB: "donose klijente.",
     sub: "Brz, moderan sajt za tvoj biznis — gotov za 7 dana, od €100.",
-    ctaPrimary: "Piši nam na Instagramu",
+    ctaPrimary: "Zatraži besplatan koncept",
     ctaSecondary: "Pogledaj radove",
+    reply: "Odgovaramo isti dan",
     proof: [
       "Savršen na telefonu",
       "Osnovni SEO uključen",
@@ -32,6 +34,8 @@ export const me = {
       submitInstagramCopied: "Poruka kopirana — otvori Instagram",
       copied: "Poruka je kopirana — samo je nalijepi u Instagram DM.",
       note: "Email se otvara sa tvojim linkom već upisanim. Javimo se isti dan.",
+      emailFallback: "Ne otvara ti se email program?",
+      emailFallbackAction: "Otvori Gmail u browseru",
       /* {link} is replaced with whatever the visitor typed */
       prefill: "Zdravo! Ovo je moj sajt/Instagram: {link} — može besplatan koncept?",
     },
@@ -253,6 +257,7 @@ export const me = {
   contact: {
     title: "Spreman za novi sajt?",
     sub: "Pošalji Instagram DM ili email — odgovaramo isti dan.",
+    action: "Piši nam na Instagramu",
     instagram: "Instagram",
     emailLabel: "Email",
     prefill: "Zdravo! Zanima me sajt za moj biznis. Mogu li dobiti besplatan koncept?",

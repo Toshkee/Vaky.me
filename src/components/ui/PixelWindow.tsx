@@ -2,9 +2,7 @@ import type { ReactNode } from "react";
 
 /**
  * A framed slab with stepped corners and a hard offset shadow — the page's
- * one piece of physical depth, on a design otherwise made entirely of rules.
- *
- * Three elements, and each one is load-bearing:
+ * recurring "screen". Three elements, and each one is load-bearing:
  *   .px-frame  casts the shadow. It has to be a separate wrapper, because
  *              clip-path clips an element's own filter output — a drop-shadow
  *              declared next to the notch would be cut away with the corners.
@@ -19,26 +17,34 @@ export function PixelWindow({
   className = "",
   pane = "bg-paper",
   chrome = false,
+  title,
 }: {
   children: ReactNode;
   className?: string;
   /** Ground colour of the pane. Demo posters bring their own. */
   pane?: string;
-  /** The title bar with its three squares. Decorative — never labelled. */
+  /** The title bar with its three traffic dots. Decorative — never labelled. */
   chrome?: boolean;
+  /** Optional window name, set in the pixel face beside the dots. */
+  title?: string;
 }) {
   return (
     <div className={`px-frame ${className}`}>
       <div className="px-notch bg-ink p-[2px]">
         <div className={`px-notch h-full ${pane}`}>
-          {chrome && (
+          {(chrome || title) && (
             <div
               aria-hidden="true"
-              className="flex items-center gap-1.5 border-b-2 border-ink bg-paper-2 px-2 py-1.5"
+              className="flex items-center gap-1.5 border-b-2 border-ink bg-paper-2 px-2.5 py-1.5"
             >
-              <span className="block h-1 w-1 bg-ink" />
-              <span className="block h-1 w-1 bg-ink" />
-              <span className="block h-1 w-1 bg-ink" />
+              <span className="block h-1.5 w-1.5 bg-red" />
+              <span className="block h-1.5 w-1.5 bg-gold" />
+              <span className="block h-1.5 w-1.5 bg-ok" />
+              {title && (
+                <span className="px ml-2 text-[1.1rem] leading-none tracking-wide text-muted uppercase">
+                  {title}
+                </span>
+              )}
             </div>
           )}
           {children}

@@ -5,11 +5,18 @@ export type TonyDirection = "front" | "right" | "back" | "left";
  *
  * `idle` `walk` `roll` and `jump` are the drawn poses played straight.
  * `hop` `patrol` and `tumble` are behaviours built out of them: a jump with a
- * rest after it, and two out-and-back runs that turn around at each end. All
- * seven are defined in globals.css and none of them need JavaScript.
+ * rest after it, and two out-and-back runs that turn around at each end.
+ * `stand` `crouch` `air` and `tuck` are single held frames — stills for the
+ * scenes where he poses rather than moves (idle itself is the frame with the
+ * concept document in his hand). All of them are defined in globals.css and
+ * none of them need JavaScript.
  */
 export type TonyPose =
   | "idle"
+  | "stand"
+  | "crouch"
+  | "air"
+  | "tuck"
   | "walk"
   | "jump"
   | "roll"

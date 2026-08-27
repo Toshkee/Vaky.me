@@ -2,23 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/i18n";
-import { PixelWindow } from "@/components/ui/PixelWindow";
-import { CheckIcon, DashIcon } from "./icons";
+import { Tony } from "@/components/mascot/Tony";
+import { CheckIcon, SparkleIcon } from "./icons";
 import { emailLink } from "@/config/site";
 
 /**
- * The packages, twice over.
+ * The three packages as three cards, each complete on its own: name, price,
+ * what it includes, and one action. The middle one — the one most people
+ * pick — wears the red band, sits a step higher from lg up, and has Tony
+ * perched on its top edge, concept document in hand.
  *
- * A three-column matrix is how anyone actually compares prices, but it needs a
- * label gutter and four columns of hairlines — which is unreadable on the phone
- * most of this audience is holding. So the same rows render as a real <table>
- * from lg up, and as one block per package below it, where each package spells
- * out its own list instead of asking the reader to track a row across a screen
- * they cannot see all of.
- *
- * Both paths read `dict.pricing.compare.rows`, and both open the same dialog —
- * the plain-language explanation of every line, which is the part a café owner
- * needs and the feature names alone do not give.
+ * Every card reads `dict.pricing.compare.rows` and lists only what it
+ * includes; the full plain-language explanation of every line lives in the
+ * dialog behind "Šta tačno dobijaš?", which is the part a café owner needs
+ * and the feature names alone do not give.
  */
 export function PlanMatrix({ dict }: { dict: Dictionary }) {
   const { plans, compare } = dict.pricing;
@@ -29,145 +26,86 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
 
   return (
     <>
-      {/* Phone and tablet: one block per package, each complete on its own. */}
-      <div className="mt-8 grid gap-5 lg:hidden">
-        {plans.map((plan, index) => (
-          <PixelWindow key={plan.name}>
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line px-4 py-4">
-              <h3 className="headline flex flex-wrap items-center gap-x-3 gap-y-2 text-xl">
-                {plan.name}
-                {plan.badge && (
-                  <span className="eyebrow inline-block bg-red px-2 py-0.5 text-white">
+      <div className="mt-9 grid items-start gap-6 lg:mt-12 lg:grid-cols-3">
+        {plans.map((plan, index) => {
+          const featured = Boolean(plan.badge);
+          return (
+            <div key={plan.name} className={`relative ${featured ? "lg:-mt-4" : ""}`}>
+              {featured && (
+                <Tony
+                  direction="front"
+                  pose="idle"
+                  scale={0.28}
+                  className="tony-perch right-7 hidden lg:block"
+                />
+              )}
+
+              <div
+                className={`px-card flex h-full flex-col ${
+                  featured ? "shadow-[6px_6px_0_var(--color-ink)]" : ""
+                }`}
+              >
+                {featured && (
+                  <p className="px flex items-center justify-center gap-2 border-b-2 border-ink bg-red px-3 py-2 text-center text-[1.2rem] leading-none text-white uppercase">
+                    <SparkleIcon aria-hidden="true" className="w-3.5" />
                     {plan.badge}
-                  </span>
+                  </p>
                 )}
-              </h3>
-              <span className="headline tnum text-2xl">{plan.price}</span>
-            </div>
 
-            <p className="px-4 pt-3 text-sm text-muted">{plan.tagline}</p>
+                <div className="border-b border-line p-5">
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                    <h3 className="headline text-xl">{plan.name}</h3>
+                    <p className="headline tnum text-3xl">{plan.price}</p>
+                  </div>
+                  <p className="mt-1.5 text-sm text-muted">{plan.tagline}</p>
+                </div>
 
-            <ul className="grid gap-2 px-4 py-4">
-              {compare.rows.map((row) => {
-                const value = row.values[index];
-                if (value === false) return null;
-                return (
-                  <li key={row.label} className="flex items-baseline gap-2.5 text-sm">
-                    <Tick />
-                    <span>
-                      {row.label}
-                      {typeof value === "string" && (
-                        <span className="tnum font-semibold"> — {value}</span>
-                      )}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
+                <ul className="grid gap-2 p-5">
+                  {compare.rows.map((row) => {
+                    const value = row.values[index];
+                    if (value === false) return null;
+                    return (
+                      <li key={row.label} className="flex items-baseline gap-2.5 text-sm">
+                        <CheckIcon className="w-4 shrink-0 self-center text-red" />
+                        <span>
+                          {row.label}
+                          {typeof value === "string" && (
+                            <span className="tnum font-semibold"> — {value}</span>
+                          )}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
 
-            <div className="grid gap-2 border-t border-line p-4">
-              <a
-                href={enquiryHref(plan.name)}
-                className="px px-btn px-btn--primary tap inline-flex min-h-12 items-center justify-center bg-red px-6 text-[1.25rem] text-white hover:bg-red-deep"
-              >
-                {dict.pricing.planAction}
-              </a>
-              <button
-                type="button"
-                onClick={() => setOpenPlan(index)}
-                className="tap mx-auto inline-flex min-h-11 items-center justify-center text-sm font-semibold underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
-              >
-                {dict.pricing.detailsAction}
-              </button>
-            </div>
-          </PixelWindow>
-        ))}
-      </div>
-
-      {/* Desktop: the comparison proper. */}
-      <div className="mt-8 hidden lg:block">
-        <table className="w-full border-collapse text-left">
-          <caption className="sr-only">{compare.title}</caption>
-          <thead>
-            <tr className="border-b-2 border-ink">
-              <th scope="col" className="eyebrow w-[34%] pb-4 align-bottom text-muted">
-                {compare.featureLabel}
-              </th>
-              {plans.map((plan) => (
-                <th key={plan.name} scope="col" className="w-[22%] pb-4 pl-6 align-bottom">
-                  <span className="headline flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-xl">
-                    {plan.name}
-                    {plan.badge && (
-                      <span className="eyebrow inline-block bg-red px-2 py-0.5 text-white">
-                        {plan.badge}
-                      </span>
-                    )}
-                  </span>
-                  <span className="headline tnum mt-1 block text-3xl">{plan.price}</span>
-                  <span className="mt-1 block text-sm font-normal text-muted">{plan.tagline}</span>
-                </th>
-              ))}
-            </tr>
-          </thead>
-
-          <tbody>
-            {compare.rows.map((row) => (
-              <tr key={row.label} className="border-b border-line">
-                <th scope="row" className="py-3 pr-6 text-sm font-normal">
-                  {row.label}
-                </th>
-                {plans.map((plan, index) => {
-                  const value = row.values[index];
-                  return (
-                    <td key={plan.name} className="py-3 pl-6 text-sm">
-                      {typeof value === "string" ? (
-                        <span className="tnum font-semibold">{value}</span>
-                      ) : value ? (
-                        <Tick label={row.label} />
-                      ) : (
-                        <DashIcon label="—" className="inline-block w-4 text-line" />
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-
-          <tfoot>
-            <tr>
-              <td />
-              {plans.map((plan, index) => (
-                <td key={plan.name} className="pl-6 pt-5 align-top">
+                <div className="mt-auto grid gap-2 border-t border-line p-5">
                   <a
                     href={enquiryHref(plan.name)}
-                    className="px px-btn px-btn--primary inline-flex min-h-11 w-full items-center justify-center bg-red px-5 text-[1.25rem] text-white hover:bg-red-deep"
+                    className={`px px-btn tap inline-flex min-h-12 items-center justify-center px-6 text-[1.25rem] ${
+                      featured
+                        ? "px-btn--primary bg-red text-white hover:bg-red-deep"
+                        : "bg-paper text-ink transition-colors hover:text-red"
+                    }`}
                   >
                     {dict.pricing.planAction}
                   </a>
                   <button
                     type="button"
                     onClick={() => setOpenPlan(index)}
-                    className="mt-3 inline-flex min-h-11 w-full items-center justify-center text-sm font-semibold underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
+                    className="tap mx-auto inline-flex min-h-11 items-center justify-center text-sm font-semibold underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
                   >
                     {dict.pricing.detailsAction}
                   </button>
-                </td>
-              ))}
-            </tr>
-          </tfoot>
-        </table>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       <PlanDialog dict={dict} planIndex={openPlan} onClose={() => setOpenPlan(null)} />
     </>
   );
-}
-
-/* Labelled in the desktop table so each cell announces its feature; silent on
-   the mobile cards, where the row label is already read out alongside it. */
-function Tick({ label }: { label?: string }) {
-  return <CheckIcon label={label} className="mt-px inline-block w-4 shrink-0 text-red" />;
 }
 
 /**
@@ -230,7 +168,7 @@ function PlanDialog({
             type="button"
             onClick={onClose}
             aria-label={dict.pricing.detailsClose}
-            className="tap -mr-2 -mt-1 shrink-0 px-2 py-1 text-2xl leading-none text-muted transition-colors hover:text-red"
+            className="tap -mt-1 -mr-2 shrink-0 px-2 py-1 text-2xl leading-none text-muted transition-colors hover:text-red"
           >
             <span aria-hidden="true">×</span>
           </button>
@@ -244,7 +182,7 @@ function PlanDialog({
               return (
                 <div key={row.label}>
                   <dt className="flex items-baseline gap-2.5 font-semibold">
-                    <Tick />
+                    <CheckIcon className="w-4 shrink-0 self-center text-red" />
                     <span>
                       {row.label}
                       {typeof value === "string" && (

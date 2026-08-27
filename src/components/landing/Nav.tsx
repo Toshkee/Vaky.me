@@ -2,21 +2,23 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { Dictionary } from "@/i18n";
 
 /**
- * A masthead, not a floating nav bar: name left, sections right, one heavy
- * rule under the lot. The sticky treatment keeps the work, pricing and contact
- * sections within reach without turning the masthead into a large app bar.
+ * A masthead, not a floating nav bar: Tony's mark and the name on the left,
+ * sections on the right, one heavy rule under the lot. The sticky treatment
+ * keeps the work, pricing and contact sections within reach without turning
+ * the masthead into a large app bar. The one loud thing in it is the red
+ * concept button — the same action the whole page funnels toward.
  *
  * The section you are in is marked with a red rule under the label, drawn in
  * CSS off `aria-current` so the indicator and the announced state can never
- * disagree. It is the page's only moving part.
+ * disagree.
  *
- * Labels are NOT set in the pixel face, though the buttons are. Rendered at
- * 4x, Pixelify's B, C and E proved ambiguous at nav sizes: the wordmark read
- * "VIBELAG", "Cijene" read "Oijene" and "EN" read "€N". A brand name that
- * misreads is not a trade worth making for texture.
+ * Labels are NOT set in the pixel face, though the button is. Rendered at 4x,
+ * pixel faces proved ambiguous at nav sizes — a brand name that misreads is
+ * not a trade worth making for texture.
  */
 export function Nav({ dict }: { dict: Dictionary }) {
   const links = [
@@ -94,12 +96,15 @@ export function Nav({ dict }: { dict: Dictionary }) {
   return (
     <header className="sticky top-0 z-50 border-b-2 border-ink bg-paper/95 backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-5 sm:px-8">
-        <Link
-          href={home}
-          className="tap headline shrink-0 text-lg tracking-[0.01em] uppercase sm:text-xl"
-          aria-label="VibeLab"
-        >
-          Vibe<span className="text-red">Lab</span>
+        <Link href={home} className="tap shrink-0">
+          <Image
+            src="/logo-lockup.png"
+            alt="VibeLab"
+            width={323}
+            height={96}
+            priority
+            className="h-9 w-auto sm:h-10"
+          />
         </Link>
 
         <nav className="hidden items-center gap-5 text-sm md:flex">
@@ -120,6 +125,12 @@ export function Nav({ dict }: { dict: Dictionary }) {
           >
             {dict.nav.langLabel}
           </Link>
+          <a
+            href="#koncept"
+            className="px px-btn px-btn--primary ml-1 inline-flex items-center bg-red px-4 py-1.5 text-[1.15rem] text-white hover:bg-red-deep"
+          >
+            {dict.nav.cta}
+          </a>
         </nav>
       </div>
 

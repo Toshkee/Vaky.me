@@ -1,31 +1,37 @@
 import type { Dictionary } from "@/i18n";
-import { instagramDmLink } from "@/config/site";
 import { Button } from "@/components/ui/Button";
-import { CheckIcon } from "./icons";
-import { ConceptRequest } from "./ConceptRequest";
-import { Tony } from "@/components/mascot/Tony";
+import { OsBadge } from "@/components/ui/OsBadge";
+import { CheckIcon, CursorIcon, SparkleIcon } from "./icons";
+import { Workstation } from "./Workstation";
 
 export function Hero({ dict }: { dict: Dictionary }) {
   return (
     <section>
-      <div className="mx-auto grid max-w-5xl gap-10 px-5 pt-10 pb-14 sm:px-8 sm:pt-14 sm:pb-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-14">
+      <div className="mx-auto grid max-w-5xl gap-12 px-5 pt-10 pb-12 sm:px-8 sm:pt-14 sm:pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
         <div>
-          <p className="eyebrow text-red">{dict.hero.eyebrow}</p>
+          <OsBadge>{dict.hero.eyebrow}</OsBadge>
 
-          <h1 className="headline mt-4 text-[clamp(2rem,4.4vw,3.2rem)]">
+          <h1 className="headline mt-5 text-[clamp(2.1rem,4.6vw,3.4rem)]">
             {dict.hero.titleA} <span className="text-red">{dict.hero.titleB}</span>
           </h1>
 
           <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">{dict.hero.sub}</p>
 
-          <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">
-            <Button href={instagramDmLink()} external>
+          <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-4">
+            <Button href="#koncept" arrow>
               {dict.hero.ctaPrimary}
             </Button>
-            <a href="#radovi" className="sweep tap font-semibold">
-              {dict.hero.ctaSecondary} ↓
-            </a>
+            <Button href="#radovi" variant="secondary">
+              {dict.hero.ctaSecondary}
+            </Button>
           </div>
+
+          <p className="mt-5">
+            <OsBadge tone="red">
+              <span aria-hidden="true" className="block h-2 w-2 bg-ok" />
+              {dict.hero.reply}
+            </OsBadge>
+          </p>
 
           <ul className="mt-7 grid max-w-lg gap-2 border-t border-line pt-4 text-sm sm:grid-cols-3 sm:gap-4">
             {dict.hero.proof.map((item) => (
@@ -37,21 +43,13 @@ export function Hero({ dict }: { dict: Dictionary }) {
           </ul>
         </div>
 
-        {/* The window is the page's one piece of physical depth, so it is the
-            one thing on the page he can plausibly stand on. He perches on its
-            top edge rather than inside it, because the pane clips its own
-            corners and would cut him in half.
-
-            Only from lg up. Below that the grid stacks and the window's top
-            edge is no longer empty space — it is the underside of the hero's
-            proof list, and he lands on the copy. */}
-        <div className="relative">
-          <Tony
-            pose="hop"
-            scale={0.34}
-            className="tony-perch right-8 hidden lg:block"
-          />
-          <ConceptRequest dict={dict} />
+        {/* The workstation on its dot-grid patch, with the page's only three
+            loose decorations pinned to the patch corners. */}
+        <div className="px-grid relative px-3 pt-8 pb-0 sm:px-6 sm:pt-10">
+          <SparkleIcon className="absolute top-2 left-4 w-4 text-red" />
+          <SparkleIcon className="absolute top-8 right-8 w-3 text-ink" />
+          <CursorIcon className="absolute right-2 bottom-10 hidden w-4 text-ink lg:block" />
+          <Workstation />
         </div>
       </div>
     </section>

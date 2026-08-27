@@ -1,16 +1,19 @@
 /**
- * One icon system for the landing pages: 16×16, everything on a 2-unit grid,
- * `shape-rendering: crispEdges` so nothing anti-aliases the corners back into
- * curves. They replace a mix of unicode marks (✓ → + —) that never belonged
- * to the same family.
+ * One icon system for the landing pages, in two densities:
  *
- * Semantics are the caller's: every one of these is presentational unless it
- * is given a label, which is how the pricing table's checks stay readable to a
- * screen reader while the decorative ones on the cards stay silent.
+ *  - 16-grid glyphs (check, arrow, plus, dash) — inline marks that sit in
+ *    running text and lists. Render at 16px: one unit per CSS pixel.
+ *  - 12-grid pixel art, authored as character grids below — section markers,
+ *    card illustrations and the VibeLab OS furniture. Render at multiples of
+ *    12 (24px headers, 48px card art) so every cell lands on whole pixels.
  *
- * Render them at 16px. On a 16-unit grid that puts one unit on one CSS pixel;
- * at 14px each unit lands on 0.875px and crispEdges rounds the blocks
- * unevenly, which is what made the first pass look like a squiggle.
+ * The grids are the source of truth: `#` is ink (currentColor), `R` is the
+ * brand red, `W` is paper, `G` is the status green, `.` is transparent. Edit
+ * the picture, not path data.
+ *
+ * Semantics are the caller's: everything is presentational unless it is given
+ * a label, which is how the pricing checks stay readable to a screen reader
+ * while the decorative ones stay silent.
  */
 
 type IconProps = {
@@ -34,6 +37,8 @@ function PixelGlyph({ className, label, d }: IconProps & { d: string }) {
     </svg>
   );
 }
+
+/* ── 16-grid inline glyphs ─────────────────────────────────────────────── */
 
 /**
  * A staircase tick. Each step is a 2-wide, 4-tall column rather than a 2x2
@@ -60,7 +65,7 @@ export function PlusIcon(props: IconProps) {
   return <PixelGlyph {...props} d="M7 3h2v10H7zM3 7h10v2H3z" />;
 }
 
-/** The "not included" mark in the comparison table. */
+/** The "not included" mark in the plan details dialog. */
 export function DashIcon(props: IconProps) {
   return <PixelGlyph {...props} d="M3 7h10v2H3z" />;
 }
@@ -80,5 +85,348 @@ export function InstagramIcon({ className }: { className?: string }) {
       <circle cx="12" cy="12" r="4" />
       <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
     </svg>
+  );
+}
+
+/* ── 12-grid pixel art ─────────────────────────────────────────────────── */
+
+const PALETTE: Record<string, string> = {
+  "#": "currentColor",
+  R: "var(--color-red)",
+  W: "var(--color-paper)",
+  G: "var(--color-ok)",
+  K: "var(--color-ink)",
+};
+
+function cellsToPath(rows: readonly string[], ch: string): string {
+  let d = "";
+  rows.forEach((row, y) => {
+    for (let x = 0; x < row.length; x++) {
+      if (row[x] === ch) d += `M${x} ${y}h1v1H${x}z`;
+    }
+  });
+  return d;
+}
+
+function PixelArt({
+  rows,
+  className,
+  label,
+}: IconProps & { rows: readonly string[] }) {
+  const used = [...new Set(rows.join("").replace(/\./g, ""))];
+  return (
+    <svg
+      viewBox={`0 0 ${rows[0].length} ${rows.length}`}
+      className={className}
+      shapeRendering="crispEdges"
+      role={label ? "img" : "presentation"}
+      aria-label={label}
+      aria-hidden={label ? undefined : true}
+    >
+      {used.map((ch) => (
+        <path key={ch} d={cellsToPath(rows, ch)} fill={PALETTE[ch]} />
+      ))}
+    </svg>
+  );
+}
+
+/** Four-point sparkle — section marker and hero decoration. */
+export function SparkleIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        ".....##.....",
+        ".....##.....",
+        ".....##.....",
+        "....####....",
+        "...######...",
+        ".##########.",
+        ".##########.",
+        "...######...",
+        "....####....",
+        ".....##.....",
+        ".....##.....",
+        ".....##.....",
+      ]}
+    />
+  );
+}
+
+/** Folder — the Radovi section marker. */
+export function FolderIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        "............",
+        ".#####......",
+        ".#####......",
+        ".##########.",
+        ".##########.",
+        ".##......##.",
+        ".##......##.",
+        ".##......##.",
+        ".##......##.",
+        ".##########.",
+        ".##########.",
+        "............",
+      ]}
+    />
+  );
+}
+
+/** Euro sign — the pricing section marker and the "clear price" card. */
+export function EuroIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        "............",
+        "....######..",
+        "...##....##.",
+        "...##.......",
+        ".#######....",
+        ".#######....",
+        "...##.......",
+        ".#######....",
+        ".#######....",
+        "...##.......",
+        "...##....##.",
+        "....######..",
+      ]}
+    />
+  );
+}
+
+/** Flag on a pole — the process section marker. */
+export function FlagIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        ".##.........",
+        ".##RRRRRRR..",
+        ".##RRRRRRR..",
+        ".##RRRRRRR..",
+        ".##RRRRRR...",
+        ".##RRRR.....",
+        ".##.........",
+        ".##.........",
+        ".##.........",
+        ".##.........",
+        ".##.........",
+        ".##.........",
+      ]}
+    />
+  );
+}
+
+/** Question mark — the FAQ section marker. */
+export function QuestionIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        "...######...",
+        "..##....##..",
+        "..##....##..",
+        "........##..",
+        ".......##...",
+        "......##....",
+        ".....##.....",
+        ".....##.....",
+        "............",
+        ".....##.....",
+        ".....##.....",
+        "............",
+      ]}
+    />
+  );
+}
+
+/** Heart — the contact marker, Tony's speech bubble and the footer sign-off. */
+export function HeartIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        "............",
+        "..###..###..",
+        ".##########.",
+        ".##########.",
+        ".##########.",
+        ".##########.",
+        "..########..",
+        "...######...",
+        "....####....",
+        ".....##.....",
+        "............",
+        "............",
+      ]}
+    />
+  );
+}
+
+/** Speech bubble with typing dots — "you reach out". */
+export function BubbleIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        "............",
+        ".##########.",
+        ".##########.",
+        ".##########.",
+        ".##.#.#.###.",
+        ".##########.",
+        ".##########.",
+        ".##########.",
+        "...####.....",
+        "...###......",
+        "...#........",
+        "............",
+      ]}
+    />
+  );
+}
+
+/** A sheet with ruled lines — the concept document. */
+export function DocIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        "..########..",
+        "..########..",
+        "..#......#..",
+        "..#.####.#..",
+        "..#......#..",
+        "..#.####.#..",
+        "..#......#..",
+        "..#.####.#..",
+        "..#......#..",
+        "..#.##...#..",
+        "..########..",
+        "..########..",
+      ]}
+    />
+  );
+}
+
+/** Hammer — "everything handled". A wrench was tried first and read as a
+    trident at icon sizes; nothing misreads a hammer. */
+export function HammerIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        "..########..",
+        "..########..",
+        "..########..",
+        "..##########",
+        ".....##.....",
+        ".....##.....",
+        ".....##.....",
+        ".....##.....",
+        ".....##.....",
+        ".....##.....",
+        ".....##.....",
+        ".....##.....",
+      ]}
+    />
+  );
+}
+
+/** Rocket at launch — "online in seven days". */
+export function RocketIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        ".....##.....",
+        "....####....",
+        "....####....",
+        "...######...",
+        "...##..##...",
+        "...##..##...",
+        "...######...",
+        "...######...",
+        ".##.####.##.",
+        ".##.####.##.",
+        "....RRRR....",
+        ".....RR.....",
+      ]}
+    />
+  );
+}
+
+/** Open padlock — ownership, no lock-in. */
+export function LockOpenIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        "...####.....",
+        "..##..##....",
+        "..##..##....",
+        "..##........",
+        "..##........",
+        ".#########..",
+        ".#########..",
+        ".###RR####..",
+        ".###RR####..",
+        ".#########..",
+        ".#########..",
+        "............",
+      ]}
+    />
+  );
+}
+
+/** Mouse pointer — hero decoration. */
+export function CursorIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        ".#..........",
+        ".##.........",
+        ".###........",
+        ".####.......",
+        ".#####......",
+        ".######.....",
+        ".#######....",
+        ".########...",
+        ".####.......",
+        ".#.###......",
+        "....###.....",
+        "....###.....",
+      ]}
+    />
+  );
+}
+
+/** The heart mug on the workstation desk. Art sits flush with the bottom
+    edge of its box so the mug actually touches the desk it stands on. */
+export function MugIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        "............",
+        "............",
+        "............",
+        "............",
+        "............",
+        ".#######....",
+        ".#######.##.",
+        ".##RRR##..#.",
+        ".##.R.##..#.",
+        ".#######.##.",
+        ".#######....",
+        "..#####.....",
+      ]}
+    />
   );
 }

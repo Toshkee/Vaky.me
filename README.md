@@ -19,10 +19,14 @@ npm run build    # static export → out/
 |---|---|
 | Instagram / email | `src/config/site.ts` — the ONLY place public contact info lives |
 | All text + **prices/packages** | `src/i18n/me.ts` (Montenegrin) and `src/i18n/en.ts` (English) |
-| Colors / fonts | `src/app/globals.css` (`@theme` block) and `src/app/layout.tsx` |
+| Colors / fonts | `src/app/globals.css` (`@theme` block) and `src/app/root-html.tsx` |
 | Landing page sections | `src/components/landing/` |
-| Demo sites | `src/app/demo/<name>/` — each is self-contained |
-| Logo / OG images | `public/` |
+| Pixel icons | `src/components/landing/icons.tsx` — drawn as character grids, edit the picture |
+| Tony (mascot) | sprite `public/mascot/tony.webp`, poses/animations in `src/app/globals.css` |
+| Demo sites | `src/app/(me)/demo/<name>/` — each is self-contained |
+| Logo / favicon | `public/logo-lockup.png`, `public/tony-head.png`, `src/app/icon.png` — regenerate all from the master PNGs with `node scripts/brand-assets.mjs <lockup> <head>` |
+| Portfolio screenshots | `public/work/*.jpg` — regenerate with `node scripts/capture-work-shots.mjs` (dev server running) after a demo changes |
+| Share card | `public/og.png` — regenerate with `node scripts/generate-og.mjs` (dev server running) |
 
 ## Routes
 
