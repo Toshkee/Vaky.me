@@ -3,6 +3,8 @@
 Marketing site for VibeLab.me — web studio from Podgorica. Bilingual (ME/EN), fully static,
 zero backend, free to host.
 
+www.vibelab.it.com
+
 ## Run locally
 
 ```bash
