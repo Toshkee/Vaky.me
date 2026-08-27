@@ -3,7 +3,7 @@ import type { Dictionary } from "@/i18n";
 /** From the first message to a live site in seven days, as one ruled strip. */
 export function Process({ dict }: { dict: Dictionary }) {
   return (
-    <section className="border-t border-line">
+    <section className="px-rule">
       <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-14">
         <h2 className="headline text-2xl sm:text-3xl">{dict.process.title}</h2>
 

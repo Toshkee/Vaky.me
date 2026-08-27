@@ -197,6 +197,137 @@
     }
   }
 
+  /* ── Pixel layer ──────────────────────────────────────────────────────
+     Aliased frames, beveled controls and a pixel display face.
+
+     The rule that keeps this from reading as a toy: it never touches the
+     reading layer. A rendered specimen at 12/16/24/48px settled where the
+     face may go — its euro sign is near-indistinguishable from 0 and 8
+     ("€350" reads "03S0") and it mushes at the 12px/0.18em eyebrow setting,
+     so headlines, body copy, eyebrows and every price stay in Franklin.
+     Controls, nav, the wordmark and the step numerals are its whole remit. ── */
+
+  .px {
+    font-family: var(--font-pixel), ui-monospace, monospace;
+    letter-spacing: 0;
+  }
+
+  /* Stepped 4px corners. The frame and the pane inside it share this notch:
+     the ink-filled frame IS the border, because a real `border` would be
+     sliced open at each cut and show the page through the gap. */
+  .px-notch {
+    clip-path: polygon(
+      4px 0,
+      calc(100% - 4px) 0,
+      calc(100% - 4px) 4px,
+      100% 4px,
+      100% calc(100% - 4px),
+      calc(100% - 4px) calc(100% - 4px),
+      calc(100% - 4px) 100%,
+      4px 100%,
+      4px calc(100% - 4px),
+      0 calc(100% - 4px),
+      0 4px,
+      4px 4px
+    );
+  }
+
+  /* The shadow lives on a wrapper on purpose: clip-path clips an element's
+     own filter output, so a drop-shadow declared next to .px-notch would be
+     cut away with the corners. On a wrapper it reads the clipped child's
+     alpha and follows the stepped silhouette. Creates a stacking context. */
+  .px-frame {
+    filter: drop-shadow(4px 4px 0 var(--color-ink));
+  }
+
+  /* ── Beveled controls ──
+     Two inset shadows give the slab a lit top edge and a shaded bottom one;
+     the third shadow is the hard offset drop. Pressing collapses the drop and
+     moves the control into its own shadow, so the button physically depresses
+     rather than merely changing colour. */
+  .px-btn {
+    border: 2px solid var(--color-ink);
+    box-shadow: 4px 4px 0 var(--color-ink);
+    transition:
+      box-shadow 0.1s steps(2),
+      translate 0.1s steps(2);
+  }
+
+  .px-btn:active {
+    box-shadow: none;
+    translate: 4px 4px;
+  }
+
+  .px-btn--primary {
+    box-shadow:
+      inset 0 3px 0 rgb(255 255 255 / 0.3),
+      inset 0 -3px 0 rgb(0 0 0 / 0.22),
+      4px 4px 0 var(--color-ink);
+  }
+
+  .px-btn--primary:active {
+    box-shadow:
+      inset 0 3px 0 rgb(255 255 255 / 0.3),
+      inset 0 -3px 0 rgb(0 0 0 / 0.22);
+  }
+
+  /* A red ring on a red fill is invisible, so --primary gets a two-tone one:
+     white sitting in the 3px offset gap, ink outside it against the paper.
+     White on --color-red is 6.22:1. The 9px spread clears the 3px offset plus
+     the 3px outline; at 6px it would have ended flush with the outline and
+     shown no dark edge at all. */
+  .px-btn--primary:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+    box-shadow:
+      inset 0 3px 0 rgb(255 255 255 / 0.3),
+      inset 0 -3px 0 rgb(0 0 0 / 0.22),
+      4px 4px 0 var(--color-ink),
+      0 0 0 9px var(--color-ink);
+  }
+
+  /* Compound selector, not the bare :active rule — :focus-visible on its own
+     outranks it, and a focused button would never visibly depress. */
+  .px-btn--primary:focus-visible:active {
+    box-shadow:
+      inset 0 3px 0 rgb(255 255 255 / 0.3),
+      inset 0 -3px 0 rgb(0 0 0 / 0.22),
+      0 0 0 9px var(--color-ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .px-btn {
+      transition: none;
+    }
+  }
+
+  /* Raster pixel art only — never text. Authored at 96x64 and shown at an
+     integer multiple, so every source pixel lands on a whole number of
+     device pixels instead of being resampled into mush. */
+  .px-art {
+    image-rendering: pixelated;
+  }
+
+  /* A section rule where the printer ran out of ink. Used on two sections
+     only — everywhere else keeps its hairline, or the texture stops being an
+     accent and becomes wallpaper. */
+  .px-rule {
+    position: relative;
+  }
+
+  .px-rule::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 4px;
+    background-image: repeating-conic-gradient(
+      var(--color-line) 0 25%,
+      transparent 0 50%
+    );
+    background-size: 4px 4px;
+  }
+
   /* ── Native <details> FAQ rows ── */
   details.faq-item summary {
     list-style: none;

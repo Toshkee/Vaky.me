@@ -3,6 +3,8 @@ import Image from "next/image";
 import { Anton } from "next/font/google";
 import type { Dictionary } from "@/i18n";
 import { Reveal } from "@/components/motion/Reveal";
+import { PixelWindow } from "@/components/ui/PixelWindow";
+import { ArrowIcon } from "./icons";
 
 /* The Titan demo is set in Anton — its poster uses the real thing, so the
    portfolio previews the demo's actual typography, not an approximation. */
@@ -21,6 +23,9 @@ const anton = Anton({
  *
  * The posters render at ~350px wide on every viewport (full width on mobile,
  * one quarter of the measure on wide screens), so they need one type scale.
+ *
+ * Each sits in a PixelWindow, so the row reads as four framed screens on a
+ * desk — the frames are ours, the art inside each one is the client's.
  */
 const POSTERS = [
   // Konoba Skadar — rustic serif, dusk warmth
@@ -112,16 +117,17 @@ export function Work({ dict }: { dict: Dictionary }) {
           {dict.work.items.map((item, i) => (
             <li key={item.name}>
               <Link href={item.href} className="group block">
-                <div className="aspect-[3/2] overflow-hidden transition-transform duration-300 group-hover:-translate-y-1">
-                  {POSTERS[i]}
-                </div>
+                <PixelWindow
+                  pane=""
+                  className="transition-transform duration-100 group-hover:-translate-y-0.5 group-active:translate-x-1 group-active:translate-y-1 motion-reduce:transition-none"
+                >
+                  <div className="aspect-[3/2] overflow-hidden">{POSTERS[i]}</div>
+                </PixelWindow>
                 <div className="mt-3 flex items-center justify-between gap-3 border-t border-line pt-2.5">
                   <h3 className="headline text-lg transition-colors duration-300 group-hover:text-red">
                     {item.name}
                   </h3>
-                  <span className="shrink-0 text-lg transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
-                    →
-                  </span>
+                  <ArrowIcon className="w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                 </div>
                 <p className="mt-0.5 text-sm text-muted">{item.tag}</p>
                 <p className="eyebrow mt-2 text-red">{dict.work.conceptLabel}</p>

@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
 
 /**
- * The primary CTA: a solid red slab. One weight, one colour, no ornament —
- * on a page made of rules it is the only filled shape, which is what makes it
- * unmistakable without any decoration of its own.
+ * The primary CTA: a solid red slab, beveled and sitting on its own shadow.
+ * On a page made of rules it is the only filled shape, and now the only one
+ * with thickness — pressing it moves it into its shadow rather than merely
+ * changing its colour.
  */
 export function Button({
   href,
@@ -20,7 +21,7 @@ export function Button({
     <a
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className={`inline-flex items-center justify-center bg-red px-7 py-3.5 font-semibold text-white transition-colors duration-150 hover:bg-red-deep ${className}`}
+      className={`px px-btn px-btn--primary inline-flex items-center justify-center bg-red px-7 py-3.5 text-[1.0625rem] font-semibold text-white hover:bg-red-deep ${className}`}
     >
       {children}
     </a>

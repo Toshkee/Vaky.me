@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/i18n";
+import { PixelWindow } from "@/components/ui/PixelWindow";
+import { CheckIcon, DashIcon } from "./icons";
 import { emailLink } from "@/config/site";
 
 /**
@@ -30,7 +32,7 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
       {/* Phone and tablet: one block per package, each complete on its own. */}
       <div className="mt-8 grid gap-5 lg:hidden">
         {plans.map((plan, index) => (
-          <div key={plan.name} className="border-2 border-ink">
+          <PixelWindow key={plan.name}>
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line px-4 py-4">
               <h3 className="headline flex flex-wrap items-center gap-x-3 gap-y-2 text-xl">
                 {plan.name}
@@ -66,19 +68,19 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
             <div className="grid gap-2 border-t border-line p-4">
               <a
                 href={enquiryHref(plan.name)}
-                className="tap inline-flex min-h-12 items-center justify-center bg-red px-6 font-semibold text-white transition-colors hover:bg-red-deep"
+                className="px px-btn px-btn--primary tap inline-flex min-h-12 items-center justify-center bg-red px-6 text-[1.0625rem] font-semibold text-white hover:bg-red-deep"
               >
                 {dict.pricing.planAction}
               </a>
               <button
                 type="button"
                 onClick={() => setOpenPlan(index)}
-                className="tap inline-flex min-h-12 items-center justify-center border-2 border-ink px-6 font-semibold transition-colors hover:border-red hover:text-red"
+                className="px px-btn tap mt-1.5 inline-flex min-h-12 items-center justify-center bg-paper px-6 text-[1.0625rem] font-semibold transition-colors hover:text-red"
               >
                 {dict.pricing.detailsAction}
               </button>
             </div>
-          </div>
+          </PixelWindow>
         ))}
       </div>
 
@@ -123,9 +125,7 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
                       ) : value ? (
                         <Tick label={row.label} />
                       ) : (
-                        <span className="text-line" aria-label="—">
-                          <span aria-hidden="true">—</span>
-                        </span>
+                        <DashIcon label="—" className="inline-block w-4 text-line" />
                       )}
                     </td>
                   );
@@ -141,14 +141,14 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
                 <td key={plan.name} className="pl-6 pt-5 align-top">
                   <a
                     href={enquiryHref(plan.name)}
-                    className="inline-flex min-h-11 w-full items-center justify-center bg-red px-5 font-semibold text-white transition-colors hover:bg-red-deep"
+                    className="px px-btn px-btn--primary inline-flex min-h-11 w-full items-center justify-center bg-red px-5 font-semibold text-white hover:bg-red-deep"
                   >
                     {dict.pricing.planAction}
                   </a>
                   <button
                     type="button"
                     onClick={() => setOpenPlan(index)}
-                    className="mt-2 inline-flex min-h-11 w-full items-center justify-center border-2 border-ink px-5 text-sm font-semibold transition-colors hover:border-red hover:text-red"
+                    className="px px-btn mt-3.5 inline-flex min-h-11 w-full items-center justify-center bg-paper px-5 text-sm font-semibold transition-colors hover:text-red"
                   >
                     {dict.pricing.detailsAction}
                   </button>
@@ -164,17 +164,10 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
   );
 }
 
+/* Labelled in the desktop table so each cell announces its feature; silent on
+   the mobile cards, where the row label is already read out alongside it. */
 function Tick({ label }: { label?: string }) {
-  return (
-    <svg
-      viewBox="0 0 14 14"
-      className="mt-px inline-block w-3.5 shrink-0 fill-none stroke-red stroke-[2.5]"
-      role={label ? "img" : "presentation"}
-      aria-label={label}
-    >
-      <path d="M2 7.5 5.5 11 12 3.5" />
-    </svg>
-  );
+  return <CheckIcon label={label} className="mt-px inline-block w-4 shrink-0 text-red" />;
 }
 
 /**
@@ -208,6 +201,10 @@ function PlanDialog({
   const included = rows.filter((row) => row.values[planIndex] !== false);
   const excluded = rows.filter((row) => row.values[planIndex] === false);
 
+  /* The dialog shell stays transparent and carries only the filter: a filtered
+     *opaque* box casts a rectangular shadow instead of the stepped silhouette
+     of the pane inside it. The ink ground and both notches live on the
+     scroller and its child, so the drop shadow follows the cut corners. */
   return (
     <dialog
       ref={ref}
@@ -218,9 +215,10 @@ function PlanDialog({
         if (event.target === ref.current) onClose();
       }}
       aria-labelledby="plan-dialog-title"
-      className="m-auto w-[min(34rem,calc(100vw-1.5rem))] bg-paper p-0 text-ink backdrop:bg-ink/60"
+      className="px-frame m-auto w-[min(34rem,calc(100vw-1.5rem))] bg-transparent p-0 text-ink backdrop:bg-ink/60"
     >
-      <div className="max-h-[85vh] overflow-y-auto border-2 border-ink">
+      <div className="px-notch max-h-[85vh] overflow-y-auto bg-ink p-[2px]">
+        <div className="px-notch bg-paper">
         <div className="sticky top-0 flex items-start justify-between gap-4 border-b border-line bg-paper px-5 py-4">
           <div>
             <h3 id="plan-dialog-title" className="headline text-xl">
@@ -277,16 +275,17 @@ function PlanDialog({
           )}
         </div>
 
-        <div className="border-t border-line p-5">
-          <a
-            href={emailLink(
-              dict.contact.emailSubject,
-              dict.pricing.packagePrefill.replace("{package}", plan.name),
-            )}
-            className="tap inline-flex min-h-12 w-full items-center justify-center bg-red px-6 font-semibold text-white transition-colors hover:bg-red-deep"
-          >
-            {dict.pricing.planAction}
-          </a>
+          <div className="border-t border-line p-5">
+            <a
+              href={emailLink(
+                dict.contact.emailSubject,
+                dict.pricing.packagePrefill.replace("{package}", plan.name),
+              )}
+              className="px px-btn px-btn--primary tap inline-flex min-h-12 w-full items-center justify-center bg-red px-6 text-[1.0625rem] font-semibold text-white hover:bg-red-deep"
+            >
+              {dict.pricing.planAction}
+            </a>
+          </div>
         </div>
       </div>
     </dialog>

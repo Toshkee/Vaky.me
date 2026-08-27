@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Libre_Franklin } from "next/font/google";
+import { Libre_Franklin, Pixelify_Sans } from "next/font/google";
 import { site } from "@/config/site";
 import "./globals.css";
 
@@ -10,6 +10,18 @@ import "./globals.css";
 const franklin = Libre_Franklin({
   variable: "--font-franklin",
   subsets: ["latin", "latin-ext"],
+  display: "swap",
+});
+
+/* The pixel face carries controls only — buttons, nav, the wordmark and the
+   step numerals. It is deliberately kept off the reading layer: a specimen at
+   12/16/24/48px showed its euro sign is near-indistinguishable from 0 and 8
+   ("€350" reads "03S0"), and its letterforms mush at the 12px/0.18em eyebrow
+   setting. Headlines, body copy, eyebrows and every price stay in Franklin. */
+const pixel = Pixelify_Sans({
+  variable: "--font-pixel",
+  subsets: ["latin", "latin-ext"],
+  weight: ["600", "700"],
   display: "swap",
 });
 
@@ -38,7 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="sr-ME"
-      className={`${franklin.variable} h-full antialiased`}
+      className={`${franklin.variable} ${pixel.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">

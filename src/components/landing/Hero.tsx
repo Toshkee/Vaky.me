@@ -1,6 +1,7 @@
 import type { Dictionary } from "@/i18n";
 import { instagramDmLink } from "@/config/site";
 import { Button } from "@/components/ui/Button";
+import { CheckIcon } from "./icons";
 import { ConceptRequest } from "./ConceptRequest";
 
 export function Hero({ dict }: { dict: Dictionary }) {
@@ -28,7 +29,7 @@ export function Hero({ dict }: { dict: Dictionary }) {
           <ul className="mt-7 grid max-w-lg gap-2 border-t border-line pt-4 text-sm sm:grid-cols-3 sm:gap-4">
             {dict.hero.proof.map((item) => (
               <li key={item} className="flex gap-2 leading-snug text-muted">
-                <span aria-hidden="true" className="font-bold text-red">✓</span>
+                <CheckIcon className="mt-1 w-4 shrink-0 text-red" />
                 <span>{item}</span>
               </li>
             ))}

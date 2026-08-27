@@ -8,6 +8,14 @@ import type { Dictionary } from "@/i18n";
  * A masthead, not a floating nav bar: name left, sections right, one heavy
  * rule under the lot. The sticky treatment keeps the work, pricing and contact
  * sections within reach without turning the masthead into a large app bar.
+ *
+ * The section you are in is filled rather than underlined — the one place the
+ * page states where you are, so it can afford to say it loudly.
+ *
+ * Labels are NOT set in the pixel face, though the buttons are. Rendered at
+ * 4x, Pixelify's B, C and E proved ambiguous at nav sizes: the wordmark read
+ * "VIBELAG", "Cijene" read "Oijene" and "EN" read "€N". A brand name that
+ * misreads is not a trade worth making for texture.
  */
 export function Nav({ dict }: { dict: Dictionary }) {
   const links = [
@@ -37,10 +45,8 @@ export function Nav({ dict }: { dict: Dictionary }) {
   }, []);
 
   const linkClass = (href: string) =>
-    `inline-flex min-h-11 items-center border-b-2 px-0.5 font-medium transition-colors ${
-      active === href
-        ? "border-red text-red"
-        : "border-transparent hover:border-line hover:text-red"
+    `inline-flex min-h-11 items-center px-2 font-semibold transition-colors ${
+      active === href ? "bg-red text-white" : "hover:text-red"
     }`;
 
   return (

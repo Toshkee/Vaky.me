@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/i18n";
 import { Reveal } from "@/components/motion/Reveal";
+import { PlusIcon } from "./icons";
 
 export function Faq({ dict }: { dict: Dictionary }) {
   return (
@@ -14,12 +15,7 @@ export function Faq({ dict }: { dict: Dictionary }) {
             <details key={item.q} className="faq-item border-b border-line">
               <summary className="flex items-center justify-between gap-6 py-4 font-semibold">
                 {item.q}
-                <span
-                  aria-hidden="true"
-                  className="faq-toggle shrink-0 text-2xl leading-none font-normal text-red"
-                >
-                  +
-                </span>
+                <PlusIcon className="faq-toggle w-4 shrink-0 text-red" />
               </summary>
               <p className="max-w-2xl pb-5 text-sm leading-relaxed text-muted">{item.a}</p>
             </details>
