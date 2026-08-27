@@ -1,12 +1,14 @@
 /** Central brand and public contact configuration. */
 export const site = {
   name: "VibeLab",
-  /* The free Vercel domain. vibelab.me and vibecode.me are both registered to
-     other people, so nothing here may claim them — this value feeds every
-     canonical tag, the sitemap, robots.txt and the JSON-LD @id, and pointing
-     those at a domain we do not own hands our search signals to a stranger.
-     One-line change the day a real domain is bought. */
-  url: "https://vibelab-me.vercel.app",
+  /* This value feeds every canonical tag, the sitemap, robots.txt and the
+     JSON-LD @id, so it may only ever name a domain we actually control —
+     vibelab.me and vibecode.me are both registered to other people and must
+     never appear here. vibelab.it.com is ours (bought 2026-08-27).
+
+     Flip this only once the domain actually serves the site: shipping it
+     while DNS still points nowhere aims every canonical at a dead host. */
+  url: "https://vibelab.it.com",
 
   instagram: "vibelab.me",
   email: "vibecodemne@gmail.com",
