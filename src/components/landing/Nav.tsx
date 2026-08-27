@@ -28,21 +28,62 @@ export function Nav({ dict }: { dict: Dictionary }) {
   const home = dict.lang === "en" ? "/en/" : "/";
   const [active, setActive] = useState("");
 
+  /* Which section is under the reading line, recomputed from geometry.
+
+     This deliberately is not an IntersectionObserver watching a band. Contact
+     is the last section and short, and the footer below it is not tall enough
+     to push it up the viewport: at maximum scroll it sits around 2/3 down the
+     page, so any band placed high enough to feel like "where you are" is a
+     band Contact can never reach. It was unreachable by arithmetic, not by
+     mistuning — hence the explicit bottom case below.
+
+     An observer also only fires on change, so a callback that reads only the
+     delivered entries never learns that the last active section has left. That
+     is why Pricing used to stay lit all the way through the FAQ. */
   useEffect(() => {
-    const sections = Array.from(
-      document.querySelectorAll<HTMLElement>("#radovi, #cijene, #kontakt"),
-    );
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActive(`#${visible.target.id}`);
-      },
-      { rootMargin: "-25% 0px -60% 0px", threshold: [0, 0.25, 0.6] },
-    );
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    const ids = ["radovi", "cijene", "kontakt"];
+
+    const update = () => {
+      const line = window.innerHeight * 0.35;
+
+      const current = ids.find((id) => {
+        const rect = document.getElementById(id)?.getBoundingClientRect();
+        return rect && rect.top <= line && rect.bottom > line;
+      });
+      if (current) {
+        setActive(`#${current}`);
+        return;
+      }
+
+      // Contact never crosses the line: the page runs out of scroll while it
+      // is still below the middle of the screen, so it takes over as soon as
+      // it is on screen at all. Nothing else can be under the line by then.
+      const last = ids[ids.length - 1];
+      const rect = document.getElementById(last)?.getBoundingClientRect();
+      const lastOnScreen = rect ? rect.top < window.innerHeight : false;
+
+      // Between the marked sections nothing is a nav target, so the indicator
+      // clears rather than pointing at a section you have already left.
+      setActive(lastOnScreen ? `#${last}` : "");
+    };
+
+    let queued = false;
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        update();
+      });
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   const linkClass = (href: string) =>
