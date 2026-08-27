@@ -223,11 +223,6 @@ export const en: Dictionary = {
     planAction: "Choose package",
     packagePrefill:
       "Hi! I'm interested in the {package} package for my business. Can we discuss the details?",
-    cta: {
-      title: "Send us your website or Instagram",
-      body: "Get a free starting concept and a clear package recommendation, with no obligation.",
-      action: "Request a concept",
-    },
   },
 
   faq: {

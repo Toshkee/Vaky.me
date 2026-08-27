@@ -225,11 +225,6 @@ export const me = {
     planAction: "Odaberi paket",
     packagePrefill:
       "Zdravo! Zanima me {package} paket za moj biznis. Možemo li dogovoriti detalje?",
-    cta: {
-      title: "Pošalji nam svoj sajt ili Instagram",
-      body: "Dobićeš besplatan početni koncept i jasnu preporuku paketa, bez obaveze.",
-      action: "Zatraži koncept",
-    },
   },
 
   faq: {

@@ -1,6 +1,4 @@
 import type { Dictionary } from "@/i18n";
-import { Button } from "@/components/ui/Button";
-import { PixelWindow } from "@/components/ui/PixelWindow";
 import { EuroIcon } from "./icons";
 import { SectionHead } from "./SectionHead";
 import { PlanMatrix } from "./PlanMatrix";
@@ -33,20 +31,6 @@ export function Pricing({ dict }: { dict: Dictionary }) {
         </div>
 
         <p className="mt-5 text-sm leading-relaxed text-muted">{dict.pricing.addons}</p>
-
-        <PixelWindow className="mt-10">
-          <div className="flex flex-col items-start justify-between gap-6 p-5 sm:flex-row sm:items-center sm:p-7">
-            <div>
-              <h3 className="headline text-xl sm:text-2xl">{dict.pricing.cta.title}</h3>
-              <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">
-                {dict.pricing.cta.body}
-              </p>
-            </div>
-            <Button href="#koncept" arrow className="w-full shrink-0 sm:w-auto">
-              {dict.pricing.cta.action}
-            </Button>
-          </div>
-        </PixelWindow>
       </div>
     </section>
   );

@@ -361,6 +361,31 @@ export function RocketIcon(props: IconProps) {
   );
 }
 
+/** Closed padlock — the "before" frame of the no-lock-in scene. Identical to
+    the open one except that the shackle's right leg reaches the body, so the
+    two can be swapped in place without anything else shifting. */
+export function LockShutIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        "...####.....",
+        "..##..##....",
+        "..##..##....",
+        "..##..##....",
+        "..##..##....",
+        ".#########..",
+        ".#########..",
+        ".###RR####..",
+        ".###RR####..",
+        ".#########..",
+        ".#########..",
+        "............",
+      ]}
+    />
+  );
+}
+
 /** Open padlock — ownership, no lock-in. */
 export function LockOpenIcon(props: IconProps) {
   return (

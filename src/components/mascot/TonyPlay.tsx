@@ -13,11 +13,13 @@ export function TonyPlay({
   direction = "front",
   pose = "idle",
   scale,
+  jumps,
   className = "",
 }: {
   direction?: TonyDirection;
   pose?: TonyPose;
   scale?: number;
+  jumps?: number;
   className?: string;
 }) {
   const [play, setPlay] = useState<TonyPose | null>(null);
@@ -45,7 +47,7 @@ export function TonyPlay({
 
   return (
     <div onClick={poke} className={`cursor-pointer select-none ${className}`}>
-      <Tony direction={direction} pose={play ?? pose} scale={scale} />
+      <Tony direction={direction} pose={play ?? pose} scale={scale} jumps={jumps} />
     </div>
   );
 }
