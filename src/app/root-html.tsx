@@ -33,6 +33,13 @@ const pixel = Jersey_10({
   subsets: ["latin", "latin-ext"],
   weight: ["400"],
   display: "swap",
+  /* Not preloaded. next/font preloads every subset of every declared family,
+     which put four woff2 files in front of the first paint — and two of them
+     were for a face that only sets button labels. The LCP element on this page
+     is the hero paragraph, so Franklin keeps its preload and the pixel face
+     arrives when the stylesheet asks for it. `swap` means the buttons show in
+     Franklin for the moment before it lands. */
+  preload: false,
 });
 
 /* Both root layouts share everything except the language they declare, so the

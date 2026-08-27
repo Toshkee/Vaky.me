@@ -37,9 +37,18 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run build
-      # The export is a directory of files; anything that serves it will do.
-      - run: python3 -m http.server 3000 --directory out &
-      - run: npm run check:a11y -- http://localhost:3000
+      # One step, because a process backgrounded in a `run` dies with the
+      # shell that started it. The export is a directory of files; anything
+      # that serves it will do.
+      - name: Serve the export and run axe
+        run: |
+          python3 -m http.server 3000 --directory out &
+          server=$!
+          until curl -sf http://localhost:3000/ >/dev/null; do sleep 0.5; done
+          npm run check:a11y -- http://localhost:3000
+          status=$?
+          kill $server
+          exit $status
 
   secrets:
     runs-on: ubuntu-latest
