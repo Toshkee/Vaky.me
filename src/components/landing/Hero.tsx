@@ -3,6 +3,7 @@ import { instagramDmLink } from "@/config/site";
 import { Button } from "@/components/ui/Button";
 import { CheckIcon } from "./icons";
 import { ConceptRequest } from "./ConceptRequest";
+import { Tony } from "@/components/mascot/Tony";
 
 export function Hero({ dict }: { dict: Dictionary }) {
   return (
@@ -36,7 +37,22 @@ export function Hero({ dict }: { dict: Dictionary }) {
           </ul>
         </div>
 
-        <ConceptRequest dict={dict} />
+        {/* The window is the page's one piece of physical depth, so it is the
+            one thing on the page he can plausibly stand on. He perches on its
+            top edge rather than inside it, because the pane clips its own
+            corners and would cut him in half.
+
+            Only from lg up. Below that the grid stacks and the window's top
+            edge is no longer empty space — it is the underside of the hero's
+            proof list, and he lands on the copy. */}
+        <div className="relative">
+          <Tony
+            pose="hop"
+            scale={0.34}
+            className="tony-perch right-8 hidden lg:block"
+          />
+          <ConceptRequest dict={dict} />
+        </div>
       </div>
     </section>
   );

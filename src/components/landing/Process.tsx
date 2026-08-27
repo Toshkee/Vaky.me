@@ -1,4 +1,5 @@
 import type { Dictionary } from "@/i18n";
+import { Tony } from "@/components/mascot/Tony";
 
 /** From the first message to a live site in seven days, as one ruled strip. */
 export function Process({ dict }: { dict: Dictionary }) {
@@ -16,6 +17,13 @@ export function Process({ dict }: { dict: Dictionary }) {
             </li>
           ))}
         </ol>
+
+        {/* The seven days, walked — out to day seven and back again. He is
+            decorative and hidden from screen readers: the ordered list above
+            is the content. */}
+        <div className="tony-track mt-4 sm:mt-6">
+          <Tony direction="right" pose="patrol" scale={0.5} lap={16} />
+        </div>
       </div>
     </section>
   );

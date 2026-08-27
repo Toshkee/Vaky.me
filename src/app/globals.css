@@ -350,6 +350,133 @@
     background-size: 4px 4px;
   }
 
+  /* ── Tony, the mascot ──
+
+     One 9x4 sheet: nine poses across, four facings down. The element is sized
+     to a single frame and the sheet is slid behind it, so a direction is a
+     background-position-y and a pose is a background-position-x.
+
+     Every frame was cut to the same 127x232 box around a shared ground line,
+     so nothing has to be nudged per pose — a walk cycle is four positions and
+     no transforms.
+
+     The art is a render of pixel art rather than pixel art itself (the
+     apparent block size measures 4.3px in one frame and 3.1px in another), so
+     `image-rendering: pixelated` is deliberately NOT set: there is no integer
+     grid for it to preserve, and it would only harden the resampling. The
+     sheet is authored at 2x the intended display height instead, which is what
+     keeps it sharp. */
+  .tony {
+    --tony-scale: 0.5;
+    --tony-w: calc(127px * var(--tony-scale));
+    --tony-h: calc(232px * var(--tony-scale));
+    display: block;
+    width: var(--tony-w);
+    height: var(--tony-h);
+    background-image: url("/mascot/tony.webp");
+    background-repeat: no-repeat;
+    background-size: calc(var(--tony-w) * 9) calc(var(--tony-h) * 4);
+    background-position: 0 0;
+  }
+
+  .tony--right {
+    background-position-y: calc(-1 * var(--tony-h));
+  }
+  .tony--back {
+    background-position-y: calc(-2 * var(--tony-h));
+  }
+  .tony--left {
+    background-position-y: calc(-3 * var(--tony-h));
+  }
+
+  /* Motion is the whole point of the mascot, so it is the whole thing that is
+     dropped when motion is not wanted: every behaviour below resolves to the
+     `direction` the component was given, standing still.
+
+     Behaviours stack up to three animations on one element, and they compose
+     because each one owns a different property:
+       pose    → background-position-x   (which frame)
+       facing  → background-position-y   (which row)
+       travel  → margin-inline-start     (where on the track)
+     Nothing fights over a property, so `patrol` can turn around mid-run
+     without a single line of JavaScript. */
+  @media (prefers-reduced-motion: no-preference) {
+    .tony--walk {
+      animation: tony-walk 0.6s step-end infinite;
+    }
+
+    .tony--roll {
+      animation: tony-roll 0.36s step-end infinite;
+    }
+
+    /* Finite by default: an endless jump is the kind of loop WCAG 2.2.2 is
+       about. Pass a count to `Tony` to change it. */
+    .tony--jump {
+      animation: tony-jump 0.9s step-end var(--tony-jumps, 1);
+    }
+
+    /* ── Hopping in place ──
+       Two thirds of the cycle is him standing still, which is what keeps a
+       perpetual animation from reading as a fidget: the eye gets a beat of
+       rest between jumps.
+
+       No transform is involved. The apex frame is drawn with his feet 29 to
+       42px above the sheet's ground line depending on which way he faces, and
+       every frame was cut around that same line — so swapping the frame IS
+       the lift, at exactly the height the artist drew. */
+    .tony--hop {
+      animation: tony-hop 3.4s step-end infinite;
+    }
+
+    /* ── Patrolling a track ──
+       Out and back, turning at each end. The stride runs on its own short
+       loop; the facing and the travel share the long one so the turn always
+       lands at the far edge and never mid-stride. */
+    .tony--patrol {
+      animation:
+        tony-walk 0.6s step-end infinite,
+        tony-turn var(--tony-lap, 14s) step-end infinite,
+        tony-lap var(--tony-lap, 14s) linear infinite;
+    }
+
+    /* ── Tumbling a track ──
+       Same shape as patrol on the roll frames. The source art keeps his head
+       upright through all three, so this reads as a scooting tuck rather than
+       a somersault — which is the pose that exists, not the one that doesn't. */
+    .tony--tumble {
+      animation:
+        tony-roll 0.32s step-end infinite,
+        tony-turn var(--tony-lap, 14s) step-end infinite,
+        tony-lap var(--tony-lap, 14s) linear infinite;
+    }
+  }
+
+  /* A strip of ground for him to cross. The rule is the floor. */
+  .tony-track {
+    display: flex;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  /* Every frame keeps five pixels of canvas below the ground line, so the
+     roll poses have somewhere to put their shadow. Cancelling it here is what
+     stands him ON the rule instead of a few pixels above it, and it scales
+     with him. */
+  .tony-track > .tony {
+    flex: none;
+    margin-block-end: calc(-5px * var(--tony-scale));
+  }
+
+  /* Perched on the edge of something — the hero's browser frame. The parent
+     supplies `position: relative`; this hangs him off the top edge so his
+     feet land on it, and takes him out of flow so the frame keeps its size. */
+  .tony-perch {
+    position: absolute;
+    bottom: 100%;
+    /* the sprite's 5px of sub-ground canvas again, so he stands on the rule */
+    margin-block-end: calc(-5px * var(--tony-scale));
+    pointer-events: none;
+  }
+
   /* ── Native <details> FAQ rows ── */
   details.faq-item summary {
     list-style: none;
@@ -382,3 +509,100 @@
   }
 }
 
+
+/* Tony's poses, by column: 0 idle, 1 walk1, 2 walk2, 3 jump-start,
+   4 jump-apex, 5 jump-land, 6-8 roll. `step-end` holds each frame until the
+   next keyframe, which is what makes these read as animation cels rather than
+   as a slide. */
+
+@keyframes tony-walk {
+  0% {
+    background-position-x: calc(-1 * var(--tony-w));
+  }
+  25% {
+    background-position-x: 0;
+  }
+  50% {
+    background-position-x: calc(-2 * var(--tony-w));
+  }
+  75% {
+    background-position-x: 0;
+  }
+}
+
+/* Weighted, not even: the apex holds for the hang time and the landing is
+   quick, which is the difference between a jump and three pictures. */
+@keyframes tony-jump {
+  0% {
+    background-position-x: calc(-3 * var(--tony-w));
+  }
+  18% {
+    background-position-x: calc(-4 * var(--tony-w));
+  }
+  62% {
+    background-position-x: calc(-5 * var(--tony-w));
+  }
+  82% {
+    background-position-x: 0;
+  }
+}
+
+@keyframes tony-roll {
+  0% {
+    background-position-x: calc(-6 * var(--tony-w));
+  }
+  33.33% {
+    background-position-x: calc(-7 * var(--tony-w));
+  }
+  66.66% {
+    background-position-x: calc(-8 * var(--tony-w));
+  }
+}
+
+/* Stand, crouch, fly, land, stand — then wait. The rest at the end is two
+   thirds of the cycle and is the reason this can loop without nagging. */
+@keyframes tony-hop {
+  0% {
+    background-position-x: calc(-3 * var(--tony-w));
+  }
+  7% {
+    background-position-x: calc(-4 * var(--tony-w));
+  }
+  20% {
+    background-position-x: calc(-5 * var(--tony-w));
+  }
+  27% {
+    background-position-x: 0;
+  }
+}
+
+/* Percentage margins resolve against the containing block's width, which is
+   how these cross the full width of whatever they are dropped into without
+   the stylesheet having to know how wide that is. */
+@keyframes tony-lap {
+  0%,
+  4% {
+    margin-inline-start: 0;
+  }
+  46%,
+  54% {
+    margin-inline-start: calc(100% - var(--tony-w));
+  }
+  96%,
+  100% {
+    margin-inline-start: 0;
+  }
+}
+
+/* The turn. Held on `step-end` so he flips between two drawn facings on the
+   frame he reaches the end, rather than sliding through the back view. Both
+   flips land inside a standstill in `tony-lap` — the 46-54% pause at the far
+   end, and the 96-4% pause at the near one — so he never turns mid-stride. */
+@keyframes tony-turn {
+  0% {
+    background-position-y: calc(-1 * var(--tony-h));
+  }
+  50% {
+    background-position-y: calc(-3 * var(--tony-h));
+  }
+}
