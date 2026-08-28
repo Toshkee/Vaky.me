@@ -1,0 +1,69 @@
+/* Palette and motion for the Soul Studio concept, scoped to this route.
+
+   The colours live here as custom properties rather than in the VibeLab theme:
+   four client concepts sharing one `@theme` block would leave the studio's
+   tokens loaded on every page of the site. Tailwind reads them back through
+   `bg-[var(--soul-bone)]` and friends, which are literal class strings, so the
+   scanner still sees them.
+
+   Motion is two gestures, and both are things the room already does: a
+   photograph that uncovers itself from the bottom up the way light crosses the
+   floor, and a hairline that draws itself across the page. Both are
+   scroll-driven, so there is no JavaScript and no observer — a browser without
+   `animation-timeline` gets the finished state, which is the correct page. */
+
+.page {
+  --soul-bone: #f4eee8;
+  --soul-sand: #eae0d6;
+  --soul-ink: #171411;
+  /* 6.8:1 on bone */
+  --soul-muted: #5a5049;
+  /* 3.3:1 on bone — display sizes and rules only */
+  --soul-clay: #b86f5c;
+  /* 5.7:1 on bone — anything set small in the accent colour */
+  --soul-clay-deep: #8f4a39;
+  --soul-line: #ded3c8;
+  --soul-line-clay: #e0c3b8;
+}
+
+.reveal {
+  clip-path: inset(0 0 0 0);
+}
+
+.rule {
+  transform-origin: left center;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: soul-uncover linear both;
+      animation-timeline: view();
+      animation-range: entry 8% cover 38%;
+    }
+
+    .rule {
+      animation: soul-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 15% cover 40%;
+    }
+  }
+}
+
+@keyframes soul-uncover {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes soul-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}

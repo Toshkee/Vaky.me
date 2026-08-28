@@ -22,6 +22,10 @@ const WIDTHS = [
 const PAGES = [
   ["home", "/"],
   ["en", "/en/"],
+  ["soul-studio", "/demo/soul-studio/"],
+  ["zlatara-opal", "/demo/zlatara-opal/"],
+  ["kraftart", "/demo/kraftart/"],
+  ["lavlav", "/demo/lavlav/"],
 ];
 
 fs.mkdirSync(OUT, { recursive: true });

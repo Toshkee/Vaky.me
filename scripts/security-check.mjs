@@ -17,7 +17,19 @@ const BASE = (process.argv[2] || "https://vibelab.it.com").replace(/\/$/, "");
 const isLocal = /^https?:\/\/(localhost|127\.0\.0\.1)/.test(BASE);
 const apex = "https://vibelab.it.com";
 
-const PAGES = ["/", "/en/", "/demo/barber-drina/", "/demo/titan-gym/"];
+const PAGES = [
+  "/",
+  "/en/",
+  "/demo/barber-drina/",
+  "/demo/titan-gym/",
+  /* The four outreach concepts: unlisted pages carrying photographs taken from
+     public profiles and links out to Instagram, WhatsApp, Viber and DIKIDI.
+     They are the pages most likely to grow a hotlink or a bare target=_blank. */
+  "/demo/soul-studio/",
+  "/demo/zlatara-opal/",
+  "/demo/kraftart/",
+  "/demo/lavlav/",
+];
 
 let failed = 0;
 let skipped = 0;
@@ -178,6 +190,16 @@ for (const path of PAGES) {
     `${path} contacts no Google host before consent`,
     google.length === 0,
     [...new Set(google)].join(", "),
+  );
+
+  /* Every photograph on the concept pages is served from this origin, which
+     is all `img-src 'self' data:` allows. This catches a hotlink back to
+     Instagram's CDN slipping in with a new image. */
+  const remoteAssets = thirdParty.filter((h) => /instagram|fbcdn|facebook|dikidi/.test(h));
+  check(
+    `${path} loads no remote social assets`,
+    remoteAssets.length === 0,
+    [...new Set(remoteAssets)].join(", "),
   );
 
   const blank = await page.$$eval('a[target="_blank"]', (links) =>

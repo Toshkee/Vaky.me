@@ -24,6 +24,10 @@ const PAGES = [
   "/demo/titan-gym/",
   "/demo/barbershop-stari-grad/",
   "/demo/barber-drina/",
+  "/demo/soul-studio/",
+  "/demo/zlatara-opal/",
+  "/demo/kraftart/",
+  "/demo/lavlav/",
 ];
 
 const browser = await chromium.launch();

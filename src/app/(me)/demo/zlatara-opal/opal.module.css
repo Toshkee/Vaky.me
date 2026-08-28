@@ -1,0 +1,89 @@
+/* Palette and motion for the Zlatara Opal concept, scoped to this route.
+
+   Champagne is the shop's colour and it is a pale one: it carries rules and
+   display letterforms, and every small word set in the accent uses the deep
+   mix instead. The opal blue is one cool note against all that warmth — a
+   ground tint and a hairline, never a fill.
+
+   Motion is a slow settle: a photograph starts a few percent oversize and
+   comes to rest as it enters, which is the camera finding the piece rather
+   than the page announcing itself. No sparkle, no shimmer, no gradient sweep. */
+
+.page {
+  --opal-ivory: #f7f2ea;
+  --opal-shell: #efe7db;
+  --opal-graphite: #26221f;
+  /* 5.4:1 on ivory */
+  --opal-muted: #6a625a;
+  /* 2.4:1 on ivory — rules and display letterforms only */
+  --opal-champagne: #b89a64;
+  /* 5.2:1 on ivory — anything set small in the accent colour */
+  --opal-champagne-deep: #7e6029;
+  --opal-blue: #b9c6d8;
+  /* 6.1:1 on ivory */
+  --opal-blue-deep: #4a5c72;
+  --opal-line: #e0d6c6;
+}
+
+.settle {
+  transform: scale(1);
+}
+
+.rule {
+  transform-origin: left center;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .settle {
+      animation: opal-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 45%;
+    }
+
+    .rule {
+      animation: opal-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 45%;
+    }
+  }
+}
+
+@keyframes opal-settle {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes opal-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Underline that grows from the left on hover and focus — the page's only
+   interactive flourish, and the one place the champagne is allowed to move. */
+.underline {
+  background-image: linear-gradient(var(--opal-champagne), var(--opal-champagne));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .underline {
+    background-size: 0 1px;
+    transition: background-size 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .underline:hover,
+  .underline:focus-visible {
+    background-size: 100% 1px;
+  }
+}

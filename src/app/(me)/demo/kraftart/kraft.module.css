@@ -1,0 +1,86 @@
+/* Palette and motion for the KraftArt concept, scoped to this route.
+
+   A working atelier: paper-coloured ground, near-black ink, one oxide red for
+   the things that matter, and a mono face for the labels a workshop actually
+   writes — position, size, who did it.
+
+   Motion is cut, not eased. A photograph wipes in from the left edge in a
+   straight line, the way a stencil is laid down; labels arrive with a short
+   hard slide. Nothing loops, nothing floats, nothing follows the cursor. */
+
+.page {
+  --kraft-bone: #efe9df;
+  --kraft-paper: #e5ded1;
+  --kraft-ink: #090909;
+  /* 5.2:1 on bone, 4.7:1 on the darker paper surface */
+  --kraft-gray: #635f59;
+  /* 6.7:1 on bone */
+  --kraft-oxide: #8e302c;
+  /* the oxide only reaches 2.5:1 on the near-black footer, so anything red
+     set on the dark ground uses this instead — 5.1:1 */
+  --kraft-oxide-bright: #d9564f;
+  --kraft-line: #cfc7b8;
+}
+
+.wipe {
+  clip-path: inset(0 0 0 0);
+}
+
+.slide {
+  transform: translateY(0);
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .wipe {
+      animation: kraft-wipe linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 85%;
+    }
+
+    .slide {
+      animation: kraft-slide linear both;
+      animation-timeline: view();
+      animation-range: entry 20% entry 70%;
+    }
+  }
+}
+
+@keyframes kraft-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes kraft-slide {
+  from {
+    transform: translateY(0.75rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Portfolio frame: the photograph is the whole card, so the only hover state
+   is the red rule that runs under the caption — the studio's own line, drawn
+   in one cut. */
+.frame .bar {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.frame:hover .bar,
+.frame:focus-visible .bar {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .frame .bar {
+    transition: transform 0.18s ease-out;
+  }
+}

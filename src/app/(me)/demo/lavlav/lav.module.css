@@ -1,0 +1,63 @@
+/* Palette and motion for the LavLav concept, scoped to this route.
+
+   The studio's own mark is black on cream and nothing else; the colour on this
+   page comes from the nails. One lacquer red is allowed, and it is the booking
+   button.
+
+   Motion: on a phone the lookbook is a scroll-snap strip the reader drives
+   themselves — no autoplay, no dots that move on their own. On a pointer
+   device each frame crops in a little on hover, which is the only thing that
+   moves without being asked. */
+
+.page {
+  --lav-cream: #f2eee5;
+  --lav-shell: #e8e2d6;
+  --lav-ink: #111111;
+  /* 6.2:1 on cream */
+  --lav-muted: #5c5751;
+  /* 4.9:1 on cream, and white on it is 5.7:1 */
+  --lav-red: #c81d31;
+  --lav-line: #d8d1c4;
+}
+
+/* Phone: one frame at a time with the next one showing at the edge, so it is
+   obvious the strip continues. Above sm the grid takes over and these rules
+   stop applying. */
+.strip {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  /* The strip bleeds to the viewport edge and pads itself back onto the text
+     rail. Without a matching scroll-padding the browser snaps the first frame
+     to the scrollport edge instead of the rail, scrolling that padding away on
+     load and shaving the left of the first photograph and its caption. */
+  scroll-padding-left: 1.25rem;
+}
+
+.strip::-webkit-scrollbar {
+  display: none;
+}
+
+.strip > * {
+  scroll-snap-align: start;
+}
+
+@media (min-width: 640px) {
+  .strip {
+    scroll-snap-type: none;
+  }
+}
+
+.crop {
+  transform: scale(1);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .crop {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .frame:hover .crop,
+  .frame:focus-visible .crop {
+    transform: scale(1.04);
+  }
+}
