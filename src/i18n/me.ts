@@ -335,7 +335,7 @@ export const me = {
         when: "always",
         title: "Ko obrađuje podatke",
         body: [
-          "VibeLab, web studio iz Podgorice. Za sva pitanja o podacima piši na vibecodemne@gmail.com.",
+          "VibeLab, web studio iz Podgorice. Za sva pitanja o podacima piši na vibelabmne@gmail.com.",
         ],
       },
       {

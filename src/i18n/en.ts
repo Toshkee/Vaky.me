@@ -325,7 +325,7 @@ export const en: Dictionary = {
         when: "always",
         title: "Who handles your data",
         body: [
-          "VibeLab, a web studio in Podgorica. For anything about your data, write to vibecodemne@gmail.com.",
+          "VibeLab, a web studio in Podgorica. For anything about your data, write to vibelabmne@gmail.com.",
         ],
       },
       {
