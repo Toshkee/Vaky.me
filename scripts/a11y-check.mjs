@@ -19,6 +19,7 @@ const PAGES = [
   "/en/",
   "/privacy/",
   "/en/privacy/",
+  "/demo/lucky-chopsticks/",
   "/demo/konoba-skadar/",
   "/demo/titan-gym/",
   "/demo/barbershop-stari-grad/",

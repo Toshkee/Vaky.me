@@ -73,6 +73,14 @@ export const me = {
     next: "Sljedeći rad",
     items: [
       {
+        name: "Lucky Chopsticks",
+        tag: "Asian restaurant · Podgorica",
+        href: "/demo/lucky-chopsticks/",
+        brief: "Gosti traže jelovnik, omiljena jela i lokaciju prije nego odluče gdje idu večeras.",
+        solution: "Meni po raspoloženju, izdvojena jela i posjeta na jednoj upečatljivoj stranici.",
+        includes: ["Meni", "Specijaliteti", "Rezervacije"],
+      },
+      {
         name: "Konoba Skadar",
         tag: "Restoran",
         href: "/demo/konoba-skadar/",

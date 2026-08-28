@@ -71,6 +71,14 @@ export const en: Dictionary = {
     next: "Next project",
     items: [
       {
+        name: "Lucky Chopsticks",
+        tag: "Asian restaurant · Podgorica",
+        href: "/demo/lucky-chopsticks/",
+        brief: "Guests want the menu, favourite dishes and the location before choosing where to eat tonight.",
+        solution: "A menu by mood, featured dishes and the visit details on one distinctive page.",
+        includes: ["Menu", "Specials", "Bookings"],
+      },
+      {
         name: "Konoba Skadar",
         tag: "Restaurant",
         href: "/demo/konoba-skadar/",

@@ -14,6 +14,7 @@ const OUT = "public/work";
 fs.mkdirSync(OUT, { recursive: true });
 
 const demos = [
+  "lucky-chopsticks",
   "konoba-skadar",
   "titan-gym",
   "barbershop-stari-grad",
