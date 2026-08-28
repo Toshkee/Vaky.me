@@ -95,12 +95,14 @@ export function Work({ dict }: { dict: Dictionary }) {
                   <p className="eyebrow mt-1 text-red">{dict.work.conceptLabel}</p>
 
                   {/* What the concept was for, in the same three lines for
-                      every project: the situation, the move, what is in it. */}
-                  <dl className="mt-3 grid gap-x-3 gap-y-1.5 text-sm leading-snug sm:grid-cols-[5.5rem_1fr]">
+                      every project: the situation, the move, what is in it.
+                      Stacked, a label must sit visibly closer to its own text
+                      than to the previous entry, or the pairs dissolve. */}
+                  <dl className="mt-3 grid gap-x-3 gap-y-1 text-sm leading-snug sm:gap-y-1.5 sm:grid-cols-[5.5rem_1fr]">
                     <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.briefLabel}</dt>
-                    <dd className="mb-1 sm:mb-0">{item.brief}</dd>
+                    <dd className="mb-2.5 sm:mb-0">{item.brief}</dd>
                     <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.solutionLabel}</dt>
-                    <dd className="mb-1 sm:mb-0">{item.solution}</dd>
+                    <dd className="mb-2.5 sm:mb-0">{item.solution}</dd>
                     <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.includesLabel}</dt>
                     <dd className="text-muted">{item.includes.join(" · ")}</dd>
                   </dl>
