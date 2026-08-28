@@ -1267,35 +1267,3 @@
   }
 }
 
-/* Keep the small accent labels legible on the light concept palettes. */
-.titan-gym-concept .text-\[\#e7512e\] {
-  color: #8d2d1b;
-}
-
-.titan-gym-concept .text-white\/45 {
-  color: rgb(255 255 255 / 0.68);
-}
-
-.konoba-skadar-concept .text-\[\#c95f37\] {
-  color: #9a3b21;
-}
-
-.konoba-skadar-concept .text-\[\#173b34\]\/65 {
-  color: rgb(23 59 52 / 0.8);
-}
-
-.konoba-skadar-concept .text-\[\#173b34\]\/55 {
-  color: rgb(23 59 52 / 0.76);
-}
-
-.konoba-skadar-concept [aria-hidden="true"] > p {
-  background: rgb(23 59 52 / 0.78);
-  padding: 0.35rem 0.5rem;
-}
-
-.titan-gym-concept header > div > a:first-child,
-.konoba-skadar-concept header > div > a:first-child {
-  display: inline-flex;
-  min-height: 2.75rem;
-  align-items: center;
-}

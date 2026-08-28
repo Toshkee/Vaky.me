@@ -12,23 +12,23 @@ const cards = [
   {
     file: "public/og-demo-titan-gym.png",
     svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-      <rect width="1200" height="630" fill="#101216"/><rect x="74" y="74" width="18" height="482" fill="#d8ff26"/>
-      <text x="132" y="154" fill="#d8ff26" font-family="Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="8">DIZAJN KONCEPT · PODGORICA</text>
-      <text x="126" y="330" fill="#fff" font-family="Impact, Arial Black, sans-serif" font-size="150" letter-spacing="3">TITAN</text>
-      <text x="126" y="468" fill="#d8ff26" font-family="Impact, Arial Black, sans-serif" font-size="116">GYM</text>
-      <path d="M726 235h355M726 315h265M726 395h310" stroke="#fff" stroke-opacity=".32" stroke-width="3"/>
-      <text x="126" y="548" fill="#b6bbc3" font-family="Arial, sans-serif" font-size="29">Kuj svoju formu.</text>
+      <rect width="1200" height="630" fill="#0c0d0e"/>
+      <path d="M0 0h1200v26H0z" fill="#ff5a1f"/><path d="M0 604h1200v26H0z" fill="#ff5a1f"/>
+      <text x="126" y="170" fill="#ff5a1f" font-family="Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="8">TERETANA · PODGORICA</text>
+      <text x="120" y="352" fill="#fff" font-family="Impact, Arial Black, sans-serif" font-size="170" letter-spacing="3">TITAN<tspan fill="#ff5a1f">.</tspan></text>
+      <text x="126" y="470" fill="#ff5a1f" font-family="Impact, Arial Black, sans-serif" font-size="64" letter-spacing="2">SNAGA SE GRADI. DANAS.</text>
+      <text x="126" y="545" fill="#b6bbc3" font-family="Arial, sans-serif" font-size="29">06–23 · Bez ugovorne obaveze</text>
     </svg>`,
   },
   {
     file: "public/og-demo-konoba-skadar.png",
     svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-      <rect width="1200" height="630" fill="#162a29"/><path d="M0 440C220 360 420 510 650 425s370-70 550 5v200H0Z" fill="#244442"/>
-      <circle cx="945" cy="152" r="92" fill="#c4682f" fill-opacity=".9"/><path d="M66 77h1068v476H66z" fill="none" stroke="#f4ead5" stroke-opacity=".52" stroke-width="3"/>
-      <text x="600" y="158" text-anchor="middle" fill="#f4ead5" font-family="Georgia, serif" font-size="26" letter-spacing="7">VIRPAZAR · SKADARSKO JEZERO</text>
-      <text x="600" y="308" text-anchor="middle" fill="#f4ead5" font-family="Georgia, serif" font-size="98">Konoba Skadar</text>
-      <path d="M455 350h290" stroke="#c4682f" stroke-width="5"/>
-      <text x="600" y="412" text-anchor="middle" fill="#f4ead5" font-family="Georgia, serif" font-size="37" font-style="italic">Domaća kuhinja uz jezero</text>
+      <rect width="1200" height="630" fill="#101d24"/><path d="M0 440C220 360 420 510 650 425s370-70 550 5v200H0Z" fill="#16272f"/>
+      <circle cx="945" cy="152" r="92" fill="#dfa15c" fill-opacity=".85"/><path d="M66 77h1068v476H66z" fill="none" stroke="#f2e9d8" stroke-opacity=".5" stroke-width="3"/>
+      <text x="600" y="158" text-anchor="middle" fill="#dfa15c" font-family="Georgia, serif" font-size="26" letter-spacing="7">VIRPAZAR · SKADARSKO JEZERO</text>
+      <text x="600" y="308" text-anchor="middle" fill="#f2e9d8" font-family="Georgia, serif" font-size="98">Konoba Skadar</text>
+      <path d="M455 350h290" stroke="#dfa15c" stroke-width="5"/>
+      <text x="600" y="412" text-anchor="middle" fill="#f2e9d8" font-family="Georgia, serif" font-size="37" font-style="italic">Sto uz jezero. Ukusi koji ostaju.</text>
     </svg>`,
   },
   {
