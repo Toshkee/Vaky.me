@@ -202,6 +202,15 @@ export function Contact({ dict }: { dict: Dictionary }) {
     "mt-1.5 block w-full border-2 border-line bg-paper-2 px-3 py-2.5 text-lg transition-colors placeholder:text-muted focus:border-ink focus:outline-none";
   const fieldLabel = "eyebrow text-muted";
 
+  const say = "px-say w-40 px-3 py-2 text-center text-sm font-semibold leading-snug";
+  const bubbleLine = (
+    <>
+      {c.bubble.pre} <span className="text-red">{c.bubble.em}</span>
+      {c.bubble.post}
+      {valid && <CheckIcon className="ml-1.5 inline w-4 align-[-0.125rem] text-ok" />}
+    </>
+  );
+
   return (
     <section id="kontakt" className="scroll-mt-24 border-t border-line bg-paper-warm">
       <div className="shell py-12 sm:py-16">
@@ -359,27 +368,27 @@ export function Contact({ dict }: { dict: Dictionary }) {
               aria-hidden="true"
               className="relative flex flex-col justify-end pt-2 lg:pt-0 lg:pl-6"
             >
+              {/* Tony's pitch. Once the link looks real he ticks the offer
+                  off at the end of the line. */}
               <div className="tony-track w-full justify-center">
-                <Tony
-                  direction={jump ? "front" : attentive ? "left" : "front"}
-                  pose={jump ? "jump" : "idle"}
-                  scale={0.4}
-                  className="lg:hidden"
-                />
-                {/* The bubble is anchored to Tony, not the column, so the
-                    tail stays at his head at every window width. lg only: in
-                    the stacked mobile layout this column sits right under the
-                    form, where a floating bubble would land on the status
-                    line instead of beside Tony. Once the link looks real he
-                    ticks the offer off at the end of the line. */}
-                {/* Pulled a step toward the form: centered, Tony's bubble would
-                    clip the window edge at the narrow end of lg. */}
+                {/* Below lg there is no room at Tony's side, so the bubble
+                    hangs over his head — in flow, so it makes its own space
+                    instead of landing on the form's status line. */}
+                <span className="flex flex-col items-center gap-4 lg:hidden">
+                  <span className={`${say} px-say--down`}>{bubbleLine}</span>
+                  <Tony
+                    direction={jump ? "front" : attentive ? "left" : "front"}
+                    pose={jump ? "jump" : "idle"}
+                    scale={0.4}
+                  />
+                </span>
+                {/* From lg up it stands beside him, anchored to Tony rather
+                    than the column so the tail stays at his head at every
+                    window width — pulled a step toward the form because
+                    centered it would clip the window edge at the narrow end
+                    of lg. */}
                 <span className="relative hidden -translate-x-8 lg:block">
-                  <span className="px-say absolute bottom-14 left-full ml-3 w-40 px-3 py-2 text-center text-sm font-semibold leading-snug">
-                    {c.bubble.pre} <span className="text-red">{c.bubble.em}</span>
-                    {c.bubble.post}
-                    {valid && <CheckIcon className="ml-1.5 inline w-4 align-[-0.125rem] text-ok" />}
-                  </span>
+                  <span className={`${say} absolute bottom-14 left-full ml-3`}>{bubbleLine}</span>
                   <Tony
                     direction={jump ? "front" : attentive ? "left" : "front"}
                     pose={jump ? "jump" : "idle"}

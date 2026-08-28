@@ -617,6 +617,46 @@
     );
   }
 
+  /* The same tail rotated to point down, for a bubble that hangs over the
+     speaker's head instead of standing beside it. */
+  .px-say--down::before {
+    left: calc(50% - 10px);
+    bottom: -12px;
+    width: 20px;
+    height: 12px;
+    clip-path: polygon(
+      0 0,
+      20px 0,
+      20px 4px,
+      16px 4px,
+      16px 8px,
+      12px 8px,
+      12px 12px,
+      8px 12px,
+      8px 8px,
+      4px 8px,
+      4px 4px,
+      0 4px
+    );
+  }
+
+  .px-say--down::after {
+    left: calc(50% - 6px);
+    bottom: -8px;
+    width: 12px;
+    height: 12px;
+    clip-path: polygon(
+      0 0,
+      12px 0,
+      12px 8px,
+      8px 8px,
+      8px 12px,
+      4px 12px,
+      4px 8px,
+      0 8px
+    );
+  }
+
   /* ── The workstation screen ──
      Which statuses are lit and how far the bar has run are React state, since
      the sequence stops halfway and waits for a click. These are the two ends
