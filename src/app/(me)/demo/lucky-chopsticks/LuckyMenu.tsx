@@ -27,7 +27,6 @@ export function LuckyMenu() {
       <section id="meni" className="bg-[#f3dfb4] px-5 py-14 text-[#28110f] sm:px-8 sm:py-20">
         <div className="mx-auto max-w-xl border-[3px] border-[#6f1713] bg-[#a31c17] p-2 shadow-[0_0_0_2px_#f5cc61]">
           <div className="relative overflow-hidden border border-[#f5cc61]/80 px-7 py-16 text-center sm:px-12 sm:py-24">
-            <span aria-hidden="true" className={`${display} absolute -left-9 top-1/2 -translate-y-1/2 text-[13rem] leading-none text-[#f5cc61]/10`}>LC</span>
             <p className="relative text-[10px] font-bold tracking-[.28em] text-[#f5cc61] uppercase">Lucky Chopsticks</p>
             <h2 className={`${display} relative mt-5 text-5xl leading-none text-white sm:text-7xl`}>Otvori<br /><span className="text-[#f5cc61]">meni.</span></h2>
             <p className="relative mx-auto mt-5 max-w-sm text-sm leading-relaxed text-white/85">Sve što se služi, na pet stranica. Otvori, listaj i izaberi prije nego što pozoveš.</p>
