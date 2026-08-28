@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { menu } from "./data";
 
 const display = "[font-family:var(--font-lucky-display),Impact,sans-serif] uppercase tracking-wide";
@@ -12,6 +12,15 @@ export function LuckyMenu() {
   const touchStart = useRef<number | null>(null);
   const category = menu[page];
   const move = (direction: number) => setPage((current) => (current + direction + menu.length) % menu.length);
+
+  useEffect(() => {
+    const openFromMenuLink = () => {
+      if (window.location.hash === "#meni") setOpen(true);
+    };
+    openFromMenuLink();
+    window.addEventListener("hashchange", openFromMenuLink);
+    return () => window.removeEventListener("hashchange", openFromMenuLink);
+  }, []);
 
   if (!open) {
     return (
