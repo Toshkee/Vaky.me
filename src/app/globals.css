@@ -1253,3 +1253,16 @@
     background-position-y: 0;
   }
 }
+
+/* Lucky Chopsticks menu: each category moves like a fresh page sliding into
+   an opened menu, while reduced-motion users receive the new content plainly. */
+@keyframes lucky-page {
+  from {
+    opacity: 0;
+    transform: translateX(1.5rem) rotateY(-4deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotateY(0);
+  }
+}
