@@ -150,17 +150,6 @@
     }
   }
 
-  /* ── FAB appears once the hero is behind you ── */
-  @supports (animation-timeline: scroll()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .fab-appear {
-        animation: fab-appear 0.35s var(--ease-out) both;
-        animation-timeline: scroll(root);
-        animation-range: 300px 560px;
-      }
-    }
-  }
-
   /* ── Tap target: expands the hit area to 44px without moving the text.
      Uses ::before so it never collides with .sweep's ::after underline. ── */
   .tap {
@@ -770,33 +759,34 @@
     color: var(--color-ink);
   }
 
-  /* 4 — the lock, coming open. Two drawings of the same padlock stacked in
-     one box, so the swap moves nothing but the shackle. */
-  .sc-lock {
+  /* 4 — the conversation. Two bubbles offset like a DM thread: the ink one
+     is the client's question (mirrored, so its tail points back off-scene),
+     the red one is the reply, sitting low beside Tony. */
+  .sc-chat {
     position: relative;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 44px;
+    margin-bottom: 8px;
+  }
+
+  .sc-chat-a,
+  .sc-chat-b {
+    position: absolute;
+  }
+
+  .sc-chat-a {
+    top: 0;
+    right: 0;
+    width: 28px;
     color: var(--color-ink);
+    transform: scaleX(-1);
   }
 
-  .sc-lock-shut,
-  .sc-lock-open {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-  }
-
-  .sc-lock-shut {
-    opacity: 0;
-  }
-
-  .sc-spark {
-    position: absolute;
-    top: -9px;
-    right: -9px;
-    width: 14px;
+  .sc-chat-b {
+    bottom: 0;
+    left: 0;
+    width: 24px;
     color: var(--color-red);
-    opacity: 0;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -815,12 +805,9 @@
     .scene.is-waiting .sc-cursor,
     .scene.is-waiting .sc-euro,
     .scene.is-waiting .sc-tick,
-    .scene.is-waiting .sc-lock-open {
+    .scene.is-waiting .sc-chat-a,
+    .scene.is-waiting .sc-chat-b {
       opacity: 0;
-    }
-
-    .scene.is-waiting .sc-lock-shut {
-      opacity: 1;
     }
 
     /* play */
@@ -873,16 +860,12 @@
       animation: sc-tap 0.8s steps(1) infinite;
     }
 
-    .scene.is-live .sc-lock-shut {
-      animation: sc-shut 3.2s linear both;
+    .scene.is-live .sc-chat-a {
+      animation: sc-say-a 3.2s linear both;
     }
 
-    .scene.is-live .sc-lock-open {
-      animation: sc-open 3.2s linear both;
-    }
-
-    .scene.is-live .sc-spark {
-      animation: sc-flash 3.2s linear both;
+    .scene.is-live .sc-chat-b {
+      animation: sc-say-b 3.2s linear both;
     }
   }
 
@@ -1061,30 +1044,25 @@
   }
 }
 
-@keyframes sc-shut {
+/* The two halves of the exchange, popping in the way a message lands. The
+   client's bubble keeps its mirror inside the keyframes, because the pop
+   animates the same transform the flip lives on. */
+@keyframes sc-say-a {
   0%,
-  51.9% {
+  27.9% {
+    opacity: 0;
+    transform: scaleX(-1) scale(0.4);
+  }
+  28% {
     opacity: 1;
   }
-  52%,
+  34%,
   100% {
-    opacity: 0;
+    transform: scaleX(-1) scale(1);
   }
 }
 
-@keyframes sc-open {
-  0%,
-  51.9% {
-    opacity: 0;
-  }
-  52%,
-  100% {
-    opacity: 1;
-  }
-}
-
-/* The click, on the frame the shackle lifts. */
-@keyframes sc-flash {
+@keyframes sc-say-b {
   0%,
   51.9% {
     opacity: 0;
@@ -1093,12 +1071,8 @@
   52% {
     opacity: 1;
   }
-  62% {
-    transform: scale(1);
-  }
-  78%,
+  58%,
   100% {
-    opacity: 0;
     transform: scale(1);
   }
 }
@@ -1124,17 +1098,6 @@
   45%,
   100% {
     opacity: 0;
-  }
-}
-
-@keyframes fab-appear {
-  from {
-    opacity: 0;
-    transform: translateY(60px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
   }
 }
 

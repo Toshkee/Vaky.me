@@ -2,14 +2,13 @@ import type { ReactNode } from "react";
 import type { Dictionary } from "@/i18n";
 import { Tony } from "@/components/mascot/Tony";
 import {
+  BubbleIcon,
   CheckIcon,
   CursorIcon,
   DocIcon,
   EuroIcon,
   FolderIcon,
   HammerIcon,
-  LockOpenIcon,
-  LockShutIcon,
   RocketIcon,
   SparkleIcon,
 } from "./icons";
@@ -20,8 +19,8 @@ import { SectionHead } from "./SectionHead";
  * The four reasons, each with its own little scene rather than a generic icon,
  * and each one a short storyboard that plays once when the card reaches the
  * viewport: a concept drawing itself on screen, a quote adding up, the jobs
- * getting ticked off, the lock coming open. Tony is in all four doing
- * something different, which is the point — four cards, four jobs.
+ * getting ticked off, a question answered in the DMs. Tony is in all four
+ * doing something different, which is the point — four cards, four jobs.
  *
  * The storyboards live in globals.css; a scene's whole job here is to lay out
  * the parts and name them. Every one of them illustrates the copy underneath
@@ -78,14 +77,14 @@ const SCENES: ReactNode[] = [
     <Tony direction="left" pose="work" scale={0.3} className="[--tony-beat:1.8s]" />
   </>,
 
-  /* No lock-in — he opens it and walks away with the keys. The two padlocks
-     are the same drawing with the shackle down and up, swapped in place. */
+  /* Direct communication — a question comes in, the answer goes straight
+     back. Two bubbles like a DM thread: the mirrored ink one is the client's,
+     the red reply is Tony's, right next to him. */
   <>
     <Tony direction="right" pose="work" scale={0.3} className="[--tony-beat:2.4s]" />
-    <span className="sc-lock">
-      <LockShutIcon className="sc-lock-shut" />
-      <LockOpenIcon className="sc-lock-open" />
-      <SparkleIcon className="sc-spark" />
+    <span className="sc-chat">
+      <BubbleIcon className="sc-chat-a" />
+      <BubbleIcon className="sc-chat-b" />
     </span>
   </>,
 ];

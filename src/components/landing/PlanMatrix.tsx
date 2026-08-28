@@ -43,7 +43,7 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
               )}
 
               <div
-                className={`px-card flex h-full flex-col ${
+                className={`px-card flex h-full flex-col transition-transform duration-100 hover:-translate-y-0.5 motion-reduce:transition-none ${
                   featured ? "shadow-[6px_6px_0_var(--color-ink)]" : ""
                 }`}
               >
@@ -54,21 +54,28 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
                   </p>
                 )}
 
-                <div className="border-b border-line p-5">
-                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                    <h3 className="headline text-xl">{plan.name}</h3>
-                    <p className="headline tnum text-3xl">{plan.price}</p>
+                {/* Name and price hold the top line; the tagline underneath
+                    says who the package is for, and the one-time label under
+                    the price says the other thing a visitor needs to know
+                    about it — that it is not a subscription. */}
+                <div className="border-b border-line p-5 sm:p-6">
+                  <div className="flex items-start justify-between gap-4">
+                    <h3 className="headline pt-1 text-xl">{plan.name}</h3>
+                    <div className="shrink-0 text-right">
+                      <p className="headline tnum text-3xl">{plan.price}</p>
+                      <p className="eyebrow mt-1 text-muted">{dict.pricing.oneTime}</p>
+                    </div>
                   </div>
-                  <p className="mt-1.5 text-sm text-muted">{plan.tagline}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{plan.tagline}</p>
                 </div>
 
-                <div className="p-5">
+                <div className="p-5 sm:p-6">
                   {index > 0 && (
                     <p className="mb-3 text-sm font-semibold">
                       {dict.pricing.inherits.replace("{plan}", plans[index - 1].name)}
                     </p>
                   )}
-                  <ul className="grid gap-2">
+                  <ul className="grid gap-2.5">
                     {compare.rows.map((row, rowIndex) => {
                       const value = row.values[index];
                       if (value === false) return null;
@@ -94,7 +101,7 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
                   </ul>
                 </div>
 
-                <div className="mt-auto grid gap-2 border-t border-line p-5">
+                <div className="mt-auto grid gap-2 border-t border-line p-5 sm:p-6">
                   <a
                     href={enquiryHref(plan.name)}
                     data-umami-event="plan_enquiry"

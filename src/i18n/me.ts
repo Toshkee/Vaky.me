@@ -15,8 +15,8 @@ export const me = {
     eyebrow: "Web studio — Podgorica",
     titleA: "Sajtovi koji",
     titleB: "donose klijente.",
-    sub: "Dizajniramo i izrađujemo sajtove po mjeri — za restoran, teretanu, ordinaciju, agenciju ili bilo koji drugi posao.",
-    offer: "Vodimo posao od prve skice do objave, i održavamo sajt poslije.",
+    sub: "Moderni sajtovi za biznise koji žele više upita, bolji prvi utisak i profesionalno online prisustvo.",
+    offer: "Jasna cijena unaprijed, sve od prve skice do objave vodimo mi — bez agencijskih komplikacija.",
     ctaPrimary: "Zatraži besplatan koncept",
     ctaSecondary: "Pogledaj radove",
     /* The four numbers a business owner asks for first. Every one of them is
@@ -28,36 +28,6 @@ export const me = {
       { label: "Cijena od", value: "€100" },
       { label: "Jezici", value: "MNE + EN" },
     ],
-    concept: {
-      eyebrow: "Besplatan koncept",
-      title: "Već imaš sajt ili Instagram?",
-      body: "Pošalji nam link i vidiš kako bi tvoj biznis mogao da izgleda — prije nego što platiš i cent.",
-      placeholder: "tvoj-sajt.me ili @instagram",
-      linkLabel: "Sajt ili Instagram",
-      contactLabel: "Kontakt za odgovor",
-      contactPlaceholder: "email ili @instagram",
-      goalLabel: "Šta ti treba (opciono)",
-      goalPlaceholder: "Ukratko: čime se baviš i šta bi sajt trebalo da radi.",
-      required: "obavezno",
-      submit: "Pošalji zahtjev",
-      sending: "Šaljem…",
-      success: "Primljeno. Javimo se na kontakt koji si ostavio.",
-      errorRequired: "Treba nam link tvog sajta ili Instagrama i kontakt na koji da odgovorimo.",
-      errorChallenge: "Sačekaj sekundu da se provjera završi, pa pošalji ponovo.",
-      errorOffline: "Nema veze sa internetom. Provjeri konekciju i probaj ponovo.",
-      errorSpam: "Previše pokušaja u kratkom roku. Sačekaj minut i probaj ponovo.",
-      errorProvider: "Slanje trenutno ne radi. Probaj ponovo ili nam piši direktno.",
-      fallbackTitle: "Radije direktno?",
-      submitEmail: "Pošalji email",
-      submitInstagram: "Otvori Instagram DM",
-      submitInstagramCopied: "Poruka kopirana — otvori Instagram",
-      copied: "Poruka je kopirana — samo je nalijepi u Instagram DM.",
-      note: "Email se otvara sa tvojim linkom već upisanim. Javimo se u najkraćem roku.",
-      emailFallback: "Ne otvara ti se email program?",
-      emailFallbackAction: "Otvori Gmail u browseru",
-      /* {link} is replaced with whatever the visitor typed */
-      prefill: "Zdravo! Ovo je moj sajt/Instagram: {link} — može besplatan koncept?",
-    },
   },
 
   work: {
@@ -117,7 +87,7 @@ export const me = {
 
   why: {
     title: "Zašto VibeLab?",
-    sub: "Jednostavan proces, jasan dogovor i sajt spreman da radi za tvoj biznis.",
+    sub: "Izrada sajtova u Podgorici — jednostavan proces, jasan dogovor i sajt koji radi za tvoj biznis.",
     items: [
       {
         title: "Prvo vidiš koncept",
@@ -129,11 +99,11 @@ export const me = {
       },
       {
         title: "Sve sređujemo",
-        body: "Dizajn, sadržaj, domena, objava i tehničko održavanje na jednom mjestu.",
+        body: "Dizajn, sadržaj, domen i objava — sve na jednom mjestu.",
       },
       {
-        title: "Bez vezivanja",
-        body: "Održavanje je bez ugovorne obaveze i može se prekinuti.",
+        title: "Direktna komunikacija",
+        body: "Pričaš direktno sa ljudima koji prave tvoj sajt — bez posrednika.",
       },
     ],
   },
@@ -159,7 +129,7 @@ export const me = {
       {
         day: "Do 10. dana",
         title: "Online",
-        body: "Sajt je na tvom domenu. Dalje ga mi održavamo.",
+        body: "Sajt je spreman i radi na tvom domenu. Ako želiš, dalje održavanje preuzimamo mi.",
       },
     ],
   },
@@ -171,19 +141,19 @@ export const me = {
       {
         name: "Start",
         price: "€100",
-        tagline: "Sve najvažnije na jednoj stranici.",
+        tagline: "Za mali biznis kojem treba jedna jasna stranica — ponuda, lokacija i kontakt.",
         badge: null,
       },
       {
         name: "Biznis",
         price: "€200",
-        tagline: "Kompletan sajt za tvoju firmu.",
+        tagline: "Za firme kojima treba kompletan sajt — više stranica, galerija i engleska verzija.",
         badge: "Najtraženiji",
       },
       {
         name: "Premium",
         price: "od €350",
-        tagline: "Dizajn po mjeri i funkcije koje ti trebaju.",
+        tagline: "Za projekte sa posebnim zahtjevima — rezervacije, dizajn po mjeri i napredni SEO.",
         badge: null,
       },
     ],
@@ -258,6 +228,7 @@ export const me = {
       ],
     },
     inherits: "Sve iz paketa {plan}, plus:",
+    oneTime: "jednokratno",
     detailsAction: "Šta tačno dobijaš?",
     detailsIntro: "Sve iz ovog paketa, objašnjeno bez tehničkih riječi.",
     detailsIncluded: "Uključeno",
@@ -265,10 +236,18 @@ export const me = {
     detailsClose: "Zatvori",
     maintenance: {
       title: "Održavanje i hosting",
-      price: "€20/mjesečno",
-      body: "Prvi mjesec gratis, bez ugovorne obaveze.",
+      optional: "Opciono",
+      price: "€20/mjesec",
+      intro:
+        "Poslije objave sajt je tvoj i radi na tvom domenu. Ako ne želiš da razmišljaš o tehničkoj strani, tu brigu preuzimamo mi — prvi mjesec gratis, otkazuješ kad hoćeš.",
+      includes: [
+        "Hosting i briga o domenu",
+        "Nadzor i tehnička ažuriranja",
+        "Redovan backup",
+        "Sitne izmjene sadržaja",
+      ],
+      note: "Pod sitnim izmjenama mislimo na tekst, cijene i fotografije — nove stranice i funkcionalnosti dogovaraju se posebno. Domen se naplaćuje zasebno, ~€25 godišnje.",
     },
-    addons: "Dodaci se dogovaraju posebno, prema tome šta ti zaista treba.",
     planAction: "Odaberi paket",
     packagePrefill:
       "Zdravo! Zanima me {package} paket za moj biznis. Možemo li dogovoriti detalje?",
@@ -283,7 +262,11 @@ export const me = {
       },
       {
         q: "Treba li mi domen i hosting?",
-        a: "Sve sređujemo mi. Domen je ~€25 godišnje, a hosting je uključen u održavanje. Ti ne moraš ništa tehničko da znaš.",
+        a: "Sve možemo srediti mi: domen je ~€25 godišnje, a hosting je uključen u opciono održavanje. A ako želiš da se o hostingu brineš sam, sajt i domen su tvoji — predamo ti sve što treba.",
+      },
+      {
+        q: "Da li moram uzeti održavanje?",
+        a: "Ne. Sajt je tvoj i radi na tvom domenu, bez ikakve obavezne pretplate kod nas. Održavanje od €20 mjesečno je opcija za one koji ne žele da se bave tehničkom stranom — hosting, nadzor, backup i sitne izmjene sadržaja. Otkazuješ kad god hoćeš.",
       },
       {
         q: "Već imam sajt. Možete li ga prepraviti?",
@@ -298,16 +281,40 @@ export const me = {
 
   contact: {
     title: "Spreman za novi sajt?",
-    sub: "Pošalji Instagram DM ili email — obično odgovorimo istog dana.",
-    action: "Piši nam na Instagramu",
-    instagram: "Instagram",
-    emailLabel: "Email",
+    sub: "Pošalji link svog sajta ili Instagrama — dobijaš besplatan koncept prije nego što išta platiš. Obično odgovorimo istog dana.",
+    directLabel: "Ili direktno:",
     prefill: "Zdravo! Zanima me sajt za moj biznis. Mogu li dobiti besplatan koncept?",
     emailSubject: "Sajt za moj biznis",
+    concept: {
+      eyebrow: "Besplatan koncept",
+      placeholder: "tvoj-sajt.me ili @instagram",
+      linkLabel: "Sajt ili Instagram",
+      contactLabel: "Kontakt za odgovor",
+      contactPlaceholder: "email ili @instagram",
+      goalLabel: "Šta ti treba (opciono)",
+      goalPlaceholder: "Ukratko: čime se baviš i šta bi sajt trebalo da radi.",
+      submit: "Pošalji zahtjev",
+      sending: "Šaljem…",
+      success: "Primljeno. Javimo se na kontakt koji si ostavio.",
+      errorRequired: "Treba nam link tvog sajta ili Instagrama i kontakt na koji da odgovorimo.",
+      errorChallenge: "Sačekaj sekundu da se provjera završi, pa pošalji ponovo.",
+      errorOffline: "Nema veze sa internetom. Provjeri konekciju i probaj ponovo.",
+      errorSpam: "Previše pokušaja u kratkom roku. Sačekaj minut i probaj ponovo.",
+      errorProvider: "Slanje trenutno ne radi. Probaj ponovo ili nam piši direktno.",
+      submitEmail: "Pošalji email",
+      submitInstagram: "Otvori Instagram DM",
+      submitInstagramCopied: "Poruka kopirana — otvori Instagram",
+      copied: "Poruka je kopirana — samo je nalijepi u Instagram DM.",
+      note: "Email se otvara sa tvojim linkom već upisanim. Javimo se u najkraćem roku.",
+      emailFallback: "Ne otvara ti se email program?",
+      emailFallbackAction: "Otvori Gmail u browseru",
+      /* {link} is replaced with whatever the visitor typed */
+      prefill: "Zdravo! Ovo je moj sajt/Instagram: {link} — može besplatan koncept?",
+    },
   },
 
   footer: {
-    tagline: "Web studio iz Podgorice. Sajtovi koji donose klijente.",
+    tagline: "Izrada sajtova i web dizajn u Podgorici. Sajtovi koji donose klijente.",
     rights: "Sva prava zadržana.",
     privacy: "Privatnost",
   },
@@ -389,11 +396,11 @@ export const me = {
     ],
   },
 
-  fab: "Piši nam na Instagramu",
-
   meta: {
-    title: "VibeLab — Sajtovi koji donose klijente | Web studio Podgorica",
+    title: "Izrada sajtova Podgorica — od €100, online do 10 dana | VibeLab",
     description:
-      "Dizajn i izrada sajtova po mjeri — rok do 10 dana, cijena od €100. Web studio iz Podgorice. Besplatan koncept prije nego što išta platiš.",
+      "Izrada sajtova i web dizajn u Podgorici. Moderan sajt za tvoj biznis — od €100, online u roku od 10 dana. Besplatan koncept prije plaćanja. VibeLab, Crna Gora.",
+    /* JSON-LD serviceType entries — what the studio does, for search engines */
+    serviceTypes: ["Izrada sajtova", "Web dizajn", "Održavanje sajtova"],
   },
 } as const;

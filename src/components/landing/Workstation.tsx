@@ -12,7 +12,7 @@ import { CheckIcon, MugIcon } from "./icons";
  * while Tony works — and stops one short. The last line, ONLINE, is the
  * visitor's to trigger: the screen offers a DEPLOY button and waits there for
  * as long as it takes. Clicking it sweeps the bar, lights ONLINE and puts
- * WEBSITE_DEPLOYED on screen, and Tony jumps.
+ * SITE LIVE on screen, and Tony jumps.
  *
  * The sequence is state rather than CSS keyframes because it is genuinely a
  * state machine now — it pauses on an input. Only the transitions between
@@ -31,11 +31,11 @@ const BUILT = STATUSES.length - 1;
 type Phase = "idle" | "building" | "ready" | "deploying" | "online";
 
 const SCREEN: Record<Phase, string> = {
-  idle: "BUILDING WEBSITE",
+  idle: "STANDBY",
   building: "BUILDING WEBSITE",
-  ready: "BUILD COMPLETE",
+  ready: "READY TO DEPLOY",
   deploying: "DEPLOYING",
-  online: "WEBSITE_DEPLOYED",
+  online: "SITE LIVE",
 };
 
 const quiet = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;

@@ -24,12 +24,22 @@ export function StructuredData({ dict }: { dict: Dictionary }) {
       description: dict.meta.description,
       email: site.email,
       priceRange: "€100–€350",
+      // what the studio does, in the page's own language — the entity signal
+      // behind "izrada sajtova Podgorica" and its English equivalents.
+      // knowsAbout, not serviceType: schema.org puts serviceType on Service
+      // only, and ProfessionalService descends from LocalBusiness, so a
+      // serviceType here is an unrecognized property a validator flags and
+      // Google ignores. The Service entities carry it below, per offer.
+      knowsAbout: dict.meta.serviceTypes,
       address: {
         "@type": "PostalAddress",
         addressLocality: site.city,
         addressCountry: "ME",
       },
-      areaServed: { "@type": "Country", name: "Montenegro" },
+      areaServed: [
+        { "@type": "City", name: site.city },
+        { "@type": "Country", name: "Montenegro" },
+      ],
       sameAs: [instagramLink()],
       makesOffer: dict.pricing.plans.map((plan) => ({
         "@type": "Offer",
@@ -38,6 +48,11 @@ export function StructuredData({ dict }: { dict: Dictionary }) {
         priceCurrency: "EUR",
         // "od €350" / "from €350" — the schema wants the number alone
         price: plan.price.replace(/[^0-9]/g, ""),
+        itemOffered: {
+          "@type": "Service",
+          name: plan.name,
+          serviceType: dict.meta.serviceTypes[0],
+        },
       })),
     },
     {

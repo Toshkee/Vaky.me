@@ -1,7 +1,6 @@
 import type { Dictionary } from "@/i18n";
 import { Nav } from "./Nav";
 import { Hero } from "./Hero";
-import { ConceptRequest } from "./ConceptRequest";
 import { Work } from "./Work";
 import { Why } from "./Why";
 import { Pricing } from "./Pricing";
@@ -9,7 +8,6 @@ import { Process } from "./Process";
 import { Faq } from "./Faq";
 import { Contact } from "./Contact";
 import { Footer } from "./Footer";
-import { InstagramFab } from "./InstagramFab";
 import { StructuredData } from "@/components/StructuredData";
 
 export function LandingPage({ dict }: { dict: Dictionary }) {
@@ -19,7 +17,6 @@ export function LandingPage({ dict }: { dict: Dictionary }) {
       <Nav dict={dict} />
       <main>
         <Hero dict={dict} />
-        <ConceptRequest dict={dict} />
         <Work dict={dict} />
         <Why dict={dict} />
         <Pricing dict={dict} />
@@ -28,7 +25,6 @@ export function LandingPage({ dict }: { dict: Dictionary }) {
         <Contact dict={dict} />
       </main>
       <Footer dict={dict} />
-      <InstagramFab dict={dict} />
     </>
   );
 }

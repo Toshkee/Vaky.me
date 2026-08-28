@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { dictionaries } from "@/i18n";
 import { RootHtml, sharedMetadata } from "../root-html";
 import "../globals.css";
 
@@ -7,9 +8,8 @@ export { viewport } from "../root-html";
 
 export const metadata: Metadata = {
   ...sharedMetadata,
-  title: "VibeLab — Sajtovi koji donose klijente | Web studio Podgorica",
-  description:
-    "Dizajn i izrada sajtova po mjeri — rok do 10 dana, cijena od €100. Web studio iz Podgorice. Besplatan koncept prije nego što išta platiš.",
+  title: dictionaries.me.meta.title,
+  description: dictionaries.me.meta.description,
 };
 
 export default function MontenegrinLayout({ children }: { children: ReactNode }) {

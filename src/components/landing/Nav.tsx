@@ -126,7 +126,7 @@ export function Nav({ dict }: { dict: Dictionary }) {
             {dict.nav.langLabel}
           </Link>
           <a
-            href="#koncept"
+            href="#kontakt"
             className="px px-btn px-btn--primary ml-1 inline-flex items-center bg-red px-4 py-1.5 text-[1.15rem] text-white hover:bg-red-deep"
           >
             {dict.nav.cta}

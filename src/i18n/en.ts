@@ -17,8 +17,8 @@ export const en: Dictionary = {
     eyebrow: "Web studio — Podgorica, Montenegro",
     titleA: "Websites that",
     titleB: "bring customers.",
-    sub: "We design and build bespoke websites — for a restaurant, a gym, a clinic, an agency or any other line of work.",
-    offer: "We take it from the first sketch to launch, and maintain the site afterwards.",
+    sub: "Modern websites for businesses that want more enquiries, a stronger first impression and a professional online presence.",
+    offer: "A clear price up front and everything handled from first sketch to launch — none of the agency overhead.",
     ctaPrimary: "Get your free concept",
     ctaSecondary: "See our work",
     facts: [
@@ -27,35 +27,6 @@ export const en: Dictionary = {
       { label: "From", value: "€100" },
       { label: "Languages", value: "ME + EN" },
     ],
-    concept: {
-      eyebrow: "Free concept",
-      title: "Already have a site or an Instagram?",
-      body: "Send us the link and see what your business could look like — before you pay a cent.",
-      placeholder: "your-site.me or @instagram",
-      linkLabel: "Site or Instagram",
-      contactLabel: "Where we reply",
-      contactPlaceholder: "email or @instagram",
-      goalLabel: "What you need (optional)",
-      goalPlaceholder: "Briefly: what you do and what the site should do for you.",
-      required: "required",
-      submit: "Send request",
-      sending: "Sending…",
-      success: "Got it. We'll reply to the contact you left.",
-      errorRequired: "We need your site or Instagram link, and a contact to reply to.",
-      errorChallenge: "Give the check a second to finish, then send again.",
-      errorOffline: "You appear to be offline. Check the connection and try again.",
-      errorSpam: "Too many attempts in a short time. Wait a minute and try again.",
-      errorProvider: "Sending isn't working right now. Try again, or write to us directly.",
-      fallbackTitle: "Rather do it directly?",
-      submitEmail: "Send email",
-      submitInstagram: "Open Instagram DM",
-      submitInstagramCopied: "Message copied — open Instagram",
-      copied: "Message copied — just paste it into the Instagram DM.",
-      note: "Your email opens with the link already written in. We get back to you as soon as we can.",
-      emailFallback: "Email app didn't open?",
-      emailFallbackAction: "Open Gmail in the browser",
-      prefill: "Hi! This is my site/Instagram: {link} — could I get a free concept?",
-    },
   },
 
   work: {
@@ -115,7 +86,7 @@ export const en: Dictionary = {
 
   why: {
     title: "Why VibeLab?",
-    sub: "A simple process, a clear agreement, and a website ready to work for your business.",
+    sub: "Website development in Podgorica — a simple process, a clear agreement and a site that works for your business.",
     items: [
       {
         title: "See the concept first",
@@ -127,11 +98,11 @@ export const en: Dictionary = {
       },
       {
         title: "Everything handled",
-        body: "Design, content, domain, launch, and technical maintenance in one place.",
+        body: "Design, content, domain and launch — all in one place.",
       },
       {
-        title: "No lock-in",
-        body: "Maintenance has no contract lock-in and can be cancelled.",
+        title: "Direct communication",
+        body: "You talk directly to the people building your site — no middlemen.",
       },
     ],
   },
@@ -157,7 +128,7 @@ export const en: Dictionary = {
       {
         day: "By day 10",
         title: "Live",
-        body: "Your site is on your domain. We keep it maintained from there.",
+        body: "Your site is live on your domain. If you want, we can take over maintenance from there.",
       },
     ],
   },
@@ -169,19 +140,19 @@ export const en: Dictionary = {
       {
         name: "Start",
         price: "€100",
-        tagline: "Everything that matters, on one page.",
+        tagline: "For a small business that needs one clear page — your offer, location and contact.",
         badge: null,
       },
       {
         name: "Business",
         price: "€200",
-        tagline: "A complete website for your company.",
+        tagline: "For companies that need a complete site — more pages, a gallery and an English version.",
         badge: "Most popular",
       },
       {
         name: "Premium",
         price: "from €350",
-        tagline: "Custom design and the features you need.",
+        tagline: "For projects with specific requirements — bookings, custom design and advanced SEO.",
         badge: null,
       },
     ],
@@ -253,6 +224,7 @@ export const en: Dictionary = {
       ],
     },
     inherits: "Everything in {plan}, plus:",
+    oneTime: "one-time",
     detailsAction: "What do I get?",
     detailsIntro: "Everything in this package, explained without the jargon.",
     detailsIncluded: "Included",
@@ -260,10 +232,18 @@ export const en: Dictionary = {
     detailsClose: "Close",
     maintenance: {
       title: "Maintenance & hosting",
+      optional: "Optional",
       price: "€20/month",
-      body: "First month free, no contract lock-in.",
+      intro:
+        "After launch the site is yours and runs on your domain. If you'd rather not think about the technical side, we take that worry over — first month free, cancel any time.",
+      includes: [
+        "Hosting & domain management",
+        "Monitoring & technical updates",
+        "Regular backups",
+        "Small content updates",
+      ],
+      note: "Small updates cover text, prices and photos — new pages and features are agreed separately. The domain is a separate cost, ~€25/year.",
     },
-    addons: "Add-ons are agreed separately, based on what you actually need.",
     planAction: "Choose package",
     packagePrefill:
       "Hi! I'm interested in the {package} package for my business. Can we discuss the details?",
@@ -278,7 +258,11 @@ export const en: Dictionary = {
       },
       {
         q: "Do I need a domain and hosting?",
-        a: "We handle everything. A domain is ~€25/year and hosting is included in maintenance. You don't need to know anything technical.",
+        a: "We can set it all up: the domain is ~€25/year, and hosting is included in the optional maintenance. And if you'd rather look after hosting yourself, the site and domain are yours — we hand over everything you need.",
+      },
+      {
+        q: "Do I have to take the maintenance plan?",
+        a: "No. The site is yours and runs on your domain — nothing you have to subscribe to with us. Maintenance at €20/month is an option for those who'd rather not deal with the technical side — hosting, monitoring, backups and small content updates. Cancel whenever you like.",
       },
       {
         q: "I already have a website. Can you redesign it?",
@@ -293,16 +277,39 @@ export const en: Dictionary = {
 
   contact: {
     title: "Ready for a new website?",
-    sub: "Send an Instagram DM or email — we usually reply the same day.",
-    action: "Message us on Instagram",
-    instagram: "Instagram",
-    emailLabel: "Email",
+    sub: "Send a link to your site or Instagram — you get a free concept before you pay anything. We usually reply the same day.",
+    directLabel: "Or directly:",
     prefill: "Hi! I'm interested in a website for my business. Can I get a free concept?",
     emailSubject: "Website for my business",
+    concept: {
+      eyebrow: "Free concept",
+      placeholder: "your-site.me or @instagram",
+      linkLabel: "Site or Instagram",
+      contactLabel: "Where we reply",
+      contactPlaceholder: "email or @instagram",
+      goalLabel: "What you need (optional)",
+      goalPlaceholder: "Briefly: what you do and what the site should do for you.",
+      submit: "Send request",
+      sending: "Sending…",
+      success: "Got it. We'll reply to the contact you left.",
+      errorRequired: "We need your site or Instagram link, and a contact to reply to.",
+      errorChallenge: "Give the check a second to finish, then send again.",
+      errorOffline: "You appear to be offline. Check the connection and try again.",
+      errorSpam: "Too many attempts in a short time. Wait a minute and try again.",
+      errorProvider: "Sending isn't working right now. Try again, or write to us directly.",
+      submitEmail: "Send email",
+      submitInstagram: "Open Instagram DM",
+      submitInstagramCopied: "Message copied — open Instagram",
+      copied: "Message copied — just paste it into the Instagram DM.",
+      note: "Your email opens with the link already written in. We get back to you as soon as we can.",
+      emailFallback: "Email app didn't open?",
+      emailFallbackAction: "Open Gmail in the browser",
+      prefill: "Hi! This is my site/Instagram: {link} — could I get a free concept?",
+    },
   },
 
   footer: {
-    tagline: "Web studio from Podgorica. Websites that bring customers.",
+    tagline: "Web design & development in Podgorica, Montenegro. Websites that bring customers.",
     rights: "All rights reserved.",
     privacy: "Privacy",
   },
@@ -381,11 +388,10 @@ export const en: Dictionary = {
     ],
   },
 
-  fab: "Message us on Instagram",
-
   meta: {
-    title: "VibeLab — Websites that bring customers | Web studio Podgorica",
+    title: "Website Development Podgorica — from €100, within 10 days | VibeLab",
     description:
-      "Bespoke website design and development — delivered within 10 days, from €100. A web studio in Podgorica, Montenegro. Free concept before you pay.",
+      "Website design and development in Podgorica, Montenegro. A modern site for your business — from €100, live within 10 days. Free concept before you pay.",
+    serviceTypes: ["Website development", "Web design", "Website maintenance"],
   },
 };

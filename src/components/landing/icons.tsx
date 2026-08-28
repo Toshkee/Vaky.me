@@ -65,24 +65,6 @@ export function PlusIcon(props: IconProps) {
   return <PixelGlyph {...props} d="M7 3h2v10H7zM3 7h10v2H3z" />;
 }
 
-/** Instagram glyph — used by the mobile contact shortcut. */
-export function InstagramIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className={className}
-      aria-hidden="true"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
 /* ── 12-grid pixel art ─────────────────────────────────────────────────── */
 
 const PALETTE: Record<string, string> = {
@@ -328,54 +310,6 @@ export function RocketIcon(props: IconProps) {
         ".##.####.##.",
         "....RRRR....",
         ".....RR.....",
-      ]}
-    />
-  );
-}
-
-/** Closed padlock — the "before" frame of the no-lock-in scene. Identical to
-    the open one except that the shackle's right leg reaches the body, so the
-    two can be swapped in place without anything else shifting. */
-export function LockShutIcon(props: IconProps) {
-  return (
-    <PixelArt
-      {...props}
-      rows={[
-        "...####.....",
-        "..##..##....",
-        "..##..##....",
-        "..##..##....",
-        "..##..##....",
-        ".#########..",
-        ".#########..",
-        ".###RR####..",
-        ".###RR####..",
-        ".#########..",
-        ".#########..",
-        "............",
-      ]}
-    />
-  );
-}
-
-/** Open padlock — ownership, no lock-in. */
-export function LockOpenIcon(props: IconProps) {
-  return (
-    <PixelArt
-      {...props}
-      rows={[
-        "...####.....",
-        "..##..##....",
-        "..##..##....",
-        "..##........",
-        "..##........",
-        ".#########..",
-        ".#########..",
-        ".###RR####..",
-        ".###RR####..",
-        ".#########..",
-        ".#########..",
-        "............",
       ]}
     />
   );

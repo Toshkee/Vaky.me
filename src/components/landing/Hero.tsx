@@ -22,7 +22,7 @@ export function Hero({ dict }: { dict: Dictionary }) {
               one scroll further down, so it is a link, not a second slab
               competing with the thing we actually want pressed. */}
           <div className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-4">
-            <Button href="#koncept" arrow event="hero_primary_cta">
+            <Button href="#kontakt" arrow event="hero_primary_cta">
               {dict.hero.ctaPrimary}
             </Button>
             <a

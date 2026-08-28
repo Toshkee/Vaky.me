@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/i18n";
-import { EuroIcon } from "./icons";
+import { OsBadge } from "@/components/ui/OsBadge";
+import { CheckIcon, EuroIcon } from "./icons";
 import { SectionHead } from "./SectionHead";
 import { PlanMatrix } from "./PlanMatrix";
 
@@ -9,6 +10,8 @@ import { PlanMatrix } from "./PlanMatrix";
  * server-rendered.
  */
 export function Pricing({ dict }: { dict: Dictionary }) {
+  const m = dict.pricing.maintenance;
+
   return (
     <section id="cijene" className="scroll-mt-24 border-t border-line bg-paper-warm">
       <div className="shell py-12 sm:py-16">
@@ -17,20 +20,33 @@ export function Pricing({ dict }: { dict: Dictionary }) {
 
         <PlanMatrix dict={dict} />
 
-        {/* The one recurring charge, and the only number on the page a visitor
-            can be surprised by later — so it is set at package weight under a
-            rule of its own instead of hiding in the small print. */}
-        <div className="mt-12 border-t-2 border-ink pt-5">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-            <h3 className="headline text-xl sm:text-2xl">{dict.pricing.maintenance.title}</h3>
-            <p className="headline tnum text-2xl sm:text-3xl">{dict.pricing.maintenance.price}</p>
+        {/* The one recurring charge on the page — and an optional one, which
+            is the fact this panel exists to make unmissable. It explains the
+            service instead of selling it: the site is the client's either
+            way, and the badge says so before the price does. */}
+        <div className="mt-12 border-t-2 border-ink pt-6">
+          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+            <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2">
+              <h3 className="headline text-xl sm:text-2xl">{m.title}</h3>
+              <OsBadge tone="red">{m.optional}</OsBadge>
+            </div>
+            <p className="headline tnum text-2xl sm:text-3xl">{m.price}</p>
           </div>
-          <p className="mt-2 font-semibold text-red sm:text-lg">
-            {dict.pricing.maintenance.body}
-          </p>
-        </div>
 
-        <p className="mt-5 text-sm leading-relaxed text-muted">{dict.pricing.addons}</p>
+          <div className="mt-5 grid gap-x-10 gap-y-5 lg:grid-cols-[1.15fr_0.85fr]">
+            <p className="max-w-xl leading-relaxed text-muted">{m.intro}</p>
+            <ul className="grid content-start gap-x-6 gap-y-2 sm:grid-cols-2 lg:grid-cols-1">
+              {m.includes.map((item) => (
+                <li key={item} className="flex items-baseline gap-2.5 text-sm">
+                  <CheckIcon className="w-4 shrink-0 self-center text-red" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted">{m.note}</p>
+        </div>
       </div>
     </section>
   );
