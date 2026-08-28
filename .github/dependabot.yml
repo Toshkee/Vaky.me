@@ -1,12 +1,28 @@
 version: 2
 updates:
+  # One grouped PR a month instead of a stream of individual ones. Majors are
+  # split off so a breaking bump never blocks the routine patches.
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
+      interval: monthly
+    open-pull-requests-limit: 2
+    groups:
+      npm:
+        update-types:
+          - minor
+          - patch
+      npm-major:
+        update-types:
+          - major
+
   # Keeps the SHA pins in .github/workflows current instead of frozen.
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
+    open-pull-requests-limit: 1
+    groups:
+      actions:
+        patterns:
+          - "*"
