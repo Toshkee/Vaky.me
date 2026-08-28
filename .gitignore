@@ -46,3 +46,6 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# prospect research - contact data, never publish
+/research
