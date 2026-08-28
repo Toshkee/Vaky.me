@@ -305,6 +305,7 @@ export const en: Dictionary = {
       emailFallback: "Email app didn't open?",
       emailFallbackAction: "Open Gmail in the browser",
       prefill: "Hi! This is my site/Instagram: {link} — could I get a free concept?",
+      bubble: { pre: "Send it now and get a", em: "free concept", post: "!" },
     },
   },
 

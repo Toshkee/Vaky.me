@@ -359,14 +359,6 @@ export function Contact({ dict }: { dict: Dictionary }) {
               aria-hidden="true"
               className="relative flex flex-col justify-end pt-2 lg:pt-0 lg:pl-6"
             >
-              {/* lg only: in the stacked mobile layout this column sits right
-                  under the form, where the floating card would land on the
-                  status line instead of beside Tony. */}
-              {valid && (
-                <span className="px-card absolute left-1/2 hidden px-2 py-1.5 lg:bottom-40 lg:ml-9 lg:block">
-                  <CheckIcon className="w-4 text-ok" />
-                </span>
-              )}
               <div className="tony-track w-full justify-center">
                 <Tony
                   direction={jump ? "front" : attentive ? "left" : "front"}
@@ -374,12 +366,26 @@ export function Contact({ dict }: { dict: Dictionary }) {
                   scale={0.4}
                   className="lg:hidden"
                 />
-                <Tony
-                  direction={jump ? "front" : attentive ? "left" : "front"}
-                  pose={jump ? "jump" : "idle"}
-                  scale={0.55}
-                  className="hidden lg:block"
-                />
+                {/* The bubble is anchored to Tony, not the column, so the
+                    tail stays at his head at every window width. lg only: in
+                    the stacked mobile layout this column sits right under the
+                    form, where a floating bubble would land on the status
+                    line instead of beside Tony. Once the link looks real he
+                    ticks the offer off at the end of the line. */}
+                {/* Pulled a step toward the form: centered, Tony's bubble would
+                    clip the window edge at the narrow end of lg. */}
+                <span className="relative hidden -translate-x-8 lg:block">
+                  <span className="px-say absolute bottom-14 left-full ml-3 w-40 px-3 py-2 text-center text-sm font-semibold leading-snug">
+                    {c.bubble.pre} <span className="text-red">{c.bubble.em}</span>
+                    {c.bubble.post}
+                    {valid && <CheckIcon className="ml-1.5 inline w-4 align-[-0.125rem] text-ok" />}
+                  </span>
+                  <Tony
+                    direction={jump ? "front" : attentive ? "left" : "front"}
+                    pose={jump ? "jump" : "idle"}
+                    scale={0.55}
+                  />
+                </span>
               </div>
             </div>
           </div>

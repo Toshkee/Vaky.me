@@ -310,6 +310,9 @@ export const me = {
       emailFallbackAction: "Otvori Gmail u browseru",
       /* {link} is replaced with whatever the visitor typed */
       prefill: "Zdravo! Ovo je moj sajt/Instagram: {link} — može besplatan koncept?",
+      /* Tony's speech bubble beside the form. Split so the offer can be set
+         in red without concatenating sentences in the component. */
+      bubble: { pre: "Pošalji sada i dobijaš", em: "besplatan koncept", post: "!" },
     },
   },
 

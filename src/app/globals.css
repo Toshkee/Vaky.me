@@ -558,6 +558,65 @@
     box-shadow: 4px 4px 0 var(--color-ink);
   }
 
+  /* A px-card that talks: same slab, plus a stepped tail off the lower-left
+     edge. Two stacked pseudo-elements fake the outline — ink arrow behind,
+     paper arrow on top — because a stepped polygon can't be inset the way a
+     border can. The paper arrow runs 4px into the card to open the tail into
+     the interior, and pseudo-elements paint above their element's border, so
+     no seam is left where they meet. */
+  .px-say {
+    position: relative;
+    border: 2px solid var(--color-ink);
+    background: var(--color-paper);
+    box-shadow: 4px 4px 0 var(--color-ink);
+  }
+
+  .px-say::before,
+  .px-say::after {
+    content: "";
+    position: absolute;
+  }
+
+  .px-say::before {
+    left: -12px;
+    bottom: 12px;
+    width: 12px;
+    height: 20px;
+    background: var(--color-ink);
+    clip-path: polygon(
+      12px 0,
+      12px 20px,
+      8px 20px,
+      8px 16px,
+      4px 16px,
+      4px 12px,
+      0 12px,
+      0 8px,
+      4px 8px,
+      4px 4px,
+      8px 4px,
+      8px 0
+    );
+  }
+
+  .px-say::after {
+    left: -8px;
+    bottom: 16px;
+    width: 12px;
+    height: 12px;
+    background: var(--color-paper);
+    clip-path: polygon(
+      12px 0,
+      12px 12px,
+      4px 12px,
+      4px 8px,
+      0 8px,
+      0 4px,
+      4px 4px,
+      4px 0
+    );
+  }
+
   /* ── The workstation screen ──
      Which statuses are lit and how far the bar has run are React state, since
      the sequence stops halfway and waits for a click. These are the two ends
