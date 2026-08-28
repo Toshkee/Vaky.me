@@ -1,28 +1,32 @@
 version: 2
 updates:
-  # One grouped PR a month instead of a stream of individual ones. Majors are
-  # split off so a breaking bump never blocks the routine patches.
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: monthly
-    open-pull-requests-limit: 2
+      interval: weekly
+    open-pull-requests-limit: 5
     groups:
-      npm:
+      # One PR per week for all safe npm updates instead of one PR per package.
+      npm-minor-patch:
         update-types:
           - minor
           - patch
-      npm-major:
-        update-types:
-          - major
+    ignore:
+      # Every major is a breaking change or a framework migration, so none of
+      # them belong in an automated bump. The wildcard matters: a per-package
+      # list only covers the deps that exist when it is written and silently
+      # lets new majors through. Majors stay a deliberate, manual upgrade;
+      # minor and patch still arrive grouped every week.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
-  # Keeps the SHA pins in .github/workflows current instead of frozen.
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: monthly
-    open-pull-requests-limit: 1
+      interval: weekly
+    open-pull-requests-limit: 5
     groups:
-      actions:
+      # Action SHA re-pins are noisy and always safe to batch.
+      actions-all:
         patterns:
           - "*"
