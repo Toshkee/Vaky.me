@@ -147,12 +147,12 @@ export default function LuckyChopsticksPage() {
                     <span aria-hidden="true" className="text-2xl text-[#aa371d] transition-transform group-open:rotate-45">+</span>
                   </summary>
                   <ul className="grid gap-x-12 pb-7 sm:grid-cols-2">
-                    {section.items.map(([name, description, price]) => <li key={name} className="grid grid-cols-[minmax(0,1fr)_auto] gap-4 border-t border-[#1d1711]/10 py-4"><div><h3 className="font-bold">{name}</h3><p className="mt-1 text-sm leading-relaxed text-[#1d1711]/60">{description}</p></div><p className="font-bold tabular-nums text-[#aa371d]">{price}</p></li>)}
+                    {section.items.map(([name, description, price]) => <li key={name} className="grid grid-cols-[minmax(0,1fr)_auto] gap-4 border-t border-[#1d1711]/10 py-4"><div><h3 className="font-bold">{name}</h3><p className="mt-1 text-sm leading-relaxed text-[#1d1711]/75">{description}</p></div><p className="font-bold tabular-nums text-[#aa371d]">{price}</p></li>)}
                   </ul>
                 </details>
               ))}
             </div>
-            <p className="mt-5 text-xs text-[#1d1711]/55">Cijene i jelovnik preuzeti iz objavljenog Lucky Chopsticks menija; provjeriti prije štampe ili objave promjena.</p>
+            <p className="mt-5 text-xs text-[#1d1711]/75">Cijene i jelovnik preuzeti iz objavljenog Lucky Chopsticks menija; provjeriti prije štampe ili objave promjena.</p>
           </div>
         </section>
 
@@ -167,7 +167,7 @@ export default function LuckyChopsticksPage() {
 
         <section id="posjeta" className="scroll-mt-6 border-y border-white/10 bg-[#aa371d]">
           <div className="mx-auto grid max-w-6xl gap-8 px-6 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1fr_auto] lg:items-end">
-            <div><p className={`${label} text-[#f5d58b]`}>Tvoj sto čeka</p><h2 className={`${display} mt-3 text-4xl leading-tight sm:text-5xl`}>Dobra večera počinje lakše.</h2><p className="mt-4 max-w-lg text-sm leading-relaxed text-white/75">Lokacija, radno vrijeme i rezervacija ovdje bi bili na jednom mjestu — bez kopanja po objavama i porukama.</p></div>
+            <div><p className={`${label} text-[#f5d58b]`}>Tvoj sto čeka</p><h2 className={`${display} mt-3 text-4xl leading-tight sm:text-5xl`}>Dobra večera počinje lakše.</h2><p className="mt-4 max-w-lg text-sm leading-relaxed text-white/90">Lokacija, radno vrijeme i rezervacija ovdje bi bili na jednom mjestu — bez kopanja po objavama i porukama.</p></div>
             <div className="rounded-sm border border-white/25 bg-[#8c2817] p-6 lg:min-w-80"><p className={`${label} text-[#f5d58b]`}>Lucky Chopsticks</p><a href="tel:+38269104904" className={`mt-4 block text-2xl font-bold tracking-tight hover:text-[#f5d58b] ${focus}`}>069 104 904</a><a href="https://www.instagram.com/lucky.chopsticks.pg/" className={`mt-2 block text-sm text-white/75 hover:text-[#f5d58b] ${focus}`}>@lucky.chopsticks.pg</a><a href="https://www.luckychopsticks.pg/" className={`mt-1 block text-sm text-white/75 hover:text-[#f5d58b] ${focus}`}>luckychopsticks.pg</a><a href="#vrh" className={`mt-6 inline-flex min-h-11 items-center bg-[#f6eedc] px-5 text-sm font-bold text-[#7f2112] hover:bg-white ${focus}`}>Vrati se na vrh</a></div>
           </div>
         </section>

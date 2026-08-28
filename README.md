@@ -1,72 +1,91 @@
-# VibeLab.me
+# VibeLab
 
-Marketing site for VibeLab.me — web studio from Podgorica. Bilingual (ME/EN), fully static,
-zero backend, free to host.
+**VibeLab is a web studio from Podgorica, Montenegro.** We design fast, distinctive websites for small businesses that need to look credible online and make it easy for customers to take the next step.
 
-www.vibelab.it.com
+Live site: [vibelab.it.com](https://vibelab.it.com)
 
-## Run locally
+## What we do
+
+We make websites for local businesses: restaurants, salons, barbers, gyms, services, and teams with a good product but no clear online home.
+
+Each site is designed around the questions customers actually ask:
+
+- What do you offer and how much does it cost?
+- Where are you and when are you open?
+- How do I book, order, call, or send a message?
+- Can I trust this business?
+
+The result is a site that is quick on a phone, easy to understand, and made to turn interest into messages, calls, bookings, and visits.
+
+## How we work
+
+1. **You tell us about the business.** Send an Instagram profile, existing site, menu, price list, or a short message about what you need.
+2. **We make a free concept.** You see a real direction before committing to the project.
+3. **We build the site.** Design, copy, photos, responsive layout, and technical setup are handled together.
+4. **You go live.** The site is published on your domain and ready to share.
+
+Most projects are ready within 10 days once we have the necessary content.
+
+## Packages
+
+| Package | From | Best for |
+|---|---:|---|
+| Start | €100 | A clear one-page presence with the essentials |
+| Business | €200 | A complete business website with menu/price list, gallery, and contact details |
+| Premium | €350+ | A fully custom design, bilingual content, bookings, and tailored functionality |
+
+Every site is responsive and includes direct contact actions, a map/contact area, and the SEO essentials needed for search engines to understand it.
+
+## Work on this site
+
+The **Radovi / Work** section contains interactive design concepts made for real local-business needs:
+
+- Lucky Chopsticks — a modern, menu-led Asian restaurant concept for Podgorica
+- Konoba Skadar — restaurant menu and reservation flow
+- Titan Gym — memberships, programmes, and class timetable
+- Barbershop Stari Grad — prices, opening hours, and easy messaging
+- Barber Drina — an accessible price list and booking helper
+
+The demos are concepts, not production websites. They show how a business can present its services clearly and give customers a simple path to contact.
+
+## Contact
+
+Want a concept for your business? Reach VibeLab through [Instagram](https://instagram.com/vibelab.me) or email [vibecodemne@gmail.com](mailto:vibecodemne@gmail.com).
+
+## About this website
+
+This repository contains the VibeLab website. It is bilingual (Montenegrin and English), built as a static Next.js export, and designed to be fast, accessible, and inexpensive to host.
+
+### Local development
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
-npm run build    # static export → out/
+npm run dev
 ```
 
-## Where to edit things
+Open `http://localhost:3000`.
 
-| What | Where |
-|---|---|
-| Instagram / email | `src/config/site.ts` — the ONLY place public contact info lives |
-| All text + **prices/packages** | `src/i18n/me.ts` (Montenegrin) and `src/i18n/en.ts` (English) |
-| Colors / fonts | `src/app/globals.css` (`@theme` block) and `src/app/root-html.tsx` |
-| Landing page sections | `src/components/landing/` |
-| Pixel icons | `src/components/landing/icons.tsx` — drawn as character grids, edit the picture |
-| Tony (mascot) | sprite `public/mascot/tony.webp`, poses/animations in `src/app/globals.css` |
-| Demo sites | `src/app/(me)/demo/<name>/` — each is self-contained |
-| Logo / favicon | `public/logo-lockup.png`, `public/tony-head.png`, `src/app/icon.png` — regenerate all from the master PNGs with `node scripts/brand-assets.mjs <lockup> <head>` |
-| Portfolio screenshots | `public/work/*.jpg` — regenerate with `node scripts/capture-work-shots.mjs` (dev server running) after a demo changes, then `node scripts/optimize-work-shots.mjs` for the AVIF/WebP widths the cards actually serve |
-| Share card | `public/og.png` — regenerate with `node scripts/generate-og.mjs` (dev server running) |
-| Form backend, spam check, analytics | `.env.example` → `.env.local` and the Vercel project. All three are optional: unset means off, and the form falls back to a prefilled email |
-| Privacy note | `privacy` in the two dictionaries. Sections are keyed to whether a service is configured, so the page only describes what this build actually does |
-
-## Checks
+### Useful commands
 
 ```bash
 npm run lint
 npx tsc --noEmit
-npm run check:mobile      # overflow + tap targets, Chromium and WebKit, 320/390px
-npm run check:a11y        # axe-core over all 8 pages (dev server or a URL)
-npm run test:security     # headers, redirects, cookies, map privacy, XSS probes
-npm run shots:visual out/dir [url]   # full-page shots at 390 / 768 / 1440
+npm run build
+npm run check:mobile
+npm run test:security
 ```
 
-Security headers and redirects only exist on a Vercel target, so
-`test:security` skips those against localhost and says so. See
-[SECURITY.md](SECURITY.md) and [docs/deployment-security.md](docs/deployment-security.md).
+### Content and maintenance
 
-## Routes
+| Need to change | Where |
+|---|---|
+| Public contact details | `src/config/site.ts` |
+| Website copy and package prices | `src/i18n/me.ts` and `src/i18n/en.ts` |
+| Landing-page sections | `src/components/landing/` |
+| Portfolio demos | `src/app/(me)/demo/` |
+| Portfolio thumbnails | `public/work/` |
+| Brand assets | `public/` and `src/app/` |
 
-- `/` — Montenegrin landing page
-- `/en` — English landing page
-- `/privacy`, `/en/privacy` — what the site collects, which is close to nothing
-- `/demo/barber-drina`, `/demo/barbershop-stari-grad`, `/demo/konoba-skadar`, `/demo/titan-gym` — clickable portfolio
-  demos (`noindex`). Three are invented businesses; `barber-drina` is a concept pitched at a real
-  Podgorica shop, so it carries the real name and its published price list but demo contact
-  details — no phone number, street address or personal profile of anyone who has not asked to
-  be listed.
+## Deployment
 
-## Deploy (Vercel, free)
-
-```bash
-npx vercel        # first time: login + link project
-npx vercel --prod
-```
-
-Currently served from `vibelab.it.com`, which is also what `site.url` in
-`src/config/site.ts` declares as canonical.
-
-Note: `vibelab.me` and `vibecode.me` are both registered to third parties (checked 2026-08-26).
-When a domain you own is purchased: Vercel dashboard → Project → Settings → Domains → add it,
-set the DNS records Vercel shows at the registrar, then update `site.url` — that single value
-drives canonicals, the sitemap, robots.txt and the structured data.
+The site is configured for a static export and can be deployed on Vercel or any static host. Run `npm run build` to create the production-ready `out/` directory.
