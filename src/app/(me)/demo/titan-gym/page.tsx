@@ -1,141 +1,29 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Anton } from "next/font/google";
+import { DM_Sans, Instrument_Serif } from "next/font/google";
 import { MapEmbed } from "@/components/demo/MapEmbed";
 import { VibeLabBar } from "@/components/demo/VibeLabBar";
 import { plans, programs, schedule } from "./data";
 
-const anton = Anton({ weight: "400", subsets: ["latin", "latin-ext"], display: "swap", variable: "--font-anton" });
+const sans = DM_Sans({ subsets: ["latin", "latin-ext"], display: "swap", variable: "--font-titan-sans" });
+const serif = Instrument_Serif({ weight: "400", subsets: ["latin"], display: "swap", variable: "--font-titan-serif" });
 
-export const metadata: Metadata = {
-  title: "Titan Gym — Teretana u Podgorici | Dizajn koncept",
-  description: "Dizajn koncept za teretanu u Podgorici sa programima, rasporedom, članarinama i kontaktom.",
-  robots: { index: false, follow: false },
-  openGraph: { images: ["/og-demo-titan-gym.png"] },
-};
+export const metadata: Metadata = { title: "Titan Gym — Teretana u Podgorici | Dizajn koncept", description: "Dizajn koncept za teretanu u Podgorici sa programima, rasporedom, članarinama i kontaktom.", robots: { index: false, follow: false }, openGraph: { images: ["/og-demo-titan-gym.png"] } };
 
-const display = "font-[family-name:var(--font-anton)] uppercase";
-const label = "text-[11px] font-bold tracking-[0.2em] uppercase";
-const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#719000]";
-const primary = `inline-flex min-h-12 items-center justify-center bg-[#17191b] px-7 text-sm font-bold text-white uppercase transition-colors hover:bg-[#719000] ${focus}`;
+const label = "text-[10px] font-bold tracking-[0.16em] uppercase";
+const focus = "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e7512e]";
+const primary = `inline-flex min-h-12 items-center justify-center bg-[#14211e] px-6 text-sm font-bold text-white transition-colors hover:bg-[#e7512e] ${focus}`;
 
 export default function TitanGymPage() {
-  return (
-    <div className={`${anton.variable} min-h-screen bg-[#f2f0eb] pb-20 text-[#151719] md:pb-0`}>
-      <VibeLabBar />
-      <header className="border-b border-black/15">
-        <div className="mx-auto flex max-w-5xl flex-col items-center px-5 py-1 sm:flex-row sm:justify-between sm:px-8 sm:py-2">
-          <a href="#vrh" className={`${display} flex min-h-11 items-center gap-2 text-xl tracking-wide ${focus}`}>
-            <span aria-hidden="true" className="h-5 w-2 bg-[#719000]" />Titan Gym
-          </a>
-          <nav aria-label="Glavna navigacija" className="flex flex-wrap items-center justify-center gap-x-6">
-            <a href="#programi" className={`${label} py-3.5 hover:text-[#587100] ${focus}`}>Programi</a>
-            <a href="#clanarine" className={`${label} py-3.5 hover:text-[#587100] ${focus}`}>Članarine</a>
-            <a href="#raspored" className={`${label} py-3.5 hover:text-[#587100] ${focus}`}>Raspored</a>
-            <a href="#kontakt" className={`${label} py-3.5 hover:text-[#587100] ${focus}`}>Kontakt</a>
-          </nav>
-        </div>
-      </header>
-
-      <main id="vrh">
-        <section>
-          <div className="mx-auto max-w-5xl px-6 py-14 sm:px-8 sm:py-20">
-            <div className="max-w-2xl">
-              <p className={`${label} text-[#587100]`}>Teretana · Podgorica</p>
-              <h1 className={`${display} mt-4 text-5xl leading-[0.95] sm:text-7xl`}>Trening koji staje u tvoj dan.</h1>
-              <p className="mt-5 max-w-lg text-base leading-relaxed text-black/60 sm:text-lg">
-                Zona snage, kardio i grupni programi na jednom mjestu. Dođi na probni trening i upoznaj prostor prije učlanjenja.
-              </p>
-              <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-7">
-                <a href="tel:+38267000000" className={primary}>Zakaži probni trening</a>
-                <p className="text-sm text-black/55">Pon–Pet 06–23h · Sub 08–22h</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="programi" className="scroll-mt-6 border-t border-black/15">
-          <div className="mx-auto max-w-5xl px-6 py-16 sm:px-8 sm:py-24">
-            <p className={`${label} text-[#587100]`}>Programi</p>
-            <h2 className={`${display} mt-3 text-3xl sm:text-4xl`}>Izaberi način treninga</h2>
-            <ul className="mt-9 grid gap-x-10 sm:grid-cols-2">
-              {programs.map((program) => (
-                <li key={program.name} className="border-t border-black/20 py-5">
-                  <h3 className={`${display} text-2xl`}>{program.name}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-black/60">{program.desc}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section id="clanarine" className="scroll-mt-6 bg-[#17191b] text-white">
-          <div className="mx-auto max-w-5xl px-6 py-16 sm:px-8 sm:py-24">
-            <p className={`${label} text-[#c8f31d]`}>Cjenovnik</p>
-            <h2 className={`${display} mt-3 text-3xl sm:text-4xl`}>Jednostavne članarine</h2>
-            <ul className="mt-9 grid gap-4 lg:grid-cols-3">
-              {plans.map((plan) => (
-                <li key={plan.name} className={`border p-6 ${plan.highlighted ? "border-[#c8f31d]" : "border-white/20"}`}>
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <h3 className={`${display} text-2xl`}>{plan.name}</h3>
-                      {plan.highlighted ? <p className={`${label} mt-1 text-[#c8f31d]`}>Najtraženija</p> : null}
-                    </div>
-                    <p className="text-right"><span className={`${display} block text-4xl`}>{plan.price}</span><span className="text-xs text-white/50">{plan.period}</span></p>
-                  </div>
-                  <ul className="mt-6 space-y-2 border-t border-white/15 pt-5">
-                    {plan.features.map((feature) => <li key={feature} className="text-sm text-white/65">{feature}</li>)}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-6 text-sm text-white/55">Ilustrativne cijene za potrebe koncepta — potvrditi prije objave.</p>
-          </div>
-        </section>
-
-        <section id="raspored" className="scroll-mt-6 border-t border-black/15">
-          <div className="mx-auto max-w-5xl px-6 py-16 sm:px-8 sm:py-24">
-            <p className={`${label} text-[#587100]`}>Grupni treninzi</p>
-            <h2 className={`${display} mt-3 text-3xl sm:text-4xl`}>Sedmični raspored</h2>
-            <div className="mt-9 grid gap-x-10 lg:grid-cols-2">
-              {schedule.map((day) => (
-                <details key={day.day} className="group border-t border-black/20">
-                  <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between py-4 [&::-webkit-details-marker]:hidden">
-                    <span className={`${display} text-2xl`}>{day.day}</span>
-                    <span aria-hidden="true" className="text-xl transition-transform group-open:rotate-45">+</span>
-                  </summary>
-                  <ul className="space-y-2 pb-5">
-                    {day.slots.map((slot) => <li key={`${day.day}-${slot.time}`} className="flex items-baseline justify-between gap-6 text-sm"><span>{slot.name}</span><span className="font-semibold text-[#587100] tabular-nums">{slot.time}</span></li>)}
-                  </ul>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="kontakt" className="scroll-mt-6 border-t border-black/15">
-          <div className="mx-auto grid max-w-5xl gap-12 px-6 py-16 sm:px-8 sm:py-24 lg:grid-cols-2 lg:gap-16">
-            <div>
-              <p className={`${label} text-[#587100]`}>Kontakt</p>
-              <h2 className={`${display} mt-3 text-3xl sm:text-4xl`}>Dođi na prvi trening</h2>
-              <address className="mt-7 not-italic"><p className="font-semibold">Bulevar Josipa Broza 44, Podgorica</p><p className="mt-2 text-sm text-black/55">Pon–Pet 06–23h · Sub 08–22h · Ned 09–15h</p></address>
-              <div className="mt-8 flex flex-col gap-3 sm:max-w-sm"><a href="tel:+38267000000" className={primary}>+382 67 000 000</a><a href="viber://chat?number=%2B38267000000" className={`inline-flex min-h-12 items-center justify-center border border-black/30 px-6 font-semibold hover:border-black ${focus}`}>Piši na Viber</a></div>
-            </div>
-            <div className="border border-black/20 p-1.5">
-              <MapEmbed
-                query="Bulevar Josipa Broza 44, Podgorica, Crna Gora"
-                title="Mapa — Bulevar Josipa Broza 44, Podgorica"
-                className="h-72 w-full border-0 grayscale sm:h-80"
-                buttonClassName={`inline-flex min-h-11 items-center justify-center bg-[#17191b] px-5 text-sm font-bold uppercase text-white hover:bg-[#719000] ${focus}`}
-                linkClassName={`text-xs underline underline-offset-4 hover:text-[#587100] ${focus}`}
-              />
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer className="bg-[#17191b] text-white"><div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-5 py-10 text-center"><p className={`${display} text-lg`}>Titan Gym</p><p className="text-sm text-white/50">Bulevar Josipa Broza 44 · Podgorica</p><p className="mt-3 text-xs text-white/60">Koncept: <Link href="/" className={`font-semibold text-[#c8f31d] hover:underline ${focus}`}>VibeLab</Link></p></div></footer>
-      <a href="tel:+38267000000" className={`fixed inset-x-4 bottom-4 z-50 inline-flex min-h-14 items-center justify-center bg-[#17191b] px-5 text-sm font-bold text-white shadow-xl md:hidden ${focus}`}>Zakaži probni trening</a>
-    </div>
-  );
+  return <div className={`${sans.variable} ${serif.variable} titan-gym-concept min-h-screen bg-[#f4f3ef] pb-20 text-[#14211e] [font-family:var(--font-titan-sans)] md:pb-0`}>
+    <VibeLabBar />
+    <header className="border-b border-[#14211e]/15 bg-[#f4f3ef]"><div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-5 py-4 sm:px-8"><a href="#vrh" className={`text-lg font-bold tracking-[-0.06em] ${focus}`}>TITAN<span className="text-[#e7512e]">.</span></a><nav aria-label="Glavna navigacija" className="hidden items-center gap-6 md:flex"><a href="#programi" className={`${label} hover:text-[#e7512e] ${focus}`}>Programi</a><a href="#clanarine" className={`${label} hover:text-[#e7512e] ${focus}`}>Članarine</a><a href="#raspored" className={`${label} hover:text-[#e7512e] ${focus}`}>Raspored</a></nav><a href="tel:+38267000000" className={`hidden min-h-10 items-center bg-[#14211e] px-4 text-xs font-bold text-white hover:bg-[#e7512e] sm:inline-flex ${focus}`}>Probni trening</a></div></header>
+    <main id="vrh">
+      <section className="border-b border-[#14211e]/15"><div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-[1.25fr_.75fr] lg:items-end lg:gap-20"><div><p className={`${label} text-[#e7512e]`}>Teretana · Podgorica</p><h1 className="mt-5 max-w-3xl text-5xl font-medium leading-[.91] tracking-[-0.075em] sm:text-7xl lg:text-8xl">Radi na sebi.<br /><span className="font-[family-name:var(--font-titan-serif)] font-normal italic tracking-[-0.045em]">Bez buke.</span></h1><p className="mt-7 max-w-xl text-base leading-relaxed text-[#14211e]/70 sm:text-lg">Dobar prostor, jasni programi i treneri koji znaju kada treba pritisnuti, a kada usporiti. Trening koji možeš da održiš.</p><div className="mt-9 flex flex-col gap-3 sm:flex-row"><a href="tel:+38267000000" className={primary}>Zakaži probni trening <span aria-hidden="true" className="ml-5">↗</span></a><a href="#programi" className={`inline-flex min-h-12 items-center justify-center border border-[#14211e]/25 px-6 text-sm font-bold hover:border-[#14211e] ${focus}`}>Pogledaj programe</a></div></div><aside className="border-l-2 border-[#e7512e] pl-5 sm:pl-7 lg:mb-2"><p className={label}>Otvoreno danas</p><p className="mt-3 text-3xl font-medium tracking-[-0.06em]">06:00 — 23:00</p><p className="mt-4 max-w-xs text-sm leading-relaxed text-[#14211e]/65">Bulevar Josipa Broza 44<br />Podgorica, Crna Gora</p><a href="#kontakt" className={`mt-6 inline-flex text-sm font-bold underline decoration-[#e7512e] decoration-2 underline-offset-4 ${focus}`}>Kako do nas</a></aside></div></section>
+      <section id="programi" className="scroll-mt-6"><div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24"><div className="grid gap-5 border-b border-[#14211e]/15 pb-8 md:grid-cols-2 md:items-end"><div><p className={`${label} text-[#e7512e]`}>Kako treniraš</p><h2 className="mt-3 text-4xl font-medium tracking-[-0.065em] sm:text-5xl">Sve što ti treba.<br />Ništa što ne treba.</h2></div><p className="max-w-sm text-sm leading-relaxed text-[#14211e]/65 md:justify-self-end">Izaberi ritam koji ti odgovara — samostalno, sa trenerom ili u dobroj grupi.</p></div><ul className="grid md:grid-cols-2 lg:grid-cols-3">{programs.map((program, index) => <li key={program.name} className="border-b border-[#14211e]/15 px-0 py-7 md:px-6 md:[&:nth-child(odd)]:pl-0 lg:border-r lg:[&:nth-child(3n)]:border-r-0 lg:[&:nth-child(4)]:pl-0"><span className={`${label} text-[#e7512e]`}>0{index + 1}</span><h3 className="mt-6 text-2xl font-medium tracking-[-0.055em]">{program.name}</h3><p className="mt-3 text-sm leading-relaxed text-[#14211e]/65">{program.desc}</p></li>)}</ul></div></section>
+      <section id="clanarine" className="scroll-mt-6 bg-[#14211e] text-[#f4f3ef]"><div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24"><p className={`${label} text-[#ff8c6e]`}>Članarine</p><div className="mt-3 flex flex-col justify-between gap-5 border-b border-white/20 pb-8 sm:flex-row sm:items-end"><h2 className="text-4xl font-medium tracking-[-0.065em] sm:text-5xl">Jednostavno ostani u igri.</h2><p className="max-w-sm text-sm leading-relaxed text-white/60">Bez nejasnih paketa. Pronađi period koji odgovara tvom ritmu.</p></div><ul className="grid lg:grid-cols-3">{plans.map((plan) => <li key={plan.name} className={`relative border-b border-white/20 px-0 py-8 lg:border-b-0 lg:border-r lg:px-7 lg:first:pl-0 lg:last:border-r-0 ${plan.highlighted ? "lg:bg-white/[.045]" : ""}`}>{plan.highlighted ? <p className={`${label} text-[#ff8c6e]`}>Najtraženija</p> : <p className={`${label} text-white/45`}>Članarina</p>}<div className="mt-5 flex items-end justify-between gap-4"><h3 className="text-2xl font-medium tracking-[-0.055em]">{plan.name}</h3><p className="text-right"><span className="text-4xl font-medium tracking-[-0.065em]">{plan.price}</span><span className="mt-1 block text-xs text-white/50">{plan.period}</span></p></div><ul className="mt-7 space-y-3 border-t border-white/15 pt-5">{plan.features.map((feature) => <li key={feature} className="flex gap-3 text-sm text-white/70"><span className="text-[#ff8c6e]">—</span>{feature}</li>)}</ul></li>)}</ul><p className="mt-8 text-xs text-white/45">Ilustrativne cijene za potrebe koncepta — potvrditi prije objave.</p></div></section>
+      <section id="raspored" className="scroll-mt-6"><div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-[.65fr_1.35fr]"><div><p className={`${label} text-[#e7512e]`}>Grupni treninzi</p><h2 className="mt-3 text-4xl font-medium tracking-[-0.065em] sm:text-5xl">Raspored za ovu sedmicu.</h2><p className="mt-5 max-w-xs text-sm leading-relaxed text-[#14211e]/65">Sačuvaj svoje mjesto pozivom ili na recepciji prije dolaska.</p></div><div className="border-t border-[#14211e]/20">{schedule.map((day) => <details key={day.day} className="group border-b border-[#14211e]/20" open={day.day === "Ponedjeljak"}><summary className="flex min-h-16 cursor-pointer list-none items-center justify-between py-4 font-bold [&::-webkit-details-marker]:hidden"><span>{day.day}</span><span aria-hidden="true" className="text-xl text-[#e7512e] transition-transform group-open:rotate-45">+</span></summary><ul className="grid gap-2 pb-6 sm:grid-cols-3">{day.slots.map((slot) => <li key={`${day.day}-${slot.time}`} className="flex items-baseline justify-between gap-4 bg-[#e9e8e2] px-3 py-3 text-sm"><span>{slot.name}</span><time className="font-bold tabular-nums text-[#e7512e]">{slot.time}</time></li>)}</ul></details>)}</div></div></section>
+      <section id="kontakt" className="scroll-mt-6 border-t border-[#14211e]/15 bg-[#e9e8e2]"><div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-2"><div><p className={`${label} text-[#e7512e]`}>Prvi korak</p><h2 className="mt-3 max-w-md text-4xl font-medium tracking-[-0.065em] sm:text-5xl">Dođi, pogledaj prostor, pa odluči.</h2><p className="mt-5 max-w-md text-sm leading-relaxed text-[#14211e]/65">Prvi trening je prilika da upoznaš prostor i postaviš pitanja — bez pritiska.</p><address className="mt-8 not-italic text-sm leading-relaxed"><strong>Bulevar Josipa Broza 44, Podgorica</strong><br /><span className="text-[#14211e]/65">Pon–Pet 06–23h · Sub 08–22h · Ned 09–15h</span></address><div className="mt-8 flex flex-col gap-3 sm:flex-row"><a href="tel:+38267000000" className={primary}>+382 67 000 000</a><a href="viber://chat?number=%2B38267000000" className={`inline-flex min-h-12 items-center justify-center border border-[#14211e]/25 px-6 text-sm font-bold hover:border-[#14211e] ${focus}`}>Piši na Viber</a></div></div><div className="overflow-hidden border border-[#14211e]/20 bg-white p-1.5"><MapEmbed query="Bulevar Josipa Broza 44, Podgorica, Crna Gora" title="Mapa — Bulevar Josipa Broza 44, Podgorica" className="h-72 w-full border-0 grayscale sm:h-full sm:min-h-96" buttonClassName={`${primary} px-5 text-sm`} linkClassName={`text-xs underline underline-offset-4 ${focus}`} /></div></div></section>
+    </main><footer className="bg-[#14211e] text-white"><div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-10 sm:flex-row sm:items-end sm:justify-between sm:px-8"><p className="text-lg font-bold tracking-[-0.06em]">TITAN<span className="text-[#e7512e]">.</span></p><p className="text-xs text-white/55">Koncept: <Link href="/" className={`font-bold text-white hover:text-[#ff8c6e] ${focus}`}>VibeLab</Link></p></div></footer><a href="tel:+38267000000" className={`fixed inset-x-4 bottom-4 z-50 inline-flex min-h-14 items-center justify-center bg-[#14211e] px-5 text-sm font-bold text-white shadow-xl md:hidden ${focus}`}>Zakaži probni trening</a>
+  </div>;
 }
