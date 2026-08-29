@@ -37,10 +37,6 @@ const focus =
 const primaryCta = `inline-flex min-h-12 items-center justify-center bg-[var(--lav-red)] px-7 text-sm font-semibold text-white transition-colors hover:bg-[var(--lav-ink)] ${focus}`;
 const secondaryCta = `inline-flex min-h-12 items-center justify-center border border-[var(--lav-ink)] px-7 text-sm font-semibold transition-colors hover:bg-[var(--lav-ink)] hover:text-[var(--lav-cream)] ${focus}`;
 
-/* Every second frame drops half a step, so the row reads as a lookbook spread
-   rather than a product grid. */
-const LOOK_OFFSET = ["", "sm:mt-10", "", "sm:mt-10", ""];
-
 export default function LavLavPage() {
   return (
     <div
@@ -62,7 +58,7 @@ export default function LavLavPage() {
           <nav aria-label="Glavna navigacija" className="hidden items-center gap-7 md:flex">
             {[
               ["#usluge", "Usluge"],
-              ["#radovi", "Radovi"],
+              ["#radovi", "Iz salona"],
               ["#rezervacija", "Rezervacija"],
               ["#kontakt", "Kontakt"],
             ].map(([href, text]) => (
@@ -92,17 +88,16 @@ export default function LavLavPage() {
       <main id="vrh">
         <section className="mx-auto grid max-w-6xl gap-8 px-5 pb-14 pt-8 sm:px-8 sm:pb-16 sm:pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
           <div className="order-2 lg:order-1">
-            <p className={`${label} text-[var(--lav-muted)]`}>Nails · Brows · Lashes · {studio.city}</p>
             <h1
-              className={`${display} mt-7 text-[clamp(2rem,4.6vw,3rem)] leading-[1.12] tracking-[-0.01em]`}
+              className={`${display} text-[clamp(2rem,4.6vw,3rem)] leading-[1.12] tracking-[-0.01em]`}
             >
               Više od 200 nijansi.
               <br />
-              Jedan termin za sebe.
+              Termin biraš online.
             </h1>
             <p className="mt-7 max-w-md leading-relaxed text-[var(--lav-muted)]">
-              Intiman beauty studio u Master kvartu za manikir, pedikir, obrve, trepavice i pažljivo
-              odabrane beauty tretmane.
+              Intiman beauty studio u Master kvartu za manikir, pedikir, obrve, trepavice i lasersku
+              epilaciju.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a
@@ -183,7 +178,7 @@ export default function LavLavPage() {
           <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <h2 className={`${display} text-[clamp(1.75rem,4vw,2.5rem)] tracking-[0.02em]`}>
-                Radovi
+                Iz salona
               </h2>
               <p className={`${label} text-[var(--lav-muted)] sm:hidden`}>Prevuci za još ←→</p>
             </div>
@@ -192,9 +187,11 @@ export default function LavLavPage() {
               className={`${styles.strip} -mx-5 mt-8 flex snap-x gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3`}
             >
               {lookbook.map((look, index) => (
+                // Every second frame drops half a step, so the row reads as a
+                // lookbook spread rather than a product grid.
                 <li
                   key={look.src}
-                  className={`w-[78%] shrink-0 sm:w-auto ${LOOK_OFFSET[index]}`}
+                  className={`w-[78%] shrink-0 sm:w-auto ${index % 2 === 1 ? "sm:mt-10" : ""}`}
                 >
                   <figure className={styles.frame}>
                     <div className="overflow-hidden">
@@ -343,7 +340,11 @@ export default function LavLavPage() {
         </div>
       </footer>
 
-      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 gap-2 border-t border-[var(--lav-line)] bg-[var(--lav-cream)] px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 md:hidden">
+      {/* Asymmetric split, not the even two-up every other concept uses: the
+          booking action carries more weight than the Instagram link, so it
+          gets more of the bar. Bleeds edge-to-edge — no side padding, no gap
+          between the two, so the join reads as one divided bar. */}
+      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-[1.6fr_1fr] border-t border-[var(--lav-line)] bg-[var(--lav-cream)] pb-[env(safe-area-inset-bottom)] md:hidden">
         <a
           href={studio.bookingUrl}
           target="_blank"
@@ -351,9 +352,9 @@ export default function LavLavPage() {
           data-umami-event="demo_booking"
           data-umami-event-demo="lavlav"
           data-umami-event-action="dikidi-sticky"
-          className={`inline-flex min-h-12 items-center justify-center bg-[var(--lav-red)] px-4 text-sm font-semibold text-white ${focus}`}
+          className={`${display} inline-flex min-h-14 items-center justify-center bg-[var(--lav-red)] px-4 text-sm tracking-[0.08em] text-white ${focus}`}
         >
-          Rezerviši
+          Rezerviši termin
         </a>
         <a
           href={studio.instagramUrl}
@@ -362,7 +363,7 @@ export default function LavLavPage() {
           data-umami-event="demo_contact"
           data-umami-event-demo="lavlav"
           data-umami-event-action="instagram-sticky"
-          className={`inline-flex min-h-12 items-center justify-center border border-[var(--lav-ink)] px-4 text-sm font-semibold ${focus}`}
+          className={`${display} inline-flex min-h-14 items-center justify-center border-l border-[var(--lav-line)] px-4 text-sm tracking-[0.08em] text-[var(--lav-ink)] ${focus}`}
         >
           Instagram
         </a>

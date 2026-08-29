@@ -43,7 +43,7 @@ export const services: Service[] = [
   {
     id: "manikir",
     title: "Manikir",
-    body: "Klasičan i gel manikir, korekcija i produžetak — u paleti od preko dvjesta nijansi.",
+    body: "Klasičan i gel manikir, korekcija i produžetak.",
   },
   {
     id: "pedikir",
@@ -87,7 +87,7 @@ export const bookingSteps: Step[] = [
   {
     n: "2",
     title: "Pronađi termin",
-    body: "Slobodni termini se vide odmah, po danu i po osobi. Bez čekanja na odgovor.",
+    body: "Slobodni termini se vide odmah, po danu i po osobi.",
   },
   {
     n: "3",

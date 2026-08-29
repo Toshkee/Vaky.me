@@ -40,14 +40,14 @@ export interface Practice {
 export const practices: Practice[] = [
   {
     id: "yoga",
-    eyebrow: "Praksa prva",
+    eyebrow: "Na prostirci",
     title: "Yoga",
     body: "Rad na dahu, ravnoteži i pokretljivosti — na prostirci, sopstvenom težinom i sopstvenim tempom. Pokret prati disanje, a ne obrnuto, pa se svaka poza može produžiti ili skratiti onoliko koliko tijelo traži tog dana.",
     note: "Bez sprava. Potrebna je samo prostirka i vrijeme koje si odvojio za sebe.",
   },
   {
     id: "reformer",
-    eyebrow: "Praksa druga",
+    eyebrow: "Na reformeru",
     title: "Reformer Pilates",
     body: "Vježbe na reformeru — drvenoj spravi sa pokretnim ležajem i oprugama. Opruge istovremeno daju otpor i podršku, pa pokret ostaje kontrolisan i onda kada je zahtjevan. Radi se na snazi trupa, stabilnosti i držanju.",
     note: "Sprava vodi pokret. Zato je Reformer često lakši za početak nego što izgleda.",
@@ -72,7 +72,11 @@ export const hero: Photo = {
   source: "https://www.instagram.com/p/DUREtHjDL5P/",
 };
 
-export const gallery: Photo[] = [
+/* `as const satisfies` keeps each photo's `src` a literal type instead of
+   widening it to `string`, so page.tsx can key its per-photo layout off
+   `src` and have TypeScript reject a stale or misspelled key — the array
+   position is no longer load-bearing. */
+export const gallery = [
   {
     src: "/demo/soul-studio/poruka",
     alt: "Vježbačica leži na reformeru sa nogama u kaiševima, ispred zida na kojem piše Move the body, Open the heart, Feel the soul",
@@ -101,4 +105,4 @@ export const gallery: Photo[] = [
     height: 1080,
     source: "https://www.instagram.com/p/DUREtHjDL5P/",
   },
-];
+] as const satisfies readonly Photo[];

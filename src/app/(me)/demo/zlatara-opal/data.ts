@@ -46,7 +46,7 @@ export const collections: Collection[] = [
   {
     id: "pokloni",
     title: "Pokloni",
-    body: "Srebrne figure i komadi za rođenja, krštenja, godišnjice i sve datume koji se pamte bez podsjetnika.",
+    body: "Srebrne figure i sitni komadi koji se poklanjaju — gotovo uvijek za nekoga drugog, ne za sebe.",
   },
   {
     id: "narudzba",
@@ -91,17 +91,20 @@ export interface Piece {
   source: string;
 }
 
+/* The mermaid pendant leads the page because it is the shop's own argument in
+   one photograph: a figure nobody stocks, cut for one person. The worn pieces
+   sit in the gallery, where scale is easier to read. */
 export const hero: Piece = {
-  src: "/demo/zlatara-opal/ogrlica-detelina",
-  title: "Ogrlica sa zelenim motivom",
+  src: "/demo/zlatara-opal/ogrlica-kutija",
+  title: "Ogrlica sa motivom sirene",
   material: "Zlato 14k (585)",
-  alt: "Tanka zlatna ogrlica sa zelenim privjeskom u obliku djeteline, nošena preko tamnoplave bluze",
+  alt: "Ogrlica od žutog zlata sa privjeskom u obliku sirene, položena u poklon kutiju",
   width: 1080,
-  height: 982,
-  source: "https://www.instagram.com/p/DUTFmPzjO6h/",
+  height: 1350,
+  source: "https://www.instagram.com/p/DXPK7O5DO7r/",
 };
 
-export const pieces: Piece[] = [
+export const pieces = [
   {
     src: "/demo/zlatara-opal/privezak",
     title: "Privezak po crtežu",
@@ -130,13 +133,13 @@ export const pieces: Piece[] = [
     source: "https://www.instagram.com/p/DZ7bOzMstfb/",
   },
   {
-    src: "/demo/zlatara-opal/ogrlica-kutija",
-    title: "Ogrlica sa motivom sirene",
+    src: "/demo/zlatara-opal/ogrlica-detelina",
+    title: "Ogrlica sa zelenim motivom",
     material: "Zlato 14k (585)",
-    alt: "Ogrlica od žutog zlata sa privjeskom u obliku sirene, položena u poklon kutiju",
+    alt: "Tanka zlatna ogrlica sa zelenim privjeskom u obliku djeteline, nošena preko tamnoplave bluze",
     width: 1080,
-    height: 1350,
-    source: "https://www.instagram.com/p/DXPK7O5DO7r/",
+    height: 982,
+    source: "https://www.instagram.com/p/DUTFmPzjO6h/",
   },
   {
     src: "/demo/zlatara-opal/narukvica",
@@ -156,4 +159,4 @@ export const pieces: Piece[] = [
     height: 1170,
     source: "https://www.instagram.com/p/DOv3nikjOG3/",
   },
-];
+] as const satisfies readonly Piece[];

@@ -40,21 +40,35 @@ const secondaryCta = `inline-flex min-h-12 items-center justify-center border bo
 
 /* Five frames on a twelve-column rail, in two full rows: one wide piece and
    two narrow ones, then a pair. The eye lands on a whole arm before it starts
-   scanning thumbnails, and no row trails off into empty columns. */
-const WORK_SPAN = [
-  "sm:col-span-2 lg:col-span-6",
-  "lg:col-span-3",
-  "lg:col-span-3",
-  "lg:col-span-6",
-  "lg:col-span-6",
-];
-const WORK_BOX = [
-  "aspect-[4/5] lg:aspect-[5/4]",
-  "aspect-[4/5]",
-  "aspect-[4/5]",
-  "aspect-[4/5] lg:aspect-square",
-  "aspect-[4/5] lg:aspect-square",
-];
+   scanning thumbnails, and no row trails off into empty columns.
+
+   Keyed by photo src rather than array index: an index-based lookup goes
+   silently out of sync the moment a work is added, removed or reordered in
+   data.ts, and nothing would catch it. Record<(typeof works)[number]["src"], …>
+   forces TypeScript to error if a work's src doesn't have a matching layout
+   entry here. */
+const WORK_LAYOUT: Record<(typeof works)[number]["src"], { span: string; box: string }> = {
+  "/demo/kraftart/limun": {
+    span: "sm:col-span-2 lg:col-span-6",
+    box: "aspect-[4/5] lg:aspect-[5/4]",
+  },
+  "/demo/kraftart/orah": {
+    span: "lg:col-span-3",
+    box: "aspect-[4/5]",
+  },
+  "/demo/kraftart/katane": {
+    span: "lg:col-span-3",
+    box: "aspect-[4/5]",
+  },
+  "/demo/kraftart/talas": {
+    span: "lg:col-span-6",
+    box: "aspect-[4/5] lg:aspect-square",
+  },
+  "/demo/kraftart/piercing": {
+    span: "lg:col-span-6",
+    box: "aspect-[4/5] lg:aspect-square",
+  },
+};
 
 export default function KraftArtPage() {
   return (
@@ -94,7 +108,7 @@ export default function KraftArtPage() {
             data-umami-event="demo_contact"
             data-umami-event-demo="kraftart"
             data-umami-event-action="instagram-header"
-            className={`hidden min-h-10 items-center bg-[var(--kraft-oxide)] px-4 text-xs font-bold uppercase tracking-[0.08em] text-[var(--kraft-bone)] transition-colors hover:bg-[var(--kraft-ink)] sm:inline-flex ${focus}`}
+            className={`hidden min-h-11 items-center bg-[var(--kraft-oxide)] px-4 text-xs font-bold uppercase tracking-[0.08em] text-[var(--kraft-bone)] transition-colors hover:bg-[var(--kraft-ink)] sm:inline-flex ${focus}`}
           >
             Zakaži termin
           </a>
@@ -138,7 +152,9 @@ export default function KraftArtPage() {
                   </a>
                 </div>
                 <p className={`mt-7 ${label} text-[var(--kraft-gray)]`}>
-                  {studio.address} · Subotom zatvoreno
+                  {studio.address}
+                  <br />
+                  Subotom zatvoreno
                 </p>
               </div>
             </div>
@@ -170,8 +186,8 @@ export default function KraftArtPage() {
             </div>
 
             <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-12">
-              {works.map((work, index) => (
-                <li key={work.src} className={WORK_SPAN[index]}>
+              {works.map((work) => (
+                <li key={work.src} className={WORK_LAYOUT[work.src].span}>
                   <a
                     href={work.source}
                     target="_blank"
@@ -188,14 +204,12 @@ export default function KraftArtPage() {
                         width={work.width}
                         height={work.height}
                         sizes="(min-width: 1024px) 40vw, (min-width: 640px) 46vw, 92vw"
-                        className={`w-full object-cover ${WORK_BOX[index]}`}
+                        className={`w-full object-cover ${WORK_LAYOUT[work.src].box}`}
                       />
                     </div>
                     <div className="flex items-baseline justify-between gap-4 pt-3">
                       <span className={`${label} text-[var(--kraft-gray)]`}>@{work.artist}</span>
-                      <span className={`${label} text-[var(--kraft-ink)]`}>
-                        Objava <span aria-hidden="true">↗</span>
-                      </span>
+                      <span className={`${label} text-[var(--kraft-ink)]`}>Objava</span>
                     </div>
                     <span
                       aria-hidden="true"
@@ -253,33 +267,39 @@ export default function KraftArtPage() {
           </div>
         </section>
 
+        {/* A workshop checklist, not a row of cards: title and intro run full
+            width, then each step is one line across the whole measure, split
+            by hairline rules rather than boxed off from its neighbours. */}
         <section id="priprema" className="scroll-mt-6">
           <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
-            <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-              <div>
-                <h2 className="text-4xl font-extrabold tracking-[-0.03em] sm:text-5xl">
-                  Prije termina
-                </h2>
-                <p className="mt-6 max-w-sm leading-relaxed text-[var(--kraft-gray)]">
-                  Tri stvari u prvoj poruci skraćuju dogovor sa nekoliko dana na jedno popodne.
-                </p>
-              </div>
+            <h2 className="text-4xl font-extrabold tracking-[-0.03em] sm:text-5xl">
+              Prije termina
+            </h2>
+            <p className="mt-6 max-w-2xl leading-relaxed text-[var(--kraft-gray)]">
+              Tri stvari u prvoj poruci skraćuju dogovor sa nekoliko dana na jedno popodne.
+            </p>
 
-              <ol className="grid gap-8 sm:grid-cols-3">
-                {beforeVisit.map((step) => (
-                  <li key={step.title} className={styles.slide}>
-                    <span
-                      aria-hidden="true"
-                      className="block h-1 w-10 bg-[var(--kraft-oxide)]"
-                    />
-                    <h3 className="mt-5 text-xl font-bold tracking-[-0.02em]">{step.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-[var(--kraft-gray)]">
-                      {step.body}
-                    </p>
-                  </li>
-                ))}
-              </ol>
-            </div>
+            <ol className="mt-10">
+              {beforeVisit.map((step, index) => (
+                <li
+                  key={step.title}
+                  className={`grid grid-cols-[auto_1fr] gap-x-5 gap-y-1.5 py-8 sm:grid-cols-[3rem_1fr_1.4fr] sm:items-baseline sm:gap-y-0 ${
+                    index === 0 ? "" : "border-t border-[var(--kraft-line)]"
+                  } ${styles.slide}`}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="col-start-1 row-start-1 mt-1.5 block h-1 w-10 bg-[var(--kraft-oxide)] sm:mt-0"
+                  />
+                  <h3 className="col-start-2 row-start-1 text-xl font-bold tracking-[-0.02em]">
+                    {step.title}
+                  </h3>
+                  <p className="col-start-2 text-sm leading-relaxed text-[var(--kraft-gray)] sm:col-start-3 sm:row-start-1">
+                    {step.body}
+                  </p>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
 
@@ -288,8 +308,7 @@ export default function KraftArtPage() {
             <div>
               <h2 className="text-4xl font-extrabold tracking-[-0.03em] sm:text-5xl">Kontakt</h2>
               <p className="mt-6 max-w-sm leading-relaxed text-[var(--kraft-gray)]">
-                Zakazivanje je obavezno. Javi se kako ti je najlakše — sve četiri linije vode do
-                istog studija.
+                Javi se kako ti je najlakše — sve četiri linije vode do istog studija.
               </p>
 
               <ul className="mt-8 border-t border-[var(--kraft-ink)]">
@@ -382,7 +401,10 @@ export default function KraftArtPage() {
         </div>
       </footer>
 
-      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 gap-2 border-t border-[var(--kraft-ink)] bg-[var(--kraft-bone)] px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 md:hidden">
+      {/* Hard-edged split slab, not a padded button pair: the two actions are
+          glued together edge to edge, divided by a single ink rule, the way
+          the rest of this page divides sections — no gap, no rounding. */}
+      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 border-t-2 border-[var(--kraft-ink)] bg-[var(--kraft-bone)] pb-[env(safe-area-inset-bottom)] md:hidden">
         <a
           href={studio.whatsappUrl}
           target="_blank"
@@ -390,7 +412,7 @@ export default function KraftArtPage() {
           data-umami-event="demo_contact"
           data-umami-event-demo="kraftart"
           data-umami-event-action="whatsapp-sticky"
-          className={`inline-flex min-h-12 items-center justify-center bg-[var(--kraft-ink)] px-4 text-sm font-bold text-[var(--kraft-bone)] ${focus}`}
+          className={`inline-flex min-h-14 items-center justify-center bg-[var(--kraft-ink)] px-4 text-sm font-bold uppercase tracking-[0.08em] text-[var(--kraft-bone)] ${focus}`}
         >
           WhatsApp
         </a>
@@ -401,7 +423,7 @@ export default function KraftArtPage() {
           data-umami-event="demo_contact"
           data-umami-event-demo="kraftart"
           data-umami-event-action="instagram-sticky"
-          className={`inline-flex min-h-12 items-center justify-center border border-[var(--kraft-ink)] px-4 text-sm font-bold ${focus}`}
+          className={`inline-flex min-h-14 items-center justify-center border-l-2 border-[var(--kraft-ink)] bg-[var(--kraft-bone)] px-4 text-sm font-bold uppercase tracking-[0.08em] text-[var(--kraft-ink)] ${focus}`}
         >
           Instagram
         </a>

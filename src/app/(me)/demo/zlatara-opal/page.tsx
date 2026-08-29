@@ -35,27 +35,32 @@ const eyebrow = "text-[0.68rem] font-medium uppercase tracking-[0.3em]";
 const focus =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--opal-champagne-deep)]";
 const primaryCta = `inline-flex min-h-12 items-center justify-center bg-[var(--opal-graphite)] px-7 text-sm font-medium text-[var(--opal-ivory)] transition-colors hover:bg-[var(--opal-champagne-deep)] ${focus}`;
-const secondaryCta = `inline-flex min-h-12 items-center justify-center border border-[var(--opal-line)] px-7 text-sm font-medium transition-colors hover:border-[var(--opal-graphite)] ${focus}`;
+/* The other three concepts share one recipe for a secondary action: an
+   outline that fills solid on hover. Opal breaks it — a soft champagne fill
+   from the start, no inversion — so the two buttons in the hero read as a
+   pair rather than a primary/ghost combination. Graphite text on champagne
+   at 25–45% opacity over ivory stays well past 4.5:1 in both states. */
+const secondaryCta = `inline-flex min-h-12 items-center justify-center border border-[var(--opal-champagne)] bg-[var(--opal-champagne)]/25 px-7 text-sm font-medium transition-colors hover:bg-[var(--opal-champagne)]/45 ${focus}`;
 
 /* Six frames on a twelve-column rail, two rows of three, no two the same
    width — the shop photographs one piece at a time and the grid should not
-   pretend they arrived as a matched set. */
-const PIECE_SPAN = [
-  "lg:col-span-4",
-  "lg:col-span-5",
-  "lg:col-span-3",
-  "lg:col-span-5",
-  "lg:col-span-3",
-  "lg:col-span-4",
-];
-const PIECE_BOX = [
-  "aspect-[4/5]",
-  "aspect-[5/3]",
-  "aspect-square",
-  "aspect-[4/5]",
-  "aspect-[4/5]",
-  "aspect-[6/5]",
-];
+   pretend they arrived as a matched set.
+
+   Keyed by photo src rather than array index: an index-based lookup goes
+   silently out of sync the moment a piece is added, removed or reordered in
+   data.ts, and nothing would catch it. Record<(typeof pieces)[number]["src"], …>
+   forces TypeScript to error if a piece's src doesn't have a matching layout
+   entry here. */
+const PIECE_LAYOUT: Record<(typeof pieces)[number]["src"], { span: string; box: string }> = {
+  "/demo/zlatara-opal/privezak": { span: "lg:col-span-4", box: "aspect-[4/5]" },
+  "/demo/zlatara-opal/manzetne": { span: "lg:col-span-5", box: "aspect-[5/3]" },
+  "/demo/zlatara-opal/bros": { span: "lg:col-span-3", box: "aspect-square" },
+  /* Near-square source (1080x982), so it gets a square box — a 4/5 crop would
+     cut the shoulders off and leave the tallest gap in the second row. */
+  "/demo/zlatara-opal/ogrlica-detelina": { span: "lg:col-span-5", box: "aspect-square" },
+  "/demo/zlatara-opal/narukvica": { span: "lg:col-span-3", box: "aspect-[4/5]" },
+  "/demo/zlatara-opal/prsten": { span: "lg:col-span-4", box: "aspect-[6/5]" },
+};
 
 export default function ZlataraOpalPage() {
   return (
@@ -76,7 +81,7 @@ export default function ZlataraOpalPage() {
             {[
               ["#kolekcije", "Kolekcije"],
               ["#narudzba", "Po narudžbi"],
-              ["#radovi", "Radovi"],
+              ["#radovi", "Iz radionice"],
               ["#kontakt", "Kontakt"],
             ].map(([href, label]) => (
               <a
@@ -106,8 +111,11 @@ export default function ZlataraOpalPage() {
         <section className="mx-auto max-w-6xl px-5 pb-16 pt-8 sm:px-8 sm:pb-24 sm:pt-20">
           <div className="grid gap-8 sm:gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
             <div className="order-2 lg:order-1 lg:col-span-5">
-              <p className={`${eyebrow} text-[var(--opal-champagne-deep)]`}>
-                Zlato · Srebro · Izrada po narudžbi
+              {/* Every other concept opens on a tracked-out capital eyebrow;
+                  Opal opens on a serif italic sentence instead — the one
+                  place the page announces its hand before the headline. */}
+              <p className={`${serif} text-sm italic text-[var(--opal-champagne-deep)]`}>
+                Zlato i srebro, po narudžbi
               </p>
               <h1
                 className={`${serif} mt-5 text-[clamp(2.5rem,7.5vw,4.25rem)] sm:mt-7 leading-[1.02] tracking-[-0.015em]`}
@@ -162,9 +170,8 @@ export default function ZlataraOpalPage() {
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
             <div className="grid gap-12 lg:grid-cols-12 lg:gap-12">
               <div className="lg:col-span-4">
-                <p className={`${eyebrow} text-[var(--opal-champagne-deep)]`}>Šta radimo</p>
                 <h2
-                  className={`${serif} mt-5 text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.1] tracking-tight`}
+                  className={`${serif} text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.1] tracking-tight`}
                 >
                   Četiri stvari, bez kataloga.
                 </h2>
@@ -226,9 +233,8 @@ export default function ZlataraOpalPage() {
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className={`${eyebrow} text-[var(--opal-champagne-deep)]`}>Radovi</p>
                 <h2
-                  className={`${serif} mt-5 text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.1] tracking-tight`}
+                  className={`${serif} text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.1] tracking-tight`}
                 >
                   Šest komada, šest priča.
                 </h2>
@@ -239,8 +245,8 @@ export default function ZlataraOpalPage() {
             </div>
 
             <ul className="mt-12 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-12">
-              {pieces.map((piece, index) => (
-                <li key={piece.src} className={PIECE_SPAN[index]}>
+              {pieces.map((piece) => (
+                <li key={piece.src} className={PIECE_LAYOUT[piece.src].span}>
                   <figure>
                     <div className="overflow-hidden">
                       <DemoPhoto
@@ -249,7 +255,7 @@ export default function ZlataraOpalPage() {
                         width={piece.width}
                         height={piece.height}
                         sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
-                        className={`${styles.settle} w-full object-cover ${PIECE_BOX[index]}`}
+                        className={`${styles.settle} w-full object-cover ${PIECE_LAYOUT[piece.src].box}`}
                       />
                     </div>
                     <figcaption className="mt-4">
@@ -268,9 +274,8 @@ export default function ZlataraOpalPage() {
         <section className="border-y border-[var(--opal-line)] bg-[var(--opal-blue)]/25">
           <div className="mx-auto grid max-w-6xl gap-8 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1fr_1fr] lg:items-end lg:gap-16">
             <div>
-              <p className={`${eyebrow} text-[var(--opal-blue-deep)]`}>Pokloni</p>
               <h2
-                className={`${serif} mt-5 text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.1] tracking-tight`}
+                className={`${serif} text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.1] tracking-tight`}
               >
                 Poklon koji ostaje.
               </h2>
@@ -359,7 +364,10 @@ export default function ZlataraOpalPage() {
         </div>
       </footer>
 
-      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 gap-2 border-t border-[var(--opal-line)] bg-[var(--opal-ivory)] px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 md:hidden">
+      {/* The other three concepts close on a bar of filled buttons; Opal
+          closes on a plain dark strip of text instead — the two actions read
+          as a line you speak, split by a champagne rule, not a pair of CTAs. */}
+      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 bg-[var(--opal-graphite)] pb-[env(safe-area-inset-bottom)] md:hidden">
         <a
           href={shop.instagramUrl}
           target="_blank"
@@ -367,7 +375,7 @@ export default function ZlataraOpalPage() {
           data-umami-event="demo_contact"
           data-umami-event-demo="zlatara-opal"
           data-umami-event-action="instagram-sticky"
-          className={`inline-flex min-h-12 items-center justify-center bg-[var(--opal-graphite)] px-4 text-sm font-medium text-[var(--opal-ivory)] ${focus}`}
+          className={`${serif} inline-flex min-h-14 items-center justify-center text-base text-[var(--opal-ivory)] ${focus}`}
         >
           Javi se
         </a>
@@ -376,7 +384,7 @@ export default function ZlataraOpalPage() {
           data-umami-event="demo_contact"
           data-umami-event-demo="zlatara-opal"
           data-umami-event-action="phone-sticky"
-          className={`inline-flex min-h-12 items-center justify-center border border-[var(--opal-graphite)] px-4 text-sm font-medium ${focus}`}
+          className={`${serif} inline-flex min-h-14 items-center justify-center border-l border-[var(--opal-champagne)]/40 text-base text-[var(--opal-ivory)] ${focus}`}
         >
           Pozovi
         </a>

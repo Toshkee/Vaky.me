@@ -63,7 +63,7 @@ export const services: Service[] = [
   {
     id: "konsultacija",
     title: "Konsultacija",
-    body: "Kratak razgovor prije termina: šta želiš, gdje ide, koliko je veliko i kako se poslije njeguje. Zakazivanje je obavezno.",
+    body: "Kratak razgovor prije termina: šta želiš, gdje ide, koliko je veliko i kako se poslije njeguje.",
   },
 ];
 
@@ -83,7 +83,7 @@ export const beforeVisit: Step[] = [
   },
   {
     title: "Dogovori konsultaciju",
-    body: "Javljamo se sa slobodnim terminima. Zakazivanje je obavezno — bez najave se ne radi.",
+    body: "Javljamo se sa slobodnim terminima čim stignu ideja i mjere.",
   },
 ];
 
@@ -108,7 +108,7 @@ export const hero: Work = {
   source: "https://www.instagram.com/p/DceTmuiDRJ1/",
 };
 
-export const works: Work[] = [
+export const works = [
   {
     src: "/demo/kraftart/limun",
     alt: "Crno-siva tetovaža grane sa limunovima i cvjetovima na nadlaktici",
@@ -149,4 +149,4 @@ export const works: Work[] = [
     artist: "brankotattoo",
     source: "https://www.instagram.com/p/DcOUj2WjXHS/",
   },
-];
+] as const satisfies readonly Work[];

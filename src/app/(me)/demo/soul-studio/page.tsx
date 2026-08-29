@@ -36,16 +36,22 @@ const focus =
 const primaryCta = `inline-flex min-h-12 items-center justify-center rounded-full bg-[var(--soul-clay-deep)] px-7 text-sm font-semibold text-[var(--soul-bone)] transition-colors hover:bg-[var(--soul-ink)] ${focus}`;
 const secondaryCta = `inline-flex min-h-12 items-center justify-center rounded-full border border-[var(--soul-line)] px-7 text-sm font-semibold transition-colors hover:border-[var(--soul-ink)] ${focus}`;
 
-/* Per-cell placement for the four gallery frames, in `gallery` order:
-   poruka (tall) · reformer · sala · pokret (wide). */
-const GALLERY_CELL = ["sm:row-span-2", "", "", "sm:col-span-2"];
-const GALLERY_BOX = ["aspect-[4/5] sm:aspect-auto sm:h-full", "h-56 sm:h-64", "h-56 sm:h-64", "h-56 sm:h-72"];
+/* Per-photo placement for the four gallery frames, keyed by `src` rather
+   than array position — an index-matched array silently goes out of sync
+   the moment a photo is added, removed, or reordered in `gallery`. Layout:
+   poruka (tall) · reformer · pokret · sala (wide). */
+const GALLERY_LAYOUT: Record<(typeof gallery)[number]["src"], { cell: string; box: string }> = {
+  "/demo/soul-studio/poruka": { cell: "sm:row-span-2", box: "aspect-[4/5] sm:aspect-auto sm:h-full" },
+  "/demo/soul-studio/reformer": { cell: "", box: "h-56 sm:h-64" },
+  "/demo/soul-studio/pokret": { cell: "", box: "h-56 sm:h-64" },
+  "/demo/soul-studio/sala": { cell: "sm:col-span-2", box: "h-56 sm:h-72" },
+};
 
-function Hairline({ clay = false }: { clay?: boolean }) {
+function Hairline({ clay = false, className = "" }: { clay?: boolean; className?: string }) {
   return (
     <span
       aria-hidden="true"
-      className={`${styles.rule} block h-px w-full ${clay ? "bg-[var(--soul-line-clay)]" : "bg-[var(--soul-line)]"}`}
+      className={`${styles.rule} block h-px w-full ${clay ? "bg-[var(--soul-line-clay)]" : "bg-[var(--soul-line)]"} ${className}`}
     />
   );
 }
@@ -101,11 +107,11 @@ export default function SoulStudioPage() {
             only rounded crop on the page. */}
         <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 pt-8 sm:gap-8 sm:px-8 sm:pb-20 sm:pt-16 lg:grid-cols-[1fr_0.85fr] lg:items-end lg:gap-16">
           <div className="order-2 lg:order-1">
-            <p className={`${eyebrow} text-[var(--soul-clay-deep)]`}>
-              {studio.tagline} · {studio.city}
-            </p>
+            {/* H1 leads the column; the tagline signs it from below instead of
+                announcing it from above, so Soul is the only concept where the
+                eyebrow reads as a signature rather than a label. */}
             <h1
-              className={`${serif} mt-4 text-[clamp(2.75rem,9vw,5rem)] sm:mt-6 leading-[0.98] tracking-[-0.02em]`}
+              className={`${serif} text-[clamp(2.75rem,9vw,5rem)] leading-[0.98] tracking-[-0.02em]`}
             >
               Pokret.
               <br />
@@ -113,7 +119,11 @@ export default function SoulStudioPage() {
               <br />
               <em className="text-[var(--soul-clay)]">Prisustvo.</em>
             </h1>
-            <p className="mt-8 max-w-md text-base leading-relaxed text-[var(--soul-muted)] sm:text-lg">
+            <Hairline className="mt-4 sm:mt-6" />
+            <p className={`mt-4 ${eyebrow} text-[var(--soul-clay-deep)]`}>
+              {studio.tagline} · {studio.city}
+            </p>
+            <p className="mt-6 max-w-md text-base leading-relaxed text-[var(--soul-muted)] sm:mt-8 sm:text-lg">
               Yoga i Reformer Pilates u prostoru u kojem svaki pokret ima svrhu — za snagu, lakoću i
               vrijeme posvećeno sebi.
             </p>
@@ -253,20 +263,23 @@ export default function SoulStudioPage() {
                   beside it, and the landscape frame closes the block. A 2×2 of
                   identical tiles is the grid this page is trying not to be. */}
               <ul className="grid gap-5 sm:grid-cols-2">
-                {gallery.map((photo, index) => (
-                  <li key={photo.src} className={GALLERY_CELL[index]}>
-                    <div className={`${styles.reveal} h-full overflow-hidden rounded-sm`}>
-                      <DemoPhoto
-                        src={photo.src}
-                        alt={photo.alt}
-                        width={photo.width}
-                        height={photo.height}
-                        sizes="(min-width: 1024px) 32vw, (min-width: 640px) 45vw, 92vw"
-                        className={`w-full object-cover ${GALLERY_BOX[index]}`}
-                      />
-                    </div>
-                  </li>
-                ))}
+                {gallery.map((photo) => {
+                  const layout = GALLERY_LAYOUT[photo.src];
+                  return (
+                    <li key={photo.src} className={layout.cell}>
+                      <div className={`${styles.reveal} h-full overflow-hidden rounded-sm`}>
+                        <DemoPhoto
+                          src={photo.src}
+                          alt={photo.alt}
+                          width={photo.width}
+                          height={photo.height}
+                          sizes="(min-width: 1024px) 32vw, (min-width: 640px) 45vw, 92vw"
+                          className={`w-full object-cover ${layout.box}`}
+                        />
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
@@ -284,12 +297,15 @@ export default function SoulStudioPage() {
               <address className="mt-7 not-italic">
                 <p className="text-base">{studio.address}</p>
                 <p className="mt-4">
+                  {/* Soul's rounded language turns the number into a pill
+                      button rather than the underlined link the other three
+                      concepts use for the same field. */}
                   <a
                     href={studio.phoneUrl}
                     data-umami-event="demo_contact"
                     data-umami-event-demo="soul-studio"
                     data-umami-event-action="phone-kontakt"
-                    className={`inline-flex min-h-11 items-center text-lg font-semibold underline decoration-[var(--soul-clay)] decoration-2 underline-offset-8 hover:decoration-[var(--soul-ink)] ${focus}`}
+                    className={`inline-flex min-h-12 items-center rounded-full border border-[var(--soul-line)] px-6 text-lg font-semibold transition-colors hover:border-[var(--soul-ink)] ${focus}`}
                   >
                     {studio.phoneDisplay}
                   </a>
@@ -345,30 +361,36 @@ export default function SoulStudioPage() {
         </div>
       </footer>
 
-      {/* Phones only. It sits above the home indicator rather than under it, and
-          the page carries matching bottom padding so the footer is never hidden
-          behind it. */}
-      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 gap-2 border-t border-[var(--soul-line)] bg-[var(--soul-bone)] px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 md:hidden">
-        <a
-          href={studio.instagramUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-umami-event="demo_contact"
-          data-umami-event-demo="soul-studio"
-          data-umami-event-action="instagram-sticky"
-          className={`inline-flex min-h-12 items-center justify-center rounded-full bg-[var(--soul-clay-deep)] px-4 text-sm font-semibold text-[var(--soul-bone)] ${focus}`}
-        >
-          Piši nam
-        </a>
-        <a
-          href={studio.phoneUrl}
-          data-umami-event="demo_contact"
-          data-umami-event-demo="soul-studio"
-          data-umami-event-action="phone-sticky"
-          className={`inline-flex min-h-12 items-center justify-center rounded-full border border-[var(--soul-line)] px-4 text-sm font-semibold ${focus}`}
-        >
-          Pozovi
-        </a>
+      {/* Phones only. A pill rather than a full-width bar — the one bottom
+          element on the page that doesn't run edge to edge, matching the
+          arch and the rounded CTAs above it. No blur, no transparency: the
+          house forbids glassmorphism, so the pill's ground is solid and the
+          shadow only lifts it off the content scrolling underneath. It sits
+          above the home indicator rather than under it, and the page carries
+          matching bottom padding so the footer is never hidden behind it. */}
+      <div className="fixed inset-x-0 bottom-0 z-50 px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] md:hidden">
+        <div className="flex items-center gap-2 rounded-full border border-[var(--soul-line)] bg-[var(--soul-bone)] p-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.07)]">
+          <a
+            href={studio.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-umami-event="demo_contact"
+            data-umami-event-demo="soul-studio"
+            data-umami-event-action="instagram-sticky"
+            className={`inline-flex min-h-12 flex-1 items-center justify-center rounded-full bg-[var(--soul-clay-deep)] px-4 text-sm font-semibold text-[var(--soul-bone)] ${focus}`}
+          >
+            Piši nam
+          </a>
+          <a
+            href={studio.phoneUrl}
+            data-umami-event="demo_contact"
+            data-umami-event-demo="soul-studio"
+            data-umami-event-action="phone-sticky"
+            className={`inline-flex min-h-12 items-center justify-center rounded-full border border-[var(--soul-line)] px-4 text-sm font-semibold ${focus}`}
+          >
+            Pozovi
+          </a>
+        </div>
       </div>
     </div>
   );
