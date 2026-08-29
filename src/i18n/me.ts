@@ -12,7 +12,7 @@ export const me = {
   },
 
   hero: {
-    eyebrow: "Web studio — Podgorica",
+    eyebrow: "Web studio — Crna Gora",
     titleA: "Sajtovi koji",
     titleB: "donose klijente.",
     sub: "Moderni sajtovi za biznise koji žele više upita, bolji prvi utisak i profesionalno online prisustvo.",
@@ -23,7 +23,7 @@ export const me = {
        said again further down the page — nothing here is a claim the rest of
        the site does not stand behind. */
     facts: [
-      { label: "Lokacija", value: "Podgorica" },
+      { label: "Radimo", value: "Crna Gora" },
       { label: "Rok izrade", value: "do 10 dana" },
       { label: "Cijena od", value: "€200" },
       { label: "Jezici", value: "MNE + EN" },
@@ -87,7 +87,7 @@ export const me = {
 
   why: {
     title: "Zašto VibeLab?",
-    sub: "Izrada sajtova u Podgorici — jednostavan proces, jasan dogovor i sajt koji radi za tvoj biznis.",
+    sub: "Izrada sajtova u Crnoj Gori — jednostavan proces, jasan dogovor i sajt koji radi za tvoj biznis.",
     items: [
       {
         title: "Prvo vidiš koncept",
@@ -338,7 +338,7 @@ export const me = {
   },
 
   footer: {
-    tagline: "Izrada sajtova i web dizajn u Podgorici. Sajtovi koji donose klijente.",
+    tagline: "Izrada sajtova i web dizajn u Crnoj Gori. Sajtovi koji donose klijente.",
     rights: "Sva prava zadržana.",
     privacy: "Privatnost",
   },
@@ -356,7 +356,7 @@ export const me = {
         when: "always",
         title: "Ko obrađuje podatke",
         body: [
-          "VibeLab, web studio iz Podgorice. Za sva pitanja o podacima piši na vibelabmne@gmail.com.",
+          "VibeLab, web studio iz Crne Gore. Za sva pitanja o podacima piši na vibelabmne@gmail.com.",
         ],
       },
       {
@@ -421,9 +421,9 @@ export const me = {
   },
 
   meta: {
-    title: "Izrada sajtova Podgorica — od €200, online do 10 dana | VibeLab",
+    title: "Izrada sajtova Crna Gora — od €200, online do 10 dana | VibeLab",
     description:
-      "Izrada sajtova i web dizajn u Podgorici. Moderan sajt za tvoj biznis — od €200, online u roku od 10 dana. Besplatan koncept prije plaćanja. VibeLab, Crna Gora.",
+      "Izrada sajtova i web dizajn u Crnoj Gori. Moderan sajt za tvoj biznis — od €200, online u roku od 10 dana. Besplatan koncept prije plaćanja. VibeLab, Podgorica.",
     /* JSON-LD serviceType entries — what the studio does, for search engines */
     serviceTypes: ["Izrada sajtova", "Web dizajn", "Održavanje sajtova"],
   },

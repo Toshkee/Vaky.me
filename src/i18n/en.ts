@@ -14,7 +14,7 @@ export const en: Dictionary = {
   },
 
   hero: {
-    eyebrow: "Web studio — Podgorica, Montenegro",
+    eyebrow: "Web studio — Montenegro",
     titleA: "Websites that",
     titleB: "bring customers.",
     sub: "Modern websites for businesses that want more enquiries, a stronger first impression and a professional online presence.",
@@ -22,7 +22,7 @@ export const en: Dictionary = {
     ctaPrimary: "Get your free concept",
     ctaSecondary: "See our work",
     facts: [
-      { label: "Based in", value: "Podgorica" },
+      { label: "Working in", value: "Montenegro" },
       { label: "Delivered in", value: "up to 10 days" },
       { label: "From", value: "€200" },
       { label: "Languages", value: "ME + EN" },
@@ -86,7 +86,7 @@ export const en: Dictionary = {
 
   why: {
     title: "Why VibeLab?",
-    sub: "Website development in Podgorica — a simple process, a clear agreement and a site that works for your business.",
+    sub: "Website development in Montenegro — a simple process, a clear agreement and a site that works for your business.",
     items: [
       {
         title: "See the concept first",
@@ -330,7 +330,7 @@ export const en: Dictionary = {
   },
 
   footer: {
-    tagline: "Web design & development in Podgorica, Montenegro. Websites that bring customers.",
+    tagline: "Web design & development in Montenegro. Websites that bring customers.",
     rights: "All rights reserved.",
     privacy: "Privacy",
   },
@@ -345,7 +345,7 @@ export const en: Dictionary = {
         when: "always",
         title: "Who handles your data",
         body: [
-          "VibeLab, a web studio in Podgorica. For anything about your data, write to vibelabmne@gmail.com.",
+          "VibeLab, a web studio in Montenegro. For anything about your data, write to vibelabmne@gmail.com.",
         ],
       },
       {
@@ -410,9 +410,9 @@ export const en: Dictionary = {
   },
 
   meta: {
-    title: "Website Development Podgorica — from €200, within 10 days | VibeLab",
+    title: "Website Development Montenegro — from €200, within 10 days | VibeLab",
     description:
-      "Website design and development in Podgorica, Montenegro. A modern site for your business — from €200, live within 10 days. Free concept before you pay.",
+      "Website design and development in Montenegro. A modern site for your business — from €200, live within 10 days. Free concept before you pay. VibeLab, Podgorica.",
     serviceTypes: ["Website development", "Web design", "Website maintenance"],
   },
 };
