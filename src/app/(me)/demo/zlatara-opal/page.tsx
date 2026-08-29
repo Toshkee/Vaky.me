@@ -42,9 +42,12 @@ const primaryCta = `inline-flex min-h-12 items-center justify-center bg-[var(--o
    at 25–45% opacity over ivory stays well past 4.5:1 in both states. */
 const secondaryCta = `inline-flex min-h-12 items-center justify-center border border-[var(--opal-champagne)] bg-[var(--opal-champagne)]/25 px-7 text-sm font-medium transition-colors hover:bg-[var(--opal-champagne)]/45 ${focus}`;
 
-/* Six frames on a twelve-column rail, two rows of three, no two the same
-   width — the shop photographs one piece at a time and the grid should not
-   pretend they arrived as a matched set.
+/* Six frames on a twelve-column rail, two rows of three. No two share a width
+   or a crop — the shop photographs one piece at a time and the grid should not
+   pretend they arrived as a matched set. The ratios are chosen so the three
+   frames in a row still land within ~50px of each other in rendered height:
+   varied enough to read as a hand-built spread, close enough that a short card
+   does not leave a dead column of ivory under its caption.
 
    Keyed by photo src rather than array index: an index-based lookup goes
    silently out of sync the moment a piece is added, removed or reordered in
@@ -52,12 +55,12 @@ const secondaryCta = `inline-flex min-h-12 items-center justify-center border bo
    forces TypeScript to error if a piece's src doesn't have a matching layout
    entry here. */
 const PIECE_LAYOUT: Record<(typeof pieces)[number]["src"], { span: string; box: string }> = {
-  "/demo/zlatara-opal/privezak": { span: "lg:col-span-4", box: "aspect-[4/5]" },
-  "/demo/zlatara-opal/manzetne": { span: "lg:col-span-5", box: "aspect-[5/3]" },
-  "/demo/zlatara-opal/bros": { span: "lg:col-span-3", box: "aspect-square" },
+  "/demo/zlatara-opal/privezak": { span: "lg:col-span-4", box: "aspect-square" },
+  "/demo/zlatara-opal/manzetne": { span: "lg:col-span-5", box: "aspect-[3/2]" },
+  "/demo/zlatara-opal/bros": { span: "lg:col-span-3", box: "aspect-[5/6]" },
   /* Near-square source (1080x982), so it gets a square box — a 4/5 crop would
      cut the shoulders off and leave the tallest gap in the second row. */
-  "/demo/zlatara-opal/ogrlica-detelina": { span: "lg:col-span-5", box: "aspect-square" },
+  "/demo/zlatara-opal/ogrlica-detelina": { span: "lg:col-span-5", box: "aspect-[4/3]" },
   "/demo/zlatara-opal/narukvica": { span: "lg:col-span-3", box: "aspect-[4/5]" },
   "/demo/zlatara-opal/prsten": { span: "lg:col-span-4", box: "aspect-[6/5]" },
 };
@@ -297,8 +300,11 @@ export default function ZlataraOpalPage() {
               >
                 Miljana Vukova 2
               </h2>
+              {/* The heading already carries the street, so this line adds the
+                  city and nothing else — printing the full address here read
+                  as the same sentence twice. */}
               <address className="mt-7 not-italic">
-                <p>{shop.address}</p>
+                <p>{shop.city}</p>
                 <p className="mt-5">
                   <a
                     href={shop.phoneUrl}

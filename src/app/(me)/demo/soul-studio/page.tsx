@@ -294,8 +294,11 @@ export default function SoulStudioPage() {
               >
                 Crnogorskih Serdara 45
               </h2>
+              {/* The heading already carries the street, so this line adds the
+                  city and nothing else — printing the full address here read
+                  as the same sentence twice. */}
               <address className="mt-7 not-italic">
-                <p className="text-base">{studio.address}</p>
+                <p className="text-base">{studio.city}</p>
                 <p className="mt-4">
                   {/* Soul's rounded language turns the number into a pill
                       button rather than the underlined link the other three

@@ -118,7 +118,7 @@ const cards = [
       <text x="1000" y="360" text-anchor="middle" fill="#5c5751" font-family="Georgia, serif" font-size="58" letter-spacing="14">LAV</text>
       <text x="104" y="140" fill="#5c5751" font-family="Arial, sans-serif" font-size="20" letter-spacing="8">NAILS · BROWS · LASHES · PODGORICA</text>
       <text x="104" y="284" fill="#111" font-family="Georgia, serif" font-size="64">Više od 200 nijansi.</text>
-      <text x="104" y="364" fill="#111" font-family="Georgia, serif" font-size="64">Jedan termin za sebe.</text>
+      <text x="104" y="364" fill="#111" font-family="Georgia, serif" font-size="64">Termin biraš online.</text>
       <text x="104" y="436" fill="#5c5751" font-family="Arial, sans-serif" font-size="25">Master kvart · Online rezervacija</text>
       <path d="M104 492h560" stroke="#c81d31" stroke-width="3"/>
       <text x="104" y="546" fill="#111" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
