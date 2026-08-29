@@ -99,13 +99,13 @@ export default function SoulStudioPage() {
         {/* Text on the left rail, one photograph on the right cut into an arch —
             the same arch the studio has built into its own back wall. It is the
             only rounded crop on the page. */}
-        <section className="mx-auto grid max-w-6xl gap-10 px-5 pb-16 pt-12 sm:px-8 sm:pb-20 sm:pt-16 lg:grid-cols-[1fr_0.85fr] lg:items-end lg:gap-16">
-          <div>
+        <section className="mx-auto grid max-w-6xl gap-6 px-5 pb-16 pt-8 sm:gap-8 sm:px-8 sm:pb-20 sm:pt-16 lg:grid-cols-[1fr_0.85fr] lg:items-end lg:gap-16">
+          <div className="order-2 lg:order-1">
             <p className={`${eyebrow} text-[var(--soul-clay-deep)]`}>
               {studio.tagline} · {studio.city}
             </p>
             <h1
-              className={`${serif} mt-6 text-[clamp(2.75rem,9vw,5rem)] leading-[0.98] tracking-[-0.02em]`}
+              className={`${serif} mt-4 text-[clamp(2.75rem,9vw,5rem)] sm:mt-6 leading-[0.98] tracking-[-0.02em]`}
             >
               Pokret.
               <br />
@@ -142,7 +142,7 @@ export default function SoulStudioPage() {
             <p className="mt-8 text-sm text-[var(--soul-muted)]">{studio.address}</p>
           </div>
 
-          <div className="overflow-hidden rounded-t-[14rem] rounded-b-sm">
+          <div className="order-1 overflow-hidden rounded-t-[14rem] rounded-b-sm lg:order-2">
             <DemoPhoto
               src={hero.src}
               alt={hero.alt}
@@ -150,7 +150,7 @@ export default function SoulStudioPage() {
               height={hero.height}
               priority
               sizes="(min-width: 1024px) 45vw, 92vw"
-              className="h-[22rem] w-full object-cover sm:h-[30rem] lg:h-[34rem]"
+              className="h-52 w-full object-cover min-[380px]:h-64 sm:h-[30rem] lg:h-[34rem]"
             />
           </div>
         </section>
@@ -170,11 +170,11 @@ export default function SoulStudioPage() {
             </p>
 
             <div className="mt-14 grid gap-14 md:grid-cols-2 md:gap-x-16">
-              {practices.map((practice, index) => (
+              {practices.map((practice) => (
                 <article key={practice.id}>
                   <Hairline clay />
                   <p className={`mt-6 ${eyebrow} text-[var(--soul-clay-deep)]`}>
-                    {practice.eyebrow} — 0{index + 1}
+                    {practice.eyebrow}
                   </p>
                   <h3 className={`${serif} mt-4 text-4xl tracking-tight sm:text-5xl`}>
                     {practice.title}
@@ -200,9 +200,12 @@ export default function SoulStudioPage() {
                 >
                   Tijelo prvo. Ostalo dolazi za njim.
                 </h2>
+                {/* The three lines on the right are the studio's own wall text.
+                    The heading above is our framing of them, so this sentence
+                    points at the motto rather than claiming to quote it. */}
                 <p className="mt-6 max-w-sm leading-relaxed text-[var(--soul-muted)]">
-                  Ista rečenica stoji na zidu sale i ispod objava studija. Nije slogan — to je
-                  redoslijed po kojem se radi.
+                  Tri reda sa zida sale, ista i ispod objava studija. Nije slogan — to je redoslijed
+                  po kojem se radi.
                 </p>
               </div>
 
@@ -286,7 +289,7 @@ export default function SoulStudioPage() {
                     data-umami-event="demo_contact"
                     data-umami-event-demo="soul-studio"
                     data-umami-event-action="phone-kontakt"
-                    className={`text-lg font-semibold underline decoration-[var(--soul-clay)] decoration-2 underline-offset-8 hover:decoration-[var(--soul-ink)] ${focus}`}
+                    className={`inline-flex min-h-11 items-center text-lg font-semibold underline decoration-[var(--soul-clay)] decoration-2 underline-offset-8 hover:decoration-[var(--soul-ink)] ${focus}`}
                   >
                     {studio.phoneDisplay}
                   </a>
@@ -299,7 +302,7 @@ export default function SoulStudioPage() {
                     data-umami-event="demo_contact"
                     data-umami-event-demo="soul-studio"
                     data-umami-event-action="instagram-kontakt"
-                    className={`underline underline-offset-4 transition-colors hover:text-[var(--soul-ink)] ${focus}`}
+                    className={`inline-flex min-h-11 items-center underline underline-offset-4 transition-colors hover:text-[var(--soul-ink)] ${focus}`}
                   >
                     @{studio.instagram} <span aria-hidden="true">↗</span>
                   </a>
@@ -335,7 +338,7 @@ export default function SoulStudioPage() {
           </div>
           <p className="text-xs text-[var(--soul-muted)]">
             Koncept:{" "}
-            <Link href="/" className={`font-semibold text-[var(--soul-ink)] hover:underline ${focus}`}>
+            <Link href="/" className={`inline-flex min-h-11 items-center font-semibold text-[var(--soul-ink)] hover:underline ${focus}`}>
               VibeLab
             </Link>
           </p>
@@ -355,7 +358,7 @@ export default function SoulStudioPage() {
           data-umami-event-action="instagram-sticky"
           className={`inline-flex min-h-12 items-center justify-center rounded-full bg-[var(--soul-clay-deep)] px-4 text-sm font-semibold text-[var(--soul-bone)] ${focus}`}
         >
-          Javi se za termin
+          Piši nam
         </a>
         <a
           href={studio.phoneUrl}

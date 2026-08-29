@@ -70,7 +70,7 @@ export function MapEmbed({
             href={`https://www.google.com/maps/search/?api=1&query=${q}`}
             target="_blank"
             rel="noopener noreferrer"
-            className={`relative ${linkClassName}`}
+            className={`relative inline-flex min-h-11 items-center ${linkClassName}`}
           >
             {openLabel} <span aria-hidden="true">↗</span>
           </a>

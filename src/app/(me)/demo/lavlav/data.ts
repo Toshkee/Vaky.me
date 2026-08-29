@@ -80,17 +80,17 @@ export interface Step {
 
 export const bookingSteps: Step[] = [
   {
-    n: "01",
+    n: "1",
     title: "Izaberi uslugu i specijalistu",
     body: "Cijeli spisak usluga i tim su na DIKIDI-ju — tamo su uvijek tačni i ažurni.",
   },
   {
-    n: "02",
+    n: "2",
     title: "Pronađi termin",
     body: "Slobodni termini se vide odmah, po danu i po osobi. Bez čekanja na odgovor.",
   },
   {
-    n: "03",
+    n: "3",
     title: "Potvrdi rezervaciju",
     body: "Potvrda stiže kroz DIKIDI. Ako treba nešto promijeniti, tu se i mijenja.",
   },

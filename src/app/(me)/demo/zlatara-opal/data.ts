@@ -63,17 +63,17 @@ export interface Step {
 
 export const steps: Step[] = [
   {
-    n: "01",
+    n: "1",
     title: "Pošalji ideju",
     body: "Crtež na papiru, fotografija, screenshot ili samo opis. Ne mora biti uredno — dovoljno je da se vidi šta želiš.",
   },
   {
-    n: "02",
+    n: "2",
     title: "Dogovori detalje",
     body: "Biramo materijal, finoću, veličinu i način izrade. Tu se dogovara i sve ostalo prije nego što se počne raditi.",
   },
   {
-    n: "03",
+    n: "3",
     title: "Izrada nakita",
     body: "Komad se izrađuje u radionici i preuzima se u zlatari, u Zlatarskoj ulici.",
   },

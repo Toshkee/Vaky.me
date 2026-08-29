@@ -68,24 +68,20 @@ export const services: Service[] = [
 ];
 
 export interface Step {
-  n: string;
   title: string;
   body: string;
 }
 
 export const beforeVisit: Step[] = [
   {
-    n: "01",
     title: "Pošalji ideju",
     body: "Opis motiva i reference — skica, fotografija ili nešto što ti se dopalo. Što jasnije, to kraći dogovor.",
   },
   {
-    n: "02",
     title: "Veličina i pozicija",
     body: "Okvirna veličina u centimetrima i dio tijela na koji ide. Od toga zavisi i koliko sesija treba.",
   },
   {
-    n: "03",
     title: "Dogovori konsultaciju",
     body: "Javljamo se sa slobodnim terminima. Zakazivanje je obavezno — bez najave se ne radi.",
   },

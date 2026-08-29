@@ -105,7 +105,7 @@ export default function KraftArtPage() {
         {/* One finished piece, at full height, before a single claim is made. */}
         <section className="border-b border-[var(--kraft-ink)]">
           <div className="mx-auto grid max-w-6xl lg:grid-cols-[1fr_0.8fr]">
-            <div className="flex flex-col justify-between gap-10 px-5 py-12 sm:px-8 sm:py-16 lg:border-r lg:border-[var(--kraft-ink)] lg:pr-12">
+            <div className="order-2 flex flex-col justify-between gap-10 px-5 pb-12 pt-8 sm:px-8 sm:py-16 lg:order-1 lg:border-r lg:border-[var(--kraft-ink)] lg:pr-12">
               <div>
                 <p className={`${label} text-[var(--kraft-oxide)]`}>
                   Tattoo &amp; Piercing Studio · {studio.city}
@@ -121,18 +121,7 @@ export default function KraftArtPage() {
               </div>
 
               <div>
-                {/* The studio's three lines of work, set as workshop labels —
-                    it also stops the hero column from opening a hole beside a
-                    full-height photograph. */}
-                <ul className="flex flex-wrap gap-x-6 gap-y-2 border-y border-[var(--kraft-line)] py-4">
-                  {["Tetovaže", "Piercing", "Cover-up"].map((item) => (
-                    <li key={item} className={`${label} text-[var(--kraft-ink)]`}>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <div className="flex flex-col gap-3 border-t border-[var(--kraft-line)] pt-8 sm:flex-row">
                   <a
                     href={studio.instagramUrl}
                     target="_blank"
@@ -164,7 +153,7 @@ export default function KraftArtPage() {
               height={hero.height}
               priority
               sizes="(min-width: 1024px) 42vw, 100vw"
-              className="h-[24rem] w-full object-cover sm:h-[32rem] lg:h-full lg:min-h-[34rem]"
+              className="order-1 h-60 w-full object-cover min-[380px]:h-72 sm:h-[32rem] lg:order-2 lg:h-full lg:min-h-[34rem]"
             />
           </div>
         </section>
@@ -223,11 +212,10 @@ export default function KraftArtPage() {
           <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
             <h2 className="text-4xl font-extrabold tracking-[-0.03em] sm:text-5xl">Usluge</h2>
             <dl className="mt-10 grid gap-x-12 gap-y-10 sm:grid-cols-2">
-              {services.map((service, index) => (
+              {services.map((service) => (
                 <div key={service.id} className={styles.slide}>
                   <dt>
-                    <span className={`${label} block text-[var(--kraft-oxide)]`}>0{index + 1}</span>
-                    <span className="mt-3 block text-2xl font-bold tracking-[-0.02em]">
+                    <span className="block text-2xl font-bold tracking-[-0.02em]">
                       {service.title}
                     </span>
                   </dt>
@@ -279,13 +267,12 @@ export default function KraftArtPage() {
 
               <ol className="grid gap-8 sm:grid-cols-3">
                 {beforeVisit.map((step) => (
-                  <li key={step.n} className={styles.slide}>
+                  <li key={step.title} className={styles.slide}>
                     <span
                       aria-hidden="true"
                       className="block h-1 w-10 bg-[var(--kraft-oxide)]"
                     />
-                    <p className={`mt-4 ${label} text-[var(--kraft-gray)]`}>{step.n}</p>
-                    <h3 className="mt-2 text-xl font-bold tracking-[-0.02em]">{step.title}</h3>
+                    <h3 className="mt-5 text-xl font-bold tracking-[-0.02em]">{step.title}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-[var(--kraft-gray)]">
                       {step.body}
                     </p>
@@ -387,7 +374,7 @@ export default function KraftArtPage() {
             Koncept:{" "}
             <Link
               href="/"
-              className={`font-bold text-[var(--kraft-bone)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--kraft-bone)]`}
+              className={`inline-flex min-h-11 items-center font-bold text-[var(--kraft-bone)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--kraft-bone)]`}
             >
               VibeLab
             </Link>

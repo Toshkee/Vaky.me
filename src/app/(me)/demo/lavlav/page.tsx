@@ -90,8 +90,8 @@ export default function LavLavPage() {
       </header>
 
       <main id="vrh">
-        <section className="mx-auto grid max-w-6xl gap-8 px-5 pb-14 pt-12 sm:px-8 sm:pb-16 sm:pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
-          <div>
+        <section className="mx-auto grid max-w-6xl gap-8 px-5 pb-14 pt-8 sm:px-8 sm:pb-16 sm:pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
+          <div className="order-2 lg:order-1">
             <p className={`${label} text-[var(--lav-muted)]`}>Nails · Brows · Lashes · {studio.city}</p>
             <h1
               className={`${display} mt-7 text-[clamp(2rem,4.6vw,3rem)] leading-[1.12] tracking-[-0.01em]`}
@@ -122,7 +122,7 @@ export default function LavLavPage() {
             </div>
           </div>
 
-          <figure>
+          <figure className="order-1 lg:order-2">
             <div className="overflow-hidden">
               <DemoPhoto
                 src={hero.src}
@@ -131,7 +131,7 @@ export default function LavLavPage() {
                 height={hero.height}
                 priority
                 sizes="(min-width: 1024px) 46vw, 92vw"
-                className="h-[20rem] w-full object-cover sm:h-[26rem] lg:h-[30rem]"
+                className="h-52 w-full object-cover min-[380px]:h-64 sm:h-[26rem] lg:h-[30rem]"
               />
             </div>
             <figcaption className={`mt-3 ${label} text-[var(--lav-muted)]`}>{hero.caption}</figcaption>
@@ -244,8 +244,10 @@ export default function LavLavPage() {
               <ol className="grid gap-8 sm:grid-cols-3">
                 {bookingSteps.map((step) => (
                   <li key={step.n}>
-                    <p className={`${label} text-[var(--lav-red)]`}>{step.n}</p>
-                    <h3 className={`${display} mt-3 text-lg leading-snug tracking-[0.03em]`}>
+                    <p className={`${display} text-3xl leading-none text-[var(--lav-red)]`}>
+                      {step.n}
+                    </p>
+                    <h3 className={`${display} mt-4 text-lg leading-snug tracking-[0.03em]`}>
                       {step.title}
                     </h3>
                     <p className="mt-3 text-sm leading-relaxed text-[var(--lav-muted)]">{step.body}</p>
@@ -270,7 +272,7 @@ export default function LavLavPage() {
                     data-umami-event="demo_contact"
                     data-umami-event-demo="lavlav"
                     data-umami-event-action="phone-kontakt"
-                    className={`${display} text-xl tracking-[0.06em] underline decoration-[var(--lav-red)] decoration-2 underline-offset-8 hover:decoration-[var(--lav-ink)] ${focus}`}
+                    className={`${display} inline-flex min-h-11 items-center text-xl tracking-[0.06em] underline decoration-[var(--lav-red)] decoration-2 underline-offset-8 hover:decoration-[var(--lav-ink)] ${focus}`}
                   >
                     {studio.phoneDisplay}
                   </a>
@@ -334,7 +336,7 @@ export default function LavLavPage() {
           </div>
           <p className="text-xs text-[var(--lav-muted)]">
             Koncept:{" "}
-            <Link href="/" className={`font-semibold text-[var(--lav-ink)] hover:underline ${focus}`}>
+            <Link href="/" className={`inline-flex min-h-11 items-center font-semibold text-[var(--lav-ink)] hover:underline ${focus}`}>
               VibeLab
             </Link>
           </p>

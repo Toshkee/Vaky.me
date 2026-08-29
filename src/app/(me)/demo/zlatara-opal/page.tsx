@@ -103,14 +103,14 @@ export default function ZlataraOpalPage() {
       </header>
 
       <main id="vrh">
-        <section className="mx-auto max-w-6xl px-5 pb-16 pt-14 sm:px-8 sm:pb-24 sm:pt-20">
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
-            <div className="lg:col-span-5">
+        <section className="mx-auto max-w-6xl px-5 pb-16 pt-8 sm:px-8 sm:pb-24 sm:pt-20">
+          <div className="grid gap-8 sm:gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
+            <div className="order-2 lg:order-1 lg:col-span-5">
               <p className={`${eyebrow} text-[var(--opal-champagne-deep)]`}>
                 Zlato · Srebro · Izrada po narudžbi
               </p>
               <h1
-                className={`${serif} mt-7 text-[clamp(2.5rem,7.5vw,4.25rem)] leading-[1.02] tracking-[-0.015em]`}
+                className={`${serif} mt-5 text-[clamp(2.5rem,7.5vw,4.25rem)] sm:mt-7 leading-[1.02] tracking-[-0.015em]`}
               >
                 Nakit koji nosi <em>tvoju priču</em>.
               </h1>
@@ -138,7 +138,7 @@ export default function ZlataraOpalPage() {
 
             {/* The photograph runs past the text rail on the right and stops
                 short of it on the left — the page is built off-centre. */}
-            <figure className="lg:col-span-7 lg:-mr-8 xl:-mr-16">
+            <figure className="order-1 lg:order-2 lg:col-span-7 lg:-mr-8 xl:-mr-16">
               <div className="overflow-hidden">
                 <DemoPhoto
                   src={hero.src}
@@ -147,7 +147,7 @@ export default function ZlataraOpalPage() {
                   height={hero.height}
                   priority
                   sizes="(min-width: 1024px) 58vw, 92vw"
-                  className="h-[20rem] w-full object-cover sm:h-[26rem] lg:h-[32rem]"
+                  className="h-52 w-full object-cover min-[380px]:h-64 sm:h-[26rem] lg:h-[32rem]"
                 />
               </div>
               <figcaption className="mt-4 flex flex-wrap items-baseline gap-x-3 text-xs text-[var(--opal-muted)]">
@@ -300,7 +300,7 @@ export default function ZlataraOpalPage() {
                     data-umami-event="demo_contact"
                     data-umami-event-demo="zlatara-opal"
                     data-umami-event-action="phone-kontakt"
-                    className={`${styles.underline} ${serif} text-2xl tracking-tight ${focus}`}
+                    className={`${styles.underline} ${serif} inline-flex min-h-11 items-center text-2xl tracking-tight ${focus}`}
                   >
                     {shop.phoneDisplay}
                   </a>
@@ -313,7 +313,7 @@ export default function ZlataraOpalPage() {
                     data-umami-event="demo_contact"
                     data-umami-event-demo="zlatara-opal"
                     data-umami-event-action="instagram-kontakt"
-                    className={`${styles.underline} text-[var(--opal-muted)] ${focus}`}
+                    className={`${styles.underline} inline-flex min-h-11 items-center text-[var(--opal-muted)] ${focus}`}
                   >
                     @{shop.instagram} <span aria-hidden="true">↗</span>
                   </a>
@@ -351,7 +351,7 @@ export default function ZlataraOpalPage() {
             Koncept:{" "}
             <Link
               href="/"
-              className={`font-medium text-[var(--opal-graphite)] hover:underline ${focus}`}
+              className={`inline-flex min-h-11 items-center font-medium text-[var(--opal-graphite)] hover:underline ${focus}`}
             >
               VibeLab
             </Link>
@@ -369,7 +369,7 @@ export default function ZlataraOpalPage() {
           data-umami-event-action="instagram-sticky"
           className={`inline-flex min-h-12 items-center justify-center bg-[var(--opal-graphite)] px-4 text-sm font-medium text-[var(--opal-ivory)] ${focus}`}
         >
-          Pošalji ideju
+          Javi se
         </a>
         <a
           href={shop.phoneUrl}
