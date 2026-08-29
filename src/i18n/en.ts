@@ -24,7 +24,7 @@ export const en: Dictionary = {
     facts: [
       { label: "Based in", value: "Podgorica" },
       { label: "Delivered in", value: "up to 10 days" },
-      { label: "From", value: "€100" },
+      { label: "From", value: "€200" },
       { label: "Languages", value: "ME + EN" },
     ],
   },
@@ -139,20 +139,22 @@ export const en: Dictionary = {
     plans: [
       {
         name: "Start",
-        price: "€100",
-        tagline: "For a small business that needs one clear page — your offer, location and contact.",
+        price: "€200",
+        tagline: "For a business that needs one strong page — what you do, where you are and how to reach you.",
         badge: null,
       },
       {
         name: "Business",
-        price: "€200",
-        tagline: "For companies that need a complete site — more pages, a gallery and an English version.",
-        badge: "Most popular",
+        price: "€350",
+        tagline:
+          "When the site has to work, not just look good: bookings, a price list you edit yourself and visitors from abroad.",
+        badge: "Recommended",
       },
       {
-        name: "Premium",
-        price: "from €350",
-        tagline: "For projects with specific requirements — bookings, custom design and advanced SEO.",
+        name: "Project",
+        price: "On request",
+        tagline:
+          "For what doesn't fit a package — a shop, connections to your own systems, more languages.",
         badge: null,
       },
     ],
@@ -161,10 +163,10 @@ export const en: Dictionary = {
       featureLabel: "What you get",
       rows: [
         {
-          label: "Number of pages",
-          values: ["1", "up to 5", "as agreed"],
+          label: "Design built for your brand",
+          values: [true, true, true],
           explain:
-            "How many separate pages the site has — for example Home, Services, Gallery, Contact.",
+            "Colours, type and layout are chosen for your business. We don't adapt a template — which is why no two of our sites look alike.",
         },
         {
           label: "Perfect on phones",
@@ -177,6 +179,12 @@ export const en: Dictionary = {
           values: [true, true, true],
           explain:
             "Buttons that go straight to Instagram, WhatsApp, Viber, a phone call or email — you pick which ones.",
+        },
+        {
+          label: "Photo gallery",
+          values: [true, true, true],
+          explain:
+            "Your photos processed so they open instantly even on a weak connection, without losing sharpness.",
         },
         {
           label: "Google Maps & contact",
@@ -196,9 +204,10 @@ export const en: Dictionary = {
             "Your menu or price list as real text rather than an image — readable on a phone and easy to update.",
         },
         {
-          label: "Photo gallery",
+          label: "Online reservations",
           values: [false, true, true],
-          explain: "A gallery with photos prepared so they load fast.",
+          explain:
+            "Guests book from the site. If you already run a system like DIKIDI, we connect to it instead of building a second one.",
         },
         {
           label: "English version",
@@ -206,25 +215,36 @@ export const en: Dictionary = {
           explain: "A full translation of the site and a language switcher for visitors from abroad.",
         },
         {
-          label: "Custom design",
-          values: [false, false, true],
-          explain: "A design built for your brand instead of an adapted template.",
-        },
-        {
-          label: "Online reservations",
-          values: [false, false, true],
-          explain: "A form your guests use to request a booking or an appointment.",
-        },
-        {
           label: "Advanced SEO",
+          values: [false, true, true],
+          explain: "Structured data, social sharing cards and load-speed optimisation.",
+        },
+        {
+          label: "Number of pages",
+          values: ["1", "up to 5", "as agreed"],
+          explain:
+            "How many separate pages the site has — for example Home, Services, Gallery, Contact. For most small businesses one good page does the job.",
+        },
+        {
+          label: "Shop and online payments",
           values: [false, false, true],
           explain:
-            "Structured data, social sharing cards and load-speed optimisation.",
+            "Cart, card payments and an order overview — for when the site sells rather than just starts a conversation.",
+        },
+        {
+          label: "Connections to your systems",
+          values: [false, false, true],
+          explain:
+            "The site wired into what you already run — stock, till, booking system or client records.",
+        },
+        {
+          label: "More than two languages",
+          values: [false, false, true],
+          explain: "A third language and beyond, each on its own URLs so Google indexes them separately.",
         },
       ],
     },
     inherits: "Everything in {plan}, plus:",
-    oneTime: "one-time",
     detailsAction: "What do I get?",
     detailsIntro: "Everything in this package, explained without the jargon.",
     detailsIncluded: "Included",
@@ -390,9 +410,9 @@ export const en: Dictionary = {
   },
 
   meta: {
-    title: "Website Development Podgorica — from €100, within 10 days | VibeLab",
+    title: "Website Development Podgorica — from €200, within 10 days | VibeLab",
     description:
-      "Website design and development in Podgorica, Montenegro. A modern site for your business — from €100, live within 10 days. Free concept before you pay.",
+      "Website design and development in Podgorica, Montenegro. A modern site for your business — from €200, live within 10 days. Free concept before you pay.",
     serviceTypes: ["Website development", "Web design", "Website maintenance"],
   },
 };

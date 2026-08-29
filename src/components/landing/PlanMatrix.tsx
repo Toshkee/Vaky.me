@@ -54,19 +54,14 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
                   </p>
                 )}
 
-                {/* Name and price hold the top line; the tagline underneath
-                    says who the package is for, and the one-time label under
-                    the price says the other thing a visitor needs to know
-                    about it — that it is not a subscription. */}
+                {/* Name, then price on its own line, then who the package is
+                    for. Stacked rather than side by side: one plan is quoted on
+                    request, and words in the price slot have nowhere to go in a
+                    right-aligned column on a 320px screen. */}
                 <div className="border-b border-line p-5 sm:p-6">
-                  <div className="flex items-start justify-between gap-4">
-                    <h3 className="headline pt-1 text-xl">{plan.name}</h3>
-                    <div className="shrink-0 text-right">
-                      <p className="headline tnum text-3xl">{plan.price}</p>
-                      <p className="eyebrow mt-1 text-muted">{dict.pricing.oneTime}</p>
-                    </div>
-                  </div>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{plan.tagline}</p>
+                  <h3 className="headline text-xl">{plan.name}</h3>
+                  <p className="headline tnum mt-2 text-3xl">{plan.price}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted">{plan.tagline}</p>
                 </div>
 
                 <div className="p-5 sm:p-6">

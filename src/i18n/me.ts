@@ -25,7 +25,7 @@ export const me = {
     facts: [
       { label: "Lokacija", value: "Podgorica" },
       { label: "Rok izrade", value: "do 10 dana" },
-      { label: "Cijena od", value: "€100" },
+      { label: "Cijena od", value: "€200" },
       { label: "Jezici", value: "MNE + EN" },
     ],
   },
@@ -140,20 +140,22 @@ export const me = {
     plans: [
       {
         name: "Start",
-        price: "€100",
-        tagline: "Za mali biznis kojem treba jedna jasna stranica — ponuda, lokacija i kontakt.",
+        price: "€200",
+        tagline: "Za biznis kojem treba jedna jaka stranica — šta radiš, gdje si i kako da ti se jave.",
         badge: null,
       },
       {
         name: "Biznis",
-        price: "€200",
-        tagline: "Za firme kojima treba kompletan sajt — više stranica, galerija i engleska verzija.",
-        badge: "Najtraženiji",
+        price: "€350",
+        tagline:
+          "Kad sajt treba i da radi: rezervacije, cjenovnik koji sam mijenjaš i gosti iz inostranstva.",
+        badge: "Preporučeno",
       },
       {
-        name: "Premium",
-        price: "od €350",
-        tagline: "Za projekte sa posebnim zahtjevima — rezervacije, dizajn po mjeri i napredni SEO.",
+        name: "Projekat",
+        price: "Po dogovoru",
+        tagline:
+          "Za ono što ne staje u paket — prodavnica, povezivanje sa tvojim sistemima, više jezika.",
         badge: null,
       },
     ],
@@ -165,10 +167,10 @@ export const me = {
          `explain` is what the dialog shows under each line. */
       rows: [
         {
-          label: "Broj stranica",
-          values: ["1", "do 5", "po dogovoru"],
+          label: "Dizajn po mjeri tvog brenda",
+          values: [true, true, true],
           explain:
-            "Koliko odvojenih stranica sajt ima — na primjer Početna, Usluge, Galerija, Kontakt.",
+            "Boje, slova i raspored biraju se za tvoj biznis. Ne prilagođavamo gotov šablon — zato dva naša sajta ne izgledaju isto.",
         },
         {
           label: "Savršen na telefonu",
@@ -181,6 +183,12 @@ export const me = {
           values: [true, true, true],
           explain:
             "Dugmad koja vode direktno na Instagram, WhatsApp, Viber, poziv ili email — biraš koja ti trebaju.",
+        },
+        {
+          label: "Galerija fotografija",
+          values: [true, true, true],
+          explain:
+            "Tvoje fotografije obrađene tako da se otvaraju odmah i na slabom internetu, bez da izgube oštrinu.",
         },
         {
           label: "Google mapa i kontakt",
@@ -200,9 +208,10 @@ export const me = {
             "Meni ili cjenovnik kao pravi tekst, a ne slika — čitljiv na telefonu i lak za izmjenu.",
         },
         {
-          label: "Galerija fotografija",
+          label: "Online rezervacije",
           values: [false, true, true],
-          explain: "Galerija sa fotografijama pripremljenim tako da se brzo učitavaju.",
+          explain:
+            "Gosti zakazuju sa sajta. Ako već koristiš sistem kao DIKIDI, povezujemo se na njega umjesto da praviš novi.",
         },
         {
           label: "Verzija na engleskom",
@@ -210,25 +219,37 @@ export const me = {
           explain: "Kompletan prevod sajta i prebacivanje jezika za goste iz inostranstva.",
         },
         {
-          label: "Dizajn po mjeri",
-          values: [false, false, true],
-          explain: "Dizajn rađen za tvoj brend, umjesto prilagođavanja gotovog šablona.",
-        },
-        {
-          label: "Online rezervacije",
-          values: [false, false, true],
-          explain: "Forma preko koje gosti ostavljaju zahtjev za termin ili rezervaciju.",
-        },
-        {
           label: "Napredni SEO",
-          values: [false, false, true],
+          values: [false, true, true],
           explain:
             "Strukturirani podaci, kartice za dijeljenje na društvenim mrežama i optimizacija brzine učitavanja.",
+        },
+        {
+          label: "Broj stranica",
+          values: ["1", "do 5", "po dogovoru"],
+          explain:
+            "Koliko odvojenih stranica sajt ima — na primjer Početna, Usluge, Galerija, Kontakt. Za većinu malih biznisa jedna dobra stranica radi posao.",
+        },
+        {
+          label: "Prodavnica i naplata online",
+          values: [false, false, true],
+          explain:
+            "Korpa, plaćanje karticom i pregled porudžbina — kad se sa sajta prodaje, a ne samo dogovara.",
+        },
+        {
+          label: "Povezivanje sa tvojim sistemima",
+          values: [false, false, true],
+          explain:
+            "Sajt povučen na ono što već koristiš — zalihe, kasu, sistem rezervacija ili evidenciju klijenata.",
+        },
+        {
+          label: "Više od dva jezika",
+          values: [false, false, true],
+          explain: "Treći i svaki naredni jezik, sa zasebnim adresama koje Google odvojeno indeksira.",
         },
       ],
     },
     inherits: "Sve iz paketa {plan}, plus:",
-    oneTime: "jednokratno",
     detailsAction: "Šta tačno dobijaš?",
     detailsIntro: "Sve iz ovog paketa, objašnjeno bez tehničkih riječi.",
     detailsIncluded: "Uključeno",
@@ -400,9 +421,9 @@ export const me = {
   },
 
   meta: {
-    title: "Izrada sajtova Podgorica — od €100, online do 10 dana | VibeLab",
+    title: "Izrada sajtova Podgorica — od €200, online do 10 dana | VibeLab",
     description:
-      "Izrada sajtova i web dizajn u Podgorici. Moderan sajt za tvoj biznis — od €100, online u roku od 10 dana. Besplatan koncept prije plaćanja. VibeLab, Crna Gora.",
+      "Izrada sajtova i web dizajn u Podgorici. Moderan sajt za tvoj biznis — od €200, online u roku od 10 dana. Besplatan koncept prije plaćanja. VibeLab, Crna Gora.",
     /* JSON-LD serviceType entries — what the studio does, for search engines */
     serviceTypes: ["Izrada sajtova", "Web dizajn", "Održavanje sajtova"],
   },

@@ -23,7 +23,7 @@ export function StructuredData({ dict }: { dict: Dictionary }) {
       image: `${site.url}/og.png`,
       description: dict.meta.description,
       email: site.email,
-      priceRange: "€100–€350",
+      priceRange: "€200–€350",
       // what the studio does, in the page's own language — the entity signal
       // behind "izrada sajtova Podgorica" and its English equivalents.
       // knowsAbout, not serviceType: schema.org puts serviceType on Service
@@ -41,19 +41,23 @@ export function StructuredData({ dict }: { dict: Dictionary }) {
         { "@type": "Country", name: "Montenegro" },
       ],
       sameAs: [instagramLink()],
-      makesOffer: dict.pricing.plans.map((plan) => ({
-        "@type": "Offer",
-        name: plan.name,
-        description: plan.tagline,
-        priceCurrency: "EUR",
-        // "od €350" / "from €350" — the schema wants the number alone
-        price: plan.price.replace(/[^0-9]/g, ""),
-        itemOffered: {
-          "@type": "Service",
+      makesOffer: dict.pricing.plans.map((plan) => {
+        // The schema wants the number alone, without the currency sign. A plan
+        // quoted on request has no number at all, and an Offer carrying
+        // price:"" is invalid, so that one ships without the price fields.
+        const price = plan.price.replace(/[^0-9]/g, "");
+        return {
+          "@type": "Offer",
           name: plan.name,
-          serviceType: dict.meta.serviceTypes[0],
-        },
-      })),
+          description: plan.tagline,
+          ...(price ? { priceCurrency: "EUR", price } : {}),
+          itemOffered: {
+            "@type": "Service",
+            name: plan.name,
+            serviceType: dict.meta.serviceTypes[0],
+          },
+        };
+      }),
     },
     {
       "@type": "WebSite",
