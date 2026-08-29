@@ -11,7 +11,7 @@ Expect a first reply within 5 working days. There is no bounty programme.
 ## What is in scope
 
 - `vibelab.it.com` — the marketing site and the `/demo/*` concept pages.
-- This repository: the source, the build configuration, and `vercel.json`.
+- This repository: the source, the build configuration, and the deploy config in `public/_headers` and `public/_redirects`.
 
 ## What is out of scope
 
@@ -23,13 +23,13 @@ Expect a first reply within 5 working days. There is no bounty programme.
 
 ## What is deployed
 
-A static Next.js export (`output: "export"`), hosted on Vercel behind
+A static Next.js export (`output: "export"`), hosted on Cloudflare Pages and served behind
 Cloudflare. There is no server, no database, no authentication, no session, no
 cookie and no user-submitted data — the pages are files. Security work here is
 therefore about what the browser is told (headers), what the domain says about
 itself (DNS and mail records), and what the pages hand to third parties.
 
-Response headers live in [`vercel.json`](vercel.json). The DNS, mail and
+Response headers live in [`public/_headers`](public/_headers) and the canonical-host redirect in [`public/_redirects`](public/_redirects). The DNS, mail and
 verification steps that cannot live in the repository are written down in
 [`docs/deployment-security.md`](docs/deployment-security.md).
 

@@ -1,0 +1,10 @@
+# Cloudflare Pages reads this file from the root of the build output, the same
+# way it reads _headers. Next copies everything in public/ into out/ verbatim,
+# so this lands where Pages looks for it.
+#
+# It exists because the www → apex redirect used to live only in `vercel.json`,
+# which Pages never read. Both hostnames answered 200 with identical HTML — the
+# canonical tag pointed search engines at the apex, but a redirect is the thing
+# that actually settles it. `vercel.json` is gone; this line is the redirect.
+
+https://www.vibelab.it.com/* https://vibelab.it.com/:splat 301

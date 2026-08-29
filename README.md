@@ -88,4 +88,4 @@ npm run test:security
 
 ## Deployment
 
-The site is configured for a static export and can be deployed on Vercel or any static host. Run `npm run build` to create the production-ready `out/` directory.
+The site is a static export, deployed on Cloudflare Pages — a push to `main` builds and publishes it. Any static host would serve it. Run `npm run build` to create the production-ready `out/` directory.

@@ -5,7 +5,7 @@
  *
  * Two kinds of check live here. Edge checks (headers, redirects, method
  * handling, sensitive paths) only mean something against something that serves
- * `vercel.json` — production or a Vercel preview — so they are skipped, loudly,
+ * `public/_headers` — production or a Pages preview — so they are skipped, loudly,
  * when the target is a local dev server. Page checks (cookies, map privacy,
  * source maps, rel on new-tab links, XSS probes) run anywhere.
  *
@@ -56,7 +56,7 @@ const api = await request.newContext({ ignoreHTTPSErrors: false });
 
 console.log(`\n=== Headers · ${BASE} ===`);
 if (isLocal) {
-  skip("security headers", "vercel.json headers are not applied by next dev");
+  skip("security headers", "_headers is applied by Pages, not by next dev");
 } else {
   const res = await api.get(`${BASE}/`);
   const h = res.headers();

@@ -2,10 +2,11 @@
 # copies everything in public/ into out/ verbatim, so this lands where Pages
 # looks for it.
 #
-# It exists because vibelab.it.com is served by Cloudflare Pages, not by
-# Vercel — so `vercel.json` never reaches the public site. The two files must
-# say the same thing; change one and change the other. `vercel.json` is the
-# reference copy, and its CSP is explained in docs/deployment-security.md.
+# This is the only place response headers are set for vibelab.it.com. There
+# used to be a second copy in `vercel.json`, back when a Vercel project built
+# this repo in parallel; that project is gone and so is the file, so nothing
+# here needs mirroring anywhere. The CSP is explained in
+# docs/deployment-security.md — read that before loosening a directive.
 
 /*
   Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' mailto:; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://cloud.umami.is https://static.cloudflareinsights.com; script-src-attr 'none'; connect-src 'self' https://usebasin.com https://cloud.umami.is https://cloudflareinsights.com; frame-src https://www.google.com https://challenges.cloudflare.com; upgrade-insecure-requests

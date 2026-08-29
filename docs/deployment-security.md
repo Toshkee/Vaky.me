@@ -2,18 +2,18 @@
 
 > **Where the site actually is.** `vibelab.it.com` is served by **Cloudflare
 > Pages**, built from the GitHub repository — a `git push` deploys the public
-> site. The Vercel project (`vibelab-me.vercel.app`) also builds this repo and
-> is what `npx vercel deploy --prod` updates, but no DNS points at it.
+> site. There is one host and one set of config files.
 >
-> That is why response headers live in **two** files that must agree:
-> `public/_headers` (Pages, the one the public site uses) and `vercel.json`
-> (Vercel). Change one, change the other. Running two hosts off one repo is
-> worth resolving — pick one, and delete the other's config with it.
+> Response headers live in `public/_headers` and the canonical-host redirect in
+> `public/_redirects`. Next copies everything in `public/` into `out/` verbatim,
+> which is where Pages looks for both. A second host used to build this repo in
+> parallel from `vercel.json`; that project and its config are gone, so these
+> two files are now the only place a deploy sets anything.
 
-`vercel.json` covers everything a deploy can set on its own. The rest of this
-list is dashboard and DNS work: Cloudflare is authoritative at the edge, and
-mail authentication is a property of the domain, not of the site. Nothing here
-is done by pushing code.
+`public/_headers` and `public/_redirects` cover everything a deploy can set on
+its own. The rest of this list is dashboard and DNS work: Cloudflare is
+authoritative at the edge, and mail authentication is a property of the domain,
+not of the site. Nothing here is done by pushing code.
 
 Run `npm run test:security https://vibelab.it.com` after each change — it is
 the fastest way to see which of these actually took effect.
@@ -22,7 +22,7 @@ the fastest way to see which of these actually took effect.
 
 ## 1. Response headers
 
-`vercel.json` sets CSP, `X-Frame-Options: DENY`, HSTS, `nosniff`,
+`public/_headers` sets CSP, `X-Frame-Options: DENY`, HSTS, `nosniff`,
 `Referrer-Policy`, `Permissions-Policy` and COOP on every route.
 
 **Why the CSP still allows `'unsafe-inline'` for scripts and styles.** A Next.js
@@ -36,14 +36,14 @@ compensates where it can, with `default-src 'self'`, `object-src 'none'`,
 `frame-src` limited to `https://www.google.com`. Revisit this if the site ever
 gains a rendering server.
 
-**Verify Cloudflare passes them through.** Cloudflare sits in front of Vercel,
-and a proxied response can be rewritten there.
+**Verify Cloudflare passes them through.** Pages serves the file directly, but a
+proxied response can still be rewritten at the edge.
 
 ```bash
 curl -sI https://vibelab.it.com/ | grep -iE 'content-security|frame-options|strict-transport|permissions-policy|referrer|content-type-options|opener'
 ```
 
-If a header is missing from that output but present in `vercel.json`, reproduce
+If a header is missing from that output but present in `public/_headers`, reproduce
 it with a Cloudflare **Response Header Transform Rule**
 (Rules → Transform Rules → Modify Response Header), matching all requests.
 
@@ -57,8 +57,8 @@ Leave it until there is a reason.
 
 ## 2. Canonical host
 
-`vercel.json` redirects `www.vibelab.it.com` to the apex. Because Cloudflare
-answers first, also set it there so the redirect happens at the edge:
+`public/_redirects` redirects `www.vibelab.it.com` to the apex. Pages matches the
+hostname there; set the same rule in the dashboard as a belt-and-braces edge copy:
 
 1. DNS → confirm `www` exists as a proxied record (orange cloud).
 2. Rules → **Redirect Rules** → new rule:
@@ -85,8 +85,8 @@ curl -sI http://vibelab.it.com/ | head -3           # expect 301 → https
   ```
 
   Cloudflare's Universal SSL rotates between issuers (Let's Encrypt, Google
-  Trust Services, SSL.com), and Vercel issues its own certificates for the
-  deployment domains. A CAA record that omits one of them blocks renewal and
+  Trust Services, SSL.com), and Pages issues its own certificates for the
+  `*.pages.dev` deployment domains. A CAA record that omits one of them blocks renewal and
   takes the site down at the next rotation, silently, weeks later. Add CAA only
   once every issuer is listed — Cloudflare's own "CAA records" helper page
   generates the correct set for the account.
@@ -156,7 +156,7 @@ does not silently break it. Two coherent choices, not three:
   page says so. A tracker nobody discloses is the problem this whole section
   exists to avoid.
 
-All four are named explicitly in the CSP in `vercel.json` — never a wildcard.
+All four are named explicitly in the CSP in `public/_headers` — never a wildcard.
 The three configurable ones are off unless the matching `NEXT_PUBLIC_*`
 variable is set (see `.env.example`); with them unset the exported HTML
 contains no reference to them at all.
