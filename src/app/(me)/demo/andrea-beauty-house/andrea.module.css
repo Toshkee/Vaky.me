@@ -1,0 +1,121 @@
+/* Palette and motion for the Andrea Beauty House concept, scoped to this route.
+
+   The house is three rooms behind one front door, so the page is built like a
+   building: warm white walls, a berry that only ever marks a way in, blush
+   where the room itself is soft, and gold reserved for the hairlines and the
+   numerals on a door plate. Berry is placed, never poured — a wall of pink is
+   what every other salon site already is.
+
+   The colours live here rather than in the VibeLab theme so four client
+   concepts don't leave four palettes loaded on every page of the studio site.
+   Tailwind reads them back through literal `bg-[var(--abh-…)]` class strings,
+   so the scanner still sees every one of them. */
+
+.page {
+  --abh-white: #fbf6f2;
+  --abh-blush: #f7e7e2;
+  --abh-blush-deep: #f0d8d1;
+  /* 16.9:1 on warm white, 15.1:1 on blush */
+  --abh-ink: #1b1418;
+  /* 6.0:1 on warm white, 5.4:1 on blush */
+  --abh-muted: #6a5a60;
+  /* 7.2:1 on warm white, 6.5:1 on blush — carries body text and button fills */
+  --abh-berry: #9b2242;
+  --abh-berry-deep: #7a1935;
+  /* 5.4:1 on warm white — the door-plate numerals, the only gold set as text */
+  --abh-gold-ink: #7f6029;
+  /* 3.5:1 on berry, 8.1:1 on ink — hairlines and interpuncts only, never words */
+  --abh-gold: #c9a227;
+  --abh-line: #e7d7d1;
+  --abh-line-strong: #d9bfb8;
+  /* on the ink band: 11.0:1 for text, 8.1:1 for the gold marks */
+  --abh-on-ink: #d9c6c2;
+  /* on the berry fields: 5.5:1 */
+  --abh-on-berry: #f0d2d8;
+}
+
+/* A doorway's casing, drawn short of the wall on both sides: a hairline with
+   two ticks turning down at the container edges. It is how one part of the
+   house is separated from the next — no full-bleed rules anywhere. */
+.threshold {
+  position: relative;
+}
+
+.threshold::before,
+.threshold::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  height: 0.7rem;
+  width: 1px;
+  background: var(--abh-line-strong);
+}
+
+.threshold::before {
+  left: 0;
+}
+
+.threshold::after {
+  right: 0;
+}
+
+/* The signature: a portal's frame line is closed at the centre and opens
+   outward as the portal comes into view, the way a pair of doors is pushed
+   open. Clipping rather than scaling keeps the arch an arch. The settled,
+   fully open frame is the static default, so a browser without view
+   timelines — or a visitor who asked for less motion — gets the finished
+   page, which is the correct one. Nothing else on the page moves. */
+.frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--abh-line-strong);
+  border-radius: inherit;
+  pointer-events: none;
+  clip-path: inset(0 0 0 0);
+  z-index: 1;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .frame::before {
+      animation: abh-open linear both;
+      animation-timeline: view();
+      animation-range: entry 12% cover 34%;
+    }
+  }
+}
+
+@keyframes abh-open {
+  from {
+    clip-path: inset(0 50% 0 50%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* One micro-interaction, on the button that stands in for knocking: a single
+   2° tilt and back, like a door plate rocking on its screws. It runs once per
+   hover or focus and never loops. */
+@media (prefers-reduced-motion: no-preference) {
+  .ring:hover,
+  .ring:focus-visible {
+    animation: abh-ring 460ms ease-out 1 both;
+  }
+}
+
+@keyframes abh-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  32% {
+    transform: rotate(-2deg);
+  }
+  68% {
+    transform: rotate(1.2deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

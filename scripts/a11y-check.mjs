@@ -28,6 +28,10 @@ const PAGES = [
   "/demo/zlatara-opal/",
   "/demo/kraftart/",
   "/demo/lavlav/",
+  "/demo/telo-pilates/",
+  "/demo/dental-clinic-kovacevic/",
+  "/demo/andrea-beauty-house/",
+  "/demo/studio-ljepote-mila/",
 ];
 
 const browser = await chromium.launch();

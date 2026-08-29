@@ -19,7 +19,11 @@ import sharp from "sharp";
 const ROOT = "public/demo";
 const WIDTHS = [480, 768, 1200];
 
-const slugs = await fs.readdir(ROOT);
+/* `node scripts/demo-photos.mjs <slug>` limits the run to one concept's
+   directory, so two people adding photos to different concepts don't both
+   rewrite every other concept's variants. No argument keeps the full sweep. */
+const only = process.argv[2];
+const slugs = only ? [only] : await fs.readdir(ROOT);
 
 for (const slug of slugs) {
   const dir = path.join(ROOT, slug);

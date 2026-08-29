@@ -203,7 +203,7 @@ export const me = {
         },
         {
           label: "Meni ili cjenovnik",
-          values: [false, true, true],
+          values: [true, true, true],
           explain:
             "Meni ili cjenovnik kao pravi tekst, a ne slika — čitljiv na telefonu i lak za izmjenu.",
         },

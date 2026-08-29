@@ -124,6 +124,75 @@ const cards = [
       <text x="104" y="546" fill="#111" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
     </svg>`,
   },
+  /* ── Second outreach wave (avgust 2026) ──────────────────────────
+     Same job as the four above: unlisted noindex concepts, so every card
+     says "DIZAJN KONCEPT" and borrows its own page's ground, accent and
+     letterform logic. */
+  {
+    /* Telo: butter ground, lowercase Caslon-like stagger, carriage rail+arc. */
+    file: "public/og-demo-telo-pilates.png",
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+      <rect width="1200" height="630" fill="#FAFBD4"/>
+      <text x="96" y="118" fill="#6B6C5C" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="7">REFORMER PILATES · PODGORICA</text>
+      <text x="96" y="248" fill="#131309" font-family="Georgia, serif" font-size="92">kontrola.</text>
+      <text x="146" y="342" fill="#131309" font-family="Georgia, serif" font-size="92">snaga.</text>
+      <text x="196" y="436" fill="#131309" font-family="Georgia, serif" font-size="92">pokret.</text>
+      <path d="M96 512h1008" stroke="#131309" stroke-opacity=".28" stroke-width="2"/>
+      <path d="M132 512v-12M1068 512v-12" stroke="#131309" stroke-width="3"/>
+      <path d="M132 512C400 448 780 448 1052 506" stroke="#131309" stroke-width="4" fill="none"/>
+      <circle cx="1052" cy="506" r="9" fill="#131309"/>
+      <text x="96" y="576" fill="#6B6C5C" font-family="Arial, sans-serif" font-size="23">Vektra, Podgorica · Rezervacija bez suvišnih koraka</text>
+      <text x="700" y="576" fill="#131309" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+    </svg>`,
+  },
+  {
+    /* Dental: mineral sheet, ruled left margin, report contents row. */
+    file: "public/og-demo-dental-clinic-kovacevic.png",
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+      <rect width="1200" height="630" fill="#f2f5f6"/>
+      <path d="M72 60v510" stroke="#0f6e72" stroke-width="3"/>
+      <path d="M96 96h1008" stroke="#12263a" stroke-width="2"/>
+      <text x="96" y="150" fill="#0f6e72" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">STOMATOLOŠKA ORDINACIJA · IGALO &amp; ZELENIKA</text>
+      <text x="96" y="286" fill="#12263a" font-family="Georgia, serif" font-size="84">Tri doktora.</text>
+      <text x="96" y="380" fill="#12263a" font-family="Georgia, serif" font-size="84">Dvije lokacije.</text>
+      <text x="96" y="452" fill="#0f6e72" font-family="Georgia, serif" font-size="40" font-style="italic">Jedan pažljiv pristup.</text>
+      <path d="M96 496h1008" stroke="#12263a" stroke-opacity=".25" stroke-width="1"/>
+      <text x="96" y="546" fill="#12263a" fill-opacity=".7" font-family="Arial, sans-serif" font-size="22" letter-spacing="3">01 STOMATOLOGIJA · 02 ORALNA HIRURGIJA · 03 ESTETSKI RAD</text>
+      <text x="96" y="592" fill="#12263a" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+    </svg>`,
+  },
+  {
+    /* Andrea: warm white, arched doorway outlines, one berry italic line. */
+    file: "public/og-demo-andrea-beauty-house.png",
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+      <rect width="1200" height="630" fill="#FBF6F2"/>
+      <path d="M868 630V300a150 150 0 0 1 300 0v330" fill="none" stroke="#D9BFB8" stroke-width="3"/>
+      <path d="M928 630V352a90 90 0 0 1 180 0v278" fill="none" stroke="#9B2242" stroke-width="2"/>
+      <text x="96" y="128" fill="#1B1418" fill-opacity=".65" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="8">BEAUTY HOUSE · NEW CITY, PODGORICA</text>
+      <text x="96" y="270" fill="#1B1418" font-family="Georgia, serif" font-size="78">Jedna kuća.</text>
+      <text x="96" y="360" fill="#9B2242" font-family="Georgia, serif" font-size="78" font-style="italic">Mnogo načina</text>
+      <text x="96" y="450" fill="#1B1418" font-family="Georgia, serif" font-size="78">da budeš svoja.</text>
+      <path d="M96 500h120" stroke="#C9A227" stroke-width="4"/>
+      <text x="96" y="552" fill="#1B1418" fill-opacity=".7" font-family="Arial, sans-serif" font-size="24" letter-spacing="4">SALON · BRAIDS · KIDS</text>
+      <text x="96" y="596" fill="#1B1418" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+    </svg>`,
+  },
+  {
+    /* Mila: porcelain masthead, rose rule, carbon mount off the right edge. */
+    file: "public/og-demo-studio-ljepote-mila.png",
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+      <rect width="1200" height="630" fill="#F1F2F4"/>
+      <rect x="920" y="0" width="280" height="630" fill="#15171B"/>
+      <text x="96" y="112" fill="#15171B" fill-opacity=".6" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="8">STUDIO LJEPOTE · CITY KVART, PODGORICA</text>
+      <path d="M96 140h740" stroke="#94505C" stroke-width="3"/>
+      <text x="96" y="300" fill="#15171B" font-family="Georgia, serif" font-size="74">Preciznost koja</text>
+      <text x="96" y="388" fill="#15171B" font-family="Georgia, serif" font-size="74">ostaje <tspan font-style="italic" fill="#94505C">prirodna.</tspan></text>
+      <text x="96" y="486" fill="#15171B" fill-opacity=".7" font-family="Arial, sans-serif" font-size="24" letter-spacing="3">Tretmani · Permanent makeup · Edukacije</text>
+      <path d="M96 528h740" stroke="#15171B" stroke-opacity=".2" stroke-width="1"/>
+      <text x="96" y="576" fill="#15171B" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+      <text x="1060" y="576" text-anchor="middle" fill="#F1F2F4" font-family="Georgia, serif" font-size="30" font-style="italic">Mila</text>
+    </svg>`,
+  },
 ];
 
 await Promise.all(

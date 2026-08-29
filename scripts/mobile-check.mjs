@@ -13,6 +13,10 @@ const targets = [
   { name: "opal", path: "/demo/zlatara-opal/" },
   { name: "kraft", path: "/demo/kraftart/" },
   { name: "lavlav", path: "/demo/lavlav/" },
+  { name: "telo", path: "/demo/telo-pilates/" },
+  { name: "dental", path: "/demo/dental-clinic-kovacevic/" },
+  { name: "andrea", path: "/demo/andrea-beauty-house/" },
+  { name: "mila", path: "/demo/studio-ljepote-mila/" },
 ];
 
 /* Playwright's iPhone profiles are Chromium with a spoofed UA, which is the

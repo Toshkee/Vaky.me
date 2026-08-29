@@ -1,0 +1,141 @@
+/* Palette and motion for the Studio ljepote Mila concept, scoped to this route.
+
+   The colours are route-scoped custom properties rather than theme tokens: four
+   client concepts sharing one `@theme` block would leave this studio's palette
+   loaded on every page of the site. Tailwind reads them back through literal
+   class strings like `bg-[var(--mila-carbon)]`, so the scanner still sees them.
+
+   The palette is deliberately cold. Every other concept in this repo sits on a
+   warm ground — bone, ivory, cream — so this one is built on a blue-grey
+   porcelain, cut by carbon bands, with a single muted rose doing all the
+   accenting. Fashion-magazine, not spa.
+
+   There is exactly one motion on the page, and it is the page's whole subject:
+   the artist's real signature, wiped in from the left the way a pen writes it.
+   It is scroll-driven, so there is no JavaScript and no observer — a browser
+   without `animation-timeline` gets the finished state, which is the correct
+   page. Nothing else moves; the hairlines are static borders, because a rule
+   near the top of the document would be past its own range before the visitor
+   ever scrolled and would animate for nobody. */
+
+.page {
+  /* grounds */
+  --mila-porcelain: #f1f2f4;
+  --mila-porcelain-deep: #e4e7ea;
+  --mila-rose-wash: #efe1e3;
+  --mila-carbon: #111317;
+
+  /* ink on porcelain */
+  --mila-ink: #15171b; /* 16.0:1 on porcelain, 14.5:1 on porcelain-deep, 14.1:1 on rose-wash */
+  --mila-muted: #4f555f; /* 6.7:1 on porcelain, 6.1:1 on porcelain-deep, 5.9:1 on rose-wash */
+  --mila-rose-deep: #94505c; /* 5.3:1 on porcelain, 4.8:1 on porcelain-deep, 4.7:1 on rose-wash */
+  --mila-rose: #b0707b; /* 3.4:1 — hairlines and display-size type only, never body copy */
+
+  /* ink on carbon */
+  --mila-on-carbon: #f1f2f4; /* 16.6:1 on carbon */
+  --mila-on-carbon-muted: #a7adb8; /* 8.3:1 on carbon */
+  --mila-rose-light: #e3b9c0; /* 10.6:1 on carbon */
+
+  /* hairlines */
+  --mila-silver: #cbd0d7;
+  --mila-rose-soft: #e0c4c9;
+}
+
+/* The signature. Static default: fully revealed. */
+.signature {
+  clip-path: inset(0 0 0 0);
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .signature {
+      animation: mila-write linear both;
+      animation-timeline: view();
+      animation-range: entry 14% cover 46%;
+    }
+  }
+}
+
+@keyframes mila-write {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Typographic CTAs and rubrics share one gesture: a rose rule that grows out
+   from the left under the word. It is the button geometry of this page — there
+   are no pills and exactly one filled rectangle, in the hero. */
+.inkline {
+  position: relative;
+}
+
+/* Anchored to the text rather than to the box: these links are 44–48px tall for
+   the thumb, so a rule measured from the bottom edge would float well below the
+   word. `bottom: 50%` plus a translate in `em` keeps it tucked under the
+   baseline whatever the tap target's height is. */
+.inkline::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 50%;
+  height: 1px;
+  background: var(--mila-rose-deep);
+  transform: translateY(0.9em) scaleX(0);
+  transform-origin: left center;
+  transition: transform 260ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.inkline:hover::after,
+.inkline:focus-visible::after {
+  transform: translateY(0.9em) scaleX(1);
+}
+
+/* Same rule, legible on the carbon band. */
+.inklineLight::after {
+  background: var(--mila-rose-light);
+}
+
+/* The three rubrics: a heavier rule, tight under the serif word rather than
+   under the whole link, so the deck beside it stays untouched. It sits below
+   the box because the words are set on a 1.0 leading — the descenders of
+   "Permanent makeup" hang past it, and a rule through them reads as a strike
+   rather than an underline. */
+.rubric .rubricWord {
+  position: relative;
+  display: inline-block;
+}
+
+.rubric .rubricWord::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -0.16em;
+  height: 2px;
+  background: var(--mila-rose-deep);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.rubric:hover .rubricWord::after,
+.rubric:focus-visible .rubricWord::after {
+  transform: scaleX(1);
+}
+
+/* The closing contact link wears its rule permanently — it is the last thing on
+   the page, so it should not depend on a hover the visitor may never do. Its
+   hover and focus feedback lives on the anchor itself, since this rule sits on
+   a span that can never take focus. */
+.drawn {
+  box-shadow: inset 0 -2px 0 0 var(--mila-rose);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inkline::after,
+  .rubric .rubricWord::after {
+    transition: none;
+  }
+}

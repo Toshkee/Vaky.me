@@ -199,7 +199,7 @@ export const en: Dictionary = {
         },
         {
           label: "Menu or price list",
-          values: [false, true, true],
+          values: [true, true, true],
           explain:
             "Your menu or price list as real text rather than an image — readable on a phone and easy to update.",
         },

@@ -1,0 +1,147 @@
+/* Palette and motion for the Telo Pilates Club concept, scoped to this route.
+
+   The colours are the studio's own: the butter is the ground of its wordmark
+   tile (#FEFFDF, pulled a shade denser so it reads as a printed field rather
+   than as blown-out white), and the ink is the near-black the logotype is set
+   in. Chalk is the working surface between the two butter fields. Nothing else
+   was invented — there is no third accent, because the page has no photographs
+   to sit beside and a fourth colour would only be decoration.
+
+   They live here as custom properties rather than in the VibeLab theme: four
+   client concepts sharing one `@theme` block would ship every studio's tokens
+   on every page of the site. Tailwind reads them back through literal class
+   strings like `bg-[var(--telo-butter)]`, so the scanner still sees them.
+
+   Motion is one gesture, and it is the machine's: a carriage travelling its
+   rail between two stops. The line draws from the first stop to the second and
+   settles there — extension, then hold. It runs on scroll, so there is no
+   JavaScript, no observer and no loop; a browser without `animation-timeline`
+   and anyone who asked for reduced motion gets the settled line, which is the
+   correct page. */
+
+.page {
+  /* the wordmark ground */
+  --telo-butter: #fafbd4;
+  /* the working surface */
+  --telo-chalk: #f7f7f2;
+  /* 17.6:1 on butter, 17.4:1 on chalk */
+  --telo-ink: #131309;
+  /* button hover only — never carries text at small sizes */
+  --telo-ink-hover: #3a3b23;
+  /* 5.1:1 on butter, 5.0:1 on chalk — all secondary body copy */
+  --telo-muted: #6b6c5c;
+  /* 7.9:1 on ink — secondary copy inside the dark language band */
+  --telo-muted-ink: #a9aa95;
+  /* hairlines only, never text */
+  --telo-line: #d5d5c0;
+  --telo-line-butter: #e3e4b4;
+}
+
+/* The signature mark. `view-timeline-name` is declared on the frame so both
+   drawn parts — the arc and the dot that lands at the far stop — read the same
+   progress, and the dot can wait until the stroke has nearly arrived.
+   Defaults below are the settled state. */
+.trackFrame {
+  view-timeline-name: --telo-carriage;
+  view-timeline-axis: block;
+}
+
+/* The arc scales with its box, so its stroke is specified in the drawing's own
+   units and steps down as the box gets wider — roughly three device pixels at
+   every viewport. `pathLength` normalises the path to 1, which is what lets the
+   dash draw be written as a plain 1 → 0 offset regardless of size. */
+.trackStroke {
+  stroke-width: 6;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+@media (min-width: 640px) {
+  .trackStroke {
+    stroke-width: 4;
+  }
+}
+
+@media (min-width: 1024px) {
+  .trackStroke {
+    stroke-width: 3;
+  }
+}
+
+/* The closing echo is drawn about a quarter of the hero's width, so the same
+   stroke in drawing units would arrive on screen a quarter as heavy and read as
+   a fainter mark rather than the same one. Its own value puts both at roughly
+   three pixels. */
+.trackEcho .trackStroke {
+  stroke-width: 7;
+}
+
+.trackEnd {
+  stroke-width: 10;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Both ranges end inside `entry`, not in `cover`: the closing echo sits a
+       short way above the footer and a `cover` range would still be mid-draw
+       when the page runs out of scroll, leaving the carriage parked short of
+       its stop. Finishing as the mark completes its entry means it settles at
+       full extension wherever it lands on the page. */
+    .trackStroke {
+      animation: telo-extend linear both;
+      animation-timeline: --telo-carriage;
+      animation-range: entry 10% entry 95%;
+    }
+
+    .trackEnd {
+      animation: telo-land linear both;
+      animation-timeline: --telo-carriage;
+      animation-range: entry 85% entry 100%;
+    }
+  }
+}
+
+@keyframes telo-extend {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes telo-land {
+  from {
+    stroke-width: 0;
+  }
+  to {
+    stroke-width: 10;
+  }
+}
+
+/* The formats read as a score: every rule runs the full measure, and the name
+   steps further in on each line, the way staggered entries are written. The
+   description column never moves, so the steps stay legible as a rhythm rather
+   than as drift. Five explicit steps rather than a counter — there are five
+   formats, and a sixth would need a design decision, not another 1.75rem.
+
+   The stagger waits for 1024px. On a tablet the name column is not wide enough
+   to give up 7rem, and a staggered line that wraps is not a score — it is a
+   mistake. */
+@media (min-width: 1024px) {
+  .score > li:nth-child(2) .stave {
+    padding-left: 1.75rem;
+  }
+
+  .score > li:nth-child(3) .stave {
+    padding-left: 3.5rem;
+  }
+
+  .score > li:nth-child(4) .stave {
+    padding-left: 5.25rem;
+  }
+
+  .score > li:nth-child(5) .stave {
+    padding-left: 7rem;
+  }
+}
