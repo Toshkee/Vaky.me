@@ -4,16 +4,17 @@
 > Pages**, built from the GitHub repository — a `git push` deploys the public
 > site. There is one host and one set of config files.
 >
-> Response headers live in `public/_headers` and the canonical-host redirect in
-> `public/_redirects`. Next copies everything in `public/` into `out/` verbatim,
-> which is where Pages looks for both. A second host used to build this repo in
-> parallel from `vercel.json`; that project and its config are gone, so these
-> two files are now the only place a deploy sets anything.
+> Response headers live in `public/_headers`. Next copies everything in
+> `public/` into `out/` verbatim, which is where Pages looks for it. A second
+> host used to build this repo in parallel from `vercel.json`; that project and
+> its config are gone, so `_headers` is now the only place a deploy sets
+> anything. **The canonical-host redirect is not in the repository at all** —
+> see section 2.
 
-`public/_headers` and `public/_redirects` cover everything a deploy can set on
-its own. The rest of this list is dashboard and DNS work: Cloudflare is
-authoritative at the edge, and mail authentication is a property of the domain,
-not of the site. Nothing here is done by pushing code.
+`public/_headers` covers everything a deploy can set on its own. The rest of
+this list is dashboard and DNS work: Cloudflare is authoritative at the edge,
+and mail authentication is a property of the domain, not of the site. Nothing
+here is done by pushing code.
 
 Run `npm run test:security https://vibelab.it.com` after each change — it is
 the fastest way to see which of these actually took effect.
@@ -57,14 +58,35 @@ Leave it until there is a reason.
 
 ## 2. Canonical host
 
-`public/_redirects` redirects `www.vibelab.it.com` to the apex. Pages matches the
-hostname there; set the same rule in the dashboard as a belt-and-braces edge copy:
+**This redirect lives in the Cloudflare dashboard, not in the repository.** It
+cannot live in `public/_redirects`: a Pages `_redirects` source has to start
+with `/`, so it matches paths and not hostnames. A line beginning
+`https://www.…` is discarded as invalid at build time — without an error, and
+without failing the build. That was the state for a while: `vercel.json` held
+a `www` rule Cloudflare never read, a `_redirects` line Pages silently threw
+away, and both hostnames answering 200 with identical HTML. The canonical tag
+kept search engines pointed at the apex, but a canonical is a hint and a 301
+is an instruction.
 
-1. DNS → confirm `www` exists as a proxied record (orange cloud).
-2. Rules → **Redirect Rules** → new rule:
-   - When: `http.host eq "www.vibelab.it.com"`
-   - Then: dynamic redirect to `concat("https://vibelab.it.com", http.request.uri.path)`, status **301**, preserve query string.
-3. SSL/TLS → Edge Certificates → **Always Use HTTPS: on**.
+The live rule is a **Redirect Rule**, named `www to apex (301)`, built from
+Cloudflare's own "Redirect from WWW to root" template:
+
+- **When:** wildcard pattern `https://www.*`
+- **Then:** 301 to `https://${1}`
+
+To recreate it: Rules → **Redirect Rules** → Create rule → Templates →
+"Redirect from WWW to root". Deploy it unchanged.
+
+Two things that look wrong but are not. Cloudflare warns on deploy that `www`
+may not be a proxied DNS record and the rule may not fire — ignore it and
+deploy anyway. `www` reaches Cloudflare as a Pages custom domain, which the
+Rules UI does not recognise as a zone DNS record. Do **not** accept its offer
+to create a proxied `www` record; that can collide with the Pages custom
+domain. Second, leave **Preserve query string** unchecked — `${1}` already
+captures the full URI, query string included, and ticking the box risks
+duplicating it. Both were verified against production.
+
+Also confirm SSL/TLS → Edge Certificates → **Always Use HTTPS: on**.
 
 Verify:
 
