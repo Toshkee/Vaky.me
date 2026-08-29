@@ -4,6 +4,7 @@ import { DM_Sans, Newsreader } from "next/font/google";
 import { DemoPhoto } from "@/components/demo/DemoPhoto";
 import { MapEmbed } from "@/components/demo/MapEmbed";
 import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { InstagramIcon, PhoneIcon } from "@/components/demo/ContactIcons";
 import { collections, hero, pieces, shop, steps } from "./data";
 import styles from "./opal.module.css";
 
@@ -370,10 +371,9 @@ export default function ZlataraOpalPage() {
         </div>
       </footer>
 
-      {/* The other three concepts close on a bar of filled buttons; Opal
-          closes on a plain dark strip of text instead — the two actions read
-          as a line you speak, split by a champagne rule, not a pair of CTAs. */}
-      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 bg-[var(--opal-graphite)] pb-[env(safe-area-inset-bottom)] md:hidden">
+      {/* A dark, jewellery-counter contact strip on phones. The Instagram
+          handle is visible before the visitor taps away from the concept. */}
+      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-[1.2fr_0.8fr] bg-[var(--opal-graphite)] pb-[env(safe-area-inset-bottom)] md:hidden">
         <a
           href={shop.instagramUrl}
           target="_blank"
@@ -381,18 +381,23 @@ export default function ZlataraOpalPage() {
           data-umami-event="demo_contact"
           data-umami-event-demo="zlatara-opal"
           data-umami-event-action="instagram-sticky"
-          className={`${serif} inline-flex min-h-14 items-center justify-center text-base text-[var(--opal-ivory)] ${focus}`}
+          className="inline-flex min-h-16 items-center justify-center gap-2.5 px-3 text-[var(--opal-ivory)] focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[var(--opal-champagne)]"
         >
-          Javi se
+          <InstagramIcon className="h-5 w-5 shrink-0 text-[var(--opal-champagne)]" />
+          <span className="text-left">
+            <span className="block text-[0.6rem] uppercase tracking-[0.16em] text-[var(--opal-ivory)]/60">Instagram</span>
+            <span className={`${serif} block text-sm`}>@{shop.instagram}</span>
+          </span>
         </a>
         <a
           href={shop.phoneUrl}
           data-umami-event="demo_contact"
           data-umami-event-demo="zlatara-opal"
           data-umami-event-action="phone-sticky"
-          className={`${serif} inline-flex min-h-14 items-center justify-center border-l border-[var(--opal-champagne)]/40 text-base text-[var(--opal-ivory)] ${focus}`}
+          className="inline-flex min-h-16 items-center justify-center gap-2 border-l border-[var(--opal-champagne)]/40 px-3 text-[var(--opal-ivory)] focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[var(--opal-champagne)]"
         >
-          Pozovi
+          <PhoneIcon className="h-5 w-5 shrink-0 text-[var(--opal-champagne)]" />
+          <span className={`${serif} text-base`}>Pozovi</span>
         </a>
       </div>
     </div>

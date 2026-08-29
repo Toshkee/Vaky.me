@@ -4,6 +4,7 @@ import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import { DemoPhoto } from "@/components/demo/DemoPhoto";
 import { MapEmbed } from "@/components/demo/MapEmbed";
 import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { InstagramIcon, WhatsAppIcon } from "@/components/demo/ContactIcons";
 import { artists, beforeVisit, hero, services, studio, works } from "./data";
 import styles from "./kraft.module.css";
 
@@ -401,10 +402,9 @@ export default function KraftArtPage() {
         </div>
       </footer>
 
-      {/* Hard-edged split slab, not a padded button pair: the two actions are
-          glued together edge to edge, divided by a single ink rule, the way
-          the rest of this page divides sections — no gap, no rounding. */}
-      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 border-t-2 border-[var(--kraft-ink)] bg-[var(--kraft-bone)] pb-[env(safe-area-inset-bottom)] md:hidden">
+      {/* Phone-only contact slab. It keeps KraftArt's hard workshop edges and
+          names both destinations instead of making the visitor guess. */}
+      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-[0.9fr_1.1fr] border-t-2 border-[var(--kraft-ink)] bg-[var(--kraft-bone)] pb-[env(safe-area-inset-bottom)] md:hidden">
         <a
           href={studio.whatsappUrl}
           target="_blank"
@@ -412,9 +412,13 @@ export default function KraftArtPage() {
           data-umami-event="demo_contact"
           data-umami-event-demo="kraftart"
           data-umami-event-action="whatsapp-sticky"
-          className={`inline-flex min-h-14 items-center justify-center bg-[var(--kraft-ink)] px-4 text-sm font-bold uppercase tracking-[0.08em] text-[var(--kraft-bone)] ${focus}`}
+          className="inline-flex min-h-16 items-center justify-center gap-2.5 bg-[var(--kraft-ink)] px-3 text-[var(--kraft-bone)] focus-visible:outline-2 focus-visible:outline-offset-[-5px] focus-visible:outline-[var(--kraft-oxide-bright)]"
         >
-          WhatsApp
+          <WhatsAppIcon className="h-5 w-5 shrink-0 text-[var(--kraft-oxide-bright)]" />
+          <span className="text-left">
+            <span className={`${label} block text-[var(--kraft-bone)]/65`}>Termin</span>
+            <span className="block text-sm font-bold">WhatsApp</span>
+          </span>
         </a>
         <a
           href={studio.instagramUrl}
@@ -423,9 +427,13 @@ export default function KraftArtPage() {
           data-umami-event="demo_contact"
           data-umami-event-demo="kraftart"
           data-umami-event-action="instagram-sticky"
-          className={`inline-flex min-h-14 items-center justify-center border-l-2 border-[var(--kraft-ink)] bg-[var(--kraft-bone)] px-4 text-sm font-bold uppercase tracking-[0.08em] text-[var(--kraft-ink)] ${focus}`}
+          className="inline-flex min-h-16 items-center justify-center gap-2 border-l-2 border-[var(--kraft-ink)] bg-[var(--kraft-bone)] px-2 text-[var(--kraft-ink)] focus-visible:outline-2 focus-visible:outline-offset-[-5px] focus-visible:outline-[var(--kraft-oxide)]"
         >
-          Instagram
+          <InstagramIcon className="h-5 w-5 shrink-0 text-[var(--kraft-oxide)]" />
+          <span className="min-w-0 text-left">
+            <span className={`${label} block text-[var(--kraft-gray)]`}>Instagram</span>
+            <span className="block truncate text-xs font-bold">@{studio.instagram}</span>
+          </span>
         </a>
       </div>
     </div>

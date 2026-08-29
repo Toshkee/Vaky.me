@@ -4,6 +4,7 @@ import { Bodoni_Moda, Manrope } from "next/font/google";
 import { DemoPhoto } from "@/components/demo/DemoPhoto";
 import { MapEmbed } from "@/components/demo/MapEmbed";
 import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { InstagramIcon, PhoneIcon } from "@/components/demo/ContactIcons";
 import { gallery, hero, practices, studio } from "./data";
 import styles from "./soul.module.css";
 
@@ -59,7 +60,7 @@ function Hairline({ clay = false, className = "" }: { clay?: boolean; className?
 export default function SoulStudioPage() {
   return (
     <div
-      className={`${styles.page} ${display.variable} ${sans.variable} min-h-screen bg-[var(--soul-bone)] pb-[calc(5rem+env(safe-area-inset-bottom))] text-[var(--soul-ink)] [font-family:var(--font-soul-sans),system-ui,sans-serif] md:pb-0`}
+      className={`${styles.page} ${display.variable} ${sans.variable} min-h-screen bg-[var(--soul-bone)] pb-[calc(6rem+env(safe-area-inset-bottom))] text-[var(--soul-ink)] [font-family:var(--font-soul-sans),system-ui,sans-serif] md:pb-0`}
     >
       <VibeLabBar />
 
@@ -372,7 +373,7 @@ export default function SoulStudioPage() {
           above the home indicator rather than under it, and the page carries
           matching bottom padding so the footer is never hidden behind it. */}
       <div className="fixed inset-x-0 bottom-0 z-50 px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] md:hidden">
-        <div className="flex items-center gap-2 rounded-full border border-[var(--soul-line)] bg-[var(--soul-bone)] p-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.07)]">
+        <div className="grid grid-cols-[1.55fr_0.75fr] items-stretch gap-2 rounded-[1.25rem] border border-[var(--soul-line)] bg-[var(--soul-bone)] p-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.07)]">
           <a
             href={studio.instagramUrl}
             target="_blank"
@@ -380,17 +381,22 @@ export default function SoulStudioPage() {
             data-umami-event="demo_contact"
             data-umami-event-demo="soul-studio"
             data-umami-event-action="instagram-sticky"
-            className={`inline-flex min-h-12 flex-1 items-center justify-center rounded-full bg-[var(--soul-clay-deep)] px-4 text-sm font-semibold text-[var(--soul-bone)] ${focus}`}
+            className="inline-flex min-h-14 min-w-0 items-center justify-center gap-2.5 rounded-[0.95rem] bg-[var(--soul-clay-deep)] px-3 text-[var(--soul-bone)] focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[var(--soul-bone)]"
           >
-            Piši nam
+            <InstagramIcon className="h-5 w-5 shrink-0" />
+            <span className="min-w-0 text-left">
+              <span className="block text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-[var(--soul-bone)]/70">Piši nam</span>
+              <span className="block truncate text-xs font-semibold">@{studio.instagram}</span>
+            </span>
           </a>
           <a
             href={studio.phoneUrl}
             data-umami-event="demo_contact"
             data-umami-event-demo="soul-studio"
             data-umami-event-action="phone-sticky"
-            className={`inline-flex min-h-12 items-center justify-center rounded-full border border-[var(--soul-line)] px-4 text-sm font-semibold ${focus}`}
+            className={`inline-flex min-h-14 items-center justify-center gap-2 rounded-[0.95rem] border border-[var(--soul-line)] px-3 text-sm font-semibold ${focus}`}
           >
+            <PhoneIcon className="h-5 w-5 shrink-0 text-[var(--soul-clay-deep)]" />
             Pozovi
           </a>
         </div>

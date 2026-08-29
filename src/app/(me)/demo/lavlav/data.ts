@@ -108,12 +108,12 @@ export interface Look {
 }
 
 export const hero: Look = {
-  src: "/demo/lavlav/sjaj",
-  caption: "Biserni sjaj",
-  alt: "Krupni kadar šake sa kratkim noktima u bisernoj, sedefastoj nijansi",
-  width: 960,
-  height: 1280,
-  source: "https://www.instagram.com/p/DTr4pkTDCSX/",
+  src: "/demo/lavlav/studio-hero",
+  caption: "Vrijeme za tebe",
+  alt: "Klijentkinja i nail tehničarka tokom manikira u toplom, elegantnom beauty studiju",
+  width: 1536,
+  height: 1024,
+  source: "Ilustrativni vizual kreiran za VibeLab dizajn koncept",
 };
 
 export const lookbook: Look[] = [

@@ -4,6 +4,7 @@ import { Plus_Jakarta_Sans, Tenor_Sans } from "next/font/google";
 import { DemoPhoto } from "@/components/demo/DemoPhoto";
 import { MapEmbed } from "@/components/demo/MapEmbed";
 import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { CalendarIcon, InstagramIcon } from "@/components/demo/ContactIcons";
 import { bookingSteps, hero, lookbook, services, studio, trustLine } from "./data";
 import styles from "./lav.module.css";
 
@@ -50,7 +51,7 @@ export default function LavLavPage() {
               the page uses. No reconstruction, no invented monogram. */}
           <a
             href="#vrh"
-            className={`${display} inline-flex min-h-11 flex-col justify-center text-lg leading-[0.95] tracking-[0.2em] ${focus}`}
+            className={`${display} inline-flex min-h-11 items-center gap-2 text-lg leading-[0.95] tracking-[0.2em] sm:flex-col sm:items-start sm:gap-0 ${focus}`}
           >
             <span>LAV</span>
             <span className="text-[var(--lav-muted)]">LAV</span>
@@ -86,20 +87,23 @@ export default function LavLavPage() {
       </header>
 
       <main id="vrh">
-        <section className="mx-auto grid max-w-6xl gap-8 px-5 pb-14 pt-8 sm:px-8 sm:pb-16 sm:pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
-          <div className="order-2 lg:order-1">
+        <section className="relative isolate mx-auto grid max-w-6xl overflow-hidden pb-0 sm:mx-8 sm:mt-10 sm:border sm:border-[var(--lav-line)] lg:mx-auto lg:mt-0 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:overflow-visible lg:border-0 lg:px-8 lg:pb-16 lg:pt-16">
+          <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-24 text-white sm:px-8 sm:pb-24 md:pb-10 lg:static lg:order-1 lg:px-0 lg:pb-0 lg:text-[var(--lav-ink)]">
+            <p className={`${label} mb-4 text-white/80 lg:text-[var(--lav-red)]`}>
+              Nail &amp; beauty · Master kvart
+            </p>
             <h1
-              className={`${display} text-[clamp(2rem,4.6vw,3rem)] leading-[1.12] tracking-[-0.01em]`}
+              className={`${display} max-w-lg text-[clamp(2.25rem,10vw,3.2rem)] leading-[1.02] tracking-[-0.01em] lg:text-[clamp(2rem,4.6vw,3rem)] lg:leading-[1.12]`}
             >
-              Više od 200 nijansi.
+              Tvoja nijansa.
               <br />
-              Termin biraš online.
+              Tvoj termin.
             </h1>
-            <p className="mt-7 max-w-md leading-relaxed text-[var(--lav-muted)]">
+            <p className="mt-5 max-w-md text-sm leading-relaxed text-white/85 sm:text-base lg:mt-7 lg:text-[var(--lav-muted)]">
               Intiman beauty studio u Master kvartu za manikir, pedikir, obrve, trepavice i lasersku
               epilaciju.
             </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-7 hidden gap-2.5 sm:gap-3 md:flex lg:mt-9">
               <a
                 href={studio.bookingUrl}
                 target="_blank"
@@ -107,29 +111,36 @@ export default function LavLavPage() {
                 data-umami-event="demo_booking"
                 data-umami-event-demo="lavlav"
                 data-umami-event-action="dikidi-hero"
-                className={primaryCta}
+                className={`${primaryCta} flex-1 gap-2 px-4 sm:flex-none sm:px-7`}
               >
+                <CalendarIcon className="h-4 w-4" />
                 Rezerviši online
               </a>
-              <a href="#radovi" className={secondaryCta}>
-                Pogledaj radove
+              <a
+                href="#radovi"
+                className={`${secondaryCta} border-white/70 bg-[var(--lav-cream)] px-4 text-[var(--lav-ink)] sm:px-7 lg:border-[var(--lav-ink)] lg:bg-transparent`}
+              >
+                Radovi
               </a>
             </div>
           </div>
 
-          <figure className="order-1 lg:order-2">
-            <div className="overflow-hidden">
+          <figure className="relative min-h-[34rem] sm:min-h-[38rem] lg:order-2 lg:min-h-0">
+            <div className="absolute inset-0 overflow-hidden lg:relative">
               <DemoPhoto
                 src={hero.src}
                 alt={hero.alt}
                 width={hero.width}
                 height={hero.height}
                 priority
-                sizes="(min-width: 1024px) 46vw, 92vw"
-                className="h-52 w-full object-cover min-[380px]:h-64 sm:h-[26rem] lg:h-[30rem]"
+                sizes="(min-width: 1024px) 46vw, 100vw"
+                className="h-full w-full object-cover object-[58%_center] lg:h-[30rem] lg:object-center"
               />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,17,17,0.04)_30%,rgba(17,17,17,0.88)_100%)] lg:hidden" />
             </div>
-            <figcaption className={`mt-3 ${label} text-[var(--lav-muted)]`}>{hero.caption}</figcaption>
+            <figcaption className={`absolute right-5 top-5 bg-[var(--lav-cream)] px-3 py-2 ${label} text-[var(--lav-ink)] sm:right-6 sm:top-6 lg:-bottom-8 lg:right-0 lg:top-auto lg:bg-transparent lg:px-0 lg:py-0 lg:text-[var(--lav-muted)]`}>
+              {hero.caption}
+            </figcaption>
           </figure>
         </section>
 
@@ -150,16 +161,64 @@ export default function LavLavPage() {
 
         <section id="usluge" className="scroll-mt-6">
           <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex items-end justify-between gap-4">
               <h2 className={`${display} text-[clamp(1.75rem,4vw,2.5rem)] tracking-[0.02em]`}>
                 Usluge
               </h2>
-              <p className="max-w-xs text-sm leading-relaxed text-[var(--lav-muted)]">
+              <p className={`${label} pb-1 text-[var(--lav-red)] md:hidden`}>
+                Dodirni za detalje
+              </p>
+              <p className="hidden max-w-xs text-sm leading-relaxed text-[var(--lav-muted)] md:block">
                 Kompletan spisak sa cijenama i trajanjem stoji na DIKIDI-ju, gdje se i mijenja.
               </p>
             </div>
 
-            <dl className="mt-10 grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+            {/* On a phone six full descriptions turn this into the longest
+                section on the page. The service menu keeps every category in
+                view and reveals only the description the visitor asks for. */}
+            <div className="mt-8 grid grid-cols-2 border-l border-t border-[var(--lav-line)] md:hidden">
+              {services.map((service, index) => (
+                <details
+                  key={service.id}
+                  className="group border-b border-r border-[var(--lav-line)] bg-[var(--lav-cream)] open:bg-[var(--lav-shell)]"
+                >
+                  <summary className="flex min-h-28 cursor-pointer list-none flex-col justify-between gap-5 p-4 [&::-webkit-details-marker]:hidden">
+                    <span className="flex items-start justify-between gap-3">
+                      <span className={`${label} text-[var(--lav-red)]`}>
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className={`${display} text-xl leading-none text-[var(--lav-muted)] transition-transform group-open:rotate-45 motion-reduce:transition-none`}
+                      >
+                        +
+                      </span>
+                    </span>
+                    <span className={`${display} text-lg leading-tight tracking-[0.02em]`}>
+                      {service.title}
+                    </span>
+                  </summary>
+                  <p className="border-t border-[var(--lav-line)] px-4 pb-5 pt-4 text-xs leading-relaxed text-[var(--lav-muted)]">
+                    {service.body}
+                  </p>
+                </details>
+              ))}
+            </div>
+
+            <a
+              href={studio.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-umami-event="demo_booking"
+              data-umami-event-demo="lavlav"
+              data-umami-event-action="dikidi-usluge"
+              className={`mt-5 flex min-h-12 items-center justify-between border-b border-[var(--lav-ink)] text-sm font-semibold md:hidden ${focus}`}
+            >
+              Sve cijene i slobodni termini
+              <span aria-hidden="true">↗</span>
+            </a>
+
+            <dl className="mt-10 hidden gap-x-10 gap-y-9 md:grid md:grid-cols-2 lg:grid-cols-3">
               {services.map((service) => (
                 <div key={service.id} className="border-t border-[var(--lav-line)] pt-5">
                   <dt className={`${display} text-xl tracking-[0.04em]`}>{service.title}</dt>
@@ -327,8 +386,8 @@ export default function LavLavPage() {
           <div>
             <p className={`${display} text-base tracking-[0.2em]`}>LAV LAV</p>
             <p className="mt-3 max-w-sm text-xs leading-relaxed text-[var(--lav-muted)]">
-              Nezvanični dizajn koncept. Fotografije i podaci preuzeti su sa javnih Instagram profila
-              studija i služe samo za prikaz ideje.
+              Nezvanični dizajn koncept. Hero vizual je ilustrativan, a fotografije radova i podaci
+              preuzeti su sa javnih Instagram profila studija.
             </p>
           </div>
           <p className="text-xs text-[var(--lav-muted)]">
@@ -340,11 +399,10 @@ export default function LavLavPage() {
         </div>
       </footer>
 
-      {/* Asymmetric split, not the even two-up every other concept uses: the
-          booking action carries more weight than the Instagram link, so it
-          gets more of the bar. Bleeds edge-to-edge — no side padding, no gap
-          between the two, so the join reads as one divided bar. */}
-      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-[1.6fr_1fr] border-t border-[var(--lav-line)] bg-[var(--lav-cream)] pb-[env(safe-area-inset-bottom)] md:hidden">
+      {/* Phone-only contact rail: the booking action is primary; the second
+          action shows the real handle so the destination is clear before a
+          visitor leaves the page. */}
+      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-[1.45fr_1fr] border-t border-[var(--lav-line)] bg-[var(--lav-cream)] pb-[env(safe-area-inset-bottom)] md:hidden">
         <a
           href={studio.bookingUrl}
           target="_blank"
@@ -352,9 +410,13 @@ export default function LavLavPage() {
           data-umami-event="demo_booking"
           data-umami-event-demo="lavlav"
           data-umami-event-action="dikidi-sticky"
-          className={`${display} inline-flex min-h-14 items-center justify-center bg-[var(--lav-red)] px-4 text-sm tracking-[0.08em] text-white ${focus}`}
+          className="inline-flex min-h-16 items-center justify-center gap-2.5 bg-[var(--lav-red)] px-3 text-white focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white"
         >
-          Rezerviši termin
+          <CalendarIcon className="h-5 w-5 shrink-0" />
+          <span className="text-left">
+            <span className="block text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-white/75">DIKIDI</span>
+            <span className="block text-sm font-semibold">Rezerviši termin</span>
+          </span>
         </a>
         <a
           href={studio.instagramUrl}
@@ -363,9 +425,13 @@ export default function LavLavPage() {
           data-umami-event="demo_contact"
           data-umami-event-demo="lavlav"
           data-umami-event-action="instagram-sticky"
-          className={`${display} inline-flex min-h-14 items-center justify-center border-l border-[var(--lav-line)] px-4 text-sm tracking-[0.08em] text-[var(--lav-ink)] ${focus}`}
+          className="inline-flex min-h-16 items-center justify-center gap-2 border-l border-[var(--lav-line)] px-2 text-[var(--lav-ink)] focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[var(--lav-red)]"
         >
-          Instagram
+          <InstagramIcon className="h-5 w-5 shrink-0 text-[var(--lav-red)]" />
+          <span className="text-left">
+            <span className="block text-[0.6rem] uppercase tracking-[0.14em] text-[var(--lav-muted)]">Instagram</span>
+            <span className="block text-xs font-semibold">@{studio.instagram}</span>
+          </span>
         </a>
       </div>
     </div>
