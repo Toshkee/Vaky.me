@@ -1,0 +1,79 @@
+/* Palette and motion for the Studio Pilates by Maja concept, scoped to this route.
+
+   The first version of this page was charcoal, near-black and tomato red set
+   in condensed uppercase — a men's-gym poster, which is not what this studio
+   is. This one is built the other way round: photography of controlled
+   movement carries the page, and the colour is taken out of those frames
+   rather than imposed on them. Chalk is the ground almost everywhere. The
+   dark is a deep petrol green, not black, so the one inverted band reads as a
+   quiet room rather than as a weights floor. Clay is the terracotta of the
+   studio wall in the TRX frames and appears exactly once, on the band that
+   hands the visitor over to the weekly schedule. Teal is the mat colour and is
+   used only at hairline scale — rules, the accent mark, the underline on a
+   link.
+
+   The tokens live here rather than in the site's `@theme` so that one client's
+   palette never ships on another page. Tailwind reads them back through
+   literal class strings like `bg-[var(--maja-clay)]`, so the scanner still
+   sees them.
+
+   Contrast, measured against the ground each colour actually lands on:
+   ink on chalk 12.0:1, muted on chalk 5.5:1, teal on chalk 5.4:1,
+   ink on clay 4.7:1, muted-ink on ink 6.0:1, chalk on ink 12.0:1.
+   Clay on chalk is 2.5:1, so on the light ground clay is a surface and never a
+   letterform; on the petrol band it clears 4.7:1 and may carry type. */
+
+.page {
+  /* the ground — a warm plaster wall in daylight */
+  --maja-chalk: #f4f1eb;
+  /* the dark, and the body colour: deep petrol green rather than black */
+  --maja-ink: #14302c;
+  /* the mats — hairlines, marks and the underline under a link */
+  --maja-teal: #1e6e63;
+  /* the studio wall in the TRX frames — one band, one button fill */
+  --maja-clay: #d2856c;
+  /* secondary copy on chalk */
+  --maja-muted: #5c6360;
+  /* secondary copy on the petrol band */
+  --maja-muted-ink: #9fb0ab;
+  /* hairline rules on chalk */
+  --maja-line: #ddd8ce;
+  /* what a reserved photo box shows before the file lands */
+  --maja-shade: #e6e1d7;
+}
+
+/* Every photograph sits in a box that owns the height and does the clipping,
+   so the image only fills. The shade underneath means the reserved space is
+   never a white hole while the file is in flight. */
+.frame {
+  overflow: hidden;
+  background-color: var(--maja-shade);
+}
+
+/* The page's one gesture, and it belongs to the subject: a controlled settle.
+   Each photograph arrives fractionally wide and comes to rest at its true size
+   across its own entry — the visual equivalent of an exhale finishing a
+   repetition. It is transform-only inside a clipping box, so nothing reflows
+   and nothing shifts; every scale ends at exactly 1, so no frame can outgrow
+   the space reserved for it; and it runs on a scroll-driven timeline, so there
+   is no observer, no loop and no JavaScript. A browser without
+   `animation-timeline` and anyone who asked for reduced motion gets every
+   photograph at rest, which is the correct page. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .settle {
+      animation: maja-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 80%;
+    }
+  }
+}
+
+@keyframes maja-settle {
+  from {
+    transform: scale(1.05);
+  }
+  to {
+    transform: scale(1);
+  }
+}
