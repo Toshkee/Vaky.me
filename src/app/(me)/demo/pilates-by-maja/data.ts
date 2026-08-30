@@ -14,7 +14,7 @@
  * 2. The studio is NOT a reformer studio. The feed shows mat work, TRX,
  *    resistance training and mobility. Nothing here may imply apparatus the
  *    studio has not shown — which is why the reformer frames that came back
- *    with the stock set are deliberately not among the photographs below.
+ *    with the stock set were deleted rather than kept for later use.
  * 3. Anything the studio has not published about itself — instructor name,
  *    certification, phone, street, hours, prices, capacity — stays in
  *    `researchOnly` with the reason it is held back.
@@ -144,16 +144,16 @@ export const photoProvenance: PhotoProvenance[] = [
       "stock — Pexels free-license photo, standing in for the client's own photography; not this studio; no people shown",
   },
   {
-    src: "/demo/pilates-by-maja/trx-merdevine",
-    sourceUrl: "https://www.pexels.com/photo/8436135/",
+    src: "/demo/pilates-by-maja/mat-lopta-pokret",
+    sourceUrl: "https://www.pexels.com/photo/14591573/",
     rightsStatus:
-      "stock — Pexels free-license photo, standing in for the client's own photography; not this studio; model's face not visible",
+      "stock — Pexels free-license photo, standing in for the client's own photography; not this studio; face turned away and covered by hair",
   },
   {
-    src: "/demo/pilates-by-maja/trx-iskorak",
-    sourceUrl: "https://www.pexels.com/photo/8436151/",
+    src: "/demo/pilates-by-maja/vodjeni-most",
+    sourceUrl: "https://www.pexels.com/photo/4587402/",
     rightsStatus:
-      "stock — Pexels free-license photo, standing in for the client's own photography; not this studio; no head/face in frame",
+      "stock — Pexels free-license photo, standing in for the client's own photography; not this studio; cropped locally so neither head is in frame",
   },
   {
     src: "/demo/pilates-by-maja/strunjaca-ruke",
@@ -170,11 +170,13 @@ export const photoProvenance: PhotoProvenance[] = [
  * people or objects belong to this studio, so no alt string, caption or
  * sentence of copy may say or imply that they do.
  *
- * Three further frames were downloaded and are not used: two reformer-room
- * interiors and a reformer exercise. They are technically fine and they are
- * exactly what this concept must not show — the studio has never presented
- * itself as a reformer studio, and a page that opens on apparatus it does not
- * own would misdescribe the business to its own customers.
+ * Every frame is floor work. Reformer frames came back with the stock set and
+ * were deleted rather than kept unused: the studio has never presented itself
+ * as a reformer studio, and apparatus it does not own would misdescribe the
+ * business to its own customers. Suspension-strap frames were dropped for a
+ * softer reason — TRX is a real format here, but two of four photographs on
+ * straps made the page read as functional training rather than Pilates. The
+ * formats list still names TRX; the photography now leads with the mat.
  */
 export const heroPhoto: Photo = {
   src: "/demo/pilates-by-maja/studio-mat-postavka",
@@ -184,15 +186,15 @@ export const heroPhoto: Photo = {
 };
 
 export const trainingPhoto: Photo = {
-  src: "/demo/pilates-by-maja/trx-merdevine",
-  alt: "Vježbačica u kosom uporu na TRX kaiševima uz drvene ribstole; snimljena iz profila, lice zaklonjeno kosom",
-  width: 1133,
-  height: 1700,
+  src: "/demo/pilates-by-maja/mat-lopta-pokret",
+  alt: "Vježbačica leži na strunjači i vodi malu pilates loptu u ispruženoj ruci, koljena savijena; iza nje police sa loptama, blokovima i balet šipka",
+  width: 1200,
+  height: 1800,
 };
 
 export const methodPhoto: Photo = {
-  src: "/demo/pilates-by-maja/trx-iskorak",
-  alt: "Iskorak sa osloncem u TRX kaiševima, kadar odsječen iznad ramena — vide se trup, ruka i noge uz zid boje gline",
+  src: "/demo/pilates-by-maja/vodjeni-most",
+  alt: "Most na strunjači sa elastičnom trakom iznad koljena, kadar odsječen iznad ramena; sa strane se vidi ruka instruktorke koja vodi tempo pokreta",
   width: 1200,
   height: 800,
 };
@@ -302,8 +304,17 @@ export const assetAudit: AssetAudit[] = [
     finding:
       "Preuzet i optimizovan stock kadar sa reformer spravom, kao i dva enterijera reformer sale.",
     decision:
-      "Preuzeto, ali se ne prikazuje. Studio se nikada nije predstavio kao reformer studio, pa bi takav kadar pogrešno opisao posao.",
-    replaceBeforeProduction: true,
+      "Obrisano iz repozitorijuma. Studio se nikada nije predstavio kao reformer studio, pa bi takav kadar pogrešno opisao posao.",
+    replaceBeforeProduction: false,
+  },
+  {
+    sourceUrl: "https://www.pexels.com/photo/8436135/",
+    accessDate: "2026-08-30",
+    finding:
+      "Dva stock kadra vježbanja na TRX kaiševima u sali jako roze boje.",
+    decision:
+      "Zamijenjeni kadrovima rada na strunjači. TRX jeste format ovog studija i ostaje naveden u tekstu, ali dvije od četiri fotografije na kaiševima činile su da stranica djeluje kao funkcionalni trening, a ne kao pilates.",
+    replaceBeforeProduction: false,
   },
 ];
 
