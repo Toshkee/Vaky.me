@@ -242,7 +242,6 @@ Sačuvati lokalno i koristiti kao referencu za tipografiju/paletu. Ako kvalitet 
 Postojeće neobjavljene demo stranice koje se prvo moraju pregledati:
 
 - src/app/(me)/demo/soul-studio/ — Bodoni Moda + Manrope, clay/sand, tih wellness ritam.
-- src/app/(me)/demo/zlatara-opal/ — Newsreader + DM Sans, champagne/opal, luksuzni jewelry editorial.
 - src/app/(me)/demo/kraftart/ — Archivo + IBM Plex Mono, atelier/brutalist paper/ink/oxide.
 - src/app/(me)/demo/lavlav/ — Tenor Sans + Plus Jakarta Sans, cream/red, nail editorial i ručni scroll-snap gallery.
 
@@ -250,7 +249,7 @@ Nova matrica:
 
 | Koncept | Osnovna metafora | Hero | Glavni ritam | Potpis animacije | Ne smije ličiti na |
 | --- | --- | --- | --- | --- | --- |
-| Mila | urednički potpis / precizna linija | asimetrični fashion masthead | veliki tipografski rezovi i fokusiran portrait | jedan PMU/signature stroke | Opal luksuzni katalog ili Soul wellness |
+| Mila | urednički potpis / precizna linija | asimetrični fashion masthead | veliki tipografski rezovi i fokusiran portrait | jedan PMU/signature stroke | Soul wellness |
 | Dental | klinički izvještaj / service index | miran trust statement + precizan grid | numerisane oblasti, team register | spiralna diagnostic linija | generičan medicinski template |
 | Andrea | kuća i sobe | doorway/frame kompozicija | prelazak adult → kids → braids | otvaranje frame/door linija | LavLav nail layout ili generičan pink salon |
 | Telo | movement score / carriage putanja | tipografija + line-art | kratki, energični moduli sa mnogo vazduha | linearni opseg pokreta | Soul Studio ili beige yoga template |
@@ -284,9 +283,8 @@ Before editing:
 2. Read AGENTS.md completely.
 3. This repository uses Next.js 16.3.3 and its APIs may differ from your training data. Search node_modules/next/dist/docs/ for the current local guides relevant to App Router pages, static export, metadata, next/font and images, then read the complete relevant files before writing code. Do not rely on remembered Next.js APIs.
 4. Inspect package.json, next.config.*, the root layouts and existing demo infrastructure.
-5. Read these four demos completely, including data files and CSS modules:
+5. Read these demos completely, including data files and CSS modules:
    - src/app/(me)/demo/soul-studio/
-   - src/app/(me)/demo/zlatara-opal/
    - src/app/(me)/demo/kraftart/
    - src/app/(me)/demo/lavlav/
 6. Inspect and reuse the contracts of:
@@ -619,7 +617,7 @@ Design direction:
   - Profesionalni shop
 - Do not promise permanent results, medical outcomes or pain-free treatment.
 - Signature motion: one fine line/stroke reveal based on PMU precision or the official signature asset. It plays once and settles.
-- This must not resemble Soul Studio or Zlatara Opal. Avoid tranquil beige wellness styling, champagne jewelry luxury, generic pink beauty cards and product-grid dominance.
+- This must not resemble Soul Studio. Avoid tranquil beige wellness styling, generic pink beauty cards and product-grid dominance.
 
 Use official website assets locally, with provenance. The current composite hero can be inspected for brand context, but do not automatically reuse it as the new hero if the portrait/signature composition is stronger.
 
@@ -679,7 +677,7 @@ After all four are built, inspect screenshots side by side and perform the uniqu
 - the same mobile sticky shell if the business does not need it;
 - the same border radius and button silhouette across all four;
 - the same fade-up animation on every element;
-- a design that copies Soul Studio, Opal, KraftArt or LavLav too closely.
+- a design that copies Soul Studio, KraftArt or LavLav too closely.
 
 Shared code is appropriate for accessibility and infrastructure only. Do not prematurely create a generic FourBusinessHero, ServiceCards or reusable visual shell.
 

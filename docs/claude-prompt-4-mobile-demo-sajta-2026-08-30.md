@@ -1,21 +1,22 @@
-# Research i Claude prompt — 4 nova mobile-first demo sajta
+# Research i Claude prompt — mobile-first demo sajtovi
 
 Datum provjere: 30. avgust 2026.  
 Tržište: Podgorica, Crna Gora.  
 Namjena: privatni, `noindex` VibeLab koncepti koji se šalju biznisima kroz Instagram outreach.
 
+Brief je izvorno pokrivao četiri biznisa. Maluni Shop Podgorica je odbio saradnju 30. avgusta 2026, pa su njihova sekcija, build uputstvo i outreach poruka isječeni zajedno sa rutom `/demo/maluni-shop`.
+
 ## Najvažniji zaključak
 
-Ovo nijesu četiri ista biznisa i ne treba im napraviti četiri varijante istog templatea.
+Ovo nijesu tri ista biznisa i ne treba im napraviti tri varijante istog templatea.
 
 | Biznis | Stvarno web stanje | Šta demo treba da proda |
 | --- | --- | --- |
 | Studio ljepote i zdravlja | Samostalan zvanični sajt nije pronađen | Mirnu, stručnu prezentaciju tretmana i mnogo jasniji put do upita |
 | Studio Pilates by Maja | Samostalan zvanični sajt nije pronađen; informacije su na Instagramu i direktorijumima | Energičan identitet studija, razliku između grupnog i personalnog rada i jednostavnu prijavu |
 | Skyline Tattoo Studio | Samostalan zvanični sajt nije pronađen | Portfolio koji nosi atmosferu studija i pretvara ideju posjetioca u konkretan upit |
-| Maluni Shop Podgorica / Tattoo Shop Podgorica | Već ima aktivan Shopify webshop na `malunitrey.com` | Redizajn ulazne stranice i jasnije povezivanje nakita, kategorija, dostave i stručne podrške — ne drugi webshop |
 
-Sličnost sa prva četiri VibeLab demoa treba da bude u nivou zanatske obrade: svaki demo ima sopstveni vizuelni sistem, lokalne fotografije, jasnu priču, odličan mobilni ritam i promišljene mikroanimacije. Ne treba kopirati njihove rasporede, boje, fontove ili sekcije.
+Sličnost sa ranijim VibeLab demoima treba da bude u nivou zanatske obrade: svaki demo ima sopstveni vizuelni sistem, lokalne fotografije, jasnu priču, odličan mobilni ritam i promišljene mikroanimacije. Ne treba kopirati njihove rasporede, boje, fontove ili sekcije.
 
 ## Pravila tačnosti, privatnosti i materijala
 
@@ -169,72 +170,18 @@ Radovi imaju jak vizuelni materijal, ali ostaju zaključani u Instagram gridu. N
 - Jedan kadar studija i jedan kadar umjetnika pri radu bez otkrivanja osjetljivog sadržaja.
 - Potvrđeni artist/tim, lokacija, pravila zakazivanja, vrste piercinga i sigurnosne informacije koje žele javno da objave.
 
-## 4. Maluni Shop Podgorica / Tattoo Shop Podgorica
+## Kako tri koncepta ostaju različita
 
-### Provjerene javne informacije
+| Element | Studio ljepote i zdravlja | Pilates by Maja | Skyline Tattoo |
+| --- | --- | --- | --- |
+| Osnovna metafora | ritual njege | ritam pokreta | trag / horizont |
+| Hero | organski crop i miran headline | kinetička tipografija i stvarni trening | cinematic full-screen rad |
+| Glavni ritam | mekan i editorial | uspravan i energičan | taman i filmski |
+| Struktura usluga | otvoreni vertikalni izbor | puna traka formata | tekstualni style selector |
+| Potpis animacije | aperture/mask reveal | type compression | horizon reveal |
+| Primarni izlaz | Instagram upit | Instagram/prijava | slanje ideje |
 
-- Instagram: https://www.instagram.com/tattooshoppodgorica/
-- Trenutni display name: „Maluni Shop Podgorica”.
-- Bio navodi prodavnicu na adresi Baku 4/1 i telefon, ali demo ostaje na opštem „Podgorica” dok klijent ne odobri objavu punih kontakata.
-- Instagram highlights: Nakit za nos i Nakit za pupak.
-- Aktuelni feed je gotovo u potpunosti fokusiran na piercing nakit, uho, nos i body piercing. Koncept ne treba predstavljati ovaj profil kao klasičan tattoo portfolio.
-- Primjeri aktuelnih objava:
-  - https://www.instagram.com/tattooshoppodgorica/p/DcktdfniGR-/
-  - https://www.instagram.com/tattooshoppodgorica/p/DcdEjLYDf7X/
-  - https://www.instagram.com/tattooshoppodgorica/p/DcF83OEDflc/
-- Zvanični aktivni Shopify webshop: https://malunitrey.com/
-- Zvanični sajt navodi piercing nakit za Crnu Goru, besplatnu dostavu širom Crne Gore, uračunat PDV i plaćanje pouzećem.
-- Plaćanje: https://malunitrey.com/pages/placanje
-- Primjer proizvoda: https://malunitrey.com/products/minduse-par-2
-- Kategorije na sajtu obuhvataju položaj piercinga, oblik nakita, materijale i boje.
-- Sajt povezuje kupovinu sa podrškom/profesionalnim savjetom Tattoo Shop Podgorica.
-- `News/blog` stranica i dalje sadrži Shopify placeholder copy poput „Share information about your brand…” i „Button label”: https://malunitrey.com/blogs/news
-- Homepage funkcioniše i na mobilnom nema očigledan horizontalni overflow. Ne opisivati ga kao pokvaren. Problem je veoma duga i repetitivna kategorijska stranica, tekst utisnut u slike, slabija hijerarhija brenda, mali logo i malo objašnjenja za kupca koji nije siguran šta mu odgovara.
-- Stari direktorijumi navode drugu adresu. Stare adrese i stare recenzije ne koristiti.
-
-### Šta je stvarni problem
-
-Maluni već ima commerce backend, proizvode, cijene i checkout. Izrada lažnog drugog shopa bila bi korak unazad. Demo treba da pokaže kako njihov postojeći Shopify može dobiti mnogo bolji mobilni „front door”: brže razumijevanje kategorija, sigurniji izbor nakita, jasne pogodnosti i vidljivu stručnu podršku.
-
-### Kreativni koncept: „jewelry finder / digitalna vitrina”
-
-- Uloga: redizajn mobilne ulazne stranice webshopa; postojeći Shopify ostaje izvor proizvoda, cijena, zaliha i checkouta.
-- Predloženi headline: „Pronađi nakit koji pripada tvom piercingu.”
-- Alternativa: „Nakit za tvoj sljedeći detalj.”
-- Primarni CTA: „Otvori shop”.
-- Sekundarni CTA: „Pronađi nakit”.
-- Logika sadržaja: makro product hero → mali finder „mjesto + stil” → kolekcije kao velike vertikalne vitrine → materijali i izbor → besplatna dostava/pouzeće → stručna podrška → izlaz na postojeći Shopify.
-- Finder mora koristiti samo potvrđene postojeće kolekcije/linkove. Ako mapiranje nije pouzdano, napraviti statičku vizuelnu demonstraciju bez lažne logike.
-- Ne praviti fake cart, fake checkout, duplirane cijene ili lokalnu bazu proizvoda. Svi komercijalni CTA linkovi vode na aktivni Shopify.
-- Ako se kasnije implementira u pravom Shopify themeu, komponentni dizajn treba moći da se prenese bez zavisnosti od Next.js-a.
-
-### Vizuelni pravac
-
-- Fontovi: `Sora` za naslove i UI + `Source Sans 3` za duži tekst i detalje proizvoda.
-- Paleta: bone bijela, tinta-crna, polirano srebro i jedan kontrolisan cobalt/electric-blue akcenat.
-- Kompozicija: svijetla digitalna vitrina, veliki makro detalji nakita i stacked full-width „shelves”. Vizuelno mora biti suprotnost Skylineu.
-- Potpis interakcije: jedan kratak CSS light-sweep/glint preko hero nakita i taktilni ulaz polica; bez stalnog blještanja.
-- Bez generičnog product-card grida, Shopify copy-paste sekcija, roze sparkle estetike, lažnih scarcity poruka, countdowna i popupova.
-
-### Materijal koji treba tražiti od klijenta prije produkcije
-
-- Originalni Maluni logo i pravilo kako se povezuje sa Tattoo Shop Podgorica identitetom.
-- Pet do osam makro fotografija proizvoda na čistoj podlozi i dva lifestyle kadra uz dozvolu.
-- Potvrđene collection URL-ove, materijale, pravila zamjene, dostave i njege.
-- Odluku da li je primarni naziv „Maluni Shop Podgorica”, „Maluni Trey” ili druga potvrđena hijerarhija. Demo ne treba sam da rebrendira firmu.
-
-## Kako četiri koncepta ostaju različita
-
-| Element | Studio ljepote i zdravlja | Pilates by Maja | Skyline Tattoo | Maluni Shop |
-| --- | --- | --- | --- | --- |
-| Osnovna metafora | ritual njege | ritam pokreta | trag / horizont | digitalna vitrina |
-| Hero | organski crop i miran headline | kinetička tipografija i stvarni trening | cinematic full-screen rad | makro proizvod + finder |
-| Glavni ritam | mekan i editorial | uspravan i energičan | taman i filmski | svijetao i taktilan |
-| Struktura usluga | otvoreni vertikalni izbor | puna traka formata | tekstualni style selector | kolekcijske police |
-| Potpis animacije | aperture/mask reveal | type compression | horizon reveal | metalni light sweep |
-| Primarni izlaz | Instagram upit | Instagram/prijava | slanje ideje | postojeći Shopify |
-
-Zabranjeno za sva četiri koncepta:
+Zabranjeno za sva tri koncepta:
 
 - bento grid;
 - sekcije od tri ili četiri iste zaobljene kartice;
@@ -243,7 +190,7 @@ Zabranjeno za sva četiri koncepta:
 - dekorativne crtice/rule linije ispod naslova;
 - isti `headline + paragraph + centered CTA` obrazac u svakoj sekciji;
 - glassmorphism, gradient blobs, generičan glow, mock browser prozori i AI-generated ikone;
-- ista navigacija, isti sticky CTA, isti footer ili isti redosljed sekcija na sva četiri sajta;
+- ista navigacija, isti sticky CTA, isti footer ili isti redosljed sekcija na sva tri sajta;
 - animacija samo da bi stranica „izgledala animirano”.
 
 ## COPY/PASTE PROMPT ZA CLAUDE
@@ -253,7 +200,7 @@ You are working inside this existing repository:
 
 C:\Users\tosii\vibecode.me
 
-Your task is to plan and then build four production-quality, private outreach demo websites inside the existing VibeLab Next.js app. Do not stop after giving me a plan. First inspect and plan, then implement, test, and report. Do not commit, deploy, publish, add to the public portfolio, or add to a sitemap.
+Your task is to plan and then build three production-quality, private outreach demo websites inside the existing VibeLab Next.js app. Do not stop after giving me a plan. First inspect and plan, then implement, test, and report. Do not commit, deploy, publish, add to the public portfolio, or add to a sitemap.
 
 MANDATORY FIRST STEPS
 
@@ -261,9 +208,8 @@ MANDATORY FIRST STEPS
 2. Read `AGENTS.md` completely.
 3. This repository uses a newer Next.js with breaking changes. Before editing any Next.js code, read the relevant guides in `node_modules/next/dist/docs/` for the APIs and file conventions you will touch. Do not rely on remembered Next.js conventions.
 4. Inspect `package.json`, Next config, the shared demo components, `docs/deployment-security.md`, and the current scripts before assuming commands or route requirements.
-5. Deeply inspect these first four VibeLab demos on desktop and at 360/390px, including code and actual rendered pages:
+5. Deeply inspect these earlier VibeLab demos on desktop and at 360/390px, including code and actual rendered pages:
    - `src/app/(me)/demo/soul-studio/`
-   - `src/app/(me)/demo/zlatara-opal/`
    - `src/app/(me)/demo/kraftart/`
    - `src/app/(me)/demo/lavlav/`
 6. Learn their quality bar and existing engineering conventions, but do not copy their layouts, colors, typography, section order, components-as-design, or signature interactions.
@@ -284,9 +230,9 @@ Then continue directly into implementation. Ask only if a genuinely blocking dec
 
 GLOBAL PRODUCT DIRECTION
 
-Build four simple but highly considered one-page sites. They must feel classic, modern, lightly animated, safe and production-capable. Mobile at 360px and 390px is the primary design surface; desktop is an intentional expansion, not the starting point.
+Build three simple but highly considered one-page sites. They must feel classic, modern, lightly animated, safe and production-capable. Mobile at 360px and 390px is the primary design surface; desktop is an intentional expansion, not the starting point.
 
-The four demos may share the existing VibeLab engineering primitives, but they must not look like copies of one another. They need different:
+The three demos may share the existing VibeLab engineering primitives, but they must not look like copies of one another. They need different:
 
 - hero composition;
 - section sequence;
@@ -306,7 +252,7 @@ Absolutely avoid AI-slop patterns:
 - no decorative dash/rule below every heading;
 - no repeated centered heading/subheading/button section pattern;
 - no glassmorphism, gradient blobs, excessive glow, floating UI mockups, generic feature icons, or fake dashboards;
-- no copying the Soul beige wellness layout, Opal luxury catalog structure, KraftArt brutalism, or LavLav numbered services/booking structure;
+- no copying the Soul beige wellness layout, KraftArt brutalism, or LavLav numbered services/booking structure;
 - no animation that obscures copy, delays interaction, causes layout shift, or runs endlessly without purpose.
 
 Public-facing copy must be natural Montenegrin/BCS with correct `č ć ž š đ` characters. Avoid inflated marketing language and fake claims. Do not use lorem ipsum.
@@ -425,39 +371,6 @@ Avoid: KraftArt brutalism, gothic fonts, blood-red tattoo clichés, neon cyberpu
 
 A consultation CTA may explain that a useful first message includes the idea, placement, approximate size and references, but do not collect that information in a fake form.
 
-DEMO 4 — MALUNI SHOP PODGORICA / TATTOO SHOP PODGORICA
-
-Suggested route: `/demo/maluni-shop`
-Official Instagram: https://www.instagram.com/tattooshoppodgorica/
-Official active Shopify: https://malunitrey.com/
-Payment information: https://malunitrey.com/pages/placanje
-Current placeholder blog page: https://malunitrey.com/blogs/news
-
-Verified scope from the official site:
-- piercing jewelry for Montenegro;
-- free delivery across Montenegro;
-- VAT included;
-- cash on delivery;
-- categories by piercing placement, jewelry shape, material and color;
-- support/advice connected to Tattoo Shop Podgorica;
-- the active store already owns products, prices, stock and checkout.
-
-This is not a broken/no-site lead. Do not rebuild or simulate their commerce backend. Build a convincing mobile homepage/storefront redesign concept that routes all buying actions to the existing Shopify store or verified collection URLs.
-
-Concept: `jewelry finder / digitalna vitrina`, visually opposite Skyline.
-Suggested H1: `Pronađi nakit koji pripada tvom piercingu.`
-Primary CTA: `Otvori shop` to https://malunitrey.com/
-Secondary CTA: `Pronađi nakit`.
-Typography direction: Sora + Source Sans 3, after verifying local Next font support and diacritics.
-Palette: bone white, ink black, polished silver and one controlled cobalt/electric-blue accent.
-Page rhythm: macro product hero; small finder by placement/style; large vertical collection shelves rather than product cards; materials/selection guidance; free delivery and cash-on-delivery facts; professional support; existing Shopify CTA.
-Signature motion: one restrained metallic CSS light sweep and tactile shelf entrances.
-Avoid: fake cart/checkout, duplicated stale prices, generic product-card grid, copied Shopify sections, pink sparkle beauty styling, scarcity messages, countdowns and popups.
-
-Only build the finder if every option maps to a verified current collection URL. Otherwise make it a clearly non-deceptive visual prototype and keep all final purchase CTAs pointed at the live shop.
-
-Do not use old directory addresses/reviews. Do not independently rename the business. Use `Maluni Shop Podgorica` as the visible current Instagram identity, with a restrained descriptor such as `piercing nakit i stručna podrška`, while preserving the real `malunitrey.com` destination.
-
 SOURCE AND IMAGE WORKFLOW
 
 For each business:
@@ -480,7 +393,7 @@ Treat 360×800 and 390×844 as primary review sizes. Verify at least 320, 360, 3
 - no orphan single-word heading caused by a fragile fixed font size;
 - no text over busy imagery without sufficient contrast;
 - sticky/fixed elements must not cover content or each other;
-- bottom CTA, if used, must respect `env(safe-area-inset-bottom)` and must not be copied across all four demos by default;
+- bottom CTA, if used, must respect `env(safe-area-inset-bottom)` and must not be copied across all three demos by default;
 - 44px touch targets and comfortable thumb reach;
 - navigation is usable with keyboard and touch;
 - images reserve space and do not jump;
@@ -495,10 +408,10 @@ Use the repository's real commands after inspection. At minimum run:
 - lint;
 - TypeScript no-emit check;
 - production build/static export;
-- the existing mobile overflow/check script for all four routes;
-- the existing accessibility script for all four routes;
+- the existing mobile overflow/check script for all three routes;
+- the existing accessibility script for all three routes;
 - the existing security check for the local production or dev server, as expected by the repo;
-- desktop and mobile visual screenshots for all four routes;
+- desktop and mobile visual screenshots for all three routes;
 - a manual keyboard, reduced-motion, console-error and outbound-link pass.
 
 Do not claim success if a command did not run. Separate new failures from pre-existing repository issues. Fix every issue caused by your changes. Inspect final screenshots visually, not only command exit codes.
@@ -507,7 +420,7 @@ FINAL RESPONSE
 
 Report:
 
-- the four routes built;
+- the three routes built;
 - what makes each design structurally different;
 - facts intentionally omitted pending confirmation;
 - asset provenance and what must be replaced before production;
@@ -524,13 +437,11 @@ Nemoj slati istu poruku svima. Jedna kratka personalizovana rečenica treba da o
 - Studio ljepote i zdravlja: „Primijetio sam da su vam tretmani lijepo prikazani na Instagramu, ali novi klijent mora da prođe dosta objava da razumije kompletnu ponudu, pa sam složio miran mobilni koncept koji to rješava.”
 - Pilates by Maja: „Vaš profil pokazuje stvarnu energiju treninga, pa sam napravio koncept koji grupni i personalni rad objašnjava mnogo jasnije i vodi direktno do prijave.”
 - Skyline: „Radovi imaju jak vizuelni identitet, pa sam ih zamislio kao pravi mobilni portfolio koji ne izgleda kao još jedan generičan tattoo template.”
-- Maluni: „Nijesam pravio novi shop jer postojeći već radi; napravio sam koncept boljeg mobilnog ulaza koji kupcu brže pomaže da izabere nakit i onda ga vodi na vaš pravi checkout.”
 
 ## Glavni izvori
 
 - Studio ljepote i zdravlja: https://www.instagram.com/studio.ljepote.zdravlja/ i https://www.companywall.me/firma/studio-ljepote-i-zdravlja-jelena-doo/MMElF0LD
 - Studio Pilates by Maja: https://www.instagram.com/studiopilatesbymaja/, https://www.localgymsandfitness.com/ME/Podgorica/1745096002429590/Studio-Pilates-by-Maja, https://www.companywall.me/firma/body-building-i-fitnes-klub-studio-pilates-by-maja/MMUUQuY
 - Skyline Tattoo: https://www.instagram.com/skylinetattooss/ i https://www.findglocal.com/ME/Podgorica/153518-45/genre/551469561691940/Tattoo%2B%26%2BPiercing%2BShops
-- Maluni: https://www.instagram.com/tattooshoppodgorica/, https://malunitrey.com/, https://malunitrey.com/pages/placanje i https://malunitrey.com/blogs/news
 
 Research prikazuje stanje dostupno 30. avgusta 2026. Instagram objave, termini, cijene, adrese i aktivni linkovi se mogu promijeniti i treba ih ponovo potvrditi neposredno prije slanja ili produkcije.
