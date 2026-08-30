@@ -49,3 +49,11 @@ next-env.d.ts
 
 # prospect research - contact data, never publish
 /research
+
+# cloudflare: local worker state (the dev D1 database and R2 objects), and the
+# secrets `wrangler pages dev` reads. Production values live in the Cloudflare
+# dashboard - see ONBOARDING_SETUP.md.
+/.wrangler
+.dev.vars
+.dev.vars.*
+!.dev.vars.example

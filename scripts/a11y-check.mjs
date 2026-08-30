@@ -19,6 +19,10 @@ const PAGES = [
   "/en/",
   "/privacy/",
   "/en/privacy/",
+  /* The onboarding wizard. axe only ever sees the screen a URL lands on, so
+     this covers the language gate and nothing past it — the steps themselves
+     are keyboard-and-screen-reader work that has to be done by hand. */
+  "/start/",
   "/demo/lucky-chopsticks/",
   "/demo/konoba-skadar/",
   "/demo/titan-gym/",

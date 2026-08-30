@@ -495,6 +495,16 @@
     pointer-events: none;
   }
 
+  /* ── Onboarding choice tiles ──
+     The radio or checkbox inside a tile is visually hidden but still the real
+     control, so the ring has to be drawn on the tile that stands in for it.
+     `:has()` rather than `:focus-within` on purpose: the latter also fires on
+     a mouse click, which would ring every option somebody taps. */
+  .pick:has(:focus-visible) {
+    outline: 2px solid var(--color-red);
+    outline-offset: 3px;
+  }
+
   /* ── Native <details> FAQ rows ── */
   details.faq-item summary {
     list-style: none;

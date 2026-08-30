@@ -194,17 +194,60 @@ Two rules when this list changes:
   site does not use will not appear — but one that is missing entirely will
   never appear either.
 
-## 7. Demo contact data
+## 7. The onboarding API
+
+`/start/` is the only route on this site backed by something other than files.
+It is served by **Cloudflare Pages Functions** from `functions/api/onboarding/*`,
+with a **D1** database and a private **R2** bucket bound to the Pages project.
+Full setup — bindings, secrets, migrations — is in
+[`ONBOARDING_SETUP.md`](../ONBOARDING_SETUP.md). Three things belong here,
+because they are edge concerns rather than setup steps:
+
+**`public/_headers` does not apply to it.** That file is a Pages *static asset*
+mechanism; a Function's response never passes through it, and Pages answers
+Functions with `Access-Control-Allow-Origin: *` by default. The API's headers
+are therefore set in code, in `functions/api/_middleware.ts` — `nosniff`,
+`no-store`, `Referrer-Policy`, `Cross-Origin-Resource-Policy` and an ACAO
+narrowed to `https://vibelab.it.com`. If that file is ever moved or deleted,
+the API silently becomes world-readable cross-origin. Verify with:
+
+```bash
+curl -sI -X POST https://vibelab.it.com/api/onboarding/session | grep -i 'access-control\|content-type-options'
+```
+
+**Keep the middleware under `functions/api/`, not at the root of `functions/`.**
+A middleware at the root makes Pages route `/*` through the Worker, so every
+page of the marketing site becomes a Function invocation and inherits the
+API's `Cache-Control: no-store`. Check after any change:
+
+```bash
+npm run build:functions      # writes _routes.json; "include" must be ["/api/*"]
+```
+
+**Rate limiting belongs at the edge.** The Functions keep a fixed-window
+counter in D1 as a floor, but the control that actually protects the bill is a
+Cloudflare **Rate Limiting Rule** on `/api/onboarding/*` — it blocks before a
+Worker is invoked or a database row is written. Create one at Security → WAF →
+Rate limiting rules: match `http.request.uri.path contains "/api/onboarding/"`,
+20 requests per minute per IP, action Managed Challenge.
+
+No new origin is added to the CSP by any of this. The page talks only to its
+own origin (`connect-src 'self'` already covers it), and the calls to Resend
+and to Turnstile's verifier are made by the Worker, server-side, where no
+browser policy applies.
+
+## 8. Demo contact data
 
 Concept pages must not republish a real person's phone number, street address
 or personal social profile without documented permission. `barber-drina` uses
 placeholder contact details for this reason; if the shop asks for the real ones,
 record that permission in this file before putting them back.
 
-## 8. Post-deploy checklist
+## 9. Post-deploy checklist
 
 ```bash
 npm run build
+npm run typecheck
 npm run test:security https://vibelab.it.com
 ```
 
@@ -214,3 +257,5 @@ Then confirm by hand, once:
 - No CSP violations in the browser console on `/`, `/en/` and each demo.
 - The map loads only after the button, in both mouse and keyboard use.
 - `dig +short TXT _dmarc.vibelab.it.com` returns the expected policy.
+- `/start/` loads, a test brief submits, and the row appears in D1
+  (`npx wrangler d1 execute vibelab-onboarding --remote --command "SELECT id, business_name, notify_error FROM onboarding_submissions ORDER BY created_at DESC LIMIT 1"`).

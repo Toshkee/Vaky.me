@@ -14,7 +14,20 @@ type EventName =
   | "concept_form_submitted"
   | "concept_form_failed"
   | "portfolio_demo_opened"
-  | "plan_enquiry";
+  | "plan_enquiry"
+  /* The onboarding at /start/. Same rule, and it matters more here: these
+     events carry which package, which language, which step and which upload
+     zone — never a business name, an email address, a phone number or a word
+     the client typed. A funnel is a count of steps, not a copy of the brief. */
+  | "onboarding_opened"
+  | "onboarding_language_selected"
+  | "onboarding_started"
+  | "onboarding_step_completed"
+  | "onboarding_file_uploaded"
+  | "onboarding_review_opened"
+  | "onboarding_submission_started"
+  | "onboarding_submission_success"
+  | "onboarding_submission_error";
 
 declare global {
   interface Window {

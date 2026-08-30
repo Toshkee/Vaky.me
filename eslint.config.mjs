@@ -14,6 +14,9 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Vercel build output — generated, never ours to lint.
     ".vercel/**",
+    // Wrangler's local state and its bundled copies of the Functions: build
+    // output and a local D1/R2 store, none of it written by hand.
+    ".wrangler/**",
   ]),
 ]);
 

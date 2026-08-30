@@ -337,7 +337,7 @@ export const en: Dictionary = {
 
   privacy: {
     title: "Privacy",
-    updated: "Updated 27 August 2026.",
+    updated: "Updated 30 August 2026.",
     intro:
       "This site is a small studio's calling card. There are no accounts, no logins and nothing is sold here — so there is no reason for us to know anything about you beyond what you send us yourself.",
     sections: [
@@ -361,6 +361,16 @@ export const en: Dictionary = {
         title: "When you write by email or Instagram",
         body: [
           "Those buttons only open your mail app or Instagram with a message already written. The site never sees or stores what you send that way — from there it is Google's or Meta's terms, depending on where you write.",
+        ],
+      },
+      {
+        when: "always",
+        title: "When you fill in the project start form",
+        body: [
+          "If we sent you a link to /start/, that is where you send us what we need to build the site. Only what you type and attach is sent: business name, your name, email, phone, your answers, and the files you choose.",
+          "Answers are stored in our database at Cloudflare, and files in private storage that cannot be reached from the internet without a signed link that expires. We use them solely to build your site — we do not share them with anyone and do not use them for advertising. We keep them for as long as we work together and at most a year after that; you can ask for deletion sooner, at vibecodemne@gmail.com.",
+          "While you are filling it in, your answers are kept in your browser's own storage so you do not lose them if you close the page. That stays on your device, is cleared as soon as you send, and is not a cookie. Files are never kept there.",
+          "We never ask for passwords. To protect the form from abuse we record an irreversibly hashed form of your IP address so we can limit repeated attempts — your address cannot be read back from it, and it is not linked to your answers.",
         ],
       },
       {

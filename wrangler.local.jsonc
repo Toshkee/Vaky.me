@@ -1,0 +1,40 @@
+// LOCAL DEVELOPMENT ONLY. Cloudflare Pages never reads this file.
+//
+// Pages looks for `wrangler.toml`, `wrangler.json` or `wrangler.jsonc` by
+// exact name — this one is `wrangler.local.jsonc`, so the platform ignores it
+// and production stays configured in the dashboard, where the real database
+// id, bucket and secrets live.
+//
+// **Do not rename this to `wrangler.jsonc`.** A wrangler config that Pages
+// *does* read takes over the project's configuration, and one without
+// `pages_build_output_dir` and without the production bindings would replace
+// working dashboard settings on the next deploy.
+//
+// It exists so `wrangler d1` commands know which database to talk to when they
+// are pointed at it explicitly:
+//
+//   npx wrangler d1 execute vibelab-onboarding --local \
+//     -c wrangler.local.jsonc --file migrations/0001_onboarding.sql
+//
+// `npm run dev:api` passes its bindings on the command line instead and does
+// not need this file at all.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "vibelab-onboarding-local",
+  "compatibility_date": "2026-08-30",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "vibelab-onboarding",
+      // Matches the name passed to `--d1=DB=vibelab-onboarding`, so the CLI and
+      // `wrangler pages dev` open the same local SQLite file.
+      "database_id": "vibelab-onboarding"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "UPLOADS",
+      "bucket_name": "vibelab-client-materials"
+    }
+  ]
+}

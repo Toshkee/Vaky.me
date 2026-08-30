@@ -1,0 +1,19 @@
+# Secrets for `npm run dev:api` (wrangler pages dev). Copy to `.dev.vars`,
+# which is gitignored. Production values live in the Cloudflare dashboard —
+# see ONBOARDING_SETUP.md. Nothing here is a NEXT_PUBLIC_* value and nothing
+# here reaches the browser.
+
+# Signs upload tokens and the download links in the notification email.
+# Real one: openssl rand -base64 48
+ONBOARDING_TOKEN_SECRET=local-development-secret-not-a-real-one
+
+# Leave blank locally and the bot check is skipped, which is what you want
+# while developing. Cloudflare's documented always-passes test secret is
+# 1x0000000000000000000000000000000AA if you want to exercise the code path.
+TURNSTILE_SECRET_KEY=
+
+# Leave blank locally: the brief is stored and the row records that nobody was
+# emailed, which is the same behaviour production falls back to.
+RESEND_API_KEY=
+ONBOARDING_NOTIFY_TO=
+ONBOARDING_NOTIFY_FROM=

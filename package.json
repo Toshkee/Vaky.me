@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.worker.json",
+    "dev:api": "wrangler pages dev out --d1=DB=vibelab-onboarding --r2=UPLOADS --compatibility-date=2026-08-30",
+    "build:functions": "wrangler pages functions build --outdir .wrangler/functions-build",
     "check:mobile": "node scripts/mobile-check.mjs",
     "test:security": "node scripts/security-check.mjs",
     "check:a11y": "node scripts/a11y-check.mjs",
@@ -20,6 +23,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
+    "@cloudflare/workers-types": "^5.20260830.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -31,6 +35,7 @@
     "pngjs": "^7.0.0",
     "sharp": "^0.35.4",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.127.1"
   }
 }

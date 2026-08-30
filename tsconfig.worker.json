@@ -1,0 +1,33 @@
+{
+  /* The Cloudflare side of the repo, type-checked on its own.
+
+     It cannot share the root tsconfig: `@cloudflare/workers-types` redeclares
+     fetch, Request, Response and friends, and loading it alongside the DOM lib
+     the site is built against produces hundreds of conflicting-declaration
+     errors. So the Worker code gets its own libs, its own types, and is
+     excluded from the root config — `npm run typecheck` runs both. */
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["@cloudflare/workers-types"],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  },
+  /* The shared schema and the onboarding dictionaries are compiled into the
+     Worker too, so they are checked here as well as by the root config —
+     against a runtime with no DOM, which is exactly the guarantee wanted:
+     anything in them that reached for `window` would fail here. */
+  "include": [
+    "functions/**/*.ts",
+    "server/**/*.ts",
+    "src/lib/onboarding/schema.ts",
+    "src/i18n/**/*.ts",
+    "src/config/site.ts"
+  ]
+}

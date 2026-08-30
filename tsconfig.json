@@ -30,5 +30,9 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  /* The Cloudflare Functions and their helpers are checked by
+     tsconfig.worker.json instead — they are built against the Workers runtime,
+     not the DOM, and `@cloudflare/workers-types` conflicts with the DOM lib
+     this config loads. `npm run typecheck` runs both configs. */
+  "exclude": ["node_modules", "functions/**", "server/**"]
 }

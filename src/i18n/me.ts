@@ -348,7 +348,7 @@ export const me = {
      not use is as wrong as one that hides tools it does. */
   privacy: {
     title: "Privatnost",
-    updated: "Ažurirano 27. avgusta 2026.",
+    updated: "Ažurirano 30. avgusta 2026.",
     intro:
       "Ovaj sajt je vizit-karta jednog malog studija. Nema naloga, nema prijave i ne prodajemo ništa preko sajta — pa nema ni razloga da o tebi znamo išta više nego što nam sam pošalješ.",
     sections: [
@@ -372,6 +372,16 @@ export const me = {
         title: "Kada pišeš emailom ili preko Instagrama",
         body: [
           "Dugmad na sajtu samo otvaraju tvoj email program ili Instagram sa unaprijed napisanom porukom — sadržaj te poruke sajt ne vidi i nigdje je ne bilježi. Dalje važe pravila Google-a odnosno Mete, zavisno od toga gdje nam pišeš.",
+        ],
+      },
+      {
+        when: "always",
+        title: "Kada popunjavate obrazac za pokretanje projekta",
+        body: [
+          "Ako smo vam poslali link na /start/, tu nam šaljete podatke potrebne za izradu sajta. Šalje se samo ono što sami upišete i priložite: naziv biznisa, vaše ime, email, telefon, odgovori na pitanja i fajlovi koje odaberete.",
+          "Odgovori se čuvaju u našoj bazi kod Cloudflare-a, a fajlovi u privatnom prostoru za skladištenje kojem se ne može pristupiti sa interneta bez potpisanog linka koji ističe. Koristimo ih isključivo da bismo izradili vaš sajt — ne dijelimo ih ni sa kim i ne koristimo za reklame. Čuvamo ih dok traje saradnja i najviše godinu dana poslije toga; brisanje možete tražiti i ranije, na vibecodemne@gmail.com.",
+          "Dok popunjavate, odgovori se čuvaju u memoriji vašeg pregledača da ih ne izgubite ako zatvorite stranicu. To ostaje na vašem uređaju, briše se čim pošaljete, i nije kolačić. Fajlovi se tu nikada ne čuvaju.",
+          "Nikada ne tražimo lozinke. Da bismo obrazac zaštitili od zloupotrebe, bilježimo nepovratno kodiran zapis IP adrese kako bismo ograničili broj pokušaja — iz njega se vaša adresa ne može pročitati i ne povezuje se sa vašim odgovorima.",
         ],
       },
       {

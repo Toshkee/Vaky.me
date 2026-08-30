@@ -4,6 +4,7 @@ const BASE = "http://localhost:3000";
 const targets = [
   { name: "home", path: "/" },
   { name: "en", path: "/en/" },
+  { name: "start", path: "/start/" },
   { name: "lucky", path: "/demo/lucky-chopsticks/" },
   { name: "konoba", path: "/demo/konoba-skadar/" },
   { name: "titan", path: "/demo/titan-gym/" },

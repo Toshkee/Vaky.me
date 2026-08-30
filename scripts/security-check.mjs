@@ -20,6 +20,9 @@ const apex = "https://vibelab.it.com";
 const PAGES = [
   "/",
   "/en/",
+  /* The one route that talks to a server. Worth the cookie, source-map and
+     new-tab-link checks even though its API lives behind /api/. */
+  "/start/",
   "/demo/barber-drina/",
   "/demo/titan-gym/",
   /* The outreach concepts: unlisted pages carrying photographs taken from
