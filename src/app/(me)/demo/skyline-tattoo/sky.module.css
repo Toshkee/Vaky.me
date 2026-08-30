@@ -1,0 +1,186 @@
+/* Palette and motion for the Skyline Tattoo Studio concept, scoped to this
+   route.
+
+   The page is dark end to end — there is no light beat, because a tattoo
+   portfolio read on a phone at night is the real viewing condition. Three
+   grounds carry the whole page: black for the two cinematic moments, graphite
+   for the body of the work, slate for the one section that has to feel closer
+   than the rest. One acid mint is the only colour, and it is rationed to four
+   places: the hairline at the top of the horizon mark, the full stop that ends
+   the headline, the primary control, and the arrow on a link out to the
+   studio's own gallery. Nothing else on the page is ever mint.
+
+   The tokens live here rather than in the site's `@theme` so one client's
+   palette never ships on another client's page. Tailwind reads them back
+   through literal class strings like `bg-[var(--sky-black)]`, so the scanner
+   still sees them.
+
+   Contrast, measured against each ground it is actually used on:
+     bone   17.2:1 on black · 15.6:1 on graphite · 13.7:1 on slate
+     smoke   6.5:1 on black ·  5.8:1 on graphite ·  5.1:1 on slate
+     mint   14.2:1 on black · 12.8:1 on graphite · 11.3:1 on slate
+     black  14.2:1 on the mint fill
+
+   Motion is one idea in two gestures, and both come from the studio's own
+   name. A horizon opens: a block of type is masked to a single horizontal line
+   and grows out of it, top and bottom at once, the way a skyline resolves out
+   of a flat edge. And a horizon is drawn: the line-weight mark's strokes run
+   out from the left in sequence, hairline first, solid last.
+
+   Both are scroll-driven, so there is no JavaScript, no observer and no loop.
+   The settled state is the default render, which means a browser without
+   `animation-timeline` and anyone who asked for reduced motion gets the
+   finished page rather than a hidden one. Neither gesture is applied to the
+   h1: the first line of the page is never staked on an animation. */
+
+.page {
+  /* the two cinematic grounds — hero and close */
+  --sky-black: #08090a;
+  /* the body of the page, where the work is described */
+  --sky-graphite: #14171a;
+  /* one step closer, for the section about writing the first message */
+  --sky-slate: #1e2327;
+  /* primary type on every ground */
+  --sky-bone: #ecefee;
+  /* secondary type; the ratios above are all above 4.5:1 */
+  --sky-smoke: #8c9498;
+  /* the one accent: horizon line, primary fill, gallery arrows */
+  --sky-mint: #5cf2c0;
+  /* hover state for the mint-filled control */
+  --sky-mint-deep: #33d9a4;
+  /* hairlines and section edges — a border colour, never type */
+  --sky-hair: #2a3034;
+}
+
+/* ── the exterior frame ────────────────────────────────────────────── */
+
+/* One filter, on one photograph, and never on a tattoo.
+
+   The doorway frame is a phone snapshot taken at dusk under fluorescent light,
+   and dropped raw onto this ground it is the brightest, bluest rectangle on the
+   page by a wide margin. A small amount of tone control settles it into the
+   palette. The work itself is never touched: adjusting the contrast of somebody
+   else's tattoo is misrepresenting it. */
+.dusk {
+  filter: brightness(0.92) saturate(0.82) contrast(1.04);
+}
+
+/* ── the horizon opening ───────────────────────────────────────────── */
+
+/* The settled state is deliberately *outset*, not `inset(0)`. This class sits
+   on headings, and a clip rectangle flush with the border box shaves the tail
+   off a descender and the overshoot off a round letterform — permanently, in
+   every browser, animation or not. Negative insets keep the clip well clear of
+   the glyphs while still being a rectangle the reveal can collapse. On the
+   three photographs that carry this class the outset makes no visible
+   difference — a clip beyond the border box of an image clips nothing — so the
+   same rule does both jobs and the picture opens out of a horizontal line
+   exactly the way the headings do. It is on three frames out of seven, not on
+   all of them: a page where every photograph performs an entrance is a page
+   that has stopped meaning anything by it. */
+.horizon {
+  clip-path: inset(-15% -3%);
+}
+
+/* ── the horizon being drawn ───────────────────────────────────────── */
+
+/* The timeline sits on the frame, not on the strokes: each stroke would
+   otherwise read the scroll progress of its own few pixels of height and snap
+   through its whole range at once. `fill-box` origins the scale on each
+   stroke's own left edge. */
+.scaleFrame {
+  view-timeline-name: --sky-scale;
+  view-timeline-axis: block;
+}
+
+.stroke {
+  transform: scaleX(1);
+  transform-box: fill-box;
+  transform-origin: left center;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .horizon {
+      animation: sky-horizon linear both;
+      animation-timeline: view();
+      /* Finished well before the block reaches the middle of the screen —
+         a heading still resolving while it is being read is a heading in
+         the way. */
+      animation-range: entry 10% entry 62%;
+    }
+
+    .stroke {
+      animation: sky-draw linear both;
+      animation-timeline: --sky-scale;
+    }
+
+    /* Staggered by range rather than by delay: on a scroll timeline a delay
+       is time, and there is no time here — only distance. Each stroke starts
+       a little later and finishes a little later than the one above it, so
+       the mark builds from hairline to solid as it comes up the screen. */
+    .stroke:nth-child(1) {
+      animation-range: entry 4% entry 46%;
+    }
+    .stroke:nth-child(2) {
+      animation-range: entry 8% entry 51%;
+    }
+    .stroke:nth-child(3) {
+      animation-range: entry 12% entry 56%;
+    }
+    .stroke:nth-child(4) {
+      animation-range: entry 16% entry 61%;
+    }
+    .stroke:nth-child(5) {
+      animation-range: entry 20% entry 66%;
+    }
+    .stroke:nth-child(6) {
+      animation-range: entry 24% entry 71%;
+    }
+    .stroke:nth-child(7) {
+      animation-range: entry 28% entry 76%;
+    }
+  }
+}
+
+/* Top and bottom meet at the vertical centre, so the block starts as a single
+   horizontal line and opens outwards from it. Every value is a percentage in
+   both keyframes, which keeps the interpolation a plain number-to-number one
+   rather than a length-to-percentage calc(). */
+@keyframes sky-horizon {
+  from {
+    clip-path: inset(50% -3%);
+  }
+  to {
+    clip-path: inset(-15% -3%);
+  }
+}
+
+@keyframes sky-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ── the one hover gesture ─────────────────────────────────────────── */
+
+/* Links out to the studio's gallery carry a mint arrow that steps right on
+   hover and on keyboard focus. Transform only, 6px, once — the page's single
+   pointer-driven movement. */
+.gallery .arrow {
+  transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gallery .arrow {
+    transition: transform 180ms ease-out;
+  }
+
+  .gallery:hover .arrow,
+  .gallery:focus-visible .arrow {
+    transform: translateX(6px);
+  }
+}
