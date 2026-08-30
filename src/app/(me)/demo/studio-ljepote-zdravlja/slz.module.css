@@ -1,0 +1,172 @@
+/* Palette and motion for the Studio ljepote i zdravlja concept, scoped to this
+   route.
+
+   The palette carries the material argument and the photographs are graded to
+   join it rather than the other way round.
+   It is deliberately earthy rather than spa-beige: a warm ivory ground, a deep
+   olive that behaves like a pigment field instead of an accent, cacao as the
+   ink, and a bronzed gold kept for hairlines and the drawn plate. Nothing here
+   is pink, nothing glows, and the gold never appears large.
+
+   These live as custom properties on the route rather than in the site's
+   `@theme` block — four client concepts sharing one theme would ship every
+   studio's palette on every page. Tailwind reads them back through literal
+   class strings like `bg-[var(--slz-olive)]`, so the scanner still sees them.
+
+   Two motions, and only two. The aperture opens once on load; the four group
+   keylines unroll on scroll. Both are transform-only, both settle into the
+   state the page renders without them, and both stop when the visitor has
+   asked for reduced motion. */
+
+.page {
+  /* the ground */
+  --slz-ivory: #f4ede0;
+  /* the second surface — treatment list and price band sit a step warmer */
+  --slz-ivory-deep: #ebe1cf;
+  /* the pigment field: full sections, the drawn plate, the group keylines */
+  --slz-olive: #414a34;
+  /* the ink — 13.8:1 on ivory, 12.4:1 on ivory-deep */
+  --slz-cacao: #2b1f17;
+  /* secondary copy — 5.5:1 on ivory, 4.9:1 on ivory-deep */
+  --slz-muted: #6b5d4e;
+  /* gold as a mark only: 3.4:1 on ivory, so it never sets type */
+  --slz-gold: #9c7c2e;
+  /* the same gold darkened until it can — 5.1:1 on ivory, 4.6:1 on ivory-deep */
+  --slz-gold-text: #7d5f18;
+  /* gold on the olive field — 5.1:1 */
+  --slz-gold-light: #d8bd72;
+  /* 8.0:1 on olive */
+  --slz-on-olive: #f4ede0;
+  /* 5.6:1 on olive */
+  --slz-on-olive-muted: #c6cbb4;
+  /* hairlines on the light grounds, never type */
+  --slz-line: #d9cdb6;
+}
+
+/* ── Photographic frames ────────────────────────────────────────────────
+   Three parts, and the split is the same one every photograph on the page
+   uses: the frame owns the height and clips, the picture fills it, the image
+   only crops. `DemoPhoto` renders an inline `<picture>`, so without these two
+   rules the element keeps a descender-tall shelf under every frame and a
+   percentage height on the image has nothing to resolve against.
+
+   The grade is the reason five stock frames from four different shoots read as
+   one page. They arrive with four different white balances — a warm greige
+   wall, a cold blue-grey towel, a clinical white flat lay, a room lit pink —
+   and this page is ivory, olive and cacao. Pulling ~15% of the saturation out
+   and adding a tenth of a stop of warmth lands all of them in the same family
+   without turning into a filter: skin stays skin, the black stones stay black,
+   and the room's pink wall drops back to a dusty neutral instead of fighting
+   the olive two sections below it. Composite-time work on five images, no
+   per-file re-encode, and the JPGs stay untouched for whoever replaces them. */
+.frame {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Absolute rather than `height: 100%`: some frames take their height from an
+   aspect ratio instead of a length, and pinning to the frame's edges resolves
+   the same in both cases. The height always belongs to the frame. */
+.frame picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.frame img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  filter: saturate(0.85) sepia(0.1) contrast(1.02);
+}
+
+/* ── The aperture ───────────────────────────────────────────────────────
+   The hero photograph is covered by two ivory shutters that part from the
+   middle, the way an eye opens. They are drawn in their parted position, so a
+   browser that runs no animation at all — and anyone who asked for reduced
+   motion — gets the photograph open, which is the correct page. The keyframes
+   only walk them back to the closed position and let them return. Nothing is
+   ever hidden by them for longer than the LCP image takes to arrive, and the
+   image itself is `eager`, so the shutters never delay the paint they reveal.
+
+   50.5% and 101% rather than 50% and 100%: at fractional device pixel ratios a
+   pair of exact halves leaves a hairline seam down the middle of the frame. */
+.shutter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* Above the photograph, which is now a normal-flow child of the frame. */
+  z-index: 1;
+  height: 50.5%;
+  background: var(--slz-ivory);
+}
+
+.shutterTop {
+  top: 0;
+  transform: translateY(-101%);
+}
+
+.shutterBottom {
+  bottom: 0;
+  transform: translateY(101%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .shutterTop {
+    animation: slz-open-up 1400ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
+  }
+
+  .shutterBottom {
+    animation: slz-open-down 1400ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
+  }
+}
+
+@keyframes slz-open-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-101%);
+  }
+}
+
+@keyframes slz-open-down {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(101%);
+  }
+}
+
+/* ── The group keylines ─────────────────────────────────────────────────
+   One olive rule down the left of each of the four interest groups, unrolling
+   from the top as the group enters. It is the list opening, not a decoration
+   under a heading: the rule is what holds the group together on a phone, where
+   the name and its treatments would otherwise float free of each other.
+
+   Scroll-driven, so there is no observer and no script on this page at all.
+   Where `animation-timeline` is missing the rule is simply drawn. */
+.keyline {
+  transform-origin: top;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .keyline {
+      animation: slz-unroll linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 95%;
+    }
+  }
+}
+
+@keyframes slz-unroll {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
