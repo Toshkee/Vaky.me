@@ -26,7 +26,6 @@ const PAGES = [
      public profiles and links out to Instagram, WhatsApp, Viber and DIKIDI.
      They are the pages most likely to grow a hotlink or a bare target=_blank. */
   "/demo/soul-studio/",
-  "/demo/zlatara-opal/",
   "/demo/kraftart/",
   "/demo/lavlav/",
   "/demo/telo-pilates/",
@@ -36,7 +35,6 @@ const PAGES = [
   "/demo/studio-ljepote-zdravlja/",
   "/demo/pilates-by-maja/",
   "/demo/skyline-tattoo/",
-  "/demo/maluni-shop/",
 ];
 
 let failed = 0;

@@ -25,7 +25,6 @@ const PAGES = [
   "/demo/barbershop-stari-grad/",
   "/demo/barber-drina/",
   "/demo/soul-studio/",
-  "/demo/zlatara-opal/",
   "/demo/kraftart/",
   "/demo/lavlav/",
   "/demo/telo-pilates/",
@@ -35,7 +34,6 @@ const PAGES = [
   "/demo/studio-ljepote-zdravlja/",
   "/demo/pilates-by-maja/",
   "/demo/skyline-tattoo/",
-  "/demo/maluni-shop/",
 ];
 
 const browser = await chromium.launch();

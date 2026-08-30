@@ -10,7 +10,6 @@ const targets = [
   { name: "barber", path: "/demo/barbershop-stari-grad/" },
   { name: "drina", path: "/demo/barber-drina/" },
   { name: "soul", path: "/demo/soul-studio/" },
-  { name: "opal", path: "/demo/zlatara-opal/" },
   { name: "kraft", path: "/demo/kraftart/" },
   { name: "lavlav", path: "/demo/lavlav/" },
   { name: "telo", path: "/demo/telo-pilates/" },
@@ -20,7 +19,6 @@ const targets = [
   { name: "ljepota", path: "/demo/studio-ljepote-zdravlja/" },
   { name: "maja", path: "/demo/pilates-by-maja/" },
   { name: "skyline", path: "/demo/skyline-tattoo/" },
-  { name: "maluni", path: "/demo/maluni-shop/" },
 ];
 
 /* Playwright's iPhone profiles are Chromium with a spoofed UA, which is the

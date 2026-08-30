@@ -23,7 +23,6 @@ const PAGES = [
   ["home", "/"],
   ["en", "/en/"],
   ["soul-studio", "/demo/soul-studio/"],
-  ["zlatara-opal", "/demo/zlatara-opal/"],
   ["kraftart", "/demo/kraftart/"],
   ["lavlav", "/demo/lavlav/"],
   ["telo-pilates", "/demo/telo-pilates/"],
@@ -33,7 +32,6 @@ const PAGES = [
   ["studio-ljepote-zdravlja", "/demo/studio-ljepote-zdravlja/"],
   ["pilates-by-maja", "/demo/pilates-by-maja/"],
   ["skyline-tattoo", "/demo/skyline-tattoo/"],
-  ["maluni-shop", "/demo/maluni-shop/"],
 ];
 
 fs.mkdirSync(OUT, { recursive: true });

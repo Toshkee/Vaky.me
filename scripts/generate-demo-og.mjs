@@ -77,22 +77,6 @@ const cards = [
     </svg>`,
   },
   {
-    file: "public/og-demo-zlatara-opal.png",
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-      <rect width="1200" height="630" fill="#f7f2ea"/>
-      <rect x="782" y="0" width="418" height="630" fill="#efe7db"/>
-      <circle cx="991" cy="300" r="118" fill="none" stroke="#b89a64" stroke-width="2"/>
-      <circle cx="991" cy="300" r="74" fill="none" stroke="#b9c6d8" stroke-width="6"/>
-      <text x="96" y="132" fill="#7e6029" font-family="Arial, sans-serif" font-size="20" letter-spacing="8">ZLATO · SREBRO · IZRADA PO NARUDŽBI</text>
-      <path d="M96 160h570" stroke="#b89a64" stroke-width="2"/>
-      <text x="96" y="300" fill="#26221f" font-family="Georgia, serif" font-size="76">Nakit koji nosi</text>
-      <text x="96" y="386" fill="#26221f" font-family="Georgia, serif" font-size="76" font-style="italic">tvoju priču.</text>
-      <text x="96" y="458" fill="#6a625a" font-family="Arial, sans-serif" font-size="26">Miljana Vukova 2, Podgorica</text>
-      <path d="M96 514h570" stroke="#26221f" stroke-opacity=".2" stroke-width="1"/>
-      <text x="96" y="558" fill="#26221f" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
-    </svg>`,
-  },
-  {
     file: "public/og-demo-kraftart.png",
     svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
       <rect width="1200" height="630" fill="#efe9df"/>
@@ -258,36 +242,6 @@ const cards = [
       <text x="96" y="460" fill="#ECEFEE" font-family="Arial, sans-serif" font-size="106" letter-spacing="-2">trag<tspan fill="#5CF2C0">.</tspan></text>
       <text x="96" y="576" fill="#8C9498" font-family="Arial, sans-serif" font-size="26">Tattoos &amp; Piercing · Podgorica</text>
       <text x="760" y="576" fill="#ECEFEE" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="5">DIZAJN KONCEPT · VIBELAB</text>
-    </svg>`,
-  },
-  {
-    /* Maluni: cool porcelain ground, the page's own measuring card as the
-       motif — no card stroke any more, matching the borderless plate system. */
-    file: "public/og-demo-maluni-shop.png",
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-      <rect width="1200" height="630" fill="#f2f3f4"/>
-      <rect x="736" y="96" width="368" height="380" fill="#ffffff"/>
-      <text x="768" y="150" fill="#0e1116" font-family="Arial, sans-serif" font-size="22" font-weight="700">Debljina osovine</text>
-      <text x="768" y="200" fill="#0e1116" font-family="Arial, sans-serif" font-size="20">0,8 mm</text>
-      <rect x="872" y="186" width="200" height="8" rx="4" fill="#a8b0ba"/>
-      <text x="768" y="246" fill="#0e1116" font-family="Arial, sans-serif" font-size="20">1,2 mm</text>
-      <rect x="872" y="230" width="200" height="12" rx="6" fill="#a8b0ba"/>
-      <text x="768" y="312" fill="#0e1116" font-family="Arial, sans-serif" font-size="22" font-weight="700">Dužina ili prečnik</text>
-      <text x="768" y="356" fill="#0e1116" font-family="Arial, sans-serif" font-size="20">5 mm</text>
-      <rect x="872" y="346" width="100" height="4" rx="2" fill="#0e1116"/>
-      <text x="768" y="390" fill="#0e1116" font-family="Arial, sans-serif" font-size="20">6 mm</text>
-      <rect x="872" y="380" width="120" height="4" rx="2" fill="#0e1116"/>
-      <text x="768" y="424" fill="#0e1116" font-family="Arial, sans-serif" font-size="20">8 mm</text>
-      <rect x="872" y="414" width="160" height="4" rx="2" fill="#0e1116"/>
-      <text x="768" y="458" fill="#0e1116" font-family="Arial, sans-serif" font-size="20">10 mm</text>
-      <rect x="872" y="448" width="200" height="4" rx="2" fill="#0e1116"/>
-      <text x="96" y="140" fill="#1b34a8" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">PIERCING NAKIT · CRNA GORA</text>
-      <text x="96" y="262" fill="#0e1116" font-family="Arial, sans-serif" font-size="64" font-weight="700">Pronađi nakit</text>
-      <text x="96" y="338" fill="#0e1116" font-family="Arial, sans-serif" font-size="64" font-weight="700">koji pripada</text>
-      <text x="96" y="414" fill="#0e1116" font-family="Arial, sans-serif" font-size="64" font-weight="700">tvom piercingu.</text>
-      <path d="M96 502h1008" stroke="#dcdfe3" stroke-width="2"/>
-      <text x="96" y="548" fill="#4f555d" font-family="Arial, sans-serif" font-size="22">Besplatna dostava za cijelu Crnu Goru · PDV uračunat · plaćanje pouzećem</text>
-      <text x="96" y="592" fill="#0e1116" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
     </svg>`,
   },
 ];
