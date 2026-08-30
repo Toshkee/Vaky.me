@@ -3,25 +3,23 @@
    The colours are the studio's own — the butter of its wordmark tile, the
    near-black its logotype is set in — but the energy is flipped from the
    first pass: ink is now the dominant field (the poster ground) and butter is
-   the electric accent that only ever appears as type, a CTA fill or a stroke
-   on top of it. Chalk is the one neutral surface, used for the sections that
-   need to read as a calm beat between the ink slabs.
+   the electric accent that only ever appears as type, a CTA fill or a filled
+   shape on top of it. Chalk is the one neutral surface, used for the sections
+   that need to read as a calm beat between the ink slabs.
 
    They live here as custom properties rather than in the VibeLab theme: four
    client concepts sharing one `@theme` block would ship every studio's tokens
    on every page of the site. Tailwind reads them back through literal class
    strings like `bg-[var(--telo-butter)]`, so the scanner still sees them.
 
-   Motion is one gesture, and it is the machine's: a reformer carriage
-   travelling its rail between two fixed stops. The arc draws from the first
-   stop to the second and settles there — extension, then hold — reused as
-   punctuation wherever the page needs a beat rather than a rule. It runs on
-   scroll, so there is no JavaScript, no observer and no loop; a browser
-   without `animation-timeline` and anyone who asked for reduced motion gets
-   the settled line, which is the correct page. */
+   Motion is one gesture, and it is the machine's: the carriage of the reformer
+   travelling its rail from the footbar to the risers. It runs on scroll, so
+   there is no JavaScript, no observer and no loop; a browser without
+   `animation-timeline` and anyone who asked for reduced motion gets the
+   carriage where it comes to rest, which is the correct page. */
 
 .page {
-  /* the electric accent — CTA fills, headline type, the arc on ink */
+  /* the electric accent — CTA fills, headline type, the mark on ink */
   --telo-butter: #fafbd4;
   /* a deeper butter for hover states on butter-filled buttons */
   --telo-line-butter: #e3e4b4;
@@ -35,104 +33,36 @@
   --telo-muted-ink: #a9aa95;
 }
 
-/* The signature mark: a rail, two fixed stops, and the arc a carriage travels
-   between them. `view-timeline-name` sits on the frame so the arc and the dot
-   that lands at the far stop read the same scroll progress. Defaults below
-   are the settled state. */
+/* `view-timeline-name` sits on the frame so the carriage reads the scroll
+   progress of the whole machine, not of its own small box. */
 .trackFrame {
   view-timeline-name: --telo-carriage;
   view-timeline-axis: block;
 }
 
-/* Square-capped ticks mark the two fixed stops on the rail — geometry that
-   stays square under the drawing's non-uniform stretch, where a filled square
-   would not. */
-.trackTick {
-  stroke-width: 6;
-}
-
-@media (min-width: 640px) {
-  .trackTick {
-    stroke-width: 4.5;
-  }
-}
-
-@media (min-width: 1024px) {
-  .trackTick {
-    stroke-width: 3.5;
-  }
-}
-
-/* The arc itself scales with its box, so its stroke is specified in the
-   drawing's own units and steps down as the box gets wider. `pathLength`
-   normalises the path to 1, which is what lets the draw be written as a plain
-   1 → 0 offset regardless of size. */
-.trackStroke {
-  stroke-width: 9;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
-
-@media (min-width: 640px) {
-  .trackStroke {
-    stroke-width: 6;
-  }
-}
-
-@media (min-width: 1024px) {
-  .trackStroke {
-    stroke-width: 4.5;
-  }
-}
-
-/* The closing echo is drawn narrower than the hero mark, so the same stroke
-   in drawing units would arrive on screen lighter and read as a fainter
-   repeat rather than the same signature. Its own value keeps both at a
-   comparable weight on screen. */
-.trackEcho .trackStroke {
-  stroke-width: 10;
-}
-
-.trackEnd {
-  stroke-width: 12;
-}
-
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    /* Both ranges end inside `entry`, not in `cover`: a mark placed a short
-       way above the next section would still be mid-draw when the page runs
-       out of scroll, leaving the carriage parked short of its stop. Finishing
-       as the mark completes its entry means it settles at full extension
-       wherever it lands on the page. */
-    .trackStroke {
-      animation: telo-extend linear both;
+    /* The range ends inside `entry`, not in `cover`: a mark placed a short way
+       above the next section would still be mid-travel when the page runs out
+       of scroll, leaving the carriage parked between the stops. Finishing as
+       the mark completes its entry means it arrives wherever it lands. */
+    .carriage {
+      animation: telo-travel linear both;
       animation-timeline: --telo-carriage;
-      animation-range: entry 10% entry 95%;
-    }
-
-    .trackEnd {
-      animation: telo-land linear both;
-      animation-timeline: --telo-carriage;
-      animation-range: entry 85% entry 100%;
+      animation-range: entry 15% entry 95%;
     }
   }
 }
 
-@keyframes telo-extend {
+/* 540 user units is the carriage's travel, measured to leave the same air at
+   the footbar end that it has at the riser end. The carriage is drawn at the
+   riser end, so the animation only walks it back and lets it return. */
+@keyframes telo-travel {
   from {
-    stroke-dashoffset: 1;
+    transform: translateX(-540px);
   }
   to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes telo-land {
-  from {
-    stroke-width: 0;
-  }
-  to {
-    stroke-width: 12;
+    transform: translateX(0);
   }
 }
 

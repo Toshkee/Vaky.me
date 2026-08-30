@@ -63,13 +63,17 @@ export const rooms: Room[] = [
   },
 ];
 
-/* Quick links in the header. Internal, to the fuller sections below the
-   doorways — separate on purpose from the doorway cards, which each send a
-   visitor straight out to the room's own Instagram. */
+/* Quick links in the header, in the order the page itself runs — a nav that
+   jumps past a section is worse than no nav. The hallway (#sobe) leads,
+   because it is the page's structural hub; the three entries after it are
+   internal, to the fuller sections below the doorways, and are separate on
+   purpose from the doorway cards, which each send a visitor straight out to
+   the room's own Instagram. */
 export const sectionNav = [
+  { id: "sobe", label: "Sobe" },
   { id: "salon", label: "Salon" },
-  { id: "pletenice", label: "Pletenice" },
   { id: "kids", label: "Kids" },
+  { id: "pletenice", label: "Pletenice" },
 ] as const;
 
 /* The adult service list, exactly as the main profile states it — woven into

@@ -1,0 +1,16 @@
+# Fixer report — andrea-beauty-house (all 11 plan changes claimed done)
+
+1. **#closing-sentinel moved** — direct child of berry <section>, before the lg:grid container; grid cell 1 restored to "Vrata su otvorena." FloatingDoor logic untouched (getElementById + .top), fires marginally earlier.
+2. **Braids panel rebuilt** — goes through archMat + archBox like photo arches (blush mat, p-2, same radii), portrait h-[19rem]/[22rem]/[26rem] in lg:max-w-[20rem] (~0.76 aspect); plait vertical at h-[86%], repeats=3, stroke 9→15; preserveAspectRatio xMidYMid meet, whole repeats, closed terminals.
+3. **Tablet hero** — md:grid-cols-[15rem_1fr] (adapted from plan's 16rem) + lg:[26rem_1fr]; CTAs whitespace-nowrap + sm:flex-wrap.
+4. **Per-room DOOR_LAYOUT** — Record over literal union of room ids. Salon anchor (1.25fr, lg:h-[26rem], flush left); Pletenice + Kids narrower/shorter, step down lg:mt-8/mt-16, phone 86%/72% widths. Handles on mt-auto rail. ROOM_CROP replaced by ROOM_FRAME (no dead braids entry, still exhaustiveness-checked).
+5. **Nail wall promoted, hero photo not reused** — nail-zid = salon right-column arch h-[19rem]/[22rem]/[25rem], object-[50%_40%], rendered ≤336px (under 480 variant cap). Duplicate doorway frame in Enterijer deleted; Enterijer = one tall makaronsi arch lg:h-[28rem] (~0.96 vs source 0.75).
+6. **Arch mat bug fixed systemically** — archMat (blush+p-2) / archBox (overflow-hidden+radii, owns height) / archPhoto (h-full w-full object-cover, no own height). Applied to all nine arches.
+7. **Kids stagger + balloon crop** — frames genuinely differ (h-[11/14/16rem] vs h-[13/18/21rem]), self-end dropped for items-start, phone offset capped mt-6; kids-sto object-[50%_72%] (table is subject, balloons background).
+8. **Interpuncts + gold** — DEVIATION: separator bound to the item AFTER it (plan's "before" is what the old code did and what caused hanging dots); line can only end on a word. Gold kept with recurring job: both section-opening hairlines (#sobe, #enterijer) full-container width, "border only, never type" rule + 2.3:1 ratio in CSS comment. Separators now berry at 0.66em.
+9. **Density peak + dead halves** — lg:items-start on Salon/Kids/Pletenice; Kids+Pletenice py-14 sm:py-20, Enterijer py-16 sm:py-20; Salon re-authored as peak: h2 clamp(2rem,5.4vw,3rem), full service sentence, tall polish-wall arch, own Instagram action, py-20 sm:py-28.
+10. **Knock/hover/nav** — knock only on hero CTA (grep-verified); scale zooms gone; all three doors get kraftart drawn rule (2px berry, scaleX origin-left, :hover AND :focus-visible, reduced-motion gated); nav reordered to page order + #sobe added (Sobe, Salon, Kids, Pletenice).
+11. **Trade above fold + closed arch** — kicker "Frizerske usluge, nokti i šminka — New City, Podgorica." (sanctioned vocab); decorative outline now -inset-3, closed arch, no open line-ends.
+
+Other deviations: Braid lost dead `vertical` prop (both call sites vertical); explicit width/height on Braid SVG. Data ethic untouched.
+Verification claimed: tsc clean (own route), eslint clean; nav/anchors coherent; no dead CSS. page.tsx 605 lines (was 558). Layout verified by arithmetic, NOT rendered — critic should check rendered result extra carefully.

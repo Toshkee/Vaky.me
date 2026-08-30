@@ -38,38 +38,6 @@ export const runningFoot = [
   "Shop",
 ] as const;
 
-export interface Entrance {
-  id: string;
-  /** In-page target — each rubrika opens the section that answers it. */
-  href: string;
-  title: string;
-  deck: string;
-}
-
-/* Three ways into the same studio, written as magazine rubrics rather than a
-   service menu: the full list of work lives in `treatments`, so these three
-   only have to say where a visitor should start reading. */
-export const entrances: Entrance[] = [
-  {
-    id: "tretmani",
-    href: "#tretmani",
-    title: "Tretmani",
-    deck: "Epilacija, njega lica i tijela, lash & brow lift — sve u istom studiju.",
-  },
-  {
-    id: "pmu",
-    href: "#potpis",
-    title: "Permanent makeup",
-    deck: "Rad milimetrom: linija se crta prema licu, strpljivo i tiho.",
-  },
-  {
-    id: "edukacije",
-    href: "#edukacije",
-    title: "Edukacije",
-    deck: "Za one koje žele da uđu u isti zanat, pod istim potpisom.",
-  },
-];
-
 export interface Treatment {
   title: string;
   line: string;
@@ -77,8 +45,12 @@ export interface Treatment {
 
 /* The exact set of categories the studio names publicly. Nothing may be added
    here without the studio saying it first — and nothing gets a price, a
-   duration or a promised result. */
-export const treatments: Treatment[] = [
+   duration or a promised result.
+
+   `as const satisfies` on purpose: the page keys its per-treatment layout map
+   off this literal union, so adding or renaming a category is a type error
+   until someone makes a real layout decision about it. */
+export const treatments = [
   {
     title: "Epilacija / laser",
     line: "Laserski tretmani i epilacija, dogovoreni prema koži i planu koji se pravi unaprijed.",
@@ -97,13 +69,20 @@ export const treatments: Treatment[] = [
   },
   {
     title: "Edukacije",
-    line: "Obuke iz rada koji se u studiju radi svakodnevno, u malim grupama i jedan na jedan.",
+    /* No group size here. `researchOnly.pricesAndSchedule` and the Edukacije
+       band both say the programme is not published, and a "u malim grupama i
+       jedan na jedan" clause in this line contradicted that sentence one screen
+       above it. The category is what the studio names; the format is not. */
+    line: "Obuke iz rada koji se u studiju radi svakodnevno.",
   },
   {
     title: "Profesionalni shop",
-    line: "Preparati i pribor koje studio koristi, iz postojeće zvanične onlajn prodavnice.",
+    /* Says what the shop stocks and nothing about where it lives — the bridge
+       section further down owns that sentence. Both carrying it printed the
+       same phrase twice within one screen of scroll. */
+    line: "Preparati i pribor koje studio koristi u sopstvenom radu.",
   },
-];
+] as const satisfies readonly Treatment[];
 
 export interface Photo {
   /** Path without an extension; variants come from scripts/demo-photos.mjs. */

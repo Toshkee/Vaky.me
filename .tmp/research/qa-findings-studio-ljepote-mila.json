@@ -1,0 +1,148 @@
+{
+  "slug": "studio-ljepote-mila",
+  "changeVerdicts": [
+    {
+      "change": "Delete the entrances section and render runningFoot as the masthead's running foot",
+      "verdict": "landed",
+      "note": "Section is gone (page height 4310→3361 at 1440) and with it ENTRANCE_LAYOUT, the pmuDeck append and every .entrance CSS rule — grep for /entrance/i across the route returns nothing, data.ts no longer exports it. runningFoot renders as six tracked-caps items bounded by the drawn stroke above and a silver hairline below (page.tsx:204-213); it wraps to two tidy lines at 390 and spreads justify-between at 1440. The 'Rad milimetrom' double-print is gone. Only residue: the six foot items are literally the six treatment titles printed again two sections later."
+    },
+    {
+      "change": "Move the filled CTA onto the real action and invert the closing band's hierarchy",
+      "verdict": "landed",
+      "note": "Hero pair swapped — 'Piši studiju' is the one bordered/filled control (page.tsx:250-260), 'Pogledaj tretmane' is the rose text link; verified at all three widths. Closing band inverted: the handle is now the display line with the permanent .drawn rule and the neighbourhood is a labelled h2 under 'Dolazak' (ph-carbon.png, desktop y≈3080-3160). #kontakt is reached from the nav's 'Dolazak' (page.tsx:141) — no dead anchors remain. Weak spot: at 390 the handle is 28.8px against a 24px location h2 (1.2x), so the inversion is carried mostly by the underline; at 1440 it is a clean 51px vs 30px."
+    },
+    {
+      "change": "Rebuild the hero mat geometry and remove the 230px dead zone above the kicker",
+      "verdict": "partial",
+      "note": "(a) landed and measurable in the AFTER desktop crop: panel left x=672 / photo left x=736 (64px), panel top = content top / photo top +64 (64px), panel bottom y=1001 vs photo bottom y=1065 — the print hangs exactly 64px proud onto porcelain, one container break, one measurement used three times. (b) half-landed: items-start does put the kicker on the panel's top edge, killing the 230px void above it — but the added lg:self-stretch rail with a mt-auto foot line (page.tsx:235, 272) reopens ~298px of empty porcelain between the CTA row (y=732) and the foot hairline (y=1030). The void moved down and got bigger."
+    },
+    {
+      "change": "Delete the three kickers that repeat their own headings",
+      "verdict": "landed",
+      "note": "Only 'Potpis' (page.tsx:331) and 'Dolazak' (470) survive; ŠTA SE RADI / EDUKACIJE / SHOP / GDJE POČETI are all absent from the AFTER shots at every width. The caps register was split into caps/kicker/kickerOnCarbon rather than duplicated. Kicker count is now 2, inside the plan's cap."
+    },
+    {
+      "change": "Replace array-parity title sizing with a typed layout map and fill the blank cell",
+      "verdict": "landed",
+      "note": "TREATMENT_LAYOUT is a Record over (typeof treatments)[number]['title'] with `as const satisfies` on the data (page.tsx:69-113, data.ts:78) — tsc --noEmit is clean and a new category would be a compile error. Five titles at one size, Permanent makeup alone enlarged with its deck set out to the right rail and dropped to the title's foot (treat.png). No empty cell at 390, 768 or 1440: 3-across → full-width PMU → pair at lg; 2 / full / full / 2 at sm. Decks now run to their column widths instead of stopping 320px short."
+    },
+    {
+      "change": "Compress the Edukacije band instead of leaving it tall and empty",
+      "verdict": "landed",
+      "note": "Band is ~257px at 1440 (was ~365) with py-10 sm:py-14 and items-start; the 180px of blank rose at the top is gone — h2 cap-top and paragraph first line now sit within 1px of each other (d-edu-shop.png). The fourth 'dogovaramo porukom' is replaced by an absence-as-copy line. The replacement line, however, contradicts the treatments index directly above it (see findings)."
+    },
+    {
+      "change": "Build a real density rhythm and make Potpis the page's peak",
+      "verdict": "landed",
+      "note": "Rhythm is 32/24/14/12/24 at sm+ and #potpis is unambiguously the peak: py-20 sm:py-32 on porcelain-deep with the signature at max-w-[38rem] (renders ~608px, its native cap) as the largest single element on the page. The figure's lg:self-end is not a void here — the figcaption rule (y≈1600) and the left column's last line (y≈1596) land together and the stagger reads as composition (d-potpis.png)."
+    },
+    {
+      "change": "Fix the masthead's phone hierarchy collapse and the arbitrary drawn stroke",
+      "verdict": "landed",
+      "note": "At 390 the masthead resolves to 46.4px against a 27.2px h1 — ratio 1.7, and in ph-top.png the masthead unambiguously reads as the cover line with the h1 as the headline under it. The stroke is w-full, runs the masthead's whole measure (x=175→1260 at 1440) and now doubles as the running foot's top rule. The vectorEffect removal is correct — the stroke renders as one continuous 2px line, not two arcs."
+    },
+    {
+      "change": "Re-crop the portrait so it reads as this studio rather than as glamour stock",
+      "verdict": "landed",
+      "note": "overflow-hidden + origin-[50%_12%] scale-[1.16] on an object-cover box yields ~75% of the source width visible at lg (matches the claim); the face and shoulder line now fill the frame and most of the flat grey margin is cut (hero.png vs the BEFORE desktop). The flower has headroom at 768 — the tight top clip is fixed. It still reads as a studio headshot rather than as a beauty studio, but that is the one-photo asset constraint, not a fixer failure, and no second image was invented."
+    },
+    {
+      "change": "Small craft: nav legibility, skip link, mirrored entrance rule",
+      "verdict": "landed",
+      "note": "Nav is 0.68rem with all four anchors and no conditional hiding; at 390 it sits on one legible line (ph-top.png). Skip link is the first element in the tree, sr-only until focus, bordered on porcelain, targeting main#vrh (page.tsx:120-125, 217). No right-aligned .inkline survives, so the left-origin rule is moot as claimed."
+    },
+    {
+      "change": "Deviation: header CTA hidden below sm",
+      "verdict": "landed",
+      "note": "Defensible and commented in place — at 390 the four anchors fill the strip and the primary action is the filled hero button one screen below, which is now genuinely primary. No loss of a route."
+    },
+    {
+      "change": "Deviation: 'Shop' dropped from nav and its id removed",
+      "verdict": "landed",
+      "note": "Correct call — the shop is an external destination, and removing the id means there is no anchor on the page pointing at nothing. All four surviving nav anchors resolve."
+    },
+    {
+      "change": "Deviation: cover foot line (lg:self-stretch + mt-auto studio.area)",
+      "verdict": "partial",
+      "note": "The device itself works — the caps line's baseline lands on the photograph's bottom crop and it gives the cover the one fact it owed. But it is the direct cause of the ~298px void in the hero's left rail, because it stretches a 336px text column to the photograph's 672px. The kraftart technique assumes a rail with enough content to justify the stretch; this rail has four short elements."
+    },
+    {
+      "change": "Deviation: PMU cell inner 12-col grid",
+      "verdict": "landed",
+      "note": "Title left at col-span-6, deck at col-start-8 self-end to the title's foot — reads as a deliberate featured spread at 1440 and collapses to title-over-deck at 768/390 without a hole (treat.png, tab-treat.png)."
+    },
+    {
+      "change": "Deviation: Potpis paragraph rewritten to kill the pigment duplication",
+      "verdict": "landed",
+      "note": "page.tsx:324-327 no longer restates data.ts:68. The two sentences now say different things and the page carries no verbatim repeat of the PMU line."
+    }
+  ],
+  "findings": [
+    {
+      "issue": "The full-bleed rose mat overflows the document horizontally by half the scrollbar width on every browser with classic (space-consuming) scrollbars. `right-[calc(50%-50vw)]` measures 50vw against the viewport INCLUDING the scrollbar, while the 50% is of the 1152px container centred in (viewport − scrollbar). Panel right edge = documentWidth + scrollbar/2 ≈ +7.5px, at every width ≥1024. Result is a horizontal scrollbar on the desktop view. Fix: `overflow-x: clip` on the hero <section> (nothing inside it is sticky/fixed), or bleed with a negative margin measured off the container instead of vw.",
+      "where": "hero mat, src/app/(me)/demo/studio-ljepote-mila/page.tsx:230-233 (`right-[calc(50%-50vw)]`); no overflow guard exists in src/app/globals.css",
+      "severity": "blocker",
+      "evidence": "Not visible in the AFTER shots — headless full-page captures render no scrollbar, which is why the fixer's 'zero horizontal overflow at 1440/1920' check is a false negative. Derived from the CSS: container = min(1152, W), left = (W−1152)/2, right offset = 576 − viewport/2, so panel right = W + scrollbarWidth/2. This is the only 50vw in the repo, so no other demo carries the guard either."
+    },
+    {
+      "issue": "~298px of empty porcelain in the hero's left rail between the CTA row and the pinned foot line — the first screen's largest void, and larger than the 230px void change #3 was written to remove. The rail carries kicker + 2-line h1 + 1-line deck + CTA row (≈336px) but is stretched to the photograph's 672px, so the only thing in its bottom half is one 10px caps line. Either shorten the panel/photo (h-[32rem]) so the columns are nearer in height, or drop lg:self-stretch and set the foot line at a fixed offset under the CTA.",
+      "where": "hero left rail, page.tsx:235 (`lg:self-stretch`), 272-274 (`mt-auto` foot), 232 (`h-[38rem]` panel)",
+      "severity": "major",
+      "evidence": "AFTER desktop 1440: CTA button bottom y=732, foot hairline y=1030 — 298px of unbroken porcelain between them, all above the fold. Visible as the blank block under 'PIŠI STUDIJU' in studio-ljepote-mila-desktop.png and in the hero crop."
+    },
+    {
+      "issue": "The page contradicts itself about the education programme within one screen. The treatments index states the group size — 'u malim grupama i jedan na jedan' — and the Edukacije band 150px below says the opposite: 'Program, trajanje i broj polaznika nisu javno objavljeni'. One of the two is wrong, and on a page whose whole ethic is 'render nothing the sources do not state', a visible self-contradiction is the most expensive possible fault. Either cut the group-size clause from data.ts:72 or drop 'broj polaznika' from the band's sentence.",
+      "where": "data.ts:72 (Edukacije treatment line) vs page.tsx:412-413 (Edukacije band paragraph)",
+      "severity": "major",
+      "evidence": "AFTER desktop: 'Obuke iz rada koji se u studiju radi svakodnevno, u malim grupama i jedan na jedan.' at y≈2270 and 'Program, trajanje i broj polaznika nisu javno objavljeni' at y≈2510. Both are on screen together at 1440 and adjacent at 768 (tab-edu.png)."
+    },
+    {
+      "issue": "Near-verbatim duplication survives between the treatments index and the Shop bridge — the same nine-word phrase printed twice: 'Preparati i pribor koje studio koristi … zvanične onlajn prodavnice'. And the dt 'Profesionalni shop' is restated as the very next section's h2 'Profesionalni shop već postoji.'. This is the exact fault class the entrances deletion was performed to remove; it just moved.",
+      "where": "data.ts:76 (Profesionalni shop line) vs page.tsx:439 (h2) and 441-444 (deck)",
+      "severity": "major",
+      "evidence": "AFTER desktop 1440: index deck at y≈2280, shop-bridge paragraph at y≈2765 — ~480px apart, one section between them (treat.png and d-edu-shop.png)."
+    },
+    {
+      "issue": "Three consecutive bands run the identical grammar — serif h2 on the left, muted deck in the right rail, rose text CTA beneath/beside it: Edukacije, the Shop bridge, and the closing carbon band. The kicker count is genuinely down from five to two, but the underlying section skeleton still applies itself three times in a row over the page's last third, which is where the 'strip the rose and it is the template' verdict came from. Vary the structure of one of them (e.g. set the shop bridge as a single line of type across the full measure).",
+      "where": "page.tsx:403-427 (Edukacije), 434-458 (Shop), 464-502 (Kontakt)",
+      "severity": "minor",
+      "evidence": "AFTER desktop y≈2400-3160 and AFTER tablet y≈2880-3700: the three bands read as one repeated block with three different grounds."
+    },
+    {
+      "issue": "'Piši studiju' is the label on four separate controls (header link, hero filled button, Edukacije link, closing band). The hierarchy fix landed — they no longer share a weight — but they still share one generic label, so no control names its destination before the tap. Differentiating one of them (e.g. 'Piši za termin' in the hero, '@studio_ljepote_mila' alone at the close) would satisfy the house rule.",
+      "where": "page.tsx:164, 259, 424, 494",
+      "severity": "minor",
+      "evidence": "Visible on all three AFTER widths; at 1440 three of the four are on screen within two scroll positions."
+    },
+    {
+      "issue": "At 768 the 'Lash & brow lift' row spans both columns but its deck is capped at max-w-md, so ~255px of the row's right side is air and the deck breaks to a two-word orphan line ('a ne lice.'). The full-width span solved the empty grid cell but converted it into a half-empty row.",
+      "where": "page.tsx:85-92 (`sm:col-span-2` with `max-w-md` deck)",
+      "severity": "minor",
+      "evidence": "AFTER tablet, treatments section: deck wraps at x≈478 of a 736px content width, second line carries two words (tab-treat.png)."
+    },
+    {
+      "issue": "The mat's 'one measurement used three times' holds at 1440 but not above it: the top and left mats stay at 64px while the rose band to the right of the photo grows with the viewport (176px at 1440, ~416px at 1920, since the container stays at 1152 and the panel bleeds to the edge). At wide widths the right side reads as a flat empty field again rather than as a bleed.",
+      "where": "page.tsx:230-233 (mat) and 280 (photo column)",
+      "severity": "minor",
+      "evidence": "AFTER desktop 1440 shows the 176px rose band right of the photo (hero.png, x=1264→1440); the geometry is scale-dependent by construction, so 1920 widens it to ~416px."
+    }
+  ],
+  "overall": "Real, substantial progress: a full screen of void is deleted, the conversion is genuinely inverted, the kicker count is down from five to two, the treatment grid is now a type-locked per-item map with no empty cell at any of the three widths, the masthead holds its cover status at 390px, and the signature is a legitimate density peak. The one measured container break (the print hanging 64px proud of the rose panel's bottom) is exactly the move the plan asked for and it reads at 1440. Two things keep it just short of the best four: the hero's left rail still carries ~300px of first-screen void — the fix relocated the void rather than removing it — and the 50vw bleed introduces a genuine horizontal overflow on any browser with classic scrollbars, which the headless captures could not reveal. The copy contradiction about group size between the treatments index and the Edukacije band is cheap to fix but matters more than its size, because the data-layer honesty is this page's strongest claim.",
+  "priorRepairAttempt": {
+    "applied": [
+      "PROMPT DEFECT (read first) → The `FINDINGS TO APPLY` block arrived as a literal uninterpolated template string: `${JSON.stringify(actionable.sort(...))}`. I received no QA-critic findings at all. I also found that 10 of the fixplan's 10 `changes` were ALREADY applied to the route before I started (files last modified 15:16–15:26; the .tmp/shots-after captures are timestamped 15:32, so they post-date that work and show its result). I therefore worked from the only evidence I actually had: the three screenshots read against the fixplan's keep-list and sharedFindings. The four edits below are faults I verified with my own eyes in the captures, not guesses at the critic's list.",
+      "Hero left rail: ~290px of empty porcelain with a hairline drawn across its bottom → `lg:self-stretch` + `mt-auto` stretched the short text rail to the 672px photo column so the 'City Kvart, Podgorica' line pinned to the print's bottom crop. The effect in the desktop capture is a rule framing the bottom of a void rather than closing it — the same class of fault the fixplan flagged as `lg:items-center` (~230px), just relocated to the rail's foot. Removed the stretch and the inner flex wrapper; the line now sits `mt-14` under the CTA row at `max-w-[22rem]` so its rule reads as a caption measure. The rail top-aligns and simply ends; the print still hangs 4rem proud, which keeps the page's one deliberate container break. src/app/(me)/demo/studio-ljepote-mila/page.tsx",
+      "Tablet (768) 'Šta se radi': the right half of the 'Lash & brow lift' row was empty → its TREATMENT_LAYOUT entry carried `deck: \"max-w-md text-sm lg:max-w-none\"`. The `sm:col-span-2` cell correctly stops the full-width PMU row below it from orphaning a half-cell, but the 28rem deck cap then left ~256px of the 704px row blank — the cap merely moved the empty half onto this row. Dropped to `deck: \"text-sm\"`, which is correct at every breakpoint (the phone column never reaches 28rem, and the lg cell is col-span-4). src/app/(me)/demo/studio-ljepote-mila/page.tsx",
+      "Shop bridge heading broke across the studio's own name → `text-balance` on `max-w-xs` evened the two lines as 'Profesionalni / shop već postoji.', splitting 'Profesionalni shop'. Removed `text-balance` and widened to `max-w-sm` so it sets naturally and breaks after the name, where the sense breaks. src/app/(me)/demo/studio-ljepote-mila/page.tsx",
+      "Shop bridge deck was near-verbatim duplication of treatment #6 two sections above → both opened 'Preparati i pribor koje studio koristi …'. This is the same duplication class the fixplan flagged as a blocker for the (now deleted) entrances section. Rewrote the bridge to say what happens rather than restate what the shop stocks: 'Porudžbine i dalje idu preko zvanične onlajn prodavnice studija. Ovaj koncept je samo ulaz — shop ostaje tamo gdje jeste.' No new claim — the honest 'we do not replace the working shop' point is preserved. src/app/(me)/demo/studio-ljepote-mila/page.tsx",
+      "Edukacije CTA was a fourth control sharing one generic label → relabelled 'Piši studiju' → 'Piši za edukacije', per the fixplan sharedFinding 'no two controls on a page share one generic label'. The three remaining instances are differentiated by role: header shortcut, hero filled primary, and the closing band's kicker over the @handle. The umami action attribute is unchanged, so analytics continuity holds. src/app/(me)/demo/studio-ljepote-mila/page.tsx"
+    ],
+    "skipped": [
+      "Re-author the six treatments as a compact tap object on phone → appears only in the fixplan's `sharedFindings`, never in its `changes`, and no critic finding reached me asking for it. Building a phone-only component is a section re-architecture, which the task brief explicitly rules out ('do not re-architect sections the critic did not flag'). The PMU cell's enlarged size already breaks the phone list's uniformity. Flagging as the strongest remaining candidate if the critic did raise it.",
+      "Invalid `<dl>` child structure in 'Šta se radi' → each row is a `<div>` holding a decorative `<span>` rule before `<dt>`/`<dd>`; the HTML spec allows a `<dl>`'s `<div>` only `<dt>` then `<dd>` children. Genuine validity nit, but invisible in all three captures, not in the fixplan, and fixing it properly means restructuring the PMU cell (its `lg:grid lg:grid-cols-12` places the rule, title and deck as three separate grid items, so folding the rule into the `<dt>` breaks that layout). Not worth re-architecting the page's featured cell on an unflagged issue — reporting it instead.",
+      "Further tightening of the hero portrait crop → the fixplan's re-crop item is already applied (`scale-[1.16]` inside a clipped box with `origin-[50%_12%]`), and it works: the phone and desktop frames now read as face-and-shoulder, not glamour stock. Some flat grey backdrop survives at the 768 breakpoint, but the source is a single 1024x1024 frame and the keep-list fixes the one-portrait discipline, so pushing the scale further would start losing the flower's headroom for a marginal gain.",
+      "Everything on the fixplan keep-list → untouched, verified: the signature PNG and its scroll-wipe, `--mila-rose-field` as a real ground (hero bleed panel + Edukacije band), the desktop masthead as a `<p>` with 'Mila' in rose italic, all six `researchOnly` nulls still unrendered, one portrait printed once, the single-filled-button system (the Edukacije action stays a textCta), and the permanent `.drawn` rule on the closing contact link."
+    ],
+    "checks": "\"Both clean, run from repo root C:/Users/tosii/vibecode.me after all edits. `npx tsc --noEmit --incremental false` → exit 0, no output, no diagnostics in this route or any other. `npx eslint \\\"src/app/(me)/demo/studio-ljepote-mila\\\"` → exit 0, no output, zero errors and zero warnings. The TREATMENT_LAYOUT `Record<(typeof treatments)[number][\\\"title\\\"], …>` key-completeness constraint still compiles, so the type-locked layout map is intact. Edits are confined to page.tsx; data.ts and mila.module.css were read but not modified, so the data layer and the palette/motion are byte-identical. Note: changes are visually unverified — no dev server was permitted, so the four fixes are reasoned from the captures and the computed geometry, not re-screenshotted. A fresh capture pass is worth running before sign-off, particularly on the tablet 'Lash & brow lift' row and the desktop hero rail.\""
+  }
+}

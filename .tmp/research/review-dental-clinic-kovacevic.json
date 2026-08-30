@@ -1,0 +1,130 @@
+{
+  "business": "Dental Clinic Kovačević — a family dental practice with three doctors and two ordinacije (Igalo and Zelenika, Herceg Novi). Outreach design concept whose only conversion route is the clinic's Instagram inbox.",
+  "artDirection": "Warm porcelain ground alternating with a sand band, deep navy ink, a muted teal used as a near-invisible accent, and one dark navy closing field. Typography is a single superfamily — Source Serif 4 for every heading plus a real italic for the H1's last line and the photo caption, Source Sans 3 for running text. Nothing carries a shadow; photos and buttons share one 6px radius and a warm hairline keyline. The intent reads as calm, honest, unhurried family practice — but the execution lands as a generic warm-serif editorial template with almost nothing dental in it.",
+  "strengths": [
+    "Palette is genuinely art-directed and non-default: porcelain/sand/navy with a documented contrast table in dental.module.css lines 8-13. It reads warm clinic, not SaaS. Keep it exactly.",
+    "One superfamily, both halves, italic loaded on purpose rather than synthesised (page.tsx 14-24). The single italic line 'Jedan pazljiv pristup.' as the only change of voice in the H1 is a real typographic idea and the best moment on the page.",
+    "Zero banned slop idioms: no icon+title card grids, no stat blocks, no testimonials, no rounded-2xl, no glow shadows, no eyebrow pills, no hover-lifts, no 01/02/03 numbering, no emoji. This restraint must survive any fix.",
+    "Content honesty is exemplary: no invented bios, no borrowed directory rating, no longevity claim, no trademarked product names — all quarantined in researchOnly (data.ts 124-158) and never imported. Service language narrows to what the clinic itself publishes.",
+    "The 'Prva posjeta' dot-and-thread flow (dental.module.css 86-119) is the one composition element that does something specific — a continuous path rather than a numbered table — and it is the correct answer for 'how do I get an appointment'.",
+    "Craft discipline is consistent: one radius, hairlines instead of shadows, one dark field, section boundaries by ground colour rather than by decoration.",
+    "Accessibility fundamentals are handled rather than bolted on: real heading order, min-h-11 targets everywhere, focus-visible outlines with an on-navy variant, figure/figcaption, aria-label on the icon link, prefers-reduced-motion guarding the only animation."
+  ],
+  "issues": [
+    {
+      "issue": "The hero photograph — the largest element on the page and its only trust signal — is out of focus and badly cropped at every breakpoint. On desktop the lg:aspect-[3/4] crop with object-[28%_42%] turns it into a field of blurry blue-teal glass and clips the tooth mark at the top-right edge; on tablet the 4/3 crop shows the tooth logo bisected by the door seam plus a dead band of stone wall and a half-cut black sign. Only the 390px crop is legible. A snapshot of a door is standing in for the clinic's face.",
+      "where": "Hero photo, page.tsx:105-118 (photos[0], object-[28%_42%], aspect-[4/3] lg:aspect-[3/4]); source flagged replaceBeforeProduction in data.ts:100",
+      "severity": "blocker",
+      "kind": "composition"
+    },
+    {
+      "issue": "Strip the name and nothing on this page says dentistry. There is no subject-grounded signature element — no treatment-room-as-full-bleed moment, no anatomy or instrument motif, no two-location device, no scale idea. Warm serif + cream + navy + left-aligned sections would serve a notary, a spa, a law firm or an architecture studio identically. The house standard asks for one signature element per page; this page has none.",
+      "where": "Whole page, page.tsx:83-345",
+      "severity": "blocker",
+      "kind": "slop"
+    },
+    {
+      "issue": "On desktop every section after the hero is confined to the left half of the max-w-6xl container (max-w-[36rem] ledes, max-w-[36rem] team list, max-w-[28rem] flow, max-w-[34rem] figure), leaving a ~500px empty right column repeated through four consecutive sections. The page reads as a mobile layout stretched to 1440 rather than a desktop composition.",
+      "where": "Oblasti rada / Prva posjeta / Tim / Prostor ordinacije, page.tsx:154, 188, 199, 241, 269, 281 — visible as the dead right half in dental-clinic-kovacevic-desktop.png",
+      "severity": "blocker",
+      "kind": "composition"
+    },
+    {
+      "issue": "Five consecutive sections share an identical grammar: h2 at the same clamp(1.7rem,4vw,2.4rem), one-line lede in navy-soft, content below, same left edge, same py-14/20/24, alternating porcelain/sand. There is no density change, no full-bleed moment, no scale variation, no section that behaves differently. The page never changes gear after the H1.",
+      "where": "page.tsx:149-299, all four mid-page sections plus the close",
+      "severity": "major",
+      "kind": "composition"
+    },
+    {
+      "issue": "'Oblasti rada' is a uniform three-across grid of title + paragraph — the banned card triad with the borders removed. It is also the third 'three' in a row (three fields, three steps, three doctors), which makes the whole page feel generated from one template variable.",
+      "where": "page.tsx:166-177 (sm:grid-cols-3 over fields[]) and data.ts:35-48",
+      "severity": "major",
+      "kind": "slop"
+    },
+    {
+      "issue": "The team rows misalign: sm:min-w-[16rem] (256px) is narrower than 'Sanja Kovacevic-Ozegovic', so that row's italic specialty starts further right than the other two. The result is a visibly ragged second column on both tablet and desktop — it reads as a layout bug, not a design choice.",
+      "where": "Tim section, page.tsx:245-253 (sm:min-w-[16rem] on the h3) — clearly visible in the tablet and desktop shots",
+      "severity": "major",
+      "kind": "typography"
+    },
+    {
+      "issue": "'Tim' is the emptiest section on the page — three names and three one-word italics floating in a very tall field — yet the hero's secondary CTA ('Upoznaj tim') sends the visitor straight to it. The page's second-most-prominent action leads to its weakest content.",
+      "where": "Hero secondary CTA page.tsx:137-139 pointing at the Tim section page.tsx:228-257",
+      "severity": "major",
+      "kind": "hierarchy"
+    },
+    {
+      "issue": "Conversion depends entirely on one Instagram DM. A dental clinic page carries no hours, no phone, no address, no map, and no indication of which town has which doctor. 'Lokaciju birate kad dogovarate termin' reads as an evasion of the patient's first question, and for this practice's likely demographic in Herceg Novi, Instagram-only is a narrow funnel.",
+      "where": "Prostor ordinacije lede page.tsx:275-278; contact section page.tsx:302-344; the whole contact block is quarantined in data.ts:125-132",
+      "severity": "major",
+      "kind": "content"
+    },
+    {
+      "issue": "The hero's left column has an unresolved bottom edge: roughly 120px of dead space sits between the H1's last line and the lede paragraph, and the photograph overhangs the button row by a further ~90px. Neither the gap nor the overhang reads as intentional asymmetry — it reads as a grid whose two rows were never sized.",
+      "where": "dental.module.css:36-59 (grid-template-areas heading/body beside a row-spanning photo, align-items:start, row-gap 1.25rem) — visible in dental-clinic-kovacevic-desktop.png",
+      "severity": "major",
+      "kind": "composition"
+    },
+    {
+      "issue": "The teal accent is effectively absent. It appears as one 32px hairline rule that occurs exactly once on the page, three 10px dots, the small eyebrow line, and link underlines. The page is functionally two-colour cream-and-navy, so the accent does no hierarchy work and the one-off rule reads as a leftover.",
+      "where": "--dent-teal in dental.module.css:20; sole rule at page.tsx:163; dots at dental.module.css:100-109",
+      "severity": "major",
+      "kind": "color"
+    },
+    {
+      "issue": "At 768px the three 'Oblasti rada' columns collapse to a four-word measure ('Opsta briga o zubima —' / 'pregled, dogovor o planu'), and 'Estetski i protetski rad' wraps to two lines while its siblings stay on one, giving a ragged heading row. sm:grid-cols-3 fires at 640px, far too early for three columns of body copy.",
+      "where": "page.tsx:166 (sm:grid-cols-3) — see dental-clinic-kovacevic-tablet.png",
+      "severity": "major",
+      "kind": "mobile"
+    },
+    {
+      "issue": "Two photographs on a page selling a physical clinic, one of which is unusable (see hero) and the other a grainy 2019 interior placed small, left-aligned and boxed. The visual density is far below what a place-based business needs, and neither image is ever given scale.",
+      "where": "photos[] in data.ts:90-113; figure at page.tsx:281-297",
+      "severity": "major",
+      "kind": "content"
+    },
+    {
+      "issue": "On 390px the two hero CTAs stack as pills of different widths against a ragged left edge, so neither reads as decisively primary and the pair looks unresolved rather than composed.",
+      "where": "page.tsx:125-140 (flex-col items-start gap-3) — see dental-clinic-kovacevic-phone.png",
+      "severity": "minor",
+      "kind": "mobile"
+    },
+    {
+      "issue": "Roughly 2400px of mobile scroll separates the hero CTA from the closing one, with a single small inline link in between and no persistent contact affordance in the slim header. A visitor convinced in the middle of the page has to hunt.",
+      "where": "header page.tsx:60-81; inline link page.tsx:210-222; final CTA page.tsx:319-342",
+      "severity": "minor",
+      "kind": "interaction"
+    },
+    {
+      "issue": "Hard-coded <br> tags in the H1 combined with text-balance fight each other: the breaks are fixed for three specific widths and the balancer has nothing left to do, so intermediate viewports get a break pattern nobody chose.",
+      "where": "page.tsx:94-102",
+      "severity": "minor",
+      "kind": "typography"
+    },
+    {
+      "issue": "<em> is used purely for the decorative italic in the H1, so screen readers announce emphasis on 'Jedan pazljiv pristup.' that carries no semantic meaning.",
+      "where": "page.tsx:101",
+      "severity": "minor",
+      "kind": "other"
+    },
+    {
+      "issue": ".heroSettle fades and lifts an element that is above the fold at every breakpoint, so every visitor sees a 0.7s flash on load with no informational payoff — an animation that exists because animations exist.",
+      "where": "dental.module.css:66-81, applied at page.tsx:107",
+      "severity": "minor",
+      "kind": "interaction"
+    },
+    {
+      "issue": "'Posalji upit' is the label on three separate controls (hero, inline, final) plus a fourth link to the identical URL beside the final button, so the closing section offers the same destination twice in one row with no differentiation.",
+      "where": "page.tsx:135, 220, 329, 340",
+      "severity": "minor",
+      "kind": "hierarchy"
+    },
+    {
+      "issue": "The footer 'VibeLab' link is an inline-flex with min-h-11 inside a 12px paragraph, inflating that line box and misaligning the 'Koncept:' baseline against the block opposite it.",
+      "where": "page.tsx:357-365",
+      "severity": "minor",
+      "kind": "typography"
+    }
+  ],
+  "verdict": "This is careful, disciplined work that stops short of being designed. The restraint is real — no slop idioms, no invented content, a genuinely chosen palette and one superfamily used properly — and the italic line in the H1 proves someone was thinking typographically. But restraint is not art direction: after the hero the page becomes five identical h2-plus-lede-plus-content blocks living in the left half of a 1440 canvas, and the accent colour is too faint to build any hierarchy, so nothing after the headline earns attention. The two things that should carry a clinic — the photography and the practical detail of where and when — are its weakest assets: a blurry, mis-cropped door as the hero, one small 2019 interior shot, and no hours, address or map anywhere. Remove the name and this page could sell legal services or a spa without changing a pixel, which is exactly the failure the house standard names. To reach top-tier it needs one dental-specific signature move, a genuine density and scale change somewhere in the middle, a usable hero image, and the location content the business actually runs on."
+}

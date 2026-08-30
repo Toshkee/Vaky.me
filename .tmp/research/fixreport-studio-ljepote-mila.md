@@ -1,0 +1,16 @@
+# Fixer report — studio-ljepote-mila (all 10 plan changes claimed done)
+
+1. **Entrances deleted → runningFoot rendered** — section, ENTRANCE_LAYOUT, FALLBACK_ENTRANCE_LAYOUT, pmuDeck lookup/append, Entrance interface, entrances export, all five .entrance* CSS rules gone. runningFoot = six tracked-caps categories under masthead, bounded by drawn stroke above + silver hairline below, justify-between at lg.
+2. **Conversion inversion** — "Piši studiju" = filled hero button; "Pogledaj tretmane" = text link. Closing band: handle at clamp(1.8rem,5vw,3.2rem) with permanent .drawn rule; "City Kvart, Podgorica" demoted to clamp(1.5rem,2.4vw,1.9rem) under Dolazak. #kontakt linked from nav ("Dolazak").
+3. **Hero mat geometry** — one measurement 3×: panel left = calc(50% - 3rem) (4rem outside photo column, verified 64px at 1024/1440/1920), lg:pt-16 top mat, fixed h-[38rem] panel so the print hangs 4rem proud of the bottom onto porcelain = the page's single container break. lg:items-center→items-start.
+4. **Three kickers deleted** — only Potpis + Dolazak survive; shared class split into caps/kicker/kickerOnCarbon.
+5. **Typed layout map** — treatments as const satisfies readonly Treatment[]; TREATMENT_LAYOUT Record over literal union. Three across → full-width Permanent makeup → pair. No empty cell at any breakpoint (Lash & brow spans 2 at sm). Decks fill columns.
+6. **Edukacije compressed** — py-10 sm:py-14, items-start, h2 stepped down; fourth "dogovaramo porukom" replaced by absence-as-copy line ("Obuke drži ista osoba koja radi tretmane. Program, trajanje i broj polaznika nisu javno objavljeni — na njih odgovara sam studio.").
+7. **Density rhythm** — #potpis peak: py-20 sm:py-32, figure lg:col-span-7, signature max-w-[38rem] (608px = source PNG cap). Rhythm 32/24/14/12/24.
+8. **Masthead** — clamp(2.9rem,11vw,8.4rem) vs h1 clamp(1.7rem,6.6vw,4rem) → ratio ~1.7 at 320/390/768. Stroke w-full.
+9. **Portrait re-crop** — overflow-hidden wrapper + origin-[50%_12%] scale-[1.16]; visible source ~75% width at lg / ~65% phone; sizes 52vw/96vw. 768 flower-clip fixed.
+10. **Small craft** — nav 0.68rem, no conditional hiding; skip link added (first tab stop, 210×44 visible); .inkline origin OK (no right-aligned text link survives).
+
+Deviations: header CTA hidden below sm (4 anchors + CTA = ~460px on 350px strip; hero primary is one screen below; commented in place). "Shop" dropped from nav + id removed (external action, avoids dead anchor). Cover foot line added (left rail lg:self-stretch, studio.area pinned mt-auto under hairline at photo's bottom crop — kraftart technique, lg-only). PMU cell inner 12-col grid (title left, deck right rail self-end). Removed vectorEffect non-scaling-stroke from masthead SVG (real bug: dash measured against rendered path under ~3.6× stretch broke rule into two arcs — explained in comment, do NOT restore). One Potpis paragraph rewritten to kill pigment-sentence duplication with data.ts:96.
+
+Verification claimed: tsc + eslint + next build clean; rendered at 320/390/768/1440/1920 — zero horizontal overflow; mat measured 64px; axe: only pre-existing region(2) from shared VibeLabBar (identical on zlatara/kraftart). Route 835 lines (was 901).

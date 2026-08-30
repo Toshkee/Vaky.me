@@ -64,7 +64,8 @@
 }
 
 /* The one echo of the signature outside the artist section: a fine drawn
-   stroke under the masthead. `pathLength="1"` on the SVG element (set in the
+   stroke that runs the full measure of the masthead and doubles as the top
+   rule of the running foot. `pathLength="1"` on the SVG element (set in the
    markup) makes the dasharray math trivial regardless of the path's real
    geometry. Static default: fully drawn. */
 .strokeMotif {
@@ -92,8 +93,9 @@
 }
 
 /* Text CTAs: a rose rule that grows out from the left under the word. Buttons
-   get their own bordered geometry in the markup; this is for the repeated
-   "Piši studiju" / "Posjeti shop" links, which are words first. */
+   get their own bordered geometry in the markup; this is for the secondary
+   routes — the nav anchors, "Pogledaj tretmane", "Piši za edukacije",
+   "Posjeti shop" — which are words first. */
 .inkline {
   position: relative;
 }
@@ -117,47 +119,6 @@
 .inkline:hover::after,
 .inkline:focus-visible::after {
   transform: translateY(0.9em) scaleX(1);
-}
-
-/* The three entrances: a rose rule under each title, already partly drawn —
-   the studio's colour should be visible without an interaction — that
-   completes on hover or focus. Three widths (set per entry in the markup) are
-   what makes the group read as three different doors rather than one list. */
-.entrance {
-  position: relative;
-  display: inline-block;
-}
-
-.entrance::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.18em;
-  height: 3px;
-  background: var(--mila-rose-deep);
-  transform: scaleX(0.4);
-  transform-origin: left center;
-  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.3, 1);
-}
-
-/* Three different starting widths so the group reads as three doors of
-   different sizes, not one repeated device. */
-.entranceWide::after {
-  transform: scaleX(0.55);
-}
-
-.entranceMid::after {
-  transform: scaleX(0.4);
-}
-
-.entranceNarrow::after {
-  transform: scaleX(0.28);
-}
-
-.entranceLink:hover .entrance::after,
-.entranceLink:focus-visible .entrance::after {
-  transform: scaleX(1);
 }
 
 /* The closing band's contact link wears its rule permanently — it is the last
@@ -185,7 +146,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .inkline::after,
-  .entrance::after,
   .primaryCta {
     transition: none;
   }

@@ -20,9 +20,9 @@
 
 export const studio = {
   name: "Telo Pilates Club",
-  /* Set as text in Libre Caslon Display, lowercase, final period kept — the
-     studio's own wordmark rebuilt in type rather than pasted in as an image,
-     so it stays selectable, translatable and sharp at any size. */
+  /* Set as text, lowercase, final period kept — the studio's own wordmark
+     rebuilt in type rather than pasted in as an image, so it stays
+     selectable, translatable and sharp at any size. */
   wordmark: "telo pilates club.",
   /* Deliberately generalised. No street, no pin, no map on this page: the
      studio has not published a street address itself. */
@@ -78,8 +78,10 @@ export const method = {
      can verify from outside, so the page reports that the studio states it. */
   claim: "Studio navodi da radi po Polestar metodologiji.",
   /* Named by the studio itself when describing individual classes. Rendered as
-     one set line, never as five separate cards — it is an inventory, not a
-     feature list. */
+     five separate items at display scale, never joined into one string — the
+     join broke "spine corrector" across a line on a phone, so the reader
+     counted six apparatus. It is an inventory, not a feature list: no cards,
+     no icons, no claims attached to any of them. */
   equipment: ["reformer", "tower", "chair", "spine corrector", "strunjača"],
 } as const;
 
@@ -92,7 +94,9 @@ export const firstVisit: readonly string[] = [
 ];
 
 export const languages = {
-  /* Rendered large, as the graphic of that band. */
+  /* Rendered small and inline after the sentence. At poster scale, separated
+     by slashes, three locale codes read as a language switcher — a false
+     affordance, since nothing here switches language. */
   codes: ["mne", "eng", "rus"],
   line: "Časovi se vode na crnogorskom, engleskom i ruskom jeziku.",
 } as const;

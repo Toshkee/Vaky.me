@@ -23,7 +23,9 @@
   /* 7.2:1 on warm white, 6.5:1 on blush — carries body text and button fills */
   --abh-berry: #9b2242;
   --abh-berry-deep: #7a1935;
-  /* 3.5:1 on berry, 8.1:1 on ink — hairlines and interpuncts only, never words */
+  /* 2.3:1 on warm white — far too low for type, but it is never type: it is
+     the section-opening hairline rule, twice, and nothing else. As a border
+     it still reads three times heavier than --abh-line below. */
   --abh-gold: #c9a227;
   --abh-line: #e7d7d1;
   --abh-line-strong: #d9bfb8;
@@ -31,10 +33,11 @@
   --abh-on-berry: #f0d2d8;
 }
 
-/* The one micro-interaction on the page: the primary door tilts 2° and
-   settles, the way a plate rocks on its screws when you knock. Runs once per
-   hover or focus, never loops, and does nothing at all once the arch itself
-   is gone (see the reduced-motion guard). */
+/* The one micro-interaction on the page, and it is on exactly one control —
+   the hero's Instagram button. It tilts 2° and settles, the way a plate rocks
+   on its screws when you knock. Runs once per hover or focus, never loops.
+   Every other button on the page is a plain colour change, which is what
+   keeps this one a signature instead of a habit. */
 @media (prefers-reduced-motion: no-preference) {
   .knock:hover,
   .knock:focus-visible {
@@ -54,6 +57,26 @@
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+
+/* All three doors in the hallway signal the same way: a berry rule drawn
+   under the door's name, left to right, on pointer and on keyboard alike.
+   A door is a flat panel — it does not lift, and the photograph behind it
+   does not zoom. */
+.door .rule {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.door:hover .rule,
+.door:focus-visible .rule {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .door .rule {
+    transition: transform 180ms ease-out;
   }
 }
 

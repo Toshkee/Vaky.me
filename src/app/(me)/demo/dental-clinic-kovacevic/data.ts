@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Dental Clinic Kovačević — porodična stomatološka ordinacija, Igalo & Zelenika
  * (Herceg Novi).
  *
@@ -18,10 +18,10 @@
 
 export const clinic = {
   name: "Dental Clinic Kovačević",
-  /** Rendered only as generalised areas — never as a street address. */
+  /** The two cells of the location board — never a street address. */
   areas: ["Igalo", "Zelenika"],
-  /** A non-breaking space sits between the two words of the town's name below. */
-  municipality: "Herceg Novi",
+  /** Printed under each town name on the location board. */
+  municipality: "Herceg Novi",
   instagram: "dental_clinic_kovacevic",
   instagramUrl: "https://www.instagram.com/dental_clinic_kovacevic/",
 } as const;
@@ -29,6 +29,12 @@ export const clinic = {
 export interface Field {
   title: string;
   body: string;
+  /**
+   * Set on the one area the clinic's own copy describes as the starting point.
+   * The board prints that term a size larger; a flag rather than "the first
+   * row" so reordering the list cannot move the emphasis by accident.
+   */
+  entry?: true;
 }
 
 /** Three plain-language areas of work — no numbering, no per-doctor attribution. */
@@ -36,6 +42,7 @@ export const fields: Field[] = [
   {
     title: "Stomatologija",
     body: "Opšta briga o zubima — pregled, dogovor o planu terapije i redovno praćenje. Odavde počinje većina posjeta ordinaciji.",
+    entry: true,
   },
   {
     title: "Oralna hirurgija",
@@ -55,7 +62,7 @@ export interface Step {
 /** Three honest steps. No timings, no promises about the outcome. */
 export const steps: Step[] = [
   { title: "Poruka", body: "Napišete šta vas muči ili šta biste htjeli da provjerite." },
-  { title: "Dogovor termina", body: "Zajedno nalazimo termin, u Igalu ili u Zelenici." },
+  { title: "Dogovor termina", body: "Zajedno biramo termin i ordinaciju koja vam odgovara." },
   { title: "Pregled i plan terapije", body: "Na pregledu se vidi stanje i dogovara dalji tok." },
 ];
 
@@ -86,12 +93,16 @@ export interface Photo {
 
 /* Both frames are patient-free. Neither is captioned with a location: the
    source does not say which of the two ordinacije it shows, and guessing
-   would put an unverified claim on the page. */
+   would put an unverified claim on the page.
+
+   The entrance frame is soft and mis-framed at every crop except one — square
+   and tight on the mark etched into the glass, where the mark is the subject
+   and the softness stops mattering. That is the only way the page uses it. */
 export const photos = [
   {
     src: "/demo/dental-clinic-kovacevic/ulaz",
-    alt: "Ulaz u ordinaciju: staklena vrata sa matiranim staklom i crnim znakom ordinacije, uz kamenu fasadu sa natpisom Kovačević",
-    caption: "Ulaz — znak ordinacije na matiranom staklu",
+    alt: "Znak ordinacije ugraviran na matiranom staklu ulaznih vrata: jednim potezom nacrtan zub sa navojem",
+    caption: "Znak sa ulaznih vrata ordinacije",
     width: 900,
     height: 500,
     sourceUrl: "https://travelmontenegro.me/wp-content/uploads/2019/03/dental-kovacevic.jpg",
@@ -101,8 +112,8 @@ export const photos = [
   },
   {
     src: "/demo/dental-clinic-kovacevic/ordinacija",
-    alt: "Bijela ordinacija sa stomatološkom stolicom, radnom lampom i zidnim natpisom Dental Clinic Kovačević",
-    caption: "Sala — bijela ordinacija sa stomatološkom stolicom",
+    alt: "Bijela ordinacija sa stomatološkom stolicom i radnom lampom; na zidu iznad pultova rukom ispisano ime Dental Clinic Kovačević",
+    caption: "Ordinacija — stolica, lampa i ime ordinacije ispisano rukom na zidu",
     width: 900,
     height: 500,
     sourceUrl: "https://travelmontenegro.me/wp-content/uploads/2019/03/dental-klinik-kovacevic.jpg",
@@ -112,6 +123,25 @@ export const photos = [
   },
 ] as const satisfies readonly Photo[];
 
+/** The two frames do different jobs and are never rendered as a gallery, so
+    page.tsx addresses them by name rather than by index. */
+export const [doorPhoto, roomPhoto] = photos;
+
+/**
+ * Provenance for the one drawn mark on the page.
+ *
+ * It is not our shape and it was not designed here: the clinic has it etched
+ * on its own entrance glass, and it is visible in `doorPhoto`. It was traced
+ * by hand as a single open path so it can be set in currentColor at any size.
+ * Like the photographs, it is shown to demonstrate the idea and would need the
+ * clinic's own artwork — and its permission — before production.
+ */
+export const doorMark = {
+  tracedFrom: "/demo/dental-clinic-kovacevic/ulaz",
+  rightsStatus: "the clinic's own mark — hand-traced for this concept, not licensed",
+  replaceBeforeProduction: true,
+} as const;
+
 /**
  * NOT FOR RENDERING.
  *
@@ -120,6 +150,10 @@ export const photos = [
  * business's phone number, e-mail, address, hours, prices or ratings on an
  * unsolicited concept page, and every claim below is either unconfirmed or
  * dated. page.tsx does not import this object — if it ever does, that is a bug.
+ *
+ * The location board is built from `clinic.areas` and `clinic.municipality`
+ * alone, and its map plates search for the clinic by name in a town rather
+ * than dropping a pin on an address nobody has confirmed.
  */
 export const researchOnly = {
   contact: {
@@ -129,6 +163,10 @@ export const researchOnly = {
     email: "[redacted — see 2019 listing]",
     addresses: "[redacted] — two locations in Igalo and Zelenika; the listing's institute address conflicts with the clinic's own posts.",
     openingHours: "[unknown] — never published by the clinic on a channel we can cite.",
+  },
+  doctorsPerLocation: {
+    needsConfirmation: true,
+    note: "Nothing public says which of the three doctors works in Igalo and which in Zelenika. The location board therefore prints the two towns and stops — it never pairs a name with a town.",
   },
   longevityClaim: {
     needsConfirmation: true,

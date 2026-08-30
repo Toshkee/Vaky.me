@@ -1,0 +1,134 @@
+{
+  "slug": "dental-clinic-kovacevic",
+  "changeVerdicts": [
+    {
+      "change": "Swap the hero photograph to the treatment room (3/2 plate, 5/7 split, container overhang)",
+      "verdict": "landed",
+      "note": "AFTER desktop/tablet/phone all show the sharp ordinacija frame with the full hand-painted \"Dental Clinic Kovačević\" wall script inside the crop (object-right keeps it whole). Overhang measured at 1440: photo right edge lands at x≈1328 vs the container's 1264 content edge — a real 64px break, and the only one on the page. Between 1024 and 1279 it goes flush to the viewport edge; no horizontal overflow at any width. Provenance + replaceBeforeProduction untouched in data.ts:114-123."
+    },
+    {
+      "change": "Build the signature element from the clinic's own door mark",
+      "verdict": "partial",
+      "note": "Structurally correct: one open path (page.tsx:77), currentColor, no fill, present in exactly the two declared places, provenance recorded as doorMark (data.ts:139-143), and ulaz.jpg survives only as the tight square plate — that crop is genuinely good and the mark is the subject. But the trace is a loose, mirrored abstraction of the source. Zoomed side by side: the real mark (phone AFTER, y≈2914) is a tapering brush crown with a shallow S-dip whose OPEN terminal is on the left, over three shrinking elliptical screw coils. The trace is a uniform-stroke crown with a deep V-notch and its open terminal on the RIGHT, over an angular zigzag. At 30px on the flow it passes as a molar; at the 256px closing print (desktop AFTER, y≈3420-3720) it reads as a heart with a scribble and a round stroke-cap dangling in mid-air."
+    },
+    {
+      "change": "Replace the empty right half of four consecutive sections with a real 12-column composition",
+      "verdict": "partial",
+      "note": "Three of four are genuinely recomposed and the ~500px repeated void is gone — compare BEFORE desktop (four sections all stopping at x≈700 of 1440) with AFTER, where Oblasti and Prva posjeta are 4/8 splits, Tim is a full-width head row over a full-width roster, and Lokacije is a 6/3 head over a full-width board. The declared deviation costs it: Prva posjeta's right column got no job, and the ol is capped at max-w-[34rem] inside col-span-8, so ~310px of the wide column is still empty at 1440 (desktop AFTER, y≈1290-1720, x≈912-1264)."
+    },
+    {
+      "change": "Add the two-ordinacije board from confirmed facts only",
+      "verdict": "landed",
+      "note": "Built from clinic.areas + clinic.municipality alone. Igalo | Zelenika at clamp(2.2rem,6vw,3.6rem) = 57.6px at 1440, genuinely larger than the 48px h1. Hairline-separated cells with a vertical rule, no cards, no radius-2xl. MapEmbed queries are searches (\"Dental Clinic Kovačević, Igalo, Herceg Novi\"), not asserted pins. The honest closing sentence is present (page.tsx:368-371) and researchOnly.doctorsPerLocation was added. No address, phone or hours anywhere in the render."
+    },
+    {
+      "change": "Rebuild Tim as a two-column roster and re-point the hero's secondary CTA",
+      "verdict": "landed",
+      "note": "The ragged column is fixed: at 1440 all three italics start at exactly the same x (desktop AFTER, y≈1900-2160), including after the 24-character \"Sanja Kovačević-Ožegović\" — the sm:grid-cols-[minmax(0,1fr)_minmax(0,12rem)] holds at 768 too. Hero secondary now reads \"Igalo ili Zelenika\" and points at #lokacije (page.tsx:178-180); the id exists."
+    },
+    {
+      "change": "Give the teal accent a real job",
+      "verdict": "landed",
+      "note": "The stray 32px rule visible in BEFORE desktop at y≈590 is gone. The hero eyebrow is now navy-soft, not teal. Auditing every teal use in the render: header IG icon (link), Oblasti dt terms, three flow marks, the Prva posjeta link, both map links, the closing mark in teal-bright, focus rings, button hover — all inside the four allowed jobs. The deployment rule is written at dental.module.css:15-23 and the tokens are byte-identical."
+    },
+    {
+      "change": "Break Oblasti rada out of the three-across triad and fix the 640px collapse",
+      "verdict": "landed",
+      "note": "Now a real <dl> with term/definition rows on hairlines; \"Stomatologija\" is a size up via the documented entry flag rather than by index. At 768 (tablet AFTER, y≈1240-1640) the three terms all sit on one line inside the 15rem column and the definitions run two lines each — the four-word measure and ragged heading row from BEFORE are gone. Stacks cleanly at 390."
+    },
+    {
+      "change": "Fix the hero grid's unresolved edges and delete the load animation",
+      "verdict": "partial",
+      "note": "(a) landed: at 1440 the button row's bottom (y≈632) and the photo's bottom crop (y≈630) land on one line; the ~90px overhang from BEFORE is gone. (b) landed: .heroSettle and its keyframes are deleted from the stylesheet — the page now has zero unrequested motion. (c) failed: keeping the manual <br>s while dropping text-balance produces a four-line H1 at every lg width, with \"pristup.\" alone on line four (desktop AFTER, y≈195-300). That is exactly the unchosen break the item existed to remove, and the code comment at page.tsx:127-129 asserts the opposite of what renders."
+    },
+    {
+      "change": "Differentiate the repeated controls and fix the semantic/typography faults",
+      "verdict": "partial",
+      "note": "Four distinct labels confirmed in the render (\"Pošalji upit\" / \"Igalo ili Zelenika\" / \"Napiši prvu poruku\" / \"Piši na @dental_clinic_kovacevic\"); the duplicated closing link visible in BEFORE desktop at y≈1852 is gone; <em> is now <span className=\"italic\">. But the footer fix is only half done — the credit was lifted onto its own line yet kept min-h-11, so the inflated box still bottom-aligns and \"VibeLab\" sits ~14px above the opposite paragraph's last baseline at 1440."
+    },
+    {
+      "change": "Introduce one genuine density and scale change (adapted: #lokacije as the peak)",
+      "verdict": "partial",
+      "note": "The adaptation is well reasoned — the room photo became the hero and a second container break would have cancelled the first — and structurally #lokacije is the peak: it is the tallest light band (~984px at 1440), the only section that is not heading-lede-content, it carries the largest type on the page, and the CTA lands there. But its visual mass is two identical 224px graph-paper placeholders, so the section that is supposed to be the page's emotional centre reads as an unloaded state."
+    }
+  ],
+  "findings": [
+    {
+      "issue": "The H1 wraps to four lines at every lg+ width with the two-word \"pristup.\" orphaned on line four. With text-balance dropped and the manual <br>s kept, the third written line (\"Jedan pažljiv pristup.\", 48px italic) cannot fit the 5fr column, which is ~377px at 1024 and ~430px at 1440 — so this is not an edge case, it is every desktop. The code comment claims the italic's \"last two words want to stay together\"; the render splits them. Either shorten the line, drop the third <br> and let the balancer choose, or widen the type column.",
+      "where": "Hero H1, src/app/(me)/demo/dental-clinic-kovacevic/page.tsx:127-138",
+      "severity": "major",
+      "evidence": ".tmp/shots-after/dental-clinic-kovacevic-desktop.png at 1440, y≈195-300 — \"Jedan pažljiv\" / \"pristup.\"; also visible in the 1440 hero crop. Phone (390) and tablet (768) render the intended three lines."
+    },
+    {
+      "issue": "The closing navy band restates the sentence immediately above it. Lokacije ends with \"Obje ordinacije primaju upite kroz isto Instagram sanduče. Grad, termin i sve ostalo dogovarate u toj jednoj poruci.\" and ~270px later the closing lede says \"Upit stiže u Instagram poruke ordinacije. Tu se dogovara termin — u Igalu ili u Zelenici.\" Same three facts, same order, adjacent on screen. One of the two should carry different information or be cut.",
+      "where": "src/app/(me)/demo/dental-clinic-kovacevic/page.tsx:368-371 and 389-392",
+      "severity": "major",
+      "evidence": ".tmp/shots-after/dental-clinic-kovacevic-desktop.png, the two paragraphs at y≈3160 and y≈3430; on phone they are consecutive screens (y≈4180 and y≈4300)."
+    },
+    {
+      "issue": "The page's declared signature mark does not read as the mark it cites. Printed at 256px on the closing field it reads as a heart with an angular scribble and a round stroke-cap hanging free in mid-air where the crown fails to close. The source mark, shown on the same page one screen above, is a tapering brush crown with a shallow S-dip and three shrinking elliptical screw coils, with its open terminal on the opposite side. A viewer comparing the two would not read them as the same glyph — which undercuts the whole \"nothing here says dentistry\" fix.",
+      "where": "ToothGlyph path, src/app/(me)/demo/dental-clinic-kovacevic/page.tsx:77; .markPrint, dental.module.css:141-151",
+      "severity": "major",
+      "evidence": "Desktop AFTER x1250-1440 / y3420-3720 (large print) compared against the door plate in phone AFTER at y≈2914-3122 and desktop AFTER x965-1163 / y2350-2560. The 30px flow marks (desktop AFTER, y≈1375-1425) read acceptably; the large print does not."
+    },
+    {
+      "issue": "The page's density peak is carried by two identical unloaded-map plates. Each cell holds a 224px graph-paper rectangle containing the byte-identical sentence \"Mapa se otvara tek na klik i pretražuje ime ordinacije u gradu.\" plus identically-labelled \"Prikaži mapu\" and \"Otvori u Google Mapama\" controls — four controls and two verbatim-duplicate sentences in one band. Every other demo in the repo uses MapEmbed exactly once. The note belongs once under the board (or merged into the honest closing sentence), and one plate would carry the idea. The plate frames are also square-cornered against the page's stated one-6px-radius rule.",
+      "where": "src/app/(me)/demo/dental-clinic-kovacevic/page.tsx:354-363",
+      "severity": "major",
+      "evidence": "Desktop AFTER y≈2800-3060 (side by side, duplication unmissable); tablet AFTER y≈3520-3780; phone AFTER y≈3620-3760 and y≈3770-3910, where the two plates add ~500px of placeholder to a page that grew 3781→4726px."
+    },
+    {
+      "issue": "Prva posjeta's wide column still has an empty right third — the declared deviation. The ol is capped at max-w-[34rem] inside lg:col-span-8, so the flow text stops at x≈912 while the column runs to 1264, leaving ~310px of unused sand. It is a big improvement on the ~500px of BEFORE, but it is the same defect at reduced scale in the one section the plan singled out for a right-column job.",
+      "where": "src/app/(me)/demo/dental-clinic-kovacevic/page.tsx:251",
+      "severity": "minor",
+      "evidence": ".tmp/shots-after/dental-clinic-kovacevic-desktop.png, y≈1290-1720, right of x≈912."
+    },
+    {
+      "issue": "The footer credit is still baseline-misaligned. The link was lifted out of the paragraph but kept min-h-11, so its 44px box — not its text — is what sm:items-end aligns to the left block's bottom, leaving \"VibeLab\" about 14px above the left paragraph's last baseline. Swap min-h-11 for vertical padding on the link.",
+      "where": "src/app/(me)/demo/dental-clinic-kovacevic/page.tsx:426-434",
+      "severity": "minor",
+      "evidence": ".tmp/shots-after/dental-clinic-kovacevic-desktop.png, y≈3690-3832: \"VibeLab\" baseline vs \"profila ordinacije — sve služi samo za prikaz ideje.\""
+    },
+    {
+      "issue": "New dead area under the \"Dvije ordinacije\" lede at desktop. The head row's height is set by the 208px door plate in the far-right 3-column band, so beneath a two-line heading block there is roughly 210px x 880px of empty sand before the board's top rule. Not a centring bug (it is top-aligned), but it is the largest single void the recomposition introduced.",
+      "where": "src/app/(me)/demo/dental-clinic-kovacevic/page.tsx:309-338",
+      "severity": "minor",
+      "evidence": ".tmp/shots-after/dental-clinic-kovacevic-desktop.png, x≈176-960 / y≈2440-2650."
+    },
+    {
+      "issue": "The hero photograph lost its figure/figcaption, so the hand-painted wall lettering — the stated reason the frame was chosen — is never named in visible copy, only in alt text. roomPhoto.caption was rewritten per the plan and is then rendered nowhere, leaving unused data behind.",
+      "where": "src/app/(me)/demo/dental-clinic-kovacevic/page.tsx:141-155; data.ts:116",
+      "severity": "minor",
+      "evidence": "Desktop AFTER hero, y≈90-640: no caption under the plate, unlike the door plate at y≈2560 which keeps its figcaption."
+    },
+    {
+      "issue": "The longest doctor name has ~2px of slack at 390px. \"Sanja Kovačević-Ožegović\" at 1.7rem ends at x≈348 in a 350px content box, so on 360px and 375px phones it wraps or hyphen-breaks to two lines while the other two names stay single — reintroducing the ragged roster on smaller devices.",
+      "where": "src/app/(me)/demo/dental-clinic-kovacevic/page.tsx:286",
+      "severity": "minor",
+      "evidence": ".tmp/shots-after/dental-clinic-kovacevic-phone.png at 390, y≈2600-2650 — the name reaches the right padding edge."
+    },
+    {
+      "issue": "The \"Napiši prvu poruku ↗\" link's underline breaks in two: inline-flex plus gap-1.5 means the underline stops at the text, skips the gap, and restarts under the arrow. The map links in the same section have a continuous rule, so the page shows two different treatments of the same idiom.",
+      "where": "src/app/(me)/demo/dental-clinic-kovacevic/page.tsx:44 (inlineLink) used at 236-248",
+      "severity": "minor",
+      "evidence": "Desktop AFTER y≈1540-1560; clearer in the phone crop at y≈1920, where the arrow's underline segment is visibly detached."
+    },
+    {
+      "issue": "The town pair is named five times in running copy (hero lede, secondary CTA, flow step 2, the Lokacije lede plus the board itself, and the closing lede), and the \"one message\" idea four times. With only five sections, the repetition is noticeable and makes the page feel like one sentence rewritten.",
+      "where": "src/app/(me)/demo/dental-clinic-kovacevic/page.tsx:158-159, 178-180, and data.ts:65; page.tsx:312-313, 368-371, 389-392",
+      "severity": "minor",
+      "evidence": "Full-page desktop AFTER scan; most obvious between y≈2400 and y≈3450 where \"Igalo/Zelenika\" appears four times in one screen and a half."
+    }
+  ],
+  "overall": "This is a real rebuild, not a claim-and-move-on: the BEFORE/AFTER pair shows the four repeated ~500px right-hand voids genuinely gone, the hero is now the strongest frame in the set (sharp room, the clinic's own painted script inside the crop, a measured 64px container break, bottom edges resolved to the pixel), the accent has a written and obeyed deployment rule, the motion budget is zero, the roster alignment bug is fixed, and the data-layer ethic survives untouched — nothing researchOnly forbids reaches the render, and the map plates search rather than assert. Three things keep it just short of the best four: the H1 orphans a word on every desktop width, the closing band restates the paragraph directly above it, and the page's density peak is carried by two identical unloaded-map placeholders while its declared signature mark, printed at 256px, reads as a heart with a dangling stroke rather than the door glyph it cites one screen above. All three are contained fixes — a line break, a deleted paragraph, one fewer map plate, and a re-trace — and none require re-planning.",
+  "priorRepairAttempt": {
+    "applied": [],
+    "skipped": [
+      "ALL FINDINGS — blocked, not refused: the FINDINGS TO APPLY block arrived un-interpolated. My prompt contains the literal source text `${JSON.stringify(actionable.sort((a, b) => ({ blocker: 0, major: 1, minor: 2 })[a.severity] - ({ blocker: 0, major: 1, minor: 2 })[b.severity]), null, 1)}` instead of a findings array, so I received zero findings. The orchestrator's template literal was not evaluated before the prompt was sent.",
+      "No substitute list exists on disk. .tmp/research/ holds review-dental-clinic-kovacevic.json (the PRE-fix review that generated the fixplan), fixplan-dental-clinic-kovacevic.json, and fixreport-dental-clinic-kovacevic.md. There is no post-fix QA-critic artifact for this route, so I could not recover the `actionable` array the parent meant to pass.",
+      "Re-deriving the findings myself was the wrong call and I did not do it. I read all three route files fully and viewed all three -after screenshots; the fixplan's ten changes are already applied and verified in the working tree (roomPhoto hero at 5fr/7fr with the xl:-mr-16 container break, the traced ToothGlyph as flow mark + closing print, the 12-col Oblasti/Prva posjeta splits, the Igalo|Zelenika board, the Tim grid roster, teal rationed to four jobs with the rule written into the stylesheet, .heroSettle and the stray 32px rule deleted, <span> instead of decorative <em>, the footer credit lifted out of the paragraph). Inventing a second critic pass on top of that would re-architect sections no critic flagged — explicitly against my brief — and would risk regressing verified work.",
+      "Nothing in the rendered output is broken on its own terms: no horizontal overflow, clipping, or undersized targets at 390 / 768 / 1440, and researchOnly remains unimported by page.tsx, so the data-layer ethic holds. There was no defect I could act on without a findings list."
+    ],
+    "checks": "Both required checks run from repo root against the unmodified working tree and both are clean. `npx tsc --noEmit --incremental false` — no output, exit 0, no errors in this route or any other. `npx eslint \"src/app/(me)/demo/dental-clinic-kovacevic\"` — no output, exit 0. No files were edited this pass, so these confirm the route is already in a shippable state; they do not represent verification of any new change. TO RE-DISPATCH: fix the template-literal interpolation in the orchestrator script (the `actionable` array is being stringified as source text, not evaluated) and re-run this agent with the real findings — the route files are unmodified, so a retry starts from a clean baseline."
+  }
+}
