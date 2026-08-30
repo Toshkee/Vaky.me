@@ -193,6 +193,103 @@ const cards = [
       <text x="1060" y="576" text-anchor="middle" fill="#F1F2F4" font-family="Georgia, serif" font-size="30" font-style="italic">Mila</text>
     </svg>`,
   },
+  /* ── Third outreach wave (30. avgust 2026) ───────────────────────
+     Four more unlisted noindex concepts. Same contract as above: the
+     card says "DIZAJN KONCEPT", carries no phone/street/e-mail, and
+     borrows only its own page's ground, accent and letterform logic. */
+  {
+    /* Studio ljepote i zdravlja: ivory ground, olive lens plate, gold hairlines. */
+    file: "public/og-demo-studio-ljepote-zdravlja.png",
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+      <rect width="1200" height="630" fill="#F4EDE0"/>
+      <g transform="translate(820,-45) scale(1.2)">
+        <path d="M210 6C348 152 348 448 210 594 72 448 72 152 210 6Z" fill="#414A34"/>
+        <g fill="none" stroke="#D8BD72" stroke-linecap="round">
+          <path d="M210 6V594" stroke-width="2" stroke-opacity=".55"/>
+          <path d="M210 74C306 178 306 422 210 526 114 422 114 178 210 74Z" stroke-width="2" stroke-opacity=".42"/>
+          <path d="M210 152C266 212 266 388 210 448 154 388 154 212 210 152Z" stroke-width="2" stroke-opacity=".32"/>
+          <path d="M210 170C252 196 288 240 312 286" stroke-width="1.6" stroke-opacity=".3"/>
+          <path d="M210 170C168 196 132 240 108 286" stroke-width="1.6" stroke-opacity=".3"/>
+          <path d="M210 268C250 292 284 330 306 372" stroke-width="1.6" stroke-opacity=".3"/>
+          <path d="M210 268C170 292 136 330 114 372" stroke-width="1.6" stroke-opacity=".3"/>
+          <path d="M210 366C244 384 272 412 290 444" stroke-width="1.6" stroke-opacity=".3"/>
+          <path d="M210 366C176 384 148 412 130 444" stroke-width="1.6" stroke-opacity=".3"/>
+        </g>
+      </g>
+      <text x="88" y="112" fill="#6B5D4E" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">NJEGA LICA I TIJELA · ZABJELO, PODGORICA</text>
+      <rect x="64" y="196" width="4" height="284" fill="#414A34"/>
+      <text x="98" y="268" fill="#2B1F17" font-family="Georgia, serif" font-size="72">Njega koja počinje</text>
+      <text x="98" y="352" fill="#2B1F17" font-family="Georgia, serif" font-size="72">slušanjem kože.</text>
+      <text x="98" y="446" fill="#6B5D4E" font-family="Arial, sans-serif" font-size="27">Lice · Tijelo · Masaže · Pogled</text>
+      <text x="88" y="576" fill="#2B1F17" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+    </svg>`,
+  },
+  {
+    /* Pilates by Maja: chalk ground, deep petrol type, clay accent — the
+       photo-led editorial redesign. Serif headline (Georgia stand-in for
+       Instrument Serif) in sentence case, "Ritam" italic, final period clay. */
+    file: "public/og-demo-pilates-by-maja.png",
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+      <rect width="1200" height="630" fill="#f4f1eb"/>
+      <text x="96" y="104" fill="#14302c" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="7">STUDIO PILATES BY MAJA</text>
+      <path d="M96 136h1008" stroke="#ddd8ce" stroke-width="1"/>
+      <text x="96" y="292" fill="#14302c" font-family="Georgia, 'Times New Roman', serif" font-size="104"><tspan font-style="italic">Ritam</tspan> koji možeš</text>
+      <text x="96" y="404" fill="#14302c" font-family="Georgia, 'Times New Roman', serif" font-size="104">da održiš<tspan fill="#d2856c">.</tspan></text>
+      <text x="96" y="578" fill="#5c6360" font-family="Arial, sans-serif" font-size="23">Grupni i personalni trening · Podgorica</text>
+      <text x="1104" y="578" text-anchor="end" fill="#14302c" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+    </svg>`,
+  },
+  {
+    /* Skyline: black ground, mint horizon hairline, the line-weight scale. */
+    file: "public/og-demo-skyline-tattoo.png",
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+      <rect width="1200" height="630" fill="#08090a"/>
+      <rect width="1200" height="5" fill="#5CF2C0"/>
+      <rect x="700" y="200" width="440" height="3" fill="#5CF2C0"/>
+      <rect x="700" y="222" width="370" height="4" fill="#8C9498"/>
+      <rect x="700" y="246" width="425" height="6" fill="#8C9498"/>
+      <rect x="700" y="274" width="320" height="9" fill="#8C9498"/>
+      <rect x="700" y="306" width="440" height="14" fill="#ECEFEE"/>
+      <rect x="700" y="344" width="400" height="22" fill="#ECEFEE"/>
+      <rect x="700" y="392" width="440" height="35" fill="#ECEFEE"/>
+      <text x="96" y="112" fill="#ECEFEE" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="14">SKYLINE</text>
+      <text x="96" y="256" fill="#ECEFEE" font-family="Arial, sans-serif" font-size="106" letter-spacing="-2">Ideja</text>
+      <text x="96" y="358" fill="#ECEFEE" font-family="Arial, sans-serif" font-size="106" letter-spacing="-2">postaje</text>
+      <text x="96" y="460" fill="#ECEFEE" font-family="Arial, sans-serif" font-size="106" letter-spacing="-2">trag<tspan fill="#5CF2C0">.</tspan></text>
+      <text x="96" y="576" fill="#8C9498" font-family="Arial, sans-serif" font-size="26">Tattoos &amp; Piercing · Podgorica</text>
+      <text x="760" y="576" fill="#ECEFEE" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="5">DIZAJN KONCEPT · VIBELAB</text>
+    </svg>`,
+  },
+  {
+    /* Maluni: cool porcelain ground, the page's own measuring card as the
+       motif — no card stroke any more, matching the borderless plate system. */
+    file: "public/og-demo-maluni-shop.png",
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+      <rect width="1200" height="630" fill="#f2f3f4"/>
+      <rect x="736" y="96" width="368" height="380" fill="#ffffff"/>
+      <text x="768" y="150" fill="#0e1116" font-family="Arial, sans-serif" font-size="22" font-weight="700">Debljina osovine</text>
+      <text x="768" y="200" fill="#0e1116" font-family="Arial, sans-serif" font-size="20">0,8 mm</text>
+      <rect x="872" y="186" width="200" height="8" rx="4" fill="#a8b0ba"/>
+      <text x="768" y="246" fill="#0e1116" font-family="Arial, sans-serif" font-size="20">1,2 mm</text>
+      <rect x="872" y="230" width="200" height="12" rx="6" fill="#a8b0ba"/>
+      <text x="768" y="312" fill="#0e1116" font-family="Arial, sans-serif" font-size="22" font-weight="700">Dužina ili prečnik</text>
+      <text x="768" y="356" fill="#0e1116" font-family="Arial, sans-serif" font-size="20">5 mm</text>
+      <rect x="872" y="346" width="100" height="4" rx="2" fill="#0e1116"/>
+      <text x="768" y="390" fill="#0e1116" font-family="Arial, sans-serif" font-size="20">6 mm</text>
+      <rect x="872" y="380" width="120" height="4" rx="2" fill="#0e1116"/>
+      <text x="768" y="424" fill="#0e1116" font-family="Arial, sans-serif" font-size="20">8 mm</text>
+      <rect x="872" y="414" width="160" height="4" rx="2" fill="#0e1116"/>
+      <text x="768" y="458" fill="#0e1116" font-family="Arial, sans-serif" font-size="20">10 mm</text>
+      <rect x="872" y="448" width="200" height="4" rx="2" fill="#0e1116"/>
+      <text x="96" y="140" fill="#1b34a8" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">PIERCING NAKIT · CRNA GORA</text>
+      <text x="96" y="262" fill="#0e1116" font-family="Arial, sans-serif" font-size="64" font-weight="700">Pronađi nakit</text>
+      <text x="96" y="338" fill="#0e1116" font-family="Arial, sans-serif" font-size="64" font-weight="700">koji pripada</text>
+      <text x="96" y="414" fill="#0e1116" font-family="Arial, sans-serif" font-size="64" font-weight="700">tvom piercingu.</text>
+      <path d="M96 502h1008" stroke="#dcdfe3" stroke-width="2"/>
+      <text x="96" y="548" fill="#4f555d" font-family="Arial, sans-serif" font-size="22">Besplatna dostava za cijelu Crnu Goru · PDV uračunat · plaćanje pouzećem</text>
+      <text x="96" y="592" fill="#0e1116" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+    </svg>`,
+  },
 ];
 
 await Promise.all(

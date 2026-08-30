@@ -22,7 +22,7 @@ const PAGES = [
   "/en/",
   "/demo/barber-drina/",
   "/demo/titan-gym/",
-  /* The four outreach concepts: unlisted pages carrying photographs taken from
+  /* The outreach concepts: unlisted pages carrying photographs taken from
      public profiles and links out to Instagram, WhatsApp, Viber and DIKIDI.
      They are the pages most likely to grow a hotlink or a bare target=_blank. */
   "/demo/soul-studio/",
@@ -33,6 +33,10 @@ const PAGES = [
   "/demo/dental-clinic-kovacevic/",
   "/demo/andrea-beauty-house/",
   "/demo/studio-ljepote-mila/",
+  "/demo/studio-ljepote-zdravlja/",
+  "/demo/pilates-by-maja/",
+  "/demo/skyline-tattoo/",
+  "/demo/maluni-shop/",
 ];
 
 let failed = 0;

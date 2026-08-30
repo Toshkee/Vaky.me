@@ -32,6 +32,10 @@ const PAGES = [
   "/demo/dental-clinic-kovacevic/",
   "/demo/andrea-beauty-house/",
   "/demo/studio-ljepote-mila/",
+  "/demo/studio-ljepote-zdravlja/",
+  "/demo/pilates-by-maja/",
+  "/demo/skyline-tattoo/",
+  "/demo/maluni-shop/",
 ];
 
 const browser = await chromium.launch();

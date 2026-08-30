@@ -30,6 +30,10 @@ const PAGES = [
   ["dental-clinic-kovacevic", "/demo/dental-clinic-kovacevic/"],
   ["andrea-beauty-house", "/demo/andrea-beauty-house/"],
   ["studio-ljepote-mila", "/demo/studio-ljepote-mila/"],
+  ["studio-ljepote-zdravlja", "/demo/studio-ljepote-zdravlja/"],
+  ["pilates-by-maja", "/demo/pilates-by-maja/"],
+  ["skyline-tattoo", "/demo/skyline-tattoo/"],
+  ["maluni-shop", "/demo/maluni-shop/"],
 ];
 
 fs.mkdirSync(OUT, { recursive: true });
