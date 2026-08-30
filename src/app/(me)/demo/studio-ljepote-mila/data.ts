@@ -101,7 +101,7 @@ export const treatments: Treatment[] = [
   },
   {
     title: "Profesionalni shop",
-    line: "Preparati i pribor koje studio koristi, iz postojeće zvanične online prodavnice.",
+    line: "Preparati i pribor koje studio koristi, iz postojeće zvanične onlajn prodavnice.",
   },
 ];
 

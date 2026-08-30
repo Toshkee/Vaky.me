@@ -23,60 +23,59 @@ export const house = {
 } as const;
 
 export interface Room {
-  id: string;
-  /** Door-plate numeral — the order a visitor meets the rooms, nothing more. */
-  plate: string;
+  id: "salon" | "braids" | "kids";
   name: string;
   /** One line, on the door. */
   line: string;
-  cta: { label: string; href: string; umamiAction: string; external: boolean };
+  instagram: string;
+  instagramUrl: string;
+  umamiAction: string;
 }
 
 /* The house genuinely runs three separate Instagram profiles — one per room.
-   That is the whole concept: the site is the hallway those three doors open
-   off, so the rooms are the first thing after the entrance. */
+   Salon has no profile of its own; it answers through the main house
+   account, so its door opens onto that one. Braids and Kids each answer
+   through their own. */
 export const rooms: Room[] = [
   {
     id: "salon",
-    plate: "I",
     name: "Salon",
-    line: "Kosa, nokti i šminka — u bijelom prostoru sa zidom lakova.",
-    cta: {
-      label: "Šta se radi u salonu",
-      href: "#salon",
-      umamiAction: "sobe-salon",
-      external: false,
-    },
+    line: "Kosa, nokti i šminka, u bijelom prostoru sa zidom lakova.",
+    instagram: house.instagram,
+    instagramUrl: house.instagramUrl,
+    umamiAction: "vrata-salon",
   },
   {
     id: "braids",
-    plate: "II",
-    name: "Braids",
-    line: "Pletenice i afro pletenice — soba sa svojim profilom.",
-    cta: {
-      label: "@braids_beautyhouse",
-      href: "https://www.instagram.com/braids_beautyhouse/",
-      umamiAction: "instagram-braids",
-      external: true,
-    },
+    name: "Pletenice",
+    line: "Pletenice i afro pletenice, soba sa svojim profilom.",
+    instagram: "braids_beautyhouse",
+    instagramUrl: "https://www.instagram.com/braids_beautyhouse/",
+    umamiAction: "vrata-braids",
   },
   {
     id: "kids",
-    plate: "III",
     name: "Kids",
     line: "Odvojen, šaren dio kuće napravljen za najmlađe.",
-    cta: {
-      label: "@kids_beautyhouse",
-      href: "https://www.instagram.com/kids_beautyhouse/",
-      umamiAction: "instagram-kids",
-      external: true,
-    },
+    instagram: "kids_beautyhouse",
+    instagramUrl: "https://www.instagram.com/kids_beautyhouse/",
+    umamiAction: "vrata-kids",
   },
 ];
 
-/* The adult service list, exactly as the main profile states it — set as one
-   running line rather than six cards. No durations, no prices: neither is
-   published anywhere the house keeps current. */
+/* Quick links in the header. Internal, to the fuller sections below the
+   doorways — separate on purpose from the doorway cards, which each send a
+   visitor straight out to the room's own Instagram. */
+export const sectionNav = [
+  { id: "salon", label: "Salon" },
+  { id: "pletenice", label: "Pletenice" },
+  { id: "kids", label: "Kids" },
+] as const;
+
+/* The adult service list, exactly as the main profile states it — woven into
+   one running sentence rather than six cards or a poster of giant words. No
+   durations, no prices: neither is published anywhere the house keeps
+   current. */
 export const salonServices = [
   "Frizerske usluge",
   "Manikir",

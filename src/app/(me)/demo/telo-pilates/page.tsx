@@ -1,22 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Albert_Sans, Libre_Caslon_Display } from "next/font/google";
+import { Albert_Sans } from "next/font/google";
 import { VibeLabBar } from "@/components/demo/VibeLabBar";
 import { InstagramIcon } from "@/components/demo/ContactIcons";
 import { firstVisit, formats, languages, method, studio } from "./data";
+import { StickyBookingBar } from "./StickyBookingBar";
 import styles from "./telo.module.css";
 
-/* Libre Caslon Display is the studio's own logotype voice — a high-contrast
-   Caslon that only behaves at size, which is exactly how this page uses it:
-   the wordmark, the display lines and the format names, all lowercase. Albert
-   Sans carries every sentence anyone actually has to read. latin-ext for
-   č/ć/š/ž/đ. */
-const display = Libre_Caslon_Display({
-  weight: "400",
-  subsets: ["latin", "latin-ext"],
-  display: "swap",
-  variable: "--font-telo-display",
-});
+/* Albert Sans, at extreme weight contrast, is the whole typeface system: 900
+   for every display line, regular/medium for anything meant to be read at
+   length. No second family — a reformer studio's poster voice comes from
+   scale and weight, not from a second typeface doing the "editorial" job the
+   old pass leaned on. latin-ext for č/ć/š/ž/đ. */
 const sans = Albert_Sans({
   subsets: ["latin", "latin-ext"],
   display: "swap",
@@ -31,51 +26,44 @@ export const metadata: Metadata = {
   openGraph: { images: ["/og-demo-telo-pilates.png"] },
 };
 
-const serif = "[font-family:var(--font-telo-display),Georgia,serif]";
-const label = "text-[0.68rem] font-semibold uppercase tracking-[0.26em]";
-const focus =
+const eyebrow = "text-[0.72rem] font-semibold uppercase tracking-[0.28em]";
+
+/* Two focus rings, because the page now has real ink slabs, not just ink
+   text: whatever a focus outline sits on, it has to out-contrast the section
+   behind it, not the element it's attached to (the offset ring lands on the
+   surrounding field). Butter ground → ink ring. Ink ground → butter ring. */
+const focusOnLight =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--telo-ink)]";
+const focusOnDark =
+  "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--telo-butter)]";
 
-/* Rectangles, radius 0, wide letterspacing: the geometry of the reformer frame
-   rather than of a wellness pill.
-
-   The primary keeps its ink fill on the butter fields too. Inverting it there —
-   butter fill on butter ground — would need a border to exist at all, which is
-   the secondary's job; the one action on the page should not have to be
-   outlined to be seen. The inversion instead lives where the ground is dark:
-   the language band and the phone booking slab, where butter becomes the fill. */
+/* One slab voice, used everywhere a CTA sits on the ink ground: butter fill,
+   ink type, radius 0. There is no CTA left on a light ground on this page —
+   both bookings and the hero live on ink now — so one variant is enough. */
 const ctaType =
-  "items-center justify-center text-[0.72rem] font-semibold uppercase tracking-[0.18em] transition-colors";
-const primaryCta = `inline-flex min-h-12 px-8 ${ctaType} bg-[var(--telo-ink)] text-[var(--telo-butter)] hover:bg-[var(--telo-ink-hover)] ${focus}`;
-const secondaryCta = `inline-flex min-h-12 px-8 ${ctaType} border border-[var(--telo-ink)] hover:bg-[var(--telo-ink)] hover:text-[var(--telo-butter)] ${focus}`;
-const headerCta = `hidden min-h-11 px-6 sm:inline-flex ${ctaType} bg-[var(--telo-ink)] text-[0.66rem] text-[var(--telo-butter)] hover:bg-[var(--telo-ink-hover)] ${focus}`;
+  "items-center justify-center text-[0.72rem] font-bold uppercase tracking-[0.18em] transition-colors";
+const primaryCta = `inline-flex min-h-14 px-9 ${ctaType} bg-[var(--telo-butter)] text-[var(--telo-ink)] hover:bg-[var(--telo-line-butter)] ${focusOnDark}`;
+const headerCta = `hidden min-h-11 px-6 sm:inline-flex ${ctaType} bg-[var(--telo-butter)] text-[0.66rem] text-[var(--telo-ink)] hover:bg-[var(--telo-line-butter)] ${focusOnDark}`;
 
 /**
- * The page's one graphic: a rail, two stops, and the arc a reformer carriage
- * travels between them.
+ * The page's one signature graphic: a rail, two fixed stops, and the arc a
+ * reformer carriage travels between them. It appears four times — under the
+ * hero line, between the formats board and the closing handoff, and as a
+ * smaller echo in the close — because the page carries no photographs, and
+ * this is the only picture on it of the studio's own equipment.
  *
- * It is drawn twice — edge to edge under the hero, and a quarter of that width
- * under the closing line — because the page carries no photographs and this is
- * the only thing on it that is a picture of the studio's own equipment. On
- * scroll the stroke extends from the first stop and settles on the second;
- * without scroll timelines, or with reduced motion, it is simply already there.
- *
- * The drawing stretches to whatever box it is given (`preserveAspectRatio` is
- * off) so the arc keeps a usable height on a phone instead of flattening into a
- * hairline. The rail, the stops and the carriage are `non-scaling-stroke` and
- * stay exactly one device pixel — the carriage is a zero-length round-capped
- * segment, a dot that cannot go oval however the box is scaled.
- *
- * The arc deliberately is not: a dashed stroke measured in device pixels can no
- * longer be normalised by `pathLength`, and the draw would clip short of the
- * far stop at some widths. Scaling with the box instead costs it a little
- * modulation on a narrow screen — thinner where the curve runs flat, fuller
- * where it turns — which is the same thin/thick logic as the Caslon it is
- * drawn under. Stroke width steps down as the box widens (see the CSS module)
- * so the line lands around three pixels everywhere.
+ * `preserveAspectRatio="none"` lets the drawing stretch to whatever box it is
+ * given, so the arc keeps a usable height on a phone instead of flattening
+ * into a hairline. The rail and the arc are `non-scaling-stroke` (or scale in
+ * the drawing's own units, stepped down in the CSS module) so they read as a
+ * consistent weight at every size. The two stops are square-capped ticks, not
+ * filled circles — geometry that survives the non-uniform stretch instead of
+ * being squashed by it. The round dot at the far stop is the carriage itself,
+ * and it is the one part of the mark that still moves: on scroll it lands
+ * just as the arc finishes drawing; with reduced motion, or without
+ * scroll-driven animation support, it is simply already there.
  */
-function CarriageTrack({ className = "" }: { className?: string }) {
-  const ink = "var(--telo-ink)";
+function RangeMark({ className = "" }: { className?: string }) {
   return (
     <div className={`${styles.trackFrame} ${className}`}>
       <svg
@@ -84,11 +72,17 @@ function CarriageTrack({ className = "" }: { className?: string }) {
         aria-hidden="true"
         focusable="false"
         className="block h-full w-full"
-        stroke={ink}
+        stroke="currentColor"
         fill="none"
       >
-        <path d="M0 128H1200" strokeOpacity="0.22" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-        <path d="M140 110V146M1060 110V146" strokeOpacity="0.45" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+        <path d="M0 128H1200" strokeOpacity="0.3" strokeWidth="1.25" vectorEffect="non-scaling-stroke" />
+        <path
+          className={styles.trackTick}
+          d="M140 104V152M1060 104V152"
+          strokeOpacity="0.85"
+          strokeLinecap="square"
+          vectorEffect="non-scaling-stroke"
+        />
         <path
           className={styles.trackStroke}
           pathLength={1}
@@ -109,18 +103,17 @@ function CarriageTrack({ className = "" }: { className?: string }) {
 export default function TeloPilatesPage() {
   return (
     <div
-      className={`${styles.page} ${display.variable} ${sans.variable} min-h-screen bg-[var(--telo-chalk)] pb-[calc(4rem+env(safe-area-inset-bottom))] text-[var(--telo-ink)] [font-family:var(--font-telo-sans),system-ui,sans-serif] md:pb-0`}
+      className={`${styles.page} ${sans.variable} min-h-screen bg-[var(--telo-chalk)] text-[var(--telo-ink)] [font-family:var(--font-telo-sans),system-ui,sans-serif]`}
     >
       <VibeLabBar />
 
-      {/* Header and hero share one butter field — the studio's wordmark tile
-          blown up to the width of the page. No centre anchor row: there is one
-          thing to do here, and it is booking. */}
-      <header className="bg-[var(--telo-butter)]">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-5 sm:px-8 sm:py-6">
+      {/* Header and hero share one unbroken ink field — the poster ground —
+          so the page opens on full contrast instead of easing into it. */}
+      <header className="bg-[var(--telo-ink)] text-[var(--telo-butter)]">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 sm:px-8 sm:py-5">
           <a
             href="#vrh"
-            className={`${serif} inline-flex min-h-11 items-center text-[1.35rem] leading-none tracking-[-0.01em] sm:text-[1.6rem] ${focus}`}
+            className={`inline-flex min-h-11 items-center text-[1.1rem] font-black leading-none tracking-[-0.01em] lowercase sm:text-[1.35rem] ${focusOnDark}`}
           >
             {studio.wordmark}
           </a>
@@ -139,79 +132,70 @@ export default function TeloPilatesPage() {
       </header>
 
       <main id="vrh">
-        <section className="bg-[var(--telo-butter)]">
-          <div className="mx-auto max-w-6xl px-5 pt-8 pb-10 sm:px-8 sm:pt-14 sm:pb-14">
-            <div className="grid gap-9 lg:grid-cols-[1.05fr_0.85fr] lg:items-end lg:gap-12">
-              <div>
-                <p className={`${label} text-[var(--telo-muted)]`}>reformer pilates · podgorica</p>
-                {/* Three words, each stepping further in — the same stagger the
-                    format rows use further down, and the same direction the
-                    carriage travels. */}
-                <h1
-                  className={`${serif} mt-6 text-[clamp(3rem,13vw,7.5rem)] leading-[0.88] tracking-[-0.03em] sm:mt-8`}
+        {/* The whole first screen: one line of context, the three-word
+            stack, the range mark as a live underline, one line of subcopy,
+            and the booking CTA — composed to finish before the fold. */}
+        <section className="bg-[var(--telo-ink)] text-[var(--telo-butter)]">
+          <div className="mx-auto max-w-6xl px-5 pt-8 pb-12 sm:px-8 sm:pt-10 sm:pb-16 lg:grid lg:grid-cols-[1.3fr_0.7fr] lg:items-end lg:gap-16 lg:pt-16 lg:pb-24">
+            <div>
+              <p className={`${eyebrow} text-[var(--telo-muted-ink)]`}>
+                reformer pilates · {studio.area.toLowerCase()}
+              </p>
+              <h1 className="mt-5 text-[clamp(3.25rem,15vw,9rem)] font-black leading-[0.86] tracking-[-0.03em] lowercase sm:mt-6">
+                <span className="block">kontrola.</span>
+                <span className="block pl-[0.5em]">snaga.</span>
+                <span className="block pl-[1em]">pokret.</span>
+              </h1>
+            </div>
+            <div className="lg:pb-3">
+              <RangeMark className="mt-7 h-9 w-full max-w-[15rem] text-[var(--telo-butter)] sm:mt-8 sm:h-11 sm:max-w-xs lg:mt-0 lg:max-w-none" />
+              <p className="mt-7 max-w-md text-pretty text-[1.05rem] leading-[1.55] text-[var(--telo-muted-ink)] sm:mt-8 sm:text-[1.15rem]">
+                Reformer studio u Podgorici — grupno, u paru ili individualno.
+              </p>
+              <div className="mt-8 flex flex-col items-start gap-4 sm:mt-9 sm:flex-row sm:items-center sm:gap-7 lg:flex-col lg:items-stretch lg:gap-5">
+                <a
+                  id="hero-cta"
+                  href={studio.bookingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-umami-event="demo_booking"
+                  data-umami-event-demo="telo-pilates"
+                  data-umami-event-action="booking-hero"
+                  className={`${primaryCta} lg:w-full`}
                 >
-                  <span className="block">kontrola.</span>
-                  <span className="block pl-[0.55em]">snaga.</span>
-                  <span className="block pl-[1.1em]">pokret.</span>
-                </h1>
-              </div>
-
-              <div className="lg:pb-4">
-                <p className="max-w-md text-[1.125rem] leading-[1.6] text-[var(--telo-muted)] sm:text-[1.2rem]">
-                  Reformer, individualni i grupni formati u Podgorici — rezervacija bez suvišnih
-                  koraka.
-                </p>
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <a
-                    href={studio.bookingUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-umami-event="demo_booking"
-                    data-umami-event-demo="telo-pilates"
-                    data-umami-event-action="booking-hero"
-                    className={primaryCta}
-                  >
-                    Rezerviši čas
-                  </a>
-                  <a href="#formati" className={secondaryCta}>
-                    Izaberi format
-                  </a>
-                </div>
+                  Rezerviši čas
+                </a>
+                <a
+                  href="#formati"
+                  className={`inline-flex min-h-11 items-center justify-center text-[0.85rem] font-semibold underline decoration-2 underline-offset-[6px] hover:decoration-[var(--telo-line-butter)] ${focusOnDark}`}
+                >
+                  Pogledaj formate
+                </a>
               </div>
             </div>
           </div>
-
-          {/* Edge to edge on purpose: the rail is the floor the hero stands on,
-              not an ornament parked inside the text column. */}
-          <div className="pb-8 sm:pb-12">
-            <CarriageTrack className="h-24 sm:h-32 lg:h-40" />
-          </div>
         </section>
 
-        {/* The formats, written as a score rather than as five cards: one rule
-            per line, the name stepping in, the setting holding its column. */}
-        <section id="formati" className="scroll-mt-6">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+        {/* The formats, as a class board rather than an editorial score: two
+            solid rules per row, the name at full poster weight, one terse
+            line of orientation beside it. */}
+        <section id="formati" className="scroll-mt-6 bg-[var(--telo-chalk)]">
+          <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
             <div className="max-w-2xl">
-              <p className={`${label} text-[var(--telo-muted)]`}>formati</p>
-              <h2
-                className={`${serif} mt-5 text-[clamp(1.9rem,5vw,3.25rem)] leading-[1.02] tracking-[-0.02em]`}
-              >
+              <h2 className="text-[clamp(2rem,7vw,3.5rem)] font-black leading-[0.96] tracking-[-0.02em] lowercase">
                 izaberi format, pa termin.
               </h2>
-              <p className="mt-5 max-w-md text-[1rem] leading-relaxed text-[var(--telo-muted)]">
-                Pet načina da uđeš u salu. Slobodni termini i raspored stoje u booking sistemu
+              <p className="mt-4 max-w-md text-[1rem] leading-relaxed text-[var(--telo-muted)]">
+                Pet formata na reformeru. Slobodni termini i raspored stoje u booking sistemu
                 studija — ovdje je samo odluka koja im prethodi.
               </p>
             </div>
 
-            <ul className={`${styles.score} mt-12 border-b border-[var(--telo-line)] sm:mt-16`}>
+            <ul className="mt-10 border-t-2 border-[var(--telo-ink)] sm:mt-14">
               {formats.map((format) => (
-                <li key={format.id} className="border-t border-[var(--telo-line)] py-6 sm:py-7">
-                  <div className="grid gap-x-10 gap-y-2.5 md:grid-cols-[minmax(0,1fr)_15rem] md:items-baseline lg:grid-cols-[minmax(0,1fr)_19rem]">
-                    <h3
-                      className={`${styles.stave} ${serif} text-[clamp(2.1rem,6vw,3.75rem)] leading-[1] tracking-[-0.025em]`}
-                    >
+                <li key={format.id} className="border-b-2 border-[var(--telo-ink)] py-6 sm:py-7">
+                  <div className="grid gap-x-10 gap-y-2 md:grid-cols-[minmax(0,1fr)_17rem] md:items-baseline">
+                    <h3 className="text-[clamp(1.9rem,6.5vw,3rem)] font-black leading-[1] tracking-[-0.02em] lowercase">
                       {format.name}
                     </h3>
                     <p className="text-[0.95rem] leading-relaxed text-[var(--telo-muted)]">
@@ -224,81 +208,29 @@ export default function TeloPilatesPage() {
           </div>
         </section>
 
-        {/* Method and machines in one short band. The studio's claim keeps its
-            attribution; the apparatus is a set line, not five feature tiles. */}
-        <section>
-          <div className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 sm:pb-24">
-            <div className="grid gap-8 border-t-2 border-[var(--telo-ink)] pt-8 md:grid-cols-[0.85fr_1.15fr] md:gap-14 md:pt-10">
-              <div>
-                <p className={`${label} text-[var(--telo-muted)]`}>metod</p>
-                <h2
-                  className={`${serif} mt-4 text-[clamp(1.5rem,3.4vw,2.25rem)] leading-[1.12] tracking-[-0.02em]`}
-                >
+        {/* Method, machines and language, one composed ink band rather than
+            three separate slabs. The claim keeps its attribution, the
+            apparatus reads as a set line, and the language codes keep their
+            own punchy display treatment below a hairline rule — so the shift
+            in register (small-caps line → poster-scale type) reads as an
+            intentional break, not a cramped afterthought. */}
+        <section className="bg-[var(--telo-ink)] text-[var(--telo-butter)]">
+          <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
+            <div className="flex flex-col gap-7 sm:gap-8">
+              <div className="grid gap-6 sm:gap-7 md:grid-cols-[1fr_1.3fr] md:items-center md:gap-12">
+                <p className="text-[1.15rem] font-semibold leading-snug sm:text-[1.3rem]">
                   {method.claim}
-                </h2>
-              </div>
-              <div>
-                <p className="text-[0.9rem] leading-relaxed text-[var(--telo-muted)]">
-                  Sprave koje studio navodi uz individualni rad:
                 </p>
-                <p
-                  className={`${serif} mt-4 text-[clamp(1.1rem,3vw,1.9rem)] leading-[1.35] tracking-[-0.01em]`}
-                >
+                <p className="text-[0.95rem] font-medium uppercase tracking-[0.1em] text-[var(--telo-muted-ink)] sm:text-[1rem]">
                   {method.equipment.join(" · ")}
                 </p>
               </div>
-            </div>
-          </div>
-        </section>
 
-        <section>
-          <div className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 sm:pb-24">
-            <div className="grid gap-9 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-              <div>
-                <p className={`${label} text-[var(--telo-muted)]`}>prvi dolazak</p>
-                <h2
-                  className={`${serif} mt-5 text-[clamp(1.9rem,5vw,3rem)] leading-[1.04] tracking-[-0.02em]`}
-                >
-                  kako izgleda prvi čas.
-                </h2>
-              </div>
-              {/* Ordered, because it is a sequence — but the marker is the same
-                  hairline the rest of the page uses, not a decorative numeral. */}
-              <ol className="grid gap-7 sm:gap-8">
-                {firstVisit.map((step) => (
-                  <li
-                    key={step}
-                    className="grid grid-cols-[2rem_minmax(0,1fr)] items-start gap-x-5 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-x-8"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="mt-[0.85em] block h-0.5 w-full bg-[var(--telo-ink)]"
-                    />
-                    <p className="text-[1.05rem] leading-relaxed sm:text-[1.2rem] lg:text-[1.35rem]">
-                      {step}
-                    </p>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-        </section>
-
-        {/* The one dark field on the page, and the one place the palette
-            inverts: butter becomes the ink. */}
-        <section className="bg-[var(--telo-ink)] text-[var(--telo-butter)]">
-          <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
-            <div className="grid gap-7 md:grid-cols-[1.15fr_0.85fr] md:items-end md:gap-12">
-              <p
-                className={`${serif} text-[clamp(2.6rem,10vw,5.75rem)] leading-[0.9] tracking-[-0.03em]`}
-              >
-                {languages.codes.join(" · ")}
-              </p>
-              <div className="md:pb-2">
-                <h2 className={`${serif} text-[clamp(1.4rem,3vw,1.9rem)] leading-[1.15]`}>
-                  jezik u sali.
-                </h2>
-                <p className="mt-4 max-w-sm text-[1rem] leading-relaxed text-[var(--telo-muted-ink)]">
+              <div className="flex flex-col gap-6 border-t border-[var(--telo-muted-ink)]/20 pt-7 sm:gap-7 sm:pt-8 md:flex-row md:items-end md:justify-between md:gap-12">
+                <p className="text-[clamp(2.5rem,10vw,5rem)] font-black leading-[0.85] tracking-[-0.03em] lowercase">
+                  {languages.codes.join(" / ")}
+                </p>
+                <p className="max-w-sm text-[1rem] leading-relaxed text-[var(--telo-muted-ink)] sm:text-[1.05rem]">
                   {languages.line}
                 </p>
               </div>
@@ -306,18 +238,42 @@ export default function TeloPilatesPage() {
           </div>
         </section>
 
-        <section>
+        {/* Three things a first-timer can act on, run as a ghost-numeral row
+            rather than a listy column — the number carries the sequence, the
+            sentence carries the point. */}
+        <section className="bg-[var(--telo-chalk)]">
           <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
-            <div className="grid gap-6 border-t-2 border-[var(--telo-ink)] pt-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end md:gap-12">
+            <h2 className="max-w-xl text-[clamp(1.9rem,6vw,3rem)] font-black leading-[0.98] tracking-[-0.02em] lowercase">
+              kako izgleda prvi čas.
+            </h2>
+            <ol className="mt-10 grid gap-7 sm:mt-12 sm:grid-cols-3 sm:gap-6">
+              {firstVisit.map((step, index) => (
+                <li key={step} className="flex items-start gap-4 sm:flex-col sm:gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="text-[2.75rem] font-black leading-none text-[var(--telo-ink)]/15 sm:text-[3.25rem]"
+                  >
+                    {index + 1}
+                  </span>
+                  <p className="pt-2 text-[1.05rem] leading-relaxed sm:pt-0 sm:text-[1.1rem]">
+                    {step}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section className="bg-[var(--telo-chalk)]">
+          <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
+            <div className="flex flex-col gap-9 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className={`${label} text-[var(--telo-muted)]`}>gdje</p>
-                <h2
-                  className={`${serif} mt-4 text-[clamp(2rem,6.5vw,3.75rem)] leading-[0.98] tracking-[-0.025em]`}
-                >
+                <h2 className={`${eyebrow} text-[var(--telo-muted)]`}>gdje</h2>
+                <p className="mt-3 text-[clamp(2.25rem,7vw,4rem)] font-black leading-[0.95] tracking-[-0.02em] lowercase">
                   {studio.area.toLowerCase()}.
-                </h2>
+                </p>
               </div>
-              <address className="not-italic md:pb-1 md:text-right">
+              <address className="not-italic sm:text-right">
                 <span className="block text-[0.9rem] leading-relaxed text-[var(--telo-muted)]">
                   Pitanja prije prvog dolaska:
                 </span>
@@ -328,7 +284,7 @@ export default function TeloPilatesPage() {
                   data-umami-event="demo_contact"
                   data-umami-event-demo="telo-pilates"
                   data-umami-event-action="instagram-lokacija"
-                  className={`mt-1 inline-flex min-h-11 items-center gap-2 text-[1.05rem] font-semibold underline underline-offset-[6px] hover:no-underline ${focus}`}
+                  className={`mt-1 inline-flex min-h-11 items-center gap-2 text-[1.05rem] font-semibold underline underline-offset-[6px] hover:no-underline ${focusOnLight}`}
                 >
                   <InstagramIcon className="h-[1.15rem] w-[1.15rem]" />@{studio.instagram}
                 </a>
@@ -337,24 +293,21 @@ export default function TeloPilatesPage() {
           </div>
         </section>
 
-        {/* The handoff. Butter field, the studio's alternate lockup at full
-            size, and the carriage arriving under it one last time. */}
-        <section id="rezervacija" className="scroll-mt-6 bg-[var(--telo-butter)]">
+        {/* The handoff: the poster ground one last time, the wordmark line
+            at full scale, and the carriage arriving under it. */}
+        <section id="rezervacija" className="scroll-mt-6 bg-[var(--telo-ink)] text-[var(--telo-butter)]">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
             <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-16">
               <div>
-                <p className={`${label} text-[var(--telo-muted)]`}>rezervacija</p>
-                <h2
-                  className={`${serif} mt-6 text-[clamp(2.9rem,11vw,6.25rem)] leading-[0.9] tracking-[-0.03em]`}
-                >
+                <h2 className="text-[clamp(3rem,12vw,7rem)] font-black leading-[0.86] tracking-[-0.03em] lowercase">
                   telo u pokretu.
                 </h2>
-                <CarriageTrack
-                  className={`${styles.trackEcho} mt-9 h-20 max-w-[21rem] sm:mt-12 sm:h-24 sm:max-w-md`}
+                <RangeMark
+                  className={`${styles.trackEcho} mt-8 h-16 max-w-[16rem] text-[var(--telo-butter)] sm:mt-10 sm:h-20 sm:max-w-xs`}
                 />
               </div>
               <div className="lg:pb-2">
-                <p className="max-w-md text-[1.0625rem] leading-relaxed text-[var(--telo-muted)]">
+                <p className="max-w-md text-pretty text-[1.0625rem] leading-relaxed text-[var(--telo-muted-ink)]">
                   Rasporedom upravlja booking sistem studija — formati, slobodni termini i prijava
                   stoje na jednom mjestu.
                 </p>
@@ -365,7 +318,7 @@ export default function TeloPilatesPage() {
                   data-umami-event="demo_booking"
                   data-umami-event-demo="telo-pilates"
                   data-umami-event-action="booking-final"
-                  className={`${primaryCta} mt-8 w-full sm:w-auto lg:w-full`}
+                  className={`${primaryCta} mt-8 w-full justify-center sm:w-auto lg:w-full`}
                 >
                   Rezerviši čas
                 </a>
@@ -375,10 +328,10 @@ export default function TeloPilatesPage() {
         </section>
       </main>
 
-      <footer className="border-t border-[var(--telo-line)]">
+      <footer id="site-footer" className="border-t-2 border-[var(--telo-ink)] bg-[var(--telo-chalk)]">
         <div className="mx-auto flex max-w-6xl flex-col gap-5 px-5 py-10 sm:flex-row sm:items-end sm:justify-between sm:px-8">
           <div>
-            <p className={`${serif} text-xl tracking-[-0.01em]`}>{studio.wordmark}</p>
+            <p className="text-lg font-black lowercase tracking-[-0.01em]">{studio.wordmark}</p>
             <p className="mt-3 max-w-md text-xs leading-relaxed text-[var(--telo-muted)]">
               Nezvanični dizajn koncept. Podaci su preuzeti sa javnog Instagram profila studija i
               njegovog javnog booking sistema; strana je namjerno bez fotografija i služi samo za
@@ -389,7 +342,7 @@ export default function TeloPilatesPage() {
             Koncept:{" "}
             <Link
               href="/"
-              className={`inline-flex min-h-11 items-center font-semibold text-[var(--telo-ink)] hover:underline ${focus}`}
+              className={`inline-flex min-h-11 items-center font-semibold text-[var(--telo-ink)] hover:underline ${focusOnLight}`}
             >
               VibeLab
             </Link>
@@ -397,23 +350,7 @@ export default function TeloPilatesPage() {
         </div>
       </footer>
 
-      {/* Phones only, and one action wide. The page asks for exactly one thing,
-          so the bar is not a row of choices — it is that thing, always within
-          thumb reach. The root carries matching bottom padding so the footer is
-          never trapped behind it. */}
-      <div className="fixed inset-x-0 bottom-0 z-50 bg-[var(--telo-ink)] pb-[env(safe-area-inset-bottom)] md:hidden">
-        <a
-          href={studio.bookingUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-umami-event="demo_booking"
-          data-umami-event-demo="telo-pilates"
-          data-umami-event-action="booking-sticky"
-          className="flex min-h-14 w-full items-center justify-center px-5 text-[0.78rem] font-semibold uppercase tracking-[0.2em] text-[var(--telo-butter)] focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[var(--telo-butter)]"
-        >
-          Rezerviši čas
-        </a>
-      </div>
+      <StickyBookingBar bookingUrl={studio.bookingUrl} />
     </div>
   );
 }

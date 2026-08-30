@@ -69,7 +69,7 @@ export const formats: StudioFormat[] = [
   {
     id: "healthy-spine",
     name: "healthy spine",
-    setting: "Blaži format, težište je na kičmi i držanju.",
+    setting: "Fokus je na kičmi i držanju, u blažem tempu.",
   },
 ];
 

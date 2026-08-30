@@ -1,47 +1,45 @@
 /* Palette and motion for the Studio ljepote Mila concept, scoped to this route.
 
-   The colours are route-scoped custom properties rather than theme tokens: four
+   The colours are route-scoped custom properties rather than theme tokens: several
    client concepts sharing one `@theme` block would leave this studio's palette
    loaded on every page of the site. Tailwind reads them back through literal
    class strings like `bg-[var(--mila-carbon)]`, so the scanner still sees them.
 
-   The palette is deliberately cold. Every other concept in this repo sits on a
-   warm ground — bone, ivory, cream — so this one is built on a blue-grey
-   porcelain, cut by carbon bands, with a single muted rose doing all the
-   accenting. Fashion-magazine, not spa.
+   The palette is warm on purpose — porcelain rather than grey, and a dusty rose
+   that actually shows up as colour, not a near-grey accent reserved for 9px
+   labels. Carbon is used exactly once, on the closing contact band; everywhere
+   else the page stays warm and light.
 
    There is exactly one motion on the page, and it is the page's whole subject:
    the artist's real signature, wiped in from the left the way a pen writes it.
-   It is scroll-driven, so there is no JavaScript and no observer — a browser
+   A single fine stroke under the masthead echoes the same gesture once more.
+   Both are scroll-driven, so there is no JavaScript and no observer — a browser
    without `animation-timeline` gets the finished state, which is the correct
-   page. Nothing else moves; the hairlines are static borders, because a rule
-   near the top of the document would be past its own range before the visitor
-   ever scrolled and would animate for nobody. */
+   page. Nothing else moves; the hairlines are static borders. */
 
 .page {
   /* grounds */
-  --mila-porcelain: #f1f2f4;
-  --mila-porcelain-deep: #e4e7ea;
-  --mila-rose-wash: #efe1e3;
-  --mila-carbon: #111317;
+  --mila-porcelain: #f6f0ec;
+  --mila-porcelain-deep: #efe3de;
+  --mila-rose-field: #e6c9ce;
+  --mila-carbon: #1d1714;
 
-  /* ink on porcelain */
-  --mila-ink: #15171b; /* 16.0:1 on porcelain, 14.5:1 on porcelain-deep, 14.1:1 on rose-wash */
-  --mila-muted: #4f555f; /* 6.7:1 on porcelain, 6.1:1 on porcelain-deep, 5.9:1 on rose-wash */
-  --mila-rose-deep: #94505c; /* 5.3:1 on porcelain, 4.8:1 on porcelain-deep, 4.7:1 on rose-wash */
-  --mila-rose: #b0707b; /* 3.4:1 — hairlines and display-size type only, never body copy */
+  /* ink on porcelain / rose-field */
+  --mila-ink: #211a17; /* 16.0:1 on porcelain, 14.2:1 on porcelain-deep, 11.1:1 on rose-field */
+  --mila-muted: #675953; /* 5.9:1 on porcelain, 5.3:1 on porcelain-deep */
+  --mila-rose-deep: #82394a; /* 7.1:1 on porcelain, 6.3:1 on porcelain-deep, 5.2:1 on rose-field */
+  --mila-rose-soft: #e3c6cb; /* hairlines on light grounds */
 
   /* ink on carbon */
-  --mila-on-carbon: #f1f2f4; /* 16.6:1 on carbon */
-  --mila-on-carbon-muted: #a7adb8; /* 8.3:1 on carbon */
-  --mila-rose-light: #e3b9c0; /* 10.6:1 on carbon */
+  --mila-on-carbon: #f6f0ec; /* 15.7:1 on carbon */
+  --mila-on-carbon-muted: #b8a9a3; /* 7.8:1 on carbon */
+  --mila-rose-light: #e0adb6; /* 9.1:1 on carbon */
 
-  /* hairlines */
-  --mila-silver: #cbd0d7;
-  --mila-rose-soft: #e0c4c9;
+  /* hairlines: a whisper of cool silver against the warm ground */
+  --mila-silver: #cfd6d8;
 }
 
-/* The signature. Static default: fully revealed. */
+/* The signature, large in the artist section. Static default: fully revealed. */
 .signature {
   clip-path: inset(0 0 0 0);
 }
@@ -65,9 +63,37 @@
   }
 }
 
-/* Typographic CTAs and rubrics share one gesture: a rose rule that grows out
-   from the left under the word. It is the button geometry of this page — there
-   are no pills and exactly one filled rectangle, in the hero. */
+/* The one echo of the signature outside the artist section: a fine drawn
+   stroke under the masthead. `pathLength="1"` on the SVG element (set in the
+   markup) makes the dasharray math trivial regardless of the path's real
+   geometry. Static default: fully drawn. */
+.strokeMotif {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .strokeMotif {
+      animation: mila-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}
+
+@keyframes mila-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Text CTAs: a rose rule that grows out from the left under the word. Buttons
+   get their own bordered geometry in the markup; this is for the repeated
+   "Piši studiju" / "Posjeti shop" links, which are words first. */
 .inkline {
   position: relative;
 }
@@ -93,49 +119,74 @@
   transform: translateY(0.9em) scaleX(1);
 }
 
-/* Same rule, legible on the carbon band. */
-.inklineLight::after {
-  background: var(--mila-rose-light);
-}
-
-/* The three rubrics: a heavier rule, tight under the serif word rather than
-   under the whole link, so the deck beside it stays untouched. It sits below
-   the box because the words are set on a 1.0 leading — the descenders of
-   "Permanent makeup" hang past it, and a rule through them reads as a strike
-   rather than an underline. */
-.rubric .rubricWord {
+/* The three entrances: a rose rule under each title, already partly drawn —
+   the studio's colour should be visible without an interaction — that
+   completes on hover or focus. Three widths (set per entry in the markup) are
+   what makes the group read as three different doors rather than one list. */
+.entrance {
   position: relative;
   display: inline-block;
 }
 
-.rubric .rubricWord::after {
+.entrance::after {
   content: "";
   position: absolute;
-  inset-inline: 0;
-  bottom: -0.16em;
-  height: 2px;
+  left: 0;
+  right: 0;
+  bottom: -0.18em;
+  height: 3px;
   background: var(--mila-rose-deep);
-  transform: scaleX(0);
+  transform: scaleX(0.4);
   transform-origin: left center;
   transition: transform 320ms cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 
-.rubric:hover .rubricWord::after,
-.rubric:focus-visible .rubricWord::after {
+/* Three different starting widths so the group reads as three doors of
+   different sizes, not one repeated device. */
+.entranceWide::after {
+  transform: scaleX(0.55);
+}
+
+.entranceMid::after {
+  transform: scaleX(0.4);
+}
+
+.entranceNarrow::after {
+  transform: scaleX(0.28);
+}
+
+.entranceLink:hover .entrance::after,
+.entranceLink:focus-visible .entrance::after {
   transform: scaleX(1);
 }
 
-/* The closing contact link wears its rule permanently — it is the last thing on
-   the page, so it should not depend on a hover the visitor may never do. Its
-   hover and focus feedback lives on the anchor itself, since this rule sits on
-   a span that can never take focus. */
+/* The closing band's contact link wears its rule permanently — it is the last
+   thing on the page, so it should not depend on a hover the visitor may never
+   make. */
 .drawn {
-  box-shadow: inset 0 -2px 0 0 var(--mila-rose);
+  box-shadow: inset 0 -2px 0 0 var(--mila-rose-light);
+}
+
+/* The one filled surface on the page: a thin-bordered rectangle that fills
+   with rose on hover/focus instead of a pill or a slab. */
+.primaryCta {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.primaryCta:hover,
+.primaryCta:focus-visible {
+  background: var(--mila-rose-deep);
+  border-color: var(--mila-rose-deep);
+  color: var(--mila-on-carbon);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .inkline::after,
-  .rubric .rubricWord::after {
+  .entrance::after,
+  .primaryCta {
     transition: none;
   }
 }

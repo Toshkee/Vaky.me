@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Dental Clinic Kovačević — porodična stomatološka ordinacija, Igalo & Zelenika
  * (Herceg Novi).
  *
@@ -20,48 +20,30 @@ export const clinic = {
   name: "Dental Clinic Kovačević",
   /** Rendered only as generalised areas — never as a street address. */
   areas: ["Igalo", "Zelenika"],
-  municipality: "Herceg Novi",
+  /** A non-breaking space sits between the two words of the town's name below. */
+  municipality: "Herceg Novi",
   instagram: "dental_clinic_kovacevic",
   instagramUrl: "https://www.instagram.com/dental_clinic_kovacevic/",
 } as const;
 
-/**
- * The page's numbering system. These three numerals are a real index: the
- * expertise section prints them, and the team register cites them back, so a
- * reader can trace a doctor to an area and an area to a doctor. Changing an
- * `id` here renames it in both places at once.
- */
-export type FieldId = "01" | "02" | "03";
-
 export interface Field {
-  id: FieldId;
   title: string;
   body: string;
-  /** Who the public record attributes this area to, one entry per line in the
-      row's right-hand column — a single joined string broke mid-surname there. */
-  attribution: string[];
 }
 
+/** Three plain-language areas of work — no numbering, no per-doctor attribution. */
 export const fields: Field[] = [
   {
-    id: "01",
     title: "Stomatologija",
     body: "Opšta briga o zubima — pregled, dogovor o planu terapije i redovno praćenje. Odavde počinje većina posjeta ordinaciji.",
-    attribution: ["Sanja Kovačević-Ožegović", "Krsto Kovačević"],
   },
   {
-    id: "02",
     title: "Oralna hirurgija",
     body: "Hirurški zahvati u usnoj duplji. Šta je potrebno i kako izgleda postupak dogovara se prije same intervencije.",
-    attribution: ["Nikola Kovačević"],
   },
   {
-    id: "03",
     title: "Estetski i protetski rad",
     body: "Nadoknade, folije i krunice. Izgled i materijal biraju se zajedno sa pacijentom, prije početka rada.",
-    /* The directory lists fields per doctor but not this area per doctor, so
-       it is credited to the practice rather than invented for a person. */
-    attribution: ["Ordinacija"],
   },
 ];
 
@@ -81,14 +63,12 @@ export interface Doctor {
   name: string;
   /** Verbatim from the public directory listing — no titles were added. */
   field: string;
-  /** Index numerals from `fields` this doctor's listed field covers. */
-  covers: FieldId[];
 }
 
 export const team: Doctor[] = [
-  { name: "Nikola Kovačević", field: "oralna hirurgija", covers: ["02"] },
-  { name: "Sanja Kovačević-Ožegović", field: "stomatologija", covers: ["01"] },
-  { name: "Krsto Kovačević", field: "stomatologija", covers: ["01"] },
+  { name: "Nikola Kovačević", field: "oralna hirurgija" },
+  { name: "Sanja Kovačević-Ožegović", field: "stomatologija" },
+  { name: "Krsto Kovačević", field: "stomatologija" },
 ];
 
 export interface Photo {

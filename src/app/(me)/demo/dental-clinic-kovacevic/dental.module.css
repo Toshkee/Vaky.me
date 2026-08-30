@@ -1,114 +1,119 @@
-/* Palette and motion for the Dental Clinic Kovačević concept, scoped to this route.
+/* Palette and layout for the Dental Clinic Kovačević concept, scoped to this route.
 
-   The page is built as a printed clinical report: a mineral-white sheet, deep
-   navy ink, steel for the second voice, and a single teal that is only ever
-   allowed on rules, index numerals and links. No fills, no radii above 2px —
-   the ruled margin down the left of every section does the work a card would
-   otherwise do.
+   The page reads as a calm family clinic rather than a clinical report: a warm
+   porcelain ground, deep navy ink, a soft muted teal used sparingly as accent,
+   and a warm linen/sand field for alternating section grounds. Photos and
+   buttons share one 6px softness; nothing on the page carries a shadow.
 
    Contrast, measured against the ground each colour actually sits on:
-     navy on mineral 14.05:1 · navy on paper 12.93:1
-     steel on mineral 7.35:1 · steel on paper 6.76:1
-     teal on mineral 5.49:1 · teal on paper 5.05:1
-     mineral on navy 14.05:1 · teal-bright on navy 7.26:1 · navy-muted on navy 8.81:1
-   `line` and `line-strong` are hairlines only and never carry text.
-
-   Motion is one gesture: the diagnostic trace under the headline draws itself
-   once and stops. It is above the fold on every viewport, so it runs on load
-   rather than on a view() timeline — a scroll timeline for an element that is
-   already past its entry range would simply never play. The static default is
-   the finished line, so a reduced-motion visitor gets the correct page. */
+     navy on porcelain 13.94:1 · navy on sand 12.04:1
+     navy-soft on porcelain 6.51:1 · navy-soft on sand 5.62:1
+     teal on porcelain 6.12:1 · teal on sand 5.28:1
+     porcelain on navy 13.94:1 · teal-bright on navy 7.71:1 · navy-muted on navy 9.50:1
+   `line` is a hairline only and never carries text. */
 
 .page {
-  --dent-mineral: #f2f5f6;
-  --dent-paper: #e7ecee;
-  --dent-navy: #12263a;
-  --dent-steel: #425260;
-  --dent-teal: #0f6e72;
-  --dent-teal-bright: #6fbfc2;
-  --dent-navy-muted: #b7c6d2;
-  --dent-line: #cbd5da;
-  --dent-line-strong: #9fb0ba;
+  --dent-porcelain: #faf6ef;
+  --dent-sand: #efe5d5;
+  --dent-navy: #16283a;
+  --dent-navy-soft: #4b5b68;
+  --dent-teal: #2f665f;
+  --dent-teal-bright: #8fc4bb;
+  --dent-navy-muted: #c3d0d3;
+  --dent-line: #ddd2ba;
 }
 
-/* The finished line is an undashed stroke — the dash pattern only exists while
-   something is animating it, so a browser that never runs the animation paints
-   the plain curve and cannot be caught part-drawn. `pathLength="1"` on the path
-   normalises its length, so the dash is exact without measuring the curve. */
-.trace path {
-  stroke-dasharray: none;
-  stroke-dashoffset: 0;
+/* Hero: a single column in DOM order (heading, photo, body) works unassisted
+   on phones and tablets — the grid below only kicks in once there is room for
+   two columns, reflowing the same three pieces into heading+body beside a
+   photo that spans both their rows. */
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .trace path {
-    stroke-dasharray: 1;
-    animation: dent-trace 2.3s cubic-bezier(0.22, 0.61, 0.36, 1) 0.25s 1 both;
+@media (min-width: 1024px) {
+  .hero {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    grid-template-areas:
+      "heading photo"
+      "body photo";
+    column-gap: 4rem;
+    row-gap: 1.25rem;
+    align-items: start;
+  }
+
+  .heroHeading {
+    grid-area: heading;
+  }
+
+  .heroPhoto {
+    grid-area: photo;
+  }
+
+  .heroBody {
+    grid-area: body;
   }
 }
 
-@keyframes dent-trace {
+/* The hero photograph settles in once, on load — not on a scroll timeline,
+   since it sits above the fold on every viewport and a scroll-triggered
+   animation for an element already past its entry range would never play.
+   The static default is the finished state, so a reduced-motion visitor gets
+   the correct page with no animation at all. */
+@media (prefers-reduced-motion: no-preference) {
+  .heroSettle {
+    animation: dent-settle 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+}
+
+@keyframes dent-settle {
   from {
-    stroke-dashoffset: 1;
+    opacity: 0;
+    transform: translateY(12px);
   }
   to {
-    stroke-dashoffset: 0;
+    opacity: 1;
+    transform: none;
   }
 }
 
-/* The three first-step entries hang off one rule like marks on a scale, so each
-   carries a short tick at its own start rather than a bullet or a numeral —
-   the numerals on this page belong to the areas index and mean something else. */
-.tick::before {
+/* The "Prva posjeta" flow: three steps read top to bottom as one path rather
+   than a numbered list. Each item gets a small dot at its own start; a thin
+   line runs from one dot to the next so the sequence reads as continuous. */
+.flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+.flowItem {
+  position: relative;
+  padding-left: 1.75rem;
+}
+
+.flowItem::before {
   content: "";
   position: absolute;
-  top: -1px;
+  top: 0.4rem;
   left: 0;
-  width: 1px;
-  height: 0.65rem;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
   background: var(--dent-teal);
 }
 
-/* Contents bar: a 2×2 block of anchors on phones, one row of four from md up.
-   The dividing hairlines and the flush-left entries both have to move with the
-   wrap, which is one rule set here rather than four nth-child utilities inlined
-   per item. The first entry of each row loses its indent so it sits on the same
-   left edge as the clinic name in the row above — the two rows of the masthead
-   read as one aligned block. */
-.index li {
-  border-left: 1px solid var(--dent-line);
-}
-
-.index li:nth-child(2n + 1) {
-  border-left: 0;
-}
-
-.index li:nth-child(2n + 1) > a {
-  padding-left: 0;
-}
-
-.index li:nth-child(-n + 2) {
-  border-bottom: 1px solid var(--dent-line);
-}
-
-@media (min-width: 768px) {
-  .index li:nth-child(2n + 1) {
-    border-left: 1px solid var(--dent-line);
-  }
-
-  .index li:nth-child(2n + 1) > a {
-    padding-left: 1rem;
-  }
-
-  .index li:first-child {
-    border-left: 0;
-  }
-
-  .index li:first-child > a {
-    padding-left: 0;
-  }
-
-  .index li:nth-child(-n + 2) {
-    border-bottom: 0;
-  }
+.flowItem:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 1.15rem;
+  left: 0.29rem;
+  bottom: -2.25rem;
+  width: 1px;
+  background: var(--dent-line);
 }

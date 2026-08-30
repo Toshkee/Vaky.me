@@ -4,6 +4,7 @@ import { Fraunces, Work_Sans } from "next/font/google";
 import { DemoPhoto } from "@/components/demo/DemoPhoto";
 import { VibeLabBar } from "@/components/demo/VibeLabBar";
 import { InstagramIcon } from "@/components/demo/ContactIcons";
+import { FloatingDoor } from "./FloatingDoor";
 import {
   doorway,
   house,
@@ -12,6 +13,7 @@ import {
   roomPhotos,
   rooms,
   salonServices,
+  sectionNav,
 } from "./data";
 import styles from "./andrea.module.css";
 
@@ -32,40 +34,55 @@ const sans = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Andrea Beauty House — salon, braids i kids prostor, Podgorica | Dizajn koncept",
+  title: "Andrea Beauty House — salon, pletenice i kids prostor, Podgorica | Dizajn koncept",
   description:
-    "Dizajn koncept za Andrea Beauty House u New Cityju: salon za odrasle, pletenice i odvojen prostor za najmlađe — tri sobe pod istim krovom.",
+    "Dizajn koncept za Andrea Beauty House u New Cityju: salon za odrasle, pletenice i odvojen prostor za najmlađe — jedna kuća, tri vrata.",
   robots: { index: false, follow: false },
   openGraph: { images: ["/og-demo-andrea-beauty-house.png"] },
 };
 
 const serif = "[font-family:var(--font-abh-display),Georgia,serif]";
-const plate = "text-[0.68rem] font-semibold uppercase tracking-[0.22em]";
 const focus =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--abh-berry)]";
 const focusLight =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--abh-white)]";
 
-/* Every button on this page is a door: the top corners arch, the bottom sits
-   flat on the floor. It is the one geometry the concept never breaks. */
-const door = "inline-flex min-h-12 items-center justify-center gap-2.5 rounded-t-[1.4rem] rounded-b-[0.15rem] px-6 text-sm font-semibold transition-colors sm:px-7";
-const primaryCta = `${door} bg-[var(--abh-berry)] text-[var(--abh-white)] hover:bg-[var(--abh-berry-deep)] ${focus}`;
-const secondaryCta = `${door} border border-[var(--abh-ink)] hover:bg-[var(--abh-ink)] hover:text-[var(--abh-white)] ${focus}`;
-const roomLink = `${plate} inline-flex min-h-11 items-center gap-2 text-[var(--abh-berry)] underline-offset-[6px] hover:underline ${focus}`;
+/* The one geometry the page repeats: a photo's own box gets a 50% radius on
+   its top corners and a near-flat bottom. Because the radius is a percentage
+   it fits itself to whatever box it's given — tall, wide, square — so every
+   photo, doorway and detail on the page is cut from the same curve without
+   picking a different pixel value per breakpoint. */
+const archMat = "rounded-t-[50%] rounded-b-[10px] bg-[var(--abh-blush)] p-2";
+const archPhoto = "block h-full w-full rounded-t-[50%] rounded-b-[6px] object-cover";
 
-/* The braids room is the only part of the house with no photograph anywhere
-   public, so it is drawn rather than shot: three strands crossing, on a
-   104-unit repeat. It stands upright inside the room's portal and lies down
-   as a band under the section that explains the room — one mark, two
-   orientations, nothing else on the page borrows it. */
+const doorCta = `${styles.knock} inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full bg-[var(--abh-berry)] px-6 text-sm font-semibold text-[var(--abh-white)] transition-colors hover:bg-[var(--abh-berry-deep)] sm:px-7 ${focus}`;
+const ghostCta = `inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[var(--abh-ink)] px-6 text-sm font-semibold transition-colors hover:bg-[var(--abh-ink)] hover:text-[var(--abh-white)] sm:px-7 ${focus}`;
+
+/* The braids room has no public photograph anywhere, so its door is drawn
+   rather than shot: three strands actually weaving over and under each
+   other on a 104-unit repeat — not two crossing wires, which reads as a
+   double helix. Upright inside the door, lying flat as the big panel in the
+   room's own section — one mark, two orientations, and nothing else on the
+   page borrows it. */
 const BRAID_STEP = 104;
+const BRAID_MID = 48;
+const BRAID_AMP = 23;
+const BRAID_SAMPLE = 4;
+const BRAID_PHASES = [0, (2 * Math.PI) / 3, (4 * Math.PI) / 3];
 
-function strand(repeats: number, near: number, far: number) {
-  let d = `M0 ${near}`;
-  for (let i = 0; i < repeats; i += 1) {
-    const x = i * BRAID_STEP;
-    d += `C${x + 18} ${near} ${x + 34} ${far} ${x + 52} ${far}`;
-    d += `C${x + 70} ${far} ${x + 86} ${near} ${x + BRAID_STEP} ${near}`;
+function braidY(x: number, phase: number) {
+  return BRAID_MID + BRAID_AMP * Math.sin((2 * Math.PI * x) / BRAID_STEP + phase);
+}
+
+/* One strand's path over a single third-of-a-period stretch, sampled finely
+   enough that the thick stroke reads as a smooth cord rather than facets. */
+function braidSegment(phase: number, from: number, to: number) {
+  let d = "";
+  for (let x = from; x <= to; x += BRAID_SAMPLE) {
+    d += `${x === from ? "M" : "L"}${x} ${braidY(x, phase).toFixed(1)} `;
+  }
+  if ((to - from) % BRAID_SAMPLE !== 0) {
+    d += `L${to} ${braidY(to, phase).toFixed(1)}`;
   }
   return d;
 }
@@ -80,19 +97,24 @@ function Braid({
   className?: string;
 }) {
   const length = repeats * BRAID_STEP;
-  let centre = "M0 48";
-  for (let i = 0; i < repeats; i += 1) {
-    const x = i * BRAID_STEP;
-    centre += `C${x + 13} 63 ${x + 39} 63 ${x + 52} 48C${x + 65} 33 ${x + 91} 33 ${x + BRAID_STEP} 48`;
-  }
+  const third = BRAID_STEP / 3;
+  const chunkCount = Math.ceil(length / third);
+
+  /* A real three-strand plait alternates which strand crosses in front every
+     third of a turn. Splitting the path into third-period chunks and, in
+     each one, drawing the other two strands first and the "front" strand
+     last reproduces that over/under weave with plain z-order — no colour
+     tricks needed. */
+  const chunks = Array.from({ length: chunkCount }, (_, n) => ({
+    from: n * third,
+    to: Math.min((n + 1) * third, length),
+    front: n % 3,
+  }));
 
   return (
     <svg
       viewBox={vertical ? `0 0 96 ${length}` : `0 0 ${length} 96`}
-      /* Laid down, the band is drawn longer than any container and cropped by
-         it, so one wave is the same size on a phone and on a desktop instead
-         of squashing to fit. */
-      preserveAspectRatio={vertical ? undefined : "xMinYMid slice"}
+      preserveAspectRatio={vertical ? "xMidYMin slice" : "xMidYMid meet"}
       fill="none"
       aria-hidden="true"
       className={className}
@@ -100,29 +122,38 @@ function Braid({
       <g
         transform={vertical ? "rotate(90) translate(0 -96)" : undefined}
         stroke="currentColor"
-        strokeWidth="1.5"
-        vectorEffect="non-scaling-stroke"
+        strokeWidth="9"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       >
-        <path d={strand(repeats, 24, 72)} vectorEffect="non-scaling-stroke" />
-        <path d={strand(repeats, 72, 24)} vectorEffect="non-scaling-stroke" />
-        <path d={centre} vectorEffect="non-scaling-stroke" />
+        {chunks.map((chunk, i) => (
+          <g key={i}>
+            {BRAID_PHASES.map(
+              (phase, k) =>
+                k !== chunk.front && (
+                  <path key={k} d={braidSegment(phase, chunk.from, chunk.to)} />
+                ),
+            )}
+            <path d={braidSegment(BRAID_PHASES[chunk.front], chunk.from, chunk.to)} />
+          </g>
+        ))}
       </g>
     </svg>
   );
 }
 
-/* Widths, heights and drops per portal, keyed by room id rather than array
-   position: a hallway of doors is only convincing if the doors are not the
-   same size, and an index-matched array goes quietly wrong the day a room is
-   added or reordered. */
-const PORTAL: Record<
-  (typeof rooms)[number]["id"],
-  { frame: string; drop: string; crop: string }
-> = {
-  salon: { frame: "h-[17rem] sm:h-[21rem] lg:h-[25rem]", drop: "", crop: "object-[64%_52%]" },
-  braids: { frame: "h-[19rem] sm:h-[24rem] lg:h-[28rem]", drop: "md:mt-14", crop: "" },
-  kids: { frame: "h-[16rem] sm:h-[19rem] lg:h-[21rem]", drop: "md:mt-6", crop: "object-[50%_58%]" },
+/* Crop points curated per room photo so the arch always frames the part of
+   the room worth seeing, keyed by id rather than array position. */
+const ROOM_CROP: Record<(typeof rooms)[number]["id"], string> = {
+  salon: "object-[64%_52%]",
+  braids: "",
+  kids: "object-[50%_58%]",
 };
+
+const roomsById = Object.fromEntries(rooms.map((room) => [room.id, room])) as Record<
+  (typeof rooms)[number]["id"],
+  (typeof rooms)[number]
+>;
 
 export default function AndreaBeautyHousePage() {
   return (
@@ -131,19 +162,26 @@ export default function AndreaBeautyHousePage() {
     >
       <VibeLabBar />
 
-      {/* The header is the building directory: the name on the left, the three
-          rooms as door plates on the right, separated by the thin vertical
-          jambs that run through the whole page. On a phone the directory drops
-          to its own strip under the name — three doors always visible, never
-          folded into a hamburger. */}
       <header className="border-b border-[var(--abh-line)]">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 px-5 pt-3 sm:px-8 sm:py-4">
-          <a href="#vrh" className={`inline-flex min-h-11 flex-col justify-center ${focus}`}>
-            <span className={`${serif} text-lg leading-none tracking-tight sm:text-xl`}>Andrea</span>
-            <span className={`${plate} mt-1 text-[0.6rem] text-[var(--abh-muted)]`}>
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
+          <a href="#vrh" className={`inline-flex min-h-11 items-baseline gap-2 ${focus}`}>
+            <span className={`${serif} text-lg leading-none sm:text-xl`}>Andrea</span>
+            <span className="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-[var(--abh-muted)]">
               Beauty House
             </span>
           </a>
+
+          <nav aria-label="Dijelovi kuće" className="hidden items-center gap-6 md:flex">
+            {sectionNav.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`inline-flex min-h-11 items-center text-sm text-[var(--abh-muted)] transition-colors hover:text-[var(--abh-berry)] ${focus}`}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
 
           <a
             href={house.instagramUrl}
@@ -152,80 +190,51 @@ export default function AndreaBeautyHousePage() {
             data-umami-event="demo_contact"
             data-umami-event-demo="andrea-beauty-house"
             data-umami-event-action="instagram-header"
-            className={`hidden min-h-11 items-center rounded-t-[1.1rem] rounded-b-[0.15rem] border border-[var(--abh-berry)] px-5 text-xs font-semibold text-[var(--abh-berry)] transition-colors hover:bg-[var(--abh-berry)] hover:text-[var(--abh-white)] sm:inline-flex md:order-1 md:ml-8 ${focus}`}
+            className={`inline-flex min-h-11 items-center gap-2 rounded-full border border-[var(--abh-berry)] px-4 text-xs font-semibold text-[var(--abh-berry)] transition-colors hover:bg-[var(--abh-berry)] hover:text-[var(--abh-white)] sm:px-5 sm:text-sm ${focus}`}
           >
-            Piši na Instagramu
+            <InstagramIcon className="h-4 w-4" />
+            Instagram
           </a>
-
-          <nav
-            aria-label="Sobe u kući"
-            className="order-last -mx-5 mt-3 flex w-[calc(100%+2.5rem)] border-t border-[var(--abh-line)] sm:-mx-8 sm:w-[calc(100%+4rem)] md:order-none md:mx-0 md:ml-auto md:mt-0 md:w-auto md:border-t-0"
-          >
-            {rooms.map((room, index) => (
-              <a
-                key={room.id}
-                href={`#${room.id}`}
-                className={`flex min-h-11 flex-1 items-center justify-center gap-2 px-3 transition-colors hover:text-[var(--abh-berry)] md:flex-none md:px-5 ${index > 0 ? "border-l border-[var(--abh-line)]" : ""} ${focus}`}
-              >
-                <span className={`${serif} text-[0.72rem] text-[var(--abh-gold-ink)]`}>
-                  {room.plate}
-                </span>
-                <span className={`${plate} text-[0.66rem]`}>{room.name}</span>
-              </a>
-            ))}
-          </nav>
         </div>
       </header>
 
       <main id="vrh">
-        {/* The doorway. One photograph — the house's own pink booth, with its
-            name written across it — hung inside an arched opening, with a
-            second arch drawn around it like the casing of a real door. The
-            casing's right jamb passes behind the headline, so the words sit
-            in the opening rather than beside it. */}
-        <section className="mx-auto max-w-6xl px-5 pb-16 pt-10 sm:px-8 sm:pb-20 sm:pt-14 md:grid md:grid-cols-[18rem_1fr] md:items-center md:gap-10 lg:grid-cols-[25rem_1fr] lg:gap-16 lg:pb-24 lg:pt-16">
-          <div className="relative order-1 mx-auto mb-14 max-w-[21rem] sm:max-w-[24rem] md:mx-0 md:mb-0 md:max-w-none">
+        {/* Everything a visitor needs to decide whether to walk in: the
+            house's own pink booth, the headline, one way to say hello. On a
+            phone these three things fill the first screen on their own —
+            nothing else competes for it. */}
+        <section className="mx-auto max-w-6xl px-5 pb-14 pt-9 sm:px-8 sm:pb-20 sm:pt-14 md:grid md:grid-cols-[21rem_1fr] md:items-center md:gap-12 lg:grid-cols-[26rem_1fr] lg:gap-20 lg:pb-28 lg:pt-16">
+          <div className="relative order-1 mx-auto mb-9 max-w-[17.5rem] sm:mb-12 sm:max-w-[20rem] md:mx-0 md:mb-0 md:max-w-none">
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute -top-6 bottom-10 left-8 hidden rounded-t-[12rem] rounded-b-[0.2rem] border border-[var(--abh-line-strong)] lg:block lg:-right-16"
+              className="pointer-events-none absolute -inset-x-3 -top-3 bottom-6 hidden rounded-t-[50%] rounded-b-[10px] border border-[var(--abh-line-strong)] lg:block"
             />
-            <figure className="relative overflow-hidden rounded-t-[12rem] rounded-b-[0.2rem] border border-[var(--abh-line-strong)] bg-[var(--abh-blush)] p-2.5">
+            <figure className={`relative ${archMat}`}>
               <DemoPhoto
                 src={doorway.src}
                 alt={doorway.alt}
                 width={doorway.width}
                 height={doorway.height}
                 priority
-                sizes="(min-width: 1024px) 25rem, (min-width: 768px) 18rem, (min-width: 640px) 24rem, 88vw"
-                className="block h-[17.5rem] w-full rounded-t-[11rem] rounded-b-[0.1rem] object-cover object-[54%_38%] sm:h-[24rem] md:h-[25rem] lg:h-[32rem]"
+                sizes="(min-width: 1024px) 26rem, (min-width: 768px) 21rem, (min-width: 640px) 20rem, 75vw"
+                className={`${archPhoto} h-[16rem] object-[62%_46%] sm:h-[19rem] sm:object-[54%_38%] md:h-[22rem] lg:h-[28rem]`}
               />
             </figure>
-            {/* The plate a building puts beside its front door: what is inside. */}
-            <p className="absolute -bottom-6 left-0 flex items-center gap-3 border border-[var(--abh-line-strong)] bg-[var(--abh-white)] px-4 py-3 md:-left-4">
-              <span aria-hidden="true" className="h-px w-6 bg-[var(--abh-gold)]" />
-              <span className={`${plate} text-[0.6rem] text-[var(--abh-muted)]`}>
-                Salon · Braids · Kids
-              </span>
-            </p>
           </div>
 
-          <div className="relative z-10 order-2 lg:-ml-10">
-            <p className={`${plate} text-[var(--abh-berry)]`}>
-              Beauty house · {house.area}
+          <div className="relative z-10 order-2 lg:-ml-6">
+            <p className="text-sm text-[var(--abh-muted)]">
+              Beauty house u New Cityju, Podgorica.
             </p>
             <h1
-              className={`${serif} mt-5 text-[clamp(2.4rem,7vw,2.9rem)] leading-[1.02] tracking-[-0.02em] lg:text-[clamp(2.8rem,4.4vw,4.3rem)]`}
+              className={`${serif} mt-4 [text-wrap:balance] text-[clamp(2.1rem,7.4vw,2.7rem)] leading-[1.05] tracking-[-0.01em] lg:text-[clamp(2.6rem,4.2vw,4rem)]`}
             >
-              Jedna kuća.
-              <br />
-              <em className="text-[var(--abh-berry)]">Mnogo načina</em>
-              <br />
-              da budeš svoja.
+              Jedna kuća. <em className="text-[var(--abh-berry)]">Mnogo načina</em> da budeš svoja.
             </h1>
-            <p className="mt-7 max-w-md text-base leading-relaxed text-[var(--abh-muted)] sm:text-lg">
-              Beauty usluge za odrasle i poseban svijet za najmlađe u New Cityju.
+            <p className="mt-5 max-w-md [text-wrap:pretty] text-base leading-relaxed text-[var(--abh-muted)] sm:text-lg">
+              Salon za odrasle, pletenice i poseban svijet za najmlađe — sve pod istim krovom.
             </p>
-            <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
               <a
                 href={house.instagramUrl}
                 target="_blank"
@@ -233,331 +242,278 @@ export default function AndreaBeautyHousePage() {
                 data-umami-event="demo_contact"
                 data-umami-event-demo="andrea-beauty-house"
                 data-umami-event-action="instagram-hero"
-                className={`${primaryCta} ${styles.ring}`}
+                className={doorCta}
               >
                 <InstagramIcon className="h-4 w-4" />
                 Piši na Instagramu
               </a>
-              <a href="#sobe" className={secondaryCta}>
-                Istraži sobe
+              <a href="#sobe" className={ghostCta}>
+                Pogledaj sobe
               </a>
             </div>
+            {/* Marks the end of the hero's own call to action. The floating
+                door button below stays off the page until this point has
+                scrolled out of view, so the two never compete. */}
+            <div id="hero-cta-sentinel" aria-hidden="true" className="h-px" />
           </div>
         </section>
 
-        {/* Three doors, three widths, three heights. The house really does run
-            a separate profile for each room, so this is the page's spine and
-            not a card grid: the portals sit at different heights the way
-            openings do in a wall that was built room by room. */}
+        {/* Three doors, one hallway. Each opens straight onto the room's own
+            Instagram — that really is how the house runs itself — so this is
+            a set of doors to walk through, not a card grid to read. */}
         <section id="sobe" className="scroll-mt-6">
           <div className="mx-auto max-w-6xl px-5 sm:px-8">
-            <div className={`${styles.threshold} border-t border-[var(--abh-line)] pt-12 sm:pt-16`}>
-              <h2
-                className={`${serif} max-w-xl text-[clamp(1.9rem,5vw,3rem)] leading-[1.08] tracking-tight`}
-              >
-                Tri sobe pod istim krovom.
+            <div className="max-w-lg border-t border-[var(--abh-line)] pt-12 sm:pt-16">
+              <h2 className={`${serif} [text-wrap:balance] text-[clamp(1.8rem,5vw,2.6rem)] leading-[1.1] tracking-tight`}>
+                Tri sobe, jedan ulaz.
               </h2>
-              <p className="mt-5 max-w-md leading-relaxed text-[var(--abh-muted)]">
-                Svaka soba ima svoju publiku i svoj Instagram profil. Izaberi vrata kroz koja
-                ulaziš.
+              <p className="mt-4 [text-wrap:pretty] leading-relaxed text-[var(--abh-muted)]">
+                Svaka soba ima svoju publiku i svoj profil. Pokucaj na vrata koja te zovu.
               </p>
             </div>
 
-            <ul className="mt-12 grid gap-12 sm:mt-16 md:grid-cols-[1.1fr_0.82fr_1.05fr] md:items-start md:gap-6 lg:gap-10">
-              {rooms.map((room) => {
-                const shape = PORTAL[room.id];
-                const photo = room.id === "salon" ? roomPhotos.salon : room.id === "kids" ? roomPhotos.kids : null;
-
-                return (
-                  <li key={room.id} className={shape.drop}>
-                    {/* Same construction as the doorway: a blush mat, then the
-                        opening cut into it. The mat is what makes the frame
-                        line legible — and the frame line is the thing that
-                        opens as the portal arrives. */}
-                    <div
-                      className={`${styles.frame} relative rounded-t-[9rem] rounded-b-[0.25rem] bg-[var(--abh-blush)] p-2 ${shape.frame}`}
-                    >
-                      <div
-                        className={`h-full overflow-hidden rounded-t-[8.5rem] rounded-b-[0.15rem] ${photo ? "" : "bg-[var(--abh-berry)]"}`}
-                      >
-                        {photo ? (
-                          <DemoPhoto
-                            src={photo.src}
-                            alt={photo.alt}
-                            width={photo.width}
-                            height={photo.height}
-                            sizes="(min-width: 768px) 32vw, 88vw"
-                            className={`block h-full w-full object-cover ${shape.crop}`}
-                          />
-                        ) : (
-                          /* The arch is at its tallest on the centre line, so
-                             the drawing hangs there and the words sit on the
-                             floor of the opening — nothing runs into the curve. */
-                          <div className="flex h-full flex-col items-center justify-between gap-5 px-5 pb-7 pt-9 text-center text-[var(--abh-white)]">
+            <ul className="mt-10 grid gap-10 sm:mt-14 sm:grid-cols-3 sm:gap-6 lg:gap-9">
+              {rooms.map((room) => (
+                <li key={room.id}>
+                  <a
+                    href={room.instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-umami-event="demo_contact"
+                    data-umami-event-demo="andrea-beauty-house"
+                    data-umami-event-action={room.umamiAction}
+                    className={`group block ${focus}`}
+                  >
+                    <div className={archMat}>
+                      <div className="h-[15rem] overflow-hidden rounded-t-[50%] rounded-b-[6px] sm:h-[17rem]">
+                        {room.id === "braids" ? (
+                          <div className="flex h-full items-center justify-center bg-[var(--abh-berry)]">
                             <Braid
                               repeats={2}
                               vertical
-                              className="h-24 w-10 shrink-0 text-[var(--abh-gold)] sm:h-32 sm:w-12"
+                              className="h-[85%] w-10 text-[var(--abh-on-berry)] sm:w-12"
                             />
-                            <div>
-                              <p
-                                className={`${serif} text-[clamp(1.7rem,4vw,2.4rem)] italic leading-[1]`}
-                              >
-                                Pletenice
-                              </p>
-                              <p className={`${plate} mt-3 text-[0.58rem] text-[var(--abh-on-berry)]`}>
-                                i afro pletenice
-                              </p>
-                            </div>
                           </div>
+                        ) : (
+                          <DemoPhoto
+                            src={roomPhotos[room.id].src}
+                            alt={roomPhotos[room.id].alt}
+                            width={roomPhotos[room.id].width}
+                            height={roomPhotos[room.id].height}
+                            sizes="(min-width: 640px) 30vw, 80vw"
+                            className={`h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03] ${ROOM_CROP[room.id]}`}
+                          />
                         )}
                       </div>
                     </div>
 
-                    <div className="mt-5 flex items-baseline gap-3">
-                      <span className={`${serif} text-sm text-[var(--abh-gold-ink)]`}>
-                        {room.plate}
-                      </span>
-                      <h3 className={`${serif} text-2xl tracking-tight sm:text-3xl`}>{room.name}</h3>
-                    </div>
-                    <p className="mt-3 text-sm leading-relaxed text-[var(--abh-muted)]">
-                      {room.line}
-                    </p>
-                    <a
-                      href={room.cta.href}
-                      {...(room.cta.external
-                        ? {
-                            target: "_blank",
-                            rel: "noopener noreferrer",
-                            "data-umami-event": "demo_contact",
-                            "data-umami-event-demo": "andrea-beauty-house",
-                            "data-umami-event-action": room.cta.umamiAction,
-                          }
-                        : {})}
-                      className={`${roomLink} mt-3`}
-                    >
-                      {room.cta.label}
-                      <span aria-hidden="true">{room.cta.external ? "↗" : "↓"}</span>
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </section>
-
-        {/* The adult half, set on the one dark ground on the page. Six services
-            written as a single running line with gold points between them —
-            the profile lists them as a sentence, so the page keeps them one. */}
-        <section
-          id="salon"
-          className="mt-20 scroll-mt-6 bg-[var(--abh-ink)] text-[var(--abh-white)] sm:mt-28"
-        >
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24 lg:grid lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
-            <div>
-              <p className={`${plate} text-[var(--abh-gold)]`}>Soba I · Salon</p>
-              <h2
-                className={`${serif} mt-5 text-[clamp(1.8rem,4.4vw,2.6rem)] leading-[1.1] tracking-tight`}
-              >
-                Za odrasle, u mirnijem dijelu kuće.
-              </h2>
-              <p className="mt-6 max-w-sm leading-relaxed text-[var(--abh-on-ink)]">
-                Bijeli prostor sa zidom lakova, lučnim ogledalima i roze detaljima — isti onaj koji
-                se vidi kroz izlog iz New Cityja.
-              </p>
-            </div>
-
-            <ul
-              className={`${serif} mt-10 flex flex-wrap items-baseline text-[clamp(1.55rem,4.6vw,3.1rem)] leading-[1.14] lg:mt-0`}
-            >
-              {salonServices.map((service, index) => (
-                <li key={service} className="flex items-baseline">
-                  {service}
-                  {index < salonServices.length - 1 && (
-                    <span
-                      aria-hidden="true"
-                      className="px-3 text-[0.45em] text-[var(--abh-gold)] sm:px-4"
-                    >
-                      ·
+                    <h3 className={`${serif} mt-5 text-2xl tracking-tight sm:text-[1.65rem]`}>
+                      {room.name}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-[var(--abh-muted)]">{room.line}</p>
+                    <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--abh-berry)] group-hover:underline">
+                      @{room.instagram}
+                      <span aria-hidden="true">↗</span>
                     </span>
-                  )}
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
         </section>
 
-        {/* The kids room, and the only place on the page where the colour is
-            allowed to rise. The copy stays deliberately short: the space is
-            real and photographed, everything else — what a visit includes, how
-            long it lasts, who is there — is the owner's to say, not ours. */}
-        <section id="kids" className="scroll-mt-6 bg-[var(--abh-blush)]">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24 lg:grid lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
+        {/* The adult room's services, exactly as the profile states them —
+            one running sentence on a warm field, not a poster of giant words
+            on black. */}
+        <section id="salon" className="mt-20 scroll-mt-6 bg-[var(--abh-blush)] sm:mt-28">
+          <div className="mx-auto max-w-5xl px-5 py-16 sm:px-8 sm:py-24 lg:grid lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14">
             <div>
-              <p className={`${plate} text-[var(--abh-berry)]`}>Soba III · Kids</p>
-              <h2
-                className={`${serif} mt-5 text-[clamp(1.9rem,4.6vw,2.8rem)] leading-[1.08] tracking-tight`}
-              >
-                Svijet napravljen{" "}
-                <em className="text-[var(--abh-berry)]">za najmlađe.</em>
+              <h2 className={`${serif} [text-wrap:balance] text-[clamp(1.8rem,4.4vw,2.4rem)] leading-[1.12] tracking-tight`}>
+                Za odrasle, u mirnijem dijelu kuće.
               </h2>
-              <p className="mt-6 max-w-sm leading-relaxed text-[var(--abh-muted)]">
-                Odvojen dio kuće, sa sopstvenim muralima, foteljama i toaletnim stočićima. Nije
-                umanjena verzija salona — napravljen je za djecu od prvog detalja.
+              <p className="mt-5 max-w-sm [text-wrap:pretty] leading-relaxed text-[var(--abh-muted)]">
+                Bijeli prostor sa zidom lakova, lučnim ogledalima i roze detaljima — isti onaj koji
+                se vidi kroz izlog iz New Cityja.
               </p>
-              <a
-                href="https://www.instagram.com/kids_beautyhouse/"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-umami-event="demo_contact"
-                data-umami-event-demo="andrea-beauty-house"
-                data-umami-event-action="instagram-kids-sekcija"
-                className={`${primaryCta} mt-8`}
-              >
-                <InstagramIcon className="h-4 w-4" />
-                @kids_beautyhouse
-              </a>
-            </div>
-
-            <div className="mt-10 grid gap-4 sm:grid-cols-[1.24fr_0.76fr] sm:gap-5 lg:mt-0">
-              <figure className="self-start border border-[var(--abh-line-strong)] bg-[var(--abh-white)] p-2">
-                <DemoPhoto
-                  src={kidsPhotos[0].src}
-                  alt={kidsPhotos[0].alt}
-                  width={kidsPhotos[0].width}
-                  height={kidsPhotos[0].height}
-                  sizes="(min-width: 1024px) 42vw, (min-width: 640px) 60vw, 88vw"
-                  className="block h-56 w-full object-cover sm:h-[22rem] lg:h-[26rem]"
-                />
-              </figure>
-              <figure className="self-start border border-[var(--abh-line-strong)] bg-[var(--abh-white)] p-2 sm:mt-14">
-                <DemoPhoto
-                  src={kidsPhotos[1].src}
-                  alt={kidsPhotos[1].alt}
-                  width={kidsPhotos[1].width}
-                  height={kidsPhotos[1].height}
-                  sizes="(min-width: 1024px) 22vw, (min-width: 640px) 30vw, 88vw"
-                  className="block h-56 w-full object-cover sm:h-[20rem] lg:h-[23rem]"
-                />
-              </figure>
-            </div>
-          </div>
-        </section>
-
-        {/* Braids has a profile of its own and no public photograph, so this
-            block is typographic on purpose rather than by accident. */}
-        <section id="braids" className="scroll-mt-6">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-            {/* Heading left, the reason right, the mark underneath: the one
-                section on the page that runs horizontally instead of splitting
-                into a text column and a picture column. */}
-            <div className="grid gap-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:gap-16">
-              <div>
-                <p className={`${plate} text-[var(--abh-berry)]`}>Soba II · Braids</p>
-                <h2
-                  className={`${serif} mt-5 text-[clamp(1.9rem,5.4vw,3.2rem)] leading-[1.04] tracking-tight`}
-                >
-                  Pletenice i <em>afro pletenice.</em>
-                </h2>
-              </div>
-              <div className="lg:pb-2">
-                <p className="max-w-md leading-relaxed text-[var(--abh-muted)]">
-                  Zaseban posao i zaseban profil: tamo stoje završene pletenice, i tamo se dogovara
-                  termin.
-                </p>
-                <a
-                  href="https://www.instagram.com/braids_beautyhouse/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-umami-event="demo_contact"
-                  data-umami-event-demo="andrea-beauty-house"
-                  data-umami-event-action="instagram-braids-sekcija"
-                  className={`${primaryCta} mt-7`}
-                >
-                  <InstagramIcon className="h-4 w-4" />
-                  @braids_beautyhouse
-                </a>
-              </div>
-            </div>
-
-            <div className="mt-12 overflow-hidden border-y border-[var(--abh-line)] py-7 sm:mt-16 sm:py-9">
-              <Braid repeats={16} className="h-24 w-full text-[var(--abh-berry)] sm:h-28 lg:h-32" />
-            </div>
-          </div>
-        </section>
-
-        {/* Two frames from inside the house: the macaron stools that stand in
-            the window beside the booth, and the wall of polish behind the
-            manicure desks. Unequal on purpose — a matched pair would flatten
-            them into a gallery widget. */}
-        <section id="enterijer" className="scroll-mt-6">
-          <div className="mx-auto max-w-6xl px-5 pb-20 sm:px-8 sm:pb-28">
-            <div className={`${styles.threshold} border-t border-[var(--abh-line)] pt-12 sm:pt-16`}>
-              <h2
-                className={`${serif} max-w-lg text-[clamp(1.8rem,4.4vw,2.5rem)] leading-[1.1] tracking-tight`}
-              >
-                Kuća se vidi u detaljima.
-              </h2>
-            </div>
-
-            <div className="mt-10 grid gap-6 sm:mt-12 sm:grid-cols-[0.95fr_0.62fr_0.9fr] sm:gap-6 lg:gap-10">
-              <figure
-                className={`${styles.frame} relative self-start rounded-t-[7rem] rounded-b-[0.25rem] bg-[var(--abh-blush)] p-2`}
-              >
-                <div className="overflow-hidden rounded-t-[6.6rem] rounded-b-[0.15rem]">
-                  <DemoPhoto
-                    src={interiorPhotos[0].src}
-                    alt={interiorPhotos[0].alt}
-                    width={interiorPhotos[0].width}
-                    height={interiorPhotos[0].height}
-                    sizes="(min-width: 640px) 32vw, 88vw"
-                    className="block h-72 w-full object-cover sm:h-[26rem] lg:h-[30rem]"
-                  />
-                </div>
-              </figure>
-              <figure
-                className={`${styles.frame} relative self-start rounded-t-[5rem] rounded-b-[0.25rem] bg-[var(--abh-blush)] p-2 sm:mt-16`}
-              >
-                <div className="overflow-hidden rounded-t-[4.6rem] rounded-b-[0.15rem]">
+              <figure className="mt-8 max-w-[5.5rem] sm:max-w-[8rem]">
+                <div className={archMat}>
                   <DemoPhoto
                     src={interiorPhotos[1].src}
                     alt={interiorPhotos[1].alt}
                     width={interiorPhotos[1].width}
                     height={interiorPhotos[1].height}
-                    sizes="(min-width: 640px) 21vw, 88vw"
-                    className="block h-64 w-full object-cover sm:h-[21rem] lg:h-[24rem]"
+                    sizes="(min-width: 640px) 8rem, 5.5rem"
+                    className={`${archPhoto} h-24 sm:h-32`}
                   />
                 </div>
               </figure>
-              <div className="sm:mt-40">
-                <p className="max-w-sm leading-relaxed text-[var(--abh-muted)]">
-                  Roze govornica na ulazu, tabure u obliku makarona uz izlog, zid sa lakovima iza
-                  stolova za manikir — detalji po kojima se kuća pamti.
-                </p>
-                <span aria-hidden="true" className="mt-6 block h-px w-16 bg-[var(--abh-gold)]" />
+            </div>
+
+            <p
+              className={`${serif} mt-10 flex flex-wrap items-baseline gap-x-1 text-[clamp(1.4rem,3.6vw,2.1rem)] italic leading-[1.3] text-[var(--abh-berry-deep)] lg:mt-0`}
+            >
+              {salonServices.map((service, index) => (
+                <span key={service} className="flex items-baseline">
+                  {service}
+                  {index < salonServices.length - 1 && (
+                    <span aria-hidden="true" className="mx-2.5 not-italic text-[0.5em] text-[var(--abh-gold)] sm:mx-3">
+                      ·
+                    </span>
+                  )}
+                </span>
+              ))}
+            </p>
+          </div>
+        </section>
+
+        {/* The kids room, and the one place the colour is allowed to warm up.
+            The copy stays short: the space is real and photographed, and
+            everything else is the owner's to say once she confirms it. */}
+        <section id="kids" className="scroll-mt-6 bg-[var(--abh-kids-field)]">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24 lg:grid lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16">
+            <div>
+              <h2 className={`${serif} [text-wrap:balance] text-[clamp(1.9rem,4.8vw,2.6rem)] leading-[1.1] tracking-tight`}>
+                Svijet napravljen <em className="text-[var(--abh-berry)]">za najmlađe.</em>
+              </h2>
+              <p className="mt-5 max-w-sm [text-wrap:pretty] leading-relaxed text-[var(--abh-muted)]">
+                Odvojen dio kuće, sa sopstvenim muralima, foteljama i toaletnim stočićima. Nije
+                umanjena verzija salona — napravljen je za djecu od prvog detalja.
+              </p>
+              <a
+                href={roomsById.kids.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-umami-event="demo_contact"
+                data-umami-event-demo="andrea-beauty-house"
+                data-umami-event-action="instagram-kids-sekcija"
+                className={`${doorCta} mt-8`}
+              >
+                <InstagramIcon className="h-4 w-4" />
+                @{roomsById.kids.instagram}
+              </a>
+            </div>
+
+            <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-6 lg:mt-0">
+              <div className={`${archMat} self-end`}>
+                <DemoPhoto
+                  src={kidsPhotos[0].src}
+                  alt={kidsPhotos[0].alt}
+                  width={kidsPhotos[0].width}
+                  height={kidsPhotos[0].height}
+                  sizes="(min-width: 1024px) 26vw, (min-width: 640px) 34vw, 42vw"
+                  className={`${archPhoto} h-44 sm:h-64 lg:h-72`}
+                />
+              </div>
+              <div className={`${archMat} mt-8 self-end sm:mt-14`}>
+                <DemoPhoto
+                  src={kidsPhotos[1].src}
+                  alt={kidsPhotos[1].alt}
+                  width={kidsPhotos[1].width}
+                  height={kidsPhotos[1].height}
+                  sizes="(min-width: 1024px) 26vw, (min-width: 640px) 34vw, 42vw"
+                  className={`${archPhoto} h-44 sm:h-64 lg:h-72`}
+                />
               </div>
             </div>
           </div>
         </section>
 
-        {/* The way out is the way in: one address line, one channel. */}
+        {/* Braids has a profile of its own and no public photograph, so this
+            is its own confident moment built from the mark instead: the
+            three-strand pattern, standing tall, filling one big arch. */}
+        <section id="pletenice" className="scroll-mt-6">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24 lg:grid lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16">
+            <div className="order-2 lg:order-1">
+              <h2 className={`${serif} [text-wrap:balance] text-[clamp(1.9rem,5.4vw,2.8rem)] leading-[1.08] tracking-tight`}>
+                Pletenice i <em>afro pletenice.</em>
+              </h2>
+              <p className="mt-5 max-w-sm [text-wrap:pretty] leading-relaxed text-[var(--abh-muted)]">
+                Zaseban posao i zaseban profil: tamo stoje završene pletenice, i tamo se dogovara
+                termin.
+              </p>
+              <a
+                href={roomsById.braids.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-umami-event="demo_contact"
+                data-umami-event-demo="andrea-beauty-house"
+                data-umami-event-action="instagram-braids-sekcija"
+                className={`${doorCta} mt-8`}
+              >
+                <InstagramIcon className="h-4 w-4" />
+                @{roomsById.braids.instagram}
+              </a>
+            </div>
+
+            <div className="order-1 mx-auto mb-10 max-w-[16rem] lg:order-2 lg:mx-0 lg:mb-0 lg:max-w-none">
+              <div className="flex h-[14rem] w-full items-center justify-center rounded-t-[50%] rounded-b-[10px] bg-[var(--abh-berry)] sm:h-[16rem] lg:h-[19rem]">
+                <Braid repeats={6} className="h-16 w-[85%] text-[var(--abh-on-berry)] sm:h-20" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Two frames from inside the house: the booth by the window and the
+            macaron stools that sit beside it. Unequal on purpose. */}
+        <section id="enterijer" className="scroll-mt-6">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+            <div className="max-w-lg border-t border-[var(--abh-line)] pt-12 sm:pt-16">
+              <h2 className={`${serif} [text-wrap:balance] text-[clamp(1.7rem,4.4vw,2.3rem)] leading-[1.14] tracking-tight`}>
+                Kuća se vidi u detaljima.
+              </h2>
+              <p className="mt-4 [text-wrap:pretty] leading-relaxed text-[var(--abh-muted)]">
+                Roze govornica na ulazu i tabure u obliku makarona uz izlog — sitnice po kojima se
+                kuća pamti.
+              </p>
+            </div>
+
+            <div className="mt-10 grid grid-cols-2 gap-5 sm:mt-12 sm:gap-8 lg:grid-cols-[0.62fr_0.38fr] lg:gap-10">
+              <div className={archMat}>
+                <DemoPhoto
+                  src={interiorPhotos[0].src}
+                  alt={interiorPhotos[0].alt}
+                  width={interiorPhotos[0].width}
+                  height={interiorPhotos[0].height}
+                  sizes="(min-width: 1024px) 38vw, 44vw"
+                  className={`${archPhoto} h-56 sm:h-72 lg:h-80`}
+                />
+              </div>
+              <div className={`${archMat} mt-8 sm:mt-12`}>
+                <DemoPhoto
+                  src={doorway.src}
+                  alt="Roze telefonska govornica sa natpisom Andrea Beauty House, kadar sa gornje polovine i vijenca od cvijeća"
+                  width={doorway.width}
+                  height={doorway.height}
+                  sizes="(min-width: 1024px) 24vw, 44vw"
+                  className={`${archPhoto} h-56 object-[50%_15%] sm:h-72 lg:h-80`}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* The way out is the way in: one location, one channel. */}
         <section className="bg-[var(--abh-berry)] text-[var(--abh-white)]">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-16">
+            {/* Marks the start of the closing section. The floating door
+                button steps aside once this scrolls into view, since the
+                section ends on the same Instagram button. */}
+            <div id="closing-sentinel" aria-hidden="true" className="h-px" />
             <div>
-              <h2
-                className={`${serif} text-[clamp(2.1rem,6vw,3.4rem)] leading-[1.02] tracking-tight`}
-              >
+              <h2 className={`${serif} [text-wrap:balance] text-[clamp(2rem,6vw,3.2rem)] leading-[1.05] tracking-tight`}>
                 Vrata su otvorena.
               </h2>
-              <p className="mt-6 max-w-md leading-relaxed text-[var(--abh-on-berry)]">
+              <p className="mt-5 max-w-md [text-wrap:pretty] leading-relaxed text-[var(--abh-on-berry)]">
                 Za termin, dogovor i sve ostalo — poruka na Instagram stiže direktno u kuću. Za
                 pletenice i za najmlađe postoje posebni profili.
               </p>
             </div>
 
             <address className="mt-10 not-italic lg:mt-0">
-              <p className={`${plate} text-[var(--abh-on-berry)]`}>Gdje smo</p>
-              <p className={`${serif} mt-3 text-2xl tracking-tight sm:text-3xl`}>{house.area}</p>
+              <p className="text-sm text-[var(--abh-on-berry)]">
+                Gdje smo
+              </p>
+              <p className={`${serif} mt-2 text-2xl tracking-tight sm:text-3xl`}>{house.area}</p>
               <a
                 href={house.instagramUrl}
                 target="_blank"
@@ -565,7 +521,7 @@ export default function AndreaBeautyHousePage() {
                 data-umami-event="demo_contact"
                 data-umami-event-demo="andrea-beauty-house"
                 data-umami-event-action="instagram-close"
-                className={`${door} ${styles.ring} mt-7 bg-[var(--abh-white)] text-[var(--abh-berry)] hover:bg-[var(--abh-blush)] ${focusLight}`}
+                className={`${styles.knock} mt-7 inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full bg-[var(--abh-white)] px-6 text-sm font-semibold text-[var(--abh-berry)] transition-colors hover:bg-[var(--abh-kids-field)] sm:px-7 ${focusLight}`}
               >
                 <InstagramIcon className="h-4 w-4" />@{house.instagram}
               </a>
@@ -596,28 +552,7 @@ export default function AndreaBeautyHousePage() {
         </div>
       </footer>
 
-      {/* Phones only: the booth itself, shrunk to a button. Arched top, berry
-          ground, and the thin white line the real booth wears as its name
-          plate. It floats centred rather than spanning the screen, so the page
-          underneath is never cut in half by a bar. */}
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-[calc(0.85rem+env(safe-area-inset-bottom))] md:hidden">
-        <a
-          href={house.instagramUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-umami-event="demo_contact"
-          data-umami-event-demo="andrea-beauty-house"
-          data-umami-event-action="instagram-sticky"
-          className={`pointer-events-auto relative inline-flex min-h-14 items-center gap-2.5 rounded-t-[1.35rem] rounded-b-[0.25rem] bg-[var(--abh-berry)] px-6 pt-2 text-sm font-semibold text-[var(--abh-white)] shadow-[0_6px_22px_rgba(27,20,24,0.22)] ${focusLight}`}
-        >
-          <span
-            aria-hidden="true"
-            className="absolute inset-x-4 top-2.5 h-px bg-[color-mix(in_srgb,var(--abh-white)_45%,transparent)]"
-          />
-          <InstagramIcon className="h-5 w-5" />
-          Piši nam
-        </a>
-      </div>
+      <FloatingDoor href={house.instagramUrl} label="Piši nam" />
     </div>
   );
 }
