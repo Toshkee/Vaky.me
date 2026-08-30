@@ -40,7 +40,11 @@ export function DemoPhoto({
       .join(", ");
 
   return (
-    <picture>
+    // `display: block` — a <picture> defaults to inline like its <img>, so
+    // without this every consumer keeps a descender-tall gap under the frame
+    // (visible whenever the wrapper's height comes from content rather than a
+    // route's own `position: absolute` override on this element).
+    <picture className="block">
       <source type="image/avif" srcSet={srcSet("avif")} sizes={sizes} />
       <source type="image/webp" srcSet={srcSet("webp")} sizes={sizes} />
       <img
