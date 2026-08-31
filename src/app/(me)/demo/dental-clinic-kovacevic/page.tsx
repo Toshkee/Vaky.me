@@ -227,8 +227,9 @@ export default function DentalClinicKovacevicPage() {
           </Ruled>
         </section>
 
-        {/* The index. Wide report rows, not tiles: the area, two lines, and the
-            names the public record attaches to it. */}
+        {/* The index. Wide report rows, not tiles: the area and two lines of
+            context. The public record does not assign individual doctors to an
+            area, so the page deliberately does not infer those pairings. */}
         <section
           id="oblasti"
           className="scroll-mt-6 border-b border-[var(--dent-line)] py-14 sm:py-20"
@@ -240,7 +241,7 @@ export default function DentalClinicKovacevicPage() {
               Oblasti rada
             </h2>
             <p className="mt-4 max-w-[36rem] leading-relaxed text-[var(--dent-steel)]">
-              Tri oblasti u kojima ordinacija radi, sa imenima koja javni registar navodi uz svaku.
+              Tri oblasti u kojima ordinacija radi.
             </p>
 
             <ol className="mt-10 border-b border-[var(--dent-line)]">
@@ -257,14 +258,6 @@ export default function DentalClinicKovacevicPage() {
                       {field.body}
                     </p>
                   </div>
-                  <p className="text-sm leading-relaxed text-[var(--dent-steel)] lg:text-right">
-                    <span className={`${caps} block text-[var(--dent-navy)]`}>Tim</span>
-                    {field.attribution.map((name) => (
-                      <span key={name} className="mt-1.5 block">
-                        {name}
-                      </span>
-                    ))}
-                  </p>
                 </li>
               ))}
             </ol>

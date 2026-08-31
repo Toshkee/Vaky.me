@@ -38,6 +38,38 @@ export const runningFoot = [
   "Shop",
 ] as const;
 
+export interface Entrance {
+  id: string;
+  /** In-page target — each rubric opens the section that answers it. */
+  href: string;
+  title: string;
+  deck: string;
+}
+
+/* Three ways into the same studio, written as magazine rubrics rather than a
+   service menu: the full list of work lives in `treatments`, so these three
+   only have to say where a visitor should start reading. */
+export const entrances: Entrance[] = [
+  {
+    id: "tretmani",
+    href: "#tretmani",
+    title: "Tretmani",
+    deck: "Epilacija, njega lica i tijela, lash & brow lift — sve u istom studiju.",
+  },
+  {
+    id: "pmu",
+    href: "#potpis",
+    title: "Permanent makeup",
+    deck: "Rad milimetrom: linija se crta prema licu, strpljivo i tiho.",
+  },
+  {
+    id: "edukacije",
+    href: "#edukacije",
+    title: "Edukacije",
+    deck: "Za one koje žele da uđu u isti zanat, pod istim potpisom.",
+  },
+];
+
 export interface Treatment {
   title: string;
   line: string;
