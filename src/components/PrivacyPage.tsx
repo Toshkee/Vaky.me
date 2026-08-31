@@ -36,7 +36,7 @@ export function PrivacyPage({ dict }: { dict: Dictionary }) {
       <header className="border-b-2 border-ink">
         <div className="shell flex h-16 items-center justify-between gap-4">
           <Link href={home} className="tap shrink-0">
-            <BrandWordmark className="text-[1.85rem] leading-none sm:text-[2rem]" />
+            <BrandWordmark className="h-7 sm:h-8" />
           </Link>
           <Link
             href={dict.lang === "en" ? "/privacy/" : "/en/privacy/"}

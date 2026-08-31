@@ -38,7 +38,7 @@ export function Shell({
       <header className="border-b-2 border-ink bg-paper">
         <div className="shell flex h-14 items-center justify-between gap-3 sm:h-16">
           <Link href="/" className="tap shrink-0">
-            <BrandWordmark className="text-[1.7rem] leading-none sm:text-[1.85rem]" />
+            <BrandWordmark className="h-6 sm:h-7" />
           </Link>
 
           <div className="flex items-center gap-2 sm:gap-3">

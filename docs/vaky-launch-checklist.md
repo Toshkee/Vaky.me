@@ -9,7 +9,10 @@ until that hostname serves the Cloudflare Pages project.
 - Public brand name: **Vaky**; canonical brand/domain: **Vaky.me**.
 - Public contact email: `vakymne@gmail.com`.
 - Instagram handle: `vaky.me`.
-- A text-only `Vaky.` wordmark is the temporary logo.
+- The horizontal `Vaky.me` lockup is installed as `public/logo-vaky.png` and
+  rendered by `src/components/BrandWordmark.tsx` in the nav, the onboarding
+  shell and the privacy page. `scripts/wordmark-asset.mjs` regenerates it from
+  the supplied artwork.
 - The new robot mark is installed as the browser and Apple touch icon.
 - Metadata, sitemap, robots, structured data, privacy text, transactional
   email copy, admin/onboarding copy, Open Graph images, tests, and CI targets
@@ -18,25 +21,35 @@ until that hostname serves the Cloudflare Pages project.
   private provider resource IDs. Renaming them would risk disconnecting stored
   onboarding data and does not expose the old brand to visitors.
 
-## Assets to provide
+## Assets still to provide
 
-Send the cleanest source files available. SVG is preferred for marks made from
-vectors; transparent PNG is fine for raster or pixel artwork.
-
-1. **Primary wordmark** — horizontal Vaky or Vaky.me logo, transparent
-   background. It will replace the temporary text in
-   `src/components/BrandWordmark.tsx` everywhere at once.
-2. **Mascot** — the existing Tony character remains part of the Vaky identity.
-   No replacement asset is needed.
-3. **Optional social lockup** — only if the Open Graph card should use a
-   different composition from the primary logo. Until then, the generated
-   Vaky text card is valid and has no old branding.
-
-Do not manually resize the source art. `scripts/process-favicon.mjs` now
-produces the optimized favicon outputs from the supplied square mark, and
-`scripts/brand-assets.mjs` handles the final nav and mascot assets.
+1. **Vector or transparent-PNG source of the lockup.** The shipped asset was
+   recovered from a raster render on a black ground, so it is ink and brand red
+   on transparency at 402x96 and no larger. It is sharp at nav size and will not
+   survive being blown up for print or a large social banner.
+2. **A light-on-dark variant** if the lockup ever has to sit on ink. The current
+   asset is ink-coloured; a CSS filter would only muddy it.
+3. **Mascot** — the existing Tony character stays. No new asset needed.
 
 ## Domain cutover in Cloudflare
+
+Done so far: the `vaky.me` zone exists on the Free plan in the Cloudflare
+account, with the Namecheap records imported. It stays **pending** until the
+registrar points the domain at the assigned nameservers:
+
+```text
+anita.ns.cloudflare.com
+nick.ns.cloudflare.com
+```
+
+Until the zone is active, Cloudflare refuses to add `vaky.me` as a Pages custom
+domain at all — every step below is blocked on that one registrar change.
+
+The imported zone still carries Namecheap's parking records: an `A` for the
+apex pointing at `162.255.119.60` and a `CNAME` for `www` pointing at
+`parkingpage.namecheap.com`. Both must go before the Pages custom domains are
+added, or they will fight over the same names. The `MX` and SPF records for
+Namecheap's mail forwarding are unrelated and should stay.
 
 - Add `vaky.me` and `www.vaky.me` as custom domains on the existing Pages
   project and wait until both show active.
@@ -53,13 +66,20 @@ produces the optimized favicon outputs from the supplied square mark, and
 
 ## Production variables and secrets
 
-In Cloudflare Pages, review these before the first production deployment:
+These are already set on the Pages project's production environment, and take
+effect on the next deployment:
 
 ```text
 ONBOARDING_SITE_URL=https://vaky.me
 ONBOARDING_NOTIFY_TO=vakymne@gmail.com
 ONBOARDING_NOTIFY_FROM=Vaky <onboarding@resend.dev>
 ```
+
+`ONBOARDING_SITE_URL` builds the download links in the notification email, so
+those links only resolve once `vaky.me` actually serves the site. `TURNSTILE_SECRET_KEY`
+is not set in production at all — the bot check is currently off, and rate
+limiting alone guards the endpoints. There is nothing to restrict to `vaky.me`
+in the Turnstile dashboard until it is switched on.
 
 `ONBOARDING_NOTIFY_FROM` may move to an `@vaky.me` address only after that
 sending domain is verified with the mail provider. Keep existing secret values
@@ -104,4 +124,8 @@ Then verify that:
 - a lead arrives at `vakymne@gmail.com`;
 - a private onboarding link, file upload, and admin login still work;
 - page source contains no `VibeLab`, `vibecode`, or old public contact handle;
+- the Pages project itself is still named `vibelab` and deploys from the
+  `Toshkee/VibeLab.me` repository. Both are private identifiers, but a Pages
+  project cannot be renamed — moving them means a new project and a fresh
+  custom-domain setup, which is not worth doing during the cutover;
 - social previews show the Vaky Open Graph image rather than a cached old one.

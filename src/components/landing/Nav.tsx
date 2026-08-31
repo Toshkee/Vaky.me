@@ -97,7 +97,7 @@ export function Nav({ dict }: { dict: Dictionary }) {
     <header className="sticky top-0 z-50 border-b-2 border-ink bg-paper/95 backdrop-blur-sm">
       <div className="shell flex h-16 items-center justify-between gap-4">
         <Link href={home} className="tap shrink-0">
-          <BrandWordmark className="text-[1.85rem] leading-none sm:text-[2rem]" />
+          <BrandWordmark className="h-7 sm:h-8" />
         </Link>
 
         <nav className="hidden items-center gap-5 text-sm md:flex">
