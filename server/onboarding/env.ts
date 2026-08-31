@@ -34,10 +34,10 @@ export type OnboardingEnv = {
 
 export const DEFAULT_NOTIFY_TO = "vakymne@gmail.com";
 
-/** Resend's shared sender, which needs no DNS setup and delivers to the
- *  account owner's own address — enough to get notifications working on day
- *  one, and replaced by a real address once the domain is verified. */
-export const DEFAULT_NOTIFY_FROM = "Vaky <onboarding@resend.dev>";
+/** vaky.me is verified in Resend (DKIM, SPF and DMARC live on the zone), so
+ *  the studio's own address is the sender rather than the shared
+ *  `resend.dev` one — which could only ever deliver to the account owner. */
+export const DEFAULT_NOTIFY_FROM = "Vaky <onboarding@vaky.me>";
 
 /** How long an upload token is good for. Long enough that a client can pick
  *  the materials up again tomorrow, short enough that a token left on a shared
