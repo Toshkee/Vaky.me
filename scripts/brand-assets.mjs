@@ -3,19 +3,18 @@ import fs from "node:fs";
 import sharp from "sharp";
 
 /**
- * One-off processing of the brand PNGs (exported with a flat white ground and
- * generous padding) into the shipped assets:
+ * One-off processing of the Tony mascot PNG (exported with a flat white ground
+ * and generous padding) into the shipped asset:
  *
- *   public/logo-lockup.png  — trimmed, white made transparent, 96px tall.
- *                             The nav shows it at 36-40px, so ~2.5x headroom.
  *   public/tony-head.png    — trimmed head mark, transparent, 96px tall.
- *   src/app/icon.png        — 256x256 square favicon, transparent ground.
- *   src/app/apple-icon.png  — 180x180 on solid paper (iOS composites
- *                             transparency onto black).
+ *                             The footer shows it at 24px.
  *
- * Usage: node scripts/brand-assets.mjs <lockup.png> <head.png>
+ * The wordmark and the icons are not made here: they are cut from the Vaky.me
+ * lockup by `scripts/wordmark-asset.mjs`, which owns them.
+ *
+ * Usage: node scripts/brand-assets.mjs <head.png>
  */
-const [lockupSrc, headSrc] = process.argv.slice(2);
+const [headSrc] = process.argv.slice(2);
 
 const browser = await chromium.launch();
 const page = await browser.newPage();
@@ -99,9 +98,6 @@ async function process_(srcPath, opts) {
   console.log(`${opts.out}: ${kb}KB`);
 }
 
-await process_(lockupSrc, { out: "public/logo-lockup.png", height: 96 });
 await process_(headSrc, { out: "public/tony-head.png", height: 96 });
-await process_(headSrc, { out: "src/app/icon.png", square: true, size: 256 });
-await process_(headSrc, { out: "src/app/apple-icon.png", square: true, size: 180, bg: "#faf8f4" });
 
 await browser.close();

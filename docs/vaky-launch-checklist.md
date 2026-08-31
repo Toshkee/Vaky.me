@@ -11,8 +11,10 @@ until that hostname serves the Cloudflare Pages project.
 - Instagram handle: `vaky.me`.
 - The horizontal `Vaky.me` lockup is installed as `public/logo-vaky.png` and
   rendered by `src/components/BrandWordmark.tsx` in the nav, the onboarding
-  shell and the privacy page. `scripts/wordmark-asset.mjs` regenerates it from
-  the supplied artwork.
+  shell and the privacy page. The window mark cut from its left end is the
+  favicon and Apple touch icon. `scripts/wordmark-asset.mjs` owns all three and
+  regenerates them from the supplied artwork; `scripts/brand-assets.mjs` now
+  only produces the Tony mascot.
 - The new robot mark is installed as the browser and Apple touch icon.
 - Metadata, sitemap, robots, structured data, privacy text, transactional
   email copy, admin/onboarding copy, Open Graph images, tests, and CI targets
