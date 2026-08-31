@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Albert_Sans } from "next/font/google";
+import { Albert_Sans, Libre_Caslon_Display } from "next/font/google";
 import { VakyBar } from "@/components/demo/VakyBar";
 import { InstagramIcon } from "@/components/demo/ContactIcons";
 import { firstVisit, formats, languages, method, studio } from "./data";
-import { StickyBookingBar } from "./StickyBookingBar";
 import styles from "./telo.module.css";
 
-/* Albert Sans, at extreme weight contrast, is the whole typeface system: 900
-   for the h1 and the two headings that open a band, 700 for everything else
-   that carries display scale, regular/medium for anything meant to be read at
-   length. No second family — a reformer studio's poster voice comes from
-   scale and weight, not from a second typeface doing the "editorial" job the
-   old pass leaned on. latin-ext for č/ć/š/ž/đ. */
+/* Libre Caslon Display is the studio's own logotype voice — a high-contrast
+   Caslon that only behaves at size, which is exactly how this page uses it:
+   the wordmark, the display lines and the format names, all lowercase. Albert
+   Sans carries every sentence anyone actually has to read. latin-ext for
+   č/ć/š/ž/đ. */
+const display = Libre_Caslon_Display({
+  weight: "400",
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-telo-display",
+});
 const sans = Albert_Sans({
   subsets: ["latin", "latin-ext"],
   display: "swap",
@@ -27,78 +31,74 @@ export const metadata: Metadata = {
   openGraph: { images: ["/og-demo-telo-pilates.png"] },
 };
 
-/* Two focus rings, because the page now has real ink slabs, not just ink
-   text: whatever a focus outline sits on, it has to out-contrast the section
-   behind it, not the element it's attached to (the offset ring lands on the
-   surrounding field). Butter ground → ink ring. Ink ground → butter ring. */
-const focusOnLight =
+const serif = "[font-family:var(--font-telo-display),Georgia,serif]";
+const label = "text-[0.68rem] font-semibold uppercase tracking-[0.26em]";
+const focus =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--telo-ink)]";
-const focusOnDark =
-  "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--telo-butter)]";
 
-/* One slab voice, used everywhere a CTA sits on the ink ground: butter fill,
-   ink type, radius 0. There is no CTA left on a light ground on this page —
-   both bookings and the hero live on ink now — so one variant is enough. The
-   header slab stays visible on a phone: hiding it left the header as a 60px
-   band with a wordmark and nothing else. */
+/* Rectangles, radius 0, wide letterspacing: the geometry of the reformer frame
+   rather than of a wellness pill.
+
+   The primary keeps its ink fill on the butter fields too. Inverting it there —
+   butter fill on butter ground — would need a border to exist at all, which is
+   the secondary's job; the one action on the page should not have to be
+   outlined to be seen. The inversion instead lives where the ground is dark:
+   the language band and the phone booking slab, where butter becomes the fill. */
 const ctaType =
-  "items-center justify-center text-[0.72rem] font-bold uppercase tracking-[0.18em] transition-colors";
-/* The min-width is the floor that keeps the page's primary control from ever
-   reading as smaller than the compact header slab above it: below sm it runs
-   full width, above sm it is at least 15rem whatever the column does. */
-const primaryCta = `inline-flex min-h-14 px-9 ${ctaType} sm:min-w-[15rem] bg-[var(--telo-butter)] text-[var(--telo-ink)] hover:bg-[var(--telo-line-butter)] ${focusOnDark}`;
-const headerCta = `inline-flex min-h-11 px-4 sm:px-6 ${ctaType} bg-[var(--telo-butter)] text-[0.66rem] text-[var(--telo-ink)] hover:bg-[var(--telo-line-butter)] ${focusOnDark}`;
-
-/* The entry format: the one most first-timers book. It gets the board's one
-   size step up and its own row structure, so five formats are not five
-   identical rows. */
-const ENTRY_FORMAT = "grupni-reformer";
-
-/* The label under every row of the board and inside every phone tile. It names
-   where the tap lands — the studio's booking system — and deliberately does
-   not promise a per-format deep link, which the tenant may not support. */
-const bookingWord = "otvori booking ↗";
+  "items-center justify-center text-[0.72rem] font-semibold uppercase tracking-[0.18em] transition-colors";
+const primaryCta = `inline-flex min-h-12 px-8 ${ctaType} bg-[var(--telo-ink)] text-[var(--telo-butter)] hover:bg-[var(--telo-ink-hover)] ${focus}`;
+const secondaryCta = `inline-flex min-h-12 px-8 ${ctaType} border border-[var(--telo-ink)] hover:bg-[var(--telo-ink)] hover:text-[var(--telo-butter)] ${focus}`;
+const headerCta = `hidden min-h-11 px-6 sm:inline-flex ${ctaType} bg-[var(--telo-ink)] text-[0.66rem] text-[var(--telo-butter)] hover:bg-[var(--telo-ink-hover)] ${focus}`;
 
 /**
- * The page's one picture: a reformer in side elevation. There are no
- * photographs of this studio, so this mark carries the entire visual load,
- * which is why it is drawn in filled geometry rather than strokes — solid end
- * frames, a double rail, a carriage block — with nothing in it lighter than
- * the h1's stem. It scales uniformly, so it reads as a machine at 350px on a
- * phone and at 1200px on a desktop.
+ * The page's one graphic: a rail, two stops, and the arc a reformer carriage
+ * travels between them.
  *
- * One part moves: the carriage. It is drawn at the far end of its travel, so
- * the settled machine is what a browser without scroll-driven animation and
- * anyone who asked for reduced motion sees; where the timeline is supported it
- * runs the rail as the mark scrolls into view. Used twice on the page — hero
- * and close — and nowhere else.
+ * It is drawn twice — edge to edge under the hero, and a quarter of that width
+ * under the closing line — because the page carries no photographs and this is
+ * the only thing on it that is a picture of the studio's own equipment. On
+ * scroll the stroke extends from the first stop and settles on the second;
+ * without scroll timelines, or with reduced motion, it is simply already there.
+ *
+ * The drawing stretches to whatever box it is given (`preserveAspectRatio` is
+ * off) so the arc keeps a usable height on a phone instead of flattening into a
+ * hairline. The rail, the stops and the carriage are `non-scaling-stroke` and
+ * stay exactly one device pixel — the carriage is a zero-length round-capped
+ * segment, a dot that cannot go oval however the box is scaled.
+ *
+ * The arc deliberately is not: a dashed stroke measured in device pixels can no
+ * longer be normalised by `pathLength`, and the draw would clip short of the
+ * far stop at some widths. Scaling with the box instead costs it a little
+ * modulation on a narrow screen — thinner where the curve runs flat, fuller
+ * where it turns — which is the same thin/thick logic as the Caslon it is
+ * drawn under. Stroke width steps down as the box widens (see the CSS module)
+ * so the line lands around three pixels everywhere.
  */
-function RangeMark({ className = "" }: { className?: string }) {
+function CarriageTrack({ className = "" }: { className?: string }) {
+  const ink = "var(--telo-ink)";
   return (
-    <div className={`${styles.trackFrame} ${className}`}>
+    <div className={className}>
       <svg
-        viewBox="0 0 900 200"
+        viewBox="0 0 1200 160"
+        preserveAspectRatio="none"
         aria-hidden="true"
         focusable="false"
-        className="block h-auto w-full"
-        fill="currentColor"
+        className="block h-full w-full"
+        stroke={ink}
+        fill="none"
       >
-        {/* the two rails, running the full width of the frame */}
-        <rect x="0" y="88" width="900" height="18" />
-        <rect x="0" y="126" width="900" height="18" />
-        {/* left: the footbar frame the feet push against */}
-        <rect x="0" y="26" width="70" height="16" />
-        <rect x="20" y="26" width="32" height="62" />
-        <rect x="20" y="144" width="32" height="56" />
-        {/* right: the taller riser frame at the far end of the rail */}
-        <rect x="830" y="0" width="70" height="18" />
-        <rect x="848" y="0" width="32" height="88" />
-        <rect x="848" y="144" width="32" height="56" />
-        {/* the carriage, with its shoulder rest, drawn where it comes to rest */}
-        <g className={styles.carriage}>
-          <rect x="644" y="46" width="180" height="42" />
-          <rect x="644" y="16" width="44" height="30" />
-        </g>
+        <path d="M0 128H1200" strokeOpacity="0.22" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+        <path d="M140 110V146M1060 110V146" strokeOpacity="0.45" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+        <path
+          pathLength={1}
+          d="M140 128C340 128 380 28 620 28C880 28 980 112 1060 128"
+          strokeLinecap="round"
+        />
+        <path
+          d="M1060 128h0.01"
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+        />
       </svg>
     </div>
   );
@@ -107,17 +107,18 @@ function RangeMark({ className = "" }: { className?: string }) {
 export default function TeloPilatesPage() {
   return (
     <div
-      className={`${styles.page} ${sans.variable} min-h-screen bg-[var(--telo-chalk)] text-[var(--telo-ink)] [font-family:var(--font-telo-sans),system-ui,sans-serif]`}
+      className={`${styles.page} ${display.variable} ${sans.variable} min-h-screen bg-[var(--telo-chalk)] pb-[calc(4rem+env(safe-area-inset-bottom))] text-[var(--telo-ink)] [font-family:var(--font-telo-sans),system-ui,sans-serif] md:pb-0`}
     >
       <VakyBar />
 
-      {/* Header and hero share one unbroken ink field — the poster ground —
-          so the page opens on full contrast instead of easing into it. */}
-      <header className="bg-[var(--telo-ink)] text-[var(--telo-butter)]">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 sm:px-8 sm:py-5">
+      {/* Header and hero share one butter field — the studio's wordmark tile
+          blown up to the width of the page. No centre anchor row: there is one
+          thing to do here, and it is booking. */}
+      <header className="bg-[var(--telo-butter)]">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-5 sm:px-8 sm:py-6">
           <a
             href="#vrh"
-            className={`inline-flex min-h-11 items-center text-[1.1rem] font-bold leading-none tracking-[-0.01em] lowercase sm:text-[1.35rem] ${focusOnDark}`}
+            className={`${serif} inline-flex min-h-11 items-center text-[1.35rem] leading-none tracking-[-0.01em] sm:text-[1.6rem] ${focus}`}
           >
             {studio.wordmark}
           </a>
@@ -136,286 +137,224 @@ export default function TeloPilatesPage() {
       </header>
 
       <main id="vrh">
-        {/* The first screen names the machine and the number of ways to get on
-            it, signs itself underneath, and then draws the reformer at poster
-            size — the mark breaking the container on the right, the one place
-            on the page where the rail leaves the rail. */}
-        <section className="overflow-x-clip bg-[var(--telo-ink)] text-[var(--telo-butter)]">
-          {/* The hero splits in two at xl, not at lg, and both tracks are
-              capped with minmax(0,…). At 9rem the h1's longest line
-              ("formata." plus its indent) has a ~675px min-content, which is
-              more than a 1.3fr share of the 896px available at 1024 — so the
-              old lg split handed the left track its intrinsic width and sized
-              the right one to its own min-content, leaving the CTA 154px wide
-              with a wrapping label and the hero's right edge short of every
-              rule below it. Below 1280 the poster stacks instead, which is the
-              only honest thing to do with a headline that wide. */}
-          <div className="mx-auto max-w-6xl px-5 pt-8 pb-0 sm:px-8 sm:pt-10 lg:pt-16 xl:grid xl:grid-cols-[minmax(0,1.35fr)_minmax(18rem,0.65fr)] xl:items-start xl:gap-16">
-            <div>
-              <h1 className="text-[clamp(3.25rem,15vw,9rem)] font-black leading-[0.86] tracking-[-0.03em] lowercase">
-                <span className="block">reformer.</span>
-                <span className="block pl-[0.5em]">pet</span>
-                <span className="block pl-[1em]">formata.</span>
-              </h1>
-              {/* The category descriptor signs the headline instead of
-                  introducing it — no badge above the h1, and no caps block
-                  orphaning "Podgorica" onto a second line at 390px. */}
-              <p className="mt-6 border-t border-[var(--telo-muted-ink)]/40 pt-4 text-[0.95rem] font-medium text-[var(--telo-muted-ink)] sm:mt-8">
-                Reformer pilates · {studio.area}
-              </p>
-            </div>
-            <div className="mt-9 xl:mt-2">
-              <p className="max-w-md text-pretty text-[1.05rem] leading-[1.55] text-[var(--telo-muted-ink)] sm:text-[1.15rem]">
-                Reformer studio u Podgorici — grupno, u paru ili individualno.
-              </p>
-              <a
-                id="hero-cta"
-                href={studio.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-umami-event="demo_booking"
-                data-umami-event-demo="telo-pilates"
-                data-umami-event-action="booking-hero"
-                className={`${primaryCta} mt-7 w-full sm:mt-8 sm:w-auto xl:w-full`}
-              >
-                Rezerviši čas
-              </a>
-              <div className="mt-7 border-t border-[var(--telo-muted-ink)]/30 pt-5">
-                <a
-                  href="#formati"
-                  className={`inline-flex min-h-11 items-center text-[0.85rem] font-semibold underline decoration-2 underline-offset-[6px] hover:decoration-[var(--telo-line-butter)] ${focusOnDark}`}
+        <section className="bg-[var(--telo-butter)]">
+          <div className="mx-auto max-w-6xl px-5 pt-8 pb-10 sm:px-8 sm:pt-14 sm:pb-14">
+            <div className="grid gap-9 lg:grid-cols-[1.05fr_0.85fr] lg:items-end lg:gap-12">
+              <div>
+                <p className={`${label} text-[var(--telo-muted)]`}>reformer pilates · podgorica</p>
+                {/* Three words, each stepping further in — the same stagger the
+                    format rows use further down, and the same direction the
+                    carriage travels. */}
+                <h1
+                  className={`${serif} mt-6 text-[clamp(3rem,13vw,7.5rem)] leading-[0.88] tracking-[-0.03em] sm:mt-8`}
                 >
-                  Pogledaj formate
-                </a>
+                  <span className="block">kontrola.</span>
+                  <span className="block pl-[0.55em]">snaga.</span>
+                  <span className="block pl-[1.1em]">pokret.</span>
+                </h1>
+              </div>
+
+              <div className="lg:pb-4">
+                <p className="max-w-md text-[1.125rem] leading-[1.6] text-[var(--telo-muted)] sm:text-[1.2rem]">
+                  Reformer, individualni i grupni formati u Podgorici — rezervacija bez suvišnih
+                  koraka.
+                </p>
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <a
+                    href={studio.bookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-umami-event="demo_booking"
+                    data-umami-event-demo="telo-pilates"
+                    data-umami-event-action="booking-hero"
+                    className={primaryCta}
+                  >
+                    Rezerviši čas
+                  </a>
+                  <a href="#formati" className={secondaryCta}>
+                    Izaberi format
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-          {/* The one broken container on the page. A second one would cancel
-              it, so nothing else overhangs. The negative margin is measured
-              rather than stepped: 50% of the container's content box minus
-              50vw is exactly the distance from the rail to the viewport edge
-              at every width, so the machine runs off the page at 390 and at
-              1920 alike instead of stopping 320px short. The section clips its
-              x-overflow, which absorbs the half-scrollbar 50vw over-counts. */}
-          <div className="mx-auto max-w-6xl px-5 sm:px-8">
-            <RangeMark className="mt-10 mr-[calc(50%_-_50vw)] text-[var(--telo-butter)] sm:mt-14" />
+
+          {/* Edge to edge on purpose: the rail is the floor the hero stands on,
+              not an ornament parked inside the text column. */}
+          <div className="pb-8 sm:pb-12">
+            <CarriageTrack className="h-24 sm:h-32 lg:h-40" />
           </div>
         </section>
 
-        {/* The formats, as a class board rather than an editorial score. On a
-            pointer the entry format takes a full row of its own and the other
-            four sit a step down beside their descriptions; on a phone the same
-            five become a tap grid, because five poster names with wrapping
-            copy is the longest stretch on the page at 390px. */}
-        <section id="formati" className="scroll-mt-6 bg-[var(--telo-chalk)]">
-          <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
-            <h2 className="max-w-2xl text-[clamp(2rem,7vw,3.5rem)] font-black leading-[0.96] tracking-[-0.02em] lowercase">
-              izaberi format, pa termin
-            </h2>
-            <p className="mt-4 max-w-2xl text-[1rem] leading-relaxed text-[var(--telo-muted)]">
-              Format se bira u booking sistemu studija, gdje stoje i slobodni termini — ovdje je
-              odluka koja im prethodi.
-            </p>
+        {/* The formats, written as a score rather than as five cards: one rule
+            per line, the name stepping in, the setting holding its column. */}
+        <section id="formati" className="scroll-mt-6">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+            <div className="max-w-2xl">
+              <h2
+                className={`${serif} text-[clamp(1.9rem,5vw,3.25rem)] leading-[1.02] tracking-[-0.02em]`}
+              >
+                izaberi format, pa termin.
+              </h2>
+              <p className="mt-5 max-w-md text-[1rem] leading-relaxed text-[var(--telo-muted)]">
+                Pet načina da uđeš u salu. Slobodni termini i raspored stoje u booking sistemu
+                studija — ovdje je samo odluka koja im prethodi.
+              </p>
+            </div>
 
-            {/* Three columns, and none of them fixed. The name is max-content,
-                not a shared 23rem — a column wide enough for the longest name
-                stranded "split / duo" and "stretching" across a ~260px gutter
-                from their own description. The description takes what is left,
-                and the booking word closes the row on the right, so each row
-                fills the rule it sits under instead of stopping a quarter of a
-                container short of it. */}
-            <ul className="mt-10 hidden border-t-2 border-[var(--telo-ink)] sm:mt-14 md:block">
-              {formats.map((format) => {
-                const entry = format.id === ENTRY_FORMAT;
-                return (
-                  <li key={format.id} className="border-b-2 border-[var(--telo-ink)]">
-                    <a
-                      href={studio.bookingUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-umami-event="demo_booking"
-                      data-umami-event-demo="telo-pilates"
-                      data-umami-event-action={`booking-format-${format.id}`}
-                      className={`group block py-7 ${focusOnLight} ${
-                        entry
-                          ? "sm:py-9"
-                          : "grid grid-cols-[max-content_minmax(0,1fr)_max-content] items-baseline gap-x-8 lg:gap-x-12"
-                      }`}
-                    >
-                      <h3
-                        className={`w-fit font-bold leading-[1] tracking-[-0.02em] lowercase ${
-                          entry ? "text-[clamp(2.5rem,6vw,4rem)]" : "text-[clamp(1.9rem,4vw,2.75rem)]"
-                        }`}
-                      >
-                        {format.name}
-                        {/* kraftart's drawn mark: the rule under the name is
-                            the affordance, on hover and on keyboard focus. */}
-                        <span
-                          aria-hidden="true"
-                          className="mt-2 block h-[3px] origin-left scale-x-0 bg-[var(--telo-ink)] transition-transform duration-300 group-hover:scale-x-100 group-focus-visible:scale-x-100 motion-reduce:transition-none"
-                        />
-                      </h3>
-                      {entry ? (
-                        <div className="mt-5 max-w-md">
-                          <p className="text-[1.15rem] leading-relaxed text-[var(--telo-muted)] sm:text-[1.25rem]">
-                            {format.setting}
-                          </p>
-                          <span className="mt-3 block text-[0.78rem] font-semibold text-[var(--telo-ink)]">
-                            {bookingWord}
-                          </span>
-                        </div>
-                      ) : (
-                        <>
-                          <p className="text-[0.95rem] leading-relaxed text-[var(--telo-muted)]">
-                            {format.setting}
-                          </p>
-                          <span className="whitespace-nowrap text-[0.78rem] font-semibold text-[var(--telo-ink)]">
-                            {bookingWord}
-                          </span>
-                        </>
-                      )}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-
-            {/* Phone: the same five formats as a tap grid, drawn once with
-                border-l/border-t on the container and border-b/border-r on the
-                cells so no line doubles. The entry format takes the full row.
-                The open tile inverts to the poster ground — butter on chalk is
-                1.01:1 and invisible, and this is the one place where the ink
-                slab and the accent reach the light half of the page. The names
-                are h3s here as they are on the board, so the phone keeps the
-                same document outline as the desktop. */}
-            <div className="mt-10 grid grid-cols-2 border-l-2 border-t-2 border-[var(--telo-ink)] md:hidden">
+            <ul className="mt-12 border-b border-[var(--telo-line)] sm:mt-16">
               {formats.map((format) => (
-                <details
-                  key={format.id}
-                  className={`group border-r-2 border-b-2 border-[var(--telo-ink)] open:bg-[var(--telo-ink)] open:text-[var(--telo-butter)] ${
-                    format.id === ENTRY_FORMAT ? "col-span-2" : ""
-                  }`}
-                >
-                  <summary className="flex min-h-28 cursor-pointer list-none flex-col justify-between gap-5 p-4 [&::-webkit-details-marker]:hidden">
-                    <span
-                      aria-hidden="true"
-                      className="self-end text-xl leading-none text-[var(--telo-muted)] transition-transform group-open:rotate-45 group-open:text-[var(--telo-muted-ink)] motion-reduce:transition-none"
+                <li key={format.id} className="border-t border-[var(--telo-line)] py-6 sm:py-7">
+                  <div className="grid gap-x-10 gap-y-2.5 md:grid-cols-[minmax(0,1fr)_15rem] md:items-baseline lg:grid-cols-[minmax(0,1fr)_19rem]">
+                    <h3
+                      className={`${serif} text-[clamp(2.1rem,6vw,3.75rem)] leading-[1] tracking-[-0.025em]`}
                     >
-                      +
-                    </span>
-                    <h3 className="text-[1.2rem] font-bold leading-tight tracking-[-0.02em] lowercase">
                       {format.name}
                     </h3>
-                  </summary>
-                  <div className="border-t border-[var(--telo-butter)]/25 px-4 pt-4 pb-5">
-                    <p className="text-[0.9rem] leading-relaxed text-[var(--telo-muted-ink)]">
+                    <p className="text-[0.95rem] leading-relaxed text-[var(--telo-muted)]">
                       {format.setting}
                     </p>
-                    <a
-                      href={studio.bookingUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-umami-event="demo_booking"
-                      data-umami-event-demo="telo-pilates"
-                      data-umami-event-action={`booking-format-${format.id}`}
-                      className={`mt-3 inline-flex min-h-11 items-center text-[0.8rem] font-semibold underline underline-offset-4 ${focusOnDark}`}
-                    >
-                      {bookingWord}
-                    </a>
                   </div>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* The page's density peak: the apparatus. It is the most concrete,
-            most studio-specific thing here, so it gets the band's display
-            scale — the studio's own five words doing the job a stat block
-            would otherwise be invented for. The claim keeps its attribution
-            and the language line stays a sentence. */}
-        <section className="bg-[var(--telo-ink)] text-[var(--telo-butter)]">
-          <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
-            <p className="max-w-xl text-[1.15rem] font-semibold leading-snug sm:text-[1.3rem]">
-              {method.claim}
-            </p>
-            <ul className="mt-8 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-y border-[var(--telo-butter)]/25 py-7 sm:mt-10 sm:gap-x-12 sm:py-9">
-              {method.equipment.map((item) => (
-                <li
-                  key={item}
-                  className="text-[clamp(1.5rem,4.5vw,2.25rem)] font-bold leading-none tracking-[-0.02em] lowercase"
-                >
-                  {item}
                 </li>
               ))}
             </ul>
-            <p className="mt-7 max-w-xl text-[1rem] leading-relaxed text-[var(--telo-muted-ink)] sm:text-[1.05rem]">
-              {languages.line}{" "}
-              {/* nowrap: the three codes are one object. Left to wrap freely
-                  they broke after "eng" at 768px and at 1440px, orphaning
-                  "rus" onto a line of its own. */}
-              <span className="whitespace-nowrap font-semibold text-[var(--telo-butter)]">
-                {languages.codes.join(" · ")}
-              </span>
-            </p>
           </div>
         </section>
 
-        {/* One chalk beat, not two: what a first class looks like on the left,
-            where the studio is and how to ask it something on the right. */}
-        <section className="bg-[var(--telo-chalk)]">
+        {/* Method and machines in one short band, on butter rather than chalk.
+            Between the formats and the first visit the page would otherwise run
+            three long light sections in a row; the studio's own ground turned
+            back on here is what separates the choice from the arrival. The
+            studio's claim keeps its attribution; the apparatus is a set line,
+            not five feature tiles. */}
+        <section className="bg-[var(--telo-butter)]">
           <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
-            <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-16">
+            <div className="grid gap-8 border-t-2 border-[var(--telo-ink)] pt-8 md:grid-cols-[0.85fr_1.15fr] md:gap-14 md:pt-10">
               <div>
-                <h2 className="text-[clamp(1.75rem,5vw,2.5rem)] font-bold leading-[0.98] tracking-[-0.02em] lowercase">
-                  kako izgleda prvi čas
+                <h2
+                  className={`${serif} text-[clamp(1.5rem,3.4vw,2.25rem)] leading-[1.12] tracking-[-0.02em]`}
+                >
+                  {method.claim}
                 </h2>
-                <ul className="mt-7 flex flex-col gap-5 sm:mt-9 sm:gap-6">
-                  {firstVisit.map((step) => (
-                    <li key={step} className="max-w-lg text-[1.05rem] leading-relaxed sm:text-[1.1rem]">
-                      {step}
-                    </li>
-                  ))}
-                </ul>
               </div>
               <div>
-                <h2 className="text-[clamp(1.75rem,5vw,2.5rem)] font-bold leading-[0.98] tracking-[-0.02em] lowercase">
-                  {studio.area.toLowerCase()}
-                </h2>
-                <address className="not-italic">
-                  <span className="mt-7 block text-[0.95rem] leading-relaxed text-[var(--telo-muted)] sm:mt-9">
-                    Pitanja prije prvog dolaska:
-                  </span>
-                  <a
-                    href={studio.instagramUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-umami-event="demo_contact"
-                    data-umami-event-demo="telo-pilates"
-                    data-umami-event-action="instagram-lokacija"
-                    className={`mt-2 inline-flex min-h-14 items-center gap-3 text-[clamp(1.35rem,4vw,1.9rem)] font-bold tracking-[-0.01em] underline decoration-2 underline-offset-[8px] hover:no-underline ${focusOnLight}`}
-                  >
-                    <InstagramIcon className="h-[1.35rem] w-[1.35rem] shrink-0" />@{studio.instagram}
-                  </a>
-                </address>
+                <p className="text-[0.9rem] leading-relaxed text-[var(--telo-muted)]">
+                  Sprave koje studio navodi uz individualni rad:
+                </p>
+                <p
+                  className={`${serif} mt-4 text-[clamp(1.1rem,3vw,1.9rem)] leading-[1.35] tracking-[-0.01em]`}
+                >
+                  {method.equipment.join(" · ")}
+                </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* The handoff: the poster ground one last time, the wordmark line
-            at full scale, and the carriage arriving under it. */}
-        <section id="rezervacija" className="scroll-mt-6 bg-[var(--telo-ink)] text-[var(--telo-butter)]">
+        {/* The one section on the page that runs across instead of splitting
+            into a heading column and a content column: three steps side by
+            side, in the order they happen. Read down, the rest of the page is a
+            list of choices; this is the only part that is a sequence, and
+            laying it out horizontally is what says so. */}
+        <section>
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-            <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-start lg:gap-16">
+            <h2
+              className={`${serif} max-w-2xl text-[clamp(1.9rem,5vw,3rem)] leading-[1.04] tracking-[-0.02em]`}
+            >
+              kako izgleda prvi čas.
+            </h2>
+
+            {/* No numerals over the three entries. Reading order is left to
+                right, the sentences are already in sequence, and `ol` says so
+                to anything that is not reading with its eyes — a set of 01 02
+                03 on top of that is a figure for its own sake. The rule each
+                one hangs from is the same weight as the rule under the method
+                band above, so the section is tied to the page rather than
+                dressed up as its own component. */}
+            <ol className="mt-12 grid gap-10 sm:mt-14 md:grid-cols-3 md:gap-8 lg:gap-12">
+              {firstVisit.map((step) => (
+                <li
+                  key={step}
+                  className="border-t-2 border-[var(--telo-ink)] pt-5 text-[1.05rem] leading-relaxed sm:text-[1.125rem] lg:text-[1.2rem]"
+                >
+                  {step}
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* The one dark field on the page, and the one place the palette
+            inverts: butter becomes the ink. */}
+        <section className="bg-[var(--telo-ink)] text-[var(--telo-butter)]">
+          <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
+            <div className="grid gap-7 md:grid-cols-[1.15fr_0.85fr] md:items-end md:gap-12">
+              <p
+                className={`${serif} text-[clamp(2.6rem,10vw,5.75rem)] leading-[0.9] tracking-[-0.03em]`}
+              >
+                {languages.codes.join(" · ")}
+              </p>
+              <div className="md:pb-2">
+                <h2 className={`${serif} text-[clamp(1.4rem,3vw,1.9rem)] leading-[1.15]`}>
+                  jezik u sali.
+                </h2>
+                <p className="mt-4 max-w-sm text-[1rem] leading-relaxed text-[var(--telo-muted-ink)]">
+                  {languages.line}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
+            <div className="grid gap-6 border-t-2 border-[var(--telo-ink)] pt-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-end md:gap-12">
               <div>
-                <h2 className="text-[clamp(3rem,12vw,7rem)] font-black leading-[0.86] tracking-[-0.03em] lowercase">
+                <p className={`${label} text-[var(--telo-muted)]`}>gdje</p>
+                <h2
+                  className={`${serif} mt-4 text-[clamp(2rem,6.5vw,3.75rem)] leading-[0.98] tracking-[-0.025em]`}
+                >
+                  {studio.area.toLowerCase()}.
+                </h2>
+              </div>
+              <address className="not-italic md:pb-1 md:text-right">
+                <span className="block text-[0.9rem] leading-relaxed text-[var(--telo-muted)]">
+                  Pitanja prije prvog dolaska:
+                </span>
+                <a
+                  href={studio.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-umami-event="demo_contact"
+                  data-umami-event-demo="telo-pilates"
+                  data-umami-event-action="instagram-lokacija"
+                  className={`mt-1 inline-flex min-h-11 items-center gap-2 text-[1.05rem] font-semibold underline underline-offset-[6px] hover:no-underline ${focus}`}
+                >
+                  <InstagramIcon className="h-[1.15rem] w-[1.15rem]" />@{studio.instagram}
+                </a>
+              </address>
+            </div>
+          </div>
+        </section>
+
+        {/* The handoff. Butter field, the studio's alternate lockup at full
+            size, and the carriage arriving under it one last time. */}
+        <section id="rezervacija" className="scroll-mt-6 bg-[var(--telo-butter)]">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+            <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-16">
+              <div>
+                <p className={`${label} text-[var(--telo-muted)]`}>rezervacija</p>
+                <h2
+                  className={`${serif} mt-6 text-[clamp(2.9rem,11vw,6.25rem)] leading-[0.9] tracking-[-0.03em]`}
+                >
                   telo u pokretu.
                 </h2>
-                <RangeMark className="mt-10 max-w-[38rem] text-[var(--telo-butter)] sm:mt-12" />
+                <CarriageTrack
+                  className="mt-9 h-20 max-w-[21rem] sm:mt-12 sm:h-24 sm:max-w-md"
+                />
               </div>
-              <div className="lg:pt-4">
-                <p className="max-w-md text-pretty text-[1.0625rem] leading-relaxed text-[var(--telo-muted-ink)]">
+              <div className="lg:pb-2">
+                <p className="max-w-md text-[1.0625rem] leading-relaxed text-[var(--telo-muted)]">
                   Rasporedom upravlja booking sistem studija — formati, slobodni termini i prijava
                   stoje na jednom mjestu.
                 </p>
@@ -426,7 +365,7 @@ export default function TeloPilatesPage() {
                   data-umami-event="demo_booking"
                   data-umami-event-demo="telo-pilates"
                   data-umami-event-action="booking-final"
-                  className={`${primaryCta} mt-8 w-full justify-center sm:w-auto lg:w-full`}
+                  className={`${primaryCta} mt-8 w-full sm:w-auto lg:w-full`}
                 >
                   Rezerviši čas
                 </a>
@@ -436,10 +375,10 @@ export default function TeloPilatesPage() {
         </section>
       </main>
 
-      <footer id="site-footer" className="border-t-2 border-[var(--telo-ink)] bg-[var(--telo-chalk)]">
+      <footer className="border-t border-[var(--telo-line)]">
         <div className="mx-auto flex max-w-6xl flex-col gap-5 px-5 py-10 sm:flex-row sm:items-end sm:justify-between sm:px-8">
           <div>
-            <p className="text-lg font-bold lowercase tracking-[-0.01em]">{studio.wordmark}</p>
+            <p className={`${serif} text-xl tracking-[-0.01em]`}>{studio.wordmark}</p>
             <p className="mt-3 max-w-md text-xs leading-relaxed text-[var(--telo-muted)]">
               Nezvanični dizajn koncept. Podaci su preuzeti sa javnog Instagram profila studija i
               njegovog javnog booking sistema; strana je namjerno bez fotografija i služi samo za
@@ -450,7 +389,7 @@ export default function TeloPilatesPage() {
             Koncept:{" "}
             <Link
               href="/"
-              className={`inline-flex min-h-11 items-center font-semibold text-[var(--telo-ink)] hover:underline ${focusOnLight}`}
+              className={`inline-flex min-h-11 items-center font-semibold text-[var(--telo-ink)] hover:underline ${focus}`}
             >
               Vaky
             </Link>
@@ -458,7 +397,23 @@ export default function TeloPilatesPage() {
         </div>
       </footer>
 
-      <StickyBookingBar bookingUrl={studio.bookingUrl} />
+      {/* Phones only, and one action wide. The page asks for exactly one thing,
+          so the bar is not a row of choices — it is that thing, always within
+          thumb reach. The root carries matching bottom padding so the footer is
+          never trapped behind it. */}
+      <div className="fixed inset-x-0 bottom-0 z-50 bg-[var(--telo-ink)] pb-[env(safe-area-inset-bottom)] md:hidden">
+        <a
+          href={studio.bookingUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-umami-event="demo_booking"
+          data-umami-event-demo="telo-pilates"
+          data-umami-event-action="booking-sticky"
+          className="flex min-h-14 w-full items-center justify-center px-5 text-[0.78rem] font-semibold uppercase tracking-[0.2em] text-[var(--telo-butter)] focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[var(--telo-butter)]"
+        >
+          Rezerviši čas
+        </a>
+      </div>
     </div>
   );
 }

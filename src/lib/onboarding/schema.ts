@@ -633,10 +633,6 @@ export function isLanguage(value: unknown): value is Language {
   return typeof value === "string" && (LANGUAGES as readonly string[]).includes(value);
 }
 
-export function isPackageSource(value: unknown): value is PackageSource {
-  return typeof value === "string" && (PACKAGE_SOURCES as readonly string[]).includes(value);
-}
-
 function inPackage(packages: readonly PackageId[] | undefined, packageId: PackageId): boolean {
   return !packages || packages.includes(packageId);
 }
@@ -666,10 +662,6 @@ export function visibleSteps(packageId: PackageId, answers: Answers): readonly S
   return STEPS.filter(
     (step) => inPackage(step.packages, packageId) && (!step.visibleWhen || step.visibleWhen(answers)),
   );
-}
-
-export function findStep(id: string): Step | undefined {
-  return STEPS.find((step) => step.id === id);
 }
 
 /* ── Validation ───────────────────────────────────────────────────────── */
