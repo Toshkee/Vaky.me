@@ -1,11 +1,10 @@
 /* Palette and motion for the Andrea Beauty House concept, scoped to this route.
 
-   The house is one door with three rooms behind it, so the page stays warm
-   and tidy: white walls, a blush field per room, berry kept for doors and
-   accents rather than poured across the page, and gold reserved for hairline
-   marks. The arch — a plain `border-radius: 50%` on the top corners of a
-   photo's own box — is the one shape the whole page repeats: a doorway, a
-   room, a detail, all cut from the same curve.
+   The house is three rooms behind one front door, so the page is built like a
+   building: warm white walls, a berry that only ever marks a way in, blush
+   where the room itself is soft, and gold reserved for the hairlines and the
+   numerals on a door plate. Berry is placed, never poured — a wall of pink is
+   what every other salon site already is.
 
    The colours live here rather than in the VibeLab theme so four client
    concepts don't leave four palettes loaded on every page of the studio site.
@@ -15,7 +14,7 @@
 .page {
   --abh-white: #fbf6f2;
   --abh-blush: #f7e7e2;
-  --abh-kids-field: #fbe6da;
+  --abh-blush-deep: #f0d8d1;
   /* 16.9:1 on warm white, 15.1:1 on blush */
   --abh-ink: #1b1418;
   /* 6.0:1 on warm white, 5.4:1 on blush */
@@ -23,29 +22,89 @@
   /* 7.2:1 on warm white, 6.5:1 on blush — carries body text and button fills */
   --abh-berry: #9b2242;
   --abh-berry-deep: #7a1935;
-  /* 2.3:1 on warm white — far too low for type, but it is never type: it is
-     the section-opening hairline rule, twice, and nothing else. As a border
-     it still reads three times heavier than --abh-line below. */
+  /* 3.5:1 on berry, 8.1:1 on ink — marks and interpuncts anywhere, words only
+     on the ink band, which is the one ground it clears for text */
   --abh-gold: #c9a227;
   --abh-line: #e7d7d1;
   --abh-line-strong: #d9bfb8;
+  /* on the ink band: 11.0:1 for text, 8.1:1 for the gold marks */
+  --abh-on-ink: #d9c6c2;
   /* on the berry fields: 5.5:1 */
   --abh-on-berry: #f0d2d8;
 }
 
-/* The one micro-interaction on the page, and it is on exactly one control —
-   the hero's Instagram button. It tilts 2° and settles, the way a plate rocks
-   on its screws when you knock. Runs once per hover or focus, never loops.
-   Every other button on the page is a plain colour change, which is what
-   keeps this one a signature instead of a habit. */
-@media (prefers-reduced-motion: no-preference) {
-  .knock:hover,
-  .knock:focus-visible {
-    animation: abh-knock 420ms ease-out 1 both;
+/* A doorway's casing, drawn short of the wall on both sides: a hairline with
+   two ticks turning down at the container edges. It is how one part of the
+   house is separated from the next — no full-bleed rules anywhere. */
+.threshold {
+  position: relative;
+}
+
+.threshold::before,
+.threshold::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  height: 0.7rem;
+  width: 1px;
+  background: var(--abh-line-strong);
+}
+
+.threshold::before {
+  left: 0;
+}
+
+.threshold::after {
+  right: 0;
+}
+
+/* The signature: a portal's frame line is closed at the centre and opens
+   outward as the portal comes into view, the way a pair of doors is pushed
+   open. Clipping rather than scaling keeps the arch an arch. The settled,
+   fully open frame is the static default, so a browser without view
+   timelines — or a visitor who asked for less motion — gets the finished
+   page, which is the correct one. Nothing else on the page moves. */
+.frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--abh-line-strong);
+  border-radius: inherit;
+  pointer-events: none;
+  clip-path: inset(0 0 0 0);
+  z-index: 1;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .frame::before {
+      animation: abh-open linear both;
+      animation-timeline: view();
+      animation-range: entry 12% cover 34%;
+    }
   }
 }
 
-@keyframes abh-knock {
+@keyframes abh-open {
+  from {
+    clip-path: inset(0 50% 0 50%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* One micro-interaction, on the button that stands in for knocking: a single
+   2° tilt and back, like a door plate rocking on its screws. It runs once per
+   hover or focus and never loops. */
+@media (prefers-reduced-motion: no-preference) {
+  .ring:hover,
+  .ring:focus-visible {
+    animation: abh-ring 460ms ease-out 1 both;
+  }
+}
+
+@keyframes abh-ring {
   0% {
     transform: rotate(0deg);
   }
@@ -53,48 +112,9 @@
     transform: rotate(-2deg);
   }
   68% {
-    transform: rotate(1.1deg);
+    transform: rotate(1.2deg);
   }
   100% {
     transform: rotate(0deg);
-  }
-}
-
-/* All three doors in the hallway signal the same way: a berry rule drawn
-   under the door's name, left to right, on pointer and on keyboard alike.
-   A door is a flat panel — it does not lift, and the photograph behind it
-   does not zoom. */
-.door .rule {
-  transform: scaleX(0);
-  transform-origin: left center;
-}
-
-.door:hover .rule,
-.door:focus-visible .rule {
-  transform: scaleX(1);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .door .rule {
-    transition: transform 180ms ease-out;
-  }
-}
-
-/* The floating door button: a state transition between "off the page" and
-   "here if you need it", not a decorative fade. Settles instantly for anyone
-   who asked for less motion. */
-.floatingCta {
-  transition: opacity 220ms ease, transform 220ms ease;
-}
-
-.floatingCtaHidden {
-  opacity: 0;
-  transform: translateY(0.6rem);
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .floatingCta {
-    transition: none;
   }
 }

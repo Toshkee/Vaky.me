@@ -1,155 +1,101 @@
-/* Palette and layout for the Dental Clinic Kovačević concept, scoped to this route.
+/* Palette and motion for the Dental Clinic Kovačević concept, scoped to this route.
 
-   The page reads as a calm family clinic rather than a clinical report: a warm
-   porcelain ground, deep navy ink, a soft muted teal used sparingly as accent,
-   and a warm linen/sand field for alternating section grounds. Photos and
-   buttons share one 6px softness; nothing on the page carries a shadow.
+   The page is built as a printed clinical report: a mineral-white sheet, deep
+   navy ink, steel for the second voice, and a single teal that is only ever
+   allowed on rules, index numerals and links. No fills, no radii above 2px —
+   the ruled margin down the left of every section does the work a card would
+   otherwise do.
 
    Contrast, measured against the ground each colour actually sits on:
-     navy on porcelain 13.94:1 · navy on sand 12.04:1
-     navy-soft on porcelain 6.51:1 · navy-soft on sand 5.62:1
-     teal on porcelain 6.12:1 · teal on sand 5.28:1
-     porcelain on navy 13.94:1 · teal-bright on navy 7.71:1 · navy-muted on navy 9.50:1
-   `line` is a hairline only and never carries text.
+     navy on mineral 14.05:1 · navy on paper 12.93:1
+     steel on mineral 7.35:1 · steel on paper 6.76:1
+     teal on mineral 5.49:1 · teal on paper 5.05:1
+     mineral on navy 14.05:1 · teal-bright on navy 7.26:1 · navy-muted on navy 8.81:1
+   `line` and `line-strong` are hairlines only and never carry text.
 
-   WHERE TEAL IS ALLOWED. The accent has four jobs on this page and no others:
-   the traced door mark, the three marks on the "Prva posjeta" thread, the
-   field terms in "Oblasti rada", and the colour of a link — plus the focus
-   ring and the contact buttons' hover, which are those same links in another
-   state. It is deliberately absent from headings, ledes, rules and dividers.
-   If teal turns up anywhere outside that list, it comes off; a single stray
-   32px rule is what made the accent read as a leftover in the first place.
-   `--dent-teal-bright` is the twin for the navy ground and carries nothing
-   there but the one large print of the mark. */
+   Motion is one gesture: the diagnostic trace under the headline draws itself
+   once and stops. It is above the fold on every viewport, so it runs on load
+   rather than on a view() timeline — a scroll timeline for an element that is
+   already past its entry range would simply never play. The static default is
+   the finished line, so a reduced-motion visitor gets the correct page. */
 
 .page {
-  --dent-porcelain: #faf6ef;
-  --dent-sand: #efe5d5;
-  --dent-navy: #16283a;
-  --dent-navy-soft: #4b5b68;
-  --dent-teal: #2f665f;
-  --dent-teal-bright: #8fc4bb;
-  --dent-navy-muted: #c3d0d3;
-  --dent-line: #ddd2ba;
+  --dent-mineral: #f2f5f6;
+  --dent-paper: #e7ecee;
+  --dent-navy: #12263a;
+  --dent-steel: #425260;
+  --dent-teal: #0f6e72;
+  --dent-teal-bright: #6fbfc2;
+  --dent-navy-muted: #b7c6d2;
+  --dent-line: #cbd5da;
+  --dent-line-strong: #9fb0ba;
 }
 
-/* Hero: a single column in DOM order (heading, photo, body) works unassisted
-   on phones and tablets — the grid below only kicks in once there is room for
-   two columns, reflowing the same three pieces into heading+body beside a
-   photo that spans both their rows. Type takes five columns of twelve and the
-   treatment room takes seven, and the photo runs past the container's right
-   edge, so the page sits off-centre from the first screen. */
-.hero {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
+/* The finished line is an undashed stroke — the dash pattern only exists while
+   something is animating it, so a browser that never runs the animation paints
+   the plain curve and cannot be caught part-drawn. `pathLength="1"` on the path
+   normalises its length, so the dash is exact without measuring the curve. */
+.trace path {
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
 }
 
-@media (min-width: 1024px) {
-  .hero {
-    display: grid;
-    grid-template-columns: 5fr 7fr;
-    grid-template-areas:
-      "heading photo"
-      "body photo";
-    /* Sizing the two text rows is what resolves the hero's bottom edge: the
-       heading takes what it needs, the body row takes the rest of the
-       photograph's height, and the body block sits at the bottom of it — so
-       the button row and the photo's bottom crop land on one line instead of
-       leaving a gap above and an overhang below. */
-    grid-template-rows: auto 1fr;
-    /* 3rem rather than 3.5: the H1's italic line is the widest thing the type
-       column has to hold, and at the largest desktop size it needs every one
-       of these five columns' pixels to stay on one line. */
-    column-gap: 3rem;
-    row-gap: 1.5rem;
-  }
-
-  .heroHeading {
-    grid-area: heading;
-  }
-
-  /* `start`, not the default stretch: the plate carries an aspect ratio and
-     stretching it against the row pair would flatten the room. */
-  .heroPhoto {
-    grid-area: photo;
-    align-self: start;
-  }
-
-  .heroBody {
-    grid-area: body;
-    align-self: end;
+@media (prefers-reduced-motion: no-preference) {
+  .trace path {
+    stroke-dasharray: 1;
+    animation: dent-trace 2.3s cubic-bezier(0.22, 0.61, 0.36, 1) 0.25s 1 both;
   }
 }
 
-/* The "Prva posjeta" flow: three steps read top to bottom as one path rather
-   than a numbered list. Each step is marked with the clinic's own door glyph,
-   and a thin line runs from the tip of one mark to the next so the sequence
-   reads as continuous — three marks on a thread, not three bullets. */
-.flow {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2.25rem;
+@keyframes dent-trace {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
-.flowItem {
-  position: relative;
-  padding-left: 2.9rem;
+/* Contents bar: a 2×2 block of anchors on phones, one row of four from md up.
+   The dividing hairlines and the flush-left entries both have to move with the
+   wrap, which is one rule set here rather than four nth-child utilities inlined
+   per item. The first entry of each row loses its indent so it sits on the same
+   left edge as the clinic name in the row above — the two rows of the masthead
+   read as one aligned block. */
+.index li {
+  border-left: 1px solid var(--dent-line);
 }
 
-/* 2.2rem, not the 1.4rem a bullet would want: the mark carries a crown over
-   three screw coils, and below roughly 32px the coils close up into a squiggle
-   and it stops reading as a tooth, which is the whole reason it is here. */
-.flowMark {
-  position: absolute;
-  top: 0.05rem;
-  left: 0;
-  height: 2.2rem;
-  width: auto;
-  aspect-ratio: 28 / 36;
-  color: var(--dent-teal);
+.index li:nth-child(2n + 1) {
+  border-left: 0;
 }
 
-/* Aligned to where the mark's own thread runs out (x = 12.8 of 28 in the
-   glyph's box), not to its centre, so the hairline reads as the same stroke
-   carrying on downwards. */
-.flowItem:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  top: 2.15rem;
-  left: 0.78rem;
-  bottom: -2.25rem;
-  width: 1px;
-  background: var(--dent-line);
+.index li:nth-child(2n + 1) > a {
+  padding-left: 0;
 }
 
-/* The entrance photograph, scaled to 3.75× its square plate so the crop lands
-   on the etched mark itself — source pixels 155–395 across and 90–330 down of
-   a 900×500 frame. It is the one crop where this soft 2019 file works, because
-   at this size the mark is the subject rather than a detail in a doorway. */
-.doorCrop {
-  position: absolute;
-  top: -37.5%;
-  left: -64.58%;
-  width: 375%;
-  max-width: none;
-  height: auto;
+.index li:nth-child(-n + 2) {
+  border-bottom: 1px solid var(--dent-line);
 }
 
-/* The same mark once more, printed large and faint on the closing navy field —
-   sized so the crown still reads whole and only the tip of the thread runs off
-   the bottom edge, the way a mark is printed on the back of a card. */
-.markPrint {
-  position: absolute;
-  right: 0.5rem;
-  bottom: -2rem;
-  height: clamp(9.5rem, 24vw, 16rem);
-  width: auto;
-  aspect-ratio: 28 / 36;
-  color: var(--dent-teal-bright);
-  opacity: 0.16;
-  pointer-events: none;
+@media (min-width: 768px) {
+  .index li:nth-child(2n + 1) {
+    border-left: 1px solid var(--dent-line);
+  }
+
+  .index li:nth-child(2n + 1) > a {
+    padding-left: 1rem;
+  }
+
+  .index li:first-child {
+    border-left: 0;
+  }
+
+  .index li:first-child > a {
+    padding-left: 0;
+  }
+
+  .index li:nth-child(-n + 2) {
+    border-bottom: 0;
+  }
 }
