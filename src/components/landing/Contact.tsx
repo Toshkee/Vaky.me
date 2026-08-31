@@ -162,6 +162,18 @@ export function Contact({ dict }: { dict: Dictionary }) {
       else if (code === "challenge") setStatus("challenge");
       else setStatus("error");
       track("lead_form_failed", { lang: dict.lang, reason: code || "provider" });
+
+      /* For whoever is looking at the console, not for the visitor. A 404 here
+         means the page is being served without the Functions behind it — a
+         plain `next dev`, or a static preview — and the enquiry never reached
+         a server at all. Worth saying once, because on screen it is
+         indistinguishable from a provider having a bad minute. */
+      if (response.status === 404) {
+        console.warn(
+          "[VibeLab] /api/lead answered 404: this build is being served without Cloudflare Functions. " +
+            "Run `npm run build && npm run dev:api` to exercise the form locally.",
+        );
+      }
     } catch {
       const offline = typeof navigator !== "undefined" && navigator.onLine === false;
       setStatus(offline ? "offline" : "error");
