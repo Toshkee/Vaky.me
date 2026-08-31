@@ -45,13 +45,28 @@ export const me: OnboardingCopy = {
     restartConfirm: "Sigurno? Sve se briše.",
   },
 
-  packageGate: {
-    title: "Koji paket ste dogovorili?",
-    intro:
-      "Ako se ne sjećate naziva, izaberite ono što vam najviše liči — uskladićemo kad se čujemo.",
-    unsure: "Nisam siguran",
-    unsureHelp: "Pitaćemo vas najvažnije, pa ćemo paket potvrditi zajedno.",
-    action: "Nastavi",
+  privateLink: {
+    checking: "Provjeravamo vaš link…",
+    invalidTitle: "Ovaj link ne radi",
+    invalidBody:
+      "Provjerite da li je link kopiran cijeli, pa pokušajte ponovo. Ako i dalje ne radi, javite nam se — poslaćemo vam novi.",
+    completedTitle: "Upitnik je već popunjen",
+    completedBody:
+      "Za ovaj projekat smo već primili vaše odgovore i materijale. Ako želite nešto da dopunite ili izmijenite, javite nam se direktno — sve stiže do nas.",
+  },
+
+  info: {
+    title: "Upitnik se otvara preko vašeg linka",
+    body:
+      "Ovdje se ne popunjava ništa. Kada se dogovorimo šta radimo i po kojoj cijeni, pošaljemo vam lični link — on otvara upitnik za vaš paket, sa vašim podacima već upisanim.",
+    stepsTitle: "Kako ide",
+    steps: [
+      "Pišete nam preko forme na sajtu ili na Instagramu.",
+      "Javimo se, dogovorimo obim posla i cijenu.",
+      "Dobijate link za upitnik i šaljete nam materijale.",
+    ],
+    noLink: "Nemate link? Javite se — pošaljemo ga za par minuta.",
+    action: "Nazad na sajt",
   },
 
   chrome: {
@@ -68,9 +83,9 @@ export const me: OnboardingCopy = {
     errorSummary: "Provjerite označena polja.",
     home: "vibelab.it.com",
     packageNotes: {
-      start: "Vaš paket je jedna stranica, pa ovo biramo kao sekcije na njoj.",
-      business: "U vašem paketu ide do pet stranica.",
-      project: "Broj stranica dogovaramo — označite sve što vam treba.",
+      start: "Vaš sajt je jedna stranica koja se skroluje — ovdje biramo šta sve na njoj ide.",
+      business: "Vaš paket pokriva do pet zasebnih stranica.",
+      project: "Broj stranica dogovaramo po projektu — označite sve što vam treba.",
     },
   },
 
@@ -79,6 +94,11 @@ export const me: OnboardingCopy = {
       title: "O vašem biznisu",
       intro: "Osnovno — ko ste i gdje da vas nađemo.",
       tony: "Hajde prvo da upoznamo vaš biznis.",
+    },
+    custom: {
+      title: "Šta sajt treba da može",
+      intro:
+        "Vaš projekat pravimo po mjeri, pa nam recite šta sve treba da radi. Detaljnija pitanja dobijate samo za ono što izaberete.",
     },
     website: {
       title: "Šta sajt treba da postigne",
@@ -137,6 +157,29 @@ export const me: OnboardingCopy = {
       placeholder: "npr. domaći gosti, turisti, firme…",
     },
 
+    /* ── Vaš projekat (samo Projekat paket) ── */
+    projectType: {
+      label: "Šta sajt treba da može?",
+      help: "Označite sve što vam treba — u redu je i ako još ne znate tačno.",
+      options: {
+        shop: "Online prodavnica",
+        booking: "Zakazivanje termina po vašim pravilima",
+        "self-editing": "Da sami mijenjate sadržaj — tekst, slike, proizvode",
+        integrations: "Povezivanje sa programima koje već koristite",
+        accounts: "Prijava za korisnike — nalozi na sajtu",
+        automation: "Automatska obavještenja i slični procesi",
+        "content-site": "Veliki sajt sa puno stranica i sadržaja",
+        other: "Nešto drugo",
+        "not-sure": "Nisam siguran — opisaću svojim riječima na kraju",
+      },
+    },
+    projectTypeOther: { label: "Šta tačno?", placeholder: "Opišite svojim riječima." },
+    integrationsWhat: {
+      label: "Sa čim treba povezati sajt?",
+      help: "Napišite nazive programa ili opišite svojim riječima.",
+      placeholder: "npr. DIKIDI, kasa, zalihe, Excel tabele…",
+    },
+
     /* ── Sajt ── */
     goals: {
       label: "Šta najviše želite da postignete novim sajtom?",
@@ -153,6 +196,26 @@ export const me: OnboardingCopy = {
       },
     },
     goalsOther: { label: "Šta još?", placeholder: "Recite nam ukratko." },
+    sections: {
+      label: "Šta želite da bude prikazano na vašem sajtu?",
+      help: "Vaš paket uključuje jednu stranicu podijeljenu na više sekcija. Izaberite šta želite da posjetioci vide dok skroluju kroz sajt.",
+      options: {
+        about: "Predstavljanje biznisa / o nama",
+        services: "Usluge",
+        products: "Proizvodi",
+        menu: "Meni",
+        "pricing-list": "Cjenovnik",
+        gallery: "Galerija fotografija",
+        testimonials: "Recenzije klijenata",
+        location: "Lokacija i mapa",
+        contact: "Kontakt informacije i radno vrijeme",
+        social: "Linkovi ka društvenim mrežama",
+        "contact-form": "Kontakt forma",
+        other: "Nešto drugo",
+        "not-sure": "Nisam siguran — neka VibeLab predloži strukturu",
+      },
+    },
+    sectionsOther: { label: "Šta još?", placeholder: "Recite nam ukratko." },
     pages: {
       label: "Koje stranice bi sajt trebalo da ima?",
       help: "Označite sve što mislite da vam treba.",
@@ -167,9 +230,11 @@ export const me: OnboardingCopy = {
         faq: "Česta pitanja",
         shop: "Prodavnica",
         booking: "Rezervacije",
+        other: "Nešto drugo",
         "not-sure": "Nisam siguran — neka VibeLab predloži",
       },
     },
+    pagesOther: { label: "Koja još stranica?", placeholder: "npr. Naš tim" },
 
     /* ── Dizajn ── */
     style: {
@@ -218,6 +283,15 @@ export const me: OnboardingCopy = {
       },
     },
     featuresOther: { label: "Šta još?", placeholder: "Recite nam ukratko." },
+    siteLanguages: {
+      label: "Na kojim jezicima želite sajt?",
+      help: "Vaš paket pokriva crnogorski i englesku verziju. Tekst na engleskom dostavljate vi — mi ga uređujemo i ubacujemo.",
+      options: {
+        "me-only": "Samo crnogorski",
+        "me-en": "Crnogorski i engleski",
+        "not-sure": "Nisam siguran — posavjetujte me",
+      },
+    },
     languagesNeeded: {
       label: "Koji jezici su vam potrebni?",
       help: "Crnogorski se podrazumijeva.",
@@ -488,6 +562,8 @@ export const me: OnboardingCopy = {
       session: "Sesija je istekla. Osvježite stranicu — odgovori su sačuvani.",
       "rate-limit": "Previše pokušaja u kratkom roku. Sačekajte minut pa probajte ponovo.",
       challenge: "Sačekajte sekundu da se provjera završi, pa pošaljite ponovo.",
+      link: "Ovaj link nije važeći. Javite nam se — poslaćemo vam novi.",
+      completed: "Upitnik za ovaj projekat je već popunjen.",
       "file-type": "Ovaj tip fajla ne možemo primiti.",
       "file-size": "Fajl je prevelik.",
       "file-count": "Poslali ste previše fajlova.",

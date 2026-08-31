@@ -2,29 +2,31 @@ import {
   SCHEMA_VERSION,
   isFileZone,
   isLanguage,
-  isPackageId,
-  isPackageSource,
   type Answers,
   type FileZone,
   type Language,
-  type PackageId,
-  type PackageSource,
 } from "./schema";
 
 /**
  * The unfinished brief, kept on the client's own device.
  *
- * A client opens this link from Instagram or WhatsApp, on a phone, and gets
+ * A client opens their link from Instagram or WhatsApp, on a phone, and gets
  * interrupted — that is the normal case, not the exception. So everything they
  * have typed is written to localStorage as they go and offered back on the next
  * visit, and it is only cleared once a submission has actually been accepted.
  *
- * What is NOT here is file *contents*. Uploads go straight to storage and only
- * their names, sizes and ids come back — putting a 20 MB photo in localStorage
- * would blow the quota on the first file and lose the whole draft with it.
+ * The storage key carries the link's token: two different clients' links
+ * opened in the same browser get two separate drafts instead of overwriting
+ * each other. The package is deliberately NOT in the draft — it lives on the
+ * server's request row, and a stale local copy of it could only ever disagree.
+ *
+ * What is also NOT here is file *contents*. Uploads go straight to storage and
+ * only their names, sizes and ids come back — putting a 20 MB photo in
+ * localStorage would blow the quota on the first file and lose the whole
+ * draft with it.
  */
 
-const KEY = "vibelab:onboarding";
+const key = (token: string) => `vibelab:onboarding:${token}`;
 
 export type UploadedFile = {
   /** The server's id for the stored object. */
@@ -44,8 +46,6 @@ export type Session = {
 
 export type Draft = {
   language: Language | null;
-  packageId: PackageId | null;
-  packageSource: PackageSource | null;
   /** Which step they were on, so returning puts them back there. */
   stepId: string | null;
   answers: Answers;
@@ -55,8 +55,6 @@ export type Draft = {
 
 export const emptyDraft: Draft = {
   language: null,
-  packageId: null,
-  packageSource: null,
   stepId: null,
   answers: {},
   files: [],
@@ -71,12 +69,12 @@ type StoredDraft = Draft & { version: number };
  * a different tab, or by hand — none of which should be able to put the wizard
  * into a state its own code does not expect.
  */
-export function readDraft(): Draft | null {
+export function readDraft(token: string): Draft | null {
   if (typeof window === "undefined") return null;
 
   let raw: string | null;
   try {
-    raw = window.localStorage.getItem(KEY);
+    raw = window.localStorage.getItem(key(token));
   } catch {
     // Private mode, or storage disabled. The form still works; it just forgets.
     return null;
@@ -122,13 +120,12 @@ export function readDraft(): Draft | null {
 
     return {
       language: isLanguage(draft.language) ? draft.language : null,
-      packageId: isPackageId(draft.packageId) ? draft.packageId : null,
-      packageSource: isPackageSource(draft.packageSource) ? draft.packageSource : null,
       stepId: typeof draft.stepId === "string" ? draft.stepId : null,
       answers,
-      /* An expired session cannot be used to upload, and the files it uploaded
-         belong to a submission this device can no longer add to. Keeping their
-         names would show the client a list they cannot act on. */
+      /* An expired session cannot be used to upload, and on this route the
+         files it uploaded are still safely attached to the same brief — but a
+         list the client can no longer add to or remove from would only
+         mislead. The server's copy is the one that counts. */
       files: session ? files : [],
       session,
     };
@@ -137,21 +134,21 @@ export function readDraft(): Draft | null {
   }
 }
 
-export function writeDraft(draft: Draft): void {
+export function writeDraft(token: string, draft: Draft): void {
   if (typeof window === "undefined") return;
   try {
     const stored: StoredDraft = { ...draft, version: SCHEMA_VERSION };
-    window.localStorage.setItem(KEY, JSON.stringify(stored));
+    window.localStorage.setItem(key(token), JSON.stringify(stored));
   } catch {
     // Quota or private mode. Losing the draft is survivable; throwing here
     // would take the keystroke that triggered the save down with it.
   }
 }
 
-export function clearDraft(): void {
+export function clearDraft(token: string): void {
   if (typeof window === "undefined") return;
   try {
-    window.localStorage.removeItem(KEY);
+    window.localStorage.removeItem(key(token));
   } catch {
     // Nothing to do, and nothing worth failing a submission over.
   }

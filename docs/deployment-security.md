@@ -156,14 +156,13 @@ a bump, it rewrites the SHA and the `# vX.Y.Z` comment together.
 ## 6. Third-party requests from the pages
 
 Fonts are self-hosted by next/font, so there is no CDN in the critical path.
-Beyond that the pages can reach exactly three hosts, and only under conditions
+Beyond that the pages can reach exactly four hosts, and only under conditions
 the visitor controls or the build decides:
 
 | Host | When | Guard |
 | --- | --- | --- |
 | `www.google.com` | only after a visitor presses **Prikaži mapu** on a demo page | `src/components/demo/MapEmbed.tsx`, iframe is `referrerPolicy="no-referrer"` |
-| `challenges.cloudflare.com` | only once someone starts filling the concept form in, and only if a Turnstile site key is configured | `src/components/landing/Turnstile.tsx` |
-| `usebasin.com` | only on form submit, and only if a form endpoint is configured | `src/components/landing/ConceptRequest.tsx` |
+| `challenges.cloudflare.com` | only once someone starts filling the enquiry form in, and only if a Turnstile site key is configured | `src/components/landing/Turnstile.tsx` |
 | `cloud.umami.is` | on page load, and only if a website id is configured | `src/components/Analytics.tsx` |
 | `static.cloudflareinsights.com` | on page load — **Cloudflare injects this itself**, no code here asks for it | Cloudflare dashboard → Web Analytics |
 

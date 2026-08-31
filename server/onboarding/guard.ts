@@ -50,11 +50,16 @@ export type Limit = { key: string; windowSeconds: number; max: number };
 
 /** Opening a submission is rare per person; sending one, rarer still. Uploads
  *  are the loose one on purpose — forty files in ten minutes is one client
- *  emptying a photo folder, not an attack. */
+ *  emptying a photo folder, not an attack. `lead` is the only anonymous write
+ *  on the site and is held tighter; `login` is tighter still, because the
+ *  thing being counted there is password guesses. */
 export const LIMITS = {
   session: { key: "session", windowSeconds: 600, max: 10 },
   upload: { key: "upload", windowSeconds: 600, max: 60 },
   submit: { key: "submit", windowSeconds: 3600, max: 10 },
+  context: { key: "context", windowSeconds: 600, max: 30 },
+  lead: { key: "lead", windowSeconds: 3600, max: 5 },
+  login: { key: "login", windowSeconds: 300, max: 5 },
 } as const satisfies Record<string, Omit<Limit, "key"> & { key: string }>;
 
 /**
@@ -70,6 +75,10 @@ export async function withinLimit(
   limit: Limit,
   identity: string,
   now: number,
+  /** Almost everything fails open — see the catch below. The login limiter
+   *  fails closed instead: what it counts is password guesses, and "the
+   *  database had a hiccup" is not a reason to stop counting those. */
+  failOpen = true,
 ): Promise<boolean> {
   const windowStart = Math.floor(now / 1000 / limit.windowSeconds) * limit.windowSeconds;
   const bucket = `${limit.key}:${identity}`;
@@ -97,6 +106,6 @@ export async function withinLimit(
     /* A limiter that fails closed turns a database hiccup into an outage for
        the one client who is trying to hand over their project. It fails open,
        and the edge rule is the control that does not. */
-    return true;
+    return failOpen;
   }
 }

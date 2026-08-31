@@ -1,5 +1,15 @@
 import type { Dictionary } from "@/i18n";
 import { instagramLink, site } from "@/config/site";
+import { PLAN_PACKAGES } from "@/lib/onboarding/schema";
+import { PACKAGES } from "@/lib/packages";
+
+/* What the studio charges, spanning the cheapest package to the entry price of
+   the open-ended one — derived, so it cannot say €350 a year after the price
+   list stopped doing so. The trailing "+" is what makes it honest: the top of
+   the range is a floor, not a ceiling. */
+const amounts = PLAN_PACKAGES.map((id) => PACKAGES[id].price.amount);
+const openEnded = PLAN_PACKAGES.some((id) => PACKAGES[id].price.kind === "from");
+const priceRange = `€${Math.min(...amounts)}–€${Math.max(...amounts)}${openEnded ? "+" : ""}`;
 
 /**
  * JSON-LD for the studio itself and for the FAQ.
@@ -23,7 +33,7 @@ export function StructuredData({ dict }: { dict: Dictionary }) {
       image: `${site.url}/og.png`,
       description: dict.meta.description,
       email: site.email,
-      priceRange: "€200–€350",
+      priceRange,
       // what the studio does, in the page's own language — the entity signal
       // behind "izrada sajtova Podgorica" and its English equivalents.
       // knowsAbout, not serviceType: schema.org puts serviceType on Service
@@ -41,16 +51,26 @@ export function StructuredData({ dict }: { dict: Dictionary }) {
         { "@type": "Country", name: "Montenegro" },
       ],
       sameAs: [instagramLink()],
-      makesOffer: dict.pricing.plans.map((plan) => {
-        // The schema wants the number alone, without the currency sign. A plan
-        // quoted on request has no number at all, and an Offer carrying
-        // price:"" is invalid, so that one ships without the price fields.
-        const price = plan.price.replace(/[^0-9]/g, "");
+      makesOffer: dict.pricing.plans.map((plan, index) => {
+        const { price } = PACKAGES[PLAN_PACKAGES[index]];
         return {
           "@type": "Offer",
           name: plan.name,
           description: plan.tagline,
-          ...(price ? { priceCurrency: "EUR", price } : {}),
+          priceCurrency: "EUR",
+          /* A starting price is not a price. Stating €600 flat for a package
+             whose whole point is that the scope decides would be a promise
+             the studio has not made — so it ships as a minimum instead, which
+             is the thing schema.org has a field for. */
+          ...(price.kind === "fixed"
+            ? { price: String(price.amount) }
+            : {
+                priceSpecification: {
+                  "@type": "PriceSpecification",
+                  priceCurrency: "EUR",
+                  minPrice: price.amount,
+                },
+              }),
           itemOffered: {
             "@type": "Service",
             name: plan.name,

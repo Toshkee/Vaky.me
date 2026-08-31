@@ -23,14 +23,14 @@ export const LANGUAGES = ["me", "en"] as const;
 export type Language = (typeof LANGUAGES)[number];
 
 /**
- * The three packages the site sells. These ids are what a link carries
- * (`/start/?package=business`), what the database stores and what the brief is
- * built from — so they are deliberately not the plan *names*, which are
+ * The three packages the site sells. These ids are what the database stores,
+ * what a private onboarding link resolves to on the server and what the brief
+ * is built from — so they are deliberately not the plan *names*, which are
  * marketing copy and differ per language ("Biznis" / "Business").
  *
  * `PACKAGE_PLAN_INDEX` is the join back to that copy: the plans in
- * `dict.pricing.plans` are the single source of truth for what a package is
- * called and what it costs, and the onboarding never restates either.
+ * `dict.pricing.plans` name and describe each package per language. Prices
+ * and limits are numbers, not copy, and live in `src/lib/packages.ts`.
  */
 export const PACKAGE_IDS = ["start", "business", "project"] as const;
 export type PackageId = (typeof PACKAGE_IDS)[number];
@@ -41,8 +41,17 @@ export const PACKAGE_PLAN_INDEX: Record<PackageId, number> = {
   project: 2,
 };
 
-/** How the package on a submission was arrived at — useful when VibeLab reads
- *  the brief and the answers do not match what was sold. */
+/** The same join read the other way: the package a pricing card at index n is
+ *  for, so the cards can price themselves from `packages.ts` instead of
+ *  carrying a number in translated copy. */
+export const PLAN_PACKAGES: readonly PackageId[] = [...PACKAGE_IDS].sort(
+  (a, b) => PACKAGE_PLAN_INDEX[a] - PACKAGE_PLAN_INDEX[b],
+);
+
+/** How the package on a submission was arrived at. Since onboarding moved to
+ *  private links the package always comes from the link's own record
+ *  ("link"); the other two values remain because stored submissions from the
+ *  public-form era carry them. */
 export const PACKAGE_SOURCES = ["link", "client", "unsure"] as const;
 export type PackageSource = (typeof PACKAGE_SOURCES)[number];
 
@@ -50,8 +59,13 @@ export type PackageSource = (typeof PACKAGE_SOURCES)[number];
  * Bumped whenever a question id or option id changes meaning. A saved draft
  * from an older version is discarded rather than restored into a form that no
  * longer matches it — a half-migrated draft is worse than starting over.
+ *
+ * 2: Start stopped being asked about pages (it is a one-page site and picks
+ *    *sections* instead); Projekat gained the custom-scope step; the shop and
+ *    booking batteries stopped being shown to packages that cannot deliver
+ *    them.
  */
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 
 /* ── Answers ──────────────────────────────────────────────────────────── */
 
@@ -114,14 +128,21 @@ export type QuestionId =
   | "existingSite"
   | "activity"
   | "customers"
+  | "projectType"
+  | "projectTypeOther"
+  | "integrationsWhat"
   | "goals"
   | "goalsOther"
+  | "sections"
+  | "sectionsOther"
   | "pages"
+  | "pagesOther"
   | "style"
   | "inspiration"
   | "avoid"
   | "features"
   | "featuresOther"
+  | "siteLanguages"
   | "languagesNeeded"
   | "languagesOther"
   | "selfEditing"
@@ -164,6 +185,10 @@ export type Question = {
   options?: readonly Option[];
   /** `urls`: how many fields to offer. `multi`: how many may be picked. */
   max?: number;
+  /** A package-specific cap that overrides `max` — Biznis covers up to five
+   *  pages, Projekat as many as the project needs, and both ask with the same
+   *  question. */
+  maxByPackage?: Partial<Record<PackageId, number>>;
   zone?: FileZone;
   format?: FieldFormat;
   /** Ask this only once the answers so far make it relevant. */
@@ -174,6 +199,7 @@ export type Question = {
 
 export const STEP_IDS = [
   "business",
+  "custom",
   "website",
   "design",
   "features",
@@ -223,6 +249,46 @@ export const STEPS: readonly Step[] = [
     ],
   },
 
+  /* Projekat only, and first after the introductions: what the site has to be
+     able to DO decides every question after it. The shop and booking steps
+     watch this answer, and the brief is organised around it. */
+  {
+    id: "custom",
+    packages: ["project"],
+    questions: [
+      {
+        id: "projectType",
+        kind: "multi",
+        required: true,
+        options: [
+          ...opts(
+            "shop",
+            "booking",
+            "self-editing",
+            "integrations",
+            "accounts",
+            "automation",
+            "content-site",
+          ),
+          { value: "other" },
+          unsure,
+        ],
+      },
+      {
+        id: "projectTypeOther",
+        kind: "text",
+        maxLength: 300,
+        visibleWhen: (a) => answerHas(a, "projectType", "other"),
+      },
+      {
+        id: "integrationsWhat",
+        kind: "textarea",
+        maxLength: 400,
+        visibleWhen: (a) => answerHas(a, "projectType", "integrations"),
+      },
+    ],
+  },
+
   {
     id: "website",
     questions: [
@@ -249,16 +315,60 @@ export const STEPS: readonly Step[] = [
         maxLength: 200,
         visibleWhen: (a) => answerHas(a, "goals", "other"),
       },
+      /* Start is ONE page, so it picks the sections a visitor scrolls
+         through — it is never asked "which pages", because there are none to
+         choose. The hero and a call to action are not on the list: every site
+         gets those, and asking about them is asking the client to design. */
+      {
+        id: "sections",
+        kind: "multi",
+        required: true,
+        packages: ["start"],
+        options: [
+          ...opts(
+            "about",
+            "services",
+            "products",
+            "menu",
+            "pricing-list",
+            "gallery",
+            "testimonials",
+            "location",
+            "contact",
+            "social",
+            "contact-form",
+          ),
+          { value: "other" },
+          unsure,
+        ],
+      },
+      {
+        id: "sectionsOther",
+        kind: "text",
+        maxLength: 200,
+        packages: ["start"],
+        visibleWhen: (a) => answerHas(a, "sections", "other"),
+      },
       {
         id: "pages",
         kind: "multi",
         required: true,
+        packages: ["business", "project"],
+        maxByPackage: { business: 5 },
         options: [
           ...opts("home", "about", "services", "gallery", "pricing", "contact", "blog", "faq"),
           { value: "shop", packages: ["project"] },
           { value: "booking", packages: BOOKING_PACKAGES },
+          { value: "other" },
           unsure,
         ],
+      },
+      {
+        id: "pagesOther",
+        kind: "text",
+        maxLength: 200,
+        packages: ["business", "project"],
+        visibleWhen: (a) => answerHas(a, "pages", "other"),
       },
     ],
   },
@@ -292,7 +402,10 @@ export const STEPS: readonly Step[] = [
           ...opts("contact-form", "whatsapp", "viber", "map", "instagram"),
           { value: "booking", packages: BOOKING_PACKAGES },
           { value: "shop", packages: ["project"] },
-          { value: "multilingual", packages: BOOKING_PACKAGES },
+          /* A third language and beyond is Projekat territory; Biznis covers
+             Montenegrin and English and asks about that with its own question
+             below. */
+          { value: "multilingual", packages: ["project"] },
           ...opts("newsletter", "reviews", "gallery", "video"),
           unsure,
           { value: "other" },
@@ -305,9 +418,17 @@ export const STEPS: readonly Step[] = [
         visibleWhen: (a) => answerHas(a, "features", "other"),
       },
       {
+        id: "siteLanguages",
+        kind: "single",
+        required: true,
+        packages: ["business"],
+        options: opts("me-only", "me-en", "not-sure"),
+      },
+      {
         id: "languagesNeeded",
         kind: "multi",
         required: true,
+        packages: ["project"],
         options: opts("english", "russian", "german", "italian", "albanian", "turkish", "other"),
         visibleWhen: (a) => answerHas(a, "features", "multilingual"),
       },
@@ -315,20 +436,33 @@ export const STEPS: readonly Step[] = [
         id: "languagesOther",
         kind: "text",
         maxLength: 160,
+        packages: ["project"],
         visibleWhen: (a) => answerHas(a, "languagesNeeded", "other"),
       },
-      { id: "selfEditing", kind: "single", required: true, options: opts("yes", "no", "not-sure") },
+      /* For Projekat the same fact arrives through projectType, where it is a
+         scope decision rather than a preference. */
+      {
+        id: "selfEditing",
+        kind: "single",
+        required: true,
+        packages: ["start", "business"],
+        options: opts("yes", "no", "not-sure"),
+      },
     ],
   },
 
-  /* Shown when the client says they want to sell — from the goal, which every
-     package offers, or from the feature, which only Projekat does. A Start
-     client whose goal is selling is a conversation VibeLab wants to have, not
-     a step to hide. */
+  /* Projekat only. A Start or Biznis client whose goal is selling is a
+     conversation VibeLab wants to have — the dashboard flags it as possibly
+     outside the package — but walking them through payment methods and stock
+     tracking for a package with no shop would promise what the price does
+     not contain. */
   {
     id: "shop",
+    packages: ["project"],
     visibleWhen: (a) =>
-      answerHas(a, "goals", "sell-products") || answerHas(a, "features", "shop"),
+      answerHas(a, "projectType", "shop") ||
+      answerHas(a, "goals", "sell-products") ||
+      answerHas(a, "features", "shop"),
     questions: [
       {
         id: "productCount",
@@ -366,37 +500,19 @@ export const STEPS: readonly Step[] = [
     ],
   },
 
+  /* One step, two depths. Biznis connects the site to a booking service the
+     client already uses (or a simple existing one) — it needs to know what is
+     booked and how bookings happen today, nothing more. A custom booking
+     system is Projekat work, and only Projekat is asked to describe one. */
   {
     id: "booking",
+    packages: BOOKING_PACKAGES,
     visibleWhen: (a) =>
-      answerHas(a, "goals", "take-bookings") || answerHas(a, "features", "booking"),
+      answerHas(a, "projectType", "booking") ||
+      answerHas(a, "goals", "take-bookings") ||
+      answerHas(a, "features", "booking"),
     questions: [
       { id: "bookingServices", kind: "textarea", required: true, maxLength: 600 },
-      {
-        id: "bookingDuration",
-        kind: "single",
-        required: true,
-        options: opts("to-30", "30-60", "1-2h", "more", "varies"),
-      },
-      { id: "bookingHours", kind: "textarea", required: true, maxLength: 300 },
-      {
-        id: "bookingStaff",
-        kind: "single",
-        required: true,
-        options: opts("one", "several", "not-sure"),
-      },
-      {
-        id: "bookingAdvance",
-        kind: "single",
-        required: true,
-        options: opts("same-day", "week", "month", "longer", "not-sure"),
-      },
-      {
-        id: "bookingCancellation",
-        kind: "single",
-        required: true,
-        options: opts("free", "with-notice", "no", "not-sure"),
-      },
       {
         id: "bookingCurrent",
         kind: "single",
@@ -410,9 +526,39 @@ export const STEPS: readonly Step[] = [
         visibleWhen: (a) => answerText(a, "bookingCurrent") === "system",
       },
       {
+        id: "bookingDuration",
+        kind: "single",
+        required: true,
+        packages: ["project"],
+        options: opts("to-30", "30-60", "1-2h", "more", "varies"),
+      },
+      { id: "bookingHours", kind: "textarea", required: true, maxLength: 300, packages: ["project"] },
+      {
+        id: "bookingStaff",
+        kind: "single",
+        required: true,
+        packages: ["project"],
+        options: opts("one", "several", "not-sure"),
+      },
+      {
+        id: "bookingAdvance",
+        kind: "single",
+        required: true,
+        packages: ["project"],
+        options: opts("same-day", "week", "month", "longer", "not-sure"),
+      },
+      {
+        id: "bookingCancellation",
+        kind: "single",
+        required: true,
+        packages: ["project"],
+        options: opts("free", "with-notice", "no", "not-sure"),
+      },
+      {
         id: "bookingConfirmation",
         kind: "single",
         required: true,
+        packages: ["project"],
         options: opts("email", "message", "both", "not-needed"),
       },
     ],
@@ -499,6 +645,12 @@ export function visibleOptions(question: Question, packageId: PackageId): readon
   return (question.options ?? []).filter((option) => inPackage(option.packages, packageId));
 }
 
+/** How many options this package may pick — the package cap when one is set,
+ *  the general cap otherwise. */
+export function questionMax(question: Question, packageId: PackageId): number | undefined {
+  return question.maxByPackage?.[packageId] ?? question.max;
+}
+
 export function visibleQuestions(
   step: Step,
   packageId: PackageId,
@@ -538,6 +690,10 @@ export type ApiErrorCode =
   | "session"
   | "rate-limit"
   | "challenge"
+  /** The onboarding link is not one VibeLab issued, or it was withdrawn. */
+  | "link"
+  /** The brief behind this link was already sent — the form is closed. */
+  | "completed"
   | "file-type"
   | "file-size"
   | "file-count"
@@ -628,11 +784,12 @@ export function stepErrors(step: Step, packageId: PackageId, answers: Answers): 
 
       case "multi": {
         const values = answerList(answers, question.id);
+        const cap = questionMax(question, packageId);
         if (values.length === 0) {
           if (question.required) errors[question.id] = "required";
         } else if (values.some((value) => !allowed.includes(value))) {
           errors[question.id] = "option";
-        } else if (question.max && values.length > question.max) {
+        } else if (cap && values.length > cap) {
           errors[question.id] = "many";
         }
         break;

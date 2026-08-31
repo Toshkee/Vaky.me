@@ -137,25 +137,26 @@ export const me = {
   pricing: {
     title: "Cijene",
     sub: "Jasne cijene, bez sitnih slova.",
+    /* Names, taglines and badges only. The prices come from
+       `src/lib/packages.ts` — a number in translated copy is a number that
+       gets changed in one language and forgotten in the other. */
     plans: [
       {
         name: "Start",
-        price: "€200",
-        tagline: "Za biznis kojem treba jedna jaka stranica — šta radiš, gdje si i kako da ti se jave.",
+        tagline:
+          "Jedna stranica koja se skroluje — šta radiš, gdje si i kako da ti se jave, sve na jednom mjestu.",
         badge: null,
       },
       {
         name: "Biznis",
-        price: "€350",
         tagline:
-          "Kad sajt treba i da radi: rezervacije, cjenovnik koji sam mijenjaš i gosti iz inostranstva.",
+          "Kad sajt treba i da radi: do pet stranica, verzija na engleskom i rezervacije preko servisa koji već koristiš.",
         badge: "Preporučeno",
       },
       {
         name: "Projekat",
-        price: "Po dogovoru",
         tagline:
-          "Za ono što ne staje u paket — prodavnica, povezivanje sa tvojim sistemima, više jezika.",
+          "Za ono što ne staje u paket — prodavnica, povezivanje sa tvojim sistemima, više jezika. Konačna cijena zavisi od obima.",
         badge: null,
       },
     ],
@@ -211,12 +212,13 @@ export const me = {
           label: "Online rezervacije",
           values: [false, true, true],
           explain:
-            "Gosti zakazuju sa sajta. Ako već koristiš sistem kao DIKIDI, povezujemo se na njega umjesto da praviš novi.",
+            "Sajt se povezuje na servis za rezervacije koji već koristiš — DIKIDI, Google rezervacije ili sličan — pa gosti zakazuju bez izlaska sa sajta. Sopstveni sistem rezervacija, sa terminima i osobljem u našoj bazi, radi se kao Projekat.",
         },
         {
           label: "Verzija na engleskom",
           values: [false, true, true],
-          explain: "Kompletan prevod sajta i prebacivanje jezika za goste iz inostranstva.",
+          explain:
+            "Sajt na dva jezika, crnogorskom i engleskom, sa prebacivanjem i odvojenim adresama. Engleski tekst nam šalješ ti; ako ti treba i prevod, dogovaramo se posebno.",
         },
         {
           label: "Napredni SEO",
@@ -228,7 +230,13 @@ export const me = {
           label: "Broj stranica",
           values: ["1", "do 5", "po dogovoru"],
           explain:
-            "Koliko odvojenih stranica sajt ima — na primjer Početna, Usluge, Galerija, Kontakt. Za većinu malih biznisa jedna dobra stranica radi posao.",
+            "Koliko odvojenih stranica sajt ima — na primjer Početna, Usluge, Galerija, Kontakt. Start je jedna stranica koja se skroluje: sve što ti treba stoji u sekcijama jedna ispod druge, a ne na posebnim adresama. Za većinu malih biznisa to radi posao.",
+        },
+        {
+          label: "Krugovi izmjena",
+          values: ["1", "2", "po dogovoru"],
+          explain:
+            "Koliko puta prolazimo kroz tvoje primjedbe poslije prve verzije. Sve u jednom krugu skupljaš i pošalješ odjednom, pa ih uradimo zajedno. Dodatni krugovi su mogući, dogovaramo se posebno.",
         },
         {
           label: "Prodavnica i naplata online",
@@ -269,9 +277,10 @@ export const me = {
       ],
       note: "Pod sitnim izmjenama mislimo na tekst, cijene i fotografije — nove stranice i funkcionalnosti dogovaraju se posebno. Domen se naplaćuje zasebno, ~€25 godišnje.",
     },
-    planAction: "Odaberi paket",
-    packagePrefill:
-      "Zdravo! Zanima me {package} paket za moj biznis. Možemo li dogovoriti detalje?",
+    planAction: "Pitaj za ovaj paket",
+    /* Said on the cards, because a price list that looks like a checkout is a
+       price list people read as one. Nothing is bought here. */
+    planNote: "Ništa se ne plaća preko sajta — prvo se dogovorimo šta ti treba.",
   },
 
   faq: {
@@ -302,38 +311,54 @@ export const me = {
 
   contact: {
     title: "Spreman za novi sajt?",
-    sub: "Pošalji link svog sajta ili Instagrama — dobijaš besplatan koncept prije nego što išta platiš. Obično odgovorimo istog dana.",
+    sub: "Ostavi nam par podataka — javimo se, dogovorimo šta ti treba i pošaljemo ponudu. Obično odgovorimo istog dana.",
     directLabel: "Ili direktno:",
-    prefill: "Zdravo! Zanima me sajt za moj biznis. Mogu li dobiti besplatan koncept?",
+    prefill: "Zdravo! Zanima me sajt za moj biznis. Možemo li da se čujemo oko ponude?",
     emailSubject: "Sajt za moj biznis",
-    concept: {
-      eyebrow: "Besplatan koncept",
-      placeholder: "tvoj-sajt.me ili @instagram",
+    lead: {
+      eyebrow: "Zatraži ponudu",
+      nameLabel: "Ime",
+      namePlaceholder: "Kako da te zovemo",
+      businessLabel: "Naziv biznisa",
+      businessPlaceholder: "Ime radnje, salona, kafane…",
+      emailLabel: "Email",
+      emailPlaceholder: "ime@primjer.me",
+      phoneLabel: "Telefon",
+      phonePlaceholder: "067 123 456",
       linkLabel: "Sajt ili Instagram",
-      contactLabel: "Kontakt za odgovor",
-      contactPlaceholder: "email ili @instagram",
-      goalLabel: "Šta ti treba (opciono)",
-      goalPlaceholder: "Ukratko: čime se baviš i šta bi sajt trebalo da radi.",
-      submit: "Pošalji zahtjev",
+      linkPlaceholder: "tvoj-sajt.me ili @instagram",
+      needLabel: "Šta ti treba",
+      /* Keys are the values in LEAD_NEEDS (src/lib/workflow.ts). */
+      needOptions: {
+        "new-site": "Novi sajt",
+        redesign: "Redizajn postojećeg",
+        shop: "Online prodavnica",
+        "something-else": "Nešto drugo",
+        "not-sure": "Još ne znam",
+      },
+      messageLabel: "Ukratko o biznisu",
+      messagePlaceholder: "Čime se baviš i šta bi sajt trebalo da radi.",
+      optional: "opciono",
+      submit: "Zatraži ponudu",
       sending: "Šaljem…",
-      success: "Primljeno. Javimo se na kontakt koji si ostavio.",
-      errorRequired: "Treba nam link tvog sajta ili Instagrama i kontakt na koji da odgovorimo.",
+      success: "Primljeno. Javimo se na email koji si ostavio, obično istog dana.",
+      errorRequired: "Treba nam tvoje ime i email na koji da ti odgovorimo.",
+      errorPhone: "Provjeri broj telefona, ili ostavi polje prazno.",
       errorChallenge: "Sačekaj sekundu da se provjera završi, pa pošalji ponovo.",
       errorOffline: "Nema veze sa internetom. Provjeri konekciju i probaj ponovo.",
       errorSpam: "Previše pokušaja u kratkom roku. Sačekaj minut i probaj ponovo.",
       errorProvider: "Slanje trenutno ne radi. Probaj ponovo ili nam piši direktno.",
-      submitEmail: "Pošalji email",
       submitInstagram: "Otvori Instagram DM",
       submitInstagramCopied: "Poruka kopirana — otvori Instagram",
       copied: "Poruka je kopirana — samo je nalijepi u Instagram DM.",
-      note: "Email se otvara sa tvojim linkom već upisanim. Javimo se u najkraćem roku.",
-      emailFallback: "Ne otvara ti se email program?",
-      emailFallbackAction: "Otvori Gmail u browseru",
+      note: "Preko sajta se ništa ne plaća. Prvo se dogovorimo, pa onda radimo.",
+      emailFallback: "Ne ide slanje?",
+      emailFallbackAction: "Pošalji nam email",
       /* {link} is replaced with whatever the visitor typed */
-      prefill: "Zdravo! Ovo je moj sajt/Instagram: {link} — može besplatan koncept?",
+      prefill: "Zdravo! Ovo je moj biznis: {link} — može ponuda za sajt?",
       /* Tony's speech bubble beside the form. Split so the offer can be set
          in red without concatenating sentences in the component. */
-      bubble: { pre: "Pošalji sada i dobijaš", em: "besplatan koncept", post: "!" },
+      bubble: { pre: "Prvo dobijaš", em: "besplatan koncept", post: ", pa se dogovaramo." },
     },
   },
 
@@ -356,15 +381,16 @@ export const me = {
         when: "always",
         title: "Ko obrađuje podatke",
         body: [
-          "VibeLab, web studio iz Crne Gore. Za sva pitanja o podacima piši na vibelabmne@gmail.com.",
+          "VibeLab, web studio iz Crne Gore. Za sva pitanja o podacima piši na vibecodemne@gmail.com.",
         ],
       },
       {
         when: "form",
-        title: "Kada pošalješ zahtjev za koncept",
+        title: "Kada pošalješ upit preko sajta",
         body: [
-          "Formu obrađuje Basin (usebasin.com), servis koji primljene poruke prosljeđuje na naš email. Šalje se samo ono što si upisao: link tvog sajta ili Instagrama, kontakt na koji da odgovorimo, tvoja poruka i jezik stranice.",
-          "Koristimo to isključivo da bismo ti odgovorili. Ne šaljemo newsletter, ne dijelimo kontakte sa trećim licima i ne koristimo ih za reklame. Poruku brišemo kada prepiska bude gotova, najkasnije godinu dana od slanja.",
+          "Forma ide na naš server kod Cloudflare-a i upit se čuva u našoj bazi. Šalje se samo ono što si upisao: ime, naziv biznisa, email, telefon, link, šta ti treba i tvoja poruka — plus jezik stranice. Kopiju istog upita dobijemo i na email.",
+          "Koristimo to isključivo da bismo ti odgovorili i napravili ponudu. Ne šaljemo newsletter, ne dijelimo kontakte sa trećim licima i ne koristimo ih za reklame. Upit brišemo kada prepiska bude gotova, najkasnije godinu dana od slanja; brisanje možeš tražiti i ranije, na vibecodemne@gmail.com.",
+          "Preko sajta se ništa ne plaća i ne tražimo podatke o kartici. Da bismo formu zaštitili od zloupotrebe, bilježimo nepovratno kodiran zapis IP adrese kako bismo ograničili broj pokušaja — iz njega se tvoja adresa ne može pročitati.",
         ],
       },
       {
@@ -378,7 +404,7 @@ export const me = {
         when: "always",
         title: "Kada popunjavate obrazac za pokretanje projekta",
         body: [
-          "Ako smo vam poslali link na /start/, tu nam šaljete podatke potrebne za izradu sajta. Šalje se samo ono što sami upišete i priložite: naziv biznisa, vaše ime, email, telefon, odgovori na pitanja i fajlovi koje odaberete.",
+          "Kada se dogovorimo oko posla, pošaljemo vam lični link za upitnik i tu nam šaljete podatke potrebne za izradu sajta. Šalje se samo ono što sami upišete i priložite: naziv biznisa, vaše ime, email, telefon, odgovori na pitanja i fajlovi koje odaberete.",
           "Odgovori se čuvaju u našoj bazi kod Cloudflare-a, a fajlovi u privatnom prostoru za skladištenje kojem se ne može pristupiti sa interneta bez potpisanog linka koji ističe. Koristimo ih isključivo da bismo izradili vaš sajt — ne dijelimo ih ni sa kim i ne koristimo za reklame. Čuvamo ih dok traje saradnja i najviše godinu dana poslije toga; brisanje možete tražiti i ranije, na vibecodemne@gmail.com.",
           "Dok popunjavate, odgovori se čuvaju u memoriji vašeg pregledača da ih ne izgubite ako zatvorite stranicu. To ostaje na vašem uređaju, briše se čim pošaljete, i nije kolačić. Fajlovi se tu nikada ne čuvaju.",
           "Nikada ne tražimo lozinke. Da bismo obrazac zaštitili od zloupotrebe, bilježimo nepovratno kodiran zapis IP adrese kako bismo ograničili broj pokušaja — iz njega se vaša adresa ne može pročitati i ne povezuje se sa vašim odgovorima.",

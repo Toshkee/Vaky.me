@@ -40,12 +40,28 @@ export const en: OnboardingCopy = {
     restartConfirm: "Sure? This deletes everything.",
   },
 
-  packageGate: {
-    title: "Which package did we agree on?",
-    intro: "If you can't remember the name, pick the closest one — we'll sort it out when we talk.",
-    unsure: "I'm not sure",
-    unsureHelp: "We'll ask you the important things and confirm the package together.",
-    action: "Continue",
+  privateLink: {
+    checking: "Checking your link…",
+    invalidTitle: "This link doesn't work",
+    invalidBody:
+      "Check that the whole link was copied, then try again. If it still doesn't work, write to us — we'll send you a new one.",
+    completedTitle: "This questionnaire is already complete",
+    completedBody:
+      "We've already received your answers and materials for this project. If you'd like to add or change something, just write to us directly — everything reaches us.",
+  },
+
+  info: {
+    title: "The questionnaire opens from your own link",
+    body:
+      "There's nothing to fill in here. Once we've agreed what we're building and what it costs, we send you a private link — it opens the questionnaire for your package, with your details already filled in.",
+    stepsTitle: "How it goes",
+    steps: [
+      "You write to us through the form on the site, or on Instagram.",
+      "We get back to you and agree on scope and price.",
+      "You get the questionnaire link and send us your materials.",
+    ],
+    noLink: "No link yet? Write to us — we'll send one within minutes.",
+    action: "Back to the site",
   },
 
   chrome: {
@@ -62,9 +78,9 @@ export const en: OnboardingCopy = {
     errorSummary: "Please check the highlighted fields.",
     home: "vibelab.it.com",
     packageNotes: {
-      start: "Your package is a single page, so these become the sections on it.",
-      business: "Your package covers up to five pages.",
-      project: "The number of pages is up to us — tick everything you need.",
+      start: "Your site is one scrolling page — here we choose what goes on it.",
+      business: "Your package covers up to five separate pages.",
+      project: "The number of pages is agreed per project — tick everything you need.",
     },
   },
 
@@ -73,6 +89,11 @@ export const en: OnboardingCopy = {
       title: "About your business",
       intro: "The basics — who you are and how to reach you.",
       tony: "First, tell us a little about your business.",
+    },
+    custom: {
+      title: "What the site should be able to do",
+      intro:
+        "Your project is custom-built, so tell us everything it needs to do. You'll only get detailed questions about what you pick.",
     },
     website: {
       title: "What the site should achieve",
@@ -131,6 +152,29 @@ export const en: OnboardingCopy = {
       placeholder: "e.g. locals, tourists, other businesses…",
     },
 
+    /* ── Your project (Projekat package only) ── */
+    projectType: {
+      label: "What should the site be able to do?",
+      help: "Tick everything you need — it's fine if you don't know exactly yet.",
+      options: {
+        shop: "Online shop",
+        booking: "Appointment booking that follows your rules",
+        "self-editing": "Changing content yourself — text, photos, products",
+        integrations: "Connecting to software you already use",
+        accounts: "Customer sign-in — accounts on the site",
+        automation: "Automatic notifications and similar processes",
+        "content-site": "A large site with many pages and lots of content",
+        other: "Something else",
+        "not-sure": "I'm not sure — I'll describe it in my own words at the end",
+      },
+    },
+    projectTypeOther: { label: "What exactly?", placeholder: "Describe it in your own words." },
+    integrationsWhat: {
+      label: "What should the site connect to?",
+      help: "Name the software, or describe it in your own words.",
+      placeholder: "e.g. DIKIDI, the till, stock, Excel sheets…",
+    },
+
     /* ── The site ── */
     goals: {
       label: "What do you most want the new site to achieve?",
@@ -147,6 +191,26 @@ export const en: OnboardingCopy = {
       },
     },
     goalsOther: { label: "What else?", placeholder: "Tell us briefly." },
+    sections: {
+      label: "What would you like to include on your website?",
+      help: "This package includes one scrolling page made up of different sections. Choose what you'd like visitors to see as they scroll.",
+      options: {
+        about: "Introducing the business / about us",
+        services: "Services",
+        products: "Products",
+        menu: "Menu",
+        "pricing-list": "Price list",
+        gallery: "Photo gallery",
+        testimonials: "Customer reviews",
+        location: "Location and map",
+        contact: "Contact details and opening hours",
+        social: "Links to social media",
+        "contact-form": "Contact form",
+        other: "Something else",
+        "not-sure": "I'm not sure — let VibeLab suggest the structure",
+      },
+    },
+    sectionsOther: { label: "What else?", placeholder: "Tell us briefly." },
     pages: {
       label: "Which pages should the site have?",
       help: "Tick everything you think you need.",
@@ -161,9 +225,11 @@ export const en: OnboardingCopy = {
         faq: "FAQ",
         shop: "Shop",
         booking: "Bookings",
+        other: "Something else",
         "not-sure": "I'm not sure — let VibeLab recommend",
       },
     },
+    pagesOther: { label: "Which other page?", placeholder: "e.g. Our team" },
 
     /* ── Design ── */
     style: {
@@ -212,6 +278,15 @@ export const en: OnboardingCopy = {
       },
     },
     featuresOther: { label: "What else?", placeholder: "Tell us briefly." },
+    siteLanguages: {
+      label: "Which languages should the site be in?",
+      help: "Your package covers Montenegrin plus an English version. You supply the English text — we edit it and build it in.",
+      options: {
+        "me-only": "Montenegrin only",
+        "me-en": "Montenegrin and English",
+        "not-sure": "I'm not sure — advise me",
+      },
+    },
     languagesNeeded: {
       label: "Which languages do you need?",
       help: "Montenegrin is assumed.",
@@ -482,6 +557,8 @@ export const en: OnboardingCopy = {
       session: "Your session expired. Refresh the page — your answers are saved.",
       "rate-limit": "Too many attempts in a short time. Wait a minute and try again.",
       challenge: "Give the check a second to finish, then send again.",
+      link: "This link isn't valid. Write to us and we'll send you a new one.",
+      completed: "The questionnaire for this project has already been submitted.",
       "file-type": "We can't accept this kind of file.",
       "file-size": "That file is too large.",
       "file-count": "You've uploaded too many files.",

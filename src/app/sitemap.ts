@@ -4,7 +4,8 @@ import { site } from "@/config/site";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Demo sites are intentionally excluded — they carry robots noindex.
+  // Demo sites, /start/, /start/form/, and /admin/ are intentionally excluded —
+  // they carry robots noindex and are also disallowed in robots.ts.
   return [
     {
       url: `${site.url}/`,

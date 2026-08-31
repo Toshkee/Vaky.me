@@ -41,6 +41,8 @@ const STATUS: Record<ApiErrorCode, number> = {
   session: 401,
   "rate-limit": 429,
   challenge: 403,
+  link: 404,
+  completed: 409,
   "file-type": 415,
   "file-size": 413,
   "file-count": 409,

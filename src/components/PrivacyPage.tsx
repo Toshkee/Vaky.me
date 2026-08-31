@@ -1,12 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/i18n";
-import {
-  hasAnalytics,
-  hasCloudflareAnalytics,
-  hasFormBackend,
-  hasTurnstile,
-} from "@/config/services";
+import { hasAnalytics, hasCloudflareAnalytics, hasTurnstile } from "@/config/services";
 import { site } from "@/config/site";
 import { Footer } from "@/components/landing/Footer";
 
@@ -20,7 +15,10 @@ import { Footer } from "@/components/landing/Footer";
 export function PrivacyPage({ dict }: { dict: Dictionary }) {
   const enabled = {
     always: true,
-    form: hasFormBackend,
+    /* The enquiry form is part of the site now rather than a service that can
+       be switched off, so its section is always true — kept as its own key so
+       the dictionary still reads as one section per thing that happens. */
+    form: true,
     turnstile: hasTurnstile,
     analytics: hasAnalytics,
     cloudflare: hasCloudflareAnalytics,

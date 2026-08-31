@@ -62,6 +62,13 @@ export async function verify(
   );
 }
 
+/** Plain SHA-256, hex. What the database keeps instead of an onboarding link
+ *  token: a stored hash finds the row, a stolen table mints no links. */
+export async function sha256Hex(value: string): Promise<string> {
+  const digest = await crypto.subtle.digest("SHA-256", encoder.encode(value));
+  return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
 /**
  * An IP address, reduced to something that can be counted but not read back.
  *

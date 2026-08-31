@@ -10,7 +10,13 @@ export const dynamic = "force-static";
  */
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/" },
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      // Each of these already carries a per-page noindex meta tag; disallowing
+      // the crawl itself means a stray link never gets the page loaded at all.
+      disallow: ["/admin/", "/start/", "/start/form/"],
+    },
     sitemap: `${site.url}/sitemap.xml`,
   };
 }

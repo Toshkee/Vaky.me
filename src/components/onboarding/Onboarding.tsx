@@ -1,13 +1,16 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Turnstile } from "@/components/landing/Turnstile";
-import { Tony } from "@/components/mascot/Tony";
 import { PixelWindow } from "@/components/ui/PixelWindow";
-import { hasTurnstile } from "@/config/services";
+import { Tony } from "@/components/mascot/Tony";
 import { onboardingCopy } from "@/i18n/onboarding";
 import { track } from "@/lib/analytics";
-import { createSession, submitBrief } from "@/lib/onboarding/client";
+import {
+  createSession,
+  fetchContext,
+  submitBrief,
+  type LinkContext,
+} from "@/lib/onboarding/client";
 import {
   clearDraft,
   emptyDraft,
@@ -19,11 +22,10 @@ import {
   type UploadedFile,
 } from "@/lib/onboarding/draft";
 import {
-  isLanguage,
-  isPackageId,
   stepErrors,
   visibleQuestions,
   visibleSteps,
+  type Answers,
   type AnswerValue,
   type ApiErrorCode,
   type FieldErrors,
@@ -32,32 +34,52 @@ import {
   type QuestionId,
   type StepId,
 } from "@/lib/onboarding/schema";
-import { LanguageGate, PackageGate, ResumeCard, type PackageCard } from "./Gate";
+import { LanguageGate, LinkProblem, ResumeCard } from "./Gate";
 import { ReviewStep } from "./ReviewStep";
 import { Shell } from "./Shell";
 import { StepView } from "./StepView";
 import { Success } from "./Success";
 
 /**
- * The brief, end to end.
+ * The brief, end to end, behind a private link.
  *
- * This component owns the whole wizard: which screen is showing, what has been
- * answered, which files went up, and the one signed session that authorises
- * them. Everything it renders is derived — the steps come from the package and
- * the answers, the words come from the chosen language, and neither is
- * duplicated per case.
+ * This component owns the whole wizard: which screen is showing, what has
+ * been answered, which files went up, and the one signed session that
+ * authorises them. Everything it renders is derived — the steps come from the
+ * package and the answers, the words come from the chosen language — and the
+ * package itself is not this component's to decide: it arrives from the
+ * server against the link's token, and nothing here can change it.
  *
- * Three things are deliberately kept in refs rather than in state: the session,
- * the bot-check token, and the in-flight session request. All three are read
- * inside async handlers, where a value captured from a render is the wrong
- * value by the time it is used — and none of them is something the screen
- * renders.
+ * Two things are deliberately kept in refs rather than in state: the session
+ * and the in-flight session request. Both are read inside async handlers,
+ * where a value captured from a render is the wrong value by the time it is
+ * used — and neither is something the screen renders.
  */
 
-type Phase = "language" | "resume" | "package" | "form" | "review" | "done";
+/** The same shape `functions/start/[token].ts` and the API accept. */
+const TOKEN_SHAPE = /^[A-Za-z0-9_-]{28,40}$/;
 
-export function Onboarding({ cards }: { cards: Record<Language, readonly PackageCard[]> }) {
-  const [phase, setPhase] = useState<Phase>("language");
+type Phase =
+  | "loading"
+  | "invalid"
+  | "completed"
+  | "resume"
+  | "language"
+  | "form"
+  | "review"
+  | "done";
+
+export function Onboarding({
+  token,
+  packageNames,
+}: {
+  /** The path segment of the link VibeLab sent — the client's only credential. */
+  token: string;
+  /** Per-language display names for the package chip in the header. */
+  packageNames: Record<Language, Record<PackageId, string>>;
+}) {
+  const [phase, setPhase] = useState<Phase>("loading");
+  const [context, setContext] = useState<LinkContext | null>(null);
   const [draft, setDraft] = useState<Draft>(emptyDraft);
   const [saved, setSaved] = useState<Draft | null>(null);
   const [stepIndex, setStepIndex] = useState(0);
@@ -65,82 +87,95 @@ export function Onboarding({ cards }: { cards: Record<Language, readonly Package
   const [apiError, setApiError] = useState<ApiErrorCode | null>(null);
   const [sending, setSending] = useState(false);
   const [submissionId, setSubmissionId] = useState("");
-  const [challengeNonce, setChallengeNonce] = useState(0);
   const [restored, setRestored] = useState(false);
+  const [attempt, setAttempt] = useState(0);
 
-  const challenge = useRef("");
   const session = useRef<Session | null>(null);
   const opening = useRef<Promise<Session | null> | null>(null);
 
   /* `saved` matters here as well as `draft`: on the resume screen the draft has
      not been adopted yet, and a client who left off in English should not be
      greeted by a Montenegrin header and footer. */
-  const language: Language = draft.language ?? saved?.language ?? "me";
+  const language: Language = draft.language ?? saved?.language ?? context?.language ?? "me";
   const copy = onboardingCopy[language];
-  const packageId: PackageId = draft.packageId ?? "business";
+  const packageId: PackageId = context?.packageId ?? "business";
+
+  /* A path that never carried a token — somebody typing `/start/form/`, or a
+     link that lost its tail in a chat app. Derived rather than a phase set on
+     mount: the answer is known before the first paint, and asking the server
+     to say the same thing a round trip later helps nobody. */
+  const usableToken = TOKEN_SHAPE.test(token);
 
   const steps = visibleSteps(packageId, draft.answers);
   const index = Math.min(stepIndex, Math.max(0, steps.length - 1));
   const step = steps[index];
 
   /* ── Arriving ──────────────────────────────────────────────────────────
-     The package and the language can both come from the link VibeLab sent, so
-     a client who was given `/start/?package=business` never sees the package
-     question. Neither value is trusted beyond deciding what to show: the
-     server re-checks the package before it stores anything.
-
-     This is the one restore-from-storage effect, and it has to be an effect.
-     The query string and localStorage do not exist while this page is being
-     prerendered, so reading them during render would either crash the build or
-     — worse — produce markup that disagrees with what the browser then
-     hydrates. It runs once, on mount, and never again. */
-  /* eslint-disable react-hooks/set-state-in-effect -- see above: a one-time
-     read of two client-only stores, which cannot happen during render. */
+     The token is exchanged for its context before anything is shown: which
+     package this form asks about, and what VibeLab already knows about the
+     business — so step one arrives pre-filled instead of asking a client to
+     retype what they told us on Instagram last week. A saved draft on this
+     device wins over the prefill wherever both have something to say. */
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const linkPackage = params.get("package");
-    const linkLanguage = params.get("lang");
+    if (!usableToken) return;
 
-    const fromLink: Draft = {
-      ...emptyDraft,
-      language: isLanguage(linkLanguage) ? linkLanguage : null,
-      packageId: isPackageId(linkPackage) ? linkPackage : null,
-      packageSource: isPackageId(linkPackage) ? "link" : null,
+    let alive = true;
+    const stored = readDraft(token);
+
+    void (async () => {
+      const result = await fetchContext(token);
+      if (!alive) return;
+
+      if (!result.ok) {
+        if (result.code === "link") setPhase("invalid");
+        else if (result.code === "completed") setPhase("completed");
+        else setApiError(result.code); // stays on "loading", which offers retry
+        return;
+      }
+
+      const prefill: Answers = {};
+      const project = result.data.project;
+      if (project.businessName) prefill.businessName = project.businessName;
+      if (project.contactName) prefill.contactName = project.contactName;
+      if (project.email) prefill.email = project.email;
+      if (project.phone) prefill.phone = project.phone;
+      if (project.instagram) prefill.instagram = project.instagram;
+      if (project.existingSite) prefill.existingSite = project.existingSite;
+
+      setContext(result.data);
+      setApiError(null);
+
+      if (stored && hasProgress(stored)) {
+        setSaved({ ...stored, answers: { ...prefill, ...stored.answers } });
+        setPhase("resume");
+      } else {
+        setDraft({
+          ...emptyDraft,
+          language: stored?.language ?? result.data.language,
+          answers: prefill,
+        });
+        setPhase("language");
+      }
+
+      setRestored(true);
+      track("onboarding_opened", { package: result.data.packageId });
+    })();
+
+    return () => {
+      alive = false;
     };
-
-    const stored = readDraft();
-    if (stored && hasProgress(stored)) {
-      setSaved(stored);
-      setPhase("resume");
-    } else {
-      setDraft(fromLink);
-      setPhase(fromLink.language ? (fromLink.packageId ? "form" : "package") : "language");
-    }
-
-    setRestored(true);
-    track("onboarding_opened", {
-      package: isPackageId(linkPackage) ? linkPackage : "none",
-    });
-  }, []);
-  /* eslint-enable react-hooks/set-state-in-effect */
+  }, [token, usableToken, attempt]);
 
   /* Written on every change rather than on leaving a step: the client who is
      going to be interrupted is the one halfway through typing. */
   useEffect(() => {
-    if (restored && phase !== "done") writeDraft(draft);
-  }, [draft, restored, phase]);
+    if (restored && phase !== "done") writeDraft(token, draft);
+  }, [token, draft, restored, phase]);
 
   /* The document's language has to follow the client's choice — a screen
      reader given `lang="sr-ME"` will read an English brief in a Montenegrin
      voice. Restored on the way out, because Next navigates away from this
-     route without reloading the document.
-
-     Only `lang`, not the title: Next's metadata system owns `<title>` and
-     rewrites it on every render, so assigning to `document.title` here would
-     be undone on the next one. The tab therefore keeps the route's
-     Montenegrin name in both languages — a real but small cost on a page that
-     is `noindex` and reached by a link, and much smaller than a loop fighting
-     the framework for it. */
+     route without reloading the document. */
   useEffect(() => {
     const documentLanguage = document.documentElement.lang;
     return () => {
@@ -184,8 +219,10 @@ export function Onboarding({ cards }: { cards: Record<Language, readonly Package
 
   /**
    * One session per client, created the first time anything actually needs it —
-   * the first file, or the submission if they upload nothing. Concurrent
-   * callers share the same in-flight request rather than opening two.
+   * the first file, or nothing at all. Concurrent callers share the same
+   * in-flight request rather than opening two. A link that got cancelled or
+   * completed under our feet surfaces here as its proper screen, not as a
+   * cryptic upload failure.
    */
   const ensureSession = useCallback(async (): Promise<Session | null> => {
     const current = session.current;
@@ -193,14 +230,11 @@ export function Onboarding({ cards }: { cards: Record<Language, readonly Package
     if (opening.current) return opening.current;
 
     opening.current = (async () => {
-      const result = await createSession(challenge.current);
-      /* A Turnstile token is single-use and short-lived, so the widget is asked
-         for a fresh one whether this succeeded or not. */
-      challenge.current = "";
-      setChallengeNonce((nonce) => nonce + 1);
-
+      const result = await createSession(token);
       if (!result.ok) {
-        setApiError(result.code);
+        if (result.code === "link") setPhase("invalid");
+        else if (result.code === "completed") setPhase("completed");
+        else setApiError(result.code);
         return null;
       }
       session.current = result.data;
@@ -211,7 +245,7 @@ export function Onboarding({ cards }: { cards: Record<Language, readonly Package
     const created = await opening.current;
     opening.current = null;
     return created;
-  }, []);
+  }, [token]);
 
   function focusProblem(problems: FieldErrors) {
     const first = Object.keys(problems)[0];
@@ -271,32 +305,31 @@ export function Onboarding({ cards }: { cards: Record<Language, readonly Package
     setApiError(null);
     track("onboarding_submission_started", { package: packageId });
 
-    const result = await submitBrief({
-      session: session.current,
-      challenge: challenge.current,
-      packageId,
-      packageSource: draft.packageSource ?? "client",
-      language,
-      answers: draft.answers,
-    });
-
-    challenge.current = "";
-    setChallengeNonce((nonce) => nonce + 1);
+    const result = await submitBrief({ token, language, answers: draft.answers });
 
     if (result.ok) {
       /* Only now. Until the server has said yes, the client's answers stay on
          their device — a submission that failed and a draft that was thrown
          away is the one outcome this form must never produce. */
       setSubmissionId(result.data.submissionId);
-      clearDraft();
+      clearDraft(token);
       setPhase("done");
       track("onboarding_submission_success", { package: packageId });
       return;
     }
 
     setSending(false);
-    setApiError(result.code);
     track("onboarding_submission_error", { reason: result.code });
+
+    if (result.code === "link") {
+      setPhase("invalid");
+      return;
+    }
+    if (result.code === "completed") {
+      setPhase("completed");
+      return;
+    }
+    setApiError(result.code);
 
     if (result.fields) {
       const problems = result.fields;
@@ -313,18 +346,8 @@ export function Onboarding({ cards }: { cards: Record<Language, readonly Package
     }
   }
 
-  /* The bot check is only mounted where a token is about to be spent: the
-     materials step, which opens the session, and the review screen, which
-     sends the brief. A token is good for five minutes and a brief takes longer
-     than that, so mounting it on step one would guarantee an expired one at
-     the end. */
-  const needsChallenge =
-    hasTurnstile && (phase === "review" || (phase === "form" && step?.id === "materials"));
-
   const packageName =
-    draft.packageId && phase !== "language" && phase !== "package"
-      ? cards[language].find((card) => card.id === draft.packageId)?.name
-      : undefined;
+    context && phase !== "loading" ? packageNames[language][context.packageId] : undefined;
 
   const progress =
     phase === "form"
@@ -340,12 +363,44 @@ export function Onboarding({ cards }: { cards: Record<Language, readonly Package
       onLanguage={switchLanguage}
       progress={progress}
       /* The draft was cleared the moment the brief was accepted, so the note
-         saying it is being kept would be a lie on this one screen. */
-      showDraftNote={phase !== "done"}
+         saying it is being kept would be a lie on the closing screens. */
+      showDraftNote={phase === "form" || phase === "review" || phase === "resume"}
     >
       {children}
     </Shell>
   );
+
+  if (!usableToken) return shell(<LinkProblem copy={copy} kind="invalid" />);
+
+  if (phase === "loading") {
+    return shell(
+      <PixelWindow title="VIBELAB OS">
+        <div className="p-5 sm:p-8">
+          <div className="tony-ground flex items-end gap-3">
+            <Tony direction="right" pose="work" scale={0.24} />
+            <p role="status" className="mb-2 text-lg font-semibold">
+              {apiError ? copy.errors.api[apiError] : copy.privateLink.checking}
+            </p>
+          </div>
+          {apiError && (
+            <button
+              type="button"
+              onClick={() => {
+                setApiError(null);
+                setAttempt((current) => current + 1);
+              }}
+              className="px px-btn mt-5 inline-flex min-h-12 items-center bg-paper px-5 py-3 text-[1.25rem] text-ink transition-colors hover:text-red"
+            >
+              {copy.upload.retry}
+            </button>
+          )}
+        </div>
+      </PixelWindow>,
+    );
+  }
+
+  if (phase === "invalid") return shell(<LinkProblem copy={copy} kind="invalid" />);
+  if (phase === "completed") return shell(<LinkProblem copy={copy} kind="completed" />);
 
   if (phase === "resume" && saved) {
     return shell(
@@ -355,16 +410,26 @@ export function Onboarding({ cards }: { cards: Record<Language, readonly Package
           session.current = saved.session;
           /* Keeps a language switched on the resume screen itself. */
           setDraft({ ...saved, language });
-          const restoredSteps = visibleSteps(saved.packageId ?? "business", saved.answers);
+          const restoredSteps = visibleSteps(packageId, saved.answers);
           const at = restoredSteps.findIndex((candidate) => candidate.id === saved.stepId);
           setStepIndex(at < 0 ? 0 : at);
-          setPhase(saved.language ? (saved.packageId ? "form" : "package") : "language");
+          setPhase(saved.language ? "form" : "language");
           setSaved(null);
         }}
         onRestart={() => {
-          clearDraft();
+          clearDraft(token);
           session.current = null;
-          setDraft(emptyDraft);
+          /* Starting over keeps what VibeLab pre-filled — it was never the
+             client's typing to lose. */
+          const prefill: Answers = {};
+          const project = context?.project;
+          if (project?.businessName) prefill.businessName = project.businessName;
+          if (project?.contactName) prefill.contactName = project.contactName;
+          if (project?.email) prefill.email = project.email;
+          if (project?.phone) prefill.phone = project.phone;
+          if (project?.instagram) prefill.instagram = project.instagram;
+          if (project?.existingSite) prefill.existingSite = project.existingSite;
+          setDraft({ ...emptyDraft, language, answers: prefill });
           setStepIndex(0);
           setPhase("language");
           setSaved(null);
@@ -383,38 +448,8 @@ export function Onboarding({ cards }: { cards: Record<Language, readonly Package
           track("onboarding_language_selected", { lang: picked });
         }}
         onStart={() => {
-          setPhase(draft.packageId ? "form" : "package");
-          track("onboarding_started", { package: draft.packageId ?? "unknown" });
-        }}
-      />,
-    );
-  }
-
-  if (phase === "package") {
-    return shell(
-      <PackageGate
-        copy={copy}
-        cards={cards[language]}
-        /* Three states, not two: a package, "nisam siguran" (which is `null`,
-           a real answer), and nothing chosen yet (`undefined`). Collapsing the
-           last two would show "Nisam siguran" pre-selected to a client who has
-           not touched anything. */
-        chosen={
-          draft.packageSource === "unsure" ? null : (draft.packageId ?? undefined)
-        }
-        onPick={(picked) =>
-          setDraft((current) => ({
-            ...current,
-            /* "Nisam siguran" is an answer, not an absence: the brief is built
-               on the middle package and the row records that the client was
-               not certain, so VibeLab reads it as a question to settle. */
-            packageId: picked ?? "business",
-            packageSource: picked ? "client" : "unsure",
-          }))
-        }
-        onContinue={() => {
           setPhase("form");
-          track("onboarding_started", { package: draft.packageId ?? "business" });
+          track("onboarding_started", { package: packageId });
         }}
       />,
     );
@@ -508,15 +543,6 @@ export function Onboarding({ cards }: { cards: Record<Language, readonly Package
       >
         {apiError && copy.errors.api[apiError]}
       </p>
-
-      {needsChallenge && (
-        <Turnstile
-          key={challengeNonce}
-          onToken={(token) => {
-            challenge.current = token;
-          }}
-        />
-      )}
 
       {/* Bleeds to the window edges on the way past the shell's gutter, so the
           bar reads as a bar rather than as two buttons floating over the

@@ -3,9 +3,16 @@
 # see ONBOARDING_SETUP.md. Nothing here is a NEXT_PUBLIC_* value and nothing
 # here reaches the browser.
 
-# Signs upload tokens and the download links in the notification email.
+# Signs upload tokens, private onboarding links, the admin session cookie and
+# the download links in the notification email.
 # Real one: openssl rand -base64 48
 ONBOARDING_TOKEN_SECRET=local-development-secret-not-a-real-one
+
+# The one password behind /admin/. Without it every admin endpoint refuses to
+# serve — there is no fallback password and no way in. Production sets this as
+# a Cloudflare secret, which cannot be read back: losing it means setting a
+# new one.
+ADMIN_PASSWORD=local-development-password
 
 # Leave blank locally and the bot check is skipped, which is what you want
 # while developing. Cloudflare's documented always-passes test secret is

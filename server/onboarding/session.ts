@@ -22,8 +22,14 @@ export type IssuedSession = {
   expiresAt: number;
 };
 
-export async function issueSession(secret: string, now: number): Promise<IssuedSession> {
-  const submissionId = crypto.randomUUID();
+/** Signs an upload token for one existing submission id — since onboarding
+ *  moved to private links, the id is the request row's, minted when VibeLab
+ *  created the link, so every upload lands under the one brief it belongs to. */
+export async function issueSessionFor(
+  secret: string,
+  submissionId: string,
+  now: number,
+): Promise<IssuedSession> {
   const expiresAt = now + SESSION_TTL_MS;
   const signature = await sign(secret, SCOPE, [submissionId, String(expiresAt)]);
   return { submissionId, token: `${submissionId}.${expiresAt}.${signature}`, expiresAt };

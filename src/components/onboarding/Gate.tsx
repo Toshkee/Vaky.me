@@ -5,15 +5,18 @@ import type { OnboardingCopy } from "@/i18n/onboarding";
 import { Tony } from "@/components/mascot/Tony";
 import { OsBadge } from "@/components/ui/OsBadge";
 import { PixelWindow } from "@/components/ui/PixelWindow";
-import { LANGUAGES, type Language, type PackageId } from "@/lib/onboarding/schema";
+import { emailLink, instagramLink, site } from "@/config/site";
+import { LANGUAGES, type Language } from "@/lib/onboarding/schema";
 
 /**
- * The three screens before the brief starts.
+ * The screens around the brief itself: pick a language, resume a draft, and
+ * the two dead ends a private link can arrive at — not a link VibeLab issued,
+ * or a brief already sent.
  *
  * They are grouped here because they are the same kind of thing: one decision
- * each, nothing to fill in, and a single button out. None of them counts
- * towards "Korak 1 od 7" — being asked to pick a language should not read as
- * work.
+ * each (or none), nothing to fill in, and a single way out. None of them
+ * counts towards "Korak 1 od 7" — being asked to pick a language should not
+ * read as work.
  */
 
 const tile =
@@ -147,113 +150,48 @@ export function ResumeCard({
   );
 }
 
-export type PackageCard = {
-  id: PackageId;
-  name: string;
-  price: string;
-  tagline: string;
-};
-
-export function PackageGate({
+/**
+ * Where an unusable link lands: quietly invalid, or already completed. Both
+ * end the same way — the two channels this studio actually answers on — and
+ * neither is written as an error, because for the completed case nothing is
+ * wrong: their brief arrived, and this screen is merely the second visit.
+ */
+export function LinkProblem({
   copy,
-  cards,
-  chosen,
-  onPick,
-  onContinue,
+  kind,
 }: {
   copy: OnboardingCopy;
-  cards: readonly PackageCard[];
-  /** `null` means "not sure" has been picked — a real answer, not an absence. */
-  chosen: PackageId | null | undefined;
-  onPick: (id: PackageId | null) => void;
-  onContinue: () => void;
+  kind: "invalid" | "completed";
 }) {
-  const picked = chosen !== undefined;
+  const title = kind === "invalid" ? copy.privateLink.invalidTitle : copy.privateLink.completedTitle;
+  const body = kind === "invalid" ? copy.privateLink.invalidBody : copy.privateLink.completedBody;
 
   return (
     <PixelWindow title="VIBELAB OS">
       <div className="p-5 sm:p-8">
-        <h1 id="ob-heading" tabIndex={-1} className="headline text-2xl outline-none sm:text-3xl">
-          {copy.packageGate.title}
+        <OsBadge tone="red">{copy.gate.eyebrow}</OsBadge>
+        <h1 id="ob-heading" tabIndex={-1} className="headline mt-4 text-2xl outline-none sm:text-3xl">
+          {title}
         </h1>
-        <p className="mt-3 max-w-lg leading-relaxed text-muted">{copy.packageGate.intro}</p>
+        <p className="mt-3 max-w-lg leading-relaxed text-muted">{body}</p>
 
-        <fieldset className="mt-6 border-0 p-0">
-          <legend className="sr-only">{copy.packageGate.title}</legend>
-          <div className="grid gap-2">
-            {cards.map((card) => {
-              const checked = chosen === card.id;
-              return (
-                <label
-                  key={card.id}
-                  className={`${tile} items-start ${checked ? "border-ink bg-paper-2" : "border-line bg-paper hover:border-muted"}`}
-                >
-                  <input
-                    type="radio"
-                    name="onboarding-package"
-                    value={card.id}
-                    checked={checked}
-                    onChange={() => onPick(card.id)}
-                    className="sr-only"
-                  />
-                  <span
-                    aria-hidden="true"
-                    className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border-2 border-ink ${
-                      checked ? "bg-red" : "bg-paper"
-                    }`}
-                  >
-                    {checked && <span className="block h-1.5 w-1.5 rounded-full bg-paper" />}
-                  </span>
-                  <span className="min-w-0">
-                    <span className="flex flex-wrap items-baseline gap-x-3">
-                      <span className="text-lg font-semibold">{card.name}</span>
-                      <span className="tnum text-base font-semibold text-red">{card.price}</span>
-                    </span>
-                    <span className="mt-1 block text-sm leading-relaxed text-muted">
-                      {card.tagline}
-                    </span>
-                  </span>
-                </label>
-              );
-            })}
-
-            <label
-              className={`${tile} ${chosen === null ? "border-ink bg-paper-2" : "border-line bg-paper hover:border-muted"}`}
-            >
-              <input
-                type="radio"
-                name="onboarding-package"
-                value="unsure"
-                checked={chosen === null}
-                onChange={() => onPick(null)}
-                className="sr-only"
-              />
-              <span
-                aria-hidden="true"
-                className={`grid h-5 w-5 shrink-0 place-items-center rounded-full border-2 border-ink ${
-                  chosen === null ? "bg-red" : "bg-paper"
-                }`}
-              >
-                {chosen === null && <span className="block h-1.5 w-1.5 rounded-full bg-paper" />}
-              </span>
-              <span className="min-w-0">
-                <span className="text-lg font-semibold">{copy.packageGate.unsure}</span>
-                <span className="mt-1 block text-sm leading-relaxed text-muted">
-                  {copy.packageGate.unsureHelp}
-                </span>
-              </span>
-            </label>
-          </div>
-        </fieldset>
-
-        <button
-          type="button"
-          onClick={onContinue}
-          disabled={!picked}
-          className="px px-btn px-btn--primary mt-6 inline-flex min-h-12 items-center bg-red px-7 py-3 text-[1.25rem] text-white hover:bg-red-deep disabled:opacity-50"
-        >
-          {copy.packageGate.action}
-        </button>
+        <p className="mt-6 font-semibold">
+          <a
+            href={instagramLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline decoration-2 underline-offset-4 transition-colors hover:text-red"
+          >
+            @{site.instagram}
+          </a>
+          <span aria-hidden="true"> · </span>
+          <a
+            href={emailLink(title, "")}
+            className="underline decoration-2 underline-offset-4 transition-colors hover:text-red"
+          >
+            {site.email}
+          </a>
+        </p>
       </div>
     </PixelWindow>
   );

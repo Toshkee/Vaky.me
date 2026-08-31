@@ -9,8 +9,24 @@ import { hasConfig, type OnboardingEnv } from "../../../server/onboarding/env";
 import { LIMITS, withinLimit } from "../../../server/onboarding/guard";
 import { checkFile, safeName, storageKey, tidyName } from "../../../server/onboarding/files";
 import { bearer, clientIp, fail, json } from "../../../server/onboarding/http";
+import { findRequestById, readRequest } from "../../../server/onboarding/request";
 import { readSession } from "../../../server/onboarding/session";
 import { deleteFile, fileTotals, findFile, recordFile } from "../../../server/onboarding/store";
+
+/** The upload token outlives the link's own state by design — 24 hours is 24
+ *  hours — so every write re-checks the request row it names: a cancelled
+ *  link stops accepting files the moment it is cancelled, and a sent brief
+ *  is closed to additions. */
+async function openRequestOnly(
+  env: OnboardingEnv,
+  submissionId: string,
+): Promise<ReturnType<typeof fail> | null> {
+  const row = await findRequestById(env.DB, submissionId);
+  const parsed = row ? readRequest(row) : null;
+  if (!parsed || parsed.status === "cancelled") return fail("link");
+  if (parsed.status === "completed") return fail("completed");
+  return null;
+}
 
 /**
  * Takes one file, as the raw request body.
@@ -30,6 +46,9 @@ export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
 
   const session = await readSession(env.ONBOARDING_TOKEN_SECRET, bearer(request), Date.now());
   if (!session) return fail("session");
+
+  const closed = await openRequestOnly(env, session.submissionId);
+  if (closed) return closed;
 
   const query = new URL(request.url).searchParams;
   const zone = query.get("zone");
@@ -112,6 +131,9 @@ export const onRequestDelete: PagesFunction<OnboardingEnv> = async (context) => 
 
   const session = await readSession(env.ONBOARDING_TOKEN_SECRET, bearer(request), Date.now());
   if (!session) return fail("session");
+
+  const closed = await openRequestOnly(env, session.submissionId);
+  if (closed) return closed;
 
   const fileId = new URL(request.url).searchParams.get("id") ?? "";
   const row = await findFile(env.DB, fileId);

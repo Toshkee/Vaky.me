@@ -15,8 +15,12 @@
 export type OnboardingEnv = {
   DB: D1Database;
   UPLOADS: R2Bucket;
-  /** Signs upload tokens and the download links in the notification email. */
+  /** Signs upload tokens, admin session cookies and the download links in the
+   *  notification email. */
   ONBOARDING_TOKEN_SECRET: string;
+  /** The one password behind /admin. Without it every admin endpoint refuses
+   *  to serve — there is no fallback password and no way to log in. */
+  ADMIN_PASSWORD?: string;
   TURNSTILE_SECRET_KEY?: string;
   RESEND_API_KEY?: string;
   /** Where the notification goes. Defaults to the studio address below. */
@@ -43,6 +47,11 @@ export const SESSION_TTL_MS = 24 * 60 * 60 * 1000;
 /** Download links in the notification email. Long enough for VibeLab to get to
  *  a project, short enough that an old forwarded email is not a key. */
 export const DOWNLOAD_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+
+/** How long an admin stays logged in. A week: long enough that checking leads
+ *  from a phone is not a daily password ceremony, short enough that a browser
+ *  left logged in somewhere stops being one. */
+export const ADMIN_SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 
 export function hasConfig(env: Partial<OnboardingEnv>): env is OnboardingEnv {
   return Boolean(env.DB && env.UPLOADS && env.ONBOARDING_TOKEN_SECRET);

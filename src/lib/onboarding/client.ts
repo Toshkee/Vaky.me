@@ -5,17 +5,17 @@ import type {
   FileZone,
   Language,
   PackageId,
-  PackageSource,
 } from "./schema";
 import type { Session, UploadedFile } from "./draft";
 
 /**
- * The three calls the browser makes, and nothing else.
+ * The calls the browser makes, and nothing else.
  *
- * Every failure comes back as a code rather than a sentence — the server has no
- * idea which language this client chose, and a brief in Montenegrin that fails
- * in English is a bug the client sees. `ApiErrorCode` is the shared vocabulary;
- * the words for it live in `src/i18n/onboarding/`.
+ * Every one of them starts from the link token — the only credential a client
+ * holds — and every failure comes back as a code rather than a sentence: the
+ * server has no idea which language this client chose, and a brief in
+ * Montenegrin that fails in English is a bug the client sees. `ApiErrorCode`
+ * is the shared vocabulary; the words for it live in `src/i18n/onboarding/`.
  */
 
 const BASE = "/api/onboarding";
@@ -31,6 +31,8 @@ const API_CODES: readonly ApiErrorCode[] = [
   "session",
   "rate-limit",
   "challenge",
+  "link",
+  "completed",
   "file-type",
   "file-size",
   "file-count",
@@ -59,19 +61,49 @@ async function readError(response: Response): Promise<{ code: ApiErrorCode; fiel
   }
 }
 
+/** What a private link resolves to: the package the form should ask about,
+ *  and what VibeLab already knows, so step one arrives pre-filled. */
+export type LinkContext = {
+  packageId: PackageId;
+  status: string;
+  language: Language | null;
+  project: {
+    businessName: string;
+    contactName: string;
+    email: string;
+    phone: string;
+    instagram: string;
+    existingSite: string;
+  };
+};
+
+export async function fetchContext(token: string): Promise<ApiResult<LinkContext>> {
+  try {
+    const response = await fetch(`${BASE}/context`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    });
+    if (!response.ok) return { ok: false, ...(await readError(response)) };
+    const data = (await response.json()) as LinkContext;
+    return { ok: true, data };
+  } catch {
+    return { ok: false, code: "server" };
+  }
+}
+
 /**
- * Opens a submission and returns the token that authorises uploading into it.
- *
- * The id is minted by the server and signed into the token, so a client cannot
- * name someone else's submission and write files into it. Nothing is stored in
+ * Trades the link token for the token that authorises uploading. The
+ * submission id comes back signed rather than chosen, so a client can only
+ * ever write files under the one brief their link names. Nothing is stored in
  * the database yet — the row is created when the brief is actually sent.
  */
-export async function createSession(challenge: string): Promise<ApiResult<Session>> {
+export async function createSession(token: string): Promise<ApiResult<Session>> {
   try {
     const response = await fetch(`${BASE}/session`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ challenge }),
+      body: JSON.stringify({ token }),
     });
     if (!response.ok) return { ok: false, ...(await readError(response)) };
     const data = (await response.json()) as Session;
@@ -154,18 +186,15 @@ export async function removeFile(session: Session, fileId: string): Promise<bool
 }
 
 export type SubmitInput = {
-  session: Session | null;
-  challenge: string;
-  packageId: PackageId;
-  packageSource: PackageSource;
+  token: string;
   language: Language;
   answers: Answers;
 };
 
 /**
- * Sends the brief. A client who uploaded nothing has no session, and proves
- * they are a person with a fresh challenge instead; one who uploaded already
- * passed that check when their session was opened.
+ * Sends the brief. The token is the whole story: the server reads the
+ * package, the submission id and the project off the row it names, so the
+ * body carries only what the client actually authored.
  */
 export async function submitBrief(
   input: SubmitInput,
@@ -173,17 +202,8 @@ export async function submitBrief(
   try {
     const response = await fetch(`${BASE}/submit`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(input.session ? { Authorization: `Bearer ${input.session.token}` } : {}),
-      },
-      body: JSON.stringify({
-        challenge: input.challenge,
-        packageId: input.packageId,
-        packageSource: input.packageSource,
-        language: input.language,
-        answers: input.answers,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(input),
     });
     if (!response.ok) return { ok: false, ...(await readError(response)) };
     const data = (await response.json()) as { submissionId: string };

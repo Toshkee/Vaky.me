@@ -6,14 +6,19 @@
  * token) live in the provider's own dashboard and never in `NEXT_PUBLIC_*`,
  * in this repository, or in the exported HTML.
  *
- * Unset means off. With no form endpoint the concept form sends the same
- * prefilled email it always has; with no website id no analytics script is
- * ever requested. Nothing here is required to run or deploy the site.
+ * Unset means off: with no website id no analytics script is ever requested.
+ * Nothing here is required to run or deploy the site.
+ *
+ * The enquiry form is no longer one of these. It posts to this site's own
+ * `/api/lead`, which stores the enquiry in Cloudflare D1 — a third-party form
+ * forwarder would now be a second copy of data the studio already holds.
  */
 export const services = {
-  /** Basin form endpoint, e.g. https://usebasin.com/f/xxxxxxxx */
-  formEndpoint: process.env.NEXT_PUBLIC_BASIN_FORM_ENDPOINT ?? "",
-  /** Cloudflare Turnstile site key. The secret key is stored in Basin. */
+  /**
+   * Cloudflare Turnstile site key. Its secret half is a Cloudflare secret
+   * (`TURNSTILE_SECRET_KEY`) read by the Functions that verify the token —
+   * setting this key alone does nothing until that secret exists too.
+   */
   turnstileSiteKey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "",
   umami: {
     websiteId: process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID ?? "",
@@ -29,7 +34,6 @@ export const services = {
   cloudflareAnalytics: process.env.NEXT_PUBLIC_CLOUDFLARE_ANALYTICS === "on",
 } as const;
 
-export const hasFormBackend = services.formEndpoint.length > 0;
 export const hasTurnstile = services.turnstileSiteKey.length > 0;
 export const hasAnalytics = services.umami.websiteId.length > 0;
 export const hasCloudflareAnalytics = services.cloudflareAnalytics;

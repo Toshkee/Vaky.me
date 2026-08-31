@@ -23,6 +23,12 @@ const PAGES = [
      this covers the language gate and nothing past it — the steps themselves
      are keyboard-and-screen-reader work that has to be done by hand. */
   "/start/",
+  /* Hit directly, with no token in the URL, this is the loading state every
+     /start/<token>/ link passes through before the rewrite hands it one. */
+  "/start/form/",
+  /* The internal dashboard's password gate — the only screen a logged-out
+     run can ever reach here. */
+  "/admin/",
   "/demo/lucky-chopsticks/",
   "/demo/konoba-skadar/",
   "/demo/titan-gym/",

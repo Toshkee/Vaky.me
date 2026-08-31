@@ -38,6 +38,12 @@ const PAGES = [
   "/demo/studio-ljepote-zdravlja/",
   "/demo/pilates-by-maja/",
   "/demo/skyline-tattoo/",
+  /* /admin/ and /start/form/ are not on this list. The header/CSP block above
+     already covers them — public/_headers applies its rule to `/*`, not per
+     page. The rest of this list is scoped to pages that link out or carry a
+     server round trip of their own; both new routes are gated app shells
+     whose actual logged-out render is exercised by the mobile and a11y
+     checks instead. */
 ];
 
 let failed = 0;

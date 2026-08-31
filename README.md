@@ -28,11 +28,15 @@ Most projects are ready within 10 days once we have the necessary content.
 
 ## Packages
 
-| Package | From | Best for |
+| Package | Price | Best for |
 |---|---:|---|
-| Start | €100 | A clear one-page presence with the essentials |
-| Business | €200 | A complete business website with menu/price list, gallery, and contact details |
-| Premium | €350+ | A fully custom design, bilingual content, bookings, and tailored functionality |
+| Start | €200 | One scrolling page covering the essentials — one revision round |
+| Business | €400 | Up to five pages, Montenegrin and English, two revision rounds |
+| Project | From €600 | A custom build — shop, integrations, more languages; scope and final price agreed per project |
+
+A monthly care plan is available separately for €20/month. Package and price
+are agreed with VibeLab directly (Instagram, email, a call) before any work
+starts — there is no checkout on the site itself.
 
 Every site is responsive and includes direct contact actions, a map/contact area, and the SEO essentials needed for search engines to understand it.
 
@@ -69,22 +73,28 @@ Open `http://localhost:3000`.
 
 ```bash
 npm run lint
-npx tsc --noEmit
+npm run typecheck
 npm run build
 npm run check:mobile
 npm run test:security
 ```
+
+`typecheck` runs both tsconfigs — the site and the Cloudflare Worker code
+under `functions/` and `server/` — so a plain `tsc --noEmit` no longer covers
+everything that needs checking.
 
 ### Content and maintenance
 
 | Need to change | Where |
 |---|---|
 | Public contact details | `src/config/site.ts` |
-| Website copy and package prices | `src/i18n/me.ts` and `src/i18n/en.ts` |
+| Website copy | `src/i18n/me.ts` and `src/i18n/en.ts` |
+| Package prices, page limits, revision rounds | `src/lib/packages.ts` — the only place a number lives |
 | Landing-page sections | `src/components/landing/` |
 | Portfolio demos | `src/app/(me)/demo/` |
 | Portfolio thumbnails | `public/work/` |
 | Brand assets | `public/` and `src/app/` |
+| Lead intake, private onboarding links, the admin dashboard, and the Build Brief generator | `functions/api/lead.ts`, `functions/api/onboarding/`, `functions/api/admin/`, `functions/start/`, `server/`, `migrations/` — see [`ONBOARDING_SETUP.md`](ONBOARDING_SETUP.md) |
 
 ## Deployment
 

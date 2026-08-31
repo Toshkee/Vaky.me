@@ -5,6 +5,8 @@ const targets = [
   { name: "home", path: "/" },
   { name: "en", path: "/en/" },
   { name: "start", path: "/start/" },
+  { name: "start-form", path: "/start/form/" },
+  { name: "admin", path: "/admin/" },
   { name: "lucky", path: "/demo/lucky-chopsticks/" },
   { name: "konoba", path: "/demo/konoba-skadar/" },
   { name: "titan", path: "/demo/titan-gym/" },

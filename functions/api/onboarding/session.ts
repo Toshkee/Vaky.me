@@ -1,37 +1,45 @@
 import { hashIp } from "../../../server/onboarding/crypto";
 import { hasConfig, type OnboardingEnv } from "../../../server/onboarding/env";
-import { LIMITS, passesChallenge, withinLimit } from "../../../server/onboarding/guard";
+import { LIMITS, withinLimit } from "../../../server/onboarding/guard";
 import { clientIp, fail, json, readJson } from "../../../server/onboarding/http";
-import { issueSession } from "../../../server/onboarding/session";
+import { findRequestByToken, markInProgress, readRequest } from "../../../server/onboarding/request";
+import { issueSessionFor } from "../../../server/onboarding/session";
 
 /**
- * Opens a submission so a client can start sending materials.
+ * Trades the onboarding link's token for an upload token.
  *
- * Nothing is written to the database here. The response is a submission id that
- * did not exist a moment ago and a signed token that permits writing files
- * under it — the row itself is created when the brief is actually sent. That
- * way an anonymous, public endpoint cannot fill the database with abandoned
- * rows, and a client who uploads nothing never needs to call this at all.
+ * The link itself is the credential — it was handed to one client by a
+ * person, which is a stronger claim than any bot check — so there is no
+ * Turnstile here. What comes back is a short-lived signed token whose
+ * submission id IS the request row's id: uploads and the eventual brief all
+ * land under the one record VibeLab created, and under nothing else.
+ *
+ * Nothing is written to the database except the request's activity clock. A
+ * client who uploads nothing costs one UPDATE.
  */
+
+type Body = { token?: unknown };
+
 export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
   const { request, env } = context;
   if (!hasConfig(env)) return fail("server");
 
-  const body = await readJson(request, 8 * 1024);
-  const challenge =
-    body && typeof body === "object" && typeof (body as { challenge?: unknown }).challenge === "string"
-      ? ((body as { challenge: string }).challenge)
-      : "";
+  const raw = await readJson(request, 4 * 1024);
+  const body = (raw ?? {}) as Body;
+  const token = typeof body.token === "string" ? body.token : "";
+  if (!token) return fail("bad-request");
 
-  const ip = clientIp(request);
-  const identity = await hashIp(env.ONBOARDING_TOKEN_SECRET, ip);
-
+  const identity = await hashIp(env.ONBOARDING_TOKEN_SECRET, clientIp(request));
   if (!(await withinLimit(env.DB, LIMITS.session, identity, Date.now()))) {
     return fail("rate-limit");
   }
-  if (!(await passesChallenge(env, challenge, ip))) {
-    return fail("challenge");
-  }
 
-  return json(await issueSession(env.ONBOARDING_TOKEN_SECRET, Date.now()));
+  const row = await findRequestByToken(env.DB, token);
+  const parsed = row ? readRequest(row) : null;
+  if (!parsed || parsed.status === "cancelled") return fail("link");
+  if (parsed.status === "completed") return fail("completed");
+
+  await markInProgress(env.DB, parsed.id);
+
+  return json(await issueSessionFor(env.ONBOARDING_TOKEN_SECRET, parsed.id, Date.now()));
 };

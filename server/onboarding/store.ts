@@ -29,6 +29,10 @@ export type SubmissionInput = {
   packageSource: PackageSource;
   language: Language;
   answers: Answers;
+  /** The private link that produced this brief, and the project it belongs
+   *  to — both come off the request row, never from the client. */
+  requestId: string;
+  projectId: string;
 };
 
 export async function fileTotals(
@@ -112,13 +116,16 @@ export async function recordSubmission(db: D1Database, input: SubmissionInput): 
   await db
     .prepare(
       `INSERT INTO onboarding_submissions
-         (id, package_id, package_source, language, status, answers, created_at, updated_at)
-       VALUES (?1, ?2, ?3, ?4, 'new', ?5, datetime('now'), datetime('now'))
+         (id, package_id, package_source, language, status, answers, request_id, project_id,
+          created_at, updated_at)
+       VALUES (?1, ?2, ?3, ?4, 'new', ?5, ?6, ?7, datetime('now'), datetime('now'))
        ON CONFLICT (id) DO UPDATE SET
          package_id = excluded.package_id,
          package_source = excluded.package_source,
          language = excluded.language,
          answers = excluded.answers,
+         request_id = excluded.request_id,
+         project_id = excluded.project_id,
          updated_at = datetime('now')`,
     )
     .bind(
@@ -127,6 +134,8 @@ export async function recordSubmission(db: D1Database, input: SubmissionInput): 
       input.packageSource,
       input.language,
       JSON.stringify(input.answers),
+      input.requestId,
+      input.projectId,
     )
     .run();
 }

@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/i18n";
 import { Tony } from "@/components/mascot/Tony";
 import { CheckIcon, SparkleIcon } from "./icons";
-import { emailLink } from "@/config/site";
+import { PLAN_PACKAGES } from "@/lib/onboarding/schema";
+import { priceLabel } from "@/lib/packages";
 
 /**
  * The three packages as three cards, each complete on its own: name, price,
@@ -18,13 +19,14 @@ import { emailLink } from "@/config/site";
  * plain-language explanation of every line, including what a package does
  * not have, lives in the dialog behind "Šta tačno dobijaš?" — the part a
  * café owner needs and the feature names alone do not give.
+ *
+ * The action is a link to the enquiry form, not a checkout. Picking a package
+ * here buys nothing and commits nobody: it says which conversation to start,
+ * and the price is agreed with a person before any work begins.
  */
 export function PlanMatrix({ dict }: { dict: Dictionary }) {
   const { plans, compare } = dict.pricing;
   const [openPlan, setOpenPlan] = useState<number | null>(null);
-
-  const enquiryHref = (planName: string) =>
-    emailLink(dict.contact.emailSubject, dict.pricing.packagePrefill.replace("{package}", planName));
 
   return (
     <>
@@ -60,7 +62,9 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
                     right-aligned column on a 320px screen. */}
                 <div className="border-b border-line p-5 sm:p-6">
                   <h3 className="headline text-xl">{plan.name}</h3>
-                  <p className="headline tnum mt-2 text-3xl">{plan.price}</p>
+                  <p className="headline tnum mt-2 text-3xl">
+                    {priceLabel(PLAN_PACKAGES[index], dict.lang === "en" ? "en" : "me")}
+                  </p>
                   <p className="mt-3 text-sm leading-relaxed text-muted">{plan.tagline}</p>
                 </div>
 
@@ -98,7 +102,7 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
 
                 <div className="mt-auto grid gap-2 border-t border-line p-5 sm:p-6">
                   <a
-                    href={enquiryHref(plan.name)}
+                    href="#kontakt"
                     data-umami-event="plan_enquiry"
                     data-umami-event-plan={plan.name}
                     className={`px px-btn tap inline-flex min-h-12 items-center justify-center px-6 text-[1.25rem] ${
@@ -122,6 +126,9 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
           );
         })}
       </div>
+
+      {/* The one line that keeps a price list from reading like a checkout. */}
+      <p className="mt-6 text-sm text-muted">{dict.pricing.planNote}</p>
 
       <PlanDialog dict={dict} planIndex={openPlan} onClose={() => setOpenPlan(null)} />
     </>
@@ -180,7 +187,10 @@ function PlanDialog({
         <div className="sticky top-0 flex items-start justify-between gap-4 border-b border-line bg-paper px-5 py-4">
           <div>
             <h3 id="plan-dialog-title" className="headline text-xl">
-              {plan.name} — <span className="tnum">{plan.price}</span>
+              {plan.name} —{" "}
+              <span className="tnum">
+                {priceLabel(PLAN_PACKAGES[planIndex], dict.lang === "en" ? "en" : "me")}
+              </span>
             </h3>
             <p className="mt-1 text-sm text-muted">{dict.pricing.detailsIntro}</p>
           </div>
@@ -235,10 +245,10 @@ function PlanDialog({
 
           <div className="border-t border-line p-5">
             <a
-              href={emailLink(
-                dict.contact.emailSubject,
-                dict.pricing.packagePrefill.replace("{package}", plan.name),
-              )}
+              href="#kontakt"
+              onClick={onClose}
+              data-umami-event="plan_enquiry"
+              data-umami-event-plan={plan.name}
               className="px px-btn px-btn--primary tap inline-flex min-h-12 w-full items-center justify-center bg-red px-6 text-[1.25rem] text-white hover:bg-red-deep"
             >
               {dict.pricing.planAction}

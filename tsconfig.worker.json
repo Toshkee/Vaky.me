@@ -27,6 +27,8 @@
     "functions/**/*.ts",
     "server/**/*.ts",
     "src/lib/onboarding/schema.ts",
+    "src/lib/packages.ts",
+    "src/lib/workflow.ts",
     "src/i18n/**/*.ts",
     "src/config/site.ts"
   ]

@@ -75,12 +75,25 @@ export type OnboardingCopy = {
     restartConfirm: string;
   };
 
-  /** Only when the link carried no package, or carried an unknown one. */
-  packageGate: {
+  /** The screens a private link can land on instead of the form: still
+   *  checking, not a link VibeLab issued, or a brief already sent. */
+  privateLink: {
+    checking: string;
+    invalidTitle: string;
+    invalidBody: string;
+    completedTitle: string;
+    completedBody: string;
+  };
+
+  /** The public `/start/` page, which is not the form — the form only exists
+   *  behind a link VibeLab sends. Rendered in both languages at once, because
+   *  whoever lands here has not chosen one. */
+  info: {
     title: string;
-    intro: string;
-    unsure: string;
-    unsureHelp: string;
+    body: string;
+    stepsTitle: string;
+    steps: [string, string, string];
+    noLink: string;
     action: string;
   };
 

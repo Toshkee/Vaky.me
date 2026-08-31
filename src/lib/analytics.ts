@@ -10,9 +10,9 @@
  */
 type EventName =
   | "hero_primary_cta"
-  | "concept_form_started"
-  | "concept_form_submitted"
-  | "concept_form_failed"
+  | "lead_form_started"
+  | "lead_form_submitted"
+  | "lead_form_failed"
   | "portfolio_demo_opened"
   | "plan_enquiry"
   /* The onboarding at /start/. Same rule, and it matters more here: these

@@ -13,6 +13,7 @@
     "check:mobile": "node scripts/mobile-check.mjs",
     "test:security": "node scripts/security-check.mjs",
     "check:a11y": "node scripts/a11y-check.mjs",
+    "test:workflow": "node scripts/workflow-check.mjs",
     "shots:visual": "node scripts/visual-shots.mjs",
     "shots:mobile": "node scripts/mobile-shots.mjs"
   },

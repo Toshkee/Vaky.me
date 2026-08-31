@@ -30,8 +30,9 @@ const SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=exp
  * engagement costs the one person who is about to submit a few hundred
  * milliseconds they spend typing anyway.
  *
- * The secret key lives in Basin, which verifies the token server-side. This
- * widget only produces one.
+ * This widget only produces a token. The half that can verify it is the
+ * `TURNSTILE_SECRET_KEY` Cloudflare secret, read by the Functions behind
+ * `/api/` — until that secret is set, the token is produced and ignored.
  */
 export function Turnstile({ onToken }: { onToken: (token: string) => void }) {
   const box = useRef<HTMLDivElement>(null);

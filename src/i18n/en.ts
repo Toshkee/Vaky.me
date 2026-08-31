@@ -139,22 +139,20 @@ export const en: Dictionary = {
     plans: [
       {
         name: "Start",
-        price: "€200",
-        tagline: "For a business that needs one strong page — what you do, where you are and how to reach you.",
+        tagline:
+          "One scrolling page — what you do, where you are and how to reach you, all in one place.",
         badge: null,
       },
       {
         name: "Business",
-        price: "€350",
         tagline:
-          "When the site has to work, not just look good: bookings, a price list you edit yourself and visitors from abroad.",
+          "When the site has to work, not just look good: up to five pages, an English version, and bookings through the service you already use.",
         badge: "Recommended",
       },
       {
         name: "Project",
-        price: "On request",
         tagline:
-          "For what doesn't fit a package — a shop, connections to your own systems, more languages.",
+          "For what doesn't fit a package — a shop, connections to your own systems, more languages. The final price depends on the scope.",
         badge: null,
       },
     ],
@@ -207,12 +205,13 @@ export const en: Dictionary = {
           label: "Online reservations",
           values: [false, true, true],
           explain:
-            "Guests book from the site. If you already run a system like DIKIDI, we connect to it instead of building a second one.",
+            "The site connects to the booking service you already run — DIKIDI, Google reservations or similar — so guests book without leaving it. A booking system of your own, with slots and staff in our database, is a Project.",
         },
         {
           label: "English version",
           values: [false, true, true],
-          explain: "A full translation of the site and a language switcher for visitors from abroad.",
+          explain:
+            "The site in two languages, Montenegrin and English, with a switcher and separate URLs. You supply the English text; if you need it translated too, we agree that separately.",
         },
         {
           label: "Advanced SEO",
@@ -223,7 +222,13 @@ export const en: Dictionary = {
           label: "Number of pages",
           values: ["1", "up to 5", "as agreed"],
           explain:
-            "How many separate pages the site has — for example Home, Services, Gallery, Contact. For most small businesses one good page does the job.",
+            "How many separate pages the site has — for example Home, Services, Gallery, Contact. Start is one scrolling page: everything you need sits in sections one below the other rather than on separate URLs. For most small businesses that does the job.",
+        },
+        {
+          label: "Rounds of revisions",
+          values: ["1", "2", "as agreed"],
+          explain:
+            "How many times we work through your notes after the first version. You collect everything in one round and send it at once, and we do it together. Further rounds are possible and agreed separately.",
         },
         {
           label: "Shop and online payments",
@@ -264,9 +269,8 @@ export const en: Dictionary = {
       ],
       note: "Small updates cover text, prices and photos — new pages and features are agreed separately. The domain is a separate cost, ~€25/year.",
     },
-    planAction: "Choose package",
-    packagePrefill:
-      "Hi! I'm interested in the {package} package for my business. Can we discuss the details?",
+    planAction: "Ask about this package",
+    planNote: "Nothing is paid through the site — we agree on what you need first.",
   },
 
   faq: {
@@ -297,35 +301,50 @@ export const en: Dictionary = {
 
   contact: {
     title: "Ready for a new website?",
-    sub: "Send a link to your site or Instagram — you get a free concept before you pay anything. We usually reply the same day.",
+    sub: "Leave us a few details — we get back to you, agree what you need, and send a quote. We usually reply the same day.",
     directLabel: "Or directly:",
-    prefill: "Hi! I'm interested in a website for my business. Can I get a free concept?",
+    prefill: "Hi! I'm interested in a website for my business. Could we talk about a quote?",
     emailSubject: "Website for my business",
-    concept: {
-      eyebrow: "Free concept",
-      placeholder: "your-site.me or @instagram",
+    lead: {
+      eyebrow: "Request a quote",
+      nameLabel: "Name",
+      namePlaceholder: "What we should call you",
+      businessLabel: "Business name",
+      businessPlaceholder: "Your shop, salon, restaurant…",
+      emailLabel: "Email",
+      emailPlaceholder: "you@example.com",
+      phoneLabel: "Phone",
+      phonePlaceholder: "+382 67 123 456",
       linkLabel: "Site or Instagram",
-      contactLabel: "Where we reply",
-      contactPlaceholder: "email or @instagram",
-      goalLabel: "What you need (optional)",
-      goalPlaceholder: "Briefly: what you do and what the site should do for you.",
-      submit: "Send request",
+      linkPlaceholder: "your-site.me or @instagram",
+      needLabel: "What you need",
+      needOptions: {
+        "new-site": "A new website",
+        redesign: "A redesign of an existing one",
+        shop: "An online shop",
+        "something-else": "Something else",
+        "not-sure": "Not sure yet",
+      },
+      messageLabel: "Briefly about the business",
+      messagePlaceholder: "What you do and what the site should do for you.",
+      optional: "optional",
+      submit: "Request a quote",
       sending: "Sending…",
-      success: "Got it. We'll reply to the contact you left.",
-      errorRequired: "We need your site or Instagram link, and a contact to reply to.",
+      success: "Got it. We'll reply to the email you left, usually the same day.",
+      errorRequired: "We need your name and an email to reply to.",
+      errorPhone: "Check the phone number, or leave the field empty.",
       errorChallenge: "Give the check a second to finish, then send again.",
       errorOffline: "You appear to be offline. Check the connection and try again.",
       errorSpam: "Too many attempts in a short time. Wait a minute and try again.",
       errorProvider: "Sending isn't working right now. Try again, or write to us directly.",
-      submitEmail: "Send email",
       submitInstagram: "Open Instagram DM",
       submitInstagramCopied: "Message copied — open Instagram",
       copied: "Message copied — just paste it into the Instagram DM.",
-      note: "Your email opens with the link already written in. We get back to you as soon as we can.",
-      emailFallback: "Email app didn't open?",
-      emailFallbackAction: "Open Gmail in the browser",
-      prefill: "Hi! This is my site/Instagram: {link} — could I get a free concept?",
-      bubble: { pre: "Send it now and get a", em: "free concept", post: "!" },
+      note: "Nothing is paid through the site. We agree on the work first, then build.",
+      emailFallback: "Sending not working?",
+      emailFallbackAction: "Send us an email",
+      prefill: "Hi! This is my business: {link} — could I get a quote for a website?",
+      bubble: { pre: "You get a", em: "free concept", post: " first, then we talk." },
     },
   },
 
@@ -345,15 +364,16 @@ export const en: Dictionary = {
         when: "always",
         title: "Who handles your data",
         body: [
-          "VibeLab, a web studio in Montenegro. For anything about your data, write to vibelabmne@gmail.com.",
+          "VibeLab, a web studio in Montenegro. For anything about your data, write to vibecodemne@gmail.com.",
         ],
       },
       {
         when: "form",
-        title: "When you send a concept request",
+        title: "When you send an enquiry through the site",
         body: [
-          "The form is handled by Basin (usebasin.com), which forwards submissions to our inbox. Only what you typed is sent: your site or Instagram link, the contact to reply to, your message, and the page language.",
-          "We use it to reply to you and nothing else. No newsletter, no sharing with third parties, no advertising. We delete the message once the conversation is over, and within a year at the latest.",
+          "The form posts to our own server at Cloudflare and the enquiry is stored in our database. Only what you typed is sent: your name, business name, email, phone, link, what you need and your message — plus the page language. A copy of the same enquiry also reaches us by email.",
+          "We use it to reply to you and to put together a quote, and for nothing else. No newsletter, no sharing with third parties, no advertising. We delete the enquiry once the conversation is over, and within a year at the latest; you can ask for deletion sooner, at vibecodemne@gmail.com.",
+          "Nothing is paid through the site and we never ask for card details. To protect the form from abuse we record an irreversibly hashed form of your IP address so we can limit repeated attempts — your address cannot be read back from it.",
         ],
       },
       {
@@ -367,7 +387,7 @@ export const en: Dictionary = {
         when: "always",
         title: "When you fill in the project start form",
         body: [
-          "If we sent you a link to /start/, that is where you send us what we need to build the site. Only what you type and attach is sent: business name, your name, email, phone, your answers, and the files you choose.",
+          "Once we have agreed on the work, we send you a private questionnaire link, and that is where you send us what we need to build the site. Only what you type and attach is sent: business name, your name, email, phone, your answers, and the files you choose.",
           "Answers are stored in our database at Cloudflare, and files in private storage that cannot be reached from the internet without a signed link that expires. We use them solely to build your site — we do not share them with anyone and do not use them for advertising. We keep them for as long as we work together and at most a year after that; you can ask for deletion sooner, at vibecodemne@gmail.com.",
           "While you are filling it in, your answers are kept in your browser's own storage so you do not lose them if you close the page. That stays on your device, is cleared as soon as you send, and is not a cookie. Files are never kept there.",
           "We never ask for passwords. To protect the form from abuse we record an irreversibly hashed form of your IP address so we can limit repeated attempts — your address cannot be read back from it, and it is not linked to your answers.",

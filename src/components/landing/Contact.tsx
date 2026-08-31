@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/i18n";
-import { emailLink, gmailComposeLink, instagramDmLink, instagramLink, site } from "@/config/site";
-import { hasFormBackend, hasTurnstile, services } from "@/config/services";
+import { emailLink, instagramDmLink, instagramLink, site } from "@/config/site";
+import { hasTurnstile } from "@/config/services";
 import { track } from "@/lib/analytics";
+import { isValidEmail, isValidPhone } from "@/lib/onboarding/schema";
+import { LEAD_NEEDS, type LeadNeed } from "@/lib/workflow";
 import { OsBadge } from "@/components/ui/OsBadge";
 import { PixelWindow } from "@/components/ui/PixelWindow";
 import { Tony } from "@/components/mascot/Tony";
@@ -14,31 +16,36 @@ import { Turnstile } from "./Turnstile";
 
 /**
  * The close, and the page's one conversion point: the hero and the nav both
- * point here, and nothing in between asks for anything. It leads with the
- * free concept — the least a visitor can commit to — and asks for the least a
- * reply can be built on: the business's site or Instagram, somewhere to
- * answer, and optionally what they want.
+ * point here, and nothing in between asks for anything.
  *
- * Two transports, one form. With a form backend configured the request is sent
- * in place and the visitor never leaves the page; without one — the state this
- * site shipped in — the same fields become a prefilled email, which is what a
- * static site can do on its own. Instagram stays next to both, because most
- * businesses here answer there first and half of them have no website at all.
- * The direct line under the window is for people who would simply rather
- * write, and it is a line, not another slab.
+ * What it asks for is deliberately small — a name, an email, and whatever else
+ * the visitor feels like adding. It is an enquiry, not an order: nothing is
+ * chosen, nothing is priced and nothing is paid here. VibeLab reads it, writes
+ * back, and the two of them agree on the work somewhere a person can ask
+ * questions. Only then does a private link to the real brief exist.
+ *
+ * The enquiry posts to this site's own `/api/lead`, which stores it before it
+ * emails anyone — so a mail provider's bad minute cannot lose a lead. When
+ * that call fails (offline, or a plain `next dev` where `/api/` does not
+ * exist) the visitor is not left holding a dead button: Instagram sits beside
+ * the submit, and an email with everything they typed is one link away.
  *
  * Tony watches the form. He faces the page by default, turns toward the fields
- * while they have the visitor's attention, ticks the link off once it looks
- * real, and jumps once when the message goes. Pose swaps are held frames, not
+ * while they have the visitor's attention, ticks the enquiry off once it looks
+ * real, and jumps once when it goes. Pose swaps are held frames, not
  * animations, so they survive reduced-motion; only the jump is a real
  * animation and that one is gated in CSS.
  */
-type Status = "idle" | "sending" | "sent" | "invalid" | "challenge" | "offline" | "spam" | "error";
+type Status = "idle" | "sending" | "sent" | "invalid" | "phone" | "challenge" | "offline" | "spam" | "error";
 
 export function Contact({ dict }: { dict: Dictionary }) {
+  const [name, setName] = useState("");
+  const [business, setBusiness] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [link, setLink] = useState("");
-  const [contact, setContact] = useState("");
-  const [goal, setGoal] = useState("");
+  const [need, setNeed] = useState<LeadNeed | "">("");
+  const [message, setMessage] = useState("");
   const [trap, setTrap] = useState("");
   const [token, setToken] = useState("");
   const [status, setStatus] = useState<Status>("idle");
@@ -46,27 +53,27 @@ export function Contact({ dict }: { dict: Dictionary }) {
   const [focused, setFocused] = useState(false);
   const [started, setStarted] = useState(false);
   const [jump, setJump] = useState(false);
-  const [gmail, setGmail] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const gmailTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const c = dict.contact.concept;
+  const c = dict.contact.lead;
 
   useEffect(() => () => {
     if (timer.current) clearTimeout(timer.current);
-    if (gmailTimer.current) clearTimeout(gmailTimer.current);
   }, []);
 
-  const validLink = /[.@]/.test(link) && link.trim().length >= 4;
-  const valid = validLink && contact.trim().length >= 3;
+  const valid = name.trim().length >= 2 && isValidEmail(email.trim());
 
-  const message = () => {
-    const lines = [c.prefill.replace("{link}", link.trim() || "—")];
-    if (contact.trim()) lines.push(`${c.contactLabel}: ${contact.trim()}`);
-    if (goal.trim()) lines.push("", goal.trim());
+  /* What goes to Instagram or into an email, when the visitor takes one of
+     those routes instead. Same fields, written as a sentence a person can
+     read in a chat thread. */
+  const written = () => {
+    const lines = [c.prefill.replace("{link}", link.trim() || business.trim() || "—")];
+    if (name.trim()) lines.push(`${c.nameLabel}: ${name.trim()}`);
+    if (email.trim()) lines.push(`${c.emailLabel}: ${email.trim()}`);
+    if (phone.trim()) lines.push(`${c.phoneLabel}: ${phone.trim()}`);
+    if (need) lines.push(`${c.needLabel}: ${c.needOptions[need]}`);
+    if (message.trim()) lines.push("", message.trim());
     return lines.join("\n");
   };
-
-  const emailHref = emailLink(dict.contact.emailSubject, message());
 
   function celebrate() {
     setJump(true);
@@ -78,32 +85,14 @@ export function Contact({ dict }: { dict: Dictionary }) {
     setFocused(true);
     if (started) return;
     setStarted(true);
-    track("concept_form_started", { lang: dict.lang });
+    track("lead_form_started", { lang: dict.lang });
   }
 
-  /**
-   * mailto: fails silently on machines with no mail app configured — common on
-   * desktop Windows, and it looks like the button simply did nothing. So: fire
-   * the mailto, and if this page is still the visitor's focused, visible page
-   * 1.6 seconds later, no mail client took over — offer Gmail's web compose
-   * with the same message instead.
-   */
-  function sendByEmail() {
-    celebrate();
-    track("concept_form_submitted", { lang: dict.lang, transport: "email" });
-    if (gmailTimer.current) clearTimeout(gmailTimer.current);
-    const cancel = () => {
-      if (gmailTimer.current) clearTimeout(gmailTimer.current);
-      window.removeEventListener("blur", cancel);
-      document.removeEventListener("visibilitychange", cancel);
+  function typed<T>(set: (value: T) => void) {
+    return (value: T) => {
+      set(value);
+      if (status !== "idle" && status !== "sent") setStatus("idle");
     };
-    window.addEventListener("blur", cancel);
-    document.addEventListener("visibilitychange", cancel);
-    gmailTimer.current = setTimeout(() => {
-      cancel();
-      setGmail(true);
-    }, 1600);
-    window.location.href = emailHref;
   }
 
   async function submit(event: React.FormEvent) {
@@ -112,11 +101,11 @@ export function Contact({ dict }: { dict: Dictionary }) {
       setStatus("invalid");
       return;
     }
-    if (trap) return; // a bot filled the hidden field; drop it silently
-    if (!hasFormBackend) {
-      sendByEmail();
+    if (phone.trim() && !isValidPhone(phone.trim())) {
+      setStatus("phone");
       return;
     }
+    if (trap) return; // a bot filled the hidden field; drop it silently
     if (hasTurnstile && !token) {
       setStatus("challenge");
       return;
@@ -124,37 +113,49 @@ export function Contact({ dict }: { dict: Dictionary }) {
 
     setStatus("sending");
     try {
-      const response = await fetch(services.formEndpoint, {
+      const response = await fetch("/api/lead", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          name: name.trim(),
+          businessName: business.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
           link: link.trim(),
-          contact: contact.trim(),
-          goal: goal.trim(),
+          need,
+          message: message.trim(),
           language: dict.lang,
-          "cf-turnstile-response": token,
+          challenge: token,
+          website: trap,
         }),
       });
 
       if (response.ok) {
         setStatus("sent");
         celebrate();
-        track("concept_form_submitted", { lang: dict.lang, transport: "form" });
-        setLink("");
-        setContact("");
-        setGoal("");
+        track("lead_form_submitted", { lang: dict.lang, transport: "form" });
         return;
       }
 
       /* Everything the visitor typed stays in the fields on every failure —
-         retyping a brief because a provider hiccuped is how a lead is lost. */
-      const spam = response.status === 429 || response.status === 422;
-      setStatus(spam ? "spam" : "error");
-      track("concept_form_failed", { lang: dict.lang, reason: spam ? "rejected" : "provider" });
+         retyping an enquiry because a provider hiccuped is how a lead is
+         lost. The wording follows the server's own code so "too many
+         attempts" never reads as "something went wrong". */
+      let code = "";
+      try {
+        const body = (await response.json()) as { error?: unknown };
+        code = typeof body.error === "string" ? body.error : "";
+      } catch {
+        code = "";
+      }
+      if (response.status === 429 || code === "rate-limit") setStatus("spam");
+      else if (code === "challenge") setStatus("challenge");
+      else setStatus("error");
+      track("lead_form_failed", { lang: dict.lang, reason: code || "provider" });
     } catch {
       const offline = typeof navigator !== "undefined" && navigator.onLine === false;
       setStatus(offline ? "offline" : "error");
-      track("concept_form_failed", { lang: dict.lang, reason: offline ? "offline" : "network" });
+      track("lead_form_failed", { lang: dict.lang, reason: offline ? "offline" : "network" });
     }
   }
 
@@ -163,25 +164,25 @@ export function Contact({ dict }: { dict: Dictionary }) {
    * clipboard means the app takes over the screen before the "copied" line can
    * render — the visitor lands in an empty thread never knowing the message was
    * waiting to be pasted. So the first tap copies and relabels the button, and
-   * only the second one leaves the page. With no link typed there is nothing to
+   * only the second one leaves the page. With nothing typed there is nothing to
    * copy, so that case still goes straight through.
    */
   async function sendInstagram() {
-    if (!link.trim() || copied) {
+    if (!name.trim() || copied) {
       celebrate();
-      track("concept_form_submitted", { lang: dict.lang, transport: "instagram" });
+      track("lead_form_submitted", { lang: dict.lang, transport: "instagram" });
       window.open(instagramDmLink(), "_blank", "noopener,noreferrer");
       return;
     }
     try {
-      await navigator.clipboard.writeText(message());
+      await navigator.clipboard.writeText(written());
       setCopied(true);
     } catch {
       window.open(instagramDmLink(), "_blank", "noopener,noreferrer");
     }
   }
 
-  const attentive = focused || link.trim().length > 0;
+  const attentive = focused || name.trim().length > 0;
   const sending = status === "sending";
 
   const statusMessage = {
@@ -189,12 +190,14 @@ export function Contact({ dict }: { dict: Dictionary }) {
     sending: c.sending,
     sent: c.success,
     invalid: c.errorRequired,
+    phone: c.errorPhone,
     challenge: c.errorChallenge,
     offline: c.errorOffline,
     spam: c.errorSpam,
     error: c.errorProvider,
   }[status];
-  const isError = ["invalid", "challenge", "offline", "spam", "error"].includes(status);
+  const isError = ["invalid", "phone", "challenge", "offline", "spam", "error"].includes(status);
+  const failed = ["offline", "spam", "error"].includes(status);
 
   const directLink =
     "font-semibold text-ink underline decoration-line decoration-2 underline-offset-4 transition-colors hover:text-red hover:decoration-red";
@@ -209,6 +212,49 @@ export function Contact({ dict }: { dict: Dictionary }) {
       {c.bubble.post}
       {valid && <CheckIcon className="ml-1.5 inline w-4 align-[-0.125rem] text-ok" />}
     </>
+  );
+
+  /* Every field shares the same handlers; only the label, the value and the
+     placeholder differ. Written once here rather than six times below. */
+  const text = (
+    id: string,
+    label: string,
+    value: string,
+    set: (value: string) => void,
+    extra: {
+      placeholder: string;
+      type?: string;
+      inputMode?: "email" | "tel" | "url";
+      autoComplete?: string;
+      required?: boolean;
+    },
+  ) => (
+    <div>
+      <label htmlFor={id} className={fieldLabel}>
+        {label}
+        {!extra.required && <span className="normal-case"> ({c.optional})</span>}
+      </label>
+      <input
+        id={id}
+        name={id.replace("lead-", "")}
+        type={extra.type ?? "text"}
+        inputMode={extra.inputMode}
+        required={extra.required}
+        autoComplete={extra.autoComplete}
+        autoCapitalize={extra.autoComplete === "name" || extra.autoComplete === "organization" ? "words" : "none"}
+        autoCorrect="off"
+        spellCheck={false}
+        value={value}
+        onChange={(event) => {
+          typed(set)(event.target.value);
+          setCopied(false);
+        }}
+        onFocus={begin}
+        onBlur={() => setFocused(false)}
+        placeholder={extra.placeholder}
+        className={field}
+      />
+    </div>
   );
 
   return (
@@ -228,91 +274,94 @@ export function Contact({ dict }: { dict: Dictionary }) {
               </p>
 
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                <div className="flex flex-col justify-end">
-                  <label htmlFor="concept-link" className={fieldLabel}>
-                    {c.linkLabel}
-                  </label>
-                  <input
-                    id="concept-link"
-                    name="link"
-                    type="text"
-                    inputMode="url"
-                    required
-                    autoCapitalize="none"
-                    autoCorrect="off"
-                    spellCheck={false}
-                    value={link}
-                    onChange={(e) => {
-                      setLink(e.target.value);
-                      setCopied(false);
-                      if (status !== "idle") setStatus("idle");
-                    }}
-                    onFocus={begin}
-                    onBlur={() => setFocused(false)}
-                    placeholder={c.placeholder}
-                    className={field}
-                  />
-                </div>
+                {text("lead-name", c.nameLabel, name, setName, {
+                  placeholder: c.namePlaceholder,
+                  autoComplete: "name",
+                  required: true,
+                })}
+                {text("lead-business", c.businessLabel, business, setBusiness, {
+                  placeholder: c.businessPlaceholder,
+                  autoComplete: "organization",
+                })}
+                {text("lead-email", c.emailLabel, email, setEmail, {
+                  placeholder: c.emailPlaceholder,
+                  type: "email",
+                  inputMode: "email",
+                  autoComplete: "email",
+                  required: true,
+                })}
+                {text("lead-phone", c.phoneLabel, phone, setPhone, {
+                  placeholder: c.phonePlaceholder,
+                  type: "tel",
+                  inputMode: "tel",
+                  autoComplete: "tel",
+                })}
+                {text("lead-link", c.linkLabel, link, setLink, {
+                  placeholder: c.linkPlaceholder,
+                  inputMode: "url",
+                })}
 
-                <div className="flex flex-col justify-end">
-                  <label htmlFor="concept-contact" className={fieldLabel}>
-                    {c.contactLabel}
+                <div>
+                  <label htmlFor="lead-need" className={fieldLabel}>
+                    {c.needLabel}
+                    <span className="normal-case"> ({c.optional})</span>
                   </label>
-                  <input
-                    id="concept-contact"
-                    name="contact"
-                    type="text"
-                    required
-                    autoCapitalize="none"
-                    autoCorrect="off"
-                    spellCheck={false}
-                    autoComplete="email"
-                    value={contact}
-                    onChange={(e) => {
-                      setContact(e.target.value);
-                      if (status !== "idle") setStatus("idle");
-                    }}
+                  <select
+                    id="lead-need"
+                    name="need"
+                    value={need}
+                    onChange={(event) => typed(setNeed)(event.target.value as LeadNeed | "")}
                     onFocus={begin}
                     onBlur={() => setFocused(false)}
-                    placeholder={c.contactPlaceholder}
                     className={field}
-                  />
+                  >
+                    <option value="">—</option>
+                    {LEAD_NEEDS.map((option) => (
+                      <option key={option} value={option}>
+                        {c.needOptions[option]}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
               <div className="mt-4">
-                <label htmlFor="concept-goal" className={fieldLabel}>
-                  {c.goalLabel}
+                <label htmlFor="lead-message" className={fieldLabel}>
+                  {c.messageLabel}
+                  <span className="normal-case"> ({c.optional})</span>
                 </label>
                 <textarea
-                  id="concept-goal"
-                  name="goal"
+                  id="lead-message"
+                  name="message"
                   rows={2}
-                  maxLength={1000}
-                  value={goal}
-                  onChange={(e) => setGoal(e.target.value)}
+                  maxLength={2000}
+                  value={message}
+                  onChange={(event) => {
+                    setMessage(event.target.value);
+                    setCopied(false);
+                  }}
                   onFocus={begin}
                   onBlur={() => setFocused(false)}
-                  placeholder={c.goalPlaceholder}
+                  placeholder={c.messagePlaceholder}
                   className={`${field} text-base`}
                 />
               </div>
 
               {/* Bait. A person never sees this; a form-filling bot fills
                   everything it finds, and anything that arrives with this set
-                  is dropped here and again at the provider. */}
+                  is answered with a cheerful 200 and stored nowhere. */}
               <input
                 type="text"
-                name="_gotcha"
+                name="website"
                 tabIndex={-1}
                 autoComplete="off"
                 aria-hidden="true"
                 value={trap}
-                onChange={(e) => setTrap(e.target.value)}
+                onChange={(event) => setTrap(event.target.value)}
                 className="hidden"
               />
 
-              {hasFormBackend && hasTurnstile && started && <Turnstile onToken={setToken} />}
+              {hasTurnstile && started && <Turnstile onToken={setToken} />}
 
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 <button
@@ -321,7 +370,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
                   aria-busy={sending}
                   className="px px-btn px-btn--primary block min-h-12 bg-red px-6 py-3 text-center text-[1.25rem] text-white hover:bg-red-deep disabled:opacity-70"
                 >
-                  {hasFormBackend ? (sending ? c.sending : c.submit) : c.submitEmail}
+                  {sending ? c.sending : c.submit}
                 </button>
                 <button
                   type="button"
@@ -344,17 +393,15 @@ export function Contact({ dict }: { dict: Dictionary }) {
                   screen readers already know about. Mounting the region
                   together with its message is exactly the pattern they miss —
                   and the person this line exists for would hear nothing. */}
-              <p role="status" className={gmail ? "mt-2 text-sm leading-relaxed" : undefined}>
-                {gmail && (
+              <p role="status" className={failed ? "mt-2 text-sm leading-relaxed" : undefined}>
+                {failed && (
                   <>
                     {c.emailFallback}{" "}
                     <a
-                      href={gmailComposeLink(dict.contact.emailSubject, message())}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href={emailLink(dict.contact.emailSubject, written())}
                       className="font-semibold underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
                     >
-                      {c.emailFallbackAction} ↗
+                      {c.emailFallbackAction}
                     </a>
                   </>
                 )}
@@ -368,8 +415,6 @@ export function Contact({ dict }: { dict: Dictionary }) {
               aria-hidden="true"
               className="relative flex flex-col justify-end pt-2 lg:pt-0 lg:pl-6"
             >
-              {/* Tony's pitch. Once the link looks real he ticks the offer
-                  off at the end of the line. */}
               <div className="tony-track w-full justify-center">
                 {/* Below lg there is no room at Tony's side, so the bubble
                     hangs over his head — in flow, so it makes its own space
