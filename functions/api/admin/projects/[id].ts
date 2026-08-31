@@ -1,5 +1,6 @@
 import { scopeWarnings } from "../../../../server/admin/scope";
 import {
+  deleteProject,
   findLead,
   findProject,
   findSubmissionForProject,
@@ -12,7 +13,7 @@ import {
   updateProject,
 } from "../../../../server/admin/store";
 import type { OnboardingEnv } from "../../../../server/onboarding/env";
-import { fail, json, readJson } from "../../../../server/onboarding/http";
+import { fail, json, readJson, textField } from "../../../../server/onboarding/http";
 import { listRequests } from "../../../../server/onboarding/request";
 import {
   isPackageId,
@@ -100,9 +101,6 @@ type Patch = {
   status?: unknown;
 };
 
-const text = (value: unknown, max: number): string =>
-  typeof value === "string" ? value.trim().slice(0, max) : "";
-
 /**
  * Edits the whole editable surface at once. Changing the package never
  * touches stored answers — they stay exactly as collected, and the detail
@@ -116,8 +114,8 @@ export const onRequestPatch: PagesFunction<OnboardingEnv> = async (context) => {
   if (!raw || typeof raw !== "object") return fail("bad-request");
   const body = raw as Patch;
 
-  const businessName = text(body.businessName, 160);
-  const email = text(body.email, 160);
+  const businessName = textField(body.businessName, 160);
+  const email = textField(body.email, 160);
   if (!businessName) return fail("bad-request");
   if (email && !isValidEmail(email)) return fail("bad-request");
   if (!isPackageId(body.packageId) || !isProjectStatus(body.status)) return fail("bad-request");
@@ -128,11 +126,11 @@ export const onRequestPatch: PagesFunction<OnboardingEnv> = async (context) => {
 
     await updateProject(context.env.DB, id, {
       businessName,
-      contactName: text(body.contactName, 120),
+      contactName: textField(body.contactName, 120),
       email,
-      phone: text(body.phone, 40),
-      instagram: text(body.instagram, 120),
-      existingSite: text(body.existingSite, 300),
+      phone: textField(body.phone, 40),
+      instagram: textField(body.instagram, 120),
+      existingSite: textField(body.existingSite, 300),
       packageId: body.packageId,
       status: body.status,
     });
@@ -155,6 +153,35 @@ export const onRequestPatch: PagesFunction<OnboardingEnv> = async (context) => {
       );
     }
 
+    return json({ ok: true });
+  } catch {
+    return fail("server");
+  }
+};
+
+/**
+ * Removes a project outright — a duplicate, or one created by mistake.
+ *
+ * The uploads go before the rows: R2 is the only place a client's file exists,
+ * and a row deleted first would leave an object nothing can name or reach. If
+ * the bucket call fails the rows are still there, so the delete can simply be
+ * pressed again.
+ *
+ * Nothing here is recoverable, which is why the dashboard arms the button
+ * before it fires and spells out what goes with it.
+ */
+export const onRequestDelete: PagesFunction<OnboardingEnv> = async (context) => {
+  const { env } = context;
+  const id = String(context.params.id ?? "");
+
+  try {
+    const project = await findProject(env.DB, id);
+    if (!project) return fail("bad-request");
+
+    const files = await listProjectFiles(env.DB, id);
+    if (files.length) await env.UPLOADS.delete(files.map((file) => file.storage_key));
+
+    await deleteProject(env.DB, id);
     return json({ ok: true });
   } catch {
     return fail("server");

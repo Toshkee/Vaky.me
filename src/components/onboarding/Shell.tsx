@@ -21,6 +21,7 @@ export function Shell({
   onLanguage,
   progress,
   showDraftNote = true,
+  showHome = true,
   children,
 }: {
   copy: OnboardingCopy;
@@ -31,6 +32,9 @@ export function Shell({
    *  no progress to report. */
   progress?: { current: number; total: number };
   showDraftNote?: boolean;
+  /** The footer's way out. Off where the screen already offers one of its own,
+   *  so the closing screen does not say "vaky.me" twice. */
+  showHome?: boolean;
   children: ReactNode;
 }) {
   return (
@@ -84,15 +88,19 @@ export function Shell({
         {children}
       </main>
 
-      <footer className="shell w-full pt-2 pb-8 text-xs leading-relaxed text-muted">
-        {showDraftNote && `${copy.chrome.draftNote} `}
-        <Link
-          href="/"
-          className="inline-flex min-h-11 items-center underline decoration-line underline-offset-4 hover:text-red"
-        >
-          {copy.chrome.home}
-        </Link>
-      </footer>
+      {(showDraftNote || showHome) && (
+        <footer className="shell w-full pt-2 pb-8 text-xs leading-relaxed text-muted">
+          {showDraftNote && `${copy.chrome.draftNote} `}
+          {showHome && (
+            <Link
+              href="/"
+              className="inline-flex min-h-11 items-center underline decoration-line underline-offset-4 hover:text-red"
+            >
+              {copy.chrome.home}
+            </Link>
+          )}
+        </footer>
+      )}
     </>
   );
 }

@@ -5,6 +5,7 @@ import {
   addProjectNote,
   cancelOnboarding,
   createOnboarding,
+  deleteProject,
   getProject,
   saveProject,
   type ProjectPatch,
@@ -37,6 +38,7 @@ import {
   isLiveRequest,
   primaryButtonClass,
   stampText,
+  useGo,
   useLoad,
 } from "./ui";
 
@@ -122,10 +124,64 @@ export function ProjectDetail({ id }: { id: string }) {
             <Panel title="Istorija">
               <Timeline rows={data.activity} />
             </Panel>
+
+            <DeleteBlock projectId={id} hasFiles={data.files.length > 0} />
           </div>
         )}
       </AsyncView>
     </>
+  );
+}
+
+/**
+ * The one thing on this screen that cannot be undone.
+ *
+ * Last, in its own block, and armed before it fires — the same two-step the
+ * onboarding link uses, because the mistake being guarded against is the same
+ * one: a press meant for the button above it.
+ */
+function DeleteBlock({ projectId, hasFiles }: { projectId: string; hasFiles: boolean }) {
+  const go = useGo();
+  const [busy, setBusy] = useState(false);
+  const [problem, setProblem] = useState<ApiErrorCode | null>(null);
+
+  async function remove() {
+    setBusy(true);
+    setProblem(null);
+    const answer = await deleteProject(projectId);
+    /* Left busy on success: the view is on its way out, and a live button on a
+       project that no longer exists only invites a second press. */
+    if (answer.ok) go("?v=projekti");
+    else {
+      setBusy(false);
+      setProblem(answer.code);
+    }
+  }
+
+  return (
+    <Panel title="Brisanje">
+      <p className="max-w-prose leading-relaxed text-muted">
+        Uklanja projekat i sve što uz njega ide: onboarding linkove, odgovore iz upitnika,
+        bilješke, brifove i istoriju
+        {hasFiles ? ", uključujući i fajlove koje je klijent poslao" : ""}. Upit od kojeg je
+        projekat nastao ostaje i vraća se na status „Kvalifikovan“.
+      </p>
+      <p className="mt-2 max-w-prose leading-relaxed font-semibold">Ništa od ovoga se ne vraća.</p>
+
+      <ConfirmButton
+        label="Obriši projekat"
+        confirmLabel="Sigurno obriši"
+        busy={busy}
+        onConfirm={() => void remove()}
+        className="mt-3"
+      />
+
+      {problem && (
+        <div className="mt-3">
+          <DataError code={problem} />
+        </div>
+      )}
+    </Panel>
   );
 }
 

@@ -270,6 +270,11 @@ export function convertLead(
   return call(`/${path("leads", id, "convert")}`, send("POST", { packageId }));
 }
 
+/** Refused for a lead that became a project — see the route. */
+export function deleteLead(id: string): Promise<ApiResult<{ ok: boolean }>> {
+  return call(`/${path("leads", id)}`, { method: "DELETE" });
+}
+
 /* ── Projects ─────────────────────────────────────────────────────────── */
 
 export function getProjects(): Promise<ApiResult<{ projects: ProjectListRow[] }>> {
@@ -290,6 +295,11 @@ export function saveProject(id: string, patch: ProjectPatch): Promise<ApiResult<
 
 export function addProjectNote(id: string, body: string): Promise<ApiResult<{ id: string }>> {
   return call(`/${path("projects", id, "notes")}`, send("POST", { body }));
+}
+
+/** Takes the uploads, the brief and the timeline with it. Nothing comes back. */
+export function deleteProject(id: string): Promise<ApiResult<{ ok: boolean }>> {
+  return call(`/${path("projects", id)}`, { method: "DELETE" });
 }
 
 /** The URL comes back once and is never stored in the clear — whatever the

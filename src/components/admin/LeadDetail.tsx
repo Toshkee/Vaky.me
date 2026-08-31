@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { addLeadNote, convertLead, getLead, setLeadStatus } from "@/lib/admin/client";
+import { addLeadNote, convertLead, deleteLead, getLead, setLeadStatus } from "@/lib/admin/client";
 import { PACKAGE_IDS, type ApiErrorCode, type PackageId } from "@/lib/onboarding/schema";
 import {
   LEAD_NEED_LABELS,
@@ -13,6 +13,7 @@ import {
 import { Notes } from "./Notes";
 import {
   AsyncView,
+  ConfirmButton,
   DataError,
   Fact,
   Facts,
@@ -66,6 +67,19 @@ export function LeadDetail({ id }: { id: string }) {
     setBusy(null);
     if (answer.ok) go(`?v=projekat&id=${answer.data.projectId}`);
     else setProblem(answer.code);
+  }
+
+  async function remove() {
+    setBusy("delete");
+    setProblem(null);
+    const answer = await deleteLead(id);
+    /* No `setBusy(null)` on success — the view is leaving, and re-enabling a
+       button on a lead that no longer exists only invites a second press. */
+    if (answer.ok) go("?v=upiti");
+    else {
+      setBusy(null);
+      setProblem(answer.code);
+    }
   }
 
   return (
@@ -229,6 +243,29 @@ export function LeadDetail({ id }: { id: string }) {
                     naplaćuje i ne šalje ništa klijentu.
                   </p>
                 </div>
+              )}
+            </Panel>
+
+            <Panel title="Brisanje">
+              {data.lead.project_id ? (
+                <p className="leading-relaxed text-muted">
+                  Od ovog upita je napravljen projekat, pa se više ne briše — projekat bi ostao
+                  bez svog porijekla. Obrišite projekat ako treba da nestane i jedno i drugo.
+                </p>
+              ) : (
+                <>
+                  <p className="max-w-prose leading-relaxed text-muted">
+                    Trajno uklanja upit sa svim bilješkama i istorijom. Za spam, duplikat ili
+                    sopstveni test.
+                  </p>
+                  <ConfirmButton
+                    label="Obriši upit"
+                    confirmLabel="Sigurno obriši"
+                    busy={busy !== null}
+                    onConfirm={() => void remove()}
+                    className="mt-3"
+                  />
+                </>
               )}
             </Panel>
 

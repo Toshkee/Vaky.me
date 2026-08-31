@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { emailLink } from "@/config/site";
 import { Button } from "@/components/ui/Button";
-import { Tony } from "@/components/mascot/Tony";
+import { Vaky } from "@/components/mascot/Vaky";
 import { RootHtml } from "./root-html";
 import "./globals.css";
 
@@ -14,7 +14,7 @@ export default function NotFound() {
     <RootHtml lang="sr-ME">
       <main className="flex min-h-screen flex-col items-center justify-center px-6 text-center">
         {/* Facing away, walking off. The one page where his back is the point. */}
-        <Tony direction="back" pose="walk" scale={0.44} className="mb-2" />
+        <Vaky direction="back" pose="walk" scale={0.44} className="mb-2" />
 
         <p className="headline text-8xl text-red sm:text-9xl">404</p>
         <h1 className="headline mt-6 text-3xl sm:text-5xl">Ova stranica ne postoji.</h1>

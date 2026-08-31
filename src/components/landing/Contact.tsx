@@ -9,7 +9,7 @@ import { isValidEmail, isValidPhone } from "@/lib/onboarding/schema";
 import { LEAD_NEEDS, type LeadNeed } from "@/lib/workflow";
 import { OsBadge } from "@/components/ui/OsBadge";
 import { PixelWindow } from "@/components/ui/PixelWindow";
-import { Tony } from "@/components/mascot/Tony";
+import { Vaky } from "@/components/mascot/Vaky";
 import { BubbleIcon, CheckIcon, SparkleIcon } from "./icons";
 import { SectionHead } from "./SectionHead";
 import { Turnstile } from "./Turnstile";
@@ -30,7 +30,7 @@ import { Turnstile } from "./Turnstile";
  * exist) the visitor is not left holding a dead button: Instagram sits beside
  * the submit, and an email with everything they typed is one link away.
  *
- * Tony watches the form. He faces the page by default, turns toward the fields
+ * Vaky watches the form. He faces the page by default, turns toward the fields
  * while they have the visitor's attention, ticks the enquiry off once it looks
  * real, and jumps once when it goes. Pose swaps are held frames, not
  * animations, so they survive reduced-motion; only the jump is a real
@@ -435,33 +435,33 @@ export function Contact({ dict }: { dict: Dictionary }) {
               </p>
             </form>
 
-            {/* Tony at his post. Below lg he stands under the form, small and
+            {/* Vaky at his post. Below lg he stands under the form, small and
                 out of everything's way; from lg up he gets the right column.
                 Either way his feet are on a drawn ground line. */}
             <div
               aria-hidden="true"
               className="relative flex flex-col justify-end pt-2 lg:pt-0 lg:pl-6"
             >
-              <div className="tony-track w-full justify-center">
-                {/* Below lg there is no room at Tony's side, so the bubble
+              <div className="vaky-track w-full justify-center">
+                {/* Below lg there is no room at Vaky's side, so the bubble
                     hangs over his head — in flow, so it makes its own space
                     instead of landing on the form's status line. */}
                 <span className="flex flex-col items-center gap-4 lg:hidden">
                   <span className={`${say} px-say--down`}>{bubbleLine}</span>
-                  <Tony
+                  <Vaky
                     direction={jump ? "front" : attentive ? "left" : "front"}
                     pose={jump ? "jump" : "idle"}
                     scale={0.4}
                   />
                 </span>
-                {/* From lg up it stands beside him, anchored to Tony rather
+                {/* From lg up it stands beside him, anchored to Vaky rather
                     than the column so the tail stays at his head at every
                     window width — pulled a step toward the form because
                     centered it would clip the window edge at the narrow end
                     of lg. */}
                 <span className="relative hidden -translate-x-8 lg:block">
                   <span className={`${say} absolute bottom-14 left-full ml-3`}>{bubbleLine}</span>
-                  <Tony
+                  <Vaky
                     direction={jump ? "front" : attentive ? "left" : "front"}
                     pose={jump ? "jump" : "idle"}
                     scale={0.55}

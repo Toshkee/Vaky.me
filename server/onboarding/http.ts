@@ -82,3 +82,15 @@ export async function readJson(request: Request, maxBytes = 128 * 1024): Promise
     return null;
   }
 }
+
+/**
+ * One string field out of a parsed body: trimmed, capped, and "" for anything
+ * that is not a string at all.
+ *
+ * Every route that accepts typed-in text needs exactly this, and a cap that
+ * lives next to the field it guards is the point — the length limits stay
+ * readable at the call site instead of hiding in a schema.
+ */
+export function textField(value: unknown, max: number): string {
+  return typeof value === "string" ? value.trim().slice(0, max) : "";
+}

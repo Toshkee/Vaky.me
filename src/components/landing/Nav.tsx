@@ -6,7 +6,7 @@ import type { Dictionary } from "@/i18n";
 import { BrandWordmark } from "@/components/BrandWordmark";
 
 /**
- * A masthead, not a floating nav bar: Tony's mark and the name on the left,
+ * A masthead, not a floating nav bar: Vaky's mark and the name on the left,
  * sections on the right, one heavy rule under the lot. The sticky treatment
  * keeps the work, pricing and contact sections within reach without turning
  * the masthead into a large app bar. The one loud thing in it is the red

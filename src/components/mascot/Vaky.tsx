@@ -1,4 +1,4 @@
-export type TonyDirection = "front" | "right" | "back" | "left";
+export type VakyDirection = "front" | "right" | "back" | "left";
 
 /**
  * What he is doing.
@@ -12,7 +12,7 @@ export type TonyDirection = "front" | "right" | "back" | "left";
  * (idle itself is the frame with the concept document in his hand). All of
  * them are defined in globals.css and none of them need JavaScript.
  */
-export type TonyPose =
+export type VakyPose =
   | "idle"
   | "stand"
   | "walk"
@@ -22,12 +22,12 @@ export type TonyPose =
   | "look"
   | "patrol";
 
-type TonyProps = {
+type VakyProps = {
   /** Which way he faces. Nine poses were drawn for each of the four.
    *  `patrol` animates the facing itself; this is what it falls back to when
    *  motion is off. */
-  direction?: TonyDirection;
-  pose?: TonyPose;
+  direction?: VakyDirection;
+  pose?: VakyPose;
   /** Fraction of the sheet's native 127x232 frame. 0.5 is the intended size:
    *  the art is drawn at 2x so it stays sharp on a retina screen. */
   scale?: number;
@@ -48,7 +48,7 @@ type TonyProps = {
  * component: no client JS, no hydration, and one image request shared by every
  * instance on the page no matter how many there are.
  */
-export function Tony({
+export function Vaky({
   direction = "front",
   pose = "idle",
   scale = 0.5,
@@ -56,15 +56,15 @@ export function Tony({
   jumps = 1,
   label,
   className = "",
-}: TonyProps) {
+}: VakyProps) {
   return (
     <div
-      className={`tony tony--${direction} tony--${pose} ${className}`}
+      className={`vaky vaky--${direction} vaky--${pose} ${className}`}
       style={
         {
-          "--tony-scale": scale,
-          "--tony-jumps": jumps,
-          ...(lap ? { "--tony-lap": `${lap}s` } : {}),
+          "--vaky-scale": scale,
+          "--vaky-jumps": jumps,
+          ...(lap ? { "--vaky-lap": `${lap}s` } : {}),
         } as React.CSSProperties
       }
       {...(label ? { role: "img", "aria-label": label } : { "aria-hidden": true })}

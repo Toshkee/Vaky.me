@@ -416,7 +416,14 @@ export async function sendEmail(
     });
 
     if (response.ok) return null;
-    return `resend ${response.status}`;
+
+    /* The status alone sends whoever reads the dashboard to the provider's
+       docs; the body says which of a dozen things went wrong — an unverified
+       sending domain, a recipient the plan may not write to, a revoked key.
+       Trimmed, because this lands in a database column and then on screen. */
+    const detail = await response.text().catch(() => "");
+    const reason = detail.slice(0, 200).replace(/\s+/g, " ").trim();
+    return reason ? `resend ${response.status}: ${reason}` : `resend ${response.status}`;
   } catch {
     return "resend unreachable";
   }

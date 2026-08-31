@@ -68,10 +68,6 @@ export const PACKAGES: Record<PackageId, PackageDef> = {
   },
 };
 
-/** The optional monthly care plan. Not a package — the site is the client's
- *  either way — but priced here for the same one-edit reason. */
-export const MAINTENANCE = { amount: 20 } as const;
-
 const FROM: Record<Language, string> = { me: "Od", en: "From" };
 
 export function priceLabel(id: PackageId, language: Language): string {

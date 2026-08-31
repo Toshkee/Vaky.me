@@ -1,13 +1,13 @@
 import Link from "next/link";
 import type { OnboardingCopy } from "@/i18n/onboarding";
-import { Tony } from "@/components/mascot/Tony";
+import { Vaky } from "@/components/mascot/Vaky";
 import { PixelWindow } from "@/components/ui/PixelWindow";
 
 /**
  * The end.
  *
  * It carries one piece of information the client should keep — the project
- * number — and one thing to do next, which is nothing. Tony gets his last line
+ * number — and one thing to do next, which is nothing. Vaky gets his last line
  * here because this is the moment that has earned it.
  */
 export function Success({
@@ -43,12 +43,12 @@ export function Success({
           </Link>
         </div>
 
-        <div aria-hidden="true" className="tony-ground hidden items-end justify-center lg:flex">
+        <div aria-hidden="true" className="vaky-ground hidden items-end justify-center lg:flex">
           <div className="relative">
             <span className="px-say absolute bottom-24 left-full ml-3 w-44 px-3 py-2 text-sm leading-snug font-semibold">
-              {copy.success.tony}
+              {copy.success.vaky}
             </span>
-            <Tony direction="front" pose="jump" jumps={3} scale={0.55} />
+            <Vaky direction="front" pose="jump" jumps={3} scale={0.55} />
           </div>
         </div>
       </div>

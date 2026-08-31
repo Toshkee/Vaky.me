@@ -29,7 +29,7 @@ export const en: OnboardingCopy = {
     en: "English",
     action: "Let's go",
     minutes: "Takes about 5 minutes",
-    tony: "If you don't know something, skip it. That's what “I'm not sure” is for.",
+    vaky: "If you don't know something, skip it. That's what “I'm not sure” is for.",
   },
 
   resume: {
@@ -51,16 +51,20 @@ export const en: OnboardingCopy = {
   },
 
   info: {
-    title: "The questionnaire opens from your own link",
+    eyebrow: "Your questionnaire",
+    title: "That link didn't reach the questionnaire",
     body:
-      "There's nothing to fill in here. Once we've agreed what we're building and what it costs, we send you a private link — it opens the questionnaire for your package, with your details already filled in.",
-    stepsTitle: "How it goes",
-    steps: [
-      "You write to us through the form on the site, or on Instagram.",
-      "We get back to you and agree on scope and price.",
-      "You get the questionnaire link and send us your materials.",
+      "Usually it arrived broken. WhatsApp, Viber, Instagram and email all like to cut a long address across two lines, so the click carries only the first half — and without the whole address the questionnaire can't tell whose it is.",
+    fixTitle: "What to do",
+    fix: [
+      "Go back to the message the link came in, copy the whole address to the last character, and paste it into your browser.",
+      "If it still doesn't work, write to us. We'll send a new link within minutes, and nothing we agreed changes.",
     ],
-    noLink: "No link yet? Write to us — we'll send one within minutes.",
+    dm: "Message us on Instagram",
+    strangerTitle: "No link at all?",
+    strangerBody:
+      "The questionnaire is only for clients we've already agreed a project and a price with. If you'd like a site, write to us through the form — we reply the same day.",
+    strangerAction: "Ask for a quote",
     action: "Back to the site",
   },
 
@@ -88,7 +92,7 @@ export const en: OnboardingCopy = {
     business: {
       title: "About your business",
       intro: "The basics — who you are and how to reach you.",
-      tony: "First, tell us a little about your business.",
+      vaky: "First, tell us a little about your business.",
     },
     custom: {
       title: "What the site should be able to do",
@@ -102,7 +106,7 @@ export const en: OnboardingCopy = {
     design: {
       title: "How the site should look",
       intro: "No design vocabulary needed — just tell us what you like.",
-      tony: "Now let's talk about the look 👀",
+      vaky: "Now let's talk about the look 👀",
     },
     features: {
       title: "What the site should do",
@@ -119,7 +123,7 @@ export const en: OnboardingCopy = {
     materials: {
       title: "Materials",
       intro: "Upload anything you think could help us. You don't need to have everything ready.",
-      tony: "Upload your logo, photos, and anything else that could help.",
+      vaky: "Upload your logo, photos, and anything else that could help.",
     },
     finish: {
       title: "One last thing",
@@ -541,7 +545,7 @@ export const en: OnboardingCopy = {
     refLabel: "Your project number",
     note: "Keep this number — it helps us find you faster if you write to us.",
     home: "Back to vaky.me",
-    tony: "Tony has everything he needs. 🫡",
+    vaky: "Vaky has everything he needs. 🫡",
   },
 
   errors: {

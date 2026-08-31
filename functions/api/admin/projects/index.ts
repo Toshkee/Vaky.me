@@ -1,6 +1,6 @@
 import { createProject, listProjects, logActivity } from "../../../../server/admin/store";
 import type { OnboardingEnv } from "../../../../server/onboarding/env";
-import { fail, json, readJson } from "../../../../server/onboarding/http";
+import { fail, json, readJson, textField } from "../../../../server/onboarding/http";
 import { isPackageId } from "../../../../src/lib/onboarding/schema";
 
 export const onRequestGet: PagesFunction<OnboardingEnv> = async (context) => {
@@ -21,9 +21,6 @@ type Body = {
   packageId?: unknown;
 };
 
-const text = (value: unknown, max: number): string =>
-  typeof value === "string" ? value.trim().slice(0, max) : "";
-
 /** A project without a lead — the client who arrived entirely over Instagram
  *  or a phone call and never touched the public form. */
 export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
@@ -31,7 +28,7 @@ export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
   if (!raw || typeof raw !== "object") return fail("bad-request");
   const body = raw as Body;
 
-  const businessName = text(body.businessName, 160);
+  const businessName = textField(body.businessName, 160);
   if (!businessName || !isPackageId(body.packageId)) return fail("bad-request");
 
   try {
@@ -39,11 +36,11 @@ export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
     await createProject(context.env.DB, {
       id,
       businessName,
-      contactName: text(body.contactName, 120),
-      email: text(body.email, 160),
-      phone: text(body.phone, 40),
-      instagram: text(body.instagram, 120),
-      existingSite: text(body.existingSite, 300),
+      contactName: textField(body.contactName, 120),
+      email: textField(body.email, 160),
+      phone: textField(body.phone, 40),
+      instagram: textField(body.instagram, 120),
+      existingSite: textField(body.existingSite, 300),
       packageId: body.packageId,
       leadId: null,
     });

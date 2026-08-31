@@ -41,7 +41,7 @@ export type StepCopy = {
   intro: string;
   /** A line from the mascot. Only a few steps get one — he is a guide, not a
    *  narrator, and a bubble on every screen stops being friendly. */
-  tony?: string;
+  vaky?: string;
 };
 
 export type OnboardingCopy = {
@@ -63,7 +63,7 @@ export type OnboardingCopy = {
     en: string;
     action: string;
     minutes: string;
-    tony: string;
+    vaky: string;
   };
 
   /** Shown instead of the gate when an unfinished draft is on this device. */
@@ -85,15 +85,23 @@ export type OnboardingCopy = {
     completedBody: string;
   };
 
-  /** The public `/start/` page, which is not the form — the form only exists
-   *  behind a link Vaky sends. Rendered in both languages at once, because
-   *  whoever lands here has not chosen one. */
+  /** The public `/start/` page. Nothing links to it and it is not indexed, so
+   *  almost everyone who lands here is a client whose own link arrived broken —
+   *  `functions/start/[token].ts` sends anything token-shaped-but-not here.
+   *  The copy is written for that person first, and for a stranger second.
+   *  Both languages at once, because whoever lands here has not chosen one. */
   info: {
+    eyebrow: string;
     title: string;
     body: string;
-    stepsTitle: string;
-    steps: [string, string, string];
-    noLink: string;
+    fixTitle: string;
+    fix: [string, string];
+    /** The label on the button that opens a DM. */
+    dm: string;
+    /** For the rarer visitor, who never had a link at all. */
+    strangerTitle: string;
+    strangerBody: string;
+    strangerAction: string;
     action: string;
   };
 
@@ -159,7 +167,7 @@ export type OnboardingCopy = {
     refLabel: string;
     note: string;
     home: string;
-    tony: string;
+    vaky: string;
   };
 
   errors: Record<ErrorCode, string> & {

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { PixelWindow } from "@/components/ui/PixelWindow";
-import { Tony } from "@/components/mascot/Tony";
+import { Vaky } from "@/components/mascot/Vaky";
 import { onboardingCopy } from "@/i18n/onboarding";
 import { track } from "@/lib/analytics";
 import {
@@ -365,6 +365,9 @@ export function Onboarding({
       /* The draft was cleared the moment the brief was accepted, so the note
          saying it is being kept would be a lie on the closing screens. */
       showDraftNote={phase === "form" || phase === "review" || phase === "resume"}
+      /* Success carries its own "Nazad na vaky.me" button; the footer link
+         under it would be the same destination named twice. */
+      showHome={phase !== "done"}
     >
       {children}
     </Shell>
@@ -376,8 +379,8 @@ export function Onboarding({
     return shell(
       <PixelWindow title="VAKY OS">
         <div className="p-5 sm:p-8">
-          <div className="tony-ground flex items-end gap-3">
-            <Tony direction="right" pose="work" scale={0.24} />
+          <div className="vaky-ground flex items-end gap-3">
+            <Vaky direction="right" pose="work" scale={0.24} />
             <p role="status" className="mb-2 text-lg font-semibold">
               {apiError ? copy.errors.api[apiError] : copy.privateLink.checking}
             </p>
@@ -495,11 +498,11 @@ export function Onboarding({
                 </h1>
                 <p className="mt-2 leading-relaxed text-muted">{stepCopy.intro}</p>
 
-                {stepCopy.tony && (
-                  <div className="tony-ground mt-5 flex items-end gap-3">
-                    <Tony direction="right" pose="work" scale={0.24} />
+                {stepCopy.vaky && (
+                  <div className="vaky-ground mt-5 flex items-end gap-3">
+                    <Vaky direction="right" pose="work" scale={0.24} />
                     <p className="px-say mb-2 px-3 py-2 text-sm leading-snug font-semibold">
-                      {stepCopy.tony}
+                      {stepCopy.vaky}
                     </p>
                   </div>
                 )}

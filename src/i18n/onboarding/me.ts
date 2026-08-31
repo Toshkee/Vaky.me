@@ -34,7 +34,7 @@ export const me: OnboardingCopy = {
     en: "English",
     action: "Krenimo",
     minutes: "Traje oko 5 minuta",
-    tony: "Ako nešto ne znate, slobodno preskočite. Zato i postoji „Nisam siguran“.",
+    vaky: "Ako nešto ne znate, slobodno preskočite. Zato i postoji „Nisam siguran“.",
   },
 
   resume: {
@@ -56,16 +56,20 @@ export const me: OnboardingCopy = {
   },
 
   info: {
-    title: "Upitnik se otvara preko vašeg linka",
+    eyebrow: "Vaš upitnik",
+    title: "Link vas nije doveo do upitnika",
     body:
-      "Ovdje se ne popunjava ništa. Kada se dogovorimo šta radimo i po kojoj cijeni, pošaljemo vam lični link — on otvara upitnik za vaš paket, sa vašim podacima već upisanim.",
-    stepsTitle: "Kako ide",
-    steps: [
-      "Pišete nam preko forme na sajtu ili na Instagramu.",
-      "Javimo se, dogovorimo obim posla i cijenu.",
-      "Dobijate link za upitnik i šaljete nam materijale.",
+      "Najčešće je razlog to što je link stigao prelomljen. WhatsApp, Viber, Instagram i mejl znaju da presijeku dugačku adresu na dva reda, pa klik povuče samo prvi dio — a bez cijele adrese upitnik ne zna čiji je.",
+    fixTitle: "Šta sad",
+    fix: [
+      "Vratite se na poruku u kojoj je link stigao, kopirajte cijelu adresu do posljednjeg znaka i nalijepite je u pretraživač.",
+      "Ako ni tako ne radi, javite nam. Pošaljemo novi link za par minuta i dogovor ostaje isti.",
     ],
-    noLink: "Nemate link? Javite se — pošaljemo ga za par minuta.",
+    dm: "Pišite nam na Instagramu",
+    strangerTitle: "Nemate nikakav link?",
+    strangerBody:
+      "Upitnik je samo za klijente sa kojima smo već dogovorili posao i cijenu. Ako želite sajt, pišite nam preko forme — javimo se isti dan.",
+    strangerAction: "Zatraži ponudu",
     action: "Nazad na sajt",
   },
 
@@ -93,7 +97,7 @@ export const me: OnboardingCopy = {
     business: {
       title: "O vašem biznisu",
       intro: "Osnovno — ko ste i gdje da vas nađemo.",
-      tony: "Hajde prvo da upoznamo vaš biznis.",
+      vaky: "Hajde prvo da upoznamo vaš biznis.",
     },
     custom: {
       title: "Šta sajt treba da može",
@@ -107,7 +111,7 @@ export const me: OnboardingCopy = {
     design: {
       title: "Kako sajt treba da izgleda",
       intro: "Bez stručnih izraza — samo recite šta vam se dopada.",
-      tony: "Sad malo o izgledu 👀",
+      vaky: "Sad malo o izgledu 👀",
     },
     features: {
       title: "Šta sajt treba da radi",
@@ -124,7 +128,7 @@ export const me: OnboardingCopy = {
     materials: {
       title: "Materijali",
       intro: "Pošaljite sve što mislite da nam može pomoći. Ne morate imati sve spremno.",
-      tony: "Ovdje šaljete logo, slike i ostale materijale.",
+      vaky: "Ovdje šaljete logo, slike i ostale materijale.",
     },
     finish: {
       title: "Još samo ovo",
@@ -546,7 +550,7 @@ export const me: OnboardingCopy = {
     refLabel: "Broj vašeg projekta",
     note: "Sačuvajte ovaj broj — pomaže nam da vas brže nađemo ako nam pišete.",
     home: "Nazad na vaky.me",
-    tony: "Tony ima sve što mu treba. 🫡",
+    vaky: "Vaky ima sve što mu treba. 🫡",
   },
 
   errors: {

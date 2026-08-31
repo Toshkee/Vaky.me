@@ -1,28 +1,28 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Tony, type TonyDirection, type TonyPose } from "./Tony";
+import { Vaky, type VakyDirection, type VakyPose } from "./Vaky";
 
 /**
- * The easter egg. A Tony you can poke: one tap and he jumps, three quick taps
+ * The easter egg. A Vaky you can poke: one tap and he jumps, three quick taps
  * and he does a little roll before settling down. Nothing announces it and
  * nothing depends on it — he is aria-hidden decoration exactly like the
- * static Tony, so this stays a plain div rather than a button.
+ * static Vaky, so this stays a plain div rather than a button.
  */
-export function TonyPlay({
+export function VakyPlay({
   direction = "front",
   pose = "idle",
   scale,
   jumps,
   className = "",
 }: {
-  direction?: TonyDirection;
-  pose?: TonyPose;
+  direction?: VakyDirection;
+  pose?: VakyPose;
   scale?: number;
   jumps?: number;
   className?: string;
 }) {
-  const [play, setPlay] = useState<TonyPose | null>(null);
+  const [play, setPlay] = useState<VakyPose | null>(null);
   const taps = useRef<number[]>([]);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -47,7 +47,7 @@ export function TonyPlay({
 
   return (
     <div onClick={poke} className={`cursor-pointer select-none ${className}`}>
-      <Tony direction={direction} pose={play ?? pose} scale={scale} jumps={jumps} />
+      <Vaky direction={direction} pose={play ?? pose} scale={scale} jumps={jumps} />
     </div>
   );
 }

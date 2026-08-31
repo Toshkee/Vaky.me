@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { OnboardingCopy } from "@/i18n/onboarding";
-import { Tony } from "@/components/mascot/Tony";
+import { Vaky } from "@/components/mascot/Vaky";
 import { OsBadge } from "@/components/ui/OsBadge";
 import { PixelWindow } from "@/components/ui/PixelWindow";
 import { emailLink, site } from "@/config/site";
@@ -89,14 +89,14 @@ export function LanguageGate({
           </div>
         </div>
 
-        {/* Tony's one appearance before the form: the line that tells a client
+        {/* Vaky's one appearance before the form: the line that tells a client
             it is fine not to know an answer. */}
-        <div aria-hidden="true" className="tony-ground hidden items-end justify-center lg:flex">
+        <div aria-hidden="true" className="vaky-ground hidden items-end justify-center lg:flex">
           <div className="relative">
             <span className="px-say absolute bottom-24 left-full ml-3 w-48 px-3 py-2 text-sm leading-snug font-semibold">
-              {copy.gate.tony}
+              {copy.gate.vaky}
             </span>
-            <Tony direction="front" pose="look" scale={0.55} />
+            <Vaky direction="front" pose="look" scale={0.55} />
           </div>
         </div>
       </div>

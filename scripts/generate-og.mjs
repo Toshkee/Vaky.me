@@ -3,7 +3,7 @@ import { chromium } from "playwright";
 /**
  * The share card (public/og.png, 1200x630) composed from the live design
  * system: paper ground with the dot grid, the lockup, the headline, the real
- * offer line — and Tony beside a VAKY OS window that has already finished
+ * offer line — and Vaky beside a VAKY OS window that has already finished
  * the build. Fonts come from Google, images from the running dev server.
  *
  * Usage: dev server on :3000, then  node scripts/generate-og.mjs
@@ -37,7 +37,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
   .scr { padding: 18px 18px 20px; font-family: "Jersey 10"; font-size: 27px; }
   .row { display: flex; justify-content: space-between; margin-top: 8px; }
   .ok { color: #2e7d44; }
-  .tony { width: 190.5px; height: 348px; background: url(http://localhost:3000/mascot/tony.webp) no-repeat;
+  .vaky { width: 190.5px; height: 348px; background: url(http://localhost:3000/mascot/vaky.webp) no-repeat;
           background-size: ${190.5 * 9}px ${348 * 4}px; background-position: 0 0; }
 </style></head><body>
   <div class="frame">
@@ -47,7 +47,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
     </div>
     <h1>Sajtovi koji<br><span>donose klijente.</span></h1>
     <div class="scene">
-      <div class="tony"></div>
+      <div class="vaky"></div>
       <div class="win">
         <div class="bar"><i style="background:#c1121f"></i><i style="background:#d9a441"></i><i style="background:#2e7d44"></i><span>VAKY OS</span></div>
         <div class="scr">

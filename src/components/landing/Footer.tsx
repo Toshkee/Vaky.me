@@ -11,7 +11,7 @@ export function Footer({ dict }: { dict: Dictionary }) {
       <div className="shell flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-6 text-sm text-muted">
         <Link href={home} className="flex items-center gap-2.5">
           <Image
-            src="/tony-head.png"
+            src="/vaky-head.png"
             alt=""
             width={94}
             height={96}

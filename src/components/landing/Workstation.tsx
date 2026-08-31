@@ -2,17 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import { PixelWindow } from "@/components/ui/PixelWindow";
-import { TonyPlay } from "@/components/mascot/TonyPlay";
+import { VakyPlay } from "@/components/mascot/VakyPlay";
 import { CheckIcon, MugIcon } from "./icons";
 
 /**
- * The hero scene: Tony beside his monitor, building a site.
+ * The hero scene: Vaky beside his monitor, building a site.
  *
  * It waits until it is actually on screen, then runs the checks one at a time
- * while Tony works — and stops one short. The last line, ONLINE, is the
+ * while Vaky works — and stops one short. The last line, ONLINE, is the
  * visitor's to trigger: the screen offers a DEPLOY button and waits there for
  * as long as it takes. Clicking it sweeps the bar, lights ONLINE and puts
- * SITE LIVE on screen, and Tony jumps.
+ * SITE LIVE on screen, and Vaky jumps.
  *
  * The sequence is state rather than CSS keyframes because it is genuinely a
  * state machine now — it pauses on an input. Only the transitions between
@@ -99,9 +99,9 @@ export function Workstation() {
   const deployed = phase === "deploying" || phase === "online";
   const progress = deployed ? 100 : (lit / STATUSES.length) * 100;
 
-  /* Tony's shift: he watches the desk while the build runs, glances around
+  /* Vaky's shift: he watches the desk while the build runs, glances around
      while the machine waits on the visitor, and jumps when the site goes up. */
-  const tony =
+  const vaky =
     phase === "online"
       ? ({ direction: "front", pose: "jump" } as const)
       : phase === "ready"
@@ -112,7 +112,7 @@ export function Workstation() {
 
   return (
     <div ref={ref} className="os-anim">
-      <div className="tony-track flex items-end justify-center gap-3 border-b-2 sm:gap-6">
+      <div className="vaky-track flex items-end justify-center gap-3 border-b-2 sm:gap-6">
         {/* monitor, stand and desk — one column that ends on the ground line */}
         <div className="w-full max-w-[350px] min-w-0">
           <PixelWindow title="VAKY OS">
@@ -180,12 +180,12 @@ export function Workstation() {
           </div>
         </div>
 
-        {/* Tony on the ground beside the desk, near desk height like the
+        {/* Vaky on the ground beside the desk, near desk height like the
             colleague he is. Clickable — the easter egg. Two sizes because the
             scene shares a row with him: on a phone he steps back a little so
             the monitor keeps its screen width. */}
-        <TonyPlay {...tony} jumps={2} scale={0.44} className="shrink-0 sm:hidden" />
-        <TonyPlay {...tony} jumps={2} scale={0.58} className="hidden shrink-0 sm:block" />
+        <VakyPlay {...vaky} jumps={2} scale={0.44} className="shrink-0 sm:hidden" />
+        <VakyPlay {...vaky} jumps={2} scale={0.58} className="hidden shrink-0 sm:block" />
       </div>
     </div>
   );

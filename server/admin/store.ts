@@ -159,6 +159,25 @@ export async function markLeadNotified(
     .run();
 }
 
+/**
+ * Drops an enquiry and everything written about it — its notes and its slice
+ * of the timeline. For spam, a duplicate, or a test.
+ *
+ * A converted lead is not deletable and the route refuses it before reaching
+ * here: the project is the record of real work, and deleting the enquiry it
+ * came from would leave that project unable to say where it came from.
+ *
+ * `batch` rather than three awaits — D1 runs it as one transaction, so a
+ * failure partway cannot leave notes belonging to a lead that is gone.
+ */
+export async function deleteLead(db: D1Database, id: string): Promise<void> {
+  await db.batch([
+    db.prepare(`DELETE FROM notes WHERE lead_id = ?1`).bind(id),
+    db.prepare(`DELETE FROM activity WHERE lead_id = ?1`).bind(id),
+    db.prepare(`DELETE FROM leads WHERE id = ?1`).bind(id),
+  ]);
+}
+
 /* ── Projects ─────────────────────────────────────────────────────────── */
 
 export type ProjectInput = {
@@ -287,6 +306,54 @@ export async function retargetOpenRequests(
     )
     .bind(projectId, packageId)
     .run();
+}
+
+/**
+ * Drops a project and everything that hangs off it: its onboarding links, the
+ * brief a client submitted through them, file rows, notes, generated build
+ * briefs, and its timeline.
+ *
+ * The R2 objects go first, in the route — an object with no row is
+ * unreachable, a row with no object is a download that breaks in the client's
+ * hands. Same order as the single-file delete in functions/api/admin/file.ts.
+ *
+ * The lead that produced the project survives, set back to "qualified": the
+ * enquiry did happen, and leaving it "accepted" would claim a project that no
+ * longer exists.
+ *
+ * Statement order matters inside the batch — the first two read
+ * `onboarding_requests` to find what belonged to this project, so the requests
+ * themselves are deleted after them.
+ */
+export async function deleteProject(db: D1Database, id: string): Promise<void> {
+  await db.batch([
+    db
+      .prepare(
+        `DELETE FROM onboarding_files
+         WHERE project_id = ?1
+            OR submission_id = ?1
+            OR submission_id IN (SELECT id FROM onboarding_requests WHERE project_id = ?1)`,
+      )
+      .bind(id),
+    db
+      .prepare(
+        `DELETE FROM onboarding_submissions
+         WHERE project_id = ?1
+            OR request_id IN (SELECT id FROM onboarding_requests WHERE project_id = ?1)`,
+      )
+      .bind(id),
+    db.prepare(`DELETE FROM onboarding_requests WHERE project_id = ?1`).bind(id),
+    db.prepare(`DELETE FROM build_briefs WHERE project_id = ?1`).bind(id),
+    db.prepare(`DELETE FROM notes WHERE project_id = ?1`).bind(id),
+    db.prepare(`DELETE FROM activity WHERE project_id = ?1`).bind(id),
+    db
+      .prepare(
+        `UPDATE leads SET project_id = NULL, status = 'qualified', updated_at = datetime('now')
+         WHERE project_id = ?1`,
+      )
+      .bind(id),
+    db.prepare(`DELETE FROM projects WHERE id = ?1`).bind(id),
+  ]);
 }
 
 /* ── Submissions, seen from a project ─────────────────────────────────── */

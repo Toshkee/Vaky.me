@@ -151,7 +151,7 @@
   }
 
   /* ── Tap target: expands the hit area to 44px without moving the text.
-     Uses ::before so it never collides with .sweep's ::after underline. ── */
+     Uses ::before so it never collides with an underline drawn on ::after. ── */
   .tap {
     position: relative;
   }
@@ -184,38 +184,6 @@
     min-width: 44px;
     height: 100%;
     min-height: 44px;
-  }
-
-  /* ── Link underline sweep ── */
-  .sweep {
-    position: relative;
-    text-decoration: none;
-  }
-
-  .sweep::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -0.3em;
-    height: 1.5px;
-    background: var(--color-red);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.32s var(--ease-out);
-  }
-
-  .sweep:hover::after,
-  .sweep:focus-visible::after,
-  .group:hover .sweep::after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .sweep::after {
-      transition: none;
-    }
   }
 
   /* ── Pixel layer ──────────────────────────────────────────────────────
@@ -346,7 +314,7 @@
     background-size: 4px 4px;
   }
 
-  /* ── Tony, the mascot ──
+  /* ── Vaky, the mascot ──
 
      One 9x4 sheet: nine poses across, four facings down. The element is sized
      to a single frame and the sheet is slid behind it, so a direction is a
@@ -362,41 +330,41 @@
      grid for it to preserve, and it would only harden the resampling. The
      sheet is authored at 2x the intended display height instead, which is what
      keeps it sharp. */
-  .tony {
-    --tony-scale: 0.5;
-    --tony-w: calc(127px * var(--tony-scale));
-    --tony-h: calc(232px * var(--tony-scale));
+  .vaky {
+    --vaky-scale: 0.5;
+    --vaky-w: calc(127px * var(--vaky-scale));
+    --vaky-h: calc(232px * var(--vaky-scale));
     display: block;
-    width: var(--tony-w);
-    height: var(--tony-h);
-    background-image: url("/mascot/tony.webp");
+    width: var(--vaky-w);
+    height: var(--vaky-h);
+    background-image: url("/mascot/vaky.webp");
     background-repeat: no-repeat;
-    background-size: calc(var(--tony-w) * 9) calc(var(--tony-h) * 4);
+    background-size: calc(var(--vaky-w) * 9) calc(var(--vaky-h) * 4);
     background-position: 0 0;
   }
 
   /* The static standing frame beyond the default idle (column 0, the pose
      with the concept document in hand). It is outside the reduced-motion gate
      on purpose — a pose is not motion. */
-  .tony--stand {
-    background-position-x: calc(-5 * var(--tony-w));
+  .vaky--stand {
+    background-position-x: calc(-5 * var(--vaky-w));
   }
 
   /* `work` and `look` are behaviours, but both rest on the standing frame, so
      that is what they are when motion is off. */
-  .tony--work,
-  .tony--look {
-    background-position-x: calc(-5 * var(--tony-w));
+  .vaky--work,
+  .vaky--look {
+    background-position-x: calc(-5 * var(--vaky-w));
   }
 
-  .tony--right {
-    background-position-y: calc(-1 * var(--tony-h));
+  .vaky--right {
+    background-position-y: calc(-1 * var(--vaky-h));
   }
-  .tony--back {
-    background-position-y: calc(-2 * var(--tony-h));
+  .vaky--back {
+    background-position-y: calc(-2 * var(--vaky-h));
   }
-  .tony--left {
-    background-position-y: calc(-3 * var(--tony-h));
+  .vaky--left {
+    background-position-y: calc(-3 * var(--vaky-h));
   }
 
   /* Motion is the whole point of the mascot, so it is the whole thing that is
@@ -411,18 +379,18 @@
      Nothing fights over a property, so `patrol` can turn around mid-run
      without a single line of JavaScript. */
   @media (prefers-reduced-motion: no-preference) {
-    .tony--walk {
-      animation: tony-walk 0.6s step-end infinite;
+    .vaky--walk {
+      animation: vaky-walk 0.6s step-end infinite;
     }
 
-    .tony--roll {
-      animation: tony-roll 0.36s step-end infinite;
+    .vaky--roll {
+      animation: vaky-roll 0.36s step-end infinite;
     }
 
     /* Finite by default: an endless jump is the kind of loop WCAG 2.2.2 is
-       about. Pass a count to `Tony` to change it. */
-    .tony--jump {
-      animation: tony-jump 0.9s step-end var(--tony-jumps, 1);
+       about. Pass a count to `Vaky` to change it. */
+    .vaky--jump {
+      animation: vaky-jump 0.9s step-end var(--vaky-jumps, 1);
     }
 
     /* ── At the desk ──
@@ -432,11 +400,11 @@
        asked for still holds.
 
        The beat is a variable so that a row of him — the four cards in "Zašto
-       Vaky?" — can be detuned. Four Tonys leaning in on the same tick
+       Vaky?" — can be detuned. Four Vakys leaning in on the same tick
        reads as a pulse across the section; four slightly different ones read
        as four people working. */
-    .tony--work {
-      animation: tony-work var(--tony-beat, 1.6s) step-end infinite;
+    .vaky--work {
+      animation: vaky-work var(--vaky-beat, 1.6s) step-end infinite;
     }
 
     /* ── Waiting ──
@@ -444,25 +412,25 @@
        he glances left, then right, then back to the page. Long pauses facing
        front are the point — this one runs while the machine waits on the
        visitor, and it must not nag. */
-    .tony--look {
-      animation: tony-look 7s step-end infinite;
+    .vaky--look {
+      animation: vaky-look 7s step-end infinite;
     }
 
     /* ── Patrolling a track ──
        Out and back, turning at each end. The stride runs on its own short
        loop; the facing and the travel share the long one so the turn always
        lands at the far edge and never mid-stride. */
-    .tony--patrol {
+    .vaky--patrol {
       animation:
-        tony-walk 0.6s step-end infinite,
-        tony-turn var(--tony-lap, 14s) step-end infinite,
-        tony-lap var(--tony-lap, 14s) linear infinite;
+        vaky-walk 0.6s step-end infinite,
+        vaky-turn var(--vaky-lap, 14s) step-end infinite,
+        vaky-lap var(--vaky-lap, 14s) linear infinite;
     }
 
   }
 
   /* A strip of ground for him to cross. The rule is the floor. */
-  .tony-track {
+  .vaky-track {
     display: flex;
     border-bottom: 1px solid var(--color-line);
   }
@@ -470,28 +438,28 @@
   /* Every frame keeps five pixels of canvas below the ground line, so the
      roll poses have somewhere to put their shadow. Cancelling it here is what
      stands him ON the rule instead of a few pixels above it, and it scales
-     with him. A descendant selector, not a child one — the clickable Tony
+     with him. A descendant selector, not a child one — the clickable Vaky
      wraps the sprite in one more div. */
-  .tony-track .tony {
+  .vaky-track .vaky {
     flex: none;
-    margin-block-end: calc(-5px * var(--tony-scale));
+    margin-block-end: calc(-5px * var(--vaky-scale));
   }
 
   /* The same ground correction without the drawn rule, for scenes where the
      floor is a card edge or a desk rather than a line of its own. */
-  .tony-ground .tony {
+  .vaky-ground .vaky {
     flex: none;
-    margin-block-end: calc(-5px * var(--tony-scale));
+    margin-block-end: calc(-5px * var(--vaky-scale));
   }
 
   /* Perched on the edge of something — the hero's browser frame. The parent
      supplies `position: relative`; this hangs him off the top edge so his
      feet land on it, and takes him out of flow so the frame keeps its size. */
-  .tony-perch {
+  .vaky-perch {
     position: absolute;
     bottom: 100%;
     /* the sprite's 5px of sub-ground canvas again, so he stands on the rule */
-    margin-block-end: calc(-5px * var(--tony-scale));
+    margin-block-end: calc(-5px * var(--vaky-scale));
     pointer-events: none;
   }
 
@@ -870,7 +838,7 @@
 
   /* 4 — the conversation. Two bubbles offset like a DM thread: the ink one
      is the client's question (mirrored, so its tail points back off-scene),
-     the red one is the reply, sitting low beside Tony. */
+     the red one is the reply, sitting low beside Vaky. */
   .sc-chat {
     position: relative;
     width: 50px;
@@ -1272,20 +1240,20 @@
 }
 
 
-/* Tony's poses, by column: 0 idle, 1 walk1, 2 walk2, 3 jump-start,
+/* Vaky's poses, by column: 0 idle, 1 walk1, 2 walk2, 3 jump-start,
    4 jump-apex, 5 jump-land, 6-8 roll. `step-end` holds each frame until the
    next keyframe, which is what makes these read as animation cels rather than
    as a slide. */
 
-@keyframes tony-walk {
+@keyframes vaky-walk {
   0% {
-    background-position-x: calc(-1 * var(--tony-w));
+    background-position-x: calc(-1 * var(--vaky-w));
   }
   25% {
     background-position-x: 0;
   }
   50% {
-    background-position-x: calc(-2 * var(--tony-w));
+    background-position-x: calc(-2 * var(--vaky-w));
   }
   75% {
     background-position-x: 0;
@@ -1294,44 +1262,44 @@
 
 /* Weighted, not even: the apex holds for the hang time and the landing is
    quick, which is the difference between a jump and three pictures. */
-@keyframes tony-jump {
+@keyframes vaky-jump {
   0% {
-    background-position-x: calc(-3 * var(--tony-w));
+    background-position-x: calc(-3 * var(--vaky-w));
   }
   18% {
-    background-position-x: calc(-4 * var(--tony-w));
+    background-position-x: calc(-4 * var(--vaky-w));
   }
   62% {
-    background-position-x: calc(-5 * var(--tony-w));
+    background-position-x: calc(-5 * var(--vaky-w));
   }
   82% {
     background-position-x: 0;
   }
 }
 
-@keyframes tony-roll {
+@keyframes vaky-roll {
   0% {
-    background-position-x: calc(-6 * var(--tony-w));
+    background-position-x: calc(-6 * var(--vaky-w));
   }
   33.33% {
-    background-position-x: calc(-7 * var(--tony-w));
+    background-position-x: calc(-7 * var(--vaky-w));
   }
   66.66% {
-    background-position-x: calc(-8 * var(--tony-w));
+    background-position-x: calc(-8 * var(--vaky-w));
   }
 }
 
 /* Percentage margins resolve against the containing block's width, which is
    how these cross the full width of whatever they are dropped into without
    the stylesheet having to know how wide that is. */
-@keyframes tony-lap {
+@keyframes vaky-lap {
   0%,
   4% {
     margin-inline-start: 0;
   }
   46%,
   54% {
-    margin-inline-start: calc(100% - var(--tony-w));
+    margin-inline-start: calc(100% - var(--vaky-w));
   }
   96%,
   100% {
@@ -1341,46 +1309,46 @@
 
 /* The turn. Held on `step-end` so he flips between two drawn facings on the
    frame he reaches the end, rather than sliding through the back view. Both
-   flips land inside a standstill in `tony-lap` — the 46-54% pause at the far
+   flips land inside a standstill in `vaky-lap` — the 46-54% pause at the far
    end, and the 96-4% pause at the near one — so he never turns mid-stride. */
-@keyframes tony-turn {
+@keyframes vaky-turn {
   0% {
-    background-position-y: calc(-1 * var(--tony-h));
+    background-position-y: calc(-1 * var(--vaky-h));
   }
   50% {
-    background-position-y: calc(-3 * var(--tony-h));
+    background-position-y: calc(-3 * var(--vaky-h));
   }
 }
 
 /* Working: upright, then a short lean in on the crouch frame, then upright
    again. Only the frame moves, so whichever way the caller pointed him, he
    stays pointed that way. */
-@keyframes tony-work {
+@keyframes vaky-work {
   0% {
-    background-position-x: calc(-5 * var(--tony-w));
+    background-position-x: calc(-5 * var(--vaky-w));
   }
   60% {
-    background-position-x: calc(-3 * var(--tony-w));
+    background-position-x: calc(-3 * var(--vaky-w));
   }
   80% {
-    background-position-x: calc(-5 * var(--tony-w));
+    background-position-x: calc(-5 * var(--vaky-w));
   }
 }
 
 /* Looking around: only the facing moves. Front for well over half the cycle,
    so the glances read as glances. */
-@keyframes tony-look {
+@keyframes vaky-look {
   0% {
     background-position-y: 0;
   }
   26% {
-    background-position-y: calc(-3 * var(--tony-h));
+    background-position-y: calc(-3 * var(--vaky-h));
   }
   42% {
     background-position-y: 0;
   }
   68% {
-    background-position-y: calc(-1 * var(--tony-h));
+    background-position-y: calc(-1 * var(--vaky-h));
   }
   84% {
     background-position-y: 0;

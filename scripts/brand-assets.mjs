@@ -3,10 +3,10 @@ import fs from "node:fs";
 import sharp from "sharp";
 
 /**
- * One-off processing of the Tony mascot PNG (exported with a flat white ground
+ * One-off processing of the Vaky mascot PNG (exported with a flat white ground
  * and generous padding) into the shipped asset:
  *
- *   public/tony-head.png    — trimmed head mark, transparent, 96px tall.
+ *   public/vaky-head.png    — trimmed head mark, transparent, 96px tall.
  *                             The footer shows it at 24px.
  *
  * The wordmark and the icons are not made here: they are cut from the Vaky.me
@@ -98,6 +98,6 @@ async function process_(srcPath, opts) {
   console.log(`${opts.out}: ${kb}KB`);
 }
 
-await process_(headSrc, { out: "public/tony-head.png", height: 96 });
+await process_(headSrc, { out: "public/vaky-head.png", height: 96 });
 
 await browser.close();

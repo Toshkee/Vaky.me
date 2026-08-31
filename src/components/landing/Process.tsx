@@ -1,6 +1,6 @@
 ﻿import type { ReactNode } from "react";
 import type { Dictionary } from "@/i18n";
-import { Tony } from "@/components/mascot/Tony";
+import { Vaky } from "@/components/mascot/Vaky";
 import { BubbleIcon, DocIcon, FlagIcon, RocketIcon, HammerIcon } from "./icons";
 import { SectionHead } from "./SectionHead";
 
@@ -10,7 +10,7 @@ import { SectionHead } from "./SectionHead";
  * line; below that the line turns and runs down the left edge so the steps
  * read top to bottom instead of being crushed into columns.
  *
- * Underneath, Tony walks the route himself — out to launch day and back.
+ * Underneath, Vaky walks the route himself — out to launch day and back.
  * He is decorative and hidden from screen readers: the list is the content.
  */
 const STEP_ICONS: ReactNode[] = [
@@ -59,8 +59,8 @@ export function Process({ dict }: { dict: Dictionary }) {
         </ol>
 
         {/* The route, walked — out to launch day and back again. */}
-        <div className="tony-track mt-6 sm:mt-8">
-          <Tony direction="right" pose="patrol" scale={0.5} lap={16} />
+        <div className="vaky-track mt-6 sm:mt-8">
+          <Vaky direction="right" pose="patrol" scale={0.5} lap={16} />
         </div>
       </div>
     </section>

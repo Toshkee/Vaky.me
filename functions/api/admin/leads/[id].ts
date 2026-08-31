@@ -1,4 +1,5 @@
 import {
+  deleteLead,
   findLead,
   listActivity,
   listNotes,
@@ -44,6 +45,26 @@ export const onRequestPatch: PagesFunction<OnboardingEnv> = async (context) => {
       "lead_status_changed",
       LEAD_STATUS_LABELS[status],
     );
+    return json({ ok: true });
+  } catch {
+    return fail("server");
+  }
+};
+
+/**
+ * Throws an enquiry away — spam, a duplicate, a test of our own.
+ *
+ * A lead that became a project is refused. The dashboard hides the button in
+ * that case; this check is the backstop for a request that did not come from
+ * the dashboard, and for the window between the two.
+ */
+export const onRequestDelete: PagesFunction<OnboardingEnv> = async (context) => {
+  const id = String(context.params.id ?? "");
+
+  try {
+    const lead = await findLead(context.env.DB, id);
+    if (!lead || lead.project_id) return fail("bad-request");
+    await deleteLead(context.env.DB, id);
     return json({ ok: true });
   } catch {
     return fail("server");

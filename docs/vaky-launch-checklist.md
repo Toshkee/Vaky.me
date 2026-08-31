@@ -14,7 +14,7 @@ until that hostname serves the Cloudflare Pages project.
   shell and the privacy page. The window mark cut from its left end is the
   favicon and Apple touch icon. `scripts/wordmark-asset.mjs` owns all three and
   regenerates them from the supplied artwork; `scripts/brand-assets.mjs` now
-  only produces the Tony mascot.
+  only produces the Vaky mascot.
 - The new robot mark is installed as the browser and Apple touch icon.
 - Metadata, sitemap, robots, structured data, privacy text, transactional
   email copy, admin/onboarding copy, Open Graph images, tests, and CI targets
@@ -31,7 +31,7 @@ until that hostname serves the Cloudflare Pages project.
    survive being blown up for print or a large social banner.
 2. **A light-on-dark variant** if the lockup ever has to sit on ink. The current
    asset is ink-coloured; a CSS filter would only muddy it.
-3. **Mascot** — the existing Tony character stays. No new asset needed.
+3. **Mascot** — the existing Vaky character stays. No new asset needed.
 
 ## Domain cutover in Cloudflare
 

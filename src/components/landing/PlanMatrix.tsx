@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/i18n";
-import { Tony } from "@/components/mascot/Tony";
+import { Vaky } from "@/components/mascot/Vaky";
 import { CheckIcon, SparkleIcon } from "./icons";
 import { PLAN_PACKAGES } from "@/lib/onboarding/schema";
 import { priceLabel } from "@/lib/packages";
@@ -10,7 +10,7 @@ import { priceLabel } from "@/lib/packages";
 /**
  * The three packages as three cards, each complete on its own: name, price,
  * what it includes, and one action. The middle one — the one most people
- * pick — wears the red band, sits a step higher from lg up, and has Tony
+ * pick — wears the red band, sits a step higher from lg up, and has Vaky
  * perched on its top edge, concept document in hand.
  *
  * Every card reads `dict.pricing.compare.rows`, and lists only what its
@@ -36,11 +36,11 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
           return (
             <div key={plan.name} className={`relative ${featured ? "lg:-mt-4" : ""}`}>
               {featured && (
-                <Tony
+                <Vaky
                   direction="front"
                   pose="idle"
                   scale={0.28}
-                  className="tony-perch right-7 hidden lg:block"
+                  className="vaky-perch right-7 hidden lg:block"
                 />
               )}
 

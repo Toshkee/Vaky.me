@@ -8,7 +8,7 @@ import {
   type OnboardingEnv,
 } from "../../server/onboarding/env";
 import { LIMITS, passesChallenge, withinLimit } from "../../server/onboarding/guard";
-import { clientIp, fail, json, readJson } from "../../server/onboarding/http";
+import { clientIp, fail, json, readJson, textField } from "../../server/onboarding/http";
 import { renderLead, sendEmail } from "../../server/onboarding/notify";
 import { logActivity, markLeadNotified, recordLead } from "../../server/admin/store";
 
@@ -40,9 +40,6 @@ type Body = {
   website?: unknown;
 };
 
-const text = (value: unknown, max: number): string =>
-  typeof value === "string" ? value.trim().slice(0, max) : "";
-
 export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
   const { request, env, waitUntil } = context;
   if (!hasConfig(env)) return fail("server");
@@ -51,11 +48,11 @@ export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
   if (!raw || typeof raw !== "object") return fail("bad-request");
   const body = raw as Body;
 
-  if (text(body.website, 10)) return json({ ok: true });
+  if (textField(body.website, 10)) return json({ ok: true });
 
-  const name = text(body.name, 120);
-  const email = text(body.email, 160);
-  const phone = text(body.phone, 40);
+  const name = textField(body.name, 120);
+  const email = textField(body.email, 160);
+  const phone = textField(body.phone, 40);
   if (!name || !isValidEmail(email)) return fail("bad-request");
   if (phone && !isValidPhone(phone)) return fail("bad-request");
 
@@ -71,12 +68,12 @@ export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
   const lead = {
     id: crypto.randomUUID(),
     name,
-    businessName: text(body.businessName, 160),
+    businessName: textField(body.businessName, 160),
     email,
     phone,
-    link: text(body.link, 300),
+    link: textField(body.link, 300),
     need: isLeadNeed(body.need) ? body.need : "",
-    message: text(body.message, 2000),
+    message: textField(body.message, 2000),
     language: body.language === "en" ? "en" : "me",
   };
 

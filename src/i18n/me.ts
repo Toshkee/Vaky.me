@@ -357,7 +357,7 @@ export const me = {
       emailFallbackAction: "Pošalji email umjesto toga",
       /* {link} is replaced with whatever the visitor typed */
       prefill: "Zdravo! Ovo je moj biznis: {link} — može ponuda za sajt?",
-      /* Tony's speech bubble beside the form. Split so the offer can be set
+      /* Vaky's speech bubble beside the form. Split so the offer can be set
          in red without concatenating sentences in the component. */
       bubble: { pre: "Prvo dobijaš", em: "besplatan koncept", post: ", pa se dogovaramo." },
     },
