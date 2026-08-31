@@ -995,6 +995,65 @@
   }
 }
 
+@layer base {
+  /* ── The dashboard's ground ──────────────────────────────────────────────
+     /admin is the one route nobody but the studio ever loads, and it is read
+     for an hour at a stretch, so it runs on a dark bordeaux instead of the
+     site's paper. Only the tokens move. Every panel, list and control on that
+     route already draws itself from bg-paper / text-ink / border-line, so the
+     whole screen turns over without a class rewrite and the pixel language —
+     2px frames, hard offset shadows — simply inverts.
+
+     Scoped to the attribute, never to :root or a media query: the landing
+     pages, the demo concepts and the client onboarding form read these same
+     tokens and must not move by a pixel. The `html:has()` arm carries the
+     ground past the wrapper onto the document, so an overscroll bounce is
+     wine rather than paper, and it is where `color-scheme` has to sit for the
+     native select, the file picker and the scrollbars to render dark.
+
+     Contrast, against the ground / against the raised surface: ink 13.8/11.7,
+     muted 6.1/5.2, red 5.4/4.6; line is 3.5 on the ground. The site's red is
+     2.6:1 on wine, so it moves up to full saturation at 68% lightness — which
+     makes it too light to carry white text in turn, and the label on a filled
+     red button becomes the ground colour instead (5.4:1; white would be 3.0). */
+  [data-surface="admin"],
+  html:has([data-surface="admin"]) {
+    color-scheme: dark;
+
+    --color-paper: #3a141c;
+    --color-paper-2: #4a2029;
+    --color-ink: #f6eae9;
+    --color-muted: #be949c;
+    --color-line: #9a6570;
+    --color-red: #ff5c66;
+    /* the hover on a filled red button — on a dark ground it lightens */
+    --color-red-bright: #ff8a90;
+    /* the ONLINE dot in the window chrome, lifted off the wine */
+    --color-ok: #46b15f;
+  }
+
+  /* Firefox dims placeholders with its own opacity, which would drop them
+     below the muted colour they are supposed to be. */
+  [data-surface="admin"] ::placeholder {
+    color: var(--color-muted);
+    opacity: 1;
+  }
+
+  [data-surface="admin"] ::selection {
+    background: var(--color-red);
+    color: var(--color-paper);
+  }
+}
+
+@layer components {
+  /* The primary button's focus ring is a white line sitting in an ink band,
+     which only reads while the band is the dark half. Here the band is the
+     pale one, so the line in it has to become the ground. */
+  [data-surface="admin"] .px-btn--primary:focus-visible {
+    outline-color: var(--color-paper);
+  }
+}
+
 /* @keyframes are not affected by cascade layers — kept at top level. */
 
 /* ── Card scene storyboards ──

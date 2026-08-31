@@ -211,7 +211,7 @@ function Upload({ projectId, onUploaded }: { projectId: string; onUploaded: () =
             setFile(event.target.files?.[0] ?? null);
             setProblem(null);
           }}
-          className={`${inputClass} file:mr-3 file:border-0 file:bg-transparent file:font-semibold`}
+          className={`${inputClass} file:mr-3 file:border-0 file:bg-transparent file:font-semibold file:text-ink`}
         />
       </div>
 

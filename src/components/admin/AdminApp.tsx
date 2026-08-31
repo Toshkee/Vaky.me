@@ -155,7 +155,7 @@ export function AdminApp() {
           </button>
         </div>
 
-        <nav aria-label="Dashboard" className="border-t-2 border-ink">
+        <nav aria-label="Glavna navigacija" className="border-t-2 border-ink">
           <ul className="shell flex gap-1">
             {NAV.map((item) => {
               const active = item.views.includes(route.view);

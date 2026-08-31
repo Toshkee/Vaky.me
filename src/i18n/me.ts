@@ -6,7 +6,6 @@ export const me = {
     work: "Radovi",
     pricing: "Cijene",
     contact: "Kontakt",
-    cta: "Zakaži koncept",
     langLabel: "EN",
     langHref: "/en/",
   },
@@ -311,12 +310,15 @@ export const me = {
 
   contact: {
     title: "Spreman za novi sajt?",
-    sub: "Ostavi nam par podataka — javimo se, dogovorimo šta ti treba i pošaljemo ponudu. Obično odgovorimo istog dana.",
+    sub: "Ostavi par podataka — dobijaš besplatan koncept, pa se dogovaramo oko obima i cijene. Obično odgovorimo istog dana.",
     directLabel: "Ili direktno:",
     prefill: "Zdravo! Zanima me sajt za moj biznis. Možemo li da se čujemo oko ponude?",
     emailSubject: "Sajt za moj biznis",
     lead: {
-      eyebrow: "Zatraži ponudu",
+      /* The badge keeps the offer, the button says what pressing it does.
+         Splitting them is deliberate: "besplatan koncept" is why anyone fills
+         this in, and "zatraži ponudu" is honest about what arrives next. */
+      eyebrow: "Besplatan koncept",
       nameLabel: "Ime",
       namePlaceholder: "Kako da te zovemo",
       businessLabel: "Naziv biznisa",
@@ -347,13 +349,12 @@ export const me = {
       errorChallenge: "Sačekaj sekundu da se provjera završi, pa pošalji ponovo.",
       errorOffline: "Nema veze sa internetom. Provjeri konekciju i probaj ponovo.",
       errorSpam: "Previše pokušaja u kratkom roku. Sačekaj minut i probaj ponovo.",
-      errorProvider: "Slanje trenutno ne radi. Probaj ponovo ili nam piši direktno.",
+      errorProvider: "Slanje trenutno ne radi. Pošalji nam email — sve što si upisao već je unutra.",
       submitInstagram: "Otvori Instagram DM",
       submitInstagramCopied: "Poruka kopirana — otvori Instagram",
       copied: "Poruka je kopirana — samo je nalijepi u Instagram DM.",
       note: "Preko sajta se ništa ne plaća. Prvo se dogovorimo, pa onda radimo.",
-      emailFallback: "Ne ide slanje?",
-      emailFallbackAction: "Pošalji nam email",
+      emailFallbackAction: "Pošalji email umjesto toga",
       /* {link} is replaced with whatever the visitor typed */
       prefill: "Zdravo! Ovo je moj biznis: {link} — može ponuda za sajt?",
       /* Tony's speech bubble beside the form. Split so the offer can be set

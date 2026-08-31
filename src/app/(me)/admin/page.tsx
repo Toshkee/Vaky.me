@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { AdminApp } from "@/components/admin/AdminApp";
 
 /**
@@ -14,9 +14,18 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+/** The site ships paper; this route ships wine, so the phone's address bar has
+ *  to be told separately or it frames a dark screen in a light band. */
+export const viewport: Viewport = {
+  themeColor: "#3a141c",
+};
+
 export default function AdminPage() {
   return (
-    <>
+    /* The whole surface hangs off this one attribute — globals.css redefines
+       the colour tokens under it, and every component below inherits the dark
+       palette without knowing anything about it. */
+    <div data-surface="admin" className="flex flex-1 flex-col">
       <noscript>
         <div className="shell py-10">
           <div className="border-2 border-ink bg-paper-2 p-5">
@@ -29,6 +38,6 @@ export default function AdminPage() {
       </noscript>
 
       <AdminApp />
-    </>
+    </div>
   );
 }

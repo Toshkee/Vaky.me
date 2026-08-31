@@ -57,7 +57,7 @@ const STATUS_OPTIONS = PROJECT_STATUSES.map((status) => ({
 
 export function ProjectDetail({ id }: { id: string }) {
   const load = useCallback(() => getProject(id), [id]);
-  const { result, reload } = useLoad(load);
+  const { result, busy, reload } = useLoad(load);
 
   return (
     <>
@@ -70,7 +70,7 @@ export function ProjectDetail({ id }: { id: string }) {
         </GoLink>
       </p>
 
-      <AsyncView result={result} onRetry={reload}>
+      <AsyncView result={result} busy={busy} onRetry={reload}>
         {(data) => (
           <div className="mt-4 grid gap-8">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">

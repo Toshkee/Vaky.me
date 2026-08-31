@@ -225,10 +225,15 @@ npm run build:functions      # writes _routes.json; "include" must be ["/api/*"]
 
 **Rate limiting belongs at the edge.** The Functions keep a fixed-window
 counter in D1 as a floor, but the control that actually protects the bill is a
-Cloudflare **Rate Limiting Rule** on `/api/onboarding/*` — it blocks before a
-Worker is invoked or a database row is written. Create one at Security → WAF →
-Rate limiting rules: match `http.request.uri.path contains "/api/onboarding/"`,
-20 requests per minute per IP, action Managed Challenge.
+Cloudflare **Rate Limiting Rule** — it blocks before a Worker is invoked or a
+database row is written. What is deployed today, at Security → WAF → Rate
+limiting rules, matches `http.request.uri.path contains "/api/onboarding/"`,
+**50 requests per 10 seconds per IP, action Block**.
+
+That path no longer covers everything it should: `/api/lead` and
+`/api/admin/**` sit outside it. Widen the match to
+`http.request.uri.path contains "/api/"`. See ONBOARDING_SETUP.md, which
+carries the same note as an operator step.
 
 No new origin is added to the CSP by any of this. The page talks only to its
 own origin (`connect-src 'self'` already covers it), and the calls to Resend

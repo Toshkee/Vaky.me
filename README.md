@@ -50,6 +50,12 @@ The **Radovi / Work** section contains interactive design concepts made for real
 - Barbershop Stari Grad — prices, opening hours, and easy messaging
 - Barber Drina — an accessible price list and booking helper
 
+Alongside them sit the outreach concepts, made for specific Montenegrin
+businesses and reachable only by their own link: Soul Studio, KraftArt,
+LavLav, Telo Pilates, Pilates by Maja, Skyline Tattoo, Dental Clinic
+Kovačević, Andrea Beauty House, Studio ljepote Mila, and Studio ljepote i
+zdravlja. They are unlisted and carry `noindex`.
+
 The demos are concepts, not production websites. They show how a business can present its services clearly and give customers a simple path to contact.
 
 ## Contact

@@ -44,7 +44,7 @@ const SETTABLE: readonly Exclude<LeadStatus, "accepted">[] = LEAD_STATUSES.filte
 export function LeadDetail({ id }: { id: string }) {
   const go = useGo();
   const load = useCallback(() => getLead(id), [id]);
-  const { result, reload } = useLoad(load);
+  const { result, busy: refreshing, reload } = useLoad(load);
 
   const [busy, setBusy] = useState<string | null>(null);
   const [problem, setProblem] = useState<ApiErrorCode | null>(null);
@@ -76,7 +76,7 @@ export function LeadDetail({ id }: { id: string }) {
         </GoLink>
       </p>
 
-      <AsyncView result={result} onRetry={reload}>
+      <AsyncView result={result} busy={refreshing} onRetry={reload}>
         {(data) => (
           <div className="mt-4 grid gap-8">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">

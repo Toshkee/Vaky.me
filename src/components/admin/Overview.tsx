@@ -1,7 +1,11 @@
 "use client";
 
 import { useCallback } from "react";
-import { getOverview, type Overview as OverviewData, type RecentActivityRow } from "@/lib/admin/client";
+import {
+  getOverview,
+  type Overview as OverviewData,
+  type RecentActivityRow,
+} from "@/lib/admin/client";
 import { AsyncView, EmptyState, GoLink, Panel, When, activityLabel, useLoad } from "./ui";
 
 /**
@@ -51,10 +55,12 @@ export function Overview() {
         {(data) => (
           <div className="mt-6 grid gap-8">
             {/* gap-px over an ink ground draws the hairlines between cells, so
-                the block reads as one table rather than five cards. */}
+                the block reads as one table rather than five cards. Five cells
+                in two columns leave a hole in the last row, and the hole would
+                show that ground — so the last one takes the whole row. */}
             <ul className="grid grid-cols-2 gap-px border-2 border-ink bg-ink sm:grid-cols-5">
               {COUNTS.map((count) => (
-                <li key={count.key} className="bg-paper">
+                <li key={count.key} className="bg-paper last:col-span-2 sm:last:col-span-1">
                   <GoLink to={count.to} className="block px-3 py-3 hover:bg-paper-2">
                     <span className="tnum block text-3xl leading-none font-bold">
                       {data[count.key]}

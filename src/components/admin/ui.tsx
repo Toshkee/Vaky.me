@@ -96,9 +96,10 @@ const API_TEXT: Record<ApiErrorCode, string> = {
   "file-total": "Ukupna veličina fajlova je prevelika.",
   answers: "Odgovori nisu prošli provjeru.",
   /* Covers a dead network, a 500 and unreadable JSON alike — and the everyday
-     case, which is `next dev`, where /api/ is not served at all. */
+     case, which is `next dev`, where /api/ is not served at all. The script
+     named is the one in package.json that puts the Functions in front of it. */
   server:
-    "Nema veze sa serverom. Ako je ovo obični next dev, /api/ ne postoji — dashboard radi samo uz npm run pages:dev.",
+    "Nema veze sa serverom. Na običnom next dev /api/ ne postoji — dashboard radi samo kroz Cloudflare Pages (npm run dev:api).",
 };
 
 export function apiText(code: ApiErrorCode): string {
@@ -164,11 +165,11 @@ export function stampText(value: string | null): string {
 
 /* ── Status ───────────────────────────────────────────────────────────── */
 
-export type StatusKind = "lead" | "project" | "request";
+type StatusKind = "lead" | "project" | "request";
 
 /** The rows carry `status: string`, so an unknown value is shown as it is
  *  stored rather than swallowed — a mislabelled row is a bug worth seeing. */
-export function statusLabel(kind: StatusKind, value: string): string {
+function statusLabel(kind: StatusKind, value: string): string {
   if (kind === "lead") return isLeadStatus(value) ? LEAD_STATUS_LABELS[value] : value;
   if (kind === "project") return isProjectStatus(value) ? PROJECT_STATUS_LABELS[value] : value;
   return isRequestStatus(value) ? REQUEST_STATUS_LABELS[value] : value;
@@ -192,12 +193,18 @@ export function StatusPill({ kind, value }: { kind: StatusKind; value: string })
  *  than read from the landing dictionary: three words do not justify shipping
  *  the whole marketing copy to a screen only the studio opens. The prices are
  *  not — those come from `packages.ts`, which is the one place they live. */
-export const PACKAGE_NAMES: Record<PackageId, string> = {
+const PACKAGE_NAMES: Record<PackageId, string> = {
   start: "Start",
   business: "Biznis",
   project: "Projekat",
 };
 
+export function packageName(id: string): string {
+  return isPackageId(id) ? PACKAGE_NAMES[id] : id;
+}
+
+/** Name and price together, for the two places where the price is part of the
+ *  decision being made: picking a package for a new project, and changing one. */
 export function packageText(id: string): string {
   return isPackageId(id) ? `${PACKAGE_NAMES[id]} · ${priceLabel(id, "me")}` : id;
 }
@@ -217,17 +224,25 @@ export function isLiveRequest(status: string | null): boolean {
 
 /* ── Controls ─────────────────────────────────────────────────────────── */
 
+/* Fields and keys sit one step above the ground rather than on it — on the
+   dark surface a control the exact colour of the page is defined by its border
+   alone, and the bevel has nothing to catch.
+
+   The red fill is bright enough on wine that white on it is only 3:1, so the
+   label on a filled button is the ground colour punched back out (5.4:1), and
+   the hover lightens instead of deepening. Disabled is opacity, as everywhere
+   else, but not so far down that the label stops being readable. */
 export const inputClass =
-  "min-h-11 w-full border-2 border-ink bg-paper px-3 py-2 text-base text-ink";
+  "min-h-11 w-full border-2 border-ink bg-paper-2 px-3 py-2 text-base text-ink";
 
 export const textareaClass =
-  "w-full border-2 border-ink bg-paper px-3 py-2 text-base leading-relaxed text-ink";
+  "w-full border-2 border-ink bg-paper-2 px-3 py-2 text-base leading-relaxed text-ink";
 
 export const buttonClass =
-  "px px-btn inline-flex min-h-11 items-center justify-center bg-paper px-4 py-2 text-[1.15rem] text-ink transition-colors hover:text-red disabled:opacity-40";
+  "px px-btn inline-flex min-h-11 items-center justify-center bg-paper-2 px-4 py-2 text-[1.15rem] text-ink transition-colors hover:text-red disabled:opacity-50";
 
 export const primaryButtonClass =
-  "px px-btn px-btn--primary inline-flex min-h-11 items-center justify-center bg-red px-4 py-2 text-center text-[1.15rem] text-white hover:bg-red-deep disabled:opacity-60";
+  "px px-btn px-btn--primary inline-flex min-h-11 items-center justify-center bg-red px-4 py-2 text-center text-[1.15rem] text-paper hover:bg-red-bright disabled:opacity-70";
 
 export function Field({
   id,
@@ -334,6 +349,13 @@ export function ConfirmButton({
     return () => window.clearTimeout(timer);
   }, [armed]);
 
+  /* The armed state gets its own full class list rather than a colour bolted
+     onto the base one: two `text-*` utilities on one element are settled by
+     stylesheet order, not by the order they are written here. */
+  const look = armed
+    ? "px px-btn px-btn--primary inline-flex min-h-11 items-center justify-center bg-red px-4 py-2 text-[1.15rem] text-paper disabled:opacity-70"
+    : buttonClass;
+
   return (
     <button
       type="button"
@@ -347,7 +369,7 @@ export function ConfirmButton({
         setArmed(false);
         onConfirm();
       }}
-      className={`${buttonClass} ${armed ? "text-red" : ""} ${className}`}
+      className={`${look} ${className}`}
     >
       {armed ? confirmLabel : label}
     </button>
@@ -356,27 +378,15 @@ export function ConfirmButton({
 
 /* ── Layout ───────────────────────────────────────────────────────────── */
 
-/** One block of the screen: a heading rule, optional controls on the same
- *  line, and the content under it. The dashboard's only container — nothing
- *  nests inside anything else. */
-export function Panel({
-  title,
-  actions,
-  children,
-}: {
-  title: string;
-  actions?: ReactNode;
-  children: ReactNode;
-}) {
+/** One block of the screen: a heading under a rule, and the content below it.
+ *  The dashboard's only container — nothing nests inside anything else. */
+export function Panel({ title, children }: { title: string; children: ReactNode }) {
   const headingId = useId();
   return (
     <section aria-labelledby={headingId} className="border-t-2 border-ink pt-4">
-      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <h2 id={headingId} className="headline text-lg">
-          {title}
-        </h2>
-        {actions}
-      </div>
+      <h2 id={headingId} className="headline text-lg">
+        {title}
+      </h2>
       <div className="mt-3">{children}</div>
     </section>
   );

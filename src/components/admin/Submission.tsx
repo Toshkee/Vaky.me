@@ -11,7 +11,7 @@ import {
   type Answers,
   type Question,
 } from "@/lib/onboarding/schema";
-import { Fact, Facts, Panel, packageText, stampText } from "./ui";
+import { Fact, Facts, Panel, packageName, stampText } from "./ui";
 
 /**
  * What the client actually said, read back the way they answered it.
@@ -60,7 +60,7 @@ export function Submission({ submission }: { submission: SubmissionView }) {
   return (
     <Panel title="Odgovori klijenta">
       <Facts>
-        <Fact label="Paket na odgovorima" value={packageText(submission.packageId)} />
+        <Fact label="Paket na odgovorima" value={packageName(submission.packageId)} />
         <Fact label="Popunjeno na" value={submission.language === "en" ? "English" : "Crnogorski"} />
         <Fact label="Poslato" value={stampText(submission.createdAt)} />
         {submission.notifyError && (

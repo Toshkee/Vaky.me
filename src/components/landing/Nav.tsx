@@ -118,6 +118,10 @@ export function Nav({ dict }: { dict: Dictionary }) {
               {l.label}
             </a>
           ))}
+          {/* No call to action up here. It pointed at #kontakt, which is
+              exactly where the hero's button already goes — two red buttons
+              on one screen competing for the same click, and the masthead is
+              for finding your way, not for closing. */}
           <Link
             href={dict.nav.langHref}
             className="tap font-bold transition-colors hover:text-red"
@@ -125,12 +129,6 @@ export function Nav({ dict }: { dict: Dictionary }) {
           >
             {dict.nav.langLabel}
           </Link>
-          <a
-            href="#kontakt"
-            className="px px-btn px-btn--primary ml-1 inline-flex items-center bg-red px-4 py-1.5 text-[1.15rem] text-white hover:bg-red-deep"
-          >
-            {dict.nav.cta}
-          </a>
         </nav>
       </div>
 

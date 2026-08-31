@@ -21,7 +21,7 @@ import {
   When,
   buttonClass,
   isLiveRequest,
-  packageText,
+  packageName,
   primaryButtonClass,
   useGo,
   useLoad,
@@ -119,7 +119,7 @@ export function Projects({ filter }: { filter: string }) {
                       className="grid gap-x-4 gap-y-1 py-3 hover:bg-paper-2 lg:grid-cols-[minmax(0,1fr)_8rem_11.5rem_11rem_6rem] lg:items-center"
                     >
                       <span className="font-semibold break-words">{row.business_name}</span>
-                      <span className="text-sm text-muted">{packageText(row.package_id)}</span>
+                      <span className="text-sm text-muted">{packageName(row.package_id)}</span>
                       <span>
                         <StatusPill kind="project" value={row.status} />
                       </span>

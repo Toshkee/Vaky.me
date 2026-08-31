@@ -134,6 +134,16 @@ export function Contact({ dict }: { dict: Dictionary }) {
         setStatus("sent");
         celebrate();
         track("lead_form_submitted", { lang: dict.lang, transport: "form" });
+        /* Emptied only once the server has said yes: it confirms the enquiry
+           went somewhere, and a second press of the button then cannot quietly
+           send the same person twice. */
+        setName("");
+        setBusiness("");
+        setEmail("");
+        setPhone("");
+        setLink("");
+        setNeed("");
+        setMessage("");
         return;
       }
 
@@ -388,22 +398,25 @@ export function Contact({ dict }: { dict: Dictionary }) {
                 {statusMessage}
               </p>
 
-              {/* Always in the tree, even while empty: a live region only
+              {/* The way out when the enquiry could not be sent — and it is a
+                  button, not a footnote. A visitor who has just filled seven
+                  fields and been told it failed will not hunt for an underline.
+                  The mail opens with everything they typed already in it, so
+                  nothing is retyped.
+
+                  Always in the tree, even while empty: a live region only
                   reliably announces content that changes INSIDE an element
                   screen readers already know about. Mounting the region
                   together with its message is exactly the pattern they miss —
                   and the person this line exists for would hear nothing. */}
-              <p role="status" className={failed ? "mt-2 text-sm leading-relaxed" : undefined}>
+              <p role="status" className={failed ? "mt-3" : undefined}>
                 {failed && (
-                  <>
-                    {c.emailFallback}{" "}
-                    <a
-                      href={emailLink(dict.contact.emailSubject, written())}
-                      className="font-semibold underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
-                    >
-                      {c.emailFallbackAction}
-                    </a>
-                  </>
+                  <a
+                    href={emailLink(dict.contact.emailSubject, written())}
+                    className="px px-btn inline-flex min-h-12 items-center bg-paper px-6 py-3 text-[1.25rem] text-ink transition-colors hover:text-red"
+                  >
+                    {c.emailFallbackAction}
+                  </a>
                 )}
               </p>
             </form>
