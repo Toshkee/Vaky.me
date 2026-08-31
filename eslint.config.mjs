@@ -17,6 +17,8 @@ const eslintConfig = defineConfig([
     // Wrangler's local state and its bundled copies of the Functions: build
     // output and a local D1/R2 store, none of it written by hand.
     ".wrangler/**",
+    // Scratch: screenshots and one-off probes, not part of the site.
+    ".tmp/**",
   ]),
 ]);
 

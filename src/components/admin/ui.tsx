@@ -235,8 +235,14 @@ export function isLiveRequest(status: string | null): boolean {
 export const inputClass =
   "min-h-11 w-full border-2 border-ink bg-paper-2 px-3 py-2 text-base text-ink";
 
-export const textareaClass =
-  "w-full border-2 border-ink bg-paper-2 px-3 py-2 text-base leading-relaxed text-ink";
+/* Split at the type size because the two textareas on the dashboard disagree
+   about it, and two `text-*` utilities on one element are settled by
+   stylesheet order rather than by the order they are written. */
+const textareaBase = "w-full border-2 border-ink bg-paper-2 px-3 py-2 leading-relaxed text-ink";
+export const textareaClass = `${textareaBase} text-base`;
+/** The build brief: a prompt about to be pasted into a coding session, not
+ *  prose, so it is monospaced and a step smaller. */
+export const textareaMonoClass = `${textareaBase} font-mono text-sm`;
 
 export const buttonClass =
   "px px-btn inline-flex min-h-11 items-center justify-center bg-paper-2 px-4 py-2 text-[1.15rem] text-ink transition-colors hover:text-red disabled:opacity-50";
@@ -349,12 +355,10 @@ export function ConfirmButton({
     return () => window.clearTimeout(timer);
   }, [armed]);
 
-  /* The armed state gets its own full class list rather than a colour bolted
-     onto the base one: two `text-*` utilities on one element are settled by
-     stylesheet order, not by the order they are written here. */
-  const look = armed
-    ? "px px-btn px-btn--primary inline-flex min-h-11 items-center justify-center bg-red px-4 py-2 text-[1.15rem] text-paper disabled:opacity-70"
-    : buttonClass;
+  /* Swapped whole rather than tinted: appending a colour to the base class
+     would put two `text-*` utilities on one element, and which one wins is
+     settled by stylesheet order rather than by the order written here. */
+  const look = armed ? primaryButtonClass : buttonClass;
 
   return (
     <button

@@ -100,7 +100,16 @@ everything that needs checking.
 | Portfolio demos | `src/app/(me)/demo/` |
 | Portfolio thumbnails | `public/work/` |
 | Brand assets | `public/` and `src/app/` |
-| Lead intake, private onboarding links, the admin dashboard, and the Build Brief generator | `functions/api/lead.ts`, `functions/api/onboarding/`, `functions/api/admin/`, `functions/start/`, `server/`, `migrations/` — see [`ONBOARDING_SETUP.md`](ONBOARDING_SETUP.md) |
+| Lead intake, private onboarding links, the admin dashboard, and the Build Brief generator | `functions/api/lead.ts`, `functions/api/onboarding/`, `functions/api/admin/`, `functions/start/`, `server/`, `migrations/` — see [`docs/onboarding-setup.md`](docs/onboarding-setup.md) |
+
+### Documentation
+
+| Document | What it covers |
+|---|---|
+| [`docs/onboarding-setup.md`](docs/onboarding-setup.md) | The whole backend: lead intake, projects, private onboarding links, the admin dashboard, D1 and R2, secrets, migrations, the Build Brief, and how to deploy it |
+| [`docs/deployment-security.md`](docs/deployment-security.md) | Everything that lives outside the repository — response headers, canonical host, DNSSEC/CAA, mail authentication, the edge rate limit |
+| [`SECURITY.md`](SECURITY.md) | How to report a vulnerability, and what is in scope |
+| [`docs/plan.md`](docs/plan.md), [`docs/plan-review-log.md`](docs/plan-review-log.md) | Historical: the pixel/OS redesign plan and its review rounds. Kept as a record, not as instructions |
 
 ## Deployment
 

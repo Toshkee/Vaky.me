@@ -83,6 +83,6 @@ canonical-host redirect is a Cloudflare dashboard rule, not a file. The DNS,
 mail and verification steps that cannot live in the repository are written down
 in [`docs/deployment-security.md`](docs/deployment-security.md), and the
 onboarding's own setup — bindings, secrets, migrations — in
-[`ONBOARDING_SETUP.md`](ONBOARDING_SETUP.md).
+[`docs/onboarding-setup.md`](docs/onboarding-setup.md).
 
 `npm run test:security` re-checks the deployed result.

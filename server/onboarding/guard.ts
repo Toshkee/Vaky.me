@@ -18,7 +18,7 @@ const SITEVERIFY = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
  * With no secret configured this returns true — the studio may not have one to
  * hand, and the alternative is an onboarding link that silently rejects every
  * paying client. That trade is deliberate, it is written down in
- * ONBOARDING_SETUP.md, and the rate limiter still applies either way.
+ * docs/onboarding-setup.md, and the rate limiter still applies either way.
  */
 export async function passesChallenge(
   env: OnboardingEnv,

@@ -4,7 +4,7 @@
 --   npx wrangler d1 migrations apply vibelab-onboarding --local -c wrangler.local.jsonc
 --   npx wrangler d1 migrations apply vibelab-onboarding --remote -c wrangler.local.jsonc
 --
--- Migrations are applied by hand, never by deploy — see ONBOARDING_SETUP.md.
+-- Migrations are applied by hand, never by deploy — see docs/onboarding-setup.md.
 -- Unlike 0001, this file is NOT idempotent: the ALTER TABLE statements at the
 -- bottom fail if run twice. Apply it through wrangler's migration runner,
 -- which records what has run, rather than pasting it into a console.

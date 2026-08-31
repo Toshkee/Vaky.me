@@ -5,7 +5,7 @@
 --
 -- Nothing runs this on deploy. Cloudflare Pages builds the site and the
 -- Functions; migrations are applied by hand from a machine that has logged in
--- with `wrangler login`. See ONBOARDING_SETUP.md.
+-- with `wrangler login`. See docs/onboarding-setup.md.
 
 -- ── The brief ───────────────────────────────────────────────────────────
 --

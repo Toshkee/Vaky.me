@@ -998,7 +998,7 @@
 @layer base {
   /* ── The dashboard's ground ──────────────────────────────────────────────
      /admin is the one route nobody but the studio ever loads, and it is read
-     for an hour at a stretch, so it runs on a dark bordeaux instead of the
+     for an hour at a stretch, so it runs on a dark neutral grey instead of the
      site's paper. Only the tokens move. Every panel, list and control on that
      route already draws itself from bg-paper / text-ink / border-line, so the
      whole screen turns over without a class rewrite and the pixel language —
@@ -1008,28 +1008,30 @@
      pages, the demo concepts and the client onboarding form read these same
      tokens and must not move by a pixel. The `html:has()` arm carries the
      ground past the wrapper onto the document, so an overscroll bounce is
-     wine rather than paper, and it is where `color-scheme` has to sit for the
+     grey rather than paper, and it is where `color-scheme` has to sit for the
      native select, the file picker and the scrollbars to render dark.
 
-     Contrast, against the ground / against the raised surface: ink 13.8/11.7,
-     muted 6.1/5.2, red 5.4/4.6; line is 3.5 on the ground. The site's red is
+     Contrast, against the ground / against the raised surface: ink 13.5/11.4,
+     muted 6.8/5.8, red 5.4/4.6, line 3.9/3.3. The site's red is
      2.6:1 on wine, so it moves up to full saturation at 68% lightness — which
-     makes it too light to carry white text in turn, and the label on a filled
-     red button becomes the ground colour instead (5.4:1; white would be 3.0). */
+     light to carry white text, so the label on a filled red button is the ground
+     colour instead (5.4:1, where white would be 3.0). One red for every role:
+     links, active nav, badges and the button all use it, so nothing on the
+     screen is red without meaning it. */
   [data-surface="admin"],
   html:has([data-surface="admin"]) {
     color-scheme: dark;
 
-    --color-paper: #3a141c;
-    --color-paper-2: #4a2029;
-    --color-ink: #f6eae9;
-    --color-muted: #be949c;
-    --color-line: #9a6570;
-    --color-red: #ff5c66;
+    --color-paper: #232629;
+    --color-paper-2: #2e3237;
+    --color-ink: #f2f1ee;
+    --color-muted: #a9aeb4;
+    --color-line: #79818a;
+    --color-red: #ff6a61;
     /* the hover on a filled red button — on a dark ground it lightens */
-    --color-red-bright: #ff8a90;
-    /* the ONLINE dot in the window chrome, lifted off the wine */
-    --color-ok: #46b15f;
+    --color-red-bright: #ff958d;
+    /* the ONLINE dot in the window chrome, lifted off the grey */
+    --color-ok: #4bb663;
   }
 
   /* Firefox dims placeholders with its own opacity, which would drop them

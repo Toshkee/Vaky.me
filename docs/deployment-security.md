@@ -199,7 +199,7 @@ Two rules when this list changes:
 It is served by **Cloudflare Pages Functions** from `functions/api/onboarding/*`,
 with a **D1** database and a private **R2** bucket bound to the Pages project.
 Full setup — bindings, secrets, migrations — is in
-[`ONBOARDING_SETUP.md`](../ONBOARDING_SETUP.md). Three things belong here,
+[`onboarding-setup.md`](onboarding-setup.md). Three things belong here,
 because they are edge concerns rather than setup steps:
 
 **`public/_headers` does not apply to it.** That file is a Pages *static asset*
@@ -232,7 +232,7 @@ limiting rules, matches `http.request.uri.path contains "/api/onboarding/"`,
 
 That path no longer covers everything it should: `/api/lead` and
 `/api/admin/**` sit outside it. Widen the match to
-`http.request.uri.path contains "/api/"`. See ONBOARDING_SETUP.md, which
+`http.request.uri.path contains "/api/"`. See onboarding-setup.md, which
 carries the same note as an operator step.
 
 No new origin is added to the CSP by any of this. The page talks only to its

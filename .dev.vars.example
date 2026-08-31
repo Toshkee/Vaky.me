@@ -1,6 +1,6 @@
 # Secrets for `npm run dev:api` (wrangler pages dev). Copy to `.dev.vars`,
 # which is gitignored. Production values live in the Cloudflare dashboard —
-# see ONBOARDING_SETUP.md. Nothing here is a NEXT_PUBLIC_* value and nothing
+# see docs/onboarding-setup.md. Nothing here is a NEXT_PUBLIC_* value and nothing
 # here reaches the browser.
 
 # Signs upload tokens, private onboarding links, the admin session cookie and

@@ -50,9 +50,14 @@ next-env.d.ts
 # prospect research - contact data, never publish
 /research
 
+# scratch: screenshots, one-off probes, throwaway servers. Kept on disk
+# because it is useful while working, out of the repository because it is
+# nobody else's and it was 40 MB of it.
+/.tmp
+
 # cloudflare: local worker state (the dev D1 database and R2 objects), and the
 # secrets `wrangler pages dev` reads. Production values live in the Cloudflare
-# dashboard - see ONBOARDING_SETUP.md.
+# dashboard - see docs/onboarding-setup.md.
 /.wrangler
 .dev.vars
 .dev.vars.*

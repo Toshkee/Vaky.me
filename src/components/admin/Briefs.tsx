@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { BRIEF_MODES, generateBrief, type BriefMode, type BriefRow } from "@/lib/admin/client";
 import type { ApiErrorCode } from "@/lib/onboarding/schema";
-import { DataError, EmptyState, Panel, When, buttonClass } from "./ui";
+import { DataError, EmptyState, Panel, When, buttonClass, textareaMonoClass } from "./ui";
 
 /**
  * The prompt that gets pasted into a coding session to build the site.
@@ -114,7 +114,7 @@ export function Briefs({ projectId, briefs }: { projectId: string; briefs: reado
             value={shown}
             rows={16}
             spellCheck={false}
-            className="w-full border-2 border-ink bg-paper-2 px-3 py-2 font-mono text-sm leading-relaxed text-ink"
+            className={textareaMonoClass}
           />
 
           <div className="flex flex-wrap items-center gap-3">
