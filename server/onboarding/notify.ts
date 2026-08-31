@@ -19,7 +19,7 @@ import {
 import type { FileRow } from "./store";
 
 /**
- * The two emails this system sends VibeLab — a completed brief and a new
+ * The two emails this system sends Vaky — a completed brief and a new
  * lead — in the site's own clothes.
  *
  * A brief is written in the language the client answered in, using the same
@@ -114,9 +114,9 @@ function shell(input: {
       <tr><td style="padding:14px 26px;background:${PAPER_2};border-top:2px solid ${INK}">
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse">
           <tr>
-            <td style="font:700 14px/1.4 ${FONT};color:${INK};letter-spacing:-.01em">Vibe<span style="color:${RED}">Lab</span></td>
+            <td style="font:700 14px/1.4 ${FONT};color:${INK};letter-spacing:-.01em">Vaky<span style="color:${RED}">.</span></td>
             <td style="text-align:right;font:400 12px/1.4 ${FONT};color:${MUTED}">
-              <a href="https://vibelab.it.com" style="color:${MUTED};text-decoration:none">vibelab.it.com</a>
+              <a href="https://vaky.me" style="color:${MUTED};text-decoration:none">vaky.me</a>
             </td>
           </tr>
         </table>
@@ -238,12 +238,12 @@ export function renderBrief(input: BriefInput): { subject: string; html: string;
   const email = answerText(input.answers, "email");
   const phone = answerText(input.answers, "phone");
 
-  const subject = `New VibeLab Client Brief — ${business}`;
+  const subject = `New Vaky Client Brief — ${business}`;
   const meta = header(input);
   const body = sections(input);
 
   const textParts = [
-    "VibeLab — novi brief",
+    "Vaky — novi brief",
     "",
     `${business}`,
     `${contact} · ${email} · ${phone}`,
@@ -308,7 +308,7 @@ export function renderBrief(input: BriefInput): { subject: string; html: string;
   const html = shell({
     lang: input.language === "en" ? "en" : "sr-ME",
     subject,
-    titleBar: "VibeLab OS — novi projekat",
+    titleBar: "Vaky OS — novi projekat",
     inner,
     footNote: "Stiglo sa privatnog onboarding linka. Odgovor na ovaj mejl ide pravo klijentu.",
   });
@@ -334,7 +334,7 @@ export type LeadInput = {
 
 export function renderLead(input: LeadInput): { subject: string; html: string; text: string } {
   const who = input.businessName || input.name || "—";
-  const subject = `New VibeLab Lead — ${who}`;
+  const subject = `New Vaky Lead — ${who}`;
 
   const meta: Line[] = [
     { label: "Šta traži", value: isLeadNeed(input.need) ? LEAD_NEED_LABELS[input.need] : "—" },
@@ -345,7 +345,7 @@ export function renderLead(input: LeadInput): { subject: string; html: string; t
   ];
 
   const textParts = [
-    "VibeLab — novi upit",
+    "Vaky — novi upit",
     "",
     who,
     `${input.name} · ${input.email}${input.phone ? ` · ${input.phone}` : ""}`,
@@ -377,7 +377,7 @@ export function renderLead(input: LeadInput): { subject: string; html: string; t
   const html = shell({
     lang: "sr-ME",
     subject,
-    titleBar: "VibeLab OS — novi upit",
+    titleBar: "Vaky OS — novi upit",
     inner,
     footNote: "Stiglo sa forme za ponudu na sajtu. Odgovor na ovaj mejl ide pravo osobi koja je pisala.",
   });
@@ -389,7 +389,7 @@ export function renderLead(input: LeadInput): { subject: string; html: string; t
  * Sends one email, and says whether it worked.
  *
  * Never throws: the caller has already stored the row, and the only useful
- * outcome here is a note on it saying whether VibeLab was told.
+ * outcome here is a note on it saying whether Vaky was told.
  */
 export async function sendEmail(
   apiKey: string,

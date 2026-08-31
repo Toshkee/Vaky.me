@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Instrument_Sans, Instrument_Serif } from "next/font/google";
 import { DemoPhoto } from "@/components/demo/DemoPhoto";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { InstagramIcon } from "@/components/demo/ContactIcons";
 import {
   deck,
@@ -82,11 +82,11 @@ export default function PilatesByMajaPage() {
     <div
       className={`${styles.page} ${display.variable} ${sans.variable} min-h-screen bg-[var(--maja-chalk)] text-[var(--maja-ink)] [font-family:var(--font-maja-sans),system-ui,sans-serif]`}
     >
-      <VibeLabBar />
+      <VakyBar />
 
       {/* No bottom bar on this page. The top rail follows the reader instead:
           a 48px chalk strip with the name and the one thing to do, separated
-          from the ink VibeLab strip above it by being light rather than by
+          from the ink Vaky strip above it by being light rather than by
           being a second dark band. */}
       <header className="sticky top-0 z-30 border-b border-[var(--maja-line)] bg-[var(--maja-chalk)]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
@@ -372,7 +372,7 @@ export default function PilatesByMajaPage() {
               href="/"
               className={`inline-flex min-h-11 items-center font-medium text-[var(--maja-ink)] hover:underline ${focusOnLight}`}
             >
-              VibeLab
+              Vaky
             </Link>
           </p>
         </div>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Barlow, Big_Shoulders } from "next/font/google";
 import { MapEmbed } from "@/components/demo/MapEmbed";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { plans, programs, schedule } from "./data";
 
 const display = Big_Shoulders({ subsets: ["latin", "latin-ext"], display: "swap", variable: "--font-titan-display" });
@@ -19,7 +19,7 @@ const hazard = "bg-[repeating-linear-gradient(-45deg,#ff5a1f_0,#ff5a1f_12px,tran
 
 export default function TitanGymPage() {
   return <div className={`${display.variable} ${sans.variable} min-h-screen bg-[#0c0d0e] pb-20 text-[#f5f4f2] [font-family:var(--font-titan-sans),Arial,sans-serif] md:pb-0`}>
-    <VibeLabBar />
+    <VakyBar />
     <header className="border-b border-white/15 bg-[#0c0d0e]"><div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-5 py-3 sm:px-8"><a href="#vrh" className={`${title} inline-flex min-h-11 items-center text-2xl tracking-wide ${focus}`}>Titan<span className="text-[#ff5a1f]">.</span></a><nav aria-label="Glavna navigacija" className="hidden items-center gap-7 md:flex"><a href="#programi" className={`${label} hover:text-[#ff5a1f] ${focus}`}>Programi</a><a href="#clanarine" className={`${label} hover:text-[#ff5a1f] ${focus}`}>Članarine</a><a href="#raspored" className={`${label} hover:text-[#ff5a1f] ${focus}`}>Raspored</a></nav><a href="tel:+38267000000" className={`hidden min-h-10 items-center bg-[#ff5a1f] px-4 text-xs font-bold uppercase tracking-wide text-black transition-colors hover:bg-white sm:inline-flex ${focus}`}>Probni trening</a></div></header>
     <main id="vrh">
       <section className="relative isolate overflow-hidden border-b border-[#ff5a1f]/50">
@@ -67,7 +67,7 @@ export default function TitanGymPage() {
         </div>
       </section>
     </main>
-    <footer className="border-t border-white/15 bg-[#0c0d0e]"><div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-10 sm:flex-row sm:items-end sm:justify-between sm:px-8"><p className={`${title} text-2xl`}>Titan<span className="text-[#ff5a1f]">.</span></p><p className="text-xs text-white/55">Koncept: <Link href="/" className={`font-bold text-white hover:text-[#ff5a1f] ${focus}`}>VibeLab</Link></p></div></footer>
+    <footer className="border-t border-white/15 bg-[#0c0d0e]"><div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-10 sm:flex-row sm:items-end sm:justify-between sm:px-8"><p className={`${title} text-2xl`}>Titan<span className="text-[#ff5a1f]">.</span></p><p className="text-xs text-white/55">Koncept: <Link href="/" className={`font-bold text-white hover:text-[#ff5a1f] ${focus}`}>Vaky</Link></p></div></footer>
     <a href="tel:+38267000000" className={`fixed inset-x-4 bottom-4 z-50 inline-flex min-h-14 items-center justify-center bg-[#ff5a1f] px-5 text-sm font-bold uppercase tracking-wide text-black shadow-xl md:hidden ${focus}`}>Zakaži probni trening</a>
   </div>;
 }

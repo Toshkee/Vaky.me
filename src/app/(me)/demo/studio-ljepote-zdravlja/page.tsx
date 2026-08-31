@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Gilda_Display, Onest } from "next/font/google";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { DemoPhoto } from "@/components/demo/DemoPhoto";
 import { InstagramIcon } from "@/components/demo/ContactIcons";
 import type { InterestGroup } from "./data";
@@ -140,7 +140,7 @@ export default function StudioLjepoteZdravljaPage() {
     <div
       className={`${styles.page} ${display.variable} ${sans.variable} min-h-screen bg-[var(--slz-ivory)] text-[var(--slz-cacao)] [font-family:var(--font-slz-sans),system-ui,sans-serif]`}
     >
-      <VibeLabBar />
+      <VakyBar />
 
       {/* A nameplate, not a navigation bar. Nothing here scrolls with the page
           and nothing here is a control: on a one-page concept a sticky header
@@ -512,7 +512,7 @@ export default function StudioLjepoteZdravljaPage() {
               href="/"
               className={`inline-flex min-h-11 items-center font-semibold text-[var(--slz-cacao)] hover:underline ${focusOnLight}`}
             >
-              VibeLab
+              Vaky
             </Link>
           </p>
         </div>

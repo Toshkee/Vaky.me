@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { MapEmbed } from "@/components/demo/MapEmbed";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { BookingPlanner } from "./BookingPlanner";
 import { priceGroups, publicDetails } from "./data";
 
@@ -46,7 +46,7 @@ function BrandLockup({ compact = false }: { compact?: boolean }) {
 export default function BarberDrinaPage() {
   return (
     <div className="min-h-screen bg-black pb-24 text-white md:pb-0">
-      <VibeLabBar />
+      <VakyBar />
 
       <header className="sticky top-0 z-40 border-b border-white/15 bg-black/95 backdrop-blur">
         <div className="mx-auto flex min-h-14 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
@@ -284,7 +284,7 @@ export default function BarberDrinaPage() {
             <p className="mt-2">
               Koncept:{" "}
               <Link href="/" className={`font-bold text-white hover:underline ${focusDark}`}>
-                VibeLab
+                Vaky
               </Link>
             </p>
           </div>

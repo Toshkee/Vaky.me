@@ -26,7 +26,7 @@ import {
  * draft with it.
  */
 
-const key = (token: string) => `vibelab:onboarding:${token}`;
+const key = (token: string) => `vaky:onboarding:${token}`;
 
 export type UploadedFile = {
   /** The server's id for the stored object. */

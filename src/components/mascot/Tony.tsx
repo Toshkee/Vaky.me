@@ -42,7 +42,7 @@ type TonyProps = {
 };
 
 /**
- * The VibeLab mascot, animated off a single sprite sheet.
+ * The Vaky mascot, animated off a single sprite sheet.
  *
  * All of the motion is CSS on `step-end` keyframes, so this stays a server
  * component: no client JS, no hydration, and one image request shared by every

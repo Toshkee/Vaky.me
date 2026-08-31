@@ -115,7 +115,7 @@ export function Workstation() {
       <div className="tony-track flex items-end justify-center gap-3 border-b-2 sm:gap-6">
         {/* monitor, stand and desk — one column that ends on the ground line */}
         <div className="w-full max-w-[350px] min-w-0">
-          <PixelWindow title="VIBELAB OS">
+          <PixelWindow title="VAKY OS">
             <div className="p-4 sm:p-5">
               <p aria-hidden="true" className="px text-[1.3rem] leading-none">
                 {SCREEN[phase]}

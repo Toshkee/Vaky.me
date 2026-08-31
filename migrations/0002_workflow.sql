@@ -1,4 +1,4 @@
--- VibeLab internal workflow: leads, projects, private onboarding links,
+-- Vaky internal workflow: leads, projects, private onboarding links,
 -- notes, build briefs, activity.
 --
 --   npx wrangler d1 migrations apply vibelab-onboarding --local -c wrangler.local.jsonc
@@ -12,7 +12,7 @@
 -- ── Leads ───────────────────────────────────────────────────────────────
 --
 -- One row per enquiry from the public "Zatraži ponudu" form. A lead is not a
--- client: it becomes one only when VibeLab and the person agree a package and
+-- client: it becomes one only when Vaky and the person agree a package and
 -- a price outside the site, at which point a project is created and
 -- `project_id` points at it.
 --
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS leads (
   created_at     TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at     TEXT NOT NULL DEFAULT (datetime('now')),
 
-  -- Whether VibeLab was told, same contract as on submissions: the database
+  -- Whether Vaky was told, same contract as on submissions: the database
   -- is the record, the email is a courtesy, and a lead whose email failed is
   -- visible as such instead of silently unread.
   notified_at    TEXT,

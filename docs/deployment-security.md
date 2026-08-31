@@ -1,7 +1,7 @@
 # Deployment security — steps that live outside the repository
 
-> **Where the site actually is.** `vibelab.it.com` is served by **Cloudflare
-> Pages**, built from the GitHub repository — a `git push` deploys the public
+> **Production target.** `vaky.me` is served by **Cloudflare Pages** once its
+> custom domain and DNS are connected. A `git push` then deploys the public
 > site. There is one host and one set of config files.
 >
 > Response headers live in `public/_headers`. Next copies everything in
@@ -16,7 +16,7 @@ this list is dashboard and DNS work: Cloudflare is authoritative at the edge,
 and mail authentication is a property of the domain, not of the site. Nothing
 here is done by pushing code.
 
-Run `npm run test:security https://vibelab.it.com` after each change — it is
+Run `npm run test:security https://vaky.me` after each change — it is
 the fastest way to see which of these actually took effect.
 
 ---
@@ -41,7 +41,7 @@ gains a rendering server.
 proxied response can still be rewritten at the edge.
 
 ```bash
-curl -sI https://vibelab.it.com/ | grep -iE 'content-security|frame-options|strict-transport|permissions-policy|referrer|content-type-options|opener'
+curl -sI https://vaky.me/ | grep -iE 'content-security|frame-options|strict-transport|permissions-policy|referrer|content-type-options|opener'
 ```
 
 If a header is missing from that output but present in `public/_headers`, reproduce
@@ -68,32 +68,45 @@ away, and both hostnames answering 200 with identical HTML. The canonical tag
 kept search engines pointed at the apex, but a canonical is a hint and a 301
 is an instruction.
 
-The live rule is a **Redirect Rule**, named `www to apex (301)`, built from
-Cloudflare's own "Redirect from WWW to root" template:
+After both custom domains are active in Pages, create a **Redirect Rule** named
+`www to apex (301)` from Cloudflare's "Redirect from WWW to root" template:
 
 - **When:** wildcard pattern `https://www.*`
 - **Then:** 301 to `https://${1}`
 
-To recreate it: Rules → **Redirect Rules** → Create rule → Templates →
-"Redirect from WWW to root". Deploy it unchanged.
+To create it: Rules → **Redirect Rules** → Create rule → Templates →
+"Redirect from WWW to root". Deploy it unchanged, then verify it with a path
+and query string rather than testing only the homepage.
 
-Two things that look wrong but are not. Cloudflare warns on deploy that `www`
-may not be a proxied DNS record and the rule may not fire — ignore it and
-deploy anyway. `www` reaches Cloudflare as a Pages custom domain, which the
-Rules UI does not recognise as a zone DNS record. Do **not** accept its offer
-to create a proxied `www` record; that can collide with the Pages custom
-domain. Second, leave **Preserve query string** unchecked — `${1}` already
-captures the full URI, query string included, and ticking the box risks
-duplicating it. Both were verified against production.
+If Cloudflare warns that `www` is not a proxied DNS record, first confirm that
+`www.vaky.me` is listed and active as a Pages custom domain. Do not create a
+second, competing DNS record for it. Leave **Preserve query string** unchecked
+for this template: `${1}` contains the URI that the wildcard matched. The
+verification below is the source of truth.
 
 Also confirm SSL/TLS → Edge Certificates → **Always Use HTTPS: on**.
 
 Verify:
 
 ```bash
-curl -sI https://www.vibelab.it.com/ | head -3      # expect 301 → https://vibelab.it.com/
-curl -sI http://vibelab.it.com/ | head -3           # expect 301 → https
+curl -sI https://www.vaky.me/ | head -3      # expect 301 → https://vaky.me/
+curl -sI "https://www.vaky.me/en/?src=www"   # expect Location: https://vaky.me/en/?src=www
+curl -sI http://vaky.me/ | head -3           # expect 301 → https
 ```
+
+### Previous-domain migration
+
+Keep `vibelab.it.com` active as a redirect-only domain after Vaky.me launches.
+Create a permanent Cloudflare Redirect Rule on the old zone with this outcome:
+
+- `https://vibelab.it.com/<path>?<query>` → `https://vaky.me/<path>?<query>`
+- status **301**;
+- path and query string preserved;
+- no redirect chain through `www`.
+
+Test at least `/`, `/en/`, `/privacy/`, and one old shared demo URL before
+announcing the new domain. Keep the redirect for at least 12 months; keeping it
+indefinitely is better if the old domain remains inexpensive.
 
 ## 3. DNSSEC and CAA
 
@@ -102,8 +115,8 @@ curl -sI http://vibelab.it.com/ | head -3           # expect 301 → https
 - CAA: do **not** guess the issuer set. List what is actually in use first:
 
   ```bash
-  dig +short CAA vibelab.it.com
-  openssl s_client -connect vibelab.it.com:443 -servername vibelab.it.com </dev/null 2>/dev/null | openssl x509 -noout -issuer
+  dig +short CAA vaky.me
+  openssl s_client -connect vaky.me:443 -servername vaky.me </dev/null 2>/dev/null | openssl x509 -noout -issuer
   ```
 
   Cloudflare's Universal SSL rotates between issuers (Let's Encrypt, Google
@@ -115,22 +128,23 @@ curl -sI http://vibelab.it.com/ | head -3           # expect 301 → https
 
 ## 4. Mail: SPF, DKIM, DMARC
 
-The domain has SPF with a soft fail and **no DMARC record**, so anyone can send
-mail as `@vibelab.it.com` and nothing tells receivers to distrust it. Fix it in
-this order — publishing `p=reject` first would silently drop real mail.
+Do not copy the old domain's mail assumptions to Vaky.me. Inspect the new
+domain after its DNS zone exists, inventory every sender you actually enable,
+and then configure authentication in this order. Publishing `p=reject` before
+legitimate mail is aligned can silently drop real mail.
 
 1. **Inventory every legitimate sender.** Registrar forwarding, Gmail
    "send mail as", any transactional provider. Write the list down here.
 2. **Enable DKIM at each one** and publish the selector records it gives you.
-   Verify each: `dig +short <selector>._domainkey.vibelab.it.com TXT`.
+   Verify each: `dig +short <selector>._domainkey.vaky.me TXT`.
 3. **Rewrite SPF** to exactly those senders, one record, ending in `-all` only
    after step 6. Keep the lookup count under 10.
-4. **Create a reports mailbox** (`dmarc@vibelab.it.com` forwarding somewhere
+4. **Create a reports mailbox** (`dmarc@vaky.me` forwarding somewhere
    real, or a reporting service).
-5. **Publish monitoring DMARC** at `_dmarc.vibelab.it.com`:
+5. **Publish monitoring DMARC** at `_dmarc.vaky.me`:
 
    ```
-   v=DMARC1; p=none; adkim=s; aspf=s; rua=mailto:dmarc@vibelab.it.com; fo=1
+   v=DMARC1; p=none; adkim=s; aspf=s; rua=mailto:dmarc@vaky.me; fo=1
    ```
 
 6. **Read reports for at least 14 days.** Every source that is legitimate must
@@ -138,7 +152,7 @@ this order — publishing `p=reject` first would silently drop real mail.
 7. **Quarantine gradually:** `p=quarantine; pct=25` → a week → `pct=100`.
 8. **Enforce:** `p=reject`, once nothing legitimate is failing.
 
-Verify at each step: `dig +short TXT _dmarc.vibelab.it.com`.
+Verify at each step: `dig +short TXT _dmarc.vaky.me`.
 
 ## 5. Repository security
 
@@ -207,11 +221,11 @@ mechanism; a Function's response never passes through it, and Pages answers
 Functions with `Access-Control-Allow-Origin: *` by default. The API's headers
 are therefore set in code, in `functions/api/_middleware.ts` — `nosniff`,
 `no-store`, `Referrer-Policy`, `Cross-Origin-Resource-Policy` and an ACAO
-narrowed to `https://vibelab.it.com`. If that file is ever moved or deleted,
+narrowed to `https://vaky.me`. If that file is ever moved or deleted,
 the API silently becomes world-readable cross-origin. Verify with:
 
 ```bash
-curl -sI -X POST https://vibelab.it.com/api/onboarding/session | grep -i 'access-control\|content-type-options'
+curl -sI -X POST https://vaky.me/api/onboarding/session | grep -i 'access-control\|content-type-options'
 ```
 
 **Keep the middleware under `functions/api/`, not at the root of `functions/`.**
@@ -252,7 +266,7 @@ record that permission in this file before putting them back.
 ```bash
 npm run build
 npm run typecheck
-npm run test:security https://vibelab.it.com
+npm run test:security https://vaky.me
 ```
 
 Then confirm by hand, once:
@@ -260,6 +274,6 @@ Then confirm by hand, once:
 - The site cannot be framed — CSP `frame-ancestors 'none'` plus `X-Frame-Options`.
 - No CSP violations in the browser console on `/`, `/en/` and each demo.
 - The map loads only after the button, in both mouse and keyboard use.
-- `dig +short TXT _dmarc.vibelab.it.com` returns the expected policy.
+- `dig +short TXT _dmarc.vaky.me` returns the expected policy.
 - `/start/` loads, a test brief submits, and the row appears in D1
   (`npx wrangler d1 execute vibelab-onboarding --remote --command "SELECT id, business_name, notify_error FROM onboarding_submissions ORDER BY created_at DESC LIMIT 1"`).

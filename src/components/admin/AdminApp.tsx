@@ -148,7 +148,7 @@ export function AdminApp() {
       <header className="border-b-2 border-ink bg-paper">
         <div className="shell flex h-14 items-center justify-between gap-3">
           <span className="px text-[1.35rem] leading-none tracking-wide uppercase">
-            VibeLab Admin
+            Vaky Admin
           </span>
           <button type="button" onClick={() => void signOut()} className={buttonClass}>
             Odjava

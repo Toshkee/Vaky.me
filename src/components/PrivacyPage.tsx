@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/i18n";
 import { hasAnalytics, hasCloudflareAnalytics, hasTurnstile } from "@/config/services";
 import { site } from "@/config/site";
 import { Footer } from "@/components/landing/Footer";
+import { BrandWordmark } from "@/components/BrandWordmark";
 
 /**
  * The privacy note, built from the same dictionary as the rest of the site and
@@ -36,14 +36,7 @@ export function PrivacyPage({ dict }: { dict: Dictionary }) {
       <header className="border-b-2 border-ink">
         <div className="shell flex h-16 items-center justify-between gap-4">
           <Link href={home} className="tap shrink-0">
-            <Image
-              src="/logo-lockup.png"
-              alt={site.name}
-              width={323}
-              height={96}
-              priority
-              className="h-9 w-auto sm:h-10"
-            />
+            <BrandWordmark className="text-[1.85rem] leading-none sm:text-[2rem]" />
           </Link>
           <Link
             href={dict.lang === "en" ? "/privacy/" : "/en/privacy/"}

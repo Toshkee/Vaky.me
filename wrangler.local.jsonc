@@ -10,6 +10,10 @@
 // `pages_build_output_dir` and without the production bindings would replace
 // working dashboard settings on the next deploy.
 //
+// The D1 and R2 names below are legacy provider resource IDs. They stay as-is
+// through the Vaky rebrand so local tooling continues to match production and
+// no stored client data needs to move.
+//
 // It exists so `wrangler d1` commands know which database to talk to when they
 // are pointed at it explicitly:
 //

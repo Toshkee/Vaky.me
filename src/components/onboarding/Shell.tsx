@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import type { OnboardingCopy } from "@/i18n/onboarding";
 import { OsBadge } from "@/components/ui/OsBadge";
+import { BrandWordmark } from "@/components/BrandWordmark";
 import { fill } from "./copy";
 
 /**
@@ -12,7 +12,7 @@ import { fill } from "./copy";
  * Deliberately not the site's `Nav`. That masthead's links point at sections of
  * the landing page, and its language toggle is a link to `/en/` — on this route
  * both would throw away a half-filled form. What a client filling in a brief
- * needs from a header is three things: that this is VibeLab, which package they
+ * needs from a header is three things: that this is Vaky, which package they
  * are answering for, and how to switch language without losing anything.
  */
 export function Shell({
@@ -38,14 +38,7 @@ export function Shell({
       <header className="border-b-2 border-ink bg-paper">
         <div className="shell flex h-14 items-center justify-between gap-3 sm:h-16">
           <Link href="/" className="tap shrink-0">
-            <Image
-              src="/logo-lockup.png"
-              alt="VibeLab"
-              width={323}
-              height={96}
-              priority
-              className="h-8 w-auto sm:h-9"
-            />
+            <BrandWordmark className="text-[1.7rem] leading-none sm:text-[1.85rem]" />
           </Link>
 
           <div className="flex items-center gap-2 sm:gap-3">
@@ -93,7 +86,10 @@ export function Shell({
 
       <footer className="shell w-full pt-2 pb-8 text-xs leading-relaxed text-muted">
         {showDraftNote && `${copy.chrome.draftNote} `}
-        <Link href="/" className="underline decoration-line underline-offset-4 hover:text-red">
+        <Link
+          href="/"
+          className="inline-flex min-h-11 items-center underline decoration-line underline-offset-4 hover:text-red"
+        >
           {copy.chrome.home}
         </Link>
       </footer>

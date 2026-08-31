@@ -84,7 +84,7 @@ export const en: Dictionary = {
   },
 
   why: {
-    title: "Why VibeLab?",
+    title: "Why Vaky?",
     sub: "Website development in Montenegro — a simple process, a clear agreement and a site that works for your business.",
     items: [
       {
@@ -354,7 +354,7 @@ export const en: Dictionary = {
 
   privacy: {
     title: "Privacy",
-    updated: "Updated 30 August 2026.",
+    updated: "Updated 31 August 2026.",
     intro:
       "This site is a small studio's calling card. There are no accounts, no logins and nothing is sold here — so there is no reason for us to know anything about you beyond what you send us yourself.",
     sections: [
@@ -362,7 +362,7 @@ export const en: Dictionary = {
         when: "always",
         title: "Who handles your data",
         body: [
-          "VibeLab, a web studio in Montenegro. For anything about your data, write to vibecodemne@gmail.com.",
+          "Vaky, a web studio in Montenegro. For anything about your data, write to vakymne@gmail.com.",
         ],
       },
       {
@@ -370,15 +370,15 @@ export const en: Dictionary = {
         title: "When you send an enquiry through the site",
         body: [
           "The form posts to our own server at Cloudflare and the enquiry is stored in our database. Only what you typed is sent: your name, business name, email, phone, link, what you need and your message — plus the page language. A copy of the same enquiry also reaches us by email.",
-          "We use it to reply to you and to put together a quote, and for nothing else. No newsletter, no sharing with third parties, no advertising. We delete the enquiry once the conversation is over, and within a year at the latest; you can ask for deletion sooner, at vibecodemne@gmail.com.",
+          "We use it to reply to you and to put together a quote, and for nothing else. No newsletter, no sharing with third parties, no advertising. We delete the enquiry once the conversation is over, and within a year at the latest; you can ask for deletion sooner, at vakymne@gmail.com.",
           "Nothing is paid through the site and we never ask for card details. To protect the form from abuse we record an irreversibly hashed form of your IP address so we can limit repeated attempts — your address cannot be read back from it.",
         ],
       },
       {
         when: "always",
-        title: "When you write by email or Instagram",
+        title: "When you write by email",
         body: [
-          "Those buttons only open your mail app or Instagram with a message already written. The site never sees or stores what you send that way — from there it is Google's or Meta's terms, depending on where you write.",
+          "That button only opens your mail app with a message already written. The site never sees or stores what you send that way — from there your email provider's terms apply.",
         ],
       },
       {
@@ -386,7 +386,7 @@ export const en: Dictionary = {
         title: "When you fill in the project start form",
         body: [
           "Once we have agreed on the work, we send you a private questionnaire link, and that is where you send us what we need to build the site. Only what you type and attach is sent: business name, your name, email, phone, your answers, and the files you choose.",
-          "Answers are stored in our database at Cloudflare, and files in private storage that cannot be reached from the internet without a signed link that expires. We use them solely to build your site — we do not share them with anyone and do not use them for advertising. We keep them for as long as we work together and at most a year after that; you can ask for deletion sooner, at vibecodemne@gmail.com.",
+          "Answers are stored in our database at Cloudflare, and files in private storage that cannot be reached from the internet without a signed link that expires. We use them solely to build your site — we do not share them with anyone and do not use them for advertising. We keep them for as long as we work together and at most a year after that; you can ask for deletion sooner, at vakymne@gmail.com.",
           "While you are filling it in, your answers are kept in your browser's own storage so you do not lose them if you close the page. That stays on your device, is cleared as soon as you send, and is not a cookie. Files are never kept there.",
           "We never ask for passwords. To protect the form from abuse we record an irreversibly hashed form of your IP address so we can limit repeated attempts — your address cannot be read back from it, and it is not linked to your answers.",
         ],
@@ -438,9 +438,9 @@ export const en: Dictionary = {
   },
 
   meta: {
-    title: "Website Development Montenegro — from €200, within 10 days | VibeLab",
+    title: "Website Development Montenegro — from €200, within 10 days | Vaky",
     description:
-      "Website design and development in Montenegro. A modern site for your business — from €200, live within 10 days. Free concept before you pay. VibeLab, Podgorica.",
+      "Website design and development in Montenegro. A modern site for your business — from €200, live within 10 days. Free concept before you pay. Vaky, Podgorica.",
     serviceTypes: ["Website development", "Web design", "Website maintenance"],
   },
 };

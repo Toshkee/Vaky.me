@@ -4,7 +4,7 @@
  *  - 16-grid glyphs (check, arrow, plus, dash) — inline marks that sit in
  *    running text and lists. Render at 16px: one unit per CSS pixel.
  *  - 12-grid pixel art, authored as character grids below — section markers,
- *    card illustrations and the VibeLab OS furniture. Render at multiples of
+ *    card illustrations and the Vaky OS furniture. Render at multiples of
  *    12 (24px headers, 48px card art) so every cell lands on whole pixels.
  *
  * The grids are the source of truth: `#` is ink (currentColor), `R` is the

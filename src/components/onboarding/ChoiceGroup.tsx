@@ -10,7 +10,7 @@ import type { Option } from "@/lib/onboarding/schema";
  * it. The drawn box beside the text is decoration over that, never instead
  * of it.
  *
- * "Nisam siguran / neka VibeLab predloži" is an `exclusive` option: choosing it
+ * "Nisam siguran / neka Vaky predloži" is an `exclusive` option: choosing it
  * clears the rest, and choosing anything else clears it. Holding both says
  * nothing, and letting a client submit that means reading a brief that
  * contradicts itself.

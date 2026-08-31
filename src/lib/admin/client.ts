@@ -20,7 +20,7 @@ const BASE = "/api/admin";
 
 /** Dispatched on any 401, so the app can drop back to the login screen from
  *  wherever the cookie expired rather than leaving a dead view on screen. */
-export const SESSION_LOST = "vibelab:admin-session-lost";
+export const SESSION_LOST = "vaky:admin-session-lost";
 
 export type ApiResult<T> = { ok: true; data: T } | { ok: false; code: ApiErrorCode };
 

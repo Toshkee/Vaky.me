@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Albert_Sans } from "next/font/google";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { InstagramIcon } from "@/components/demo/ContactIcons";
 import { firstVisit, formats, languages, method, studio } from "./data";
 import { StickyBookingBar } from "./StickyBookingBar";
@@ -109,7 +109,7 @@ export default function TeloPilatesPage() {
     <div
       className={`${styles.page} ${sans.variable} min-h-screen bg-[var(--telo-chalk)] text-[var(--telo-ink)] [font-family:var(--font-telo-sans),system-ui,sans-serif]`}
     >
-      <VibeLabBar />
+      <VakyBar />
 
       {/* Header and hero share one unbroken ink field — the poster ground —
           so the page opens on full contrast instead of easing into it. */}
@@ -452,7 +452,7 @@ export default function TeloPilatesPage() {
               href="/"
               className={`inline-flex min-h-11 items-center font-semibold text-[var(--telo-ink)] hover:underline ${focusOnLight}`}
             >
-              VibeLab
+              Vaky
             </Link>
           </p>
         </div>

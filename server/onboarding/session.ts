@@ -23,7 +23,7 @@ export type IssuedSession = {
 };
 
 /** Signs an upload token for one existing submission id — since onboarding
- *  moved to private links, the id is the request row's, minted when VibeLab
+ *  moved to private links, the id is the request row's, minted when Vaky
  *  created the link, so every upload lands under the one brief it belongs to. */
 export async function issueSessionFor(
   secret: string,

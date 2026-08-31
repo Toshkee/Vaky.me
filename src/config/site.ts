@@ -1,17 +1,13 @@
 /** Central brand and public contact configuration. */
 export const site = {
-  name: "VibeLab",
+  name: "Vaky",
   /* This value feeds every canonical tag, the sitemap, robots.txt and the
-     JSON-LD @id, so it may only ever name a domain we actually control —
-     vibelab.me and vibecode.me are both registered to other people and must
-     never appear here. vibelab.it.com is ours (bought 2026-08-27).
+     JSON-LD @id. Connect vaky.me to Cloudflare Pages before publishing this
+     build so canonical links never point at an unserved host. */
+  url: "https://vaky.me",
 
-     Flip this only once the domain actually serves the site: shipping it
-     while DNS still points nowhere aims every canonical at a dead host. */
-  url: "https://vibelab.it.com",
-
-  instagram: "vibelab.me",
-  email: "vibecodemne@gmail.com",
+  instagram: "vaky.me",
+  email: "vakymne@gmail.com",
 
   city: "Podgorica",
 } as const;

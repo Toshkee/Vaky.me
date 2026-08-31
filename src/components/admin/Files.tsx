@@ -67,7 +67,7 @@ export function Files({
           onChanged={onChanged}
         />
         <FileGroup
-          title="VibeLab dodao"
+          title="Vaky dodao"
           files={fromStudio}
           empty="Nema fajlova koje je studio dodao."
           onChanged={onChanged}

@@ -18,7 +18,7 @@ export function Success({
   submissionId: string;
 }) {
   return (
-    <PixelWindow title="VIBELAB OS">
+    <PixelWindow title="VAKY OS">
       <div className="grid gap-6 p-5 sm:p-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
         <div>
           {/* Every screen on this route names its heading the same way, and

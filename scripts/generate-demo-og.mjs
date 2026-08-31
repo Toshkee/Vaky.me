@@ -73,7 +73,7 @@ const cards = [
       <text x="100" y="378" fill="#b86f5c" font-family="Georgia, serif" font-size="82" font-style="italic">Prisustvo.</text>
       <text x="100" y="452" fill="#5a5049" font-family="Arial, sans-serif" font-size="26">Crnogorskih Serdara 45, Podgorica</text>
       <path d="M100 512h560" stroke="#171411" stroke-opacity=".2" stroke-width="1"/>
-      <text x="100" y="556" fill="#171411" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+      <text x="100" y="556" fill="#171411" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VAKY</text>
     </svg>`,
   },
   {
@@ -89,7 +89,7 @@ const cards = [
       <text x="92" y="392" fill="#090909" font-family="Arial Black, Arial, sans-serif" font-size="92" font-weight="900">SE CRTAMO.</text>
       <path d="M96 448h620" stroke="#8e302c" stroke-width="6"/>
       <text x="96" y="502" fill="#69645e" font-family="Courier New, monospace" font-size="23" letter-spacing="2">SARAJEVSKA 53, MASLINE, PODGORICA</text>
-      <text x="96" y="556" fill="#090909" font-family="Courier New, monospace" font-size="23" letter-spacing="4">DIZAJN KONCEPT · VIBELAB</text>
+      <text x="96" y="556" fill="#090909" font-family="Courier New, monospace" font-size="23" letter-spacing="4">DIZAJN KONCEPT · VAKY</text>
     </svg>`,
   },
   {
@@ -105,7 +105,7 @@ const cards = [
       <text x="104" y="364" fill="#111" font-family="Georgia, serif" font-size="64">Termin biraš online.</text>
       <text x="104" y="436" fill="#5c5751" font-family="Arial, sans-serif" font-size="25">Master kvart · Online rezervacija</text>
       <path d="M104 492h560" stroke="#c81d31" stroke-width="3"/>
-      <text x="104" y="546" fill="#111" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+      <text x="104" y="546" fill="#111" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VAKY</text>
     </svg>`,
   },
   /* ── Second outreach wave (avgust 2026) ──────────────────────────
@@ -126,7 +126,7 @@ const cards = [
       <path d="M132 512C400 448 780 448 1052 506" stroke="#131309" stroke-width="4" fill="none"/>
       <circle cx="1052" cy="506" r="9" fill="#131309"/>
       <text x="96" y="576" fill="#6B6C5C" font-family="Arial, sans-serif" font-size="23">Vektra, Podgorica · Rezervacija bez suvišnih koraka</text>
-      <text x="700" y="576" fill="#131309" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+      <text x="700" y="576" fill="#131309" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VAKY</text>
     </svg>`,
   },
   {
@@ -142,7 +142,7 @@ const cards = [
       <text x="96" y="452" fill="#0f6e72" font-family="Georgia, serif" font-size="40" font-style="italic">Jedan pažljiv pristup.</text>
       <path d="M96 496h1008" stroke="#12263a" stroke-opacity=".25" stroke-width="1"/>
       <text x="96" y="546" fill="#12263a" fill-opacity=".7" font-family="Arial, sans-serif" font-size="22" letter-spacing="3">01 STOMATOLOGIJA · 02 ORALNA HIRURGIJA · 03 ESTETSKI RAD</text>
-      <text x="96" y="592" fill="#12263a" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+      <text x="96" y="592" fill="#12263a" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VAKY</text>
     </svg>`,
   },
   {
@@ -158,7 +158,7 @@ const cards = [
       <text x="96" y="450" fill="#1B1418" font-family="Georgia, serif" font-size="78">da budeš svoja.</text>
       <path d="M96 500h120" stroke="#C9A227" stroke-width="4"/>
       <text x="96" y="552" fill="#1B1418" fill-opacity=".7" font-family="Arial, sans-serif" font-size="24" letter-spacing="4">SALON · BRAIDS · KIDS</text>
-      <text x="96" y="596" fill="#1B1418" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+      <text x="96" y="596" fill="#1B1418" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VAKY</text>
     </svg>`,
   },
   {
@@ -173,7 +173,7 @@ const cards = [
       <text x="96" y="388" fill="#15171B" font-family="Georgia, serif" font-size="74">ostaje <tspan font-style="italic" fill="#94505C">prirodna.</tspan></text>
       <text x="96" y="486" fill="#15171B" fill-opacity=".7" font-family="Arial, sans-serif" font-size="24" letter-spacing="3">Tretmani · Permanent makeup · Edukacije</text>
       <path d="M96 528h740" stroke="#15171B" stroke-opacity=".2" stroke-width="1"/>
-      <text x="96" y="576" fill="#15171B" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+      <text x="96" y="576" fill="#15171B" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VAKY</text>
       <text x="1060" y="576" text-anchor="middle" fill="#F1F2F4" font-family="Georgia, serif" font-size="30" font-style="italic">Mila</text>
     </svg>`,
   },
@@ -205,7 +205,7 @@ const cards = [
       <text x="98" y="268" fill="#2B1F17" font-family="Georgia, serif" font-size="72">Njega koja počinje</text>
       <text x="98" y="352" fill="#2B1F17" font-family="Georgia, serif" font-size="72">slušanjem kože.</text>
       <text x="98" y="446" fill="#6B5D4E" font-family="Arial, sans-serif" font-size="27">Lice · Tijelo · Masaže · Pogled</text>
-      <text x="88" y="576" fill="#2B1F17" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+      <text x="88" y="576" fill="#2B1F17" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VAKY</text>
     </svg>`,
   },
   {
@@ -220,7 +220,7 @@ const cards = [
       <text x="96" y="292" fill="#14302c" font-family="Georgia, 'Times New Roman', serif" font-size="104"><tspan font-style="italic">Ritam</tspan> koji možeš</text>
       <text x="96" y="404" fill="#14302c" font-family="Georgia, 'Times New Roman', serif" font-size="104">da održiš<tspan fill="#d2856c">.</tspan></text>
       <text x="96" y="578" fill="#5c6360" font-family="Arial, sans-serif" font-size="23">Grupni i personalni trening · Podgorica</text>
-      <text x="1104" y="578" text-anchor="end" fill="#14302c" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VIBELAB</text>
+      <text x="1104" y="578" text-anchor="end" fill="#14302c" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="6">DIZAJN KONCEPT · VAKY</text>
     </svg>`,
   },
   {
@@ -241,7 +241,7 @@ const cards = [
       <text x="96" y="358" fill="#ECEFEE" font-family="Arial, sans-serif" font-size="106" letter-spacing="-2">postaje</text>
       <text x="96" y="460" fill="#ECEFEE" font-family="Arial, sans-serif" font-size="106" letter-spacing="-2">trag<tspan fill="#5CF2C0">.</tspan></text>
       <text x="96" y="576" fill="#8C9498" font-family="Arial, sans-serif" font-size="26">Tattoos &amp; Piercing · Podgorica</text>
-      <text x="760" y="576" fill="#ECEFEE" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="5">DIZAJN KONCEPT · VIBELAB</text>
+      <text x="760" y="576" fill="#ECEFEE" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="5">DIZAJN KONCEPT · VAKY</text>
     </svg>`,
   },
 ];

@@ -14,7 +14,7 @@ import {
  * changing the package or the answers can never leave a stale warning behind.
  *
  * The final commercial call — upgrade, add-on, include it, decline it — is
- * VibeLab's, made outside this code.
+ * Vaky's, made outside this code.
  */
 
 export type ScopeWarning = {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Onest, Unbounded } from "next/font/google";
 import { DemoPhoto } from "@/components/demo/DemoPhoto";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { brief, heroWork, strands, studio, studioFront, works } from "./data";
 import styles from "./sky.module.css";
 
@@ -110,7 +110,7 @@ export default function SkylineTattooPage() {
     <div
       className={`${styles.page} ${display.variable} ${text.variable} min-h-screen bg-[var(--sky-black)] text-[var(--sky-bone)] [font-family:var(--font-sky-text),system-ui,sans-serif]`}
     >
-      <VibeLabBar />
+      <VakyBar />
 
       {/* The header carries no controls at all. On a one-screen cinematic
           portfolio a button pinned above the title competes with the title;
@@ -562,7 +562,7 @@ export default function SkylineTattooPage() {
               href="/"
               className={`inline-flex min-h-11 items-center font-semibold text-[var(--sky-bone)] hover:underline ${ring}`}
             >
-              VibeLab
+              Vaky
             </Link>
           </p>
         </div>

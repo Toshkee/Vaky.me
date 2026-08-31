@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fraunces, Karla } from "next/font/google";
 import { MapEmbed } from "@/components/demo/MapEmbed";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { menuCategories } from "./data";
 
 const display = Fraunces({ subsets: ["latin", "latin-ext"], display: "swap", variable: "--font-skadar-display", axes: ["opsz", "SOFT", "WONK"] });
@@ -18,7 +18,7 @@ const primary = `inline-flex min-h-12 items-center justify-center bg-[#dfa15c] p
 
 export default function KonobaSkadarPage() {
   return <div className={`${display.variable} ${sans.variable} min-h-screen bg-[#101d24] pb-20 text-[#f2e9d8] [font-family:var(--font-skadar-sans),Arial,sans-serif] md:pb-0`}>
-    <VibeLabBar />
+    <VakyBar />
     <header className="border-b border-[#f2e9d8]/15 bg-[#101d24]"><div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-5 py-3 sm:px-8"><a href="#vrh" className={`${serif} inline-flex min-h-11 items-center text-xl tracking-tight ${focus}`}>Konoba Skadar</a><nav aria-label="Glavna navigacija" className="hidden items-center gap-7 md:flex"><a href="#jelovnik" className={`${label} hover:text-[#dfa15c] ${focus}`}>Jelovnik</a><a href="#prica" className={`${label} hover:text-[#dfa15c] ${focus}`}>O nama</a><a href="#lokacija" className={`${label} hover:text-[#dfa15c] ${focus}`}>Lokacija</a></nav><a href="tel:+38267000000" className={`hidden min-h-10 items-center border border-[#dfa15c]/70 px-4 text-xs font-bold text-[#dfa15c] transition-colors hover:bg-[#dfa15c] hover:text-[#1b2a33] sm:inline-flex ${focus}`}>Rezerviši sto</a></div></header>
     <main id="vrh">
       <section className="relative isolate overflow-hidden border-b border-[#dfa15c]/30">
@@ -59,7 +59,7 @@ export default function KonobaSkadarPage() {
         </div>
       </section>
     </main>
-    <footer className="border-t border-[#f2e9d8]/15 bg-[#0c161c]"><div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-10 sm:flex-row sm:items-end sm:justify-between sm:px-8"><p className={`${serif} text-xl`}>Konoba Skadar</p><p className="text-xs text-[#f2e9d8]/60">Koncept: <Link href="/" className={`font-bold text-[#f2e9d8] hover:text-[#dfa15c] ${focus}`}>VibeLab</Link></p></div></footer>
+    <footer className="border-t border-[#f2e9d8]/15 bg-[#0c161c]"><div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-10 sm:flex-row sm:items-end sm:justify-between sm:px-8"><p className={`${serif} text-xl`}>Konoba Skadar</p><p className="text-xs text-[#f2e9d8]/60">Koncept: <Link href="/" className={`font-bold text-[#f2e9d8] hover:text-[#dfa15c] ${focus}`}>Vaky</Link></p></div></footer>
     <a href="tel:+38267000000" className={`fixed inset-x-4 bottom-4 z-50 inline-flex min-h-14 items-center justify-center bg-[#dfa15c] px-5 text-sm font-bold text-[#1b2a33] shadow-xl md:hidden ${focus}`}>Rezerviši sto</a>
   </div>;
 }

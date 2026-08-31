@@ -14,9 +14,9 @@ export const en: OnboardingCopy = {
   htmlLang: "en",
 
   meta: {
-    title: "Start your project | VibeLab",
+    title: "Start your project | Vaky",
     description:
-      "A short questionnaire for VibeLab clients: tell us about your business, send us your materials, and we start building.",
+      "A short questionnaire for Vaky clients: tell us about your business, send us your materials, and we start building.",
   },
 
   gate: {
@@ -76,7 +76,7 @@ export const en: OnboardingCopy = {
     otherLanguage: "Crnogorski",
     draftNote: "Your answers are saved on this device until you send them.",
     errorSummary: "Please check the highlighted fields.",
-    home: "vibelab.it.com",
+    home: "vaky.me",
     packageNotes: {
       start: "Your site is one scrolling page — here we choose what goes on it.",
       business: "Your package covers up to five separate pages.",
@@ -186,7 +186,7 @@ export const en: OnboardingCopy = {
         "sell-products": "Sell products",
         "take-bookings": "Take bookings",
         "look-professional": "Look more professional online",
-        "not-sure": "I'm not sure — let VibeLab recommend",
+        "not-sure": "I'm not sure — let Vaky recommend",
         other: "Something else",
       },
     },
@@ -207,7 +207,7 @@ export const en: OnboardingCopy = {
         social: "Links to social media",
         "contact-form": "Contact form",
         other: "Something else",
-        "not-sure": "I'm not sure — let VibeLab suggest the structure",
+        "not-sure": "I'm not sure — let Vaky suggest the structure",
       },
     },
     sectionsOther: { label: "What else?", placeholder: "Tell us briefly." },
@@ -226,7 +226,7 @@ export const en: OnboardingCopy = {
         shop: "Shop",
         booking: "Bookings",
         other: "Something else",
-        "not-sure": "I'm not sure — let VibeLab recommend",
+        "not-sure": "I'm not sure — let Vaky recommend",
       },
     },
     pagesOther: { label: "Which other page?", placeholder: "e.g. Our team" },
@@ -243,7 +243,7 @@ export const en: OnboardingCopy = {
         light: "Light and clean",
         playful: "Colourful and creative",
         corporate: "Serious and corporate",
-        "not-sure": "No particular idea — let VibeLab suggest",
+        "not-sure": "No particular idea — let Vaky suggest",
       },
     },
     inspiration: {
@@ -273,7 +273,7 @@ export const en: OnboardingCopy = {
         reviews: "Customer reviews",
         gallery: "Photo gallery",
         video: "Video",
-        "not-sure": "I'm not sure — let VibeLab recommend",
+        "not-sure": "I'm not sure — let Vaky recommend",
         other: "Something else",
       },
     },
@@ -444,7 +444,7 @@ export const en: OnboardingCopy = {
         all: "Yes, it's all ready",
         some: "I have some of it",
         none: "I don't have it",
-        help: "I'd like VibeLab to help with the text",
+        help: "I'd like Vaky to help with the text",
       },
     },
     logoStatus: {
@@ -480,12 +480,12 @@ export const en: OnboardingCopy = {
     /* ── Domain and finish ── */
     domainStatus: {
       label: "Do you already have a domain?",
-      help: "A domain is the site's address, for example vibelab.it.com.",
+      help: "A domain is the site's address, for example vaky.me.",
       options: { yes: "Yes", no: "No", "not-sure": "I'm not sure" },
     },
     domainName: { label: "Which domain do you have?", placeholder: "your-site.me" },
     domainHelp: {
-      label: "Would you like VibeLab to help you choose and set up a domain?",
+      label: "Would you like Vaky to help you choose and set up a domain?",
       options: { yes: "Yes, I'd like help", no: "No, we'll handle it" },
     },
     hostingPaying: {
@@ -531,16 +531,16 @@ export const en: OnboardingCopy = {
     unanswered: "Not answered",
     files: "Uploaded materials",
     noFiles: "You haven't uploaded any files. That's fine — we'll ask if we need something.",
-    submit: "Send project to VibeLab",
+    submit: "Send project to Vaky",
     sending: "Sending…",
   },
 
   success: {
     title: "Everything is ready 🚀",
-    body: "Thank you! Your answers and materials have been sent to VibeLab. We'll review everything and contact you with the next steps.",
+    body: "Thank you! Your answers and materials have been sent to Vaky. We'll review everything and contact you with the next steps.",
     refLabel: "Your project number",
     note: "Keep this number — it helps us find you faster if you write to us.",
-    home: "Back to vibelab.it.com",
+    home: "Back to vaky.me",
     tony: "Tony has everything he needs. 🫡",
   },
 

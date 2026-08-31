@@ -1,8 +1,8 @@
-# VibeLab
+# Vaky
 
-**VibeLab is a web studio from Podgorica, Montenegro.** We design fast, distinctive websites for small businesses that need to look credible online and make it easy for customers to take the next step.
+**Vaky is a web studio from Podgorica, Montenegro.** We design fast, distinctive websites for small businesses that need to look credible online and make it easy for customers to take the next step.
 
-Live site: [vibelab.it.com](https://vibelab.it.com)
+Production domain: [vaky.me](https://vaky.me) (connect it to Cloudflare Pages before launch)
 
 ## What we do
 
@@ -35,7 +35,7 @@ Most projects are ready within 10 days once we have the necessary content.
 | Project | From €600 | A custom build — shop, integrations, more languages; scope and final price agreed per project |
 
 A monthly care plan is available separately for €20/month. Package and price
-are agreed with VibeLab directly (Instagram, email, a call) before any work
+are agreed with Vaky directly through Instagram or email before any work
 starts — there is no checkout on the site itself.
 
 Every site is responsive and includes direct contact actions, a map/contact area, and the SEO essentials needed for search engines to understand it.
@@ -60,11 +60,12 @@ The demos are concepts, not production websites. They show how a business can pr
 
 ## Contact
 
-Want a concept for your business? Reach VibeLab through [Instagram](https://instagram.com/vibelab.me) or email [vibecodemne@gmail.com](mailto:vibecodemne@gmail.com).
+Want a concept for your business? Reach Vaky on [Instagram](https://instagram.com/vaky.me)
+or at [vakymne@gmail.com](mailto:vakymne@gmail.com).
 
 ## About this website
 
-This repository contains the VibeLab website. It is bilingual (Montenegrin and English), built as a static Next.js export, and designed to be fast, accessible, and inexpensive to host.
+This repository contains the Vaky website. It is bilingual (Montenegrin and English), built as a static Next.js export, and designed to be fast, accessible, and inexpensive to host.
 
 ### Local development
 
@@ -108,6 +109,7 @@ everything that needs checking.
 |---|---|
 | [`docs/onboarding-setup.md`](docs/onboarding-setup.md) | The whole backend: lead intake, projects, private onboarding links, the admin dashboard, D1 and R2, secrets, migrations, the Build Brief, and how to deploy it |
 | [`docs/deployment-security.md`](docs/deployment-security.md) | Everything that lives outside the repository — response headers, canonical host, DNSSEC/CAA, mail authentication, the edge rate limit |
+| [`docs/vaky-launch-checklist.md`](docs/vaky-launch-checklist.md) | The rebrand cutover checklist: final assets, domain/DNS, environment values, old-domain redirect, and launch verification |
 | [`SECURITY.md`](SECURITY.md) | How to report a vulnerability, and what is in scope |
 | [`docs/plan.md`](docs/plan.md), [`docs/plan-review-log.md`](docs/plan-review-log.md) | Historical: the pixel/OS redesign plan and its review rounds. Kept as a record, not as instructions |
 

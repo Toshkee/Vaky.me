@@ -2,9 +2,9 @@
   "ci": {
     "collect": {
       "url": [
-        "https://vibelab.it.com/",
-        "https://vibelab.it.com/en/",
-        "https://vibelab.it.com/demo/barber-drina/"
+        "https://vaky.me/",
+        "https://vaky.me/en/",
+        "https://vaky.me/demo/barber-drina/"
       ],
       "numberOfRuns": 3,
       "settings": {

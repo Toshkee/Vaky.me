@@ -4,7 +4,7 @@ import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import { DemoPhoto } from "@/components/demo/DemoPhoto";
 import { InstagramIcon } from "@/components/demo/ContactIcons";
 import { MapEmbed } from "@/components/demo/MapEmbed";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { clinic, doorPhoto, fields, roomPhoto, steps, team } from "./data";
 import styles from "./dental.module.css";
 
@@ -96,7 +96,7 @@ export default function DentalClinicKovacevicPage() {
     <div
       className={`${styles.page} ${serifFont.variable} ${sansFont.variable} min-h-screen bg-[var(--dent-porcelain)] text-[var(--dent-navy)] [font-family:var(--font-dent-sans),system-ui,sans-serif]`}
     >
-      <VibeLabBar />
+      <VakyBar />
 
       {/* A single slim row: the clinic's name, and a quiet way to reach it on
           Instagram without repeating the same button in the masthead. */}
@@ -481,7 +481,7 @@ export default function DentalClinicKovacevicPage() {
               href="/"
               className={`-mb-3.5 inline-block py-3.5 font-semibold text-[var(--dent-navy)] hover:underline ${focus}`}
             >
-              VibeLab
+              Vaky
             </Link>
           </div>
         </div>

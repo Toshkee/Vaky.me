@@ -5,12 +5,12 @@ import { OsBadge } from "@/components/ui/OsBadge";
 import { Tony } from "@/components/mascot/Tony";
 import { dictionaries } from "@/i18n";
 import { onboardingCopy } from "@/i18n/onboarding";
-import { emailLink, instagramLink, site } from "@/config/site";
+import { emailLink, site } from "@/config/site";
 
 /**
  * What `/start/` is now: an explanation, not a form.
  *
- * The brief itself lives behind a link VibeLab sends once a project is agreed
+ * The brief itself lives behind a link Vaky sends once a project is agreed
  * — `/start/{token}/`, answered by `functions/start/[token].ts`. Anyone who
  * arrives at the bare path either mistyped their link or found the URL some
  * other way, and both deserve a sentence telling them what this is instead of
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 export default function StartPage() {
   return (
     <main className="shell w-full py-10 sm:py-16">
-      <PixelWindow title="VIBELAB OS">
+      <PixelWindow title="VAKY OS">
         <div className="grid gap-8 p-5 sm:p-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
           <div>
             <OsBadge tone="red">{onboardingCopy.me.gate.eyebrow}</OsBadge>
@@ -56,15 +56,6 @@ export default function StartPage() {
             <p className="mt-6 max-w-lg font-semibold">{me.noLink}</p>
 
             <p className="mt-3 font-semibold">
-              <a
-                href={instagramLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline decoration-2 underline-offset-4 transition-colors hover:text-red"
-              >
-                @{site.instagram}
-              </a>
-              <span aria-hidden="true"> · </span>
               <a
                 href={emailLink("Upitnik", "")}
                 className="underline decoration-2 underline-offset-4 transition-colors hover:text-red"

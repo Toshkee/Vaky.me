@@ -73,7 +73,7 @@ export function Onboarding({
   token,
   packageNames,
 }: {
-  /** The path segment of the link VibeLab sent — the client's only credential. */
+  /** The path segment of the link Vaky sent — the client's only credential. */
   token: string;
   /** Per-language display names for the package chip in the header. */
   packageNames: Record<Language, Record<PackageId, string>>;
@@ -112,7 +112,7 @@ export function Onboarding({
 
   /* ── Arriving ──────────────────────────────────────────────────────────
      The token is exchanged for its context before anything is shown: which
-     package this form asks about, and what VibeLab already knows about the
+     package this form asks about, and what Vaky already knows about the
      business — so step one arrives pre-filled instead of asking a client to
      retype what they told us on Instagram last week. A saved draft on this
      device wins over the prefill wherever both have something to say. */
@@ -374,7 +374,7 @@ export function Onboarding({
 
   if (phase === "loading") {
     return shell(
-      <PixelWindow title="VIBELAB OS">
+      <PixelWindow title="VAKY OS">
         <div className="p-5 sm:p-8">
           <div className="tony-ground flex items-end gap-3">
             <Tony direction="right" pose="work" scale={0.24} />
@@ -419,7 +419,7 @@ export function Onboarding({
         onRestart={() => {
           clearDraft(token);
           session.current = null;
-          /* Starting over keeps what VibeLab pre-filled — it was never the
+          /* Starting over keeps what Vaky pre-filled — it was never the
              client's typing to lose. */
           const prefill: Answers = {};
           const project = context?.project;
@@ -464,7 +464,7 @@ export function Onboarding({
 
   return shell(
     <>
-      <PixelWindow title="VIBELAB OS">
+      <PixelWindow title="VAKY OS">
         <div className="p-5 sm:p-8">
           {phase === "review" ? (
             <>

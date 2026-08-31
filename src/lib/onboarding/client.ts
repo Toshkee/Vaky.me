@@ -62,7 +62,7 @@ async function readError(response: Response): Promise<{ code: ApiErrorCode; fiel
 }
 
 /** What a private link resolves to: the package the form should ask about,
- *  and what VibeLab already knows, so step one arrives pre-filled. */
+ *  and what Vaky already knows, so step one arrives pre-filled. */
 export type LinkContext = {
   packageId: PackageId;
   status: string;

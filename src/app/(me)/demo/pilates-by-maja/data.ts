@@ -322,7 +322,7 @@ export const assetAudit: AssetAudit[] = [
  * The interpretive copy on the page — the two track descriptions, the first
  * visit paragraphs and the sentences about controlled work — is written by us
  * inside the vocabulary the profile itself uses. It states no result, no
- * duration, no price and no health outcome, and the VibeLab strip at the top
+ * duration, no price and no health outcome, and the Vaky strip at the top
  * of the page tells the reader the data is illustrative. Before anything ships
  * to production the studio confirms or rewrites these blocks.
  */

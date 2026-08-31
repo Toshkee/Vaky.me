@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── VibeLab — "Oglas". The page is a printed notice: ground, ink, rules,
+  /* ── Vaky — "Oglas". The page is a printed notice: ground, ink, rules,
      and one red. No tinted sections, no cards, no shadows. ── */
   --color-paper: #faf8f4;
   /* the only tinted surface on the site: the mock browser chrome in the hero */
@@ -432,7 +432,7 @@
        asked for still holds.
 
        The beat is a variable so that a row of him — the four cards in "Zašto
-       VibeLab?" — can be detuned. Four Tonys leaning in on the same tick
+       Vaky?" — can be detuned. Four Tonys leaning in on the same tick
        reads as a pulse across the section; four slightly different ones read
        as four people working. */
     .tony--work {
@@ -534,7 +534,7 @@
 }
 
 @layer components {
-  /* ── VibeLab OS surface details ──────────────────────────────────────────
+  /* ── Vaky OS surface details ──────────────────────────────────────────
      The recurring visual language: dotted grid grounds, dashed rules, status
      lights and the build sequence on the hero workstation. Restraint is the
      rule — the grid never sits under body copy, the lights only ever mean
@@ -714,7 +714,7 @@
     }
   }
 
-  /* ── The card scenes (Zašto VibeLab?) ──
+  /* ── The card scenes (Zašto Vaky?) ──
      Four storyboards, one per card, all on the same 3.2s clock so a desktop
      row of them plays as one thing.
 

@@ -10,12 +10,12 @@ import { isLanguage } from "../../../src/lib/onboarding/schema";
  * What a private onboarding link opens onto.
  *
  * The browser holds a token and nothing else; this is where it learns which
- * package the form should ask about and what VibeLab already knows about the
+ * package the form should ask about and what Vaky already knows about the
  * business, so the first step arrives pre-filled instead of asking a client
  * to retype what they told us on Instagram last week.
  *
  * The token is the only input and the row is the only authority: the package
- * in the response is whatever VibeLab put on the request, and nothing a
+ * in the response is whatever Vaky put on the request, and nothing a
  * client sends here or later can change it.
  */
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { dictionaries } from "@/i18n";
+import { site } from "@/config/site";
 import { LandingPage } from "@/components/landing/LandingPage";
 
 const dict = dictionaries.me;
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     // repeated from the layout's sharedMetadata: Next merges metadata
     // shallowly, so a page-level openGraph replaces the layout's whole
     // object and would otherwise drop og:site_name and og:type
-    siteName: "VibeLab",
+    siteName: site.name,
     type: "website",
     title: dict.meta.title,
     description: dict.meta.description,

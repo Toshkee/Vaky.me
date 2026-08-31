@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import type { Dictionary } from "@/i18n";
+import { BrandWordmark } from "@/components/BrandWordmark";
 
 /**
  * A masthead, not a floating nav bar: Tony's mark and the name on the left,
@@ -97,14 +97,7 @@ export function Nav({ dict }: { dict: Dictionary }) {
     <header className="sticky top-0 z-50 border-b-2 border-ink bg-paper/95 backdrop-blur-sm">
       <div className="shell flex h-16 items-center justify-between gap-4">
         <Link href={home} className="tap shrink-0">
-          <Image
-            src="/logo-lockup.png"
-            alt="VibeLab"
-            width={323}
-            height={96}
-            priority
-            className="h-9 w-auto sm:h-10"
-          />
+          <BrandWordmark className="text-[1.85rem] leading-none sm:text-[2rem]" />
         </Link>
 
         <nav className="hidden items-center gap-5 text-sm md:flex">

@@ -10,7 +10,7 @@ on:
     inputs:
       target:
         description: URL to scan
-        default: https://vibelab.it.com
+        default: https://vaky.me
         required: false
 
 permissions:
@@ -20,13 +20,26 @@ jobs:
   baseline:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      TARGET_URL: ${{ inputs.target || 'https://vaky.me' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      - name: Check whether the launch domain is reachable
+        id: target
+        shell: bash
+        run: |
+          if curl --silent --show-error --fail --head --max-time 20 "$TARGET_URL" > /dev/null; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping ZAP until $TARGET_URL is reachable."
+          fi
       - uses: zaproxy/action-baseline@de8ad967d3548d44ef623df22cf95c3b0baf8b25 # v0.15.0
+        if: steps.target.outputs.ready == 'true'
         with:
-          target: ${{ inputs.target || 'https://vibelab.it.com' }}
+          target: ${{ env.TARGET_URL }}
           # The run's artifacts carry the report; opening issues would need
           # write access to the repository, which this workflow does not have.
           allow_issue_writing: false

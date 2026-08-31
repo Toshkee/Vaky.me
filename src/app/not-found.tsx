@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { instagramLink } from "@/config/site";
+import { emailLink } from "@/config/site";
 import { Button } from "@/components/ui/Button";
 import { Tony } from "@/components/mascot/Tony";
 import { RootHtml } from "./root-html";
@@ -22,7 +22,7 @@ export default function NotFound() {
           Kao ni tvoj sajt… <span className="font-semibold text-ink">još.</span>
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-5">
-          <Button href={instagramLink()} external>
+          <Button href={emailLink("Novi sajt")}>
             Napravimo ga
           </Button>
           <Link

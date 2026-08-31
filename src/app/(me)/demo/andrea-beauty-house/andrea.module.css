@@ -7,7 +7,7 @@
    photo's own box — is the one shape the whole page repeats: a doorway, a
    room, a detail, all cut from the same curve.
 
-   The colours live here rather than in the VibeLab theme so four client
+   The colours live here rather than in the Vaky theme so four client
    concepts don't leave four palettes loaded on every page of the studio site.
    Tailwind reads them back through literal `bg-[var(--abh-…)]` class strings,
    so the scanner still sees every one of them. */

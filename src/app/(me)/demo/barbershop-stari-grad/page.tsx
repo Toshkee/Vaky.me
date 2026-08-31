@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { DM_Serif_Display } from "next/font/google";
 import { MapEmbed } from "@/components/demo/MapEmbed";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { barbers, hours, prices } from "./data";
 
 const dmSerif = DM_Serif_Display({
@@ -92,7 +92,7 @@ export default function Page() {
     <div
       className={`${dmSerif.variable} min-h-screen bg-barber-bg font-sans text-barber-green`}
     >
-      <VibeLabBar />
+      <VakyBar />
 
       {/* ── Nav ── */}
       <header className="border-b border-barber-green/15">
@@ -371,7 +371,7 @@ export default function Page() {
               href="/"
               className={`${goldText} font-semibold underline-offset-4 transition-colors hover:underline ${focusDark}`}
             >
-              VibeLab
+              Vaky
             </Link>
           </p>
         </div>

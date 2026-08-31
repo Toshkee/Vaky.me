@@ -20,7 +20,7 @@ import { Turnstile } from "./Turnstile";
  *
  * What it asks for is deliberately small — a name, an email, and whatever else
  * the visitor feels like adding. It is an enquiry, not an order: nothing is
- * chosen, nothing is priced and nothing is paid here. VibeLab reads it, writes
+ * chosen, nothing is priced and nothing is paid here. Vaky reads it, writes
  * back, and the two of them agree on the work somewhere a person can ask
  * questions. Only then does a private link to the real brief exist.
  *
@@ -170,7 +170,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
          indistinguishable from a provider having a bad minute. */
       if (response.status === 404) {
         console.warn(
-          "[VibeLab] /api/lead answered 404: this build is being served without Cloudflare Functions. " +
+          "[Vaky] /api/lead answered 404: this build is being served without Cloudflare Functions. " +
             "Run `npm run build && npm run dev:api` to exercise the form locally.",
         );
       }
@@ -285,7 +285,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
         <SectionHead icon={<BubbleIcon />} title={dict.contact.title} />
         <p className="mt-3 max-w-xl text-muted">{dict.contact.sub}</p>
 
-        <PixelWindow title="VIBELAB OS" className="mt-7">
+        <PixelWindow title="VAKY OS" className="mt-7">
           <div className="grid gap-4 p-5 sm:p-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10">
             <form onSubmit={submit} noValidate>
               <p>
@@ -394,13 +394,15 @@ export function Contact({ dict }: { dict: Dictionary }) {
                 >
                   {sending ? c.sending : c.submit}
                 </button>
-                <button
-                  type="button"
-                  onClick={sendInstagram}
-                  className="px px-btn block min-h-12 bg-paper px-6 py-3 text-center text-[1.25rem] text-ink transition-colors hover:text-red"
-                >
-                  {copied ? c.submitInstagramCopied : c.submitInstagram}
-                </button>
+                {site.instagram && (
+                  <button
+                    type="button"
+                    onClick={sendInstagram}
+                    className="px px-btn block min-h-12 bg-paper px-6 py-3 text-center text-[1.25rem] text-ink transition-colors hover:text-red"
+                  >
+                    {copied ? c.submitInstagramCopied : c.submitInstagram}
+                  </button>
+                )}
               </div>
 
               <p
@@ -474,15 +476,19 @@ export function Contact({ dict }: { dict: Dictionary }) {
             sentence, not another slab of buttons. */}
         <p className="mt-5 text-sm text-muted">
           {dict.contact.directLabel}{" "}
-          <a
-            href={instagramLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={directLink}
-          >
-            @{site.instagram}
-          </a>
-          <span aria-hidden="true"> · </span>
+          {site.instagram && (
+            <>
+              <a
+                href={instagramLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={directLink}
+              >
+                @{site.instagram}
+              </a>
+              <span aria-hidden="true"> · </span>
+            </>
+          )}
           <a href={emailLink(dict.contact.emailSubject, dict.contact.prefill)} className={directLink}>
             {site.email}
           </a>

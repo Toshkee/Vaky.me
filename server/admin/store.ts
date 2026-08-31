@@ -353,7 +353,7 @@ export async function listProjectFiles(
 
 /** A file the studio adds by hand — the menu that arrived over WhatsApp. The
  *  owner column carries the project id (there is no submission), and `source`
- *  says a person at VibeLab put it there. */
+ *  says a person at Vaky put it there. */
 export async function recordAdminFile(
   db: D1Database,
   row: {

@@ -11,13 +11,13 @@ import type { ScopeWarning } from "./scope";
 import type { NoteRow, ProjectFileRow, ProjectRow } from "./store";
 
 /**
- * The Build Brief: everything VibeLab knows about a project, rewritten as a
+ * The Build Brief: everything Vaky knows about a project, rewritten as a
  * specification an external coding agent can be handed cold.
  *
  * Deterministic on purpose. No model is called and no key is needed — the
  * brief is a transformation of stored facts, and a fact that was never
- * collected comes out as "Not provided" or "VibeLab to decide", never as
- * something plausible. The one thing this file is allowed to add is VibeLab's
+ * collected comes out as "Not provided" or "Vaky to decide", never as
+ * something plausible. The one thing this file is allowed to add is Vaky's
  * own house standards (performance, accessibility, no-slop design), because
  * those are the studio's facts, not the client's.
  *
@@ -55,7 +55,7 @@ const WARNING_EN: Record<string, string> = {
   "business-shop":
     "The client's goal mentions selling products. This package does NOT include a shop — do not build one.",
   "self-editing":
-    "The client would like to edit content themselves. No CMS is in scope — content is edited by VibeLab.",
+    "The client would like to edit content themselves. No CMS is in scope — content is edited by Vaky.",
   copywriting:
     "The client asked for help with copy. Editing and adapting supplied content is in scope; writing everything from scratch is not — flag missing copy instead of inventing it.",
   "logo-redo":
@@ -133,7 +133,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
     ...(data.answersLanguage === "me"
       ? ["", "Client answers quoted below are in Montenegrin — keep site copy in Montenegrin unless a section says otherwise."]
       : []),
-    ...(hasAnswers ? [] : ["", "The client has not completed the onboarding questionnaire yet — every answer-derived field below is missing by definition. Build nothing on assumptions; ask VibeLab."]),
+    ...(hasAnswers ? [] : ["", "The client has not completed the onboarding questionnaire yet — every answer-derived field below is missing by definition. Build nothing on assumptions; ask Vaky."]),
   ]);
 
   add("Business Context & Target Audience", BRIEF_MODES, [
@@ -159,12 +159,12 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
       "**Sections the client chose:**",
       ...(multi(answers, "sections").length
         ? bullets(multi(answers, "sections"))
-        : [`- ${hasAnswers ? "VibeLab to decide (client left it to us)" : NOT_PROVIDED}`]),
+        : [`- ${hasAnswers ? "Vaky to decide (client left it to us)" : NOT_PROVIDED}`]),
       ...(answerText(answers, "sectionsOther")
         ? [`- Other (client's words): ${answerText(answers, "sectionsOther")}`]
         : []),
       "",
-      "Order and exact composition of sections are VibeLab's design decision; the list says what must exist, not the layout.",
+      "Order and exact composition of sections are Vaky's design decision; the list says what must exist, not the layout.",
     );
   } else if (packageId === "business") {
     scopeBody.push(
@@ -174,7 +174,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
       "**Pages the client chose:**",
       ...(multi(answers, "pages").length
         ? bullets(multi(answers, "pages"))
-        : [`- ${hasAnswers ? "VibeLab to decide (client left it to us)" : NOT_PROVIDED}`]),
+        : [`- ${hasAnswers ? "Vaky to decide (client left it to us)" : NOT_PROVIDED}`]),
       ...(answerText(answers, "pagesOther")
         ? [`- Other (client's words): ${answerText(answers, "pagesOther")}`]
         : []),
@@ -182,14 +182,14 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
       line(
         "Site languages",
         single(answers, "siteLanguages") ||
-          "Montenegrin + English supported by the package; confirm with VibeLab",
+          "Montenegrin + English supported by the package; confirm with Vaky",
       ),
-      "English content is supplied by the client and edited by VibeLab — do not machine-translate wholesale.",
+      "English content is supplied by the client and edited by Vaky — do not machine-translate wholesale.",
     );
   } else {
     scopeBody.push(
       "",
-      `A custom build — **${price}** is the starting point and the final scope is agreed per project. Build exactly what is listed here; anything more is a question for VibeLab, not an assumption.`,
+      `A custom build — **${price}** is the starting point and the final scope is agreed per project. Build exactly what is listed here; anything more is a question for Vaky, not an assumption.`,
       "",
       "**Custom capabilities the client selected:**",
       ...(multi(answers, "projectType").length
@@ -205,13 +205,13 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
       "**Pages the client chose:**",
       ...(multi(answers, "pages").length
         ? bullets(multi(answers, "pages"))
-        : [`- ${hasAnswers ? "VibeLab to decide (client left it to us)" : NOT_PROVIDED}`]),
+        : [`- ${hasAnswers ? "Vaky to decide (client left it to us)" : NOT_PROVIDED}`]),
       ...(multi(answers, "languagesNeeded").length
         ? [line("Additional languages", multi(answers, "languagesNeeded").join(", "))]
         : []),
     );
   }
-  add("Agreed VibeLab Package & Scope", BRIEF_MODES, scopeBody);
+  add("Agreed Vaky Package & Scope", BRIEF_MODES, scopeBody);
 
   /* — Functionality — */
   add("Required Functionality", ["full", "technical"], [
@@ -235,7 +235,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
       line("Stock tracking", single(answers, "stock")),
       line("Order notifications to the owner", single(answers, "orderNotify")),
       "",
-      "Note: 'payment methods wanted' describes the CLIENT'S shop checkout. It has nothing to do with paying VibeLab — the VibeLab site itself never processes payments.",
+      "Note: 'payment methods wanted' describes the CLIENT'S shop checkout. It has nothing to do with paying Vaky — the Vaky site itself never processes payments.",
     ]);
   }
 
@@ -265,7 +265,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
   /* — Content & assets — */
   add("Content & Copy", BRIEF_MODES, [
     line("State of the client's texts", single(answers, "textsReady")),
-    "Use supplied content; edit and tighten it, but never fabricate services, prices, testimonials, statistics or claims. Where content is missing, use a clearly marked placeholder and flag it to VibeLab.",
+    "Use supplied content; edit and tighten it, but never fabricate services, prices, testimonials, statistics or claims. Where content is missing, use a clearly marked placeholder and flag it to Vaky.",
   ]);
 
   const byFolder = new Map<string, ProjectFileRow[]>();
@@ -277,13 +277,13 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
   add("Assets Provided", BRIEF_MODES, [
     files.length === 0
       ? "No files have been provided yet."
-      : "The files below exist in the project's private storage; VibeLab supplies them alongside this brief. Reference them by name.",
+      : "The files below exist in the project's private storage; Vaky supplies them alongside this brief. Reference them by name.",
     ...[...byFolder.entries()].flatMap(([folder, group]) => [
       "",
       `**${folder}/**`,
       ...group.map(
         (file) =>
-          `- ${file.original_name} (${megabytes(file.size_bytes)}${file.source === "admin" ? ", added by VibeLab" : ""})`,
+          `- ${file.original_name} (${megabytes(file.size_bytes)}${file.source === "admin" ? ", added by Vaky" : ""})`,
       ),
     ]),
   ]);
@@ -316,7 +316,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
     answerText(answers, "notes") || NOT_PROVIDED,
   ]);
 
-  add("VibeLab Internal Notes", BRIEF_MODES, [
+  add("Vaky Internal Notes", BRIEF_MODES, [
     ...(notes.length
       ? notes.map((note) => `- ${note.body} _(${note.created_at.slice(0, 10)})_`)
       : ["- None."]),
@@ -331,7 +331,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
       : ["No scope flags — the request fits the package."]),
     "",
     `- The package includes ${pkg.revisionRounds === null ? "revision rounds as agreed per project" : `${pkg.revisionRounds} revision round${pkg.revisionRounds === 1 ? "" : "s"}`} — build so revisions are cheap (clean structure, no dead ends).`,
-    "- No online payments to VibeLab anywhere on the site. No checkout for VibeLab services, no Stripe, no pricing-page purchase flows.",
+    "- No online payments to Vaky anywhere on the site. No checkout for Vaky services, no Stripe, no pricing-page purchase flows.",
   ]);
 
   /* — Standards — */
@@ -358,11 +358,11 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
         : []),
     "- Never fabricate business information: services, prices, addresses, opening hours, reviews, social links. Missing information is flagged, not invented.",
     "- Everything the client uploaded stays private until it is deliberately placed on the site.",
-    "- No online payment processing for VibeLab itself anywhere.",
+    "- No online payment processing for Vaky itself anywhere.",
   ]);
 
   add("Final Build Instructions", BRIEF_MODES, [
-    "Work through this brief top to bottom. Where the brief says \"Not provided\" or \"VibeLab to decide\", make no assumption — leave a clearly marked gap and list it in your handover notes. Deliver production-ready code, a short summary of decisions taken, and the list of open questions for VibeLab.",
+    "Work through this brief top to bottom. Where the brief says \"Not provided\" or \"Vaky to decide\", make no assumption — leave a clearly marked gap and list it in your handover notes. Deliver production-ready code, a short summary of decisions taken, and the list of open questions for Vaky.",
   ]);
 
   /* — Assemble — */
@@ -375,7 +375,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
   const parts: string[] = [
     `# ${title} — ${project.business_name}`,
     "",
-    `> Prepared by VibeLab (vibelab.it.com) · package: ${packageName} ${price} · generated from the client's onboarding answers. Do not contact the client directly; every question goes to VibeLab.`,
+    `> Prepared by Vaky (vaky.me) · package: ${packageName} ${price} · generated from the client's onboarding answers. Do not contact the client directly; every question goes to Vaky.`,
   ];
 
   for (const section of sections) {

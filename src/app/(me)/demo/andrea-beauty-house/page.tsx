@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Fraunces, Work_Sans } from "next/font/google";
 import { DemoPhoto } from "@/components/demo/DemoPhoto";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { InstagramIcon } from "@/components/demo/ContactIcons";
 import { FloatingDoor } from "./FloatingDoor";
 import {
@@ -209,7 +209,7 @@ export default function AndreaBeautyHousePage() {
     <div
       className={`${styles.page} ${display.variable} ${sans.variable} min-h-screen bg-[var(--abh-white)] pb-[calc(5.5rem+env(safe-area-inset-bottom))] text-[var(--abh-ink)] [font-family:var(--font-abh-sans),system-ui,sans-serif] md:pb-0`}
     >
-      <VibeLabBar />
+      <VakyBar />
 
       <header className="border-b border-[var(--abh-line)]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
@@ -675,7 +675,7 @@ export default function AndreaBeautyHousePage() {
               href="/"
               className={`inline-flex min-h-11 items-center font-semibold text-[var(--abh-ink)] hover:underline ${focus}`}
             >
-              VibeLab
+              Vaky
             </Link>
           </p>
         </div>

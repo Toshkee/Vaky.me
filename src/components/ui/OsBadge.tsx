@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 /**
- * A small system label in the pixel face — the VibeLab OS voice. Bordered
+ * A small system label in the pixel face — the Vaky OS voice. Bordered
  * like a key cap, never larger than a line, and always carrying either real
  * information (BESPLATAN KONCEPT, NAJTRAŽENIJI) or the OS branding itself.
  */

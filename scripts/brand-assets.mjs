@@ -9,7 +9,7 @@ import sharp from "sharp";
  *   public/logo-lockup.png  — trimmed, white made transparent, 96px tall.
  *                             The nav shows it at 36-40px, so ~2.5x headroom.
  *   public/tony-head.png    — trimmed head mark, transparent, 96px tall.
- *   src/app/icon.png        — 512x512 square favicon, transparent ground.
+ *   src/app/icon.png        — 256x256 square favicon, transparent ground.
  *   src/app/apple-icon.png  — 180x180 on solid paper (iOS composites
  *                             transparency onto black).
  *

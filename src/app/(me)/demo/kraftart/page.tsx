@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import { DemoPhoto } from "@/components/demo/DemoPhoto";
 import { MapEmbed } from "@/components/demo/MapEmbed";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { InstagramIcon, WhatsAppIcon } from "@/components/demo/ContactIcons";
 import { artists, beforeVisit, hero, services, studio, works } from "./data";
 import styles from "./kraft.module.css";
@@ -76,7 +76,7 @@ export default function KraftArtPage() {
     <div
       className={`${styles.page} ${sans.variable} ${mono.variable} min-h-screen bg-[var(--kraft-bone)] pb-[calc(5rem+env(safe-area-inset-bottom))] text-[var(--kraft-ink)] [font-family:var(--font-kraft-sans),system-ui,sans-serif] md:pb-0`}
     >
-      <VibeLabBar />
+      <VakyBar />
 
       <header className="border-b border-[var(--kraft-ink)]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-5 py-3 sm:px-8">
@@ -396,7 +396,7 @@ export default function KraftArtPage() {
               href="/"
               className={`inline-flex min-h-11 items-center font-bold text-[var(--kraft-bone)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--kraft-bone)]`}
             >
-              VibeLab
+              Vaky
             </Link>
           </p>
         </div>

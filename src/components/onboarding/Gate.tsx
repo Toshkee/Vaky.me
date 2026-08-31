@@ -5,12 +5,12 @@ import type { OnboardingCopy } from "@/i18n/onboarding";
 import { Tony } from "@/components/mascot/Tony";
 import { OsBadge } from "@/components/ui/OsBadge";
 import { PixelWindow } from "@/components/ui/PixelWindow";
-import { emailLink, instagramLink, site } from "@/config/site";
+import { emailLink, site } from "@/config/site";
 import { LANGUAGES, type Language } from "@/lib/onboarding/schema";
 
 /**
  * The screens around the brief itself: pick a language, resume a draft, and
- * the two dead ends a private link can arrive at — not a link VibeLab issued,
+ * the two dead ends a private link can arrive at — not a link Vaky issued,
  * or a brief already sent.
  *
  * They are grouped here because they are the same kind of thing: one decision
@@ -34,7 +34,7 @@ export function LanguageGate({
   onStart: () => void;
 }) {
   return (
-    <PixelWindow title="VIBELAB OS">
+    <PixelWindow title="VAKY OS">
       <div className="grid gap-6 p-5 sm:p-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
         <div>
           <OsBadge tone="red">{copy.gate.eyebrow}</OsBadge>
@@ -119,7 +119,7 @@ export function ResumeCard({
   const [confirming, setConfirming] = useState(false);
 
   return (
-    <PixelWindow title="VIBELAB OS">
+    <PixelWindow title="VAKY OS">
       <div className="p-5 sm:p-8">
         <OsBadge tone="red">{copy.gate.eyebrow}</OsBadge>
         <h1 id="ob-heading" tabIndex={-1} className="headline mt-4 text-2xl outline-none sm:text-3xl">
@@ -167,7 +167,7 @@ export function LinkProblem({
   const body = kind === "invalid" ? copy.privateLink.invalidBody : copy.privateLink.completedBody;
 
   return (
-    <PixelWindow title="VIBELAB OS">
+    <PixelWindow title="VAKY OS">
       <div className="p-5 sm:p-8">
         <OsBadge tone="red">{copy.gate.eyebrow}</OsBadge>
         <h1 id="ob-heading" tabIndex={-1} className="headline mt-4 text-2xl outline-none sm:text-3xl">
@@ -177,17 +177,8 @@ export function LinkProblem({
 
         <p className="mt-6 font-semibold">
           <a
-            href={instagramLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline decoration-2 underline-offset-4 transition-colors hover:text-red"
-          >
-            @{site.instagram}
-          </a>
-          <span aria-hidden="true"> · </span>
-          <a
             href={emailLink(title, "")}
-            className="underline decoration-2 underline-offset-4 transition-colors hover:text-red"
+            className="inline-flex min-h-11 items-center underline decoration-2 underline-offset-4 transition-colors hover:text-red"
           >
             {site.email}
           </a>

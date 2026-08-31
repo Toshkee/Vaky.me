@@ -14,7 +14,7 @@ const priceRange = `€${Math.min(...amounts)}–€${Math.max(...amounts)}${ope
 /**
  * JSON-LD for the studio itself and for the FAQ.
  *
- * This is what names the business to a search engine: without it, "VibeLab"
+ * This is what names the business to a search engine: without it, "Vaky"
  * is just words in a <title>, and the rename leaves no trace Google can attach
  * to an entity. Everything here is derived from `site.ts` and the active
  * dictionary, so it cannot drift from what the page actually says.
@@ -50,7 +50,7 @@ export function StructuredData({ dict }: { dict: Dictionary }) {
         { "@type": "City", name: site.city },
         { "@type": "Country", name: "Montenegro" },
       ],
-      sameAs: [instagramLink()],
+      ...(site.instagram ? { sameAs: [instagramLink()] } : {}),
       makesOffer: dict.pricing.plans.map((plan, index) => {
         const { price } = PACKAGES[PLAN_PACKAGES[index]];
         return {

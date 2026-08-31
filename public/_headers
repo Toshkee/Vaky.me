@@ -2,7 +2,7 @@
 # copies everything in public/ into out/ verbatim, so this lands where Pages
 # looks for it.
 #
-# This is the only place response headers are set for vibelab.it.com. There
+# This is the only place response headers are set for vaky.me. There
 # used to be a second copy in `vercel.json`, back when a Vercel project built
 # this repo in parallel; that project is gone and so is the file, so nothing
 # here needs mirroring anywhere. The CSP is explained in
@@ -19,4 +19,4 @@
   # Pages sends `Access-Control-Allow-Origin: *` by default. Nothing here is
   # meant to be read cross-origin, so it is narrowed to this site rather than
   # left open.
-  Access-Control-Allow-Origin: https://vibelab.it.com
+  Access-Control-Allow-Origin: https://vaky.me

@@ -19,9 +19,9 @@ export const me: OnboardingCopy = {
   htmlLang: "sr-ME",
 
   meta: {
-    title: "Pokretanje projekta | VibeLab",
+    title: "Pokretanje projekta | Vaky",
     description:
-      "Kratak upitnik za klijente VibeLab-a: recite nam o svom biznisu, pošaljite materijale i krećemo sa izradom sajta.",
+      "Kratak upitnik za klijente Vaky-a: recite nam o svom biznisu, pošaljite materijale i krećemo sa izradom sajta.",
   },
 
   gate: {
@@ -81,7 +81,7 @@ export const me: OnboardingCopy = {
     otherLanguage: "English",
     draftNote: "Odgovori se čuvaju na ovom uređaju dok ne pošaljete.",
     errorSummary: "Provjerite označena polja.",
-    home: "vibelab.it.com",
+    home: "vaky.me",
     packageNotes: {
       start: "Vaš sajt je jedna stranica koja se skroluje — ovdje biramo šta sve na njoj ide.",
       business: "Vaš paket pokriva do pet zasebnih stranica.",
@@ -191,7 +191,7 @@ export const me: OnboardingCopy = {
         "sell-products": "Da prodajemo proizvode",
         "take-bookings": "Da primamo rezervacije",
         "look-professional": "Da izgledamo profesionalnije online",
-        "not-sure": "Nisam siguran — neka VibeLab predloži",
+        "not-sure": "Nisam siguran — neka Vaky predloži",
         other: "Nešto drugo",
       },
     },
@@ -212,7 +212,7 @@ export const me: OnboardingCopy = {
         social: "Linkovi ka društvenim mrežama",
         "contact-form": "Kontakt forma",
         other: "Nešto drugo",
-        "not-sure": "Nisam siguran — neka VibeLab predloži strukturu",
+        "not-sure": "Nisam siguran — neka Vaky predloži strukturu",
       },
     },
     sectionsOther: { label: "Šta još?", placeholder: "Recite nam ukratko." },
@@ -231,7 +231,7 @@ export const me: OnboardingCopy = {
         shop: "Prodavnica",
         booking: "Rezervacije",
         other: "Nešto drugo",
-        "not-sure": "Nisam siguran — neka VibeLab predloži",
+        "not-sure": "Nisam siguran — neka Vaky predloži",
       },
     },
     pagesOther: { label: "Koja još stranica?", placeholder: "npr. Naš tim" },
@@ -248,7 +248,7 @@ export const me: OnboardingCopy = {
         light: "Svijetlo i čisto",
         playful: "Šarenije i kreativno",
         corporate: "Ozbiljno i poslovno",
-        "not-sure": "Nemam posebnu ideju — neka VibeLab predloži",
+        "not-sure": "Nemam posebnu ideju — neka Vaky predloži",
       },
     },
     inspiration: {
@@ -278,7 +278,7 @@ export const me: OnboardingCopy = {
         reviews: "Recenzije klijenata",
         gallery: "Galerija fotografija",
         video: "Video",
-        "not-sure": "Nisam siguran — neka VibeLab preporuči",
+        "not-sure": "Nisam siguran — neka Vaky preporuči",
         other: "Nešto drugo",
       },
     },
@@ -449,7 +449,7 @@ export const me: OnboardingCopy = {
         all: "Da, sve je spremno",
         some: "Imam dio",
         none: "Nemam",
-        help: "Želim da VibeLab pomogne oko teksta",
+        help: "Želim da Vaky pomogne oko teksta",
       },
     },
     logoStatus: {
@@ -485,12 +485,12 @@ export const me: OnboardingCopy = {
     /* ── Domen i kraj ── */
     domainStatus: {
       label: "Da li već imate domen?",
-      help: "Domen je adresa sajta, na primjer vibelab.it.com.",
+      help: "Domen je adresa sajta, na primjer vaky.me.",
       options: { yes: "Da", no: "Ne", "not-sure": "Nisam siguran" },
     },
     domainName: { label: "Koji domen imate?", placeholder: "vas-sajt.me" },
     domainHelp: {
-      label: "Želite li da vam VibeLab pomogne da izaberete i podesite domen?",
+      label: "Želite li da vam Vaky pomogne da izaberete i podesite domen?",
       options: { yes: "Da, treba mi pomoć", no: "Ne, sredićemo sami" },
     },
     hostingPaying: {
@@ -536,16 +536,16 @@ export const me: OnboardingCopy = {
     unanswered: "Nije popunjeno",
     files: "Poslati materijali",
     noFiles: "Niste poslali nijedan fajl. To je u redu — javićemo se ako nam nešto zatreba.",
-    submit: "Pošalji projekat VibeLab-u",
+    submit: "Pošalji projekat Vaky-u",
     sending: "Šaljem…",
   },
 
   success: {
     title: "Sve je spremno 🚀",
-    body: "Hvala! Vaši odgovori i materijali su uspješno poslati VibeLab-u. Pregledaćemo sve i javiti vam se sa sljedećim koracima.",
+    body: "Hvala! Vaši odgovori i materijali su uspješno poslati Vaky-u. Pregledaćemo sve i javiti vam se sa sljedećim koracima.",
     refLabel: "Broj vašeg projekta",
     note: "Sačuvajte ovaj broj — pomaže nam da vas brže nađemo ako nam pišete.",
-    home: "Nazad na vibelab.it.com",
+    home: "Nazad na vaky.me",
     tony: "Tony ima sve što mu treba. 🫡",
   },
 

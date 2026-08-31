@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { AdminApp } from "@/components/admin/AdminApp";
 
 /**
- * VibeLab's own screen: leads, projects, onboarding links and build briefs.
+ * Vaky's own screen: leads, projects, onboarding links and build briefs.
  *
  * The page ships no data. Everything on it arrives from /api/admin against the
  * session cookie, so a stranger who loads this route gets a password field and
@@ -10,7 +10,7 @@ import { AdminApp } from "@/components/admin/AdminApp";
  * in a search result, and one more reason not to advertise where it is.
  */
 export const metadata: Metadata = {
-  title: "VibeLab Admin",
+  title: "Vaky Admin",
   robots: { index: false, follow: false },
 };
 

@@ -32,19 +32,19 @@ export type OnboardingEnv = {
   ONBOARDING_SITE_URL?: string;
 };
 
-export const DEFAULT_NOTIFY_TO = "vibecodemne@gmail.com";
+export const DEFAULT_NOTIFY_TO = "vakymne@gmail.com";
 
 /** Resend's shared sender, which needs no DNS setup and delivers to the
  *  account owner's own address — enough to get notifications working on day
  *  one, and replaced by a real address once the domain is verified. */
-export const DEFAULT_NOTIFY_FROM = "VibeLab <onboarding@resend.dev>";
+export const DEFAULT_NOTIFY_FROM = "Vaky <onboarding@resend.dev>";
 
 /** How long an upload token is good for. Long enough that a client can pick
  *  the materials up again tomorrow, short enough that a token left on a shared
  *  phone stops working. */
 export const SESSION_TTL_MS = 24 * 60 * 60 * 1000;
 
-/** Download links in the notification email. Long enough for VibeLab to get to
+/** Download links in the notification email. Long enough for Vaky to get to
  *  a project, short enough that an old forwarded email is not a key. */
 export const DOWNLOAD_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 

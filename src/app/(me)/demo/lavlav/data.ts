@@ -113,7 +113,7 @@ export const hero: Look = {
   alt: "Klijentkinja i nail tehničarka tokom manikira u toplom, elegantnom beauty studiju",
   width: 1536,
   height: 1024,
-  source: "Ilustrativni vizual kreiran za VibeLab dizajn koncept",
+  source: "Ilustrativni vizual kreiran za Vaky dizajn koncept",
 };
 
 export const lookbook: Look[] = [

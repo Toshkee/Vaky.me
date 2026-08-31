@@ -2,13 +2,13 @@ import Link from "next/link";
 
 /**
  * The growth loop: every demo site carries this slim strip linking back to
- * VibeLab. Rendered at the very top of each demo page.
+ * Vaky. Rendered at the very top of each demo page.
  *
  * It is the one element repeated across every demo, so it takes its colours
  * from the studio's tokens rather than hardcoding them — and from
  * `red-bright`, because the brand red is unreadable on this ground.
  */
-export function VibeLabBar() {
+export function VakyBar() {
   return (
     <Link
       href="/"
@@ -22,7 +22,7 @@ export function VibeLabBar() {
         Svaki demo je dizajn koncept sa ilustrativnim podacima o biznisu.
       </span>
       <span className="font-semibold text-red-bright underline-offset-2 group-hover:underline">
-        VibeLab <span aria-hidden="true">→</span>
+        Vaky <span aria-hidden="true">→</span>
       </span>
     </Link>
   );

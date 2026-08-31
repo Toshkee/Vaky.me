@@ -39,7 +39,7 @@ import {
  *
  * The order is the promise the form makes: answers are stored first and the
  * response sent as soon as they are safe. The request is then closed — a sent
- * brief is not an anonymous URL that can be rewritten forever — and VibeLab
+ * brief is not an anonymous URL that can be rewritten forever — and Vaky
  * is told about it off the request, where a mail provider's bad minute
  * cannot turn into "something went wrong" over a brief that was saved.
  */

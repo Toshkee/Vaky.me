@@ -96,7 +96,7 @@ export type Option = {
   /** Packages this option is offered in. Absent means every package. */
   packages?: readonly PackageId[];
   /**
-   * "Nisam siguran / neka VibeLab predloži". Picking it clears every other
+   * "Nisam siguran / neka Vaky predloži". Picking it clears every other
    * selection, and picking anything else clears it — the two are answers to
    * different questions and holding both says nothing.
    */
@@ -452,7 +452,7 @@ export const STEPS: readonly Step[] = [
   },
 
   /* Projekat only. A Start or Biznis client whose goal is selling is a
-     conversation VibeLab wants to have — the dashboard flags it as possibly
+     conversation Vaky wants to have — the dashboard flags it as possibly
      outside the package — but walking them through payment methods and stock
      tracking for a package with no shop would promise what the price does
      not contain. */
@@ -690,7 +690,7 @@ export type ApiErrorCode =
   | "session"
   | "rate-limit"
   | "challenge"
-  /** The onboarding link is not one VibeLab issued, or it was withdrawn. */
+  /** The onboarding link is not one Vaky issued, or it was withdrawn. */
   | "link"
   /** The brief behind this link was already sent — the form is closed. */
   | "completed"
@@ -702,7 +702,7 @@ export type ApiErrorCode =
   | "server";
 
 /* Deliberately permissive. This is a brief, not a signup: the field exists so
-   VibeLab can write back, and the only failure worth catching in a form is the
+   Vaky can write back, and the only failure worth catching in a form is the
    one the client can see and fix — a missing @, a stray space, a typo'd TLD.
    Anything stricter starts rejecting addresses that work. */
 const EMAIL = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/;
@@ -722,10 +722,10 @@ export function isValidPhone(value: string): boolean {
 }
 
 /**
- * A URL a person typed. "vibelab.it.com" is a URL to everyone except a parser,
+ * A URL a person typed. "vaky.me" is a URL to everyone except a parser,
  * so a missing scheme is not an error here — `normaliseUrl` adds one. What is
  * rejected is anything that is not http(s) once parsed, which is what keeps
- * `javascript:` out of a field that VibeLab will later click on.
+ * `javascript:` out of a field that Vaky will later click on.
  */
 export function normaliseUrl(value: string): string {
   const trimmed = value.trim();

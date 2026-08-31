@@ -6,7 +6,7 @@ import fs from "node:fs";
  *
  * Captured at 1280x854 (3:2) so the ~460px-wide card shows them at better
  * than 2x, JPEG q78 to keep the four of them around half a megabyte total.
- * The VibeLab back-link bar is removed before the shot — it is site chrome,
+ * The Vaky back-link bar is removed before the shot — it is site chrome,
  * not part of the client's design.
  */
 const BASE = "http://localhost:3000";
@@ -31,7 +31,7 @@ const page = await ctx.newPage();
 
 for (const slug of demos) {
   await page.goto(`${BASE}/demo/${slug}/`, { waitUntil: "networkidle" });
-  // strip the VibeLab bar (the only body-level link back to "/") and the
+  // strip the Vaky bar (the only body-level link back to "/") and the
   // Next dev-tools indicator, which only exists because we shoot the dev server
   await page.evaluate(() => {
     document.querySelector('a[href="/"]')?.remove();

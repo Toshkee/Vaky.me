@@ -4,11 +4,11 @@ Everything under `/api/`, `/start/` and `/admin/` is Cloudflare Pages work:
 one database, one bucket, a handful of secrets. This file is the whole list.
 
 **What this system is now.** A visitor fills a short public form and becomes a
-*lead*. VibeLab looks at the lead and gets in touch — Instagram, WhatsApp, a
+*lead*. Vaky looks at the lead and gets in touch — Instagram, WhatsApp, a
 call — and agrees a package and a price **outside the site**. Only then does
 a *project* get created in the admin dashboard, which mints a **private,
 single-use onboarding link**. The client opens that link, fills a
-package-specific brief, and VibeLab is notified. The dashboard shows
+package-specific brief, and Vaky is notified. The dashboard shows
 everything — leads, projects, briefs, files — and can turn a finished project
 into a **Build Brief**: a markdown document to paste into an external coding
 agent that actually builds the site.
@@ -24,16 +24,16 @@ was agreed in conversation.
 | Step | What happens | Where |
 | --- | --- | --- |
 | 1 | A visitor submits the public form. | `POST /api/lead` |
-| 2 | The lead lands in D1 with `status = 'new'`; VibeLab is emailed. | `leads` table |
-| 3 | VibeLab contacts the person and agrees a package and price. | outside the site |
+| 2 | The lead lands in D1 with `status = 'new'`; Vaky is emailed. | `leads` table |
+| 3 | Vaky contacts the person and agrees a package and price. | outside the site |
 | 4 | An admin creates a project (from the lead, or from scratch) and picks the agreed package. | `/admin/`, `POST /api/admin/projects` or `.../leads/:id/convert` |
 | 5 | An admin mints a private onboarding link for that project. | `POST /api/admin/projects/:id/onboarding` |
 | 6 | The client opens `/start/<token>/`, which resolves to the package and prefilled business details the link carries — never something the client chooses. | `functions/start/[token].ts`, `POST /api/onboarding/context` |
-| 7 | The client fills the brief for that package and uploads files; VibeLab is emailed the finished brief. | `POST /api/onboarding/session`, `.../upload`, `.../submit` |
+| 7 | The client fills the brief for that package and uploads files; Vaky is emailed the finished brief. | `POST /api/onboarding/session`, `.../upload`, `.../submit` |
 | 8 | The dashboard shows the brief, files, and any scope warnings (answers that reach outside the package). | `GET /api/admin/projects/:id` |
 | 9 | An admin generates a Build Brief — full, design, or technical — and pastes it into a coding agent. | `POST /api/admin/projects/:id/brief` |
 
-The package is decided once, by VibeLab, when the link is minted. Nothing the
+The package is decided once, by Vaky, when the link is minted. Nothing the
 client does in the form — not a query string, not a hand-crafted request body
 — can change which package their answers are validated against, because the
 package lives on the server-side `onboarding_requests` row, never in the URL
@@ -46,8 +46,8 @@ or the request.
 | Piece | Choice | Why |
 | --- | --- | --- |
 | Backend | **Cloudflare Pages Functions** (`functions/api/**`, `functions/start/[token].ts`) | The site is a static export on Cloudflare Pages. A `functions/` directory at the repo root is compiled and deployed by the same `git push` that deploys the site — no second host, no second deploy. |
-| Database | **Cloudflare D1** (SQLite) | One database, `vibelab-onboarding`, holding both the client-facing tables from the original onboarding form and the newer leads/projects/links/notes/briefs tables. |
-| File storage | **Cloudflare R2**, private bucket | Objects are never public. VibeLab reaches them through signed, expiring links in the notification email, or through the cookie-authorised `/api/admin/file` route. |
+| Database | **Cloudflare D1** (SQLite) | One database, `vibelab-onboarding`, holding both the client-facing tables from the original onboarding form and the newer leads/projects/links/notes/briefs tables. This is a legacy provider resource ID, intentionally retained so the rebrand does not migrate or disconnect production data. |
+| File storage | **Cloudflare R2**, private bucket | Objects are never public. Vaky reaches them through signed, expiring links in the notification email, or through the cookie-authorised `/api/admin/file` route. |
 | Admin auth | **One Cloudflare secret** (`ADMIN_PASSWORD`), a signed cookie | There is exactly one admin — the studio — so this is deliberately not a user system. No session table: the cookie's signature *is* the session. |
 | Build Brief | **Deterministic string assembly** (`server/admin/brief.ts`) | No model is called and nothing costs money. The brief is a transformation of what is already stored — a fact never collected comes out as "Not provided", never as something invented. |
 | Email | **Resend** | One `fetch`, no SDK. Its shared `onboarding@resend.dev` sender works before any DNS is set up, at the cost of only delivering to the Resend account's own address. |
@@ -72,8 +72,8 @@ or with `wrangler`, see below.
 | `ADMIN_PASSWORD` | Secret | **yes, for `/admin/`** | The one password behind the dashboard. With this unset, `/api/admin/login` refuses every request — there is no fallback and no way in. |
 | `RESEND_API_KEY` | Secret | recommended | From resend.com → API Keys. Without it, leads and briefs are stored but nobody is emailed. |
 | `TURNSTILE_SECRET_KEY` | Secret | optional | The Turnstile widget's **secret** key. **Not set in production today** — the lead form runs on rate limiting alone, which is a deliberate, working fallback. |
-| `ONBOARDING_NOTIFY_TO` | Variable | no | Where lead and brief notifications go. Defaults to `vibecodemne@gmail.com` in code (`DEFAULT_NOTIFY_TO` in `server/onboarding/env.ts`); **production has this explicitly set to `vibelabmne@gmail.com`.** |
-| `ONBOARDING_NOTIFY_FROM` | Variable | no | Defaults to `VibeLab <onboarding@resend.dev>`, which needs no DNS but can only deliver to the Resend account owner's own address. Change it to an address on a verified domain once you have one. |
+| `ONBOARDING_NOTIFY_TO` | Variable | no | Where lead and brief notifications go. Defaults to `vakymne@gmail.com` in code (`DEFAULT_NOTIFY_TO` in `server/onboarding/env.ts`). Set production to the same address in Cloudflare Pages. |
+| `ONBOARDING_NOTIFY_FROM` | Variable | no | Defaults to `Vaky <onboarding@resend.dev>`, which needs no DNS but can only deliver to the Resend account owner's own address. Change it to an address on a verified domain once you have one. |
 | `ONBOARDING_SITE_URL` | Variable | no | Origin used to build links in emails (download links, dashboard deep links, the `/start/<token>/` URL itself). Defaults to the origin the request arrived on, which is correct in production. |
 
 The bindings `DB` and `UPLOADS` are set separately, below — they are
@@ -237,7 +237,7 @@ npx wrangler r2 bucket create vibelab-client-materials
 
 **Dashboard → your Pages project → Settings → Bindings → Add → R2 bucket**
 - Variable name: `UPLOADS`
-- Bucket: `vibelab-client-materials`
+- Bucket: `vibelab-client-materials` (legacy provider resource ID, intentionally retained)
 - Production and Preview.
 
 **Leave the bucket private.** Do not enable the `r2.dev` public development
@@ -282,7 +282,7 @@ npx wrangler d1 execute vibelab-onboarding --remote --command "SELECT storage_ke
 ## Email
 
 Two notifications go out, both through the Resend REST API and both to
-`ONBOARDING_NOTIFY_TO` (production: `vibelabmne@gmail.com`):
+`ONBOARDING_NOTIFY_TO` (set production to `vakymne@gmail.com`):
 
 - **A new lead** — sent from `POST /api/lead`, off the request via
   `waitUntil`, with a link straight into that lead's row in `/admin/`.
@@ -303,16 +303,16 @@ lead or the client sees — the database is the record, the email is a copy.
    notifications are going today, but is not something to rely on if the
    notify address ever changes to someone else's inbox.
 3. To send from your own domain later: Resend → Domains → add
-   `vibelab.it.com`, publish the DKIM and SPF records it gives you, then set
+   `vaky.me`, publish the DKIM and SPF records it gives you, then set
    `ONBOARDING_NOTIFY_FROM` to something like
-   `VibeLab <projekti@vibelab.it.com>`. Do this alongside step 4 of
+   `Vaky <projekti@vaky.me>`. Do this alongside step 4 of
    `docs/deployment-security.md`, which is the same DNS work.
 
 ---
 
 ## The admin dashboard
 
-`/admin/` is the private, password-gated area where VibeLab runs the studio
+`/admin/` is the private, password-gated area where Vaky runs the studio
 side of this: triaging leads, opening projects, minting and cancelling
 onboarding links, reading submitted briefs, adding notes and files by hand,
 and generating Build Briefs. It is not linked from anywhere on the public
@@ -321,7 +321,7 @@ site and must never be indexed, the same way `/start/` already carries
 response header — give the dashboard's own page that treatment when it ships.
 
 **Logging in.** `POST /api/admin/login` with `{ "password": "..." }`. A
-correct password sets the `vibelab_admin` cookie (`HttpOnly; Secure;
+correct password sets the `vaky_admin` cookie (`HttpOnly; Secure;
 SameSite=Strict; Path=/`, 7 days) and every subsequent request under
 `/api/admin/**` is authorised by that cookie — there is no session table; the
 cookie's HMAC signature, over an expiry timestamp under the scope `"admin"`,
@@ -355,7 +355,7 @@ layer under `SameSite=Strict`.
 page that consumes it (`src/lib/admin/client.ts` is its whole API client) is
 being built alongside it and was not yet part of this repository snapshot —
 every route in the table can be exercised directly with `curl`, using the
-`vibelab_admin` cookie, which is exactly what the eventual page does.
+`vaky_admin` cookie, which is exactly what the eventual page does.
 
 ---
 
@@ -369,8 +369,8 @@ external coding agent.
 
 **It is deterministic string assembly (`server/admin/brief.ts`). No AI API is
 called and it costs nothing.** A fact that was never collected comes out as
-"Not provided" or "VibeLab to decide", never as something plausible. The one
-thing the generator adds on its own is VibeLab's house standards —
+"Not provided" or "Vaky to decide", never as something plausible. The one
+thing the generator adds on its own is Vaky's house standards —
 performance, accessibility, no fabricated content, no AI-slop design — since
 those are the studio's facts, not the client's.
 
@@ -517,18 +517,18 @@ After deploying, in order (PowerShell-friendly — use `curl.exe`, not the
       `functions/start/[token].ts` — and never widen to a bare `["/*"]`,
       which would turn every page of the marketing site into a Function
       invocation.
-- [ ] `curl.exe -sI -X POST https://vibelab.it.com/api/lead` and
-      `curl.exe -sI -X POST https://vibelab.it.com/api/onboarding/session`
-      and `curl.exe -sI https://vibelab.it.com/api/admin/me` each return
-      `access-control-allow-origin: https://vibelab.it.com` and
+- [ ] `curl.exe -sI -X POST https://vaky.me/api/lead` and
+      `curl.exe -sI -X POST https://vaky.me/api/onboarding/session`
+      and `curl.exe -sI https://vaky.me/api/admin/me` each return
+      `access-control-allow-origin: https://vaky.me` and
       `x-content-type-options: nosniff`.
-- [ ] `https://vibelab.it.com/` and `/en/` still load, and
-      `curl.exe -sI https://vibelab.it.com/ | Select-String -Pattern "cache-control"`
+- [ ] `https://vaky.me/` and `/en/` still load, and
+      `curl.exe -sI https://vaky.me/ | Select-String -Pattern "cache-control"`
       does **not** say `no-store`.
 - [ ] A test submission on the public lead form appears in D1:
       `npx wrangler d1 execute vibelab-onboarding --remote --command "SELECT id, business_name, email, notify_error FROM leads ORDER BY created_at DESC LIMIT 1"`
       — and the lead notification email arrives.
-- [ ] `POST /api/admin/login` with the real password sets `vibelab_admin` and
+- [ ] `POST /api/admin/login` with the real password sets `vaky_admin` and
       returns `200`; a wrong password returns `401`; a sixth wrong attempt
       inside 5 minutes returns `429`.
 - [ ] Convert a test lead (or create a project by hand), mint an onboarding
@@ -547,5 +547,5 @@ After deploying, in order (PowerShell-friendly — use `curl.exe`, not the
 - [ ] Generate all three Build Brief modes for a test project and confirm
       each returns markdown with no `undefined` or raw `[object Object]`
       anywhere in it.
-- [ ] `npm run test:security https://vibelab.it.com` passes.
-- [ ] `npm run check:a11y https://vibelab.it.com` reports no violations.
+- [ ] `npm run test:security https://vaky.me` passes.
+- [ ] `npm run check:a11y https://vaky.me` reports no violations.

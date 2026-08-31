@@ -15,7 +15,7 @@ import { logActivity, markLeadNotified, recordLead } from "../../server/admin/st
 /**
  * The public "Zatraži ponudu" form — the one thing a stranger can send.
  *
- * A lead is stored first and VibeLab is emailed after, off the request, the
+ * A lead is stored first and Vaky is emailed after, off the request, the
  * same contract the brief endpoint keeps: the database is the record, the
  * inbox is a courtesy, and a mail provider's bad minute never turns into
  * "something went wrong" over an enquiry that was in fact saved.

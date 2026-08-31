@@ -3,7 +3,7 @@ import { OnboardingRoute } from "@/components/onboarding/OnboardingRoute";
 import { dictionaries } from "@/i18n";
 import { onboardingCopy } from "@/i18n/onboarding";
 import { PACKAGE_IDS, PACKAGE_PLAN_INDEX, type Language, type PackageId } from "@/lib/onboarding/schema";
-import { emailLink, instagramLink, site } from "@/config/site";
+import { emailLink, site } from "@/config/site";
 
 /**
  * The shell every private onboarding link is served from.
@@ -48,7 +48,7 @@ export default function OnboardingFormPage() {
     <>
       {/* This form cannot work without JavaScript — it uploads files and saves
           drafts. Rather than a dead page, the two ways a client already talks
-          to VibeLab. */}
+          to Vaky. */}
       <noscript>
         <div className="shell py-10">
           <div className="border-2 border-ink bg-paper-2 p-5">
@@ -60,11 +60,10 @@ export default function OnboardingFormPage() {
               This form needs JavaScript. If it does not work, write to us directly instead.
             </p>
             <p className="mt-4 font-semibold">
-              <a href={instagramLink()} className="underline underline-offset-4">
-                @{site.instagram}
-              </a>
-              {" · "}
-              <a href={emailLink("Upitnik", "")} className="underline underline-offset-4">
+              <a
+                href={emailLink("Upitnik", "")}
+                className="inline-flex min-h-11 items-center underline underline-offset-4"
+              >
                 {site.email}
               </a>
             </p>

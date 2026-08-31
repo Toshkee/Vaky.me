@@ -8,7 +8,7 @@
  *
  *   lead     — an enquiry from the public form. Ends at "accepted" (a project
  *              was made from it) or "declined".
- *   project  — the engagement itself, created only after VibeLab and the
+ *   project  — the engagement itself, created only after Vaky and the
  *              client have agreed package and price outside the site.
  *   request  — one private onboarding link sent to one client. Tracks whether
  *              the form was opened, worked on, finished or withdrawn.

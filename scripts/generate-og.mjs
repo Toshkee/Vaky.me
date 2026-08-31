@@ -3,7 +3,7 @@ import { chromium } from "playwright";
 /**
  * The share card (public/og.png, 1200x630) composed from the live design
  * system: paper ground with the dot grid, the lockup, the headline, the real
- * offer line — and Tony beside a VIBELAB OS window that has already finished
+ * offer line — and Tony beside a VAKY OS window that has already finished
  * the build. Fonts come from Google, images from the running dev server.
  *
  * Usage: dev server on :3000, then  node scripts/generate-og.mjs
@@ -19,7 +19,8 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
            background-image: radial-gradient(rgba(207,205,198,.5) 2px, transparent 2px);
            background-size: 34px 34px; }
   .top { display: flex; justify-content: space-between; align-items: center; }
-  .top img { height: 74px; }
+  .wordmark { font-size: 54px; font-weight: 800; letter-spacing: -.055em; line-height: 1; }
+  .wordmark span { color: #c1121f; }
   .eyebrow { font-size: 22px; font-weight: 700; letter-spacing: .2em; color: #5c5c58; }
   h1 { margin-top: 64px; font-size: 68px; font-weight: 800; line-height: 1.06; letter-spacing: -0.02em; white-space: nowrap; }
   h1 span { color: #c1121f; }
@@ -41,14 +42,14 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
 </style></head><body>
   <div class="frame">
     <div class="top">
-      <img src="http://localhost:3000/logo-lockup.png">
+      <div class="wordmark">Vaky<span>.</span></div>
       <p class="eyebrow">PODGORICA · CRNA GORA</p>
     </div>
     <h1>Sajtovi koji<br><span>donose klijente.</span></h1>
     <div class="scene">
       <div class="tony"></div>
       <div class="win">
-        <div class="bar"><i style="background:#c1121f"></i><i style="background:#d9a441"></i><i style="background:#2e7d44"></i><span>VIBELAB OS</span></div>
+        <div class="bar"><i style="background:#c1121f"></i><i style="background:#d9a441"></i><i style="background:#2e7d44"></i><span>VAKY OS</span></div>
         <div class="scr">
           <div>DEPLOYED <span class="ok">OK</span></div>
           <div class="row"><span>DESIGN</span><span class="ok">OK</span></div>

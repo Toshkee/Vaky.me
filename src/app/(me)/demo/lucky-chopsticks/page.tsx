@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Anton, DM_Sans } from "next/font/google";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { LuckyMenu } from "./LuckyMenu";
 
 const display = Anton({ weight: "400", subsets: ["latin", "latin-ext"], display: "swap", variable: "--font-lucky-display" });
@@ -20,7 +20,7 @@ const title = "[font-family:var(--font-lucky-display),Impact,sans-serif] upperca
 export default function LuckyChopsticksPage() {
   return (
     <div className={`${display.variable} ${sans.variable} min-h-screen bg-[#0c0c0c] pb-20 text-[#fff7e7] [font-family:var(--font-lucky-sans),Arial,sans-serif] md:pb-0`}>
-      <VibeLabBar />
+      <VakyBar />
       <header className="relative z-10 border-b border-white/15 bg-[#0c0c0c]"><div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 px-5 py-2 sm:px-8"><a href="#top" className={`${title} inline-flex min-h-11 items-center text-sm text-white ${focus}`}>Lucky <span className="ml-1 text-[#f5cc61]">Chopsticks</span></a><nav aria-label="Glavna navigacija" className="flex items-center gap-4 text-[10px] font-bold tracking-[.16em] uppercase sm:gap-6"><a href="#meni" className={`hover:text-[#f5cc61] ${focus}`}>Meni</a><a href="#o-nama" className={`hover:text-[#f5cc61] ${focus}`}>O nama</a><a href="tel:+38269104904" className={`text-[#f5cc61] hover:text-white ${focus}`}>069 104 904</a></nav></div></header>
 
       <main id="top">
@@ -33,7 +33,7 @@ export default function LuckyChopsticksPage() {
         <section className="bg-[#a31c17] px-6 py-14 sm:px-8 sm:py-20"><div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 border border-[#f5cc61]/75 p-7 sm:flex-row sm:items-end sm:p-10"><div><p className="text-[10px] font-bold tracking-[.24em] text-[#f5cc61] uppercase">Gladni?</p><h2 className={`${title} mt-3 text-4xl leading-none text-white sm:text-6xl`}>Naruči direktno.</h2><p className="mt-3 max-w-md text-sm leading-relaxed text-white/90">Pozovi, provjeri opcije i neka omiljeno jelo dođe do tebe.</p></div><a href="tel:+38269104904" className={`inline-flex min-h-14 items-center bg-[#f5cc61] px-7 text-lg font-bold text-[#24110e] transition hover:bg-white ${focus}`}>069 104 904</a></div></section>
       </main>
 
-      <footer className="bg-[#070707] px-6 py-10 text-center text-xs text-white/60"><p className={`${title} text-lg text-[#f5cc61]`}>Lucky Chopsticks</p><p className="mt-3">Dizajn koncept: <Link href="/" className={`font-bold text-white hover:text-[#f5cc61] ${focus}`}>VibeLab</Link></p></footer><a href="tel:+38269104904" className={`fixed inset-x-4 bottom-4 z-50 inline-flex min-h-14 items-center justify-center bg-[#f5cc61] px-5 text-sm font-bold text-[#21110d] shadow-xl md:hidden ${focus}`}>Pozovi i naruči · 069 104 904</a>
+      <footer className="bg-[#070707] px-6 py-10 text-center text-xs text-white/60"><p className={`${title} text-lg text-[#f5cc61]`}>Lucky Chopsticks</p><p className="mt-3">Dizajn koncept: <Link href="/" className={`font-bold text-white hover:text-[#f5cc61] ${focus}`}>Vaky</Link></p></footer><a href="tel:+38269104904" className={`fixed inset-x-4 bottom-4 z-50 inline-flex min-h-14 items-center justify-center bg-[#f5cc61] px-5 text-sm font-bold text-[#21110d] shadow-xl md:hidden ${focus}`}>Pozovi i naruči · 069 104 904</a>
     </div>
   );
 }

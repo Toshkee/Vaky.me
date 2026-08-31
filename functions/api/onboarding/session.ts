@@ -12,7 +12,7 @@ import { issueSessionFor } from "../../../server/onboarding/session";
  * person, which is a stronger claim than any bot check — so there is no
  * Turnstile here. What comes back is a short-lived signed token whose
  * submission id IS the request row's id: uploads and the eventual brief all
- * land under the one record VibeLab created, and under nothing else.
+ * land under the one record Vaky created, and under nothing else.
  *
  * Nothing is written to the database except the request's activity clock. A
  * client who uploads nothing costs one UPDATE.

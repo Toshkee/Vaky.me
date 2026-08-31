@@ -1,6 +1,6 @@
 /* Palette and motion for the Soul Studio concept, scoped to this route.
 
-   The colours live here as custom properties rather than in the VibeLab theme:
+   The colours live here as custom properties rather than in the Vaky theme:
    four client concepts sharing one `@theme` block would leave the studio's
    tokens loaded on every page of the site. Tailwind reads them back through
    `bg-[var(--soul-bone)]` and friends, which are literal class strings, so the

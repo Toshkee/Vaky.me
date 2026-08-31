@@ -9,7 +9,7 @@ import { isPackageId } from "../../../../../src/lib/onboarding/schema";
  *
  * The response is the only time the full URL exists in the clear — the
  * database keeps a hash — so the dashboard shows it once with a copy button,
- * and VibeLab pastes it into whatever channel the client actually reads.
+ * and Vaky pastes it into whatever channel the client actually reads.
  * Creating a new link quietly retires any older one; a client can never be
  * filling in a form the studio has already replaced.
  */

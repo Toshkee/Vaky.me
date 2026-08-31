@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Cormorant_Garamond, Onest } from "next/font/google";
 import { DemoPhoto } from "@/components/demo/DemoPhoto";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { portrait, runningFoot, signature, studio, treatments } from "./data";
 import styles from "./mila.module.css";
 
@@ -126,7 +126,7 @@ export default function StudioLjepoteMilaPage() {
         Preskoči na sadržaj
       </a>
 
-      <VibeLabBar />
+      <VakyBar />
 
       {/* A magazine masthead, not a header bar: a thin utility strip of tracked
           capitals, then the studio's name set as large as the measure allows,
@@ -546,7 +546,7 @@ export default function StudioLjepoteMilaPage() {
               href="/"
               className={`inline-flex min-h-11 items-center font-medium text-[var(--mila-ink)] hover:underline ${focus}`}
             >
-              VibeLab
+              Vaky
             </Link>
           </p>
         </div>

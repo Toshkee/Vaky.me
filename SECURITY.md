@@ -2,7 +2,7 @@
 
 ## Reporting a vulnerability
 
-Email **vibecodemne@gmail.com** with "SECURITY" in the subject. Please include
+Email **vakymne@gmail.com** with "SECURITY" in the subject. Please include
 the URL, what you did, and what happened. A proof of concept helps; a public
 issue does not — do not open one for a security report.
 
@@ -10,7 +10,7 @@ Expect a first reply within 5 working days. There is no bounty programme.
 
 ## What is in scope
 
-- `vibelab.it.com` — the marketing site and the `/demo/*` concept pages.
+- `vaky.me` — the marketing site and the `/demo/*` concept pages.
 - `/api/lead` — the public lead-intake form. Test it against your own
   submission only; it is rate limited and its honeypot field should not be
   filled in by a human tester either.
@@ -18,14 +18,14 @@ Expect a first reply within 5 working days. There is no bounty programme.
   private, per-client onboarding form. Test it only against a link issued to
   you; do not attempt to guess or enumerate another client's token.
 - `/admin/` and `/api/admin/*` — the password-gated studio dashboard, and the
-  `vibelab_admin` session cookie it sets. Test login only with credentials
-  VibeLab has given you for that purpose; do not attempt to brute-force the
+  `vaky_admin` session cookie it sets. Test login only with credentials
+  Vaky has given you for that purpose; do not attempt to brute-force the
   admin password (it is rate limited and fails closed on top of that).
 - This repository: the source, the build configuration, and the deploy config in `public/_headers`.
 
 ## What is out of scope
 
-- Findings against `www.vibelab.it.com` beyond the redirect itself.
+- Findings against `www.vaky.me` beyond the redirect itself.
 - Missing headers on third-party responses (Google Maps, once a visitor loads it).
 - Volumetric or denial-of-service testing. Do not run one.
 - Automated active scans against production. Passive scanning is fine; the
@@ -40,11 +40,11 @@ Cloudflare Pages Functions under `functions/`, a D1 database and a private R2
 bucket:
 
 **`/api/lead`** is the only thing a stranger can submit with no credential at
-all — a short public enquiry form. It is stored, VibeLab is emailed, and
+all — a short public enquiry form. It is stored, Vaky is emailed, and
 nothing about it is ever shown back to anyone. It sits behind a honeypot
 field, an optional Turnstile check, and rate limiting.
 
-**`/start/<token>/`** is the private onboarding form VibeLab sends one client
+**`/start/<token>/`** is the private onboarding form Vaky sends one client
 once a project and a package are agreed. The token in the URL — 24 random
 bytes, never guessable, stored in D1 only as a SHA-256 hash — is the only
 credential; there is no login and no account:
@@ -64,7 +64,7 @@ credential; there is no login and no account:
 
 **`/admin/`** is the one authenticated area on the site: a single password
 (`ADMIN_PASSWORD`, a write-only Cloudflare secret) behind a signed session
-cookie, `vibelab_admin` (`HttpOnly; Secure; SameSite=Strict`). There is no
+cookie, `vaky_admin` (`HttpOnly; Secure; SameSite=Strict`). There is no
 session table — the cookie's own HMAC signature is the session, so rotating
 the signing secret logs every session out at once. Login is rate limited and,
 unlike every other limiter in this codebase, **fails closed**: a database

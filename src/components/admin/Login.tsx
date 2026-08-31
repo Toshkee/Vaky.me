@@ -54,7 +54,7 @@ export function Login({ onIn }: { onIn: () => void }) {
   return (
     <main className="shell flex w-full flex-1 items-center justify-center py-10">
       <div className="w-full max-w-sm">
-        <PixelWindow title="VibeLab Admin">
+        <PixelWindow title="Vaky Admin">
           <form onSubmit={submit} className="grid gap-4 p-5">
             <h1 className="headline text-xl">Prijava</h1>
 

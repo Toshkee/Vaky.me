@@ -1,7 +1,7 @@
 import type { Language, PackageId } from "./onboarding/schema";
 
 /**
- * What VibeLab sells, as numbers and limits — the one place they are written.
+ * What Vaky sells, as numbers and limits — the one place they are written.
  *
  * The marketing words for a package (name, tagline, feature rows) stay in the
  * i18n dictionaries, because words differ per language. What must NOT differ

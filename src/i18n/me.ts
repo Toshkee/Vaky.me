@@ -85,7 +85,7 @@ export const me = {
   },
 
   why: {
-    title: "Zašto VibeLab?",
+    title: "Zašto Vaky?",
     sub: "Izrada sajtova u Crnoj Gori — jednostavan proces, jasan dogovor i sajt koji radi za tvoj biznis.",
     items: [
       {
@@ -374,7 +374,7 @@ export const me = {
      not use is as wrong as one that hides tools it does. */
   privacy: {
     title: "Privatnost",
-    updated: "Ažurirano 30. avgusta 2026.",
+    updated: "Ažurirano 31. avgusta 2026.",
     intro:
       "Ovaj sajt je vizit-karta jednog malog studija. Nema naloga, nema prijave i ne prodajemo ništa preko sajta — pa nema ni razloga da o tebi znamo išta više nego što nam sam pošalješ.",
     sections: [
@@ -382,7 +382,7 @@ export const me = {
         when: "always",
         title: "Ko obrađuje podatke",
         body: [
-          "VibeLab, web studio iz Crne Gore. Za sva pitanja o podacima piši na vibecodemne@gmail.com.",
+          "Vaky, web studio iz Crne Gore. Za sva pitanja o podacima piši na vakymne@gmail.com.",
         ],
       },
       {
@@ -390,15 +390,15 @@ export const me = {
         title: "Kada pošalješ upit preko sajta",
         body: [
           "Forma ide na naš server kod Cloudflare-a i upit se čuva u našoj bazi. Šalje se samo ono što si upisao: ime, naziv biznisa, email, telefon, link, šta ti treba i tvoja poruka — plus jezik stranice. Kopiju istog upita dobijemo i na email.",
-          "Koristimo to isključivo da bismo ti odgovorili i napravili ponudu. Ne šaljemo newsletter, ne dijelimo kontakte sa trećim licima i ne koristimo ih za reklame. Upit brišemo kada prepiska bude gotova, najkasnije godinu dana od slanja; brisanje možeš tražiti i ranije, na vibecodemne@gmail.com.",
+          "Koristimo to isključivo da bismo ti odgovorili i napravili ponudu. Ne šaljemo newsletter, ne dijelimo kontakte sa trećim licima i ne koristimo ih za reklame. Upit brišemo kada prepiska bude gotova, najkasnije godinu dana od slanja; brisanje možeš tražiti i ranije, na vakymne@gmail.com.",
           "Preko sajta se ništa ne plaća i ne tražimo podatke o kartici. Da bismo formu zaštitili od zloupotrebe, bilježimo nepovratno kodiran zapis IP adrese kako bismo ograničili broj pokušaja — iz njega se tvoja adresa ne može pročitati.",
         ],
       },
       {
         when: "always",
-        title: "Kada pišeš emailom ili preko Instagrama",
+        title: "Kada pišeš emailom",
         body: [
-          "Dugmad na sajtu samo otvaraju tvoj email program ili Instagram sa unaprijed napisanom porukom — sadržaj te poruke sajt ne vidi i nigdje je ne bilježi. Dalje važe pravila Google-a odnosno Mete, zavisno od toga gdje nam pišeš.",
+          "Dugme na sajtu samo otvara tvoj email program sa unaprijed napisanom porukom — sadržaj te poruke sajt ne vidi i nigdje je ne bilježi. Dalje važe pravila tvog email provajdera.",
         ],
       },
       {
@@ -406,7 +406,7 @@ export const me = {
         title: "Kada popunjavate obrazac za pokretanje projekta",
         body: [
           "Kada se dogovorimo oko posla, pošaljemo vam lični link za upitnik i tu nam šaljete podatke potrebne za izradu sajta. Šalje se samo ono što sami upišete i priložite: naziv biznisa, vaše ime, email, telefon, odgovori na pitanja i fajlovi koje odaberete.",
-          "Odgovori se čuvaju u našoj bazi kod Cloudflare-a, a fajlovi u privatnom prostoru za skladištenje kojem se ne može pristupiti sa interneta bez potpisanog linka koji ističe. Koristimo ih isključivo da bismo izradili vaš sajt — ne dijelimo ih ni sa kim i ne koristimo za reklame. Čuvamo ih dok traje saradnja i najviše godinu dana poslije toga; brisanje možete tražiti i ranije, na vibecodemne@gmail.com.",
+          "Odgovori se čuvaju u našoj bazi kod Cloudflare-a, a fajlovi u privatnom prostoru za skladištenje kojem se ne može pristupiti sa interneta bez potpisanog linka koji ističe. Koristimo ih isključivo da bismo izradili vaš sajt — ne dijelimo ih ni sa kim i ne koristimo za reklame. Čuvamo ih dok traje saradnja i najviše godinu dana poslije toga; brisanje možete tražiti i ranije, na vakymne@gmail.com.",
           "Dok popunjavate, odgovori se čuvaju u memoriji vašeg pregledača da ih ne izgubite ako zatvorite stranicu. To ostaje na vašem uređaju, briše se čim pošaljete, i nije kolačić. Fajlovi se tu nikada ne čuvaju.",
           "Nikada ne tražimo lozinke. Da bismo obrazac zaštitili od zloupotrebe, bilježimo nepovratno kodiran zapis IP adrese kako bismo ograničili broj pokušaja — iz njega se vaša adresa ne može pročitati i ne povezuje se sa vašim odgovorima.",
         ],
@@ -458,9 +458,9 @@ export const me = {
   },
 
   meta: {
-    title: "Izrada sajtova Crna Gora — od €200, online do 10 dana | VibeLab",
+    title: "Izrada sajtova Crna Gora — od €200, online do 10 dana | Vaky",
     description:
-      "Izrada sajtova i web dizajn u Crnoj Gori. Moderan sajt za tvoj biznis — od €200, online u roku od 10 dana. Besplatan koncept prije plaćanja. VibeLab, Podgorica.",
+      "Izrada sajtova i web dizajn u Crnoj Gori. Moderan sajt za tvoj biznis — od €200, online u roku od 10 dana. Besplatan koncept prije plaćanja. Vaky, Podgorica.",
     /* JSON-LD serviceType entries — what the studio does, for search engines */
     serviceTypes: ["Izrada sajtova", "Web dizajn", "Održavanje sajtova"],
   },

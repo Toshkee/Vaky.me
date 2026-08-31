@@ -13,9 +13,9 @@
  */
 import { chromium, request } from "playwright";
 
-const BASE = (process.argv[2] || "https://vibelab.it.com").replace(/\/$/, "");
+const BASE = (process.argv[2] || "https://vaky.me").replace(/\/$/, "");
 const isLocal = /^https?:\/\/(localhost|127\.0\.0\.1)/.test(BASE);
-const apex = "https://vibelab.it.com";
+const apex = "https://vaky.me";
 
 const PAGES = [
   "/",
@@ -137,8 +137,8 @@ if (isLocal) {
   skip("canonical redirects", "local target");
 } else {
   for (const [name, url, wantHost] of [
-    ["www → apex", "https://www.vibelab.it.com/", apex],
-    ["http → https", "http://vibelab.it.com/", apex],
+    ["www → apex", "https://www.vaky.me/", apex],
+    ["http → https", "http://vaky.me/", apex],
   ]) {
     const res = await api.get(url, { maxRedirects: 0 }).catch((e) => e);
     const status = typeof res.status === "function" ? res.status() : 0;

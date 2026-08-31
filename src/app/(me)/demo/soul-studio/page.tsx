@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Bodoni_Moda, Manrope } from "next/font/google";
 import { DemoPhoto } from "@/components/demo/DemoPhoto";
 import { MapEmbed } from "@/components/demo/MapEmbed";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { InstagramIcon, PhoneIcon } from "@/components/demo/ContactIcons";
 import { gallery, hero, practices, studio } from "./data";
 import styles from "./soul.module.css";
@@ -62,7 +62,7 @@ export default function SoulStudioPage() {
     <div
       className={`${styles.page} ${display.variable} ${sans.variable} min-h-screen bg-[var(--soul-bone)] pb-[calc(6rem+env(safe-area-inset-bottom))] text-[var(--soul-ink)] [font-family:var(--font-soul-sans),system-ui,sans-serif] md:pb-0`}
     >
-      <VibeLabBar />
+      <VakyBar />
 
       <header className="border-b border-[var(--soul-line)]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4 sm:px-8">
@@ -359,7 +359,7 @@ export default function SoulStudioPage() {
           <p className="text-xs text-[var(--soul-muted)]">
             Koncept:{" "}
             <Link href="/" className={`inline-flex min-h-11 items-center font-semibold text-[var(--soul-ink)] hover:underline ${focus}`}>
-              VibeLab
+              Vaky
             </Link>
           </p>
         </div>

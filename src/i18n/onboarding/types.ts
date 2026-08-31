@@ -1,6 +1,6 @@
 /* A relative path, not the `@/` alias the rest of `src/` uses. These
    dictionaries are also compiled into the Cloudflare Function that writes the
-   notification email, so VibeLab reads a client's answers under the same
+   notification email, so Vaky reads a client's answers under the same
    labels the client answered them under — and esbuild does not resolve the
    TypeScript path alias. The same goes for `me.ts` and `en.ts`. */
 import type {
@@ -76,7 +76,7 @@ export type OnboardingCopy = {
   };
 
   /** The screens a private link can land on instead of the form: still
-   *  checking, not a link VibeLab issued, or a brief already sent. */
+   *  checking, not a link Vaky issued, or a brief already sent. */
   privateLink: {
     checking: string;
     invalidTitle: string;
@@ -86,7 +86,7 @@ export type OnboardingCopy = {
   };
 
   /** The public `/start/` page, which is not the form — the form only exists
-   *  behind a link VibeLab sends. Rendered in both languages at once, because
+   *  behind a link Vaky sends. Rendered in both languages at once, because
    *  whoever lands here has not chosen one. */
   info: {
     title: string;

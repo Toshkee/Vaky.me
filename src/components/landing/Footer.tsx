@@ -29,14 +29,16 @@ export function Footer({ dict }: { dict: Dictionary }) {
         >
           {dict.footer.privacy}
         </Link>
-        <a
-          href={instagramLink()}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline-offset-4 transition-colors hover:text-ink hover:underline"
-        >
-          @{site.instagram}
-        </a>
+        {site.instagram && (
+          <a
+            href={instagramLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline-offset-4 transition-colors hover:text-ink hover:underline"
+          >
+            @{site.instagram}
+          </a>
+        )}
       </div>
     </footer>
   );

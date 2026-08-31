@@ -16,7 +16,7 @@ import { sha256Hex } from "./crypto";
  * That is what ties a client's uploads, their answers and the project
  * together without a single client-supplied identifier: the token names the
  * row, the row names the submission, and the submission's package is whatever
- * VibeLab put on the row — a client cannot change it from the URL bar,
+ * Vaky put on the row — a client cannot change it from the URL bar,
  * because the URL never says it.
  */
 
@@ -42,14 +42,14 @@ function randomToken(): string {
 }
 
 /* The shape a token must have before it is worth hashing — anything else is
-   noise from a crawler, not a link VibeLab issued. */
+   noise from a crawler, not a link Vaky issued. */
 const TOKEN = /^[A-Za-z0-9_-]{28,40}$/;
 
 /**
  * Creates the link for a project and hands the token back — the only time it
  * exists in the clear. Any earlier live link for the same project is
  * cancelled first: one project, one working link, so a client can never be
- * filling in a form VibeLab has already replaced.
+ * filling in a form Vaky has already replaced.
  */
 export async function createRequest(
   db: D1Database,

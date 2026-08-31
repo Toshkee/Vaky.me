@@ -7,7 +7,7 @@
    shape on top of it. Chalk is the one neutral surface, used for the sections
    that need to read as a calm beat between the ink slabs.
 
-   They live here as custom properties rather than in the VibeLab theme: four
+   They live here as custom properties rather than in the Vaky theme: four
    client concepts sharing one `@theme` block would ship every studio's tokens
    on every page of the site. Tailwind reads them back through literal class
    strings like `bg-[var(--telo-butter)]`, so the scanner still sees them.

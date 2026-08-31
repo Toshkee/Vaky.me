@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Plus_Jakarta_Sans, Tenor_Sans } from "next/font/google";
 import { DemoPhoto } from "@/components/demo/DemoPhoto";
 import { MapEmbed } from "@/components/demo/MapEmbed";
-import { VibeLabBar } from "@/components/demo/VibeLabBar";
+import { VakyBar } from "@/components/demo/VakyBar";
 import { CalendarIcon, InstagramIcon } from "@/components/demo/ContactIcons";
 import { bookingSteps, hero, lookbook, services, studio, trustLine } from "./data";
 import styles from "./lav.module.css";
@@ -43,7 +43,7 @@ export default function LavLavPage() {
     <div
       className={`${styles.page} ${tenor.variable} ${sans.variable} min-h-screen bg-[var(--lav-cream)] pb-[calc(5rem+env(safe-area-inset-bottom))] text-[var(--lav-ink)] [font-family:var(--font-lav-sans),system-ui,sans-serif] md:pb-0`}
     >
-      <VibeLabBar />
+      <VakyBar />
 
       <header className="border-b border-[var(--lav-line)]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-5 py-4 sm:px-8">
@@ -393,7 +393,7 @@ export default function LavLavPage() {
           <p className="text-xs text-[var(--lav-muted)]">
             Koncept:{" "}
             <Link href="/" className={`inline-flex min-h-11 items-center font-semibold text-[var(--lav-ink)] hover:underline ${focus}`}>
-              VibeLab
+              Vaky
             </Link>
           </p>
         </div>

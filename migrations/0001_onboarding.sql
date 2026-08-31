@@ -1,4 +1,4 @@
--- VibeLab client onboarding.
+-- Vaky client onboarding.
 --
 --   npx wrangler d1 migrations apply vibelab-onboarding --local     (dev)
 --   npx wrangler d1 migrations apply vibelab-onboarding --remote    (production)
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS onboarding_submissions (
   created_at      TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at      TEXT NOT NULL DEFAULT (datetime('now')),
 
-  -- Whether VibeLab was told. A brief with a note here is one that arrived but
+  -- Whether Vaky was told. A brief with a note here is one that arrived but
   -- whose email did not, which is the case a future admin list must surface.
   notified_at     TEXT,
   notify_error    TEXT

@@ -17,7 +17,7 @@ import { ADMIN_SESSION_TTL_MS } from "../onboarding/env";
  * recovering a password, unlike a timing oracle over the password itself.
  */
 
-const COOKIE = "vibelab_admin";
+const COOKIE = "vaky_admin";
 const SCOPE = "admin";
 
 export async function passwordMatches(expected: string, provided: string): Promise<boolean> {

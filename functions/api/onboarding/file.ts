@@ -10,7 +10,7 @@ import { findFile } from "../../../server/onboarding/store";
  * The bucket is private and there is no admin login on this site, so the link
  * itself is the credential: it names one file, it is signed with the studio's
  * own secret, it expires, and it only ever exists inside the notification email
- * sent to VibeLab. That is a smaller thing to get right than an authentication
+ * sent to Vaky. That is a smaller thing to get right than an authentication
  * system a studio of this size would have to maintain.
  *
  * Always a download, never a render: `attachment` on the way in and again on
