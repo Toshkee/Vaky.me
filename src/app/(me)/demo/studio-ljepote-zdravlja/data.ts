@@ -360,18 +360,3 @@ export const ownPhotographyStatus = {
     "Instagram blocks logged-out media, the register entry has no gallery, and no directory lists the business. Every rendered frame is stock and marked replaceBeforeProduction.",
   needsConfirmation: true,
 } as const;
-
-/**
- * Sourced but not rendered.
- *
- * `treatment-room` is a second angle of the same stock room as
- * `studio-interior`; two frames from one shoot would read as a set and the page
- * only has room for one. `lash-tweezers` sits on a saturated pink field, which
- * is the one colour this concept rules out, and its subject is already covered
- * by `lash-tool-hands`. Both files stay in `public/` for whoever picks up the
- * page next; neither is referenced by the markup.
- */
-export const sourcedUnused = [
-  "/demo/studio-ljepote-zdravlja/treatment-room",
-  "/demo/studio-ljepote-zdravlja/lash-tweezers",
-] as const;

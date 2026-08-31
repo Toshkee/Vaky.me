@@ -78,7 +78,3 @@ export function priceLabel(id: PackageId, language: Language): string {
   const { amount, kind } = PACKAGES[id].price;
   return kind === "from" ? `${FROM[language]} €${amount}` : `€${amount}`;
 }
-
-export function maintenanceLabel(language: Language): string {
-  return language === "en" ? `€${MAINTENANCE.amount}/month` : `€${MAINTENANCE.amount}/mjesec`;
-}

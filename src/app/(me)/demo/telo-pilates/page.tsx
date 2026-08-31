@@ -77,7 +77,7 @@ const headerCta = `hidden min-h-11 px-6 sm:inline-flex ${ctaType} bg-[var(--telo
 function CarriageTrack({ className = "" }: { className?: string }) {
   const ink = "var(--telo-ink)";
   return (
-    <div className={`${styles.trackFrame} ${className}`}>
+    <div className={className}>
       <svg
         viewBox="0 0 1200 160"
         preserveAspectRatio="none"
@@ -90,13 +90,11 @@ function CarriageTrack({ className = "" }: { className?: string }) {
         <path d="M0 128H1200" strokeOpacity="0.22" strokeWidth="1" vectorEffect="non-scaling-stroke" />
         <path d="M140 110V146M1060 110V146" strokeOpacity="0.45" strokeWidth="1" vectorEffect="non-scaling-stroke" />
         <path
-          className={styles.trackStroke}
           pathLength={1}
           d="M140 128C340 128 380 28 620 28C880 28 980 112 1060 128"
           strokeLinecap="round"
         />
         <path
-          className={styles.trackEnd}
           d="M1060 128h0.01"
           strokeLinecap="round"
           vectorEffect="non-scaling-stroke"
@@ -204,12 +202,12 @@ export default function TeloPilatesPage() {
               </p>
             </div>
 
-            <ul className={`${styles.score} mt-12 border-b border-[var(--telo-line)] sm:mt-16`}>
+            <ul className="mt-12 border-b border-[var(--telo-line)] sm:mt-16">
               {formats.map((format) => (
                 <li key={format.id} className="border-t border-[var(--telo-line)] py-6 sm:py-7">
                   <div className="grid gap-x-10 gap-y-2.5 md:grid-cols-[minmax(0,1fr)_15rem] md:items-baseline lg:grid-cols-[minmax(0,1fr)_19rem]">
                     <h3
-                      className={`${styles.stave} ${serif} text-[clamp(2.1rem,6vw,3.75rem)] leading-[1] tracking-[-0.025em]`}
+                      className={`${serif} text-[clamp(2.1rem,6vw,3.75rem)] leading-[1] tracking-[-0.025em]`}
                     >
                       {format.name}
                     </h3>
@@ -352,7 +350,7 @@ export default function TeloPilatesPage() {
                   telo u pokretu.
                 </h2>
                 <CarriageTrack
-                  className={`${styles.trackEcho} mt-9 h-20 max-w-[21rem] sm:mt-12 sm:h-24 sm:max-w-md`}
+                  className="mt-9 h-20 max-w-[21rem] sm:mt-12 sm:h-24 sm:max-w-md"
                 />
               </div>
               <div className="lg:pb-2">

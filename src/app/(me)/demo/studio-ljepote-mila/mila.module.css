@@ -63,35 +63,6 @@
   }
 }
 
-/* The one echo of the signature outside the artist section: a fine drawn
-   stroke that runs the full measure of the masthead and doubles as the top
-   rule of the running foot. `pathLength="1"` on the SVG element (set in the
-   markup) makes the dasharray math trivial regardless of the path's real
-   geometry. Static default: fully drawn. */
-.strokeMotif {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
-
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .strokeMotif {
-      animation: mila-draw linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 30%;
-    }
-  }
-}
-
-@keyframes mila-draw {
-  from {
-    stroke-dashoffset: 1;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
 /* Text CTAs: a rose rule that grows out from the left under the word. Buttons
    get their own bordered geometry in the markup; this is for the secondary
    routes — the nav anchors, "Pogledaj tretmane", "Piši za edukacije",
@@ -128,25 +99,8 @@
   box-shadow: inset 0 -2px 0 0 var(--mila-rose-light);
 }
 
-/* The one filled surface on the page: a thin-bordered rectangle that fills
-   with rose on hover/focus instead of a pill or a slab. */
-.primaryCta {
-  transition:
-    background-color 200ms ease,
-    color 200ms ease,
-    border-color 200ms ease;
-}
-
-.primaryCta:hover,
-.primaryCta:focus-visible {
-  background: var(--mila-rose-deep);
-  border-color: var(--mila-rose-deep);
-  color: var(--mila-on-carbon);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .inkline::after,
-  .primaryCta {
+  .inkline::after {
     transition: none;
   }
 }

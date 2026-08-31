@@ -102,13 +102,6 @@ export async function listRequests(db: D1Database, projectId: string): Promise<R
   return results ?? [];
 }
 
-/** A link a client may still work through. Cancelled and completed are both
- *  final — completion locks the form rather than leaving an anonymous URL
- *  that can rewrite a sent brief forever. */
-export function isOpenRequest(row: RequestRow): boolean {
-  return row.status === "created" || row.status === "opened" || row.status === "in_progress";
-}
-
 /** The typed view of a row the endpoints work with. A row whose package or
  *  status this build does not know is treated as broken rather than guessed
  *  at — it can only mean the database is newer than the code. */

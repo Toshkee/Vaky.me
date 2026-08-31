@@ -46,7 +46,7 @@ const focusLight =
    the page never grows a second visual voice competing with the type. */
 const primaryCta = `inline-flex min-h-12 items-center justify-center bg-[var(--mila-carbon)] px-8 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[var(--mila-on-carbon)] transition-colors hover:bg-[var(--mila-rose-deep)] ${focus}`;
 const textCta = `${styles.inkline} inline-flex min-h-12 items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.2em] ${focus}`;
-const textCtaLight = `${styles.inkline} ${styles.inklineLight} inline-flex min-h-12 items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[var(--mila-on-carbon)] ${focusLight}`;
+const textCtaLight = `${styles.inkline} inline-flex min-h-12 items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[var(--mila-on-carbon)] ${focusLight}`;
 
 /* The three rubrics step right down a fixed set of hairlines while their decks
    stay locked in one right-hand column — a contents spread, where the tension
@@ -217,12 +217,12 @@ export default function StudioLjepoteMilaPage() {
               <li key={entrance.id} className="border-t border-[var(--mila-rose-soft)] last:border-b">
                 <a
                   href={entrance.href}
-                  className={`${styles.rubric} block py-7 sm:py-9 md:grid md:grid-cols-[minmax(0,1fr)_16rem] md:items-baseline md:gap-x-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-x-16 ${focus}`}
+                  className={`block py-7 sm:py-9 md:grid md:grid-cols-[minmax(0,1fr)_16rem] md:items-baseline md:gap-x-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-x-16 ${focus}`}
                 >
                   <h3
                     className={`${serif} text-[clamp(1.9rem,5.4vw,3.5rem)] font-medium leading-[1.0] tracking-[-0.025em] ${RUBRIC_INDENT[index]}`}
                   >
-                    <span className={styles.rubricWord}>{entrance.title}</span>
+                    <span>{entrance.title}</span>
                   </h3>
                   <p className="mt-3 max-w-sm text-sm leading-relaxed text-[var(--mila-muted)] md:mt-0">
                     {entrance.deck}

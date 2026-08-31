@@ -123,25 +123,6 @@ export const photos = [
   },
 ] as const satisfies readonly Photo[];
 
-/** The two frames do different jobs and are never rendered as a gallery, so
-    page.tsx addresses them by name rather than by index. */
-export const [doorPhoto, roomPhoto] = photos;
-
-/**
- * Provenance for the one drawn mark on the page.
- *
- * It is not our shape and it was not designed here: the clinic has it etched
- * on its own entrance glass, and it is visible in `doorPhoto`. It was traced
- * by hand as a single open path so it can be set in currentColor at any size.
- * Like the photographs, it is shown to demonstrate the idea and would need the
- * clinic's own artwork — and its permission — before production.
- */
-export const doorMark = {
-  tracedFrom: "/demo/dental-clinic-kovacevic/ulaz",
-  rightsStatus: "the clinic's own mark — hand-traced for this concept, not licensed",
-  replaceBeforeProduction: true,
-} as const;
-
 /**
  * NOT FOR RENDERING.
  *

@@ -26,16 +26,6 @@ export function instagramDmLink(): string {
   return `https://ig.me/m/${site.instagram}`;
 }
 
-/**
- * The web fallback for visitors whose computer has no mail app wired up —
- * on desktop Windows that is common, and a mailto: click then simply does
- * nothing. Gmail's compose endpoint takes the same subject and body.
- */
-export function gmailComposeLink(subject: string, body: string): string {
-  const q = new URLSearchParams({ view: "cm", fs: "1", to: site.email, su: subject, body });
-  return `https://mail.google.com/mail/?${q}`;
-}
-
 export function emailLink(subject: string, body?: string): string {
   /* Percent-encoding, not URLSearchParams: mailto: follows RFC 6068, where a
      "+" is a literal plus rather than a space. Form-encoding the body makes
