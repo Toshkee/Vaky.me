@@ -351,8 +351,7 @@ export const researchOnly = {
  * `photoProvenance` are licensed stock, labelled as such on the page.
  *
  * Before production the studio should supply its logo and its own interior and
- * detail photography without recognisable faces; see the material list in
- * `docs/claude-prompt-4-mobile-demo-sajta-2026-08-30.md`.
+ * detail photography without recognisable faces.
  */
 export const ownPhotographyStatus = {
   value: "no photograph of this studio is publicly retrievable",

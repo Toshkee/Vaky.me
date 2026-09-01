@@ -28,8 +28,7 @@ Expect a first reply within 5 working days. There is no bounty programme.
 - Findings against `www.vaky.me` beyond the redirect itself.
 - Missing headers on third-party responses (Google Maps, once a visitor loads it).
 - Volumetric or denial-of-service testing. Do not run one.
-- Automated active scans against production. Passive scanning is fine; the
-  repository runs a ZAP baseline scan itself.
+- Automated active scans against production. Passive scanning is fine.
 
 ## What is deployed
 

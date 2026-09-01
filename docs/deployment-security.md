@@ -158,14 +158,17 @@ Verify at each step: `dig +short TXT _dmarc.vaky.me`.
 
 Enable in GitHub → Settings → Code security:
 
-- **Dependabot alerts** and **security updates** (the update schedule itself is
-  in `.github/dependabot.yml`).
+- **Dependabot alerts**. The scheduled update PRs and `.github/dependabot.yml`
+  were switched off in September 2026; the alerts are a dashboard setting and
+  cost nothing.
 - **Secret scanning** and **push protection**.
 
-CI already runs lint, typecheck, build, `npm audit --audit-level=high` and
-Gitleaks over the full history on every push; the ZAP baseline scan runs weekly
-and on demand. All actions are pinned to commit SHAs — when Dependabot proposes
-a bump, it rewrites the SHA and the `# vX.Y.Z` comment together.
+CI runs lint, typecheck, build, `npm audit --audit-level=high` and Gitleaks
+over the full history on every push. The CodeQL, ZAP baseline and Lighthouse
+workflows were removed in September 2026, so `npm run test:security` against
+production is the remaining external check — run it after each deploy that
+touches headers or the API. All actions are pinned to commit SHAs — bump the
+SHA and the `# vX.Y.Z` comment together.
 
 ## 6. Third-party requests from the pages
 
@@ -180,16 +183,23 @@ the visitor controls or the build decides:
 | `cloud.umami.is` | on page load, and only if a website id is configured | `src/components/Analytics.tsx` |
 | `static.cloudflareinsights.com` | on page load — **Cloudflare injects this itself**, no code here asks for it | Cloudflare dashboard → Web Analytics |
 
-**Decide about Cloudflare Web Analytics.** It is on today: production serves
-`beacon.min.js` on every page. It is in the CSP so that deploying these headers
-does not silently break it. Two coherent choices, not three:
+**Cloudflare Web Analytics is off** — checked 1 September 2026, production
+serves no `beacon.min.js`. Its two hosts are still in the CSP so that switching
+it on in the dashboard does not silently break. Two coherent states, not three:
 
-- **Turn it off** (Cloudflare → Web Analytics → remove the site) once Umami is
-  running — one analytics tool, one disclosure. Then delete
-  `static.cloudflareinsights.com` and `cloudflareinsights.com` from the CSP.
-- **Keep it**, and set `NEXT_PUBLIC_CLOUDFLARE_ANALYTICS=on` so the privacy
-  page says so. A tracker nobody discloses is the problem this whole section
-  exists to avoid.
+- **Off**, the current one. Once Umami is the one analytics tool, delete
+  `static.cloudflareinsights.com` and `cloudflareinsights.com` from the CSP
+  too, so the policy describes what actually runs.
+- **On**, with `NEXT_PUBLIC_CLOUDFLARE_ANALYTICS=on` set in the same change so
+  the privacy page says so. A tracker nobody discloses is the problem this
+  whole section exists to avoid.
+
+**The onboarding shell loads no analytics at all**, whatever is configured.
+`/start/form/` is served for every `/start/{token}/`, so the client's link
+token is in the address bar, and a page-view tracker reports the path with
+every hit — Umami would receive the credential. The shell has its own root
+layout, `src/app/(onboarding)/layout.tsx`, that leaves the script out; the
+`onboarding_*` events in `src/lib/analytics.ts` no-op there by design.
 
 All four are named explicitly in the CSP in `public/_headers` — never a wildcard.
 The three configurable ones are off unless the matching `NEXT_PUBLIC_*`

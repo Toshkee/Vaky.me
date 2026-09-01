@@ -72,8 +72,14 @@ export function clientIp(request: Request): string {
 }
 
 export async function readJson(request: Request, maxBytes = 128 * 1024): Promise<unknown> {
-  const declared = Number(request.headers.get("Content-Length") ?? "0");
-  if (declared > maxBytes) return null;
+  /* Every caller is a browser fetch with a string body, and those always
+     carry a Content-Length. A body sent without one (chunked) would have to
+     be buffered in full before the cap below could be applied, so it is
+     refused instead of read. */
+  const header = request.headers.get("Content-Length");
+  if (header === null) return null;
+  const declared = Number(header);
+  if (!Number.isFinite(declared) || declared > maxBytes) return null;
   try {
     const text = await request.text();
     if (text.length > maxBytes) return null;

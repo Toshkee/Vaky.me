@@ -14,8 +14,12 @@
 export const studio = {
   name: "LavLav",
   city: "Podgorica",
-  address: "Master kvart, ulaz 10, sprat 4, stan 24, Podgorica",
-  /** Plain text; the map component encodes it. The quarter, not the flat. */
+  /* The quarter only. The studio works out of a residential flat, and the
+     entrance, floor and unit number are not republished here — see
+     docs/deployment-security.md, section 8. A client gets the exact spot with
+     the booking confirmation, as they do today. */
+  address: "Master kvart, Podgorica",
+  /** Plain text; the map component encodes it. */
   mapQuery: "Master kvart, Podgorica, Crna Gora",
   phoneDisplay: "+382 68 392 859",
   phoneUrl: "tel:+38268392859",

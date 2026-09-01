@@ -62,7 +62,18 @@ export const viewport: Viewport = {
   themeColor: "#faf8f4",
 };
 
-export function RootHtml({ lang, children }: { lang: string; children: ReactNode }) {
+export function RootHtml({
+  lang,
+  analytics = true,
+  children,
+}: {
+  lang: string;
+  /** Off for the onboarding shell: its address bar holds the client's link
+   *  token, and a page-view tracker would report that path to the analytics
+   *  provider. See src/app/(onboarding)/layout.tsx. */
+  analytics?: boolean;
+  children: ReactNode;
+}) {
   return (
     <html
       lang={lang}
@@ -70,7 +81,7 @@ export function RootHtml({ lang, children }: { lang: string; children: ReactNode
     >
       <body className="min-h-full flex flex-col">
         {children}
-        <Analytics />
+        {analytics && <Analytics />}
       </body>
     </html>
   );

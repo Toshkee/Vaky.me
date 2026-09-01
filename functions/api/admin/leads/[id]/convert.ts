@@ -1,6 +1,7 @@
 import {
   acceptLead,
   createProject,
+  deleteProject,
   findLead,
   logActivity,
 } from "../../../../../server/admin/store";
@@ -42,7 +43,13 @@ export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
       packageId,
       leadId,
     });
-    await acceptLead(context.env.DB, leadId, projectId);
+    /* The claim is conditional on the lead still being free. Losing it means
+       a concurrent convert got there first — that project is the real one,
+       this one is an orphan and is removed again. */
+    if (!(await acceptLead(context.env.DB, leadId, projectId))) {
+      await deleteProject(context.env.DB, projectId);
+      return fail("completed");
+    }
     await logActivity(context.env.DB, { projectId, leadId }, "project_created", packageId);
 
     return json({ projectId });

@@ -133,14 +133,23 @@ export async function setLeadStatus(db: D1Database, id: string, status: LeadStat
 
 /** Converting is one motion: the lead points at its project and stops being
  *  an open enquiry. */
-export async function acceptLead(db: D1Database, leadId: string, projectId: string): Promise<void> {
-  await db
+/** Claims the lead for one project — conditionally, so two converts racing
+ *  each other (a double click, a retried POST) cannot fork one agreement into
+ *  two projects. The second UPDATE finds the lead already claimed, touches no
+ *  row, and returns false; the caller undoes its project. */
+export async function acceptLead(
+  db: D1Database,
+  leadId: string,
+  projectId: string,
+): Promise<boolean> {
+  const result = await db
     .prepare(
       `UPDATE leads SET status = 'accepted', project_id = ?2, updated_at = datetime('now')
-       WHERE id = ?1`,
+       WHERE id = ?1 AND project_id IS NULL`,
     )
     .bind(leadId, projectId)
     .run();
+  return (result.meta.changes ?? 0) === 1;
 }
 
 export async function markLeadNotified(

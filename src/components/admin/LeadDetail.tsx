@@ -2,7 +2,13 @@
 
 import { useCallback, useState } from "react";
 import { addLeadNote, convertLead, deleteLead, getLead, setLeadStatus } from "@/lib/admin/client";
-import { PACKAGE_IDS, type ApiErrorCode, type PackageId } from "@/lib/onboarding/schema";
+import {
+  PACKAGE_IDS,
+  isValidUrl,
+  normaliseUrl,
+  type ApiErrorCode,
+  type PackageId,
+} from "@/lib/onboarding/schema";
 import {
   LEAD_NEED_LABELS,
   LEAD_STATUSES,
@@ -127,18 +133,26 @@ export function LeadDetail({ id }: { id: string }) {
                     ) : null
                   }
                 />
+                {/* Free text on the public form — people type "@handle" as
+                    readily as a URL, so it is stored as typed. It becomes a
+                    link here only if it parses as http(s); anything else is
+                    shown as text, never as an href Vaky would click. */}
                 <Fact
                   label="Instagram ili sajt"
                   value={
                     data.lead.link ? (
-                      <a
-                        href={data.lead.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="break-all underline decoration-line underline-offset-4 hover:text-red"
-                      >
-                        {data.lead.link}
-                      </a>
+                      isValidUrl(data.lead.link) ? (
+                        <a
+                          href={normaliseUrl(data.lead.link)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="break-all underline decoration-line underline-offset-4 hover:text-red"
+                        >
+                          {data.lead.link}
+                        </a>
+                      ) : (
+                        <span className="break-all">{data.lead.link}</span>
+                      )
                     ) : null
                   }
                 />
