@@ -3,7 +3,7 @@ export const me = {
   htmlLang: "sr-ME",
 
   nav: {
-    work: "Radovi",
+    work: "Primjeri",
     pricing: "Cijene",
     contact: "Kontakt",
     langLabel: "EN",
@@ -17,7 +17,7 @@ export const me = {
     sub: "Moderni sajtovi za biznise koji žele više upita, bolji prvi utisak i profesionalno online prisustvo.",
     offer: "Jasna cijena unaprijed, sve od prve skice do objave vodimo mi — bez agencijskih komplikacija.",
     ctaPrimary: "Zatraži besplatan koncept",
-    ctaSecondary: "Pogledaj radove",
+    ctaSecondary: "Pogledaj primjere",
     /* The four numbers a business owner asks for first. Every one of them is
        said again further down the page — nothing here is a claim the rest of
        the site does not stand behind. */
@@ -30,15 +30,16 @@ export const me = {
   },
 
   work: {
-    title: "Radovi",
-    sub: "Dizajn koncepti za biznise kakvi postoje ovdje. Izaberi svoj tip biznisa, pa otvori demo i probaj ga na svom telefonu.",
+    title: "Kako bi tvoj sajt mogao da izgleda",
+    sub: "Izaberi čime se baviš. Svaki primjer je sajt kakav bismo napravili za taj biznis — otvori ga i probaj na svom telefonu.",
     conceptLabel: "Dizajn koncept",
     briefLabel: "Zadatak",
     solutionLabel: "Rješenje",
     includesLabel: "Sadrži",
-    /* The tab row above the phone. `type` on each item is the label: a
-       barber has to be able to find "Barber" before reading a word. */
-    tabsLabel: "Tip biznisa",
+    /* The question above the tab row, and the tablist's accessible name.
+       `type` on each item is the answer: a barber has to be able to find
+       "Barber" before reading a word. */
+    tabsLabel: "Čime se baviš?",
     open: "Otvori demo",
     /* {name} is the project's name */
     phoneAlt: "{name} — početne stranice sajta na telefonu",

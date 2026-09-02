@@ -66,13 +66,17 @@ export function Work({ dict }: { dict: Dictionary }) {
         <SectionHead icon={<FolderIcon />} title={dict.work.title} />
         <p className="mt-3 max-w-lg text-muted">{dict.work.sub}</p>
 
-        {/* The business types. One row that scrolls on a phone and wraps
-            from sm up; the chosen one is the ink key, the rest are paper. */}
+        {/* The question, then the answers. One row that scrolls on a phone
+            and wraps from sm up; the chosen one is the ink key, the rest are
+            paper. */}
+        <p id={`${baseId}-question`} className="eyebrow mt-8 text-red">
+          {dict.work.tabsLabel}
+        </p>
         <div
           role="tablist"
-          aria-label={dict.work.tabsLabel}
+          aria-labelledby={`${baseId}-question`}
           onKeyDown={onKeyDown}
-          className="-mx-5 mt-7 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
+          className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
         >
           {items.map((entry, i) => {
             const selected = i === index;

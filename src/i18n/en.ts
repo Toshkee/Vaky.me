@@ -5,7 +5,7 @@ export const en: Dictionary = {
   htmlLang: "en",
 
   nav: {
-    work: "Work",
+    work: "Examples",
     pricing: "Pricing",
     contact: "Contact",
     langLabel: "ME",
@@ -19,7 +19,7 @@ export const en: Dictionary = {
     sub: "Modern websites for businesses that want more enquiries, a stronger first impression and a professional online presence.",
     offer: "A clear price up front and everything handled from first sketch to launch — none of the agency overhead.",
     ctaPrimary: "Get your free concept",
-    ctaSecondary: "See our work",
+    ctaSecondary: "See the examples",
     facts: [
       { label: "Working in", value: "Montenegro" },
       { label: "Delivered in", value: "up to 10 days" },
@@ -29,13 +29,13 @@ export const en: Dictionary = {
   },
 
   work: {
-    title: "Work",
-    sub: "Design concepts for the kinds of businesses that exist here. Pick your type of business, then open the demo and try it on your own phone.",
+    title: "What your site could look like",
+    sub: "Pick what you do. Each example is the site we would build for that business — open it and try it on your own phone.",
     conceptLabel: "Design concept",
     briefLabel: "Brief",
     solutionLabel: "Approach",
     includesLabel: "Includes",
-    tabsLabel: "Type of business",
+    tabsLabel: "What do you do?",
     open: "Open the demo",
     phoneAlt: "{name} — the site's opening screens on a phone",
     items: [
