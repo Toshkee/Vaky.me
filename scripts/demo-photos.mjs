@@ -3,7 +3,7 @@
  *
  *   node scripts/demo-photos.mjs
  *
- * Same job as `optimize-work-shots.mjs` does for the portfolio screenshots,
+ * Same job as `capture-phone-shots.mjs` does for the portfolio captures,
  * for the photos under `public/demo/<slug>/`. The export runs with
  * `images.unoptimized`, so nothing resizes these at request time — without
  * this a phone downloads the full-width JPG to draw it 320px wide.

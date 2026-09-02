@@ -2,7 +2,6 @@ import type { Dictionary } from "@/i18n";
 import { Nav } from "./Nav";
 import { Hero } from "./Hero";
 import { Work } from "./Work";
-import { Why } from "./Why";
 import { Pricing } from "./Pricing";
 import { Process } from "./Process";
 import { Faq } from "./Faq";
@@ -18,9 +17,8 @@ export function LandingPage({ dict }: { dict: Dictionary }) {
       <main>
         <Hero dict={dict} />
         <Work dict={dict} />
-        <Why dict={dict} />
-        <Pricing dict={dict} />
         <Process dict={dict} />
+        <Pricing dict={dict} />
         <Faq dict={dict} />
         <Contact dict={dict} />
       </main>

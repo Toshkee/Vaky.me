@@ -30,18 +30,18 @@ export const en: Dictionary = {
 
   work: {
     title: "Work",
-    sub: "Interactive design concepts — open and try them on your own phone.",
+    sub: "Design concepts for the kinds of businesses that exist here. Pick your type of business, then open the demo and try it on your own phone.",
     conceptLabel: "Design concept",
     briefLabel: "Brief",
     solutionLabel: "Approach",
     includesLabel: "Includes",
-    swipeHint: "Swipe for the other projects",
-    counter: "{n} of {total}",
-    prev: "Previous project",
-    next: "Next project",
+    tabsLabel: "Type of business",
+    open: "Open the demo",
+    phoneAlt: "{name} — the site's opening screens on a phone",
     items: [
       {
         name: "Lucky Chopsticks",
+        type: "Asian restaurant",
         tag: "Asian restaurant · Podgorica",
         href: "/demo/lucky-chopsticks/",
         brief: "Guests check the menu and location before picking where to eat.",
@@ -50,6 +50,7 @@ export const en: Dictionary = {
       },
       {
         name: "Barber Drina",
+        type: "Barber",
         tag: "Barber · Stari Aerodrom",
         href: "/demo/barber-drina/",
         brief: "The price list lives in an Instagram post guests scroll back to find.",
@@ -58,6 +59,7 @@ export const en: Dictionary = {
       },
       {
         name: "Konoba Skadar",
+        type: "Restaurant",
         tag: "Restaurant",
         href: "/demo/konoba-skadar/",
         brief: "Guests pick a place by phone and want the menu and a free table.",
@@ -66,6 +68,7 @@ export const en: Dictionary = {
       },
       {
         name: "Titan Gym",
+        type: "Gym",
         tag: "Gym",
         href: "/demo/titan-gym/",
         brief: "Memberships and the timetable get asked for over DMs all week.",
@@ -74,6 +77,7 @@ export const en: Dictionary = {
       },
       {
         name: "Barbershop Stari Grad",
+        type: "Barbershop",
         tag: "Barber",
         href: "/demo/barbershop-stari-grad/",
         brief: "Booking runs over Viber, and prices are nowhere to be found.",
@@ -83,51 +87,49 @@ export const en: Dictionary = {
     ],
   },
 
-  why: {
-    title: "Why Vaky?",
-    sub: "Website development in Montenegro — a simple process, a clear agreement and a site that works for your business.",
-    items: [
-      {
-        title: "See the concept first",
-        body: "Get an initial design direction before you make a commitment.",
-      },
-      {
-        title: "Clear scope and price",
-        body: "Know what your package includes and what it costs before work begins.",
-      },
-      {
-        title: "Everything handled",
-        body: "Design, content, domain and launch — all in one place.",
-      },
-      {
-        title: "Direct communication",
-        body: "You talk directly to the people building your site — no middlemen.",
-      },
-    ],
-  },
-
   process: {
     title: "How we work",
+    sub: "From the first message to a site that works — the whole road, step by step. No hidden phases and no surprises at the end.",
     steps: [
       {
-        day: "Day 1",
+        when: "Day 1",
         title: "You reach out",
-        body: "Instagram DM or email. Tell us what your business does and what you need.",
+        body: "The form on this site, an Instagram DM or an email — whatever is easiest. Tell us what your business does and what you need. We usually reply the same day.",
       },
       {
-        day: "Day 1–2",
+        when: "Day 1–2",
         title: "Free concept",
-        body: "We sketch your new website — before you pay a cent.",
+        body: "We look at your business, your Instagram and your competition, then sketch the first version of your site. You see the design direction before you pay a cent.",
       },
       {
-        day: "Day 3–9",
+        when: "Agreement",
+        title: "Package and price",
+        body: "You pick a package — Start, Business or Project — and know exactly what is in it and what it costs. Half up front, half when the site is done. Nothing is paid through the site.",
+      },
+      {
+        when: "5 minutes",
+        title: "A short questionnaire",
+        body: "You get a personal link. We ask about your business, your goals, the look and what the site has to do — no technical terms. Your logo, photos and texts go in the same place, and wherever you are unsure, you tap \"Not sure\".",
+      },
+      {
+        when: "Backstage",
+        title: "Your answers become a brief",
+        body: "We turn your answers and materials into a detailed brief: structure, tone, colours, what the site must do. From it we write instructions and prompts for your site alone — we never start from a template, which is why no two of our sites look alike.",
+      },
+      {
+        when: "Day 3–9",
         title: "We build",
-        body: "Design, copy, photos and the technical work. You focus on your business.",
+        body: "Design, copy, photos and the technical work. The site is built for the phone first, loads fast and is ready for Google. You focus on your business.",
       },
       {
-        day: "By day 10",
+        when: "Review",
+        title: "You review",
+        body: "You get a link to the finished site. Collect your notes, send them in one go and we work through them in a single round — Business gets two.",
+      },
+      {
+        when: "By day 10",
         title: "Live",
-        body: "Your site is live on your domain. If you want, we can take over maintenance from there.",
+        body: "The site runs on your domain and all of it is yours. If you would rather not think about the technical side, we take over hosting, backups and small edits — €20 a month, first month free.",
       },
     ],
   },

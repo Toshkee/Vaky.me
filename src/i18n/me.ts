@@ -31,18 +31,21 @@ export const me = {
 
   work: {
     title: "Radovi",
-    sub: "Interaktivni dizajn koncepti — otvori ih i probaj na svom telefonu.",
+    sub: "Dizajn koncepti za biznise kakvi postoje ovdje. Izaberi svoj tip biznisa, pa otvori demo i probaj ga na svom telefonu.",
     conceptLabel: "Dizajn koncept",
     briefLabel: "Zadatak",
     solutionLabel: "Rješenje",
     includesLabel: "Sadrži",
-    swipeHint: "Prevuci za ostale radove",
-    counter: "{n} od {total}",
-    prev: "Prethodni rad",
-    next: "Sljedeći rad",
+    /* The tab row above the phone. `type` on each item is the label: a
+       barber has to be able to find "Barber" before reading a word. */
+    tabsLabel: "Tip biznisa",
+    open: "Otvori demo",
+    /* {name} is the project's name */
+    phoneAlt: "{name} — početne stranice sajta na telefonu",
     items: [
       {
         name: "Lucky Chopsticks",
+        type: "Azijski restoran",
         tag: "Asian restaurant · Podgorica",
         href: "/demo/lucky-chopsticks/",
         brief: "Gosti traže jelovnik i lokaciju prije nego odluče gdje idu večeras.",
@@ -51,6 +54,7 @@ export const me = {
       },
       {
         name: "Barber Drina",
+        type: "Barber",
         tag: "Barber · Stari Aerodrom",
         href: "/demo/barber-drina/",
         brief: "Cjenovnik živi u Instagram objavi koju gost mora da traži unazad.",
@@ -59,6 +63,7 @@ export const me = {
       },
       {
         name: "Konoba Skadar",
+        type: "Restoran",
         tag: "Restoran",
         href: "/demo/konoba-skadar/",
         brief: "Gost bira mjesto sa telefona i traži jelovnik i slobodan sto.",
@@ -67,6 +72,7 @@ export const me = {
       },
       {
         name: "Titan Gym",
+        type: "Teretana",
         tag: "Teretana",
         href: "/demo/titan-gym/",
         brief: "Članarine i raspored treninga stalno se traže preko poruka.",
@@ -75,6 +81,7 @@ export const me = {
       },
       {
         name: "Barbershop Stari Grad",
+        type: "Frizer",
         tag: "Frizer",
         href: "/demo/barbershop-stari-grad/",
         brief: "Zakazivanje ide preko Vibera, a cjenovnik nigdje ne stoji.",
@@ -84,51 +91,54 @@ export const me = {
     ],
   },
 
-  why: {
-    title: "Zašto Vaky?",
-    sub: "Izrada sajtova u Crnoj Gori — jednostavan proces, jasan dogovor i sajt koji radi za tvoj biznis.",
-    items: [
-      {
-        title: "Prvo vidiš koncept",
-        body: "Dobiješ početni pravac dizajna prije nego što se obavežeš.",
-      },
-      {
-        title: "Jasan obim i cijena",
-        body: "Znaš šta paket uključuje i koliko košta prije početka rada.",
-      },
-      {
-        title: "Sve sređujemo",
-        body: "Dizajn, sadržaj, domen i objava — sve na jednom mjestu.",
-      },
-      {
-        title: "Direktna komunikacija",
-        body: "Pričaš direktno sa ljudima koji prave tvoj sajt — bez posrednika.",
-      },
-    ],
-  },
-
   process: {
     title: "Kako radimo",
+    sub: "Od prve poruke do sajta koji radi — cijeli put, korak po korak. Nema skrivenih faza i nema iznenađenja na kraju.",
+    /* Every step here is a thing that actually happens in this codebase or
+       in the studio's own routine: the lead form and dashboard, the free
+       concept, the private onboarding link with its "Nisam siguran" option,
+       the build brief generated from the answers, the review round the
+       packages promise. Nothing is described that the site cannot do. */
     steps: [
       {
-        day: "Dan 1",
+        when: "Dan 1",
         title: "Javiš se",
-        body: "Instagram DM ili email. Kažeš nam čime se baviš i šta ti treba.",
+        body: "Forma na sajtu, Instagram DM ili email — kako ti je lakše. Kažeš čime se baviš i šta ti treba. Obično odgovorimo istog dana.",
       },
       {
-        day: "Dan 1–2",
+        when: "Dan 1–2",
         title: "Besplatan koncept",
-        body: "Napravimo skicu tvog sajta — prije nego što platiš i cent.",
+        body: "Pogledamo tvoj biznis, Instagram i konkurenciju, pa napravimo prvu skicu sajta. Vidiš pravac dizajna prije nego što platiš i cent.",
       },
       {
-        day: "Dan 3–9",
+        when: "Dogovor",
+        title: "Paket i cijena",
+        body: "Biraš paket — Start, Biznis ili Projekat — i tačno znaš šta ulazi i koliko košta. Pola na početku, pola kad je sajt gotov. Preko sajta se ništa ne plaća.",
+      },
+      {
+        when: "5 minuta",
+        title: "Kratak upitnik",
+        body: "Dobiješ lični link. Pitamo o biznisu, ciljevima, izgledu i onome što sajt treba da radi — bez tehničkih izraza. Logo, fotografije i tekstove šalješ na istom mjestu, a gdje nisi siguran, klikneš „Nisam siguran“.",
+      },
+      {
+        when: "Iza kulisa",
+        title: "Iz odgovora nastaje brief",
+        body: "Tvoje odgovore i materijale pretvaramo u detaljan brief: struktura, ton, boje, šta sajt mora da radi. Iz njega pišemo uputstva i promptove samo za tvoj sajt — ne krećemo od šablona, zato dva naša sajta ne izgledaju isto.",
+      },
+      {
+        when: "Dan 3–9",
         title: "Izrada",
-        body: "Dizajn, tekst, fotografije i tehnika. Ti se baviš svojim poslom.",
+        body: "Dizajn, tekst, fotografije i tehnika. Sajt se pravi prvo za telefon, brz je i spreman za Google. Ti se baviš svojim poslom.",
       },
       {
-        day: "Do 10. dana",
+        when: "Pregled",
+        title: "Ti pregledaš",
+        body: "Dobiješ link na gotov sajt. Skupiš primjedbe, pošalješ ih odjednom i uradimo ih u jednom krugu — Biznis ima dva.",
+      },
+      {
+        when: "Do 10. dana",
         title: "Online",
-        body: "Sajt je spreman i radi na tvom domenu. Ako želiš, dalje održavanje preuzimamo mi.",
+        body: "Sajt radi na tvom domenu i sve je tvoje. Ako ne želiš da misliš o tehnici, hosting, backup i sitne izmjene preuzimamo mi — €20 mjesečno, prvi mjesec gratis.",
       },
     ],
   },
