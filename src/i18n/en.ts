@@ -90,6 +90,9 @@ export const en: Dictionary = {
   process: {
     title: "How we work",
     sub: "From the first message to a site that works — the whole road, step by step. No hidden phases and no surprises at the end.",
+    counter: "Step {n} of {total}",
+    prev: "Previous step",
+    next: "Next step",
     steps: [
       {
         when: "Day 1",

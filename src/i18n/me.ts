@@ -100,6 +100,9 @@ export const me = {
        concept, the private onboarding link with its "Nisam siguran" option,
        the build brief generated from the answers, the review round the
        packages promise. Nothing is described that the site cannot do. */
+    counter: "Korak {n} od {total}",
+    prev: "Prethodni korak",
+    next: "Sljedeći korak",
     steps: [
       {
         when: "Dan 1",

@@ -682,6 +682,63 @@
     }
   }
 
+  /* ── The process stage (Kako radimo) ──
+     Eight numbered stations on one rail, one window showing the station
+     picked. Vaky stands on the rail above the chosen station and walks
+     there when it changes: the rail is his track, and the stations are
+     spread so their centres line up with his. Each time the window turns
+     to a new station its icon plays one pixel beat — a message pops up, a
+     spark turns, a euro stamps, a form slides in, a folder is shaken open,
+     a hammer taps, a tick is drawn, a rocket lifts — all on steps() so
+     nothing glides. With less motion asked for he is simply already there
+     and the icon is simply there. ── */
+  .vaky.stage-vaky {
+    margin-inline-start: calc(var(--stage-progress, 0) * (100% - var(--vaky-w)));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .vaky.stage-vaky {
+      transition: margin-inline-start 0.9s linear;
+    }
+
+    .stage-art svg {
+      animation-duration: 0.6s;
+      animation-timing-function: steps(4, end);
+      animation-fill-mode: both;
+    }
+
+    .stage-art[data-art="bubble"] svg {
+      animation-name: art-pop;
+    }
+    .stage-art[data-art="sparkle"] svg {
+      animation-name: art-turn;
+    }
+    .stage-art[data-art="euro"] svg {
+      animation-name: art-stamp;
+      animation-timing-function: steps(3, end);
+    }
+    .stage-art[data-art="doc"] svg {
+      animation-name: art-rise;
+    }
+    .stage-art[data-art="folder"] svg {
+      animation-name: art-shake;
+      animation-timing-function: steps(6, end);
+    }
+    .stage-art[data-art="hammer"] svg {
+      animation-name: art-tap;
+      animation-duration: 0.9s;
+      animation-timing-function: steps(6, end);
+    }
+    .stage-art[data-art="check"] svg {
+      animation-name: art-draw;
+    }
+    .stage-art[data-art="rocket"] svg {
+      animation-name: art-lift;
+      animation-duration: 1s;
+      animation-timing-function: steps(5, end);
+    }
+  }
+
   /* ── The Radovi phone ──
      A demo's opening screens, as one tall capture behind a phone-shaped
      window. The screen is a size container so the page can slide up by
@@ -776,6 +833,106 @@
 }
 
 /* @keyframes are not affected by cascade layers — kept at top level. */
+
+/* ── Station beats for the process stage ── */
+@keyframes art-pop {
+  0% {
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes art-turn {
+  0% {
+    transform: rotate(0) scale(0.6);
+  }
+  50% {
+    transform: rotate(90deg) scale(1.25);
+  }
+  100% {
+    transform: rotate(180deg) scale(1);
+  }
+}
+
+@keyframes art-stamp {
+  0% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes art-rise {
+  0% {
+    transform: translateY(70%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes art-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-3px);
+  }
+  40%,
+  80% {
+    transform: translateX(3px);
+  }
+}
+
+@keyframes art-tap {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  15%,
+  50%,
+  85% {
+    transform: rotate(-30deg);
+  }
+}
+
+@keyframes art-draw {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes art-lift {
+  0% {
+    transform: translateY(0);
+  }
+  35% {
+    transform: translateY(-9px);
+  }
+  55% {
+    transform: translateY(-9px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 
 /* The Radovi phone paging through a demo: hold at the top, travel the
    overhang, hold at the bottom; `alternate` brings it back the same way. */
