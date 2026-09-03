@@ -527,6 +527,95 @@
     );
   }
 
+  /* ── The demo ticker ──
+     Two identical strips side by side; the pair slides one strip's width
+     and snaps back, so the seam is never seen. Each strip carries the gap
+     after it as padding, so the run is seamless there too. The lap is
+     fixed rather than measured — the list is a constant, and a constant
+     speed for a constant length is one number. Under a pointer or with a
+     link focused it holds still. */
+  .ticker {
+    --ticker-gap: 1.75rem;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .ticker-strip {
+    display: flex;
+    flex: none;
+    gap: var(--ticker-gap);
+    padding-inline-end: var(--ticker-gap);
+    margin: 0;
+    padding-block: 0.25rem;
+    list-style: none;
+  }
+
+  .ticker-strip > li {
+    gap: var(--ticker-gap);
+  }
+
+  /* The pixel diamond between names. */
+  .ticker-dot {
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: var(--color-red);
+    rotate: 45deg;
+  }
+
+  /* No motion: one strip, wrapped into a plain list. */
+  .ticker-strip[aria-hidden] {
+    display: none;
+  }
+  .ticker-strip {
+    flex-wrap: wrap;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ticker-strip[aria-hidden] {
+      display: flex;
+    }
+    .ticker-strip {
+      flex-wrap: nowrap;
+      animation: ticker 60s linear infinite;
+    }
+    .ticker:hover .ticker-strip,
+    .ticker:focus-within .ticker-strip {
+      animation-play-state: paused;
+    }
+  }
+
+  /* ── The hold-to-confirm button ──
+     A destructive action is confirmed by holding the button down, not by
+     pressing it twice. While it is held, a red band along the bottom fills
+     left to right in eight hard steps — a loading bar, not a glide — and the
+     action fires when it reaches the end. Let go early and it snaps back.
+     The band is the feedback, so it plays under every motion setting: a
+     progress bar is information, not decoration. */
+  .hold-btn {
+    position: relative;
+    isolation: isolate;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
+  }
+
+  .hold-btn::before {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: -1;
+    height: 6px;
+    background: var(--color-red);
+    transform-origin: left;
+    scale: 0 1;
+  }
+
+  .hold-btn[data-holding]::before {
+    animation: hold-fill var(--hold-ms) steps(8, end) forwards;
+  }
+
   /* A plain slab card: ink border, hard offset shadow, no cut corners.
      Windows (PixelWindow) are for things that read as screens; this is for
      information that merely needs a frame. */
@@ -833,6 +922,19 @@
 }
 
 /* @keyframes are not affected by cascade layers — kept at top level. */
+
+@keyframes ticker {
+  to {
+    translate: -100% 0;
+  }
+}
+
+@keyframes hold-fill {
+  to {
+    scale: 1 1;
+  }
+}
+
 
 /* ── Station beats for the process stage ── */
 @keyframes art-pop {

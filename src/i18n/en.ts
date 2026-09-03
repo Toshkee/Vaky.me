@@ -38,6 +38,7 @@ export const en: Dictionary = {
     tabsLabel: "What do you do?",
     open: "Open the demo",
     phoneAlt: "{name} — the site's opening screens on a phone",
+    allLabel: "All design concepts",
     items: [
       {
         name: "Lucky Chopsticks",

@@ -43,6 +43,9 @@ export const me = {
     open: "Otvori demo",
     /* {name} is the project's name */
     phoneAlt: "{name} — početne stranice sajta na telefonu",
+    /* The ticker under the phone: every concept, including the ones with no
+       tab of their own. */
+    allLabel: "Svi dizajn koncepti",
     items: [
       {
         name: "Lucky Chopsticks",

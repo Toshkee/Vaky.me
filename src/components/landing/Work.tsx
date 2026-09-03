@@ -6,6 +6,7 @@ import type { Dictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
 import { FolderIcon } from "./icons";
 import { SectionHead } from "./SectionHead";
+import { DemoTicker } from "./DemoTicker";
 import { useInView } from "./useInView";
 
 /**
@@ -182,6 +183,8 @@ export function Work({ dict }: { dict: Dictionary }) {
             </Button>
           </div>
         </div>
+
+        <DemoTicker dict={dict} />
       </div>
     </section>
   );

@@ -21,7 +21,7 @@ import { Notes } from "./Notes";
 import { Submission } from "./Submission";
 import {
   AsyncView,
-  ConfirmButton,
+  HoldButton,
   DataError,
   EmptyState,
   Fact,
@@ -168,9 +168,8 @@ function DeleteBlock({ projectId, hasFiles }: { projectId: string; hasFiles: boo
       </p>
       <p className="mt-2 max-w-prose leading-relaxed font-semibold">Ništa od ovoga se ne vraća.</p>
 
-      <ConfirmButton
+      <HoldButton
         label="Obriši projekat"
-        confirmLabel="Sigurno obriši"
         busy={busy}
         onConfirm={() => void remove()}
         className="mt-3"
@@ -465,9 +464,8 @@ function OnboardingBlock({
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
         {live ? (
-          <ConfirmButton
+          <HoldButton
             label="Poništi link"
-            confirmLabel="Sigurno poništi"
             busy={busy === "cancel"}
             onConfirm={() => void cancel()}
           />

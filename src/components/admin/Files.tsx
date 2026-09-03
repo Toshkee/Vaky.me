@@ -14,7 +14,7 @@ import {
   type FileZone,
 } from "@/lib/onboarding/schema";
 import {
-  ConfirmButton,
+  HoldButton,
   DataError,
   EmptyState,
   Panel,
@@ -127,9 +127,8 @@ function FileGroup({
               </span>
               <span className="text-sm text-muted">{zoneText(file.zone)}</span>
               <span className="tnum text-sm text-muted">{formatBytes(file.size_bytes)}</span>
-              <ConfirmButton
+              <HoldButton
                 label="Obriši"
-                confirmLabel="Sigurno obriši"
                 busy={busy === file.id}
                 onConfirm={() => void remove(file.id)}
                 className="justify-self-start"

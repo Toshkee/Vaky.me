@@ -6,10 +6,12 @@ import { RootHtml } from "./root-html";
 import "./globals.css";
 
 /* The site has two root layouts — one per language — so nothing wraps the
-   global 404. It therefore has to render its own document, or Next falls back
-   to its unstyled built-in page. The copy is Montenegrin because an unknown
-   URL is far likelier to be a mistyped /demo path than a mistyped /en one. */
-export default function NotFound() {
+   global 404 and it renders its own document. As `global-not-found` (enabled
+   in next.config.ts) that document is the whole page; as a plain
+   `not-found.tsx` it would be nested inside Next's built-in <html> and
+   hydrate with a mismatch. The copy is Montenegrin because an unknown URL is
+   far likelier to be a mistyped /demo path than a mistyped /en one. */
+export default function GlobalNotFound() {
   return (
     <RootHtml lang="sr-ME">
       <main className="flex min-h-screen flex-col items-center justify-center px-6 text-center">

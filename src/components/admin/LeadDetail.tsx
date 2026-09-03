@@ -19,7 +19,7 @@ import {
 import { Notes } from "./Notes";
 import {
   AsyncView,
-  ConfirmButton,
+  HoldButton,
   DataError,
   Fact,
   Facts,
@@ -272,9 +272,8 @@ export function LeadDetail({ id }: { id: string }) {
                     Trajno uklanja upit sa svim bilješkama i istorijom. Za spam, duplikat ili
                     sopstveni test.
                   </p>
-                  <ConfirmButton
+                  <HoldButton
                     label="Obriši upit"
-                    confirmLabel="Sigurno obriši"
                     busy={busy !== null}
                     onConfirm={() => void remove()}
                     className="mt-3"

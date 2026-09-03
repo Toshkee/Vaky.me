@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import type { Dictionary } from "@/i18n";
-import { Vaky, type VakyPose } from "@/components/mascot/Vaky";
+import { Vaky, type VakyDirection, type VakyPose } from "@/components/mascot/Vaky";
 import { PixelWindow } from "@/components/ui/PixelWindow";
 import {
   ArrowIcon,
@@ -58,6 +58,9 @@ export function Process({ dict }: { dict: Dictionary }) {
   const total = steps.length;
   const [index, setIndex] = useState(0);
   const [walking, setWalking] = useState(false);
+  /* Which way he last walked, so he faces where he is going rather than
+     backing up to an earlier station, and keeps that facing once there. */
+  const [facing, setFacing] = useState<VakyDirection>("right");
   const stations = useRef<(HTMLButtonElement | null)[]>([]);
   const baseId = useId();
 
@@ -70,6 +73,7 @@ export function Process({ dict }: { dict: Dictionary }) {
     const next = Math.min(total - 1, Math.max(0, to));
     if (next === index) return;
     setIndex(next);
+    setFacing(next > index ? "right" : "left");
     setWalking(true);
     if (focus) stations.current[next]?.focus();
   };
@@ -109,7 +113,7 @@ export function Process({ dict }: { dict: Dictionary }) {
             style={{ "--stage-progress": total > 1 ? index / (total - 1) : 0 } as React.CSSProperties}
           >
             <Vaky
-              direction="right"
+              direction={facing}
               pose={walking ? "walk" : STATION_POSE[index]}
               scale={0.5}
               className="stage-vaky"

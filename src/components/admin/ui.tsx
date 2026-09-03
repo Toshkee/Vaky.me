@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useId,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -329,54 +330,87 @@ export function SelectField({
 }
 
 /**
- * Two taps for anything that cannot be undone: the first arms the button and
- * turns it into the confirmation, the second runs it. It disarms itself after
- * a few seconds so a forgotten armed button cannot be hit by accident later.
- * A dialog would cost more attention than the mistake it prevents.
+ * Hold to do something that cannot be undone.
+ *
+ * A press starts the hold; the band along the bottom fills for HOLD_MS and
+ * the action fires when it is full. Letting go, sliding off, or losing
+ * focus before that cancels it. Space and Enter hold the same way from the
+ * keyboard. A dialog would cost more attention than the mistake it
+ * prevents, and a second press is too easy to give by reflex — a second of
+ * held intent is not.
  */
-export function ConfirmButton({
+const HOLD_MS = 1100;
+
+export function HoldButton({
   label,
-  confirmLabel,
+  holdLabel = "Drži…",
   onConfirm,
   busy = false,
   className = "",
 }: {
   label: string;
-  confirmLabel: string;
+  /** What the button says while it is held. */
+  holdLabel?: string;
   onConfirm: () => void;
   busy?: boolean;
   className?: string;
 }) {
-  const [armed, setArmed] = useState(false);
+  const [holding, setHolding] = useState(false);
+  const timer = useRef<number | null>(null);
+  const hintId = useId();
 
-  useEffect(() => {
-    if (!armed) return;
-    const timer = window.setTimeout(() => setArmed(false), 6000);
-    return () => window.clearTimeout(timer);
-  }, [armed]);
+  const stop = () => {
+    if (timer.current !== null) window.clearTimeout(timer.current);
+    timer.current = null;
+    setHolding(false);
+  };
 
-  /* Swapped whole rather than tinted: appending a colour to the base class
-     would put two `text-*` utilities on one element, and which one wins is
-     settled by stylesheet order rather than by the order written here. */
-  const look = armed ? primaryButtonClass : buttonClass;
+  const start = () => {
+    if (busy || timer.current !== null) return;
+    setHolding(true);
+    timer.current = window.setTimeout(() => {
+      timer.current = null;
+      setHolding(false);
+      onConfirm();
+    }, HOLD_MS);
+  };
+
+  useEffect(() => stop, []);
 
   return (
-    <button
-      type="button"
-      disabled={busy}
-      aria-busy={busy}
-      onClick={() => {
-        if (!armed) {
-          setArmed(true);
-          return;
-        }
-        setArmed(false);
-        onConfirm();
-      }}
-      className={`${look} ${className}`}
-    >
-      {armed ? confirmLabel : label}
-    </button>
+    <>
+      <button
+        type="button"
+        disabled={busy}
+        aria-busy={busy}
+        aria-describedby={hintId}
+        data-holding={holding || undefined}
+        style={{ "--hold-ms": `${HOLD_MS}ms` } as React.CSSProperties}
+        onPointerDown={(event) => {
+          if (event.button !== 0) return;
+          event.currentTarget.setPointerCapture(event.pointerId);
+          start();
+        }}
+        onPointerUp={stop}
+        onPointerCancel={stop}
+        onKeyDown={(event) => {
+          if (event.key !== " " && event.key !== "Enter") return;
+          event.preventDefault();
+          if (!event.repeat) start();
+        }}
+        onKeyUp={(event) => {
+          if (event.key === " " || event.key === "Enter") stop();
+        }}
+        onBlur={stop}
+        onContextMenu={(event) => event.preventDefault()}
+        className={`hold-btn ${buttonClass} ${className}`}
+      >
+        {holding ? holdLabel : label}
+      </button>
+      <span id={hintId} className="sr-only">
+        Drži pritisnuto oko sekund da potvrdiš.
+      </span>
+    </>
   );
 }
 
