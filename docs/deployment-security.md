@@ -173,21 +173,24 @@ SHA and the `# vX.Y.Z` comment together.
 ## 6. Third-party requests from the pages
 
 Fonts are self-hosted by next/font, so there is no CDN in the critical path.
-Beyond that the pages can reach exactly four hosts, and only under conditions
+Beyond that the pages can reach exactly five hosts, and only under conditions
 the visitor controls or the build decides:
 
 | Host | When | Guard |
 | --- | --- | --- |
 | `www.google.com` | only after a visitor presses **Prikaži mapu** on a demo page | `src/components/demo/MapEmbed.tsx`, iframe is `referrerPolicy="no-referrer"` |
 | `challenges.cloudflare.com` | only once someone starts filling the enquiry form in, and only if a Turnstile site key is configured | `src/components/landing/Turnstile.tsx` |
-| `cloud.umami.is` | on page load, and only if a website id is configured | `src/components/Analytics.tsx` |
+| `cloud.umami.is` | on page load, and only if a website id is configured — serves `script.js` | `src/components/Analytics.tsx` |
+| `gateway.umami.is` | the page view and event beacons that script sends — Umami Cloud's collector, a different host from the script | `connect-src` in `public/_headers`; without it the script loads and every hit is silently dropped |
 | `static.cloudflareinsights.com` | on page load — **Cloudflare injects this itself**, no code here asks for it | Cloudflare dashboard → Web Analytics |
 
-**Cloudflare Web Analytics is off** — checked 1 September 2026, production
-serves no `beacon.min.js`. Its two hosts are still in the CSP so that switching
-it on in the dashboard does not silently break. Two coherent states, not three:
+**Cloudflare Web Analytics was off on 1 September 2026, and on again on
+4 September** — production served `beacon.min.js` that day, injected by
+Cloudflare, with nothing in the repo asking for it. Umami went live the same
+day (website id set in the Pages environment, `gateway.umami.is` added to
+`connect-src`). Two coherent states, not three — pick one in the dashboard:
 
-- **Off**, the current one. Once Umami is the one analytics tool, delete
+- **Off**. Once Umami is the one analytics tool, delete
   `static.cloudflareinsights.com` and `cloudflareinsights.com` from the CSP
   too, so the policy describes what actually runs.
 - **On**, with `NEXT_PUBLIC_CLOUDFLARE_ANALYTICS=on` set in the same change so
@@ -201,7 +204,7 @@ every hit — Umami would receive the credential. The shell has its own root
 layout, `src/app/(onboarding)/layout.tsx`, that leaves the script out; the
 `onboarding_*` events in `src/lib/analytics.ts` no-op there by design.
 
-All four are named explicitly in the CSP in `public/_headers` — never a wildcard.
+All five are named explicitly in the CSP in `public/_headers` — never a wildcard.
 The three configurable ones are off unless the matching `NEXT_PUBLIC_*`
 variable is set (see `.env.example`); with them unset the exported HTML
 contains no reference to them at all.
