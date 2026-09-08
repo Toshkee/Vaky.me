@@ -31,7 +31,11 @@ export const me = {
 
   work: {
     title: "Kako bi tvoj sajt mogao da izgleda",
-    sub: "Izaberi čime se baviš. Svaki primjer je sajt kakav bismo napravili za taj biznis — otvori ga i probaj na svom telefonu.",
+    sub: "Izaberi čime se baviš. Neki primjeri su sajtovi koji već rade uživo, ostali su koncepti napravljeni za konkretan biznis — otvori ih i probaj na svom telefonu.",
+    /* The eyebrow above a project's name. A site that is live for a real
+       client says so and prints its own domain; everything else is a
+       concept and must never be presented as delivered work. */
+    liveLabel: "Sajt uživo",
     conceptLabel: "Dizajn koncept",
     briefLabel: "Zadatak",
     solutionLabel: "Rješenje",
@@ -40,61 +44,225 @@ export const me = {
        `type` on each item is the answer: a barber has to be able to find
        "Barber" before reading a word. */
     tabsLabel: "Čime se baviš?",
+    /* The second row, shown only for a trade with more than one project. */
+    pickLabel: "Projekti",
     open: "Otvori demo",
+    openLive: "Otvori sajt",
+    /* Appended to the accessible name of a link that leaves the site. */
+    newTab: "otvara se u novom prozoru",
     /* {name} is the project's name */
     phoneAlt: "{name} — početne stranice sajta na telefonu",
-    /* The ticker under the phone: every concept, including the ones with no
-       tab of their own. */
-    allLabel: "Svi dizajn koncepti",
+    /* Every project on the site lives under a trade, and a trade holds as
+       many as belong to it. A visitor answers "čime se baviš" once and sees
+       everything made for that kind of business — so a nail studio is not
+       filed under the same key as a hair salon, and two barbershops are not
+       two separate keys. */
     items: [
       {
-        name: "Lucky Chopsticks",
-        type: "Azijski restoran",
-        tag: "Asian restaurant · Podgorica",
-        href: "/demo/lucky-chopsticks/",
-        brief: "Gosti traže jelovnik i lokaciju prije nego odluče gdje idu večeras.",
-        solution: "Meni po raspoloženju i izdvojena jela na jednoj stranici.",
-        includes: ["Meni", "Specijaliteti", "Rezervacije"],
+        type: "Vila",
+        projects: [
+          {
+            name: "Villa Vučje",
+            slug: "villa-vucje",
+            tag: "villavucje.me · Kolašin",
+            href: "https://villavucje.me/",
+            brief: "Kuća se izdavala samo preko Bookinga i Airbnb-ja — bez svoje adrese na internetu.",
+            solution: "Sajt na svom domenu: kuća, galerija i lokacija, a rezervacija ide na Booking i Airbnb.",
+            includes: ["Galerija", "Lokacija", "Rezervacija"],
+          },
+        ],
       },
       {
-        name: "Barber Drina",
-        type: "Barber",
-        tag: "Barber · Stari Aerodrom",
-        href: "/demo/barber-drina/",
-        brief: "Cjenovnik živi u Instagram objavi koju gost mora da traži unazad.",
-        solution: "Cjenovnik kao tabela i pomoćnik koji sastavi poruku za DM.",
-        includes: ["Cjenovnik", "Termin preko DM-a", "Mapa"],
+        type: "Apartman",
+        projects: [
+          {
+            name: "Mandarina",
+            slug: "mandarina",
+            tag: "mandarinapt.me · Petrovac na Moru",
+            href: "https://mandarinapt.me/",
+            brief: "Pogled na more i bazen su glavni argument, a u oglasu se gube među stotinu sličnih apartmana.",
+            solution: "Sajt koji vodi kroz apartman, bazen i plažu, pa gost rezerviše preko Bookinga ili Airbnb-ja.",
+            includes: ["Galerija", "Bazen i plaža", "Lokacija"],
+          },
+        ],
       },
       {
-        name: "Konoba Skadar",
         type: "Restoran",
-        tag: "Restoran",
-        href: "/demo/konoba-skadar/",
-        brief: "Gost bira mjesto sa telefona i traži jelovnik i slobodan sto.",
-        solution: "Jelovnik po kategorijama, poziv i rezervacija na jedan dodir.",
-        includes: ["Jelovnik", "Rezervacije", "Mapa"],
+        projects: [
+          {
+            name: "Lucky Chopsticks",
+            slug: "lucky-chopsticks",
+            tag: "Azijski restoran · Podgorica",
+            href: "/demo/lucky-chopsticks/",
+            brief: "Gosti traže jelovnik i lokaciju prije nego odluče gdje idu večeras.",
+            solution: "Meni po raspoloženju i izdvojena jela na jednoj stranici.",
+            includes: ["Meni", "Specijaliteti", "Rezervacije"],
+          },
+          {
+            name: "Konoba Skadar",
+            slug: "konoba-skadar",
+            tag: "Konoba · Virpazar",
+            href: "/demo/konoba-skadar/",
+            brief: "Gost bira mjesto sa telefona i traži jelovnik i slobodan sto.",
+            solution: "Jelovnik po kategorijama, poziv i rezervacija na jedan dodir.",
+            includes: ["Jelovnik", "Rezervacije", "Mapa"],
+          },
+        ],
       },
       {
-        name: "Titan Gym",
+        type: "Barber",
+        projects: [
+          {
+            name: "Barber Drina",
+            slug: "barber-drina",
+            tag: "Barber · Stari Aerodrom",
+            href: "/demo/barber-drina/",
+            brief: "Cjenovnik živi u Instagram objavi koju gost mora da traži unazad.",
+            solution: "Cjenovnik kao tabela i pomoćnik koji sastavi poruku za DM.",
+            includes: ["Cjenovnik", "Termin preko DM-a", "Mapa"],
+          },
+          {
+            name: "Barbershop Stari Grad",
+            slug: "barbershop-stari-grad",
+            tag: "Barber · Stara Varoš",
+            href: "/demo/barbershop-stari-grad/",
+            brief: "Zakazivanje ide preko Vibera, a cjenovnik nigdje ne stoji.",
+            solution: "Cjenovnik, radno vrijeme i tim na jednoj stranici, Viber na klik.",
+            includes: ["Cjenovnik", "Radno vrijeme", "Viber"],
+          },
+        ],
+      },
+      {
+        type: "Frizerski salon",
+        projects: [
+          {
+            name: "Andrea Beauty House",
+            slug: "andrea-beauty-house",
+            tag: "Salon, braids i kids · New City",
+            href: "/demo/andrea-beauty-house/",
+            brief: "Kuća vodi tri Instagram profila, pa gost ne zna koji je za šta.",
+            solution: "Sajt kao hodnik sa troje vrata: salon, braids i kids, svako sa svojim profilom.",
+            includes: ["Salon", "Braids", "Kids"],
+          },
+        ],
+      },
+      {
+        type: "Kozmetički salon",
+        projects: [
+          {
+            name: "Studio ljepote Mila",
+            slug: "studio-ljepote-mila",
+            tag: "Kozmetika i PMU · City Kvart",
+            href: "/demo/studio-ljepote-mila/",
+            brief: "Tretmani, permanent makeup, edukacije i shop — četiri posla pod jednim imenom, razbacana po kanalima.",
+            solution: "Stranica kao magazin: tri ulaza koji vode na tretmane, edukacije i shop koji već radi.",
+            includes: ["Tretmani", "Edukacije", "Shop"],
+          },
+          {
+            name: "Studio ljepote i zdravlja",
+            slug: "studio-ljepote-zdravlja",
+            tag: "Kozmetički studio · Zabjelo",
+            href: "/demo/studio-ljepote-zdravlja/",
+            brief: "Spisak tretmana ništa ne govori onome ko ne zna kako se šta zove.",
+            solution: "Tretmani složeni po tome zbog čega se dolazi — lice, tijelo, masaže — a ne po nazivu.",
+            includes: ["Lice", "Tijelo", "Masaže"],
+          },
+          {
+            name: "LavLav",
+            slug: "lavlav",
+            tag: "Nail & beauty · Master kvart",
+            href: "/demo/lavlav/",
+            brief: "Zakazivanje već radi preko DIKIDI-ja, ali studio nema gdje da se predstavi.",
+            solution: "Stranica koja predstavlja studio i vodi pravo u zakazivanje koje već postoji.",
+            includes: ["Manikir", "Pedikir", "Zakazivanje"],
+          },
+        ],
+      },
+      {
+        type: "Tattoo",
+        projects: [
+          {
+            name: "Skyline Tattoo",
+            slug: "skyline-tattoo",
+            tag: "Tattoo i piercing · Podgorica",
+            href: "/demo/skyline-tattoo/",
+            brief: "Studio nema sajt — radovi stoje u Instagram highlightovima kroz koje se ne da tražiti.",
+            solution: "Portfolio složen po studijskim highlightovima: Minimal, Bold i Piercings.",
+            includes: ["Portfolio", "Piercing", "Instagram"],
+          },
+          {
+            name: "KraftArt",
+            slug: "kraftart",
+            tag: "Tattoo i piercing · Masline",
+            href: "/demo/kraftart/",
+            brief: "Termin se dogovara kroz DM, Viber, WhatsApp i telefon, a nigdje ne piše šta studio radi.",
+            solution: "Usluge, autori i adresa na jednoj stranici, sa svim kanalima za termin na dodir.",
+            includes: ["Usluge", "Autori", "Termin"],
+          },
+        ],
+      },
+      {
+        type: "Pilates i joga",
+        projects: [
+          {
+            name: "Soul Studio",
+            slug: "soul-studio",
+            tag: "Yoga & Reformer Pilates · Podgorica",
+            href: "/demo/soul-studio/",
+            brief: "Ko nije probao ni jedno ni drugo ne zna razliku, pa ne zna ni na šta da se prijavi.",
+            solution: "Dvije prakse objašnjene jedna naspram druge, bez žargona i bez obećanja.",
+            includes: ["Joga", "Reformer", "Kontakt"],
+          },
+          {
+            name: "Telo Pilates Club",
+            slug: "telo-pilates",
+            tag: "Reformer pilates · Vektra",
+            href: "/demo/telo-pilates/",
+            brief: "Raspored i cijene žive u sistemu za zakazivanje, a niko ne zna šta tamo da izabere.",
+            solution: "Formati objašnjeni prije rezervacije, pa gost bira u sistemu koji već radi.",
+            includes: ["Formati", "Zakazivanje", "Instagram"],
+          },
+          {
+            name: "Studio Pilates by Maja",
+            slug: "pilates-by-maja",
+            tag: "Grupni i personalni trening · Podgorica",
+            href: "/demo/pilates-by-maja/",
+            brief: "Raspored je Instagram objava koja se mijenja svake nedjelje.",
+            solution: "Stranica objašnjava dvije vrste treninga i šalje na aktuelnu objavu sa terminima.",
+            includes: ["Grupni", "Personalni", "Termini"],
+          },
+        ],
+      },
+      {
         type: "Teretana",
-        tag: "Teretana",
-        href: "/demo/titan-gym/",
-        brief: "Članarine i raspored treninga stalno se traže preko poruka.",
-        solution: "Cjenovnik i raspored na sajtu, probni trening kao glavno dugme.",
-        includes: ["Članarine", "Raspored", "Programi"],
+        projects: [
+          {
+            name: "Titan Gym",
+            slug: "titan-gym",
+            tag: "Teretana · Podgorica",
+            href: "/demo/titan-gym/",
+            brief: "Članarine i raspored treninga stalno se traže preko poruka.",
+            solution: "Cjenovnik i raspored na sajtu, probni trening kao glavno dugme.",
+            includes: ["Članarine", "Raspored", "Programi"],
+          },
+        ],
       },
       {
-        name: "Barbershop Stari Grad",
-        type: "Frizer",
-        tag: "Frizer",
-        href: "/demo/barbershop-stari-grad/",
-        brief: "Zakazivanje ide preko Vibera, a cjenovnik nigdje ne stoji.",
-        solution: "Cjenovnik, radno vrijeme i tim na jednoj stranici, Viber na klik.",
-        includes: ["Cjenovnik", "Radno vrijeme", "Viber"],
+        type: "Stomatolog",
+        projects: [
+          {
+            name: "Dental Clinic Kovačević",
+            slug: "dental-clinic-kovacevic",
+            tag: "Stomatologija · Igalo i Zelenika",
+            href: "/demo/dental-clinic-kovacevic/",
+            brief: "Porodična ordinacija radi u dva grada, a na internetu postoji samo jedan Instagram.",
+            solution: "Tri oblasti rada i tabla sa obje lokacije, a poruka ide na profil koji ordinacija sama vodi.",
+            includes: ["Stomatologija", "Oralna hirurgija", "Estetski rad"],
+          },
+        ],
       },
     ],
   },
-
   process: {
     title: "Kako radimo",
     sub: "Od prve poruke do sajta koji radi — cijeli put, korak po korak. Nema skrivenih faza i nema iznenađenja na kraju.",

@@ -3,30 +3,49 @@ import fs from "node:fs";
 import sharp from "sharp";
 
 /**
- * Tall phone-width captures of each demo for the Radovi phone.
+ * Tall phone-width captures of every project in the Radovi phone.
  *
- *   node scripts/capture-phone-shots.mjs      (against a running dev server)
+ *   node scripts/capture-phone-shots.mjs [baseUrl]   (against a running dev server)
+ *
+ * Covers both kinds of project: the demos on this site, and the client sites
+ * that are live on their own domains — those are shot straight off the public
+ * web, so a capture is only as current as the last time this ran.
  *
  * Shot at 390px wide and 2x, then cut to the first ~3200 CSS px — enough to
  * scroll through the opening screens inside the phone frame without shipping
  * a 10,000px image nobody sees the end of. Written as AVIF and WebP only; both
  * are universal on the phones this is judged on.
  *
- * The Vaky back-link bar and the demo's fixed bottom bar are removed first:
- * the strip is site chrome, and a fixed element is pinned once at the bottom
- * of a full-page capture, where it reads as a stray footer.
+ * Fixed elements are removed first: a fixed element is pinned once at the
+ * bottom of a full-page capture, where it reads as a stray footer. On a demo
+ * the Vaky back-link bar goes too — that strip is site chrome, not the design.
  */
-const BASE = "http://localhost:3000";
+const BASE = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
 const OUT = "public/work";
 const MAX_HEIGHT = 3200;
 fs.mkdirSync(OUT, { recursive: true });
 
-const demos = [
+/* Slugs match the `slug` on each project in src/i18n/me.ts; the capture is
+   read from /work/<slug>-phone.avif. A demo is named by its slug alone, a
+   live client site carries the URL it is shot from. */
+const projects = [
+  { slug: "villa-vucje", url: "https://villavucje.me/" },
+  { slug: "mandarina", url: "https://mandarinapt.me/" },
   "lucky-chopsticks",
-  "barber-drina",
   "konoba-skadar",
-  "titan-gym",
+  "barber-drina",
   "barbershop-stari-grad",
+  "andrea-beauty-house",
+  "studio-ljepote-mila",
+  "studio-ljepote-zdravlja",
+  "lavlav",
+  "skyline-tattoo",
+  "kraftart",
+  "soul-studio",
+  "telo-pilates",
+  "pilates-by-maja",
+  "titan-gym",
+  "dental-clinic-kovacevic",
 ];
 
 const browser = await chromium.launch();
@@ -39,16 +58,20 @@ const ctx = await browser.newContext({
 });
 const page = await ctx.newPage();
 
-for (const slug of demos) {
-  await page.goto(`${BASE}/demo/${slug}/`, { waitUntil: "networkidle" });
-  await page.evaluate(() => {
-    document.querySelector('a[href="/"]')?.remove();
+for (const project of projects) {
+  const demo = typeof project === "string";
+  const slug = demo ? project : project.slug;
+  const url = demo ? `${BASE}/demo/${slug}/` : project.url;
+
+  await page.goto(url, { waitUntil: "networkidle" });
+  await page.evaluate((demo) => {
+    if (demo) document.querySelector('a[href="/"]')?.remove();
     document.querySelector("nextjs-portal")?.remove();
-    for (const el of document.querySelectorAll("a, div, nav")) {
+    for (const el of document.querySelectorAll("a, div, nav, header")) {
       if (getComputedStyle(el).position === "fixed") el.remove();
     }
     window.scrollTo(0, 0);
-  });
+  }, demo);
   // lazy images below the fold only load once they are near it
   await page.evaluate(async () => {
     const total = document.documentElement.scrollHeight;

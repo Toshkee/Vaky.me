@@ -1,6 +1,6 @@
 import { chromium, webkit, devices } from "playwright";
 
-const BASE = "http://localhost:3000";
+const BASE = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
 const targets = [
   { name: "home", path: "/" },
   { name: "en", path: "/en/" },
