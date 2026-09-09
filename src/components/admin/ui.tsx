@@ -246,10 +246,10 @@ export const textareaClass = `${textareaBase} text-base`;
 export const textareaMonoClass = `${textareaBase} font-mono text-sm`;
 
 export const buttonClass =
-  "px px-btn inline-flex min-h-11 items-center justify-center bg-paper-2 px-4 py-2 text-[1.15rem] text-ink transition-colors hover:text-red disabled:opacity-50";
+  "px px-btn inline-flex min-h-11 items-center justify-center bg-paper-2 px-4 py-2 text-[0.95rem] text-ink transition-colors hover:text-red disabled:opacity-50";
 
 export const primaryButtonClass =
-  "px px-btn px-btn--primary inline-flex min-h-11 items-center justify-center bg-red px-4 py-2 text-center text-[1.15rem] text-paper hover:bg-red-bright disabled:opacity-70";
+  "px px-btn px-btn--primary inline-flex min-h-11 items-center justify-center bg-red px-4 py-2 text-center text-[0.95rem] text-paper hover:bg-red-bright disabled:opacity-70";
 
 export function Field({
   id,

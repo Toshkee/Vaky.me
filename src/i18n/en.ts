@@ -44,6 +44,7 @@ export const en: Dictionary = {
     phoneAlt: "{name} — the site's opening screens on a phone",
     items: [
       {
+        key: "villa",
         type: "Villa",
         projects: [
           {
@@ -58,6 +59,7 @@ export const en: Dictionary = {
         ],
       },
       {
+        key: "apartment",
         type: "Apartment",
         projects: [
           {
@@ -72,6 +74,7 @@ export const en: Dictionary = {
         ],
       },
       {
+        key: "restaurant",
         type: "Restaurant",
         projects: [
           {
@@ -95,6 +98,7 @@ export const en: Dictionary = {
         ],
       },
       {
+        key: "barber",
         type: "Barber",
         projects: [
           {
@@ -118,6 +122,7 @@ export const en: Dictionary = {
         ],
       },
       {
+        key: "hair",
         type: "Hair salon",
         projects: [
           {
@@ -132,6 +137,7 @@ export const en: Dictionary = {
         ],
       },
       {
+        key: "beauty",
         type: "Beauty salon",
         projects: [
           {
@@ -164,6 +170,7 @@ export const en: Dictionary = {
         ],
       },
       {
+        key: "tattoo",
         type: "Tattoo",
         projects: [
           {
@@ -187,6 +194,7 @@ export const en: Dictionary = {
         ],
       },
       {
+        key: "pilates",
         type: "Pilates & yoga",
         projects: [
           {
@@ -219,6 +227,7 @@ export const en: Dictionary = {
         ],
       },
       {
+        key: "gym",
         type: "Gym",
         projects: [
           {
@@ -233,6 +242,7 @@ export const en: Dictionary = {
         ],
       },
       {
+        key: "dentist",
         type: "Dentist",
         projects: [
           {
@@ -601,6 +611,150 @@ export const en: Dictionary = {
         ],
       },
     ],
+  },
+
+  /* One page per kind of business, at /en/website-for-…/. See me.ts. */
+  trades: {
+    eyebrow: "A website for your trade",
+    examplesTitle: "What we have made",
+    examplesSub: "Some of these are live client sites, the rest are concepts made for a specific business. Open them on your phone.",
+    needsTitle: "What such a site has to have",
+    priceTitle: "Price and timeline",
+    priceBody: "The Start package is €200 and goes online within 10 days. You get a free concept before paying, so you see what the site would look like before you decide.",
+    priceLink: "See all packages",
+    othersTitle: "Other trades",
+    items: {
+      villa: {
+        slug: "website-for-villas",
+        title: "A website for a villa or holiday house",
+        metaTitle: "Website for a villa — from €200, online in 10 days | Vaky",
+        description: "Website design for villas and holiday houses in Montenegro. Gallery, location and booking on your own domain, alongside Booking and Airbnb. From €200, free concept.",
+        intro: "A house rented only through Booking and Airbnb shares a page with a thousand similar ones and pays commission on every night. A site on its own domain is the address a guest remembers and comes back to next summer.",
+        needs: [
+          { title: "A gallery that sells", body: "Large photos of the house, the garden and the view, in the order a guest looks around." },
+          { title: "Location and surroundings", body: "A map, the distance to the beach or the mountains, what is nearby." },
+          { title: "Booking without a spreadsheet", body: "A button that goes to Booking, Airbnb or straight to your Viber and WhatsApp." },
+          { title: "Two languages", body: "Montenegrin and English, because guests come from all over Europe." },
+        ],
+      },
+      apartment: {
+        slug: "website-for-apartments",
+        title: "A website for apartments",
+        metaTitle: "Website for apartments — from €200, online in 10 days | Vaky",
+        description: "Website design for holiday apartments in Montenegro. Gallery, pool and beach, location and booking through Booking or directly. From €200, free concept.",
+        intro: "In a listing an apartment gets lost among a hundred similar ones, and what sets it apart, the view, the pool, the beach nearby, fits in two photos. On its own site that becomes the whole story, and booking still goes wherever suits you.",
+        needs: [
+          { title: "What sets it apart", body: "The view, the pool, the terrace or the beach five steps away, first and largest on the page." },
+          { title: "Each apartment on its own", body: "Its own photos, number of beds and what it includes." },
+          { title: "Booking", body: "Booking, Airbnb or a direct enquiry over Viber and WhatsApp, whichever suits you." },
+          { title: "Two languages", body: "Montenegrin and English, with prices and seasons that are easy to update." },
+        ],
+      },
+      restaurant: {
+        slug: "website-for-restaurants",
+        title: "A website for a restaurant",
+        metaTitle: "Website for a restaurant — from €200, online in 10 days | Vaky",
+        description: "Website design for restaurants and taverns in Montenegro. A menu that reads on a phone, one-tap reservations, opening hours and a map. From €200, free concept.",
+        intro: "Before coming, a guest looks for three things: the menu, the opening hours and how to book a table. If they have to dig through Instagram for it, they often move on. A site gives all three in one place, on a phone.",
+        needs: [
+          { title: "A menu that reads on a phone", body: "Dishes and prices as text, not a photo of the menu to zoom into." },
+          { title: "One-tap reservation", body: "A call or a WhatsApp message with one tap, no five-field form." },
+          { title: "Opening hours and a map", body: "When you are open and how to get there, parking included." },
+          { title: "Photos of the food and the room", body: "What the guest pictures before they arrive." },
+        ],
+      },
+      barber: {
+        slug: "website-for-barbershops",
+        title: "A website for a barbershop",
+        metaTitle: "Website for a barbershop — from €200, online in 10 days | Vaky",
+        description: "Website design for barbershops in Montenegro. Work, price list and appointments over Instagram, Viber or online. From €200, free concept.",
+        intro: "A customer picks a barber by the pictures and books by message. A site brings both together: the work, the price list and a booking button that goes to Instagram, Viber or online appointments.",
+        needs: [
+          { title: "The work, in a gallery", body: "Cuts and beards at full size, not in an Instagram grid." },
+          { title: "A price list", body: "Cut, beard, combo, with prices changed in one place." },
+          { title: "Appointments", body: "Instagram DM, Viber or an online planner, however you already work." },
+          { title: "Location and hours", body: "A map and the hours, the second question after the price." },
+        ],
+      },
+      hair: {
+        slug: "website-for-hair-salons",
+        title: "A website for a hair salon",
+        metaTitle: "Website for a hair salon — from €200, online in 10 days | Vaky",
+        description: "Website design for hair salons in Montenegro. Prices by service, work, team and booking by call, Viber or Instagram. From €200, free concept.",
+        intro: "A hair salon lives on recommendations and on Instagram. The site is where that recommendation leads: prices, work, the team and a booking button, without scrolling through a hundred posts.",
+        needs: [
+          { title: "Prices by service", body: "Cut, colour, treatments, with prices a client sees before messaging." },
+          { title: "Work and team", body: "Who works in the salon and what they do best, with photos of the work." },
+          { title: "Booking", body: "A call, Viber or Instagram DM with one tap." },
+          { title: "Location and hours", body: "A map, the hours and how to get there, parking included." },
+        ],
+      },
+      beauty: {
+        slug: "website-for-beauty-salons",
+        title: "A website for a beauty salon",
+        metaTitle: "Website for a beauty salon — from €200, online in 10 days | Vaky",
+        description: "Website design for beauty salons in Montenegro. Treatments and prices, gallery, team and booking over Instagram or Viber. From €200, free concept.",
+        intro: "Treatments, prices and who does them, that is what a client wants to know before sending a message. A site lays it out clearly, and booking stays on Instagram or Viber if that suits you.",
+        needs: [
+          { title: "Treatments and prices", body: "By category, with duration and price, no PDF price list." },
+          { title: "A gallery of work", body: "Nails, lashes, facials, whatever you are chosen for." },
+          { title: "The team", body: "Who does what, with a photo and a short line." },
+          { title: "Booking", body: "Instagram DM, Viber or a call with one tap." },
+        ],
+      },
+      tattoo: {
+        slug: "website-for-tattoo-studios",
+        title: "A website for a tattoo studio",
+        metaTitle: "Website for a tattoo studio — from €200, online in 10 days | Vaky",
+        description: "Website design for tattoo studios in Montenegro. Portfolio by artist and style, prices from, appointment enquiries and aftercare. From €200, free concept.",
+        intro: "For a tattoo studio the portfolio is everything. A site shows it at full size, by artist and by style, and leads to an appointment enquiry, instead of the work getting lost in an Instagram grid.",
+        needs: [
+          { title: "Portfolio by artist", body: "Each artist with their own work and style, at full size." },
+          { title: "Styles and prices from", body: "What you do and from how much, so enquiries come from people who know what they want." },
+          { title: "Appointment enquiry", body: "A form with a description and a picture of the idea, or straight to Instagram DM." },
+          { title: "Aftercare and questions", body: "What you explain to every client again, written once." },
+        ],
+      },
+      pilates: {
+        slug: "website-for-pilates-studios",
+        title: "A website for a pilates or yoga studio",
+        metaTitle: "Website for a pilates studio — from €200, online in 10 days | Vaky",
+        description: "Website design for pilates and yoga studios in Montenegro. Class schedule, prices and packages, instructors and trial class sign-up. From €200, free concept.",
+        intro: "A new member first looks for the schedule, the price of a monthly pass and where the studio is. A site answers all three before the message, and shows the instructors and the space the way someone walking in for the first time sees them.",
+        needs: [
+          { title: "Class schedule", body: "By day and type of class, readable on a phone." },
+          { title: "Prices and packages", body: "Single class, monthly pass, packages, in one place." },
+          { title: "Instructors and the space", body: "Who leads the classes and what the studio looks like inside." },
+          { title: "Trial class sign-up", body: "A message or a call with one tap, no registration." },
+        ],
+      },
+      gym: {
+        slug: "website-for-gyms",
+        title: "A website for a gym",
+        metaTitle: "Website for a gym — from €200, online in 10 days | Vaky",
+        description: "Website design for gyms in Montenegro. Memberships, opening hours, space and equipment, trainers and sign-up. From €200, free concept.",
+        intro: "A gym is chosen by price, opening hours and what it looks like inside. A site gives all of that without a phone call: memberships, equipment, trainers and a sign-up button.",
+        needs: [
+          { title: "Memberships", body: "Monthly, quarterly, student, with prices changed in one place." },
+          { title: "Opening hours", body: "Including holidays and weekends, because that is the first thing checked." },
+          { title: "Space and equipment", body: "Photos of the floor and the machines, what is looked at before a first visit." },
+          { title: "Trainers and programmes", body: "Who works there and what they offer, from personal training to group classes." },
+        ],
+      },
+      dentist: {
+        slug: "website-for-dentists",
+        title: "A website for a dental practice",
+        metaTitle: "Website for a dentist — from €200, online in 10 days | Vaky",
+        description: "Website design for dental practices in Montenegro. Services and price list, team, appointment booking, location. From €200, free concept.",
+        intro: "A patient chooses a practice on trust: who the doctor is, which services they do, what it costs and how to book. A site says that calmly and clearly, without a hard sell.",
+        needs: [
+          { title: "Services and price list", body: "From a check-up to implants, with prices or price ranges." },
+          { title: "The practice team", body: "Doctors with a photo, specialisation and experience." },
+          { title: "Appointment booking", body: "A call, Viber or a form, with opening hours next to the button." },
+          { title: "Location and parking", body: "A map and how to get there, because patients come back for years." },
+        ],
+      },
+    },
   },
 
   meta: {

@@ -142,7 +142,7 @@ export function Process({ dict }: { dict: Dictionary }) {
                   aria-label={`${pad(i + 1)} — ${entry.title}`}
                   tabIndex={selected ? 0 : -1}
                   onClick={() => go(i)}
-                  className={`px relative flex h-9 w-9 items-center justify-center border-2 bg-paper text-[1.25rem] leading-none transition-colors sm:h-11 sm:w-11 ${
+                  className={`px relative flex h-9 w-9 items-center justify-center border-2 bg-paper text-[1.0625rem] leading-none transition-colors sm:h-11 sm:w-11 ${
                     selected ? "border-red text-red" : "border-ink text-ink hover:text-red"
                   }`}
                 >
@@ -175,7 +175,7 @@ export function Process({ dict }: { dict: Dictionary }) {
               className="grid gap-6 p-5 sm:min-h-[20rem] sm:grid-cols-[1fr_auto] sm:gap-10 sm:p-7"
             >
               <div>
-                <p className="px text-[1.25rem] leading-none text-red uppercase">{step.when}</p>
+                <p className="px text-[1.0625rem] leading-none text-red uppercase">{step.when}</p>
                 <h3 className="headline mt-3 text-2xl sm:text-3xl">{step.title}</h3>
                 <p className="mt-4 max-w-prose leading-relaxed text-muted">{step.body}</p>
 

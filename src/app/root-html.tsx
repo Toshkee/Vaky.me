@@ -1,44 +1,38 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { Jersey_10, Libre_Franklin } from "next/font/google";
+import { Libre_Franklin } from "next/font/google";
+import localFont from "next/font/local";
 import { site } from "@/config/site";
 import { Analytics } from "@/components/Analytics";
+import { ConsoleGreeting } from "@/components/ConsoleGreeting";
 
-/* Libre Franklin is a revival of ATF Franklin Gothic (1902) — the face that
-   set newspaper headlines for a century. One variable family carries the whole
-   page: masthead, headlines, tables and body. Its caron on š/č stays open at
-   display sizes, which is where geometric sans faces fail on Montenegrin. */
+/* Libre Franklin is a revival of ATF Franklin Gothic (1902). It carries the
+   reading layer — body copy, eyebrows, forms, tables — under the pixel
+   headlines. Its caron on š/č stays open, which is where geometric sans faces
+   fail on Montenegrin. */
 const franklin = Libre_Franklin({
   variable: "--font-franklin",
   subsets: ["latin", "latin-ext"],
   display: "swap",
 });
 
-/* The pixel face carries button labels and nothing else; headlines, body copy,
-   eyebrows and every price stay in Franklin.
+/* The pixel face. Geist Pixel Square (Vercel, SIL OFL) — a monospace bitmap
+   face drawn on a strict square grid, self-hosted from the `geist` package
+   rather than Google Fonts because the Google build ships a reduced glyph
+   table. This file carries č ć ž š đ and a euro sign that is not an 8, which
+   are the two things that retired Pixelify Sans and then Jersey 10 here —
+   check the cmap, not the specimen, before swapping it again.
 
-   It replaced Pixelify Sans, which failed on the two things this site actually
-   sets: its euro sign was indistinguishable from 8 (a specimen of "€100 €200
-   €350" read "8100 8200 8350"), and its antialiased terminals mushed the
-   caron on č/š/ž at button sizes.
-
-   Jersey 10 is a true bitmap face drawn against a ~10px reference height, so
-   it stays crisp small, and its glyph table really does carry č ć ž š đ —
-   which is not a given. Silkscreen was the better-looking candidate and was
-   rejected here for shipping no č/ć/đ at all: those letters silently fell back
-   to the monospace stack, mixing two faces inside one word ("TAČNO"). Check
-   the cmap, not the specimen, before swapping this. */
-const pixel = Jersey_10({
+   Unlike Jersey 10 it sits in a normal em box (cap height 0.72em), so it is
+   set at text sizes, not inflated ones. */
+const pixel = localFont({
+  src: "./fonts/GeistPixel-Square.woff2",
   variable: "--font-pixel",
-  subsets: ["latin", "latin-ext"],
-  weight: ["400"],
+  weight: "400",
   display: "swap",
-  /* Not preloaded. next/font preloads every subset of every declared family,
-     which put four woff2 files in front of the first paint — and two of them
-     were for a face that only sets button labels. The LCP element on this page
-     is the hero paragraph, so Franklin keeps its preload and the pixel face
-     arrives when the stylesheet asks for it. `swap` means the buttons show in
-     Franklin for the moment before it lands. */
+  /* Not preloaded: it sets buttons and headlines, and the LCP element is
+     the hero paragraph in Franklin. `swap` shows Franklin for the moment
+     before it lands. */
   preload: false,
 });
 
@@ -82,6 +76,7 @@ export function RootHtml({
       <body className="min-h-full flex flex-col">
         {children}
         {analytics && <Analytics />}
+        <ConsoleGreeting />
       </body>
     </html>
   );

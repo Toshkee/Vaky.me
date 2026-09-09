@@ -18,7 +18,7 @@ export function OsBadge({
     tone === "red" ? "border-red text-red" : "border-ink text-ink";
   return (
     <span
-      className={`px inline-flex items-center gap-2 border-2 bg-paper px-2.5 py-1 text-[1.15rem] leading-none uppercase ${look} ${className}`}
+      className={`px inline-flex items-center gap-2 border-2 bg-paper px-2.5 py-1 text-[0.95rem] leading-none uppercase ${look} ${className}`}
     >
       {children}
     </span>

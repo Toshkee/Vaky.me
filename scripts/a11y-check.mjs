@@ -19,6 +19,10 @@ const PAGES = [
   "/en/",
   "/privacy/",
   "/en/privacy/",
+  /* One trade page per language stands for all ten: they share one
+     component and differ only in copy. */
+  "/sajt-za-frizere/",
+  "/en/website-for-villas/",
   /* The onboarding wizard. axe only ever sees the screen a URL lands on, so
      this covers the language gate and nothing past it — the steps themselves
      are keyboard-and-screen-reader work that has to be done by hand. */

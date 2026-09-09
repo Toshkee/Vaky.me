@@ -37,7 +37,7 @@ export function Success({
 
           <Link
             href="/"
-            className="px px-btn mt-7 inline-flex min-h-12 items-center bg-paper px-7 py-3 text-[1.25rem] text-ink transition-colors hover:text-red"
+            className="px px-btn mt-7 inline-flex min-h-12 items-center bg-paper px-7 py-3 text-[1.0625rem] text-ink transition-colors hover:text-red"
           >
             {copy.success.home}
           </Link>

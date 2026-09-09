@@ -50,7 +50,7 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
                 }`}
               >
                 {featured && (
-                  <p className="px flex items-center justify-center gap-2 border-b-2 border-ink bg-red px-3 py-2 text-center text-[1.2rem] leading-none text-white uppercase">
+                  <p className="px flex items-center justify-center gap-2 border-b-2 border-ink bg-red px-3 py-2 text-center text-[1rem] leading-none text-white uppercase">
                     <SparkleIcon aria-hidden="true" className="w-3.5" />
                     {plan.badge}
                   </p>
@@ -105,7 +105,7 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
                     href="#kontakt"
                     data-umami-event="plan_enquiry"
                     data-umami-event-plan={plan.name}
-                    className={`px px-btn tap inline-flex min-h-12 items-center justify-center px-6 text-[1.25rem] ${
+                    className={`px px-btn tap inline-flex min-h-12 items-center justify-center px-6 text-[1.0625rem] ${
                       featured
                         ? "px-btn--primary bg-red text-white hover:bg-red-deep"
                         : "bg-paper text-ink transition-colors hover:text-red"
@@ -249,7 +249,7 @@ function PlanDialog({
               onClick={onClose}
               data-umami-event="plan_enquiry"
               data-umami-event-plan={plan.name}
-              className="px px-btn px-btn--primary tap inline-flex min-h-12 w-full items-center justify-center bg-red px-6 text-[1.25rem] text-white hover:bg-red-deep"
+              className="px px-btn px-btn--primary tap inline-flex min-h-12 w-full items-center justify-center bg-red px-6 text-[1.0625rem] text-white hover:bg-red-deep"
             >
               {dict.pricing.planAction}
             </a>

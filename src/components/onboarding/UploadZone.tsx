@@ -176,7 +176,7 @@ export function UploadZone({
         />
         <label
           htmlFor={inputId}
-          className={`px px-btn tap mt-0 inline-flex min-h-11 cursor-pointer items-center bg-paper px-5 py-2 text-[1.15rem] text-ink transition-colors sm:mt-3 ${
+          className={`px px-btn tap mt-0 inline-flex min-h-11 cursor-pointer items-center bg-paper px-5 py-2 text-[0.95rem] text-ink transition-colors sm:mt-3 ${
             full ? "pointer-events-none opacity-50" : "hover:text-red"
           }`}
         >

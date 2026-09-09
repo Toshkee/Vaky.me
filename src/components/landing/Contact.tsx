@@ -390,7 +390,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
                   type="submit"
                   disabled={sending}
                   aria-busy={sending}
-                  className="px px-btn px-btn--primary block min-h-12 bg-red px-6 py-3 text-center text-[1.25rem] text-white hover:bg-red-deep disabled:opacity-70"
+                  className="px px-btn px-btn--primary block min-h-12 bg-red px-6 py-3 text-center text-[1.0625rem] text-white hover:bg-red-deep disabled:opacity-70"
                 >
                   {sending ? c.sending : c.submit}
                 </button>
@@ -398,7 +398,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
                   <button
                     type="button"
                     onClick={sendInstagram}
-                    className="px px-btn block min-h-12 bg-paper px-6 py-3 text-center text-[1.25rem] text-ink transition-colors hover:text-red"
+                    className="px px-btn block min-h-12 bg-paper px-6 py-3 text-center text-[1.0625rem] text-ink transition-colors hover:text-red"
                   >
                     {copied ? c.submitInstagramCopied : c.submitInstagram}
                   </button>
@@ -427,7 +427,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
                 {failed && (
                   <a
                     href={emailLink(dict.contact.emailSubject, written())}
-                    className="px px-btn inline-flex min-h-12 items-center bg-paper px-6 py-3 text-[1.25rem] text-ink transition-colors hover:text-red"
+                    className="px px-btn inline-flex min-h-12 items-center bg-paper px-6 py-3 text-[1.0625rem] text-ink transition-colors hover:text-red"
                   >
                     {c.emailFallbackAction}
                   </a>

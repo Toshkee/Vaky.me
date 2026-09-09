@@ -1,10 +1,10 @@
 "use client";
 
 import { useId, useRef, useState, type KeyboardEvent } from "react";
-import Link from "next/link";
 import type { Dictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
 import { FolderIcon } from "./icons";
+import { PhoneFrame } from "./PhoneFrame";
 import { SectionHead } from "./SectionHead";
 import { useInView } from "./useInView";
 
@@ -30,14 +30,9 @@ const isLive = (href: string) => href.startsWith("https://");
  * — so a second, quieter row of names appears under the trades when there is
  * something to choose between. Trades with a single project never show it.
  *
- * The phone is a tall capture, not a live frame: `_headers` forbids framing
- * the site anywhere, including here, and a demo running inside a picture of
- * a phone on a real phone is worse than opening it. Tapping the phone or the
- * button opens the real thing full-screen; a live client site opens in its own
- * window, so the visitor does not lose this page to it.
- *
- * Captures are regenerated with `node scripts/capture-phone-shots.mjs`
- * against a running dev server whenever a design changes.
+ * Tapping the phone or the button opens the real thing full-screen; a live
+ * client site opens in its own window, so the visitor does not lose this
+ * page to it. The phone itself is PhoneFrame, shared with the trade pages.
  */
 export function Work({ dict }: { dict: Dictionary }) {
   const { items } = dict.work;
@@ -94,52 +89,28 @@ export function Work({ dict }: { dict: Dictionary }) {
 
   const body = (
     <div className="mt-8 grid gap-8 sm:mt-10 sm:grid-cols-[auto_1fr] sm:items-center sm:gap-10 lg:gap-16">
-      {/* The phone: an ink body with a stepped corner, a paper screen
-          with the same notch, a speaker slot above and a home bar below.
-          It is one link — the whole device opens the project. */}
-      <Link
+      <PhoneFrame
         href={item.href}
-        {...(live ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        aria-label={`${live ? dict.work.openLive : dict.work.open}: ${item.name}${
+        live={live}
+        label={`${live ? dict.work.openLive : dict.work.open}: ${item.name}${
           live ? ` (${dict.work.newTab})` : ""
         }`}
-        data-umami-event="portfolio_demo_opened"
-        data-umami-event-demo={item.slug}
-        className="group block w-[16.5rem] justify-self-center transition-transform duration-100 hover:-translate-y-0.5 active:translate-x-1 active:translate-y-1 motion-reduce:transition-none sm:w-[18rem] sm:justify-self-start"
+        slug={item.slug}
+        alt={dict.work.phoneAlt.replace("{name}", item.name)}
+        screenRef={screen}
+        screenClassName={`is-${stage}`}
+        className="justify-self-center sm:justify-self-start"
       >
-        <div className="px-frame">
-          <div className="px-notch relative bg-ink px-[3px] pt-6 pb-5">
-            <span aria-hidden="true" className="absolute top-2.5 left-1/2 block h-1 w-10 -translate-x-1/2 bg-paper-2/40" />
-            <div
-              ref={screen}
-              className={`phone-screen is-${stage} px-notch aspect-[9/17] overflow-hidden bg-paper-2`}
-            >
-              <picture>
-                <source type="image/avif" srcSet={`/work/${item.slug}-phone.avif`} />
-                <img
-                  key={item.slug}
-                  src={`/work/${item.slug}-phone.webp`}
-                  alt={dict.work.phoneAlt.replace("{name}", item.name)}
-                  width={780}
-                  loading="lazy"
-                  decoding="async"
-                  className="phone-page"
-                />
-              </picture>
-              {/* the warmed captures, fetched but not shown */}
-              {warm
-                .filter((other) => other !== item.slug)
-                .map((other) => (
-                  <picture key={other} hidden>
-                    <source type="image/avif" srcSet={`/work/${other}-phone.avif`} />
-                    <img src={`/work/${other}-phone.webp`} alt="" width={780} decoding="async" />
-                  </picture>
-                ))}
-            </div>
-            <span aria-hidden="true" className="absolute bottom-2 left-1/2 block h-1 w-16 -translate-x-1/2 bg-paper-2/40" />
-          </div>
-        </div>
-      </Link>
+        {/* the warmed captures, fetched but not shown */}
+        {warm
+          .filter((other) => other !== item.slug)
+          .map((other) => (
+            <picture key={other} hidden>
+              <source type="image/avif" srcSet={`/work/${other}-phone.avif`} />
+              <img src={`/work/${other}-phone.webp`} alt="" width={780} decoding="async" />
+            </picture>
+          ))}
+      </PhoneFrame>
 
       <div>
         <p className="eyebrow text-red">
@@ -212,7 +183,7 @@ export function Work({ dict }: { dict: Dictionary }) {
                 onFocus={() => prefetch(trade.projects[0].slug)}
                 data-umami-event="portfolio_demo_switched"
                 data-umami-event-demo={trade.projects[0].slug}
-                className={`px inline-flex min-h-11 shrink-0 items-center border-2 border-ink px-4 text-[1.25rem] leading-none uppercase transition-colors ${
+                className={`px inline-flex min-h-11 shrink-0 items-center border-2 border-ink px-4 text-[1.0625rem] leading-none uppercase transition-colors ${
                   selected ? "bg-ink text-paper" : "bg-paper text-ink hover:text-red"
                 }`}
               >

@@ -59,6 +59,7 @@ export const me = {
        two separate keys. */
     items: [
       {
+        key: "villa",
         type: "Vila",
         projects: [
           {
@@ -73,6 +74,7 @@ export const me = {
         ],
       },
       {
+        key: "apartment",
         type: "Apartman",
         projects: [
           {
@@ -87,6 +89,7 @@ export const me = {
         ],
       },
       {
+        key: "restaurant",
         type: "Restoran",
         projects: [
           {
@@ -110,6 +113,7 @@ export const me = {
         ],
       },
       {
+        key: "barber",
         type: "Barber",
         projects: [
           {
@@ -133,6 +137,7 @@ export const me = {
         ],
       },
       {
+        key: "hair",
         type: "Frizerski salon",
         projects: [
           {
@@ -147,6 +152,7 @@ export const me = {
         ],
       },
       {
+        key: "beauty",
         type: "Kozmetički salon",
         projects: [
           {
@@ -179,6 +185,7 @@ export const me = {
         ],
       },
       {
+        key: "tattoo",
         type: "Tattoo",
         projects: [
           {
@@ -202,6 +209,7 @@ export const me = {
         ],
       },
       {
+        key: "pilates",
         type: "Pilates i joga",
         projects: [
           {
@@ -234,6 +242,7 @@ export const me = {
         ],
       },
       {
+        key: "gym",
         type: "Teretana",
         projects: [
           {
@@ -248,6 +257,7 @@ export const me = {
         ],
       },
       {
+        key: "dentist",
         type: "Stomatolog",
         projects: [
           {
@@ -640,6 +650,153 @@ export const me = {
         ],
       },
     ],
+  },
+
+  /* One page per kind of business, at /sajt-za-…/. Each is the landing page
+     answered for that trade: what such a site has to do, the projects made
+     for it, the same price and the same form. Nothing here is a claim the
+     landing page does not already make. `key` matches `work.items[].key`. */
+  trades: {
+    eyebrow: "Sajt za tvoju djelatnost",
+    examplesTitle: "Šta smo napravili",
+    examplesSub: "Neki primjeri su sajtovi koji već rade uživo, ostali su koncepti napravljeni za konkretan biznis. Otvori ih na telefonu.",
+    needsTitle: "Šta takav sajt treba da ima",
+    priceTitle: "Cijena i rok",
+    priceBody: "Start paket je €200 i online je do 10 dana. Prije plaćanja dobijaš besplatan koncept, pa vidiš kako bi sajt izgledao prije nego što odlučiš.",
+    priceLink: "Pogledaj sve pakete",
+    othersTitle: "Druge djelatnosti",
+    items: {
+      villa: {
+        slug: "sajt-za-vile",
+        title: "Sajt za vilu ili kuću za odmor",
+        metaTitle: "Sajt za vilu — od €200, online do 10 dana | Vaky",
+        description: "Izrada sajta za vilu ili kuću za odmor u Crnoj Gori. Galerija, lokacija i rezervacija na svom domenu, uz Booking i Airbnb. Od €200, besplatan koncept.",
+        intro: "Kuća koja se izdaje samo preko Bookinga i Airbnb-ja dijeli stranicu sa hiljadu sličnih i plaća proviziju na svaku noć. Sajt na svom domenu je adresa koju gost pamti i na koju se vraća sljedeće ljeto.",
+        needs: [
+          { title: "Galerija koja prodaje", body: "Velike fotografije kuće, dvorišta i pogleda, poređane onako kako gost razgleda." },
+          { title: "Lokacija i okolina", body: "Mapa, udaljenost do plaže ili planine, šta ima u blizini." },
+          { title: "Rezervacija bez tabele", body: "Dugme koje vodi na Booking, Airbnb ili direktno na tvoj Viber i WhatsApp." },
+          { title: "Dva jezika", body: "Crnogorski i engleski, jer gosti dolaze iz cijele Evrope." },
+        ],
+      },
+      apartment: {
+        slug: "sajt-za-apartmane",
+        title: "Sajt za apartmane",
+        metaTitle: "Sajt za apartmane — od €200, online do 10 dana | Vaky",
+        description: "Izrada sajta za apartmane u Crnoj Gori. Galerija, bazen i plaža, lokacija i rezervacija preko Bookinga ili direktno. Od €200, besplatan koncept.",
+        intro: "U oglasu se apartman gubi među stotinu sličnih, a ono što ga izdvaja, pogled, bazen, blizina plaže, stane u dvije fotografije. Na svom sajtu to postaje cijela priča, a rezervacija i dalje ide gdje ti odgovara.",
+        needs: [
+          { title: "Ono što izdvaja", body: "Pogled, bazen, terasa ili plaža na pet koraka, prvo i najveće na stranici." },
+          { title: "Apartmani pojedinačno", body: "Svaki sa svojim fotografijama, brojem kreveta i onim što uključuje." },
+          { title: "Rezervacija", body: "Booking, Airbnb ili direktan upit preko Vibera i WhatsAppa, kako ti odgovara." },
+          { title: "Dva jezika", body: "Crnogorski i engleski, sa cijenama i sezonama koje se lako ažuriraju." },
+        ],
+      },
+      restaurant: {
+        slug: "sajt-za-restorane",
+        title: "Sajt za restoran",
+        metaTitle: "Sajt za restoran — od €200, online do 10 dana | Vaky",
+        description: "Izrada sajta za restoran ili konobu u Crnoj Gori. Meni koji se čita na telefonu, rezervacija na klik, radno vrijeme i mapa. Od €200, besplatan koncept.",
+        intro: "Gost prije dolaska traži tri stvari: meni, radno vrijeme i kako da rezerviše sto. Ako to mora da traži po Instagramu, često ode dalje. Sajt to daje na jednom mjestu, i na telefonu.",
+        needs: [
+          { title: "Meni koji se čita na telefonu", body: "Jela i cijene kao tekst, ne kao fotografija jelovnika koju treba zumirati." },
+          { title: "Rezervacija na klik", body: "Poziv ili WhatsApp poruka jednim dodirom, bez forme na pet polja." },
+          { title: "Radno vrijeme i mapa", body: "Kad ste otvoreni i kako se stiže, uključujući parking." },
+          { title: "Fotografije jela i prostora", body: "Ono što gost zamišlja prije nego što dođe." },
+        ],
+      },
+      barber: {
+        slug: "sajt-za-barbershop",
+        title: "Sajt za barbershop",
+        metaTitle: "Sajt za barbershop — od €200, online do 10 dana | Vaky",
+        description: "Izrada sajta za barbershop u Crnoj Gori. Radovi, cjenovnik i zakazivanje termina preko Instagrama, Vibera ili online. Od €200, besplatan koncept.",
+        intro: "Mušterija bira barbera po slikama, a zakazuje porukom. Sajt skupi oboje: radove, cjenovnik i dugme za zakazivanje koje vodi na Instagram, Viber ili online termine.",
+        needs: [
+          { title: "Radovi u galeriji", body: "Frizure i brade u punoj veličini, ne u Instagram gridu." },
+          { title: "Cjenovnik usluga", body: "Šišanje, brada, kombinacija, sa cijenama koje se mijenjaju na jednom mjestu." },
+          { title: "Zakazivanje termina", body: "Instagram DM, Viber ili online planer, kako već radiš." },
+          { title: "Lokacija i radno vrijeme", body: "Mapa i sati, jer je to drugo pitanje poslije cijene." },
+        ],
+      },
+      hair: {
+        slug: "sajt-za-frizere",
+        title: "Sajt za frizerski salon",
+        metaTitle: "Sajt za frizerski salon — od €200, online do 10 dana | Vaky",
+        description: "Izrada sajta za frizerski salon u Crnoj Gori. Cjenovnik po uslugama, radovi, tim i zakazivanje preko poziva, Vibera ili Instagrama. Od €200, besplatan koncept.",
+        intro: "Frizerski salon živi od preporuke i od Instagrama. Sajt je mjesto na koje ta preporuka vodi: cjenovnik, radovi, tim i dugme za zakazivanje, bez skrolovanja kroz stotinu objava.",
+        needs: [
+          { title: "Cjenovnik po uslugama", body: "Šišanje, farbanje, tretmani, sa cijenama koje klijentkinja vidi prije poruke." },
+          { title: "Radovi i tim", body: "Ko radi u salonu i šta radi najbolje, uz fotografije radova." },
+          { title: "Zakazivanje", body: "Poziv, Viber ili Instagram DM jednim dodirom." },
+          { title: "Lokacija i radno vrijeme", body: "Mapa, sati i kako doći, uključujući parking." },
+        ],
+      },
+      beauty: {
+        slug: "sajt-za-kozmeticki-salon",
+        title: "Sajt za kozmetički salon",
+        metaTitle: "Sajt za kozmetički salon — od €200, online do 10 dana | Vaky",
+        description: "Izrada sajta za kozmetički salon u Crnoj Gori. Tretmani i cijene, galerija, tim i zakazivanje preko Instagrama ili Vibera. Od €200, besplatan koncept.",
+        intro: "Tretmani, cijene i ko ih radi, to klijentkinja želi da zna prije nego što pošalje poruku. Sajt to složi pregledno, a zakazivanje ostaje na Instagramu ili Viberu ako ti tako odgovara.",
+        needs: [
+          { title: "Tretmani i cijene", body: "Po kategorijama, sa trajanjem i cijenom, bez PDF cjenovnika." },
+          { title: "Galerija radova", body: "Nokti, trepavice, tretmani lica, ono po čemu te biraju." },
+          { title: "Tim", body: "Ko radi šta, sa fotografijom i kratkom rečenicom." },
+          { title: "Zakazivanje", body: "Instagram DM, Viber ili poziv jednim dodirom." },
+        ],
+      },
+      tattoo: {
+        slug: "sajt-za-tattoo-studio",
+        title: "Sajt za tattoo studio",
+        metaTitle: "Sajt za tattoo studio — od €200, online do 10 dana | Vaky",
+        description: "Izrada sajta za tattoo studio u Crnoj Gori. Portfolio po artistu i stilu, cijene od, upit za termin i njega tetovaže. Od €200, besplatan koncept.",
+        intro: "Za tattoo studio portfolio je sve. Sajt ga pokazuje u punoj veličini, po artistu i po stilu, i vodi do upita za termin, umjesto da se radovi gube u Instagram gridu.",
+        needs: [
+          { title: "Portfolio po artistu", body: "Svaki artist sa svojim radovima i stilom, u punoj veličini." },
+          { title: "Stilovi i cijene od", body: "Šta radite i od koliko, da upit stigne od nekoga ko zna šta traži." },
+          { title: "Upit za termin", body: "Forma sa opisom i slikom ideje, ili direktno Instagram DM." },
+          { title: "Njega tetovaže i pitanja", body: "Ono što svakom klijentu objašnjavate iznova, napisano jednom." },
+        ],
+      },
+      pilates: {
+        slug: "sajt-za-pilates-studio",
+        title: "Sajt za pilates ili joga studio",
+        metaTitle: "Sajt za pilates studio — od €200, online do 10 dana | Vaky",
+        description: "Izrada sajta za pilates ili joga studio u Crnoj Gori. Raspored časova, cijene i paketi, instruktori i prijava za probni čas. Od €200, besplatan koncept.",
+        intro: "Novi polaznik prvo traži raspored, cijenu mjesečne karte i gdje je studio. Sajt odgovara na sva tri prije poruke, a instruktore i prostor pokazuje onako kako ih vidi neko ko prvi put ulazi.",
+        needs: [
+          { title: "Raspored časova", body: "Po danima i tipu časa, čitljiv na telefonu." },
+          { title: "Cijene i paketi", body: "Pojedinačni čas, mjesečna karta, paketi, na jednom mjestu." },
+          { title: "Instruktori i prostor", body: "Ko vodi časove i kako studio izgleda iznutra." },
+          { title: "Prijava za probni čas", body: "Poruka ili poziv jednim dodirom, bez registracije." },
+        ],
+      },
+      gym: {
+        slug: "sajt-za-teretane",
+        title: "Sajt za teretanu",
+        metaTitle: "Sajt za teretanu — od €200, online do 10 dana | Vaky",
+        description: "Izrada sajta za teretanu u Crnoj Gori. Članarine, radno vrijeme, prostor i oprema, treneri i prijava. Od €200, besplatan koncept.",
+        intro: "Teretana se bira po cijeni, radnom vremenu i tome kako izgleda unutra. Sajt to daje bez poziva: članarine, sprave, treneri i dugme za prijavu.",
+        needs: [
+          { title: "Članarine", body: "Mjesečna, tromjesečna, studentska, sa cijenama koje se mijenjaju na jednom mjestu." },
+          { title: "Radno vrijeme", body: "Uključujući praznike i vikend, jer je to prvo što se provjerava." },
+          { title: "Prostor i oprema", body: "Fotografije sale i sprava, ono što se gleda prije prve posjete." },
+          { title: "Treneri i programi", body: "Ko radi i šta nudi, od personalnih treninga do grupnih." },
+        ],
+      },
+      dentist: {
+        slug: "sajt-za-stomatologe",
+        title: "Sajt za stomatološku ordinaciju",
+        metaTitle: "Sajt za stomatologa — od €200, online do 10 dana | Vaky",
+        description: "Izrada sajta za stomatološku ordinaciju u Crnoj Gori. Usluge i cjenovnik, tim, zakazivanje pregleda, lokacija. Od €200, besplatan koncept.",
+        intro: "Pacijent bira ordinaciju po povjerenju: ko je doktor, koje usluge radi, koliko košta i kako da zakaže. Sajt to kaže mirno i jasno, bez agresivne prodaje.",
+        needs: [
+          { title: "Usluge i cjenovnik", body: "Od pregleda do implantata, sa cijenama ili rasponom cijena." },
+          { title: "Tim ordinacije", body: "Doktori sa fotografijom, specijalizacijom i iskustvom." },
+          { title: "Zakazivanje pregleda", body: "Poziv, Viber ili forma, sa radnim vremenom uz dugme." },
+          { title: "Lokacija i parking", body: "Mapa i kako doći, jer se pacijenti vraćaju godinama." },
+        ],
+      },
+    },
   },
 
   meta: {

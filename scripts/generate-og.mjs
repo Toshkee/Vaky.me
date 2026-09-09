@@ -1,17 +1,24 @@
+import { readFileSync } from "node:fs";
 import { chromium } from "playwright";
+
+/* The pixel face is self-hosted, so it is inlined here rather than fetched:
+   a data URI is the one font source a page built from a string can load. */
+const pixel = readFileSync("src/app/fonts/GeistPixel-Square.woff2").toString("base64");
 
 /**
  * The share card (public/og.png, 1200x630) composed from the live design
  * system: paper ground with the dot grid, the lockup, the headline, the real
  * offer line — and Vaky beside a VAKY OS window that has already finished
- * the build. Fonts come from Google, images from the running dev server.
+ * the build. Franklin comes from Google, the pixel face from src/app/fonts,
+ * images from the running dev server.
  *
  * Usage: dev server on :3000, then  node scripts/generate-og.mjs
  */
 const html = `<!doctype html><html><head><meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Libre+Franklin:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
+  @font-face { font-family: "Geist Pixel"; src: url(data:font/woff2;base64,${pixel}) format("woff2"); }
   * { margin: 0; box-sizing: border-box; }
   body { width: 1200px; height: 630px; background: #faf8f4; color: #101010;
          font-family: "Libre Franklin", sans-serif; overflow: hidden; position: relative; }
@@ -22,7 +29,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
   .wordmark { font-size: 54px; font-weight: 800; letter-spacing: -.055em; line-height: 1; }
   .wordmark span { color: #c1121f; }
   .eyebrow { font-size: 22px; font-weight: 700; letter-spacing: .2em; color: #5c5c58; }
-  h1 { margin-top: 64px; font-size: 68px; font-weight: 800; line-height: 1.06; letter-spacing: -0.02em; white-space: nowrap; }
+  h1 { margin-top: 60px; font-family: "Geist Pixel", monospace; font-size: 64px; font-weight: 400; line-height: 1.12; letter-spacing: -0.01em; white-space: nowrap; }
   h1 span { color: #c1121f; }
   .bottom { position: absolute; left: 56px; right: 56px; bottom: 44px;
             border-top: 3px solid #101010; padding-top: 26px;
@@ -33,8 +40,8 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
   .win { width: 300px; border: 3px solid #101010; background: #faf8f4; box-shadow: 8px 8px 0 #101010; }
   .bar { display: flex; align-items: center; gap: 7px; padding: 9px 12px; background: #f0ede7; border-bottom: 3px solid #101010; }
   .bar i { width: 9px; height: 9px; }
-  .bar span { font-family: "Jersey 10"; font-size: 24px; color: #5c5c58; margin-left: 6px; letter-spacing: .04em; }
-  .scr { padding: 18px 18px 20px; font-family: "Jersey 10"; font-size: 27px; }
+  .bar span { font-family: "Geist Pixel"; font-size: 19px; color: #5c5c58; margin-left: 6px; letter-spacing: .04em; }
+  .scr { padding: 18px 18px 20px; font-family: "Geist Pixel"; font-size: 22px; }
   .row { display: flex; justify-content: space-between; margin-top: 8px; }
   .ok { color: #2e7d44; }
   .vaky { width: 190.5px; height: 348px; background: url(http://localhost:3000/mascot/vaky.webp) no-repeat;
@@ -59,7 +66,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
       </div>
     </div>
     <div class="bottom">
-      <span>Od <b>€100</b></span><span class="dot">·</span>
+      <span>Od <b>€200</b></span><span class="dot">·</span>
       <span>Rok <b>do 10 dana</b></span><span class="dot">·</span>
       <span>Besplatan koncept</span>
     </div>

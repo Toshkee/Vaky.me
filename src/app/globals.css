@@ -75,13 +75,17 @@
 }
 
 @layer components {
-  /* ── Editorial headline setting — serif, sentence case, tight ── */
-  /* One family sets the whole page. Headlines are the same Franklin Gothic as
-     the body, just heavier and tighter — a masthead, not a second voice. */
+  /* ── Headline setting — the pixel face, sentence case ──
+     Headlines, section titles and the hero facts are set in Geist Pixel
+     Square, the same face the OS windows and buttons speak in: the studio's
+     own voice is the machine's. It has one weight, so hierarchy comes from
+     size alone; body copy and eyebrows stay in Franklin as the counterweight,
+     which is what keeps the page reading as a site rather than a terminal. */
   .headline {
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -0.018em;
+    font-family: var(--font-pixel), ui-monospace, monospace;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
   }
 
   /* Prices and figures line up in columns */
@@ -107,7 +111,7 @@
     }
   }
 
-  /* Small caps label — the counterweight to the serif headlines */
+  /* Small caps label — the counterweight to the pixel headlines */
   .eyebrow {
     font-size: 0.75rem;
     font-weight: 700;
@@ -190,15 +194,12 @@
      Aliased frames, beveled controls and a pixel display face.
 
      The rule that keeps this from reading as a toy: it never touches the
-     reading layer. Headlines, body copy, eyebrows and every price stay in
-     Franklin; button labels are the pixel face's whole remit.
+     reading layer. Body copy, eyebrows and form fields stay in Franklin;
+     the pixel face sets headlines, labels on controls and the OS windows.
 
-     Jersey 10 is drawn against a ~10px reference height, so it fills much
-     less of its em box than a text face does. Button labels are therefore
-     set at 20px (1.25rem) rather than the 17px the rest of the controls use
-     — two whole 10px cells, which is both the size that reads correctly and
-     the size that lands the bitmap on exact pixel boundaries. Changing the
-     pixel family means re-checking that number against the new grid. ── */
+     Geist Pixel Square sits in a normal em box, so its labels are set at
+     17px (1.0625rem) like the rest of the controls; at that size the
+     glyphs land one drawn pixel to one device pixel on a 2x screen. ── */
 
   .px {
     font-family: var(--font-pixel), ui-monospace, monospace;

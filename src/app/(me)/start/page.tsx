@@ -70,13 +70,13 @@ export default function StartPage() {
                   href={instagramDmLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px px-btn px-btn--primary inline-flex min-h-12 items-center bg-red px-7 py-3 text-[1.25rem] text-white hover:bg-red-deep"
+                  className="px px-btn px-btn--primary inline-flex min-h-12 items-center bg-red px-7 py-3 text-[1.0625rem] text-white hover:bg-red-deep"
                 >
                   {me.dm}
                 </a>
                 <Link
                   href="/"
-                  className="px px-btn inline-flex min-h-12 items-center bg-paper px-5 py-3 text-[1.25rem] text-ink transition-colors hover:text-red"
+                  className="px px-btn inline-flex min-h-12 items-center bg-paper px-5 py-3 text-[1.0625rem] text-ink transition-colors hover:text-red"
                 >
                   {me.action}
                 </Link>

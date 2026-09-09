@@ -392,7 +392,7 @@ export function Onboarding({
                 setApiError(null);
                 setAttempt((current) => current + 1);
               }}
-              className="px px-btn mt-5 inline-flex min-h-12 items-center bg-paper px-5 py-3 text-[1.25rem] text-ink transition-colors hover:text-red"
+              className="px px-btn mt-5 inline-flex min-h-12 items-center bg-paper px-5 py-3 text-[1.0625rem] text-ink transition-colors hover:text-red"
             >
               {copy.upload.retry}
             </button>
@@ -555,7 +555,7 @@ export function Onboarding({
           type="button"
           onClick={goBack}
           disabled={phase === "form" && index === 0}
-          className="px px-btn inline-flex min-h-12 items-center bg-paper px-5 py-3 text-[1.25rem] text-ink transition-colors hover:text-red disabled:opacity-40"
+          className="px px-btn inline-flex min-h-12 items-center bg-paper px-5 py-3 text-[1.0625rem] text-ink transition-colors hover:text-red disabled:opacity-40"
         >
           {copy.chrome.back}
         </button>
@@ -566,7 +566,7 @@ export function Onboarding({
             onClick={() => void submit()}
             disabled={sending}
             aria-busy={sending}
-            className="px px-btn px-btn--primary inline-flex min-h-12 flex-1 items-center justify-center bg-red px-5 py-3 text-center text-[1.25rem] text-white hover:bg-red-deep disabled:opacity-70"
+            className="px px-btn px-btn--primary inline-flex min-h-12 flex-1 items-center justify-center bg-red px-5 py-3 text-center text-[1.0625rem] text-white hover:bg-red-deep disabled:opacity-70"
           >
             {sending ? copy.review.sending : copy.review.submit}
           </button>
@@ -574,7 +574,7 @@ export function Onboarding({
           <button
             type="button"
             onClick={goNext}
-            className="px px-btn px-btn--primary inline-flex min-h-12 flex-1 items-center justify-center bg-red px-5 py-3 text-center text-[1.25rem] text-white hover:bg-red-deep"
+            className="px px-btn px-btn--primary inline-flex min-h-12 flex-1 items-center justify-center bg-red px-5 py-3 text-center text-[1.0625rem] text-white hover:bg-red-deep"
           >
             {index === steps.length - 1 ? copy.chrome.toReview : copy.chrome.next}
           </button>

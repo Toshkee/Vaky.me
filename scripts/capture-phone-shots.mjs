@@ -5,7 +5,10 @@ import sharp from "sharp";
 /**
  * Tall phone-width captures of every project in the Radovi phone.
  *
- *   node scripts/capture-phone-shots.mjs [baseUrl]   (against a running dev server)
+ *   node scripts/capture-phone-shots.mjs [baseUrl] [slug ...]   (against a running dev server)
+ *
+ * With slugs given only those are re-shot — the usual case is a client
+ * changing their live site, which needs one capture refreshed, not seventeen.
  *
  * Covers both kinds of project: the demos on this site, and the client sites
  * that are live on their own domains — those are shot straight off the public
@@ -21,6 +24,7 @@ import sharp from "sharp";
  * the Vaky back-link bar goes too — that strip is site chrome, not the design.
  */
 const BASE = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
+const ONLY = process.argv.slice(3);
 const OUT = "public/work";
 const MAX_HEIGHT = 3200;
 fs.mkdirSync(OUT, { recursive: true });
@@ -61,6 +65,7 @@ const page = await ctx.newPage();
 for (const project of projects) {
   const demo = typeof project === "string";
   const slug = demo ? project : project.slug;
+  if (ONLY.length && !ONLY.includes(slug)) continue;
   const url = demo ? `${BASE}/demo/${slug}/` : project.url;
 
   await page.goto(url, { waitUntil: "networkidle" });

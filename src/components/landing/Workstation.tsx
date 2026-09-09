@@ -117,7 +117,7 @@ export function Workstation() {
         <div className="w-full max-w-[350px] min-w-0">
           <PixelWindow title="VAKY OS">
             <div className="p-4 sm:p-5">
-              <p aria-hidden="true" className="px text-[1.3rem] leading-none">
+              <p aria-hidden="true" className="px text-[1.125rem] leading-none">
                 {SCREEN[phase]}
                 {phase === "online" ? (
                   <CheckIcon className="ml-2 inline-block w-4 align-[-2px] text-ok" />
@@ -134,10 +134,10 @@ export function Workstation() {
                 {STATUSES.map((name, i) => (
                   <li key={name} className="flex items-center gap-2.5">
                     <span className={`os-led shrink-0 ${i < lit ? "" : "os-led--off"}`} />
-                    <span className="px text-[1.2rem] leading-none">{name}</span>
+                    <span className="px text-[1rem] leading-none">{name}</span>
                     <span className="px-dashrule min-w-4 flex-1 opacity-60" />
                     <span
-                      className={`px text-[1.2rem] leading-none text-ok ${
+                      className={`px text-[1rem] leading-none text-ok ${
                         i < lit ? "" : "invisible"
                       }`}
                     >
@@ -154,7 +154,7 @@ export function Workstation() {
                   <button
                     type="button"
                     onClick={deploy}
-                    className="px px-btn px-btn--primary os-deploy inline-flex min-h-11 items-center bg-red px-6 text-[1.25rem] text-white hover:bg-red-deep"
+                    className="px px-btn px-btn--primary os-deploy inline-flex min-h-11 items-center bg-red px-6 text-[1.0625rem] text-white hover:bg-red-deep"
                   >
                     DEPLOY
                   </button>

@@ -41,7 +41,7 @@ export function PixelWindow({
               <span className="block h-1.5 w-1.5 bg-gold" />
               <span className="block h-1.5 w-1.5 bg-ok" />
               {title && (
-                <span className="px ml-2 text-[1.1rem] leading-none tracking-wide text-muted uppercase">
+                <span className="px ml-2 text-[0.9375rem] leading-none tracking-wide text-muted uppercase">
                   {title}
                 </span>
               )}

@@ -81,7 +81,7 @@ export function LanguageGate({
               type="button"
               onClick={onStart}
               disabled={!language}
-              className="px px-btn px-btn--primary inline-flex min-h-12 items-center bg-red px-7 py-3 text-[1.25rem] text-white hover:bg-red-deep disabled:opacity-50"
+              className="px px-btn px-btn--primary inline-flex min-h-12 items-center bg-red px-7 py-3 text-[1.0625rem] text-white hover:bg-red-deep disabled:opacity-50"
             >
               {copy.gate.action}
             </button>
@@ -131,7 +131,7 @@ export function ResumeCard({
           <button
             type="button"
             onClick={onContinue}
-            className="px px-btn px-btn--primary inline-flex min-h-12 items-center bg-red px-7 py-3 text-[1.25rem] text-white hover:bg-red-deep"
+            className="px px-btn px-btn--primary inline-flex min-h-12 items-center bg-red px-7 py-3 text-[1.0625rem] text-white hover:bg-red-deep"
           >
             {copy.resume.action}
           </button>

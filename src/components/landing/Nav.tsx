@@ -21,13 +21,16 @@ import { BrandWordmark } from "@/components/BrandWordmark";
  * not a trade worth making for texture.
  */
 export function Nav({ dict }: { dict: Dictionary }) {
-  const links = [
-    { label: dict.nav.work, href: "#radovi" },
-    { label: dict.nav.pricing, href: "#cijene" },
-    { label: dict.nav.contact, href: "#kontakt" },
-  ];
-
   const home = dict.lang === "en" ? "/en/" : "/";
+
+  /* Anchors are written from the home path, so the same masthead works on
+     the trade pages, where "Primjeri" and "Cijene" live on the landing page
+     and only the contact form is on the page itself. */
+  const links = [
+    { label: dict.nav.work, href: `${home}#radovi` },
+    { label: dict.nav.pricing, href: `${home}#cijene` },
+    { label: dict.nav.contact, href: `${home}#kontakt` },
+  ];
   const [active, setActive] = useState("");
 
   /* Which section is under the reading line, recomputed from geometry.
@@ -53,7 +56,7 @@ export function Nav({ dict }: { dict: Dictionary }) {
         return rect && rect.top <= line && rect.bottom > line;
       });
       if (current) {
-        setActive(`#${current}`);
+        setActive(`${home}#${current}`);
         return;
       }
 
@@ -66,7 +69,7 @@ export function Nav({ dict }: { dict: Dictionary }) {
 
       // Between the marked sections nothing is a nav target, so the indicator
       // clears rather than pointing at a section you have already left.
-      setActive(lastOnScreen ? `#${last}` : "");
+      setActive(lastOnScreen ? `${home}#${last}` : "");
     };
 
     let queued = false;
@@ -86,7 +89,7 @@ export function Nav({ dict }: { dict: Dictionary }) {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [home]);
 
   const linkClass = (href: string) =>
     `nav-link inline-flex min-h-11 items-center px-2 font-semibold transition-colors ${

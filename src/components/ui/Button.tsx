@@ -35,7 +35,7 @@ export function Button({
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       {...(event ? { "data-umami-event": event } : {})}
-      className={`px px-btn inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-[1.25rem] ${look} ${className}`}
+      className={`px px-btn inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-[1.0625rem] ${look} ${className}`}
     >
       {children}
       {arrow && <ArrowIcon className="w-4 shrink-0" />}
