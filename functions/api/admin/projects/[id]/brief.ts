@@ -1,4 +1,4 @@
-import { generateBrief, isBriefMode } from "../../../../../server/admin/brief";
+import { generateBrief } from "../../../../../server/admin/brief";
 import { scopeWarnings } from "../../../../../server/admin/scope";
 import {
   addBrief,
@@ -9,7 +9,7 @@ import {
   logActivity,
 } from "../../../../../server/admin/store";
 import type { OnboardingEnv } from "../../../../../server/onboarding/env";
-import { fail, json, readJson } from "../../../../../server/onboarding/http";
+import { fail, json } from "../../../../../server/onboarding/http";
 import {
   isLanguage,
   isPackageId,
@@ -20,14 +20,15 @@ import {
  * Turns everything stored about a project into a paste-ready Build Brief.
  *
  * Deterministic — no model, no key, no cost. The result is saved (the newest
- * per mode is the current one) and returned in the same breath, so the copy
- * button and the archive can never disagree.
+ * one is the current one) and returned in the same breath, so the copy
+ * button and the archive can never disagree. The `mode` column still says
+ * "full": the table's CHECK constraint predates the single-brief design, and
+ * older rows keep their historical modes.
  */
+const MODE = "full";
+
 export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
   const projectId = String(context.params.id ?? "");
-  const raw = await readJson(context.request, 4 * 1024);
-  const mode = raw && typeof raw === "object" ? (raw as { mode?: unknown }).mode : undefined;
-  if (!isBriefMode(mode)) return fail("bad-request");
 
   try {
     const project = await findProject(context.env.DB, projectId);
@@ -51,7 +52,7 @@ export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
     const submissionPackageId =
       submission && isPackageId(submission.package_id) ? submission.package_id : null;
 
-    const content = generateBrief(mode, {
+    const content = generateBrief({
       project,
       packageId: project.package_id,
       answers,
@@ -64,10 +65,10 @@ export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
     });
 
     const id = crypto.randomUUID();
-    await addBrief(context.env.DB, id, projectId, mode, content);
-    await logActivity(context.env.DB, { projectId }, "brief_generated", mode);
+    await addBrief(context.env.DB, id, projectId, MODE, content);
+    await logActivity(context.env.DB, { projectId }, "brief_generated");
 
-    return json({ id, mode, content });
+    return json({ id, content });
   } catch {
     return fail("server");
   }

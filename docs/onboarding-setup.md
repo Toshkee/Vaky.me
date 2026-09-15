@@ -31,7 +31,7 @@ was agreed in conversation.
 | 6 | The client opens `/start/<token>/`, which resolves to the package and prefilled business details the link carries — never something the client chooses. | `functions/start/[token].ts`, `POST /api/onboarding/context` |
 | 7 | The client fills the brief for that package and uploads files; Vaky is emailed the finished brief. | `POST /api/onboarding/session`, `.../upload`, `.../submit` |
 | 8 | The dashboard shows the brief, files, and any scope warnings (answers that reach outside the package). | `GET /api/admin/projects/:id` |
-| 9 | An admin generates a Build Brief — full, design, or technical — and pastes it into a coding agent. | `POST /api/admin/projects/:id/brief` |
+| 9 | An admin generates the Build Brief and pastes it into a coding agent. Earlier, at the lead stage, the same button on the enquiry writes the Concept Brief for the free concept. | `POST /api/admin/projects/:id/brief`, `POST /api/admin/leads/:id/concept` |
 
 The package is decided once, by Vaky, when the link is minted. Nothing the
 client does in the form — not a query string, not a hand-crafted request body
@@ -49,7 +49,7 @@ or the request.
 | Database | **Cloudflare D1** (SQLite) | One database, `vibelab-onboarding`, holding both the client-facing tables from the original onboarding form and the newer leads/projects/links/notes/briefs tables. This is a legacy provider resource ID, intentionally retained so the rebrand does not migrate or disconnect production data. |
 | File storage | **Cloudflare R2**, private bucket | Objects are never public. Vaky reaches them through signed, expiring links in the notification email, or through the cookie-authorised `/api/admin/file` route. |
 | Admin auth | **One Cloudflare secret** (`ADMIN_PASSWORD`), a signed cookie | There is exactly one admin — the studio — so this is deliberately not a user system. No session table: the cookie's signature *is* the session. |
-| Build Brief | **Deterministic string assembly** (`server/admin/brief.ts`) | No model is called and nothing costs money. The brief is a transformation of what is already stored — a fact never collected comes out as "Not provided", never as something invented. |
+| Build Brief, Concept Brief | **Deterministic string assembly** (`server/admin/brief.ts`, `server/admin/concept.ts`) | No model is called and nothing costs money. Each brief is a transformation of what is already stored — a fact never collected comes out as "Not provided", never as something invented. The Concept Brief is not stored at all; it is rewritten from the enquiry and the notes on every request. |
 | Email | **Resend** | One `fetch`, no SDK. Its shared `onboarding@resend.dev` sender works before any DNS is set up, at the cost of only delivering to the Resend account's own address. |
 | Bot check | **Cloudflare Turnstile**, optional | Verified server-side on the public lead form. With no secret configured the check is skipped and rate limiting alone applies. |
 
@@ -207,8 +207,9 @@ own `d1_migrations` bookkeeping table already shows as applied.
   is a SHA-256 hash of the 24-random-byte token; the token itself exists in
   the clear only once, in the API response at the moment it is minted.
 - `notes` — internal, admin-only, attached to a lead or a project.
-- `build_briefs` — every generated Build Brief, kept; the newest per
-  `(project, mode)` is the current one.
+- `build_briefs` — every generated Build Brief, kept; the newest per project
+  is the current one. The `mode` column always says `full` now — the three
+  modes it was built for were dropped, and older rows keep theirs.
 - `activity` — a plain timeline, one row per thing that happened to a lead or
   a project.
 - Four `ALTER TABLE ... ADD COLUMN` statements, extending two existing

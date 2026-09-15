@@ -21,17 +21,11 @@ import type { NoteRow, ProjectFileRow, ProjectRow } from "./store";
  * own house standards (performance, accessibility, no-slop design), because
  * those are the studio's facts, not the client's.
  *
- * Three modes, one data pass: every section declares which modes want it, so
- * the design brief is the full brief with the engineering pulled out, not a
- * separately maintained document that can drift.
+ * One document. It used to come in three flavours — full, design, technical
+ * — that differed by a section or two, which made the choice a fake one. The
+ * concept-phase prompt is its own thing in ./concept.ts, built from the
+ * enquiry rather than the questionnaire.
  */
-
-export const BRIEF_MODES = ["full", "design", "technical"] as const;
-export type BriefMode = (typeof BRIEF_MODES)[number];
-
-export function isBriefMode(value: unknown): value is BriefMode {
-  return typeof value === "string" && (BRIEF_MODES as readonly string[]).includes(value);
-}
 
 export type BriefData = {
   project: ProjectRow;
@@ -99,9 +93,9 @@ function megabytes(bytes: number): string {
 
 /* ── The brief ────────────────────────────────────────────────────────── */
 
-type Section = { title: string; modes: readonly BriefMode[]; body: string[] };
+type Section = { title: string; body: string[] };
 
-export function generateBrief(mode: BriefMode, data: BriefData): string {
+export function generateBrief(data: BriefData): string {
   const { project, packageId, files, notes, warnings } = data;
   const answers = data.answers ?? {};
   const hasAnswers = data.answers !== null;
@@ -113,12 +107,12 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
   const askedBooking = hasAnswers && "bookingServices" in answers;
 
   const sections: Section[] = [];
-  const add = (title: string, modes: readonly BriefMode[], body: string[]) => {
-    sections.push({ title, modes, body });
+  const add = (title: string, body: string[]) => {
+    sections.push({ title, body });
   };
 
   /* — Overview — */
-  add("Project Overview", BRIEF_MODES, [
+  add("Project Overview", [
     `Build a production website for **${project.business_name}**${project.contact_name ? ` (contact: ${project.contact_name})` : ""}.`,
     "",
     line("What the business does", answerText(answers, "activity")),
@@ -136,7 +130,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
     ...(hasAnswers ? [] : ["", "The client has not completed the onboarding questionnaire yet — every answer-derived field below is missing by definition. Build nothing on assumptions; ask Vaky."]),
   ]);
 
-  add("Business Context & Target Audience", BRIEF_MODES, [
+  add("Business Context & Target Audience", [
     line("Typical customers", answerText(answers, "customers")),
     line("Primary goals for the site", multi(answers, "goals").join("; ")),
     line("Other goal (client's words)", answerText(answers, "goalsOther")),
@@ -211,10 +205,10 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
         : []),
     );
   }
-  add("Agreed Vaky Package & Scope", BRIEF_MODES, scopeBody);
+  add("Agreed Vaky Package & Scope", scopeBody);
 
   /* — Functionality — */
-  add("Required Functionality", ["full", "technical"], [
+  add("Required Functionality", [
     "**Features the client ticked:**",
     ...(multi(answers, "features").length ? bullets(multi(answers, "features")) : [`- ${NOT_PROVIDED}`]),
     ...(answerText(answers, "featuresOther")
@@ -225,7 +219,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
   ]);
 
   if (askedShop) {
-    add("Ecommerce Requirements", ["full", "technical"], [
+    add("Ecommerce Requirements", [
       line("Approximate product count", single(answers, "productCount")),
       line("Product groups (client's words)", answerText(answers, "productCategories")),
       line("Materials already prepared", multi(answers, "productReady").join(", ")),
@@ -241,7 +235,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
 
   if (askedBooking) {
     const custom = packageId === "project";
-    add("Booking Requirements", ["full", "technical"], [
+    add("Booking Requirements", [
       custom
         ? "A custom booking flow is in scope. Its rules:"
         : "Booking means CONNECTING to what the client already uses — do NOT build a custom booking engine for this package.",
@@ -263,7 +257,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
   }
 
   /* — Content & assets — */
-  add("Content & Copy", BRIEF_MODES, [
+  add("Content & Copy", [
     line("State of the client's texts", single(answers, "textsReady")),
     "Use supplied content; edit and tighten it, but never fabricate services, prices, testimonials, statistics or claims. Where content is missing, use a clearly marked placeholder and flag it to Vaky.",
   ]);
@@ -274,7 +268,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
     group.push(file);
     byFolder.set(file.folder, group);
   }
-  add("Assets Provided", BRIEF_MODES, [
+  add("Assets Provided", [
     files.length === 0
       ? "No files have been provided yet."
       : "The files below exist in the project's private storage; Vaky supplies them alongside this brief. Reference them by name.",
@@ -289,7 +283,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
   ]);
 
   /* — Design — */
-  add("Visual Direction", ["full", "design"], [
+  add("Visual Direction", [
     line("Styles the client picked", multi(answers, "style").join(", ")),
     line("Explicitly does NOT want", answerText(answers, "avoid")),
     line("Logo", single(answers, "logoStatus")),
@@ -304,7 +298,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
   ]);
 
   /* — Domain — */
-  add("Domain / Existing Website", ["full", "technical"], [
+  add("Domain / Existing Website", [
     line("Has a domain", single(answers, "domainStatus")),
     line("Domain", answerText(answers, "domainName")),
     line("Wants help choosing/setting one up", single(answers, "domainHelp")),
@@ -312,11 +306,11 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
   ]);
 
   /* — Notes — */
-  add("Client Preferences (their own words)", BRIEF_MODES, [
+  add("Client Preferences (their own words)", [
     answerText(answers, "notes") || NOT_PROVIDED,
   ]);
 
-  add("Vaky Internal Notes", BRIEF_MODES, [
+  add("Vaky Internal Notes", [
     ...(notes.length
       ? notes.map((note) => `- ${note.body} _(${note.created_at.slice(0, 10)})_`)
       : ["- None."]),
@@ -325,7 +319,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
   ]);
 
   /* — Constraints — */
-  add("Scope / Package Constraints", BRIEF_MODES, [
+  add("Scope / Package Constraints", [
     ...(warnings.length
       ? ["**Flags raised against this package:**", ...warnings.map((warning) => `- ${WARNING_EN[warning.id] ?? warning.label}`)]
       : ["No scope flags — the request fits the package."]),
@@ -335,7 +329,7 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
   ]);
 
   /* — Standards — */
-  add("Technical Expectations", ["full", "technical"], [
+  add("Technical Expectations", [
     "- Prefer the simplest stack that serves the project; a static or mostly-static build unless the required functionality above demands a backend.",
     "- Responsive from 360px phones to wide desktops; most visitors arrive from Instagram/WhatsApp on a phone.",
     "- Semantic HTML, WCAG AA contrast, keyboard navigable, visible focus states, `prefers-reduced-motion` respected.",
@@ -344,13 +338,13 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
     "- Forms validate on the client for UX and on the server for trust; never expose secrets in frontend code.",
   ]);
 
-  add("Build Quality Requirements", ["full", "design", "technical"], [
+  add("Build Quality Requirements", [
     "- The result must look intentionally designed for this specific business — if the branding were removed, it should NOT look like a generic template.",
     "- Test on real phone widths before calling anything done.",
     "- No lorem ipsum, no fake testimonials, no invented statistics, no placeholder stock photos presented as the client's own.",
   ]);
 
-  add("Non-Negotiable Requirements", BRIEF_MODES, [
+  add("Non-Negotiable Requirements", [
     ...(packageId === "start"
       ? ["- ONE page. Do not create multiple routes."]
       : packageId === "business"
@@ -361,25 +355,18 @@ export function generateBrief(mode: BriefMode, data: BriefData): string {
     "- No online payment processing for Vaky itself anywhere.",
   ]);
 
-  add("Final Build Instructions", BRIEF_MODES, [
+  add("Final Build Instructions", [
     "Work through this brief top to bottom. Where the brief says \"Not provided\" or \"Vaky to decide\", make no assumption — leave a clearly marked gap and list it in your handover notes. Deliver production-ready code, a short summary of decisions taken, and the list of open questions for Vaky.",
   ]);
 
   /* — Assemble — */
-  const title = {
-    full: "Full Website Build Brief",
-    design: "Design / UI Brief",
-    technical: "Developer / Technical Brief",
-  }[mode];
-
   const parts: string[] = [
-    `# ${title} — ${project.business_name}`,
+    `# Website Build Brief — ${project.business_name}`,
     "",
     `> Prepared by Vaky (vaky.me) · package: ${packageName} ${price} · generated from the client's onboarding answers. Do not contact the client directly; every question goes to Vaky.`,
   ];
 
   for (const section of sections) {
-    if (!section.modes.includes(mode)) continue;
     parts.push("", `## ${section.title}`, "", ...section.body);
   }
 

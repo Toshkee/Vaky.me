@@ -114,6 +114,7 @@ export const ACTIVITY_KINDS = [
   "note_added",
   "file_added",
   "brief_generated",
+  "concept_generated",
 ] as const;
 export type ActivityKind = (typeof ACTIVITY_KINDS)[number];
 
@@ -130,4 +131,5 @@ export const ACTIVITY_LABELS: Record<ActivityKind, string> = {
   note_added: "Bilješka dodata",
   file_added: "Fajl dodat",
   brief_generated: "Build brief generisan",
+  concept_generated: "Brief za koncept generisan",
 };

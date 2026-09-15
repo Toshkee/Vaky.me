@@ -280,6 +280,17 @@ async function main() {
     const leadId = stored.find((row) => row.email === "provjera@example.com")?.id;
     if (!leadId) throw new Error("no lead to convert");
 
+    console.log("\nConcept brief");
+    const concept = await api(`/api/admin/leads/${leadId}/concept`, {
+      method: "POST",
+      headers: { Origin: BASE },
+    });
+    const conceptText = concept.body?.content ?? "";
+    check("a concept brief is generated", concept.status === 200 && conceptText.length > 200, `status ${concept.status}`);
+    check("and it quotes the enquiry", /Provjera/.test(conceptText));
+    check("and it asks for three directions", /Three design directions/.test(conceptText));
+    check("and it carries no contact details", !/provjera@example\.com/.test(conceptText));
+
     console.log("\nProject and private link");
     const converted = await api(`/api/admin/leads/${leadId}/convert`, {
       method: "POST",
@@ -363,7 +374,6 @@ async function main() {
 
     const brief = await api(`/api/admin/projects/${projectId}/brief`, {
       method: "POST",
-      body: JSON.stringify({ mode: "full" }),
       headers: { Origin: BASE },
     });
     const content = brief.body?.content ?? "";

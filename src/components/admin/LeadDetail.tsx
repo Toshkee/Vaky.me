@@ -16,6 +16,7 @@ import {
   isLeadNeed,
   type LeadStatus,
 } from "@/lib/workflow";
+import { ConceptBrief } from "./ConceptBrief";
 import { Notes } from "./Notes";
 import {
   AsyncView,
@@ -185,6 +186,8 @@ export function LeadDetail({ id }: { id: string }) {
                 />
               </Facts>
             </Panel>
+
+            <ConceptBrief leadId={id} />
 
             <Panel title="Status">
               <div className="flex flex-wrap gap-2">

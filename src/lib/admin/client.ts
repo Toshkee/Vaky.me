@@ -136,16 +136,13 @@ export type ProjectDetail = {
   submission: SubmissionView | null;
   files: ProjectFileRow[];
   notes: NoteRow[];
-  /** The newest brief per mode. */
+  /** Newest first. Older rows may carry the historical "design" and
+   *  "technical" modes; the dashboard shows the newest whatever it says. */
   briefs: BriefRow[];
   activity: ActivityRow[];
   warnings: ScopeWarning[];
   lead: LeadRow | null;
 };
-
-/** The three briefs `server/admin/brief.ts` can write. */
-export const BRIEF_MODES = ["full", "design", "technical"] as const;
-export type BriefMode = (typeof BRIEF_MODES)[number];
 
 /** The project's whole editable surface — the endpoint takes the row it should
  *  end up with, not a diff. */
@@ -270,6 +267,11 @@ export function convertLead(
   return call(`/${path("leads", id, "convert")}`, send("POST", { packageId }));
 }
 
+/** The concept-phase prompt, written fresh each time; nothing is stored. */
+export function generateConcept(id: string): Promise<ApiResult<{ content: string }>> {
+  return call(`/${path("leads", id, "concept")}`, { method: "POST" });
+}
+
 /** Refused for a lead that became a project — see the route. */
 export function deleteLead(id: string): Promise<ApiResult<{ ok: boolean }>> {
   return call(`/${path("leads", id)}`, { method: "DELETE" });
@@ -314,11 +316,8 @@ export function cancelOnboarding(id: string): Promise<ApiResult<{ ok: boolean }>
   return call(`/${path("projects", id, "onboarding")}`, { method: "DELETE" });
 }
 
-export function generateBrief(
-  id: string,
-  mode: BriefMode,
-): Promise<ApiResult<{ id: string; mode: string; content: string }>> {
-  return call(`/${path("projects", id, "brief")}`, send("POST", { mode }));
+export function generateBrief(id: string): Promise<ApiResult<{ id: string; content: string }>> {
+  return call(`/${path("projects", id, "brief")}`, { method: "POST" });
 }
 
 /* ── Files ────────────────────────────────────────────────────────────── */
