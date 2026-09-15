@@ -3,7 +3,7 @@
  *
  *   node scripts/visual-shots.mjs shots/before http://localhost:4321   # built site
  *   …make the change…
- *   node scripts/visual-shots.mjs shots/after  http://localhost:3000   # dev server
+ *   node scripts/visual-shots.mjs shots/after  http://localhost:3001   # dev server
  *   node scripts/visual-diff.mjs shots/before shots/after
  *
  * Writes a red overlay per changed page and prints how much moved. The point

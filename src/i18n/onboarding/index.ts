@@ -1,7 +1,7 @@
 import { me } from "./me";
 import { en } from "./en";
 
-export type { OnboardingCopy, QuestionCopy, StepCopy } from "./types";
+export type { OnboardingCopy } from "./types";
 
 /**
  * Both languages, together, because the onboarding switches between them in

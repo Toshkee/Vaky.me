@@ -71,6 +71,10 @@ export function RootHtml({
   return (
     <html
       lang={lang}
+      /* globals.css sets scroll-behavior: smooth. Next wants to know, so it
+         can turn it off for the instant of a route change and back on
+         after — without this it warns on every navigation in dev. */
+      data-scroll-behavior="smooth"
       className={`${franklin.variable} ${pixel.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">

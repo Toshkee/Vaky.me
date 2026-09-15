@@ -10,10 +10,10 @@ import type { Language, PackageId } from "./onboarding/schema";
  * carries. The pricing section, the onboarding, the admin dashboard and the
  * build brief all read those facts from here, so a price change is one edit.
  *
- * Two price mentions live outside this module on purpose, as prose: the hero
- * fact strip and the meta description say "od €200" in a sentence. Both mean
- * the entry price — if `start.price.amount` ever changes, change them too
- * (grep for "€200" in src/i18n/).
+ * A few price mentions live outside this module on purpose, as prose: the
+ * hero headline, the trade pages and the meta description say "od €200" in a
+ * sentence. All mean the entry price — if `start.price.amount` ever changes,
+ * change them too (grep for "€200" in src/i18n/).
  *
  * Imported by both the browser bundle and the Cloudflare Functions build, so
  * the same rules apply as in `./onboarding/schema`: relative imports only, no

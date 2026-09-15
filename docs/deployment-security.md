@@ -1,8 +1,8 @@
 # Deployment security — steps that live outside the repository
 
-> **Production target.** `vaky.me` is served by **Cloudflare Pages** once its
-> custom domain and DNS are connected. A `git push` then deploys the public
-> site. There is one host and one set of config files.
+> **Production target.** `vaky.me` is served by **Cloudflare Pages**; `www`
+> and the old `vibelab.it.com` zone both 301 to it. A `git push` to `main`
+> deploys the public site. There is one host and one set of config files.
 >
 > Response headers live in `public/_headers`. Next copies everything in
 > `public/` into `out/` verbatim, which is where Pages looks for it. A second

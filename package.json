@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -15,7 +15,10 @@
     "check:a11y": "node scripts/a11y-check.mjs",
     "test:workflow": "node scripts/workflow-check.mjs",
     "shots:visual": "node scripts/visual-shots.mjs",
-    "shots:mobile": "node scripts/mobile-shots.mjs"
+    "shots:mobile": "node scripts/mobile-shots.mjs",
+    "shots:diff": "node scripts/visual-diff.mjs",
+    "og": "node scripts/generate-og.mjs",
+    "og:demo": "node scripts/generate-demo-og.mjs"
   },
   "dependencies": {
     "next": "16.3.3",

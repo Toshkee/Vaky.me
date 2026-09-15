@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/i18n";
-import { emailLink, instagramDmLink, instagramLink, site } from "@/config/site";
+import { emailLink, hasPhone, instagramDmLink, phoneDisplay, site, whatsappLink } from "@/config/site";
 import { hasTurnstile } from "@/config/services";
 import { track } from "@/lib/analytics";
 import { isValidEmail, isValidPhone } from "@/lib/onboarding/schema";
@@ -55,6 +55,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
   const [jump, setJump] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const c = dict.contact.lead;
+  const d = dict.contact;
 
   useEffect(() => () => {
     if (timer.current) clearTimeout(timer.current);
@@ -221,8 +222,10 @@ export function Contact({ dict }: { dict: Dictionary }) {
   const isError = ["invalid", "phone", "challenge", "offline", "spam", "error"].includes(status);
   const failed = ["offline", "spam", "error"].includes(status);
 
-  const directLink =
-    "font-semibold text-ink underline decoration-line decoration-2 underline-offset-4 transition-colors hover:text-red hover:decoration-red";
+  /* One row per channel: the channel's name in the pixel face, the handle
+     or number beside it in grey. Full-width so the whole row is the target. */
+  const directButton =
+    "px px-btn flex min-h-12 items-center justify-between gap-3 bg-paper px-4 py-2.5 text-[1.0625rem] text-ink transition-colors hover:text-red";
   const field =
     "mt-1.5 block w-full border-2 border-line bg-paper-2 px-3 py-2.5 text-lg transition-colors placeholder:text-muted focus:border-ink focus:outline-none";
   const fieldLabel = "eyebrow text-muted";
@@ -435,13 +438,64 @@ export function Contact({ dict }: { dict: Dictionary }) {
               </p>
             </form>
 
-            {/* Vaky at his post. Below lg he stands under the form, small and
-                out of everything's way; from lg up he gets the right column.
-                Either way his feet are on a drawn ground line. */}
-            <div
-              aria-hidden="true"
-              className="relative flex flex-col justify-end pt-2 lg:pt-0 lg:pl-6"
-            >
+            {/* The other ways in, and what happens after. On a phone this
+                sits under the form; from lg up it fills the right column,
+                which used to hold nothing but Vaky. */}
+            <aside className="flex flex-col border-t-2 border-line pt-6 lg:border-t-0 lg:border-l-2 lg:pt-0 lg:pl-8">
+              <h3 className="eyebrow text-ink">{d.direct.title}</h3>
+              <ul className="mt-3 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-1">
+                {hasPhone && (
+                  <li>
+                    <a
+                      href={whatsappLink(d.direct.whatsappPrefill)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-umami-event="lead_form_submitted"
+                      data-umami-event-transport="whatsapp"
+                      className={directButton}
+                    >
+                      {d.direct.whatsapp}
+                      <span className="text-muted">{phoneDisplay()}</span>
+                    </a>
+                  </li>
+                )}
+                {site.instagram && (
+                  <li>
+                    <a
+                      href={instagramDmLink()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={directButton}
+                    >
+                      {d.direct.instagram}
+                      <span className="text-muted">@{site.instagram}</span>
+                    </a>
+                  </li>
+                )}
+                <li>
+                  <a
+                    href={emailLink(dict.contact.emailSubject, dict.contact.prefill)}
+                    className={directButton}
+                  >
+                    {d.direct.email}
+                    <span className="truncate text-muted">{site.email}</span>
+                  </a>
+                </li>
+              </ul>
+
+              <h3 className="eyebrow mt-7 text-ink">{d.direct.pointsTitle}</h3>
+              <ol className="mt-3 grid gap-2 text-sm leading-relaxed text-muted">
+                {d.direct.points.map((point, i) => (
+                  <li key={point} className="grid grid-cols-[1.25rem_1fr] gap-2">
+                    <span className="px text-[0.9375rem] leading-[1.6] text-red">{i + 1}.</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ol>
+
+              {/* Vaky at his post, feet on a drawn ground line at the bottom
+                  of the column, however tall the form beside him grows. */}
+              <div aria-hidden="true" className="mt-8 flex flex-1 flex-col justify-end">
               <div className="vaky-track w-full justify-center">
                 {/* Below lg there is no room at Vaky's side, so the bubble
                     hangs over his head — in flow, so it makes its own space
@@ -468,31 +522,10 @@ export function Contact({ dict }: { dict: Dictionary }) {
                   />
                 </span>
               </div>
-            </div>
+              </div>
+            </aside>
           </div>
         </PixelWindow>
-
-        {/* The direct line, for people who would rather just write — a
-            sentence, not another slab of buttons. */}
-        <p className="mt-5 text-sm text-muted">
-          {dict.contact.directLabel}{" "}
-          {site.instagram && (
-            <>
-              <a
-                href={instagramLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={directLink}
-              >
-                @{site.instagram}
-              </a>
-              <span aria-hidden="true"> · </span>
-            </>
-          )}
-          <a href={emailLink(dict.contact.emailSubject, dict.contact.prefill)} className={directLink}>
-            {site.email}
-          </a>
-        </p>
       </div>
     </section>
   );

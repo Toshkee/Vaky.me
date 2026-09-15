@@ -2,7 +2,7 @@
 
 **Vaky is a web studio from Podgorica, Montenegro.** We design fast, distinctive websites for small businesses that need to look credible online and make it easy for customers to take the next step.
 
-Production domain: [vaky.me](https://vaky.me) (connect it to Cloudflare Pages before launch)
+Production domain: [vaky.me](https://vaky.me), served by Cloudflare Pages.
 
 ## What we do
 

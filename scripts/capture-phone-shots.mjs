@@ -23,7 +23,7 @@ import sharp from "sharp";
  * bottom of a full-page capture, where it reads as a stray footer. On a demo
  * the Vaky back-link bar goes too — that strip is site chrome, not the design.
  */
-const BASE = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
+const BASE = (process.argv[2] ?? "http://localhost:3001").replace(/\/$/, "");
 const ONLY = process.argv.slice(3);
 const OUT = "public/work";
 const MAX_HEIGHT = 3200;

@@ -14,16 +14,15 @@ export const en: Dictionary = {
 
   hero: {
     eyebrow: "Web studio — Montenegro",
-    titleA: "Websites that",
-    titleB: "bring customers.",
-    sub: "Modern websites for businesses that want more enquiries, a stronger first impression and a professional online presence.",
-    offer: "A clear price up front and everything handled from first sketch to launch — none of the agency overhead.",
+    titleA: "A website for your business.",
+    titleB: "From €200, in 10 days.",
+    sub: "Restaurant, salon, barbershop, gym, villa. You get a free concept first, then you decide.",
     ctaPrimary: "Get your free concept",
     ctaSecondary: "See the examples",
     facts: [
       { label: "Working in", value: "Montenegro" },
-      { label: "Delivered in", value: "up to 10 days" },
-      { label: "From", value: "€200" },
+      { label: "Sites live", value: "{live}" },
+      { label: "Concepts", value: "{concepts}" },
       { label: "Languages", value: "ME + EN" },
     ],
   },
@@ -261,9 +260,7 @@ export const en: Dictionary = {
   process: {
     title: "How we work",
     sub: "From the first message to a site that works — the whole road, step by step. No hidden phases and no surprises at the end.",
-    counter: "Step {n} of {total}",
-    prev: "Previous step",
-    next: "Next step",
+    windowTitle: "From message to site — 8 steps",
     steps: [
       {
         when: "Day 1",
@@ -365,10 +362,10 @@ export const en: Dictionary = {
           explain: "A map pinned to your exact location, plus address and opening hours.",
         },
         {
-          label: "SEO basics",
+          label: "SEO and speed",
           values: [true, true, true],
           explain:
-            "Title, description, sitemap and robots.txt — what Google needs to find and index the site.",
+            "Title, description, sitemap and robots.txt so Google finds you; structured data so it knows what you are and when you are open; sharing cards for Instagram, WhatsApp and Viber; and a site that loads instantly, even on a weak connection. Every site gets this — it is not an add-on.",
         },
         {
           label: "Menu or price list",
@@ -389,9 +386,10 @@ export const en: Dictionary = {
             "The site in two languages, Montenegrin and English, with a switcher and separate URLs. You supply the English text; if you need it translated too, we agree that separately.",
         },
         {
-          label: "Advanced SEO",
+          label: "Google Business Profile",
           values: [false, true, true],
-          explain: "Structured data, social sharing cards and load-speed optimisation.",
+          explain:
+            "We tidy up your Google Maps listing — or create it if you have none: the right category, opening hours, services with prices, photos and a link to the site. That is how people find you when they search for \"barber Podgorica\" rather than only when they already know your name.",
         },
         {
           label: "Number of pages",
@@ -471,13 +469,37 @@ export const en: Dictionary = {
         q: "How does payment work?",
         a: "50% up front, 50% when the site is done and you're happy. No hidden costs.",
       },
+      {
+        q: "Can I edit the content myself?",
+        a: "The site has no admin panel — that is what keeps it fast and secure, but it means prices, text and photos do not change on their own. Small edits are part of the €20/month maintenance; without it, you write to us and we agree per change. If you need to manage content yourself every day, that is a Project and we say so up front.",
+      },
+      {
+        q: "Who writes the text and takes the photos?",
+        a: "We write the copy from what you tell us in the questionnaire — you only review and correct it. The photos are yours: what you already have, from a phone or a photographer. We process them so they load fast. If you have none, we tell you what to shoot and how.",
+      },
+      {
+        q: "What if I have no logo?",
+        a: "Not a problem. For Start and Business we make a simple wordmark from the business name, in the site's colour and type — enough for the site, the Google profile and Instagram. A full logo with variants is separate work, if you ever need it.",
+      },
     ],
   },
 
   contact: {
     title: "Ready for a new website?",
     sub: "Leave a few details — you get a free concept, then we agree on scope and price. We usually reply the same day.",
-    directLabel: "Or directly:",
+    direct: {
+      title: "Or write directly",
+      whatsapp: "WhatsApp",
+      instagram: "Instagram DM",
+      email: "Email",
+      whatsappPrefill: "Hi! I'm interested in a website for my business. Could we talk about a quote?",
+      pointsTitle: "What happens next",
+      points: [
+        "We reply the same day, tomorrow at the latest.",
+        "You get a free concept — a sketch of the site before any decision.",
+        "We agree on a package and a price. Nothing is paid through the site.",
+      ],
+    },
     prefill: "Hi! I'm interested in a website for my business. Could we talk about a quote?",
     emailSubject: "Website for my business",
     lead: {

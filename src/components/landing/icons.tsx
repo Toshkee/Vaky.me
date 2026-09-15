@@ -315,29 +315,6 @@ export function RocketIcon(props: IconProps) {
   );
 }
 
-/** Mouse pointer — hero decoration. */
-export function CursorIcon(props: IconProps) {
-  return (
-    <PixelArt
-      {...props}
-      rows={[
-        ".#..........",
-        ".##.........",
-        ".###........",
-        ".####.......",
-        ".#####......",
-        ".######.....",
-        ".#######....",
-        ".########...",
-        ".####.......",
-        ".#.###......",
-        "....###.....",
-        "....###.....",
-      ]}
-    />
-  );
-}
-
 /** The mug on the workstation desk, banded in the brand red. Art sits flush
     with the bottom edge of its box so the mug touches the desk it stands on. */
 export function MugIcon(props: IconProps) {

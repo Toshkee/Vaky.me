@@ -12,7 +12,7 @@ const pixel = readFileSync("src/app/fonts/GeistPixel-Square.woff2").toString("ba
  * the build. Franklin comes from Google, the pixel face from src/app/fonts,
  * images from the running dev server.
  *
- * Usage: dev server on :3000, then  node scripts/generate-og.mjs
+ * Usage: dev server on :3001, then  node scripts/generate-og.mjs
  */
 const html = `<!doctype html><html><head><meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,7 +44,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
   .scr { padding: 18px 18px 20px; font-family: "Geist Pixel"; font-size: 22px; }
   .row { display: flex; justify-content: space-between; margin-top: 8px; }
   .ok { color: #2e7d44; }
-  .vaky { width: 190.5px; height: 348px; background: url(http://localhost:3000/mascot/vaky.webp) no-repeat;
+  .vaky { width: 190.5px; height: 348px; background: url(http://localhost:3001/mascot/vaky.webp) no-repeat;
           background-size: ${190.5 * 9}px ${348 * 4}px; background-position: 0 0; }
 </style></head><body>
   <div class="frame">

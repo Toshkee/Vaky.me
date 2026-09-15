@@ -4,7 +4,7 @@ import fs from "node:fs";
 const OUT = process.argv[2] ?? "shots";
 const PATH_ = process.argv[3] ?? "/";
 const TAG = process.argv[4] ?? "home";
-const BASE = "http://localhost:3000";
+const BASE = "http://localhost:3001";
 fs.mkdirSync(OUT, { recursive: true });
 
 const browser = await chromium.launch();

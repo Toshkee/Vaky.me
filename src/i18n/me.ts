@@ -12,19 +12,23 @@ export const me = {
 
   hero: {
     eyebrow: "Web studio — Crna Gora",
-    titleA: "Sajtovi koji",
-    titleB: "donose klijente.",
-    sub: "Moderni sajtovi za biznise koji žele više upita, bolji prvi utisak i profesionalno online prisustvo.",
-    offer: "Jasna cijena unaprijed, sve od prve skice do objave vodimo mi — bez agencijskih komplikacija.",
+    /* The promise, in the first line: who it is for, what it starts at, how
+       long it takes. Both figures come from src/lib/packages.ts and the
+       process section — change them there and here together. */
+    titleA: "Sajt za tvoj biznis.",
+    titleB: "Od €200, za 10 dana.",
+    sub: "Restoran, salon, barber, teretana, vila. Prvo dobijaš besplatan koncept, pa odlučuješ.",
     ctaPrimary: "Zatraži besplatan koncept",
     ctaSecondary: "Pogledaj primjere",
-    /* The four numbers a business owner asks for first. Every one of them is
-       said again further down the page — nothing here is a claim the rest of
-       the site does not stand behind. */
+    /* The four facts a business owner asks for first. Price and deadline are
+       in the headline now, so this strip carries the proof instead: how many
+       sites are live and how many concepts exist. `{live}` and `{concepts}`
+       are counted from `work.items` by the Hero, so the numbers can never
+       drift from the portfolio below. */
     facts: [
       { label: "Radimo", value: "Crna Gora" },
-      { label: "Rok izrade", value: "do 10 dana" },
-      { label: "Cijena od", value: "€200" },
+      { label: "Sajtova uživo", value: "{live}" },
+      { label: "Koncepata", value: "{concepts}" },
       { label: "Jezici", value: "MNE + EN" },
     ],
   },
@@ -281,9 +285,7 @@ export const me = {
        concept, the private onboarding link with its "Nisam siguran" option,
        the build brief generated from the answers, the review round the
        packages promise. Nothing is described that the site cannot do. */
-    counter: "Korak {n} od {total}",
-    prev: "Prethodni korak",
-    next: "Sljedeći korak",
+    windowTitle: "Od poruke do sajta — 8 koraka",
     steps: [
       {
         when: "Dan 1",
@@ -391,10 +393,10 @@ export const me = {
           explain: "Mapa sa tačnom lokacijom tvog objekta, adresa i radno vrijeme.",
         },
         {
-          label: "Osnovni SEO",
+          label: "SEO i brzina",
           values: [true, true, true],
           explain:
-            "Naslov, opis, sitemap i robots.txt — ono što je potrebno da Google može da pronađe i indeksira sajt.",
+            "Naslov, opis, sitemap i robots.txt da te Google pronađe; strukturirani podaci da zna šta si i kad radiš; kartice za dijeljenje na Instagramu, WhatsAppu i Viberu; i sajt koji se učitava odmah, i na slabom internetu. Ovo ide uz svaki sajt — nije doplata.",
         },
         {
           label: "Meni ili cjenovnik",
@@ -415,10 +417,10 @@ export const me = {
             "Sajt na dva jezika, crnogorskom i engleskom, sa prebacivanjem i odvojenim adresama. Engleski tekst nam šalješ ti; ako ti treba i prevod, dogovaramo se posebno.",
         },
         {
-          label: "Napredni SEO",
+          label: "Google Business profil",
           values: [false, true, true],
           explain:
-            "Strukturirani podaci, kartice za dijeljenje na društvenim mrežama i optimizacija brzine učitavanja.",
+            "Sređujemo tvoj profil na Google mapi — ili ga otvaramo ako ga nemaš: prava kategorija, radno vrijeme, usluge sa cijenama, fotografije i link na sajt. Tako te nađu kad ukucaju „frizer Podgorica“, a ne samo kad znaju tvoje ime.",
         },
         {
           label: "Broj stranica",
@@ -500,13 +502,39 @@ export const me = {
         q: "Kako izgleda plaćanje?",
         a: "50% na početku, 50% kad je sajt gotov i kad si zadovoljan. Bez skrivenih troškova.",
       },
+      {
+        q: "Mogu li sam da mijenjam sadržaj?",
+        a: "Sajt nema admin panel — to ga čini brzim i sigurnim, ali znači da se cijene, tekst i fotografije ne mijenjaju sami. Sitne izmjene ulaze u održavanje od €20 mjesečno; bez održavanja, javiš se i dogovorimo se po izmjeni. Ako ti treba da sam upravljaš sadržajem svaki dan, to je Projekat i kažemo ti unaprijed.",
+      },
+      {
+        q: "Ko piše tekstove i ko slika?",
+        a: "Tekst pišemo mi, iz onoga što nam kažeš u upitniku — ti ga samo pregledaš i ispraviš. Fotografije su tvoje: ono što već imaš, sa telefona ili od fotografa. Obradimo ih da se brzo otvaraju. Ako nemaš nijednu, kažemo ti šta i kako da slikaš.",
+      },
+      {
+        q: "Šta ako nemam logo?",
+        a: "Nije prepreka. Za Start i Biznis napravimo jednostavan tekstualni znak od imena biznisa, u boji i slovima sajta — dovoljno za sajt, Google profil i Instagram. Pravi logo sa više varijanti radi se posebno, ako ti zatreba.",
+      },
     ],
   },
 
   contact: {
     title: "Spreman za novi sajt?",
     sub: "Ostavi par podataka — dobijaš besplatan koncept, pa se dogovaramo oko obima i cijene. Obično odgovorimo istog dana.",
-    directLabel: "Ili direktno:",
+    /* The right-hand column of the contact window: the other ways in, and
+       what happens after the visitor writes. */
+    direct: {
+      title: "Ili piši direktno",
+      whatsapp: "WhatsApp",
+      instagram: "Instagram DM",
+      email: "Email",
+      whatsappPrefill: "Zdravo! Zanima me sajt za moj biznis. Možemo li da se čujemo oko ponude?",
+      pointsTitle: "Šta se dešava dalje",
+      points: [
+        "Odgovorimo isti dan, najkasnije sjutra.",
+        "Dobiješ besplatan koncept — skicu sajta prije bilo kakve odluke.",
+        "Dogovorimo paket i cijenu. Preko sajta se ništa ne plaća.",
+      ],
+    },
     prefill: "Zdravo! Zanima me sajt za moj biznis. Možemo li da se čujemo oko ponude?",
     emailSubject: "Sajt za moj biznis",
     lead: {

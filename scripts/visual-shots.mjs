@@ -12,7 +12,7 @@ import fs from "node:fs";
 import { chromium } from "playwright";
 
 const OUT = process.argv[2] ?? "shots";
-const BASE = (process.argv[3] ?? "http://localhost:3000").replace(/\/$/, "");
+const BASE = (process.argv[3] ?? "http://localhost:3001").replace(/\/$/, "");
 
 const WIDTHS = [
   ["phone", 390, 844],

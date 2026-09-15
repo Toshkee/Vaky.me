@@ -1,7 +1,7 @@
 /**
  * Automated accessibility check — axe-core over every page the site ships.
  *
- *   node scripts/a11y-check.mjs [baseUrl]     # default: http://localhost:3000
+ *   node scripts/a11y-check.mjs [baseUrl]     # default: http://localhost:3001
  *
  * Automation catches roughly the third of accessibility problems that are
  * mechanical: contrast, names, roles, landmarks, order. It cannot tell you
@@ -13,7 +13,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { chromium } from "playwright";
 
-const BASE = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
+const BASE = (process.argv[2] ?? "http://localhost:3001").replace(/\/$/, "");
 const PAGES = [
   "/",
   "/en/",
