@@ -1,14 +1,33 @@
 import { onboardingCopy } from "../../src/i18n/onboarding/index";
+import {
+  ANTI_SLOP,
+  DONE,
+  STACK,
+  STYLE_DIRECTIONS,
+  TRADE_PLAYBOOK,
+  isStyleId,
+  isTrade,
+  type StyleId,
+} from "../../src/lib/build-playbook";
 import { PACKAGES, priceLabel } from "../../src/lib/packages";
 import {
   answerList,
   answerText,
+  isLanguage,
+  isPackageId,
   type Answers,
   type Language,
   type PackageId,
 } from "../../src/lib/onboarding/schema";
-import type { ScopeWarning } from "./scope";
-import type { NoteRow, ProjectFileRow, ProjectRow } from "./store";
+import { scopeWarnings, type ScopeWarning } from "./scope";
+import {
+  findSubmissionForProject,
+  listNotes,
+  listProjectFiles,
+  type NoteRow,
+  type ProjectFileRow,
+  type ProjectRow,
+} from "./store";
 
 /**
  * The Build Brief: everything Vaky knows about a project, rewritten as a
@@ -20,6 +39,10 @@ import type { NoteRow, ProjectFileRow, ProjectRow } from "./store";
  * something plausible. The one thing this file is allowed to add is Vaky's
  * own house standards (performance, accessibility, no-slop design), because
  * those are the studio's facts, not the client's.
+ *
+ * The studio's side — stack, page structure per trade, what each style
+ * option means as a design system, what "done" means — comes from
+ * src/lib/build-playbook.ts, shared with the concept brief.
  *
  * One document. It used to come in three flavours — full, design, technical
  * — that differed by a section or two, which made the choice a fake one. The
@@ -89,6 +112,93 @@ function megabytes(bytes: number): string {
   return bytes < 1024 * 1024
     ? `${Math.max(1, Math.round(bytes / 1024))} KB`
     : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+}
+
+/* ── Studio sections, from the playbook ───────────────────────────────── */
+
+function pageStructure(project: ProjectRow, packageId: PackageId): string[] {
+  const where =
+    packageId === "start"
+      ? "These are the sections of the one page, in this order."
+      : "The home page carries the hero and a short version of each section; the pages the client chose take the full versions. Map each section to one of those pages.";
+
+  if (!isTrade(project.trade)) {
+    return [
+      "This business is not one of the trades Vaky has a page playbook for, so the structure comes from the scope above.",
+      "",
+      "For every section or page, write down the question a visitor has that it answers — what do you offer, how much, where, when, how do I book or order, why should I trust you. A section that answers none is cut. The hero answers \"what is this and what do I do next\" and carries the main contact action.",
+      "",
+      where,
+    ];
+  }
+
+  const playbook = TRADE_PLAYBOOK[project.trade];
+  return [
+    `This is a **${playbook.name}** site.`,
+    "",
+    `**Who arrives:** ${playbook.visitor}`,
+    "",
+    where,
+    "Sections the client chose above must all exist; fit them into this order. A section below that the client supplied nothing for is built with marked placeholders and listed in the handover, not dropped silently.",
+    "",
+    ...playbook.sections.flatMap((section, index) => [
+      `${index + 1}. **${section.name}** — answers: _${section.answers}_`,
+      `   ${section.content}`,
+    ]),
+    "",
+    "**Contact actions, most important first.** Use only the channels the client actually has — the contact details above say which. On a phone, the first one is reachable from every screen (a sticky bar or a header button, not a floating bubble).",
+    ...bullets(playbook.contact),
+    "",
+    "**What sites in this trade usually get wrong:**",
+    ...bullets(playbook.mistakes),
+  ];
+}
+
+function designSystem(answers: Answers, hasAnswers: boolean): string[] {
+  const picked = answerList(answers, "style").filter(isStyleId);
+  const styles: StyleId[] = picked.length ? picked : ["not-sure"];
+  const inspiration = answerList(answers, "inspiration").filter(Boolean);
+
+  const body: string[] = [
+    line("Styles the client picked", hasAnswers ? multi(answers, "style").join(", ") : ""),
+    line("Explicitly does NOT want", answerText(answers, "avoid")),
+    line("Logo", single(answers, "logoStatus")),
+    line("Photography", single(answers, "photosStatus")),
+    "",
+    "**Inspiration references** (read them for what the client likes — mood, density, colour — not as layouts to copy):",
+    ...(inspiration.length ? bullets(inspiration) : [`- ${NOT_PROVIDED}`]),
+    "",
+  ];
+
+  if (styles.length > 1) {
+    body.push(
+      `The client picked ${styles.length} directions. **${STYLE_DIRECTIONS[styles[0]].name}** leads; the others adjust it rather than competing with it. Where they conflict, the lead wins and the handover says what was traded away.`,
+      "",
+    );
+  }
+
+  for (const id of styles) {
+    const direction = STYLE_DIRECTIONS[id];
+    body.push(
+      `**${direction.name}**`,
+      `- Typography: ${direction.typography}`,
+      `- Palette: ${direction.palette}`,
+      `- Hero: ${direction.hero}`,
+      `- Section rhythm: ${direction.rhythm}`,
+      "",
+    );
+  }
+
+  body.push(
+    "If the client supplied a logo, the palette starts from its colours; the directions above say how to use them, not which ones to invent.",
+    "",
+    "**Tokens.** Declare once and use everywhere: `background`, `foreground`, `muted`, `border`, `primary`, `primary-foreground`, `accent`; a type scale of at most six steps set with `clamp()`; one spacing scale; one radius. No colour or size outside the tokens.",
+    "",
+    "**House rules on design:**",
+    ...bullets([...ANTI_SLOP]),
+  );
+
+  return body;
 }
 
 /* ── The brief ────────────────────────────────────────────────────────── */
@@ -282,20 +392,11 @@ export function generateBrief(data: BriefData): string {
     ]),
   ]);
 
+  /* — Structure — */
+  add("Page Structure", pageStructure(project, packageId));
+
   /* — Design — */
-  add("Visual Direction", [
-    line("Styles the client picked", multi(answers, "style").join(", ")),
-    line("Explicitly does NOT want", answerText(answers, "avoid")),
-    line("Logo", single(answers, "logoStatus")),
-    line("Photography", single(answers, "photosStatus")),
-    "",
-    "**Inspiration references:**",
-    ...(answerList(answers, "inspiration").filter(Boolean).length
-      ? bullets(answerList(answers, "inspiration").filter(Boolean))
-      : [`- ${NOT_PROVIDED}`]),
-    "",
-    "Design for THIS brand and industry. Do not reuse a generic template look, and do not default to AI-typical styling (purple gradients, glassmorphism, three-card grids everywhere, decorative blobs). Strong typography, real hierarchy, intentional composition.",
-  ]);
+  add("Design System", designSystem(answers, hasAnswers));
 
   /* — Domain — */
   add("Domain / Existing Website", [
@@ -329,19 +430,10 @@ export function generateBrief(data: BriefData): string {
   ]);
 
   /* — Standards — */
-  add("Technical Expectations", [
-    "- Prefer the simplest stack that serves the project; a static or mostly-static build unless the required functionality above demands a backend.",
-    "- Responsive from 360px phones to wide desktops; most visitors arrive from Instagram/WhatsApp on a phone.",
-    "- Semantic HTML, WCAG AA contrast, keyboard navigable, visible focus states, `prefers-reduced-motion` respected.",
-    "- Fast: optimized images with explicit dimensions, no layout shift, minimal JavaScript, system or self-hosted fonts.",
-    "- SEO fundamentals: one h1 per page, meta title/description, Open Graph, sitemap and robots where applicable, structured data where it genuinely fits.",
-    "- Forms validate on the client for UX and on the server for trust; never expose secrets in frontend code.",
-  ]);
-
-  add("Build Quality Requirements", [
-    "- The result must look intentionally designed for this specific business — if the branding were removed, it should NOT look like a generic template.",
-    "- Test on real phone widths before calling anything done.",
-    "- No lorem ipsum, no fake testimonials, no invented statistics, no placeholder stock photos presented as the client's own.",
+  add("Stack & Delivery", [
+    ...bullets([...STACK]),
+    "- Responsive from 360px phones to wide desktops; most visitors arrive from Instagram or WhatsApp on a phone, so design the 390px layout first.",
+    "- SEO: a meta title and description per page, an Open Graph image, `sitemap.xml` and `robots.txt`, and `LocalBusiness` structured data filled only with facts from this brief.",
   ]);
 
   add("Non-Negotiable Requirements", [
@@ -353,6 +445,12 @@ export function generateBrief(data: BriefData): string {
     "- Never fabricate business information: services, prices, addresses, opening hours, reviews, social links. Missing information is flagged, not invented.",
     "- Everything the client uploaded stays private until it is deliberately placed on the site.",
     "- No online payment processing for Vaky itself anywhere.",
+  ]);
+
+  add("Definition of Done", [
+    "The build is not finished until every line below is true. Check each one and report it in the handover.",
+    "",
+    ...bullets([...DONE]),
   ]);
 
   add("Final Build Instructions", [
@@ -371,4 +469,51 @@ export function generateBrief(data: BriefData): string {
   }
 
   return parts.join("\n");
+}
+
+/* ── Loading ──────────────────────────────────────────────────────────── */
+
+/** What the `mode` column says for every brief now. The table's CHECK
+ *  constraint predates the single-brief design; older rows keep their
+ *  historical modes. */
+export const BRIEF_MODE = "full";
+
+/**
+ * Reads everything a brief is made of for one project and writes it. Shared
+ * by the dashboard's button and by the questionnaire's submit, so the brief
+ * that arrives by email and one generated later by hand are the same
+ * document. Returns null for a project whose package is not one Vaky sells,
+ * which the app never writes.
+ */
+export async function briefForProject(db: D1Database, project: ProjectRow): Promise<string | null> {
+  if (!isPackageId(project.package_id)) return null;
+
+  const [submission, files, notes] = await Promise.all([
+    findSubmissionForProject(db, project.id),
+    listProjectFiles(db, project.id),
+    listNotes(db, { projectId: project.id, leadId: null }),
+  ]);
+
+  let answers: Answers | null = null;
+  if (submission) {
+    try {
+      answers = JSON.parse(submission.answers) as Answers;
+    } catch {
+      answers = null;
+    }
+  }
+
+  const submissionPackageId =
+    submission && isPackageId(submission.package_id) ? submission.package_id : null;
+
+  return generateBrief({
+    project,
+    packageId: project.package_id,
+    answers,
+    answersLanguage: submission && isLanguage(submission.language) ? submission.language : null,
+    submissionPackageId,
+    files,
+    notes,
+    warnings: scopeWarnings(project.package_id, answers, submissionPackageId),
+  });
 }

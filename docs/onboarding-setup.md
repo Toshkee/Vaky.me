@@ -156,9 +156,14 @@ npx wrangler d1 migrations apply vibelab-onboarding --remote
 > production bindings would overwrite working dashboard settings on the next
 > deploy.
 
-Each command applies **both** `migrations/0001_onboarding.sql` and
-`migrations/0002_workflow.sql`, in order, skipping whichever ones `wrangler`'s
-own `d1_migrations` bookkeeping table already shows as applied.
+Each command applies `migrations/0001_onboarding.sql`,
+`migrations/0002_workflow.sql` and `migrations/0003_trade.sql`, in order,
+skipping whichever ones `wrangler`'s own `d1_migrations` bookkeeping table
+already shows as applied.
+
+> **Apply 0003 to production before deploying the code that uses it.** The
+> project endpoints write the `trade` column; against a database without it,
+> creating, converting and saving a project fail.
 
 > **The one-time catch on production.** `0001_onboarding.sql` was applied to
 > the remote database by hand, through the D1 console in the Cloudflare
@@ -216,6 +221,10 @@ own `d1_migrations` bookkeeping table already shows as applied.
   tables: `onboarding_files` gains `source` (`'client'` or `'admin'`) and
   `project_id`; `onboarding_submissions` gains `request_id` and
   `project_id`. Rows from the old public-form era keep `NULL` in all four.
+
+`migrations/0003_trade.sql` adds `projects.trade`: the trade key the build
+brief uses to pick a page structure (see `src/lib/build-playbook.ts`). NULL
+for a business that is none of the listed trades.
 
 `package_id` is deliberately un-constrained by a `CHECK` anywhere — packages
 are configuration in the application (`src/lib/packages.ts`), and a database

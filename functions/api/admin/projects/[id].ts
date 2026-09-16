@@ -15,6 +15,7 @@ import {
 import type { OnboardingEnv } from "../../../../server/onboarding/env";
 import { fail, json, readJson, textField } from "../../../../server/onboarding/http";
 import { listRequests } from "../../../../server/onboarding/request";
+import { isTrade } from "../../../../src/lib/build-playbook";
 import {
   isPackageId,
   isValidEmail,
@@ -98,6 +99,7 @@ type Patch = {
   instagram?: unknown;
   existingSite?: unknown;
   packageId?: unknown;
+  trade?: unknown;
   status?: unknown;
 };
 
@@ -119,6 +121,8 @@ export const onRequestPatch: PagesFunction<OnboardingEnv> = async (context) => {
   if (!businessName) return fail("bad-request");
   if (email && !isValidEmail(email)) return fail("bad-request");
   if (!isPackageId(body.packageId) || !isProjectStatus(body.status)) return fail("bad-request");
+  const trade = textField(body.trade, 40);
+  if (trade && !isTrade(trade)) return fail("bad-request");
 
   try {
     const project = await findProject(context.env.DB, id);
@@ -132,6 +136,7 @@ export const onRequestPatch: PagesFunction<OnboardingEnv> = async (context) => {
       instagram: textField(body.instagram, 120),
       existingSite: textField(body.existingSite, 300),
       packageId: body.packageId,
+      trade: trade || null,
       status: body.status,
     });
 

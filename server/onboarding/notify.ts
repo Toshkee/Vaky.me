@@ -145,6 +145,11 @@ const dashboardLine = (url: string) =>
      <a href="${escape(url)}" style="color:${RED};text-decoration:underline">Otvori u dashboardu &rarr;</a>
    </p>`;
 
+const briefLine = (filename: string, dashboardUrl: string | null) =>
+  `<p style="margin:6px 0 0;font:400 14px/1.5 ${FONT};color:${MUTED}">
+     Brief za izradu je u prilogu (${escape(filename)})${dashboardUrl ? ` i na projektu &mdash; <a href="${escape(dashboardUrl)}" style="color:${RED};text-decoration:underline">otvori brief</a>` : ""}.
+   </p>`;
+
 /* ── The completed brief ────────────────────────────────────────────── */
 
 export type BriefInput = {
@@ -160,6 +165,10 @@ export type BriefInput = {
   /** Deep link into /admin for this project; null for briefs with no project
    *  (the public-form era rows). */
   dashboardUrl: string | null;
+  /** The build brief written from these answers, when it could be. It goes
+   *  out as a Markdown attachment so it can be handed to an agent straight
+   *  from the mailbox. */
+  buildBrief: { filename: string; content: string } | null;
 };
 
 /**
@@ -232,7 +241,12 @@ function header(input: BriefInput): Line[] {
   ];
 }
 
-export function renderBrief(input: BriefInput): { subject: string; html: string; text: string } {
+export function renderBrief(input: BriefInput): {
+  subject: string;
+  html: string;
+  text: string;
+  attachments: { filename: string; content: string }[];
+} {
   const business = answerText(input.answers, "businessName") || "—";
   const contact = answerText(input.answers, "contactName");
   const email = answerText(input.answers, "email");
@@ -251,6 +265,7 @@ export function renderBrief(input: BriefInput): { subject: string; html: string;
     ...meta.map((line) => `${line.label}: ${line.value}`),
   ];
   if (input.dashboardUrl) textParts.push(`Dashboard: ${input.dashboardUrl}`);
+  if (input.buildBrief) textParts.push(`Brief za izradu: u prilogu (${input.buildBrief.filename})`);
 
   for (const section of body) {
     textParts.push("", `— ${section.title} —`);
@@ -289,6 +304,7 @@ export function renderBrief(input: BriefInput): { subject: string; html: string;
         <h1 style="margin:8px 0 6px;font:700 26px/1.15 ${FONT};letter-spacing:-.02em;color:${INK}">${escape(business)}</h1>
         ${contactLine(contact, email, phone)}
         ${input.dashboardUrl ? dashboardLine(input.dashboardUrl) : ""}
+        ${input.buildBrief ? briefLine(input.buildBrief.filename, input.dashboardUrl) : ""}
 
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;margin-top:20px;border-top:2px solid ${INK};border-bottom:1px solid ${LINE}">
           ${rows(meta)}
@@ -313,7 +329,12 @@ export function renderBrief(input: BriefInput): { subject: string; html: string;
     footNote: "Stiglo sa privatnog onboarding linka. Odgovor na ovaj mejl ide pravo klijentu.",
   });
 
-  return { subject, html, text: textParts.join("\n") };
+  return {
+    subject,
+    html,
+    text: textParts.join("\n"),
+    attachments: input.buildBrief ? [input.buildBrief] : [],
+  };
 }
 
 /* ── A new lead ─────────────────────────────────────────────────────── */
@@ -396,7 +417,13 @@ export async function sendEmail(
   from: string,
   to: string,
   replyTo: string,
-  mail: { subject: string; html: string; text: string },
+  mail: {
+    subject: string;
+    html: string;
+    text: string;
+    /** Text files, sent as UTF-8. */
+    attachments?: readonly { filename: string; content: string }[];
+  },
 ): Promise<string | null> {
   try {
     const response = await fetch("https://api.resend.com/emails", {
@@ -411,6 +438,14 @@ export async function sendEmail(
         subject: mail.subject,
         html: mail.html,
         text: mail.text,
+        ...(mail.attachments?.length
+          ? {
+              attachments: mail.attachments.map((file) => ({
+                filename: file.filename,
+                content: base64Utf8(file.content),
+              })),
+            }
+          : {}),
         ...(replyTo ? { reply_to: replyTo } : {}),
       }),
     });
@@ -427,4 +462,16 @@ export async function sendEmail(
   } catch {
     return "resend unreachable";
   }
+}
+
+/** Resend takes attachment content as base64. `btoa` only accepts Latin-1,
+ *  and a brief is full of č, š and em-dashes, so the text is encoded to
+ *  UTF-8 bytes first. */
+function base64Utf8(text: string): string {
+  const bytes = new TextEncoder().encode(text);
+  let binary = "";
+  for (let index = 0; index < bytes.length; index += 0x8000) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + 0x8000));
+  }
+  return btoa(binary);
 }

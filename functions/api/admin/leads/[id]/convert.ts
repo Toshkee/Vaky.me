@@ -6,7 +6,8 @@ import {
   logActivity,
 } from "../../../../../server/admin/store";
 import type { OnboardingEnv } from "../../../../../server/onboarding/env";
-import { fail, json, readJson } from "../../../../../server/onboarding/http";
+import { fail, json, readJson, textField } from "../../../../../server/onboarding/http";
+import { isTrade } from "../../../../../src/lib/build-playbook";
 import { isPackageId } from "../../../../../src/lib/onboarding/schema";
 
 /**
@@ -21,9 +22,11 @@ import { isPackageId } from "../../../../../src/lib/onboarding/schema";
 export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
   const leadId = String(context.params.id ?? "");
   const raw = await readJson(context.request, 4 * 1024);
-  const packageId =
-    raw && typeof raw === "object" ? (raw as { packageId?: unknown }).packageId : undefined;
+  const body = raw && typeof raw === "object" ? (raw as { packageId?: unknown; trade?: unknown }) : {};
+  const packageId = body.packageId;
   if (!isPackageId(packageId)) return fail("bad-request");
+  const trade = textField(body.trade, 40);
+  if (trade && !isTrade(trade)) return fail("bad-request");
 
   try {
     const lead = await findLead(context.env.DB, leadId);
@@ -41,6 +44,7 @@ export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
       instagram: "",
       existingSite: lead.link ?? "",
       packageId,
+      trade: trade || null,
       leadId,
     });
     /* The claim is conditional on the lead still being free. Losing it means

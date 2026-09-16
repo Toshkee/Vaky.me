@@ -18,6 +18,7 @@ import {
   PACKAGE_OPTIONS,
   SelectField,
   StatusPill,
+  TRADE_OPTIONS,
   When,
   buttonClass,
   isLiveRequest,
@@ -156,6 +157,7 @@ function NewProjectForm({ onCreated }: { onCreated: (projectId: string) => void 
   const [instagram, setInstagram] = useState("");
   const [existingSite, setExistingSite] = useState("");
   const [packageId, setPackageId] = useState<PackageId>("start");
+  const [trade, setTrade] = useState("");
   const [busy, setBusy] = useState(false);
   const [code, setCode] = useState<ApiErrorCode | null>(null);
   const [problem, setProblem] = useState<string | null>(null);
@@ -181,6 +183,7 @@ function NewProjectForm({ onCreated }: { onCreated: (projectId: string) => void 
       instagram: instagram.trim(),
       existingSite: existingSite.trim(),
       packageId,
+      trade,
     });
 
     setBusy(false);
@@ -190,7 +193,7 @@ function NewProjectForm({ onCreated }: { onCreated: (projectId: string) => void 
 
   return (
     <form onSubmit={submit} className="mt-4 grid gap-4 border-2 border-ink p-4">
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid items-start gap-4 sm:grid-cols-2">
         <Field
           id="new-business"
           label="Naziv biznisa"
@@ -244,6 +247,14 @@ function NewProjectForm({ onCreated }: { onCreated: (projectId: string) => void 
           onChange={(value) => {
             if (isPackageId(value)) setPackageId(value);
           }}
+        />
+        <SelectField
+          id="new-trade"
+          label="Djelatnost"
+          value={trade}
+          options={TRADE_OPTIONS}
+          onChange={setTrade}
+          hint="Brief za izradu po njoj bira strukturu stranice."
         />
       </div>
 

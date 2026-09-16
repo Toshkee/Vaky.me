@@ -128,7 +128,11 @@ function run(command, args) {
 }
 
 async function migrate() {
-  for (const file of ["migrations/0001_onboarding.sql", "migrations/0002_workflow.sql"]) {
+  for (const file of [
+    "migrations/0001_onboarding.sql",
+    "migrations/0002_workflow.sql",
+    "migrations/0003_trade.sql",
+  ]) {
     const { code, output } = await run("npx", [
       "wrangler",
       "d1",
@@ -140,7 +144,7 @@ async function migrate() {
       "--file",
       file,
     ]);
-    /* 0002 is not idempotent, so a second run against a database that already
+    /* 0002 and 0003 are not idempotent, so a second run against a database that already
        has it is expected to complain. What is not expected is a fresh database
        refusing 0001. */
     if (code !== 0 && !/already exists|duplicate column/i.test(output)) {
@@ -294,7 +298,7 @@ async function main() {
     console.log("\nProject and private link");
     const converted = await api(`/api/admin/leads/${leadId}/convert`, {
       method: "POST",
-      body: JSON.stringify({ packageId: "start" }),
+      body: JSON.stringify({ packageId: "start", trade: "restaurant" }),
       headers: { Origin: BASE },
     });
     const projectId = converted.body?.projectId;
@@ -361,6 +365,42 @@ async function main() {
 
     console.log("\nBuild brief");
     const detail = await api(`/api/admin/projects/${projectId}`);
+    check(
+      "the trade chosen at conversion is kept",
+      detail.body?.project?.trade === "restaurant",
+      `trade ${detail.body?.project?.trade}`,
+    );
+
+    const autoBrief = detail.body?.briefs?.[0]?.content ?? "";
+    check(
+      "a build brief exists as soon as the questionnaire is sent",
+      autoBrief.length > 200,
+      "no brief on the project",
+    );
+    check(
+      "and it has the restaurant's page structure",
+      /## Page Structure/.test(autoBrief) && /\*\*Menu\*\*/.test(autoBrief),
+    );
+    check(
+      "and a design system from the picked style",
+      /## Design System/.test(autoBrief) && /Minimal and simple/.test(autoBrief),
+    );
+    check(
+      "and the stack and a definition of done",
+      /## Stack & Delivery/.test(autoBrief) && /## Definition of Done/.test(autoBrief),
+    );
+
+    const badTrade = await api(`/api/admin/projects/${projectId}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        businessName: "Konoba Provjera",
+        packageId: "start",
+        status: "onboarding_completed",
+        trade: "spaceport",
+      }),
+      headers: { Origin: BASE },
+    });
+    check("an unknown trade is refused", badTrade.status === 400, `status ${badTrade.status}`);
     check(
       "the answers reach the project",
       Boolean(detail.body?.submission?.answers?.businessName),

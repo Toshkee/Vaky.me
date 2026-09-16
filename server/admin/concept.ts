@@ -1,3 +1,4 @@
+import { ANTI_SLOP } from "../../src/lib/build-playbook";
 import { LEAD_NEED_LABELS, isLeadNeed } from "../../src/lib/workflow";
 import { PACKAGES } from "../../src/lib/packages";
 import type { LeadRow, NoteRow } from "./store";
@@ -105,7 +106,7 @@ export function generateConceptBrief({ lead, notes }: ConceptData): string {
     "",
     "## House standards",
     "",
-    "- Design for THIS business and its trade. If the branding were removed it must not look like a generic template or an AI default — no purple gradients, no glassmorphism, no three-card grids on repeat, no decorative blobs. Strong typography, real hierarchy, intentional composition.",
+    ...ANTI_SLOP.map((rule) => `- ${rule}`),
     "- Phone first: most visitors arrive from Instagram or WhatsApp. Contact actions — call, WhatsApp, Viber, Instagram DM — are one tap away, and a map or address is on the page.",
     "- Menus and price lists are text, never images.",
     "- Fast, accessible, semantic: real headings, real buttons, WCAG AA contrast, `prefers-reduced-motion` respected.",

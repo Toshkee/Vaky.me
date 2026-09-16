@@ -4,10 +4,10 @@ import type { ActivityKind, LeadStatus, ProjectStatus } from "../../src/lib/work
  * Every statement the admin dashboard runs, in one place — the same contract
  * `server/onboarding/store.ts` keeps for the client-facing endpoints.
  *
- * Row types mirror the tables in `migrations/0002_workflow.sql` column for
- * column. Statuses are typed at the edges (the endpoints validate against
- * `src/lib/workflow.ts` before anything reaches here); inside this module
- * they are the strings the database holds.
+ * Row types mirror the tables in `migrations/0002_workflow.sql`, plus the
+ * column `0003_trade.sql` adds, column for column. Statuses are typed at the
+ * edges (the endpoints validate against `src/lib/workflow.ts` before anything
+ * reaches here); inside this module they are the strings the database holds.
  */
 
 export type LeadRow = {
@@ -37,6 +37,9 @@ export type ProjectRow = {
   instagram: string | null;
   existing_site: string | null;
   package_id: string;
+  /** A key of the trade playbook (src/lib/build-playbook.ts), or null when
+   *  the business is none of those or it was never set. */
+  trade: string | null;
   status: string;
   lead_id: string | null;
   created_at: string;
@@ -198,6 +201,7 @@ export type ProjectInput = {
   instagram: string;
   existingSite: string;
   packageId: string;
+  trade: string | null;
   leadId: string | null;
 };
 
@@ -205,8 +209,9 @@ export async function createProject(db: D1Database, input: ProjectInput): Promis
   await db
     .prepare(
       `INSERT INTO projects
-         (id, business_name, contact_name, email, phone, instagram, existing_site, package_id, lead_id)
-       VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)`,
+         (id, business_name, contact_name, email, phone, instagram, existing_site, package_id,
+          trade, lead_id)
+       VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10)`,
     )
     .bind(
       input.id,
@@ -217,6 +222,7 @@ export async function createProject(db: D1Database, input: ProjectInput): Promis
       input.instagram || null,
       input.existingSite || null,
       input.packageId,
+      input.trade,
       input.leadId,
     )
     .run();
@@ -251,6 +257,7 @@ export type ProjectPatch = {
   instagram: string;
   existingSite: string;
   packageId: string;
+  trade: string | null;
   status: ProjectStatus;
 };
 
@@ -259,7 +266,7 @@ export async function updateProject(db: D1Database, id: string, patch: ProjectPa
     .prepare(
       `UPDATE projects SET
          business_name = ?2, contact_name = ?3, email = ?4, phone = ?5,
-         instagram = ?6, existing_site = ?7, package_id = ?8, status = ?9,
+         instagram = ?6, existing_site = ?7, package_id = ?8, trade = ?9, status = ?10,
          updated_at = datetime('now')
        WHERE id = ?1`,
     )
@@ -272,6 +279,7 @@ export async function updateProject(db: D1Database, id: string, patch: ProjectPa
       patch.instagram || null,
       patch.existingSite || null,
       patch.packageId,
+      patch.trade,
       patch.status,
     )
     .run();

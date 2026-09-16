@@ -1,0 +1,17 @@
+-- The trade a project is for — restaurant, barber, villa — so the build
+-- brief can say which sections such a site needs and which questions each
+-- one answers, instead of leaving page structure to whoever reads it.
+--
+--   npx wrangler d1 migrations apply vibelab-onboarding --local -c wrangler.local.jsonc
+--   npx wrangler d1 migrations apply vibelab-onboarding --remote -c wrangler.local.jsonc
+--
+-- Applied by hand, never by deploy — see docs/onboarding-setup.md. Not
+-- idempotent: ALTER TABLE ADD COLUMN fails if run twice, so use the migration
+-- runner, which records what has run.
+--
+-- Values are the keys of `dictionaries.me.trades.items` (villa, apartment,
+-- restaurant, barber, hair, beauty, tattoo, pilates, gym, dentist) and are
+-- validated by the endpoints against src/lib/build-playbook.ts. NULL is a
+-- project whose trade is not one of those, or was never set. No CHECK, for
+-- the same reason package_id has none: the list is app config.
+ALTER TABLE projects ADD COLUMN trade TEXT;

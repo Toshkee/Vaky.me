@@ -12,6 +12,7 @@ import {
 } from "react";
 import { OsBadge } from "@/components/ui/OsBadge";
 import type { ActivityRow, ApiResult } from "@/lib/admin/client";
+import { TRADE_IDS, TRADE_PLAYBOOK } from "@/lib/build-playbook";
 import { priceLabel } from "@/lib/packages";
 import {
   PACKAGE_IDS,
@@ -214,6 +215,13 @@ export const PACKAGE_OPTIONS = PACKAGE_IDS.map((id) => ({
   value: id,
   label: packageText(id),
 }));
+
+/** The trades the build brief has a page structure for, plus "none of
+ *  these" — a project for a law firm or a shop is still a project. */
+export const TRADE_OPTIONS = [
+  { value: "", label: "Nije na listi / nije izabrano" },
+  ...TRADE_IDS.map((id) => ({ value: id, label: TRADE_PLAYBOOK[id].label })),
+];
 
 /** An onboarding request the client can still fill in — the same three
  *  statuses the cancel endpoint treats as live. */

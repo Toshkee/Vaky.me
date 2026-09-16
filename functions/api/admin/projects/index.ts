@@ -1,6 +1,7 @@
 import { createProject, listProjects, logActivity } from "../../../../server/admin/store";
 import type { OnboardingEnv } from "../../../../server/onboarding/env";
 import { fail, json, readJson, textField } from "../../../../server/onboarding/http";
+import { isTrade } from "../../../../src/lib/build-playbook";
 import { isPackageId } from "../../../../src/lib/onboarding/schema";
 
 export const onRequestGet: PagesFunction<OnboardingEnv> = async (context) => {
@@ -19,6 +20,7 @@ type Body = {
   instagram?: unknown;
   existingSite?: unknown;
   packageId?: unknown;
+  trade?: unknown;
 };
 
 /** A project without a lead — the client who arrived entirely over Instagram
@@ -30,6 +32,10 @@ export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
 
   const businessName = textField(body.businessName, 160);
   if (!businessName || !isPackageId(body.packageId)) return fail("bad-request");
+  /* Empty means "none of the trades we have a playbook for"; anything else
+     has to be one of them. */
+  const trade = textField(body.trade, 40);
+  if (trade && !isTrade(trade)) return fail("bad-request");
 
   try {
     const id = crypto.randomUUID();
@@ -42,6 +48,7 @@ export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
       instagram: textField(body.instagram, 120),
       existingSite: textField(body.existingSite, 300),
       packageId: body.packageId,
+      trade: trade || null,
       leadId: null,
     });
     await logActivity(context.env.DB, { projectId: id }, "project_created", body.packageId);

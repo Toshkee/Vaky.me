@@ -53,6 +53,8 @@ export type ProjectRow = {
   instagram: string | null;
   existing_site: string | null;
   package_id: string;
+  /** A key of `TRADE_PLAYBOOK`, or null when the business is none of those. */
+  trade: string | null;
   status: string;
   lead_id: string | null;
   created_at: string;
@@ -154,6 +156,8 @@ export type ProjectPatch = {
   instagram: string;
   existingSite: string;
   packageId: PackageId;
+  /** A trade key, or "" for none. */
+  trade: string;
   status: ProjectStatus;
 };
 
@@ -263,8 +267,9 @@ export function addLeadNote(id: string, body: string): Promise<ApiResult<{ id: s
 export function convertLead(
   id: string,
   packageId: PackageId,
+  trade: string,
 ): Promise<ApiResult<{ projectId: string }>> {
-  return call(`/${path("leads", id, "convert")}`, send("POST", { packageId }));
+  return call(`/${path("leads", id, "convert")}`, send("POST", { packageId, trade }));
 }
 
 /** The concept-phase prompt, written fresh each time; nothing is stored. */

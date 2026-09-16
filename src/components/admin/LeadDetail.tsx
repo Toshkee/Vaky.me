@@ -26,7 +26,9 @@ import {
   Facts,
   GoLink,
   Panel,
+  SelectField,
   StatusPill,
+  TRADE_OPTIONS,
   Timeline,
   buttonClass,
   packageText,
@@ -57,6 +59,7 @@ export function LeadDetail({ id }: { id: string }) {
   const [busy, setBusy] = useState<string | null>(null);
   const [problem, setProblem] = useState<ApiErrorCode | null>(null);
   const [packageId, setPackageId] = useState<PackageId>("start");
+  const [trade, setTrade] = useState("");
 
   async function changeStatus(status: Exclude<LeadStatus, "accepted">) {
     setBusy(status);
@@ -70,7 +73,7 @@ export function LeadDetail({ id }: { id: string }) {
   async function convert() {
     setBusy("convert");
     setProblem(null);
-    const answer = await convertLead(id, packageId);
+    const answer = await convertLead(id, packageId, trade);
     setBusy(null);
     if (answer.ok) go(`?v=projekat&id=${answer.data.projectId}`);
     else setProblem(answer.code);
@@ -244,6 +247,15 @@ export function LeadDetail({ id }: { id: string }) {
                       </label>
                     ))}
                   </fieldset>
+
+                  <SelectField
+                    id="convert-trade"
+                    label="Djelatnost"
+                    value={trade}
+                    options={TRADE_OPTIONS}
+                    onChange={setTrade}
+                    hint="Brief za izradu po njoj bira strukturu stranice. Može se promijeniti i kasnije na projektu."
+                  />
 
                   <button
                     type="button"

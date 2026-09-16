@@ -32,6 +32,7 @@ import {
   Panel,
   SelectField,
   StatusPill,
+  TRADE_OPTIONS,
   Timeline,
   buttonClass,
   inputClass,
@@ -217,6 +218,7 @@ function ProjectForm({ project, onSaved }: { project: ProjectRow; onSaved: () =>
     instagram: project.instagram ?? "",
     existingSite: project.existing_site ?? "",
     packageId: isPackageId(project.package_id) ? project.package_id : "start",
+    trade: project.trade ?? "",
     status: isProjectStatus(project.status) ? project.status : "created",
   }));
   const [busy, setBusy] = useState(false);
@@ -319,6 +321,14 @@ function ProjectForm({ project, onSaved }: { project: ProjectRow; onSaved: () =>
               if (isPackageId(value)) update({ packageId: value });
             }}
             hint="Promjena paketa ne dira već date odgovore — otvoren link se prebacuje na nova pitanja."
+          />
+          <SelectField
+            id="project-trade"
+            label="Djelatnost"
+            value={form.trade}
+            options={TRADE_OPTIONS}
+            onChange={(value) => update({ trade: value })}
+            hint="Brief za izradu po njoj bira strukturu stranice. Poslije promjene generiši brief ponovo."
           />
           <SelectField
             id="project-status"

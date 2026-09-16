@@ -22,7 +22,10 @@ import {
 } from "../../../server/onboarding/request";
 import { signDownload } from "../../../server/onboarding/session";
 import { listFiles, markNotified, recordSubmission } from "../../../server/onboarding/store";
+import { BRIEF_MODE, briefForProject } from "../../../server/admin/brief";
 import {
+  addBrief,
+  findProject,
   linkFilesToProject,
   logActivity,
   markProjectOnboarded,
@@ -42,6 +45,12 @@ import {
  * brief is not an anonymous URL that can be rewritten forever — and Vaky
  * is told about it off the request, where a mail provider's bad minute
  * cannot turn into "something went wrong" over a brief that was saved.
+ *
+ * Between the two, the build brief is written and stored on the project, so
+ * the email can carry it and the dashboard already has it. It is saved
+ * before the email is attempted — a mail failure loses nothing — and a
+ * failure to write it does not fail the submission either: the answers are
+ * the record, and the brief can be generated from the dashboard.
  */
 
 type Body = {
@@ -103,9 +112,22 @@ export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
     answerText(answers, "businessName"),
   );
 
+  const projectId = parsed.projectId;
+  let buildBrief: { filename: string; content: string } | null = null;
+  try {
+    const project = await findProject(env.DB, projectId);
+    const content = project ? await briefForProject(env.DB, project) : null;
+    if (project && content) {
+      await addBrief(env.DB, crypto.randomUUID(), projectId, BRIEF_MODE, content);
+      await logActivity(env.DB, { projectId }, "brief_generated", "automatski, iz upitnika");
+      buildBrief = { filename: `brief-${slug(project.business_name)}.md`, content };
+    }
+  } catch {
+    // The answers are stored; the brief can be written from the dashboard.
+  }
+
   const origin = env.ONBOARDING_SITE_URL ?? new URL(request.url).origin;
   const submittedAt = new Date().toISOString().replace("T", " ").slice(0, 16);
-  const projectId = parsed.projectId;
 
   waitUntil(
     (async () => {
@@ -129,6 +151,7 @@ export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
           downloadUrls,
           submittedAt,
           dashboardUrl: `${origin}/admin/?v=projekat&id=${projectId}`,
+          buildBrief,
         });
 
         problem = env.RESEND_API_KEY
@@ -156,3 +179,18 @@ export const onRequestPost: PagesFunction<OnboardingEnv> = async (context) => {
 
   return json({ submissionId });
 };
+
+/** A filename-safe version of a business name: "Konoba Đurđevića" becomes
+ *  "konoba-durdevica". Letters NFD cannot split are mapped by hand. */
+function slug(name: string): string {
+  const flat = name
+    .replace(/đ/g, "d")
+    .replace(/Đ/g, "D")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60);
+  return flat || "projekat";
+}
