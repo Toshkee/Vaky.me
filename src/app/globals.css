@@ -23,6 +23,9 @@
   --color-ok: #2e7d44;
   /* the middle traffic dot in window chrome and nothing else */
   --color-gold: #d9a441;
+  /* "waiting on the client" on the dashboard, and nothing else. Dark enough
+     to be text: 5.4:1 on paper. */
+  --color-amber: #8a5c00;
 
   --font-sans: var(--font-franklin);
 
@@ -748,62 +751,15 @@
 
 @layer base {
   /* ── The dashboard's ground ──────────────────────────────────────────────
-     /admin is the one route nobody but the studio ever loads, and it is read
-     for an hour at a stretch, so it runs on a dark neutral grey instead of the
-     site's paper. Only the tokens move. Every panel, list and control on that
-     route already draws itself from bg-paper / text-ink / border-line, so the
-     whole screen turns over without a class rewrite and the pixel language —
-     2px frames, hard offset shadows — simply inverts.
-
-     Scoped to the attribute, never to :root or a media query: the landing
-     pages, the demo concepts and the client onboarding form read these same
-     tokens and must not move by a pixel. The `html:has()` arm carries the
-     ground past the wrapper onto the document, so an overscroll bounce is
-     grey rather than paper, and it is where `color-scheme` has to sit for the
-     native select, the file picker and the scrollbars to render dark.
-
-     Contrast, against the ground / against the raised surface: ink 13.5/11.4,
-     muted 6.8/5.8, red 5.4/4.6, line 3.9/3.3. The site's red is
-     2.6:1 on wine, so it moves up to full saturation at 68% lightness — which
-     light to carry white text, so the label on a filled red button is the ground
-     colour instead (5.4:1, where white would be 3.0). One red for every role:
-     links, active nav, badges and the button all use it, so nothing on the
-     screen is red without meaning it. */
+     /admin is the same printed notice as the site — paper, ink, one red — so
+     the studio's own screen looks like the thing it sells. The page sits on
+     the warm paper one step below the windows, which is what lifts each
+     PixelWindow off the ground without a shadow doing the work. The
+     `html:has()` arm carries the ground past the wrapper onto the document,
+     so an overscroll bounce is the same colour as the page. */
   [data-surface="admin"],
   html:has([data-surface="admin"]) {
-    color-scheme: dark;
-
-    --color-paper: #232629;
-    --color-paper-2: #2e3237;
-    --color-ink: #f2f1ee;
-    --color-muted: #a9aeb4;
-    --color-line: #79818a;
-    --color-red: #ff6a61;
-    /* the hover on a filled red button — on a dark ground it lightens */
-    --color-red-bright: #ff958d;
-    /* the ONLINE dot in the window chrome, lifted off the grey */
-    --color-ok: #4bb663;
-  }
-
-  /* Firefox dims placeholders with its own opacity, which would drop them
-     below the muted colour they are supposed to be. */
-  [data-surface="admin"] ::placeholder {
-    color: var(--color-muted);
-    opacity: 1;
-  }
-
-  [data-surface="admin"] ::selection {
-    background: var(--color-red);
-    color: var(--color-paper);
-  }
-}
-
-@layer components {
-  /* The primary button's focus ring is a white line sitting in an ink band,
-     which only reads while the band is the dark half. Here the band is the
-     pale one, so the line in it has to become the ground. */
-  [data-surface="admin"] .px-btn--primary:focus-visible {
-    outline-color: var(--color-paper);
+    background: var(--color-paper-warm);
   }
 }
 

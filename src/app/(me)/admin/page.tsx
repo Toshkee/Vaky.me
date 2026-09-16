@@ -14,17 +14,17 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-/** The site ships paper; this route ships wine, so the phone's address bar has
- *  to be told separately or it frames a dark screen in a light band. */
+/** The page ground is the warm paper, one step below the site's, so the
+ *  phone's address bar is told separately or it frames the screen in a
+ *  slightly lighter band. */
 export const viewport: Viewport = {
-  themeColor: "#3a141c",
+  themeColor: "#f4f0e8",
 };
 
 export default function AdminPage() {
   return (
-    /* The whole surface hangs off this one attribute — globals.css redefines
-       the colour tokens under it, and every component below inherits the dark
-       palette without knowing anything about it. */
+    /* globals.css sets the ground under this one attribute; everything below
+       draws from the site's own tokens. */
     <div data-surface="admin" className="flex flex-1 flex-col">
       <noscript>
         <div className="shell py-10">

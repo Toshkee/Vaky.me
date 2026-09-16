@@ -33,7 +33,7 @@ export function ConceptBrief({ leadId }: { leadId: string }) {
   return (
     <PromptBox
       title="Brief za koncept"
-      intro="Prompt za besplatan koncept: šta je klijent napisao, tvoje bilješke, i uputstvo agentu da prvo pročita njegov Instagram ili sajt, pa predloži tri pravca, jednu stranicu i pitanja za klijenta. Ne čuva se — napravi ga kad dodaš bilješke."
+      intro="Prompt za besplatan koncept iz upita i tvojih bilješki. Ne čuva se — napravi ga kad dodaš bilješke."
       action="Generiši brief za koncept"
       busyLabel="Pišem…"
       content={content}

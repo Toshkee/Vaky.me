@@ -37,14 +37,21 @@ import {
   buttonClass,
   inputClass,
   isLiveRequest,
+  packageText,
   primaryButtonClass,
   stampText,
+  tradeName,
   useGo,
   useLoad,
 } from "./ui";
 
 /**
  * The whole workspace for one engagement, in one read.
+ *
+ * The order is the order of work: the link while the client has not answered,
+ * the brief once they have, then what they said and sent. The edit form, the
+ * history and deletion are on the page because they must be reachable, not
+ * because they are read, so they open on demand.
  *
  * Every action on this screen refetches the project when it succeeds — the
  * timeline, the status and the scope flags are all downstream of things done
@@ -58,6 +65,8 @@ const STATUS_OPTIONS = PROJECT_STATUSES.map((status) => ({
   label: PROJECT_STATUS_LABELS[status],
 }));
 
+const linkClass = "underline decoration-line underline-offset-4 hover:text-red";
+
 export function ProjectDetail({ id }: { id: string }) {
   const load = useCallback(() => getProject(id), [id]);
   const { result, busy, reload } = useLoad(load);
@@ -65,70 +74,83 @@ export function ProjectDetail({ id }: { id: string }) {
   return (
     <>
       <p className="text-sm">
-        <GoLink
-          to="?v=projekti"
-          className="underline decoration-line underline-offset-4 hover:text-red"
-        >
+        <GoLink to="?v=projekti" className={linkClass}>
           Nazad na projekte
         </GoLink>
       </p>
 
       <AsyncView result={result} busy={busy} onRetry={reload}>
-        {(data) => (
-          <div className="mt-4 grid gap-8">
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <h1 className="headline text-2xl break-words">{data.project.business_name}</h1>
-              <StatusPill kind="project" value={data.project.status} />
-              {data.request && <StatusPill kind="request" value={data.request.status} />}
-            </div>
-
-            {data.warnings.length > 0 && <Warnings warnings={data.warnings} />}
-
-            <ProjectForm project={data.project} onSaved={reload} />
-
-            <OnboardingBlock projectId={id} request={data.request} onChanged={reload} />
-
-            {data.lead && (
-              <Panel title="Upit">
-                <p>
-                  <GoLink
-                    to={`?v=upiti&id=${data.lead.id}`}
-                    className="underline decoration-line underline-offset-4 hover:text-red"
-                  >
-                    Otvori upit od {stampText(data.lead.created_at)}
-                  </GoLink>
+        {(data) => {
+          const { project } = data;
+          const live = isLiveRequest(data.request?.status ?? null);
+          return (
+            <div className="mt-4 grid gap-8">
+              <div>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <h1 className="headline text-2xl break-words">{project.business_name}</h1>
+                  <StatusPill kind="project" value={project.status} />
+                  {data.request && live && <StatusPill kind="request" value={data.request.status} />}
+                </div>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  {packageText(project.package_id)}
+                  {tradeName(project.trade) && <> · {tradeName(project.trade)}</>}
+                  {project.contact_name && <> · {project.contact_name}</>}
+                  {project.email && (
+                    <>
+                      {" · "}
+                      <a href={`mailto:${project.email}`} className={linkClass}>
+                        {project.email}
+                      </a>
+                    </>
+                  )}
+                  {project.phone && (
+                    <>
+                      {" · "}
+                      <a href={`tel:${project.phone.replace(/\s/g, "")}`} className={linkClass}>
+                        {project.phone}
+                      </a>
+                    </>
+                  )}
+                  {data.lead && (
+                    <>
+                      {" · "}
+                      <GoLink to={`?v=upiti&id=${data.lead.id}`} className={linkClass}>
+                        iz upita od {stampText(data.lead.created_at)}
+                      </GoLink>
+                    </>
+                  )}
                 </p>
+              </div>
+
+              {data.warnings.length > 0 && <Warnings warnings={data.warnings} />}
+
+              <OnboardingBlock projectId={id} request={data.request} onChanged={reload} />
+
+              <Briefs projectId={id} briefs={data.briefs} />
+
+              {data.submission && <Submission submission={data.submission} project={project} />}
+
+              <Files projectId={id} files={data.files} onChanged={reload} />
+
+              <Notes
+                notes={data.notes}
+                onAdd={async (body) => {
+                  const answer = await addProjectNote(id, body);
+                  if (answer.ok) reload();
+                  return answer;
+                }}
+              />
+
+              <ProjectForm project={project} onSaved={reload} />
+
+              <Panel title="Istorija" folded>
+                <Timeline rows={data.activity} />
               </Panel>
-            )}
 
-            {data.submission ? (
-              <Submission submission={data.submission} />
-            ) : (
-              <Panel title="Odgovori klijenta">
-                <EmptyState>Klijent još nije popunio upitnik.</EmptyState>
-              </Panel>
-            )}
-
-            <Files projectId={id} files={data.files} onChanged={reload} />
-
-            <Notes
-              notes={data.notes}
-              onAdd={async (body) => {
-                const answer = await addProjectNote(id, body);
-                if (answer.ok) reload();
-                return answer;
-              }}
-            />
-
-            <Briefs projectId={id} briefs={data.briefs} />
-
-            <Panel title="Istorija">
-              <Timeline rows={data.activity} />
-            </Panel>
-
-            <DeleteBlock projectId={id} hasFiles={data.files.length > 0} />
-          </div>
-        )}
+              <DeleteBlock projectId={id} hasFiles={data.files.length > 0} />
+            </div>
+          );
+        }}
       </AsyncView>
     </>
   );
@@ -137,9 +159,9 @@ export function ProjectDetail({ id }: { id: string }) {
 /**
  * The one thing on this screen that cannot be undone.
  *
- * Last, in its own block, and armed before it fires — the same two-step the
- * onboarding link uses, because the mistake being guarded against is the same
- * one: a press meant for the button above it.
+ * Last, folded, and armed before it fires — the same two-step the onboarding
+ * link uses, because the mistake being guarded against is the same one: a
+ * press meant for the button above it.
  */
 function DeleteBlock({ projectId, hasFiles }: { projectId: string; hasFiles: boolean }) {
   const go = useGo();
@@ -160,14 +182,12 @@ function DeleteBlock({ projectId, hasFiles }: { projectId: string; hasFiles: boo
   }
 
   return (
-    <Panel title="Brisanje">
-      <p className="max-w-prose leading-relaxed text-muted">
-        Uklanja projekat i sve što uz njega ide: onboarding linkove, odgovore iz upitnika,
-        bilješke, brifove i istoriju
-        {hasFiles ? ", uključujući i fajlove koje je klijent poslao" : ""}. Upit od kojeg je
-        projekat nastao ostaje i vraća se na status „Kvalifikovan“.
+    <Panel title="Brisanje" folded>
+      <p className="max-w-prose text-sm leading-relaxed text-muted">
+        Briše projekat sa linkovima, odgovorima, bilješkama, brifovima i istorijom
+        {hasFiles ? " — i fajlove koje je klijent poslao" : ""}. Upit ostaje i vraća se na
+        „Ozbiljan upit“. Ništa od ovoga se ne vraća.
       </p>
-      <p className="mt-2 max-w-prose leading-relaxed font-semibold">Ništa od ovoga se ne vraća.</p>
 
       <HoldButton
         label="Obriši projekat"
@@ -190,13 +210,12 @@ function DeleteBlock({ projectId, hasFiles }: { projectId: string; hasFiles: boo
  *  here is shown to them. */
 function Warnings({ warnings }: { warnings: readonly ScopeWarning[] }) {
   return (
-    <section aria-labelledby="scope-warnings" className="border-2 border-red bg-paper-2 p-4">
+    <section aria-labelledby="scope-warnings" className="border-2 border-red bg-paper p-4">
       <h2 id="scope-warnings" className="headline text-lg text-red">
         Provjeri obim
       </h2>
       <p className="mt-1 text-sm leading-relaxed text-muted">
-        Interna napomena za tebe. Klijent ovo ne vidi i ništa mu nije blokirano — ovo je poziv da
-        se dogovor provjeri prije nego što izrada krene.
+        Klijent ovo ne vidi i ništa mu nije blokirano — samo provjeri dogovor prije izrade.
       </p>
       <ul className="mt-3 grid gap-2">
         {warnings.map((warning) => (
@@ -264,7 +283,7 @@ function ProjectForm({ project, onSaved }: { project: ProjectRow; onSaved: () =>
   }
 
   return (
-    <Panel title="Podaci">
+    <Panel title="Podaci i status" folded>
       <form onSubmit={submit} className="grid gap-4">
         <div className="grid gap-4 sm:grid-cols-2">
           <Field
@@ -320,7 +339,7 @@ function ProjectForm({ project, onSaved }: { project: ProjectRow; onSaved: () =>
             onChange={(value) => {
               if (isPackageId(value)) update({ packageId: value });
             }}
-            hint="Promjena paketa ne dira već date odgovore — otvoren link se prebacuje na nova pitanja."
+            hint="Već dati odgovori ostaju; otvoren link prelazi na nova pitanja."
           />
           <SelectField
             id="project-trade"
@@ -328,7 +347,7 @@ function ProjectForm({ project, onSaved }: { project: ProjectRow; onSaved: () =>
             value={form.trade}
             options={TRADE_OPTIONS}
             onChange={(value) => update({ trade: value })}
-            hint="Brief za izradu po njoj bira strukturu stranice. Poslije promjene generiši brief ponovo."
+            hint="Poslije promjene generiši brief ponovo."
           />
           <SelectField
             id="project-status"
@@ -372,6 +391,9 @@ function ProjectForm({ project, onSaved }: { project: ProjectRow; onSaved: () =>
  * The URL exists in the clear exactly once — the database keeps only a hash of
  * the token — so it is shown here with a copy button and a plain warning, and
  * a link that got away is replaced rather than recovered.
+ *
+ * Open while the link is the thing to do — none yet, or the client has it —
+ * and folded once the questionnaire is in, when the facts here are history.
  */
 function OnboardingBlock({
   projectId,
@@ -389,6 +411,7 @@ function OnboardingBlock({
   const field = useRef<HTMLInputElement>(null);
 
   const live = isLiveRequest(request?.status ?? null);
+  const settled = request !== null && !live && url === null;
 
   async function create() {
     setBusy("create");
@@ -430,12 +453,12 @@ function OnboardingBlock({
   }
 
   return (
-    <Panel title="Onboarding link">
+    <Panel title="Onboarding link" folded={settled}>
       {url && (
         <div className="mb-4 border-2 border-ink bg-paper-2 p-4">
           <p className="leading-relaxed font-semibold">
-            Ovo je jedini put da se link vidi — server čuva samo njegov otisak. Pošalji ga klijentu
-            sada; ako se izgubi, može se napraviti samo novi.
+            Link se vidi samo sada — server čuva samo njegov otisak. Pošalji ga klijentu odmah;
+            izgubljen se ne vraća, pravi se novi.
           </p>
           <label htmlFor="onboarding-url" className="eyebrow mt-3 block text-muted">
             Link za klijenta
@@ -465,11 +488,11 @@ function OnboardingBlock({
           <Fact label="Status linka" value={<StatusPill kind="request" value={request.status} />} />
           <Fact label="Napravljen" value={stampText(request.created_at)} />
           <Fact label="Klijent otvorio" value={stampText(request.first_opened_at)} />
-          <Fact label="Zadnja aktivnost" value={stampText(request.last_activity_at)} />
-          <Fact label="Popunjen" value={stampText(request.completed_at)} />
+          {live && <Fact label="Zadnja aktivnost" value={stampText(request.last_activity_at)} />}
+          {request.completed_at && <Fact label="Popunjen" value={stampText(request.completed_at)} />}
         </Facts>
       ) : (
-        <EmptyState>Za ovaj projekat još nije napravljen onboarding link.</EmptyState>
+        <EmptyState>Link još nije napravljen. Klijent bez njega ne može da popuni upitnik.</EmptyState>
       )}
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
@@ -485,18 +508,17 @@ function OnboardingBlock({
             disabled={busy !== null}
             aria-busy={busy === "create"}
             onClick={() => void create()}
-            className={buttonClass}
+            className={request ? buttonClass : primaryButtonClass}
           >
             {request ? "Napravi novi link" : "Napravi onboarding link"}
           </button>
         )}
+        {live && (
+          <p className="text-sm leading-relaxed text-muted">
+            Poništen link klijentu odmah prestaje da radi, i usred popunjavanja.
+          </p>
+        )}
       </div>
-
-      {live && (
-        <p className="mt-2 text-sm leading-relaxed text-muted">
-          Poništavanje zatvara formu i klijentu odmah prestaje da radi, i usred popunjavanja.
-        </p>
-      )}
 
       {code && (
         <div className="mt-3">

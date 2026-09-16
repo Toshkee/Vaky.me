@@ -101,11 +101,17 @@ const API_TEXT: Record<ApiErrorCode, string> = {
      case, which is `next dev`, where /api/ is not served at all. The script
      named is the one in package.json that puts the Functions in front of it. */
   server:
-    "Nema veze sa serverom. Na običnom next dev /api/ ne postoji — dashboard radi samo kroz Cloudflare Pages (npm run dev:api).",
+    "Server je javio grešku ili nije dostupan. Pokušaj ponovo. (Na običnom next dev /api/ ne postoji — dashboard radi kroz npm run dev:api.)",
 };
 
 export function apiText(code: ApiErrorCode): string {
   return API_TEXT[code];
+}
+
+/** The mail status the server stores is the provider layer's English. The one
+ *  phrase worth translating is the one the studio can act on. */
+export function mailErrorText(error: string): string {
+  return error === "no mail provider configured" ? "email nije podešen na serveru" : error;
 }
 
 /* ── Time ─────────────────────────────────────────────────────────────── */
@@ -165,6 +171,11 @@ export function stampText(value: string | null): string {
   return date ? fullText(date) : "—";
 }
 
+export function stampMs(value: string | null): number | null {
+  const date = value ? parseStamp(value) : null;
+  return date ? date.getTime() : null;
+}
+
 /* ── Status ───────────────────────────────────────────────────────────── */
 
 type StatusKind = "lead" | "project" | "request";
@@ -177,15 +188,35 @@ function statusLabel(kind: StatusKind, value: string): string {
   return isRequestStatus(value) ? REQUEST_STATUS_LABELS[value] : value;
 }
 
-/* Red is kept for the two states that mean the studio owes somebody something
-   today. Colour on every pill would say nothing. */
-const NEEDS_ATTENTION = new Set(["lead:new", "project:onboarding_completed"]);
+/* Colour answers one question — whose move is it? Red: the studio's, today.
+   Amber: the client has it. Green: nobody's, it is done. Everything else is
+   ink, so a screen full of pills still has one or two that stand out. */
+const TONES: Record<string, "red" | "amber" | "ok"> = {
+  "lead:new": "red",
+  "lead:accepted": "ok",
+  "project:onboarding_sent": "amber",
+  "project:onboarding_completed": "red",
+  "project:client_review": "amber",
+  "project:completed": "ok",
+  "request:created": "amber",
+  "request:opened": "amber",
+  "request:in_progress": "amber",
+  "request:completed": "ok",
+};
 
 export function StatusPill({ kind, value }: { kind: StatusKind; value: string }) {
   return (
-    <OsBadge tone={NEEDS_ATTENTION.has(`${kind}:${value}`) ? "red" : "ink"}>
-      {statusLabel(kind, value)}
-    </OsBadge>
+    <OsBadge tone={TONES[`${kind}:${value}`] ?? "ink"}>{statusLabel(kind, value)}</OsBadge>
+  );
+}
+
+/** "Since you last opened the overview." */
+export function NewMark() {
+  return (
+    <span className="px inline-flex items-center gap-1.5 text-[0.85rem] leading-none text-red uppercase">
+      <span aria-hidden="true" className="block h-2 w-2 bg-red" />
+      Novo
+    </span>
   );
 }
 
@@ -223,6 +254,11 @@ export const TRADE_OPTIONS = [
   ...TRADE_IDS.map((id) => ({ value: id, label: TRADE_PLAYBOOK[id].label })),
 ];
 
+export function tradeName(id: string | null): string | null {
+  const trade = id ? TRADE_OPTIONS.find((option) => option.value === id) : undefined;
+  return trade && trade.value ? trade.label : null;
+}
+
 /** An onboarding request the client can still fill in — the same three
  *  statuses the cancel endpoint treats as live. */
 const LIVE_REQUEST = new Set(["created", "opened", "in_progress"]);
@@ -233,14 +269,8 @@ export function isLiveRequest(status: string | null): boolean {
 
 /* ── Controls ─────────────────────────────────────────────────────────── */
 
-/* Fields and keys sit one step above the ground rather than on it — on the
-   dark surface a control the exact colour of the page is defined by its border
-   alone, and the bevel has nothing to catch.
-
-   The red fill is bright enough on wine that white on it is only 3:1, so the
-   label on a filled button is the ground colour punched back out (5.4:1), and
-   the hover lightens instead of deepening. Disabled is opacity, as everywhere
-   else, but not so far down that the label stops being readable. */
+/* Fields sit one step below the pane so a form reads as fields on paper, not
+   as outlines; keys are the site's own — paper slab, ink bevel, red fill. */
 export const inputClass =
   "min-h-11 w-full border-2 border-ink bg-paper-2 px-3 py-2 text-base text-ink";
 
@@ -254,10 +284,10 @@ export const textareaClass = `${textareaBase} text-base`;
 export const textareaMonoClass = `${textareaBase} font-mono text-sm`;
 
 export const buttonClass =
-  "px px-btn inline-flex min-h-11 items-center justify-center bg-paper-2 px-4 py-2 text-[0.95rem] text-ink transition-colors hover:text-red disabled:opacity-50";
+  "px px-btn inline-flex min-h-11 items-center justify-center bg-paper px-4 py-2 text-[0.95rem] text-ink transition-colors hover:text-red disabled:opacity-50";
 
 export const primaryButtonClass =
-  "px px-btn px-btn--primary inline-flex min-h-11 items-center justify-center bg-red px-4 py-2 text-center text-[0.95rem] text-paper hover:bg-red-bright disabled:opacity-70";
+  "px px-btn px-btn--primary inline-flex min-h-11 items-center justify-center bg-red px-4 py-2 text-center text-[0.95rem] text-white hover:bg-red-deep disabled:opacity-70";
 
 export function Field({
   id,
@@ -307,6 +337,7 @@ export function SelectField({
   options,
   onChange,
   hint,
+  disabled = false,
 }: {
   id: string;
   label: string;
@@ -314,6 +345,7 @@ export function SelectField({
   options: readonly { value: string; label: string }[];
   onChange: (value: string) => void;
   hint?: string;
+  disabled?: boolean;
 }) {
   return (
     <div className="grid gap-1">
@@ -323,8 +355,9 @@ export function SelectField({
       <select
         id={id}
         value={value}
+        disabled={disabled}
         onChange={(event) => onChange(event.target.value)}
-        className={inputClass}
+        className={`${inputClass} disabled:opacity-50`}
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
@@ -425,9 +458,42 @@ export function HoldButton({
 /* ── Layout ───────────────────────────────────────────────────────────── */
 
 /** One block of the screen: a heading under a rule, and the content below it.
- *  The dashboard's only container — nothing nests inside anything else. */
-export function Panel({ title, children }: { title: string; children: ReactNode }) {
+ *  The dashboard's only container — nothing nests inside anything else.
+ *
+ *  `folded` makes it a native disclosure, closed until the heading is
+ *  pressed: for the blocks that are on the page because they must be reachable
+ *  — the edit form, the history, deletion — and not because they are read. */
+export function Panel({
+  title,
+  folded = false,
+  children,
+}: {
+  title: string;
+  folded?: boolean;
+  children: ReactNode;
+}) {
   const headingId = useId();
+
+  if (folded) {
+    return (
+      <details className="group border-t-2 border-ink pt-4">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
+          <h2 className="headline text-lg">{title}</h2>
+          <span aria-hidden="true" className="px text-xl leading-none text-muted group-open:hidden">
+            +
+          </span>
+          <span
+            aria-hidden="true"
+            className="px hidden text-xl leading-none text-muted group-open:inline"
+          >
+            −
+          </span>
+        </summary>
+        <div className="mt-3">{children}</div>
+      </details>
+    );
+  }
+
   return (
     <section aria-labelledby={headingId} className="border-t-2 border-ink pt-4">
       <h2 id={headingId} className="headline text-lg">
@@ -561,6 +627,15 @@ export function activityLabel(kind: string): string {
   return ACTIVITY_TEXT[kind] ?? kind;
 }
 
+/** The detail column is free text per kind. Two kinds store a package id,
+ *  which is not a word anyone should have to read. */
+export function activityDetail(kind: string, detail: string | null): string | null {
+  if (!detail) return null;
+  if (kind === "project_created") return packageText(detail);
+  if (kind === "package_changed") return detail.split(" → ").map(packageText).join(" → ");
+  return detail;
+}
+
 export function Timeline({ rows }: { rows: readonly ActivityRow[] }) {
   if (rows.length === 0) return <EmptyState>Još nema zapisa.</EmptyState>;
 
@@ -574,7 +649,9 @@ export function Timeline({ rows }: { rows: readonly ActivityRow[] }) {
           <When value={row.created_at} className="text-sm text-muted" />
           <p className="text-sm leading-relaxed">
             <span className="font-semibold">{activityLabel(row.kind)}</span>
-            {row.detail && <span className="text-muted"> — {row.detail}</span>}
+            {activityDetail(row.kind, row.detail) && (
+              <span className="text-muted"> — {activityDetail(row.kind, row.detail)}</span>
+            )}
           </p>
         </li>
       ))}

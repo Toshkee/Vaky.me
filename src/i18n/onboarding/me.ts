@@ -111,7 +111,7 @@ export const me: OnboardingCopy = {
     design: {
       title: "Kako sajt treba da izgleda",
       intro: "Bez stručnih izraza — samo recite šta vam se dopada.",
-      vaky: "Sad malo o izgledu 👀",
+      vaky: "Sad malo o izgledu.",
     },
     features: {
       title: "Šta sajt treba da radi",
@@ -545,12 +545,12 @@ export const me: OnboardingCopy = {
   },
 
   success: {
-    title: "Sve je spremno 🚀",
+    title: "Sve je spremno",
     body: "Hvala! Vaši odgovori i materijali su uspješno poslati Vaky-u. Pregledaćemo sve i javiti vam se sa sljedećim koracima.",
     refLabel: "Broj vašeg projekta",
     note: "Sačuvajte ovaj broj — pomaže nam da vas brže nađemo ako nam pišete.",
     home: "Nazad na vaky.me",
-    vaky: "Vaky ima sve što mu treba. 🫡",
+    vaky: "Vaky ima sve što mu treba.",
   },
 
   errors: {

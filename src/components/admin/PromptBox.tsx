@@ -94,7 +94,7 @@ export function PromptBox({
             ref={box}
             readOnly
             value={content}
-            rows={16}
+            rows={12}
             spellCheck={false}
             className={textareaMonoClass}
           />

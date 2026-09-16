@@ -39,14 +39,10 @@ export function Notes({
 
   return (
     <Panel title="Bilješke">
-      <p className="text-sm leading-relaxed text-muted">
-        Interno. Klijent ovo nikad ne vidi — bilješke ulaze samo u build brief.
-      </p>
-
       {notes.length === 0 ? (
         <EmptyState>Nema bilješki.</EmptyState>
       ) : (
-        <ul className="mt-3 grid gap-3">
+        <ul className="grid gap-3">
           {notes.map((note) => (
             <li key={note.id} className="border-l-2 border-line pl-3">
               <When value={note.created_at} className="text-xs text-muted" />
@@ -60,6 +56,9 @@ export function Notes({
         <label htmlFor="note-body" className="eyebrow text-muted">
           Nova bilješka
         </label>
+        <p className="text-xs leading-relaxed text-muted">
+          Interno — klijent ne vidi, ulazi samo u brief.
+        </p>
         <textarea
           id="note-body"
           value={body}

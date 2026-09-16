@@ -106,7 +106,7 @@ export const en: OnboardingCopy = {
     design: {
       title: "How the site should look",
       intro: "No design vocabulary needed — just tell us what you like.",
-      vaky: "Now let's talk about the look 👀",
+      vaky: "Now let's talk about the look.",
     },
     features: {
       title: "What the site should do",
@@ -540,12 +540,12 @@ export const en: OnboardingCopy = {
   },
 
   success: {
-    title: "Everything is ready 🚀",
+    title: "Everything is ready",
     body: "Thank you! Your answers and materials have been sent to Vaky. We'll review everything and contact you with the next steps.",
     refLabel: "Your project number",
     note: "Keep this number — it helps us find you faster if you write to us.",
     home: "Back to vaky.me",
-    vaky: "Vaky has everything he needs. 🫡",
+    vaky: "Vaky has everything he needs.",
   },
 
   errors: {

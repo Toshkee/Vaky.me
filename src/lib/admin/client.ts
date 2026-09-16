@@ -81,6 +81,8 @@ export type RecentActivityRow = ActivityRow & {
   project_name: string | null;
   lead_name: string | null;
   lead_business: string | null;
+  /** The project the lead became, if it did. */
+  lead_project_id: string | null;
 };
 
 export type RequestRow = {
@@ -121,12 +123,24 @@ export type BriefRow = { id: string; mode: string; content: string; created_at: 
 
 export type ScopeWarning = { id: string; label: string };
 
+/** One thing on the overview that is waiting for the studio, not the client. */
+export type AttentionItem = {
+  kind: "lead_new" | "review" | "link_unopened" | "link_stalled";
+  /** Lead id for `lead_new`, project id for the rest. */
+  id: string;
+  name: string;
+  /** When it started waiting. */
+  since: string;
+};
+
 export type Overview = {
   newLeads: number;
   activeProjects: number;
   waitingOnClient: number;
   needsReview: number;
   building: number;
+  attention: AttentionItem[];
+  /** Newest first, every kind — the overview picks what is worth a line. */
   recent: RecentActivityRow[];
 };
 

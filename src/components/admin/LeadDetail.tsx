@@ -31,6 +31,7 @@ import {
   TRADE_OPTIONS,
   Timeline,
   buttonClass,
+  mailErrorText,
   packageText,
   primaryButtonClass,
   stampText,
@@ -39,17 +40,29 @@ import {
 } from "./ui";
 
 /**
- * One enquiry, and the two decisions that can be made about it: what its
- * status is, and whether it becomes a project.
+ * One enquiry, and the one decision that matters about it: does it become a
+ * project. That form sits right under the name until it has been answered;
+ * after that the header links to the project and the form is gone.
  *
- * "Prihvaćen" is deliberately not among the status buttons — a lead becomes
- * accepted by being converted, which also creates the project record, and a
- * button that set the status alone would leave the two out of step.
+ * "Prihvaćen" is deliberately not among the settable statuses — a lead
+ * becomes accepted by being converted, which also creates the project record,
+ * and a status set by hand would leave the two out of step.
  */
 
 const SETTABLE: readonly Exclude<LeadStatus, "accepted">[] = LEAD_STATUSES.filter(
   (status): status is Exclude<LeadStatus, "accepted"> => status !== "accepted",
 );
+
+const STATUS_OPTIONS = SETTABLE.map((status) => ({
+  value: status,
+  label: LEAD_STATUS_LABELS[status],
+}));
+
+function isSettable(value: string): value is Exclude<LeadStatus, "accepted"> {
+  return (SETTABLE as readonly string[]).includes(value);
+}
+
+const linkClass = "underline decoration-line underline-offset-4 hover:text-red";
 
 export function LeadDetail({ id }: { id: string }) {
   const go = useGo();
@@ -95,197 +108,189 @@ export function LeadDetail({ id }: { id: string }) {
   return (
     <>
       <p className="text-sm">
-        <GoLink to="?v=upiti" className="underline decoration-line underline-offset-4 hover:text-red">
+        <GoLink to="?v=upiti" className={linkClass}>
           Nazad na upite
         </GoLink>
       </p>
 
       <AsyncView result={result} busy={refreshing} onRetry={reload}>
-        {(data) => (
-          <div className="mt-4 grid gap-8">
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <h1 className="headline text-2xl break-words">
-                {data.lead.business_name || data.lead.name}
-              </h1>
-              <StatusPill kind="lead" value={data.lead.status} />
-            </div>
+        {(data) => {
+          const { lead } = data;
+          const meta = [
+            isLeadNeed(lead.need) ? LEAD_NEED_LABELS[lead.need] : null,
+            `stiglo ${stampText(lead.created_at)}`,
+            lead.language === "en" ? "forma na engleskom" : null,
+          ].filter(Boolean);
 
-            <Panel title="Kontakt">
-              <Facts>
-                <Fact label="Osoba" value={data.lead.name} />
-                <Fact
-                  label="Email"
-                  value={
-                    <a
-                      href={`mailto:${data.lead.email}`}
-                      className="underline decoration-line underline-offset-4 hover:text-red"
-                    >
-                      {data.lead.email}
-                    </a>
-                  }
-                />
-                <Fact
-                  label="Telefon"
-                  value={
-                    data.lead.phone ? (
-                      <a
-                        href={`tel:${data.lead.phone.replace(/\s/g, "")}`}
-                        className="underline decoration-line underline-offset-4 hover:text-red"
-                      >
-                        {data.lead.phone}
-                      </a>
-                    ) : null
-                  }
-                />
-                {/* Free text on the public form — people type "@handle" as
-                    readily as a URL, so it is stored as typed. It becomes a
-                    link here only if it parses as http(s); anything else is
-                    shown as text, never as an href Vaky would click. */}
-                <Fact
-                  label="Instagram ili sajt"
-                  value={
-                    data.lead.link ? (
-                      isValidUrl(data.lead.link) ? (
-                        <a
-                          href={normaliseUrl(data.lead.link)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="break-all underline decoration-line underline-offset-4 hover:text-red"
-                        >
-                          {data.lead.link}
-                        </a>
-                      ) : (
-                        <span className="break-all">{data.lead.link}</span>
-                      )
-                    ) : null
-                  }
-                />
-                <Fact
-                  label="Šta traži"
-                  value={isLeadNeed(data.lead.need) ? LEAD_NEED_LABELS[data.lead.need] : null}
-                />
-                <Fact
-                  label="Jezik forme"
-                  value={data.lead.language === "en" ? "English" : "Crnogorski"}
-                />
-                <Fact
-                  label="Poruka"
-                  value={
-                    data.lead.message ? (
-                      <span className="leading-relaxed whitespace-pre-line">
-                        {data.lead.message}
-                      </span>
-                    ) : null
-                  }
-                />
-                <Fact label="Stiglo" value={stampText(data.lead.created_at)} />
-                <Fact
-                  label="Obavještenje"
-                  value={
-                    data.lead.notify_error
-                      ? `Nije poslato: ${data.lead.notify_error}`
-                      : stampText(data.lead.notified_at)
-                  }
-                />
-              </Facts>
-            </Panel>
+          return (
+            <div className="mt-4 grid gap-8">
+              <div className="grid gap-4 sm:flex sm:items-start sm:justify-between">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <h1 className="headline text-2xl break-words">
+                      {lead.business_name || lead.name}
+                    </h1>
+                    <StatusPill kind="lead" value={lead.status} />
+                  </div>
+                  <p className="mt-2 text-sm text-muted">{meta.join(" · ")}</p>
+                  {lead.notify_error && (
+                    <p className="mt-1 text-sm font-semibold text-red">
+                      Obavještenje o upitu nije stiglo mejlom: {mailErrorText(lead.notify_error)}
+                    </p>
+                  )}
+                </div>
 
-            <ConceptBrief leadId={id} />
-
-            <Panel title="Status">
-              <div className="flex flex-wrap gap-2">
-                {SETTABLE.map((status) => (
-                  <button
-                    key={status}
-                    type="button"
-                    aria-pressed={data.lead.status === status}
-                    disabled={busy !== null || data.lead.status === status}
-                    aria-busy={busy === status}
-                    onClick={() => void changeStatus(status)}
-                    className={buttonClass}
-                  >
-                    {LEAD_STATUS_LABELS[status]}
-                  </button>
-                ))}
-              </div>
-              {data.lead.status === "accepted" && (
-                <p className="mt-3 text-sm leading-relaxed text-muted">
-                  Upit je prihvaćen kad je od njega napravljen projekat, pa se status više ne
-                  mijenja odavde.
-                </p>
-              )}
-            </Panel>
-
-            <Panel title="Projekat">
-              {data.lead.project_id ? (
-                <p>
-                  <GoLink
-                    to={`?v=projekat&id=${data.lead.project_id}`}
-                    className="font-semibold underline decoration-red decoration-2 underline-offset-4 hover:text-red"
-                  >
+                {lead.project_id ? (
+                  <GoLink to={`?v=projekat&id=${lead.project_id}`} className={buttonClass}>
                     Otvori projekat
                   </GoLink>
-                </p>
-              ) : (
-                <div className="grid gap-4">
-                  <fieldset className="grid gap-2">
-                    <legend className="eyebrow mb-1 text-muted">Dogovoreni paket</legend>
-                    {PACKAGE_IDS.map((option) => (
-                      <label
-                        key={option}
-                        className="pick flex min-h-11 cursor-pointer items-center gap-3 border-2 border-line px-3 py-2 has-[:checked]:border-ink"
+                ) : (
+                  <div className="w-full sm:w-52 sm:shrink-0">
+                    <SelectField
+                      id="lead-status"
+                      label="Status"
+                      value={lead.status}
+                      options={STATUS_OPTIONS}
+                      disabled={busy !== null}
+                      onChange={(value) => {
+                        if (isSettable(value)) void changeStatus(value);
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+
+              {!lead.project_id && (
+                <Panel title="Napravi projekat">
+                  <div className="grid gap-4">
+                    <fieldset>
+                      <legend className="eyebrow mb-2 text-muted">Dogovoreni paket</legend>
+                      <div className="flex flex-wrap gap-2">
+                        {PACKAGE_IDS.map((option) => (
+                          <label
+                            key={option}
+                            className="pick flex min-h-11 cursor-pointer items-center gap-2.5 border-2 border-line bg-paper px-3 py-2 has-[:checked]:border-ink"
+                          >
+                            <input
+                              type="radio"
+                              name="convert-package"
+                              value={option}
+                              checked={packageId === option}
+                              onChange={() => setPackageId(option)}
+                              className="accent-red"
+                            />
+                            <span>{packageText(option)}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </fieldset>
+
+                    <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+                      <SelectField
+                        id="convert-trade"
+                        label="Djelatnost"
+                        value={trade}
+                        options={TRADE_OPTIONS}
+                        onChange={setTrade}
+                      />
+                      <button
+                        type="button"
+                        disabled={busy !== null}
+                        aria-busy={busy === "convert"}
+                        onClick={() => void convert()}
+                        className={primaryButtonClass}
                       >
-                        <input
-                          type="radio"
-                          name="convert-package"
-                          value={option}
-                          checked={packageId === option}
-                          onChange={() => setPackageId(option)}
-                          className="accent-red"
-                        />
-                        <span>{packageText(option)}</span>
-                      </label>
-                    ))}
-                  </fieldset>
+                        {busy === "convert" ? "Pravim…" : "Napravi projekat"}
+                      </button>
+                    </div>
 
-                  <SelectField
-                    id="convert-trade"
-                    label="Djelatnost"
-                    value={trade}
-                    options={TRADE_OPTIONS}
-                    onChange={setTrade}
-                    hint="Brief za izradu po njoj bira strukturu stranice. Može se promijeniti i kasnije na projektu."
-                  />
-
-                  <button
-                    type="button"
-                    disabled={busy !== null}
-                    aria-busy={busy === "convert"}
-                    onClick={() => void convert()}
-                    className={`${primaryButtonClass} justify-self-start`}
-                  >
-                    {busy === "convert" ? "Pravim…" : "Napravi projekat"}
-                  </button>
-
-                  <p className="text-sm leading-relaxed text-muted">
-                    Paket je ono što je već dogovoreno van sajta. Pravljenje projekta ništa ne
-                    naplaćuje i ne šalje ništa klijentu.
-                  </p>
-                </div>
+                    <p className="text-sm leading-relaxed text-muted">
+                      Ništa se ne naplaćuje i klijentu se ništa ne šalje. Djelatnost bira strukturu
+                      u briefu za izradu i mijenja se i kasnije.
+                    </p>
+                  </div>
+                </Panel>
               )}
-            </Panel>
 
-            <Panel title="Brisanje">
-              {data.lead.project_id ? (
-                <p className="leading-relaxed text-muted">
-                  Od ovog upita je napravljen projekat, pa se više ne briše — projekat bi ostao
-                  bez svog porijekla. Obrišite projekat ako treba da nestane i jedno i drugo.
-                </p>
-              ) : (
-                <>
-                  <p className="max-w-prose leading-relaxed text-muted">
-                    Trajno uklanja upit sa svim bilješkama i istorijom. Za spam, duplikat ili
-                    sopstveni test.
+              <Panel title="Kontakt">
+                <Facts>
+                  {lead.business_name && <Fact label="Osoba" value={lead.name} />}
+                  <Fact
+                    label="Email"
+                    value={
+                      <a href={`mailto:${lead.email}`} className={linkClass}>
+                        {lead.email}
+                      </a>
+                    }
+                  />
+                  <Fact
+                    label="Telefon"
+                    value={
+                      lead.phone ? (
+                        <a href={`tel:${lead.phone.replace(/\s/g, "")}`} className={linkClass}>
+                          {lead.phone}
+                        </a>
+                      ) : null
+                    }
+                  />
+                  {/* Free text on the public form — people type "@handle" as
+                      readily as a URL, so it is stored as typed. It becomes a
+                      link here only if it parses as http(s); anything else is
+                      shown as text, never as an href Vaky would click. */}
+                  {lead.link && (
+                    <Fact
+                      label="Instagram ili sajt"
+                      value={
+                        isValidUrl(lead.link) ? (
+                          <a
+                            href={normaliseUrl(lead.link)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`break-all ${linkClass}`}
+                          >
+                            {lead.link}
+                          </a>
+                        ) : (
+                          <span className="break-all">{lead.link}</span>
+                        )
+                      }
+                    />
+                  )}
+                  {lead.message && (
+                    <Fact
+                      label="Poruka"
+                      value={
+                        <span className="leading-relaxed whitespace-pre-line">{lead.message}</span>
+                      }
+                    />
+                  )}
+                </Facts>
+              </Panel>
+
+              <ConceptBrief leadId={id} />
+
+              {problem && <DataError code={problem} />}
+
+              <Notes
+                notes={data.notes}
+                onAdd={async (body) => {
+                  const answer = await addLeadNote(id, body);
+                  if (answer.ok) reload();
+                  return answer;
+                }}
+              />
+
+              <Panel title="Istorija" folded>
+                <Timeline rows={data.activity} />
+              </Panel>
+
+              {/* A lead that became a project is not deletable — the project
+                  would lose its origin. Deleting the project brings it back
+                  to "Ozbiljan upit", and the option with it. */}
+              {!lead.project_id && (
+                <Panel title="Brisanje" folded>
+                  <p className="text-sm leading-relaxed text-muted">
+                    Trajno briše upit sa bilješkama i istorijom. Za spam, duplikat ili test.
                   </p>
                   <HoldButton
                     label="Obriši upit"
@@ -293,26 +298,11 @@ export function LeadDetail({ id }: { id: string }) {
                     onConfirm={() => void remove()}
                     className="mt-3"
                   />
-                </>
+                </Panel>
               )}
-            </Panel>
-
-            {problem && <DataError code={problem} />}
-
-            <Notes
-              notes={data.notes}
-              onAdd={async (body) => {
-                const answer = await addLeadNote(id, body);
-                if (answer.ok) reload();
-                return answer;
-              }}
-            />
-
-            <Panel title="Istorija">
-              <Timeline rows={data.activity} />
-            </Panel>
-          </div>
-        )}
+            </div>
+          );
+        }}
       </AsyncView>
     </>
   );

@@ -35,7 +35,7 @@ export function Briefs({ projectId, briefs }: { projectId: string; briefs: reado
   return (
     <PromptBox
       title="Brief za izradu"
-      intro="Sve što znamo o projektu — odgovori iz upitnika, fajlovi, bilješke i pravila kuće — kao prompt za agenta koji gradi sajt. Generiši ponovo poslije svake nove bilješke ili fajla."
+      intro="Prompt za agenta koji gradi sajt: odgovori, fajlovi, bilješke i pravila kuće. Generiši ponovo poslije nove bilješke ili fajla."
       action="Generiši brief"
       busyLabel="Pišem…"
       content={fresh ?? saved?.content ?? null}

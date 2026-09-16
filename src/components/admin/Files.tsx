@@ -31,6 +31,9 @@ import {
  * written: the client's own logo and photos are material, and what the studio
  * put there is working copy. Anything the store does not mark as the client's
  * counts as the studio's, so a row can never quietly disappear from both.
+ *
+ * An empty pile is not drawn, and the upload form waits behind a button —
+ * most visits to this screen read files, few add one.
  */
 
 const ZONE_LABELS: Record<FileZone, string> = {
@@ -54,25 +57,40 @@ export function Files({
   files: readonly ProjectFileRow[];
   onChanged: () => void;
 }) {
+  const [adding, setAdding] = useState(false);
   const fromClient = files.filter((file) => file.source === "client");
   const fromStudio = files.filter((file) => file.source !== "client");
 
   return (
     <Panel title="Fajlovi">
       <div className="grid gap-6">
-        <FileGroup
-          title="Klijent poslao"
-          files={fromClient}
-          empty="Klijent još nije poslao nijedan fajl."
-          onChanged={onChanged}
-        />
-        <FileGroup
-          title="Vaky dodao"
-          files={fromStudio}
-          empty="Nema fajlova koje je studio dodao."
-          onChanged={onChanged}
-        />
-        <Upload projectId={projectId} onUploaded={onChanged} />
+        {files.length === 0 && <EmptyState>Nema fajlova.</EmptyState>}
+        {fromClient.length > 0 && (
+          <FileGroup title="Klijent poslao" files={fromClient} onChanged={onChanged} />
+        )}
+        {fromStudio.length > 0 && (
+          <FileGroup title="Vaky dodao" files={fromStudio} onChanged={onChanged} />
+        )}
+
+        <div>
+          <button
+            type="button"
+            aria-expanded={adding}
+            onClick={() => setAdding((open) => !open)}
+            className={buttonClass}
+          >
+            {adding ? "Zatvori" : "Dodaj fajl"}
+          </button>
+          {adding && (
+            <Upload
+              projectId={projectId}
+              onUploaded={() => {
+                setAdding(false);
+                onChanged();
+              }}
+            />
+          )}
+        </div>
       </div>
     </Panel>
   );
@@ -81,12 +99,10 @@ export function Files({
 function FileGroup({
   title,
   files,
-  empty,
   onChanged,
 }: {
   title: string;
   files: readonly ProjectFileRow[];
-  empty: string;
   onChanged: () => void;
 }) {
   const [busy, setBusy] = useState<string | null>(null);
@@ -105,38 +121,34 @@ function FileGroup({
     <section>
       <h3 className="border-b-2 border-line pb-1 text-base font-bold">{title}</h3>
 
-      {files.length === 0 ? (
-        <EmptyState>{empty}</EmptyState>
-      ) : (
-        <ul className="mt-2">
-          {files.map((file) => (
-            <li
-              key={file.id}
-              className="grid items-center gap-x-4 gap-y-2 border-b border-line py-3 md:grid-cols-[minmax(0,1fr)_7rem_5rem_auto]"
-            >
-              <span className="break-all">
-                <a
-                  href={fileHref(file.id)}
-                  className="font-semibold underline decoration-line underline-offset-4 hover:text-red"
-                >
-                  {file.original_name}
-                </a>
-                <span className="block text-xs text-muted">
-                  <When value={file.created_at} />
-                </span>
+      <ul className="mt-2">
+        {files.map((file) => (
+          <li
+            key={file.id}
+            className="grid items-center gap-x-4 gap-y-2 border-b border-line py-3 md:grid-cols-[minmax(0,1fr)_7rem_5rem_auto]"
+          >
+            <span className="break-all">
+              <a
+                href={fileHref(file.id)}
+                className="font-semibold underline decoration-line underline-offset-4 hover:text-red"
+              >
+                {file.original_name}
+              </a>
+              <span className="block text-xs text-muted">
+                <When value={file.created_at} />
               </span>
-              <span className="text-sm text-muted">{zoneText(file.zone)}</span>
-              <span className="tnum text-sm text-muted">{formatBytes(file.size_bytes)}</span>
-              <HoldButton
-                label="Obriši"
-                busy={busy === file.id}
-                onConfirm={() => void remove(file.id)}
-                className="justify-self-start"
-              />
-            </li>
-          ))}
-        </ul>
-      )}
+            </span>
+            <span className="text-sm text-muted">{zoneText(file.zone)}</span>
+            <span className="tnum text-sm text-muted">{formatBytes(file.size_bytes)}</span>
+            <HoldButton
+              label="Obriši"
+              busy={busy === file.id}
+              onConfirm={() => void remove(file.id)}
+              className="justify-self-start"
+            />
+          </li>
+        ))}
+      </ul>
 
       {code && <DataError code={code} />}
     </section>
@@ -185,7 +197,7 @@ function Upload({ projectId, onUploaded }: { projectId: string; onUploaded: () =
   }
 
   return (
-    <form onSubmit={submit} className="grid gap-4 border-2 border-ink p-4 sm:grid-cols-2">
+    <form onSubmit={submit} className="mt-4 grid gap-4 border-2 border-ink p-4 sm:grid-cols-2">
       <SelectField
         id="upload-zone"
         label="Gdje ide"

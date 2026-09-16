@@ -592,6 +592,20 @@ export type RecentActivityRow = ActivityRow & {
   project_name: string | null;
   lead_name: string | null;
   lead_business: string | null;
+  /** The project the lead became, if it did — so a lead and its project
+   *  count as one client on the overview. */
+  lead_project_id: string | null;
+};
+
+/** One thing on the overview that is waiting for the studio, not the client. */
+export type AttentionItem = {
+  kind: "lead_new" | "review" | "link_unopened" | "link_stalled";
+  /** Lead id for `lead_new`, project id for the rest. */
+  id: string;
+  name: string;
+  /** When it started waiting: the enquiry, the completed questionnaire, or
+   *  the last time the client touched the link. */
+  since: string;
 };
 
 export type Overview = {
@@ -600,39 +614,90 @@ export type Overview = {
   waitingOnClient: number;
   needsReview: number;
   building: number;
+  attention: AttentionItem[];
   recent: RecentActivityRow[];
 };
 
+/** A live link the client has not touched for this long is worth a nudge. */
+const STALE_LINK_DAYS = 3;
+
 export async function overview(db: D1Database): Promise<Overview> {
-  const [leads, active, waiting, review, building, recent] = await Promise.all([
-    db.prepare(`SELECT COUNT(*) AS n FROM leads WHERE status = 'new'`).first<{ n: number }>(),
-    db
-      .prepare(
-        `SELECT COUNT(*) AS n FROM projects
-         WHERE status NOT IN ('completed', 'cancelled')`,
-      )
-      .first<{ n: number }>(),
-    db
-      .prepare(
-        `SELECT COUNT(*) AS n FROM onboarding_requests
-         WHERE status IN ('created', 'opened', 'in_progress')`,
-      )
-      .first<{ n: number }>(),
-    db
-      .prepare(`SELECT COUNT(*) AS n FROM projects WHERE status = 'onboarding_completed'`)
-      .first<{ n: number }>(),
-    db.prepare(`SELECT COUNT(*) AS n FROM projects WHERE status = 'building'`).first<{ n: number }>(),
-    db
-      .prepare(
-        `SELECT a.*, p.business_name AS project_name, l.name AS lead_name,
-                l.business_name AS lead_business
-         FROM activity a
-         LEFT JOIN projects p ON p.id = a.project_id
-         LEFT JOIN leads l ON l.id = a.lead_id
-         ORDER BY a.id DESC LIMIT 15`,
-      )
-      .all<RecentActivityRow>(),
-  ]);
+  const [leads, active, waiting, review, building, newLeads, toReview, stale, recent] =
+    await Promise.all([
+      db.prepare(`SELECT COUNT(*) AS n FROM leads WHERE status = 'new'`).first<{ n: number }>(),
+      db
+        .prepare(
+          `SELECT COUNT(*) AS n FROM projects
+           WHERE status NOT IN ('completed', 'cancelled')`,
+        )
+        .first<{ n: number }>(),
+      db
+        .prepare(
+          `SELECT COUNT(*) AS n FROM onboarding_requests
+           WHERE status IN ('created', 'opened', 'in_progress')`,
+        )
+        .first<{ n: number }>(),
+      db
+        .prepare(`SELECT COUNT(*) AS n FROM projects WHERE status = 'onboarding_completed'`)
+        .first<{ n: number }>(),
+      db.prepare(`SELECT COUNT(*) AS n FROM projects WHERE status = 'building'`).first<{ n: number }>(),
+      db
+        .prepare(
+          `SELECT id, COALESCE(business_name, name) AS name, created_at AS since
+           FROM leads WHERE status = 'new' ORDER BY created_at DESC LIMIT 20`,
+        )
+        .all<{ id: string; name: string; since: string }>(),
+      db
+        .prepare(
+          `SELECT p.id, p.business_name AS name, COALESCE(r.completed_at, p.updated_at) AS since
+           FROM projects p
+           LEFT JOIN onboarding_requests r ON r.id = (
+             SELECT id FROM onboarding_requests
+             WHERE project_id = p.id AND status = 'completed'
+             ORDER BY completed_at DESC LIMIT 1
+           )
+           WHERE p.status = 'onboarding_completed'
+           ORDER BY since DESC LIMIT 20`,
+        )
+        .all<{ id: string; name: string; since: string }>(),
+      /* Only the newest link per project counts — a cancelled-and-replaced
+         link's silence is not the client's. */
+      db
+        .prepare(
+          `SELECT p.id, p.business_name AS name,
+                  COALESCE(r.last_activity_at, r.created_at) AS since,
+                  r.first_opened_at IS NOT NULL AS opened
+           FROM projects p
+           JOIN onboarding_requests r ON r.id = (
+             SELECT id FROM onboarding_requests
+             WHERE project_id = p.id ORDER BY created_at DESC LIMIT 1
+           )
+           WHERE r.status IN ('created', 'opened', 'in_progress')
+             AND COALESCE(r.last_activity_at, r.created_at) < datetime('now', ?1)
+           ORDER BY since ASC LIMIT 20`,
+        )
+        .bind(`-${STALE_LINK_DAYS} days`)
+        .all<{ id: string; name: string; since: string; opened: number }>(),
+      db
+        .prepare(
+          `SELECT a.*, p.business_name AS project_name, l.name AS lead_name,
+                  l.business_name AS lead_business, l.project_id AS lead_project_id
+           FROM activity a
+           LEFT JOIN projects p ON p.id = a.project_id
+           LEFT JOIN leads l ON l.id = a.lead_id
+           ORDER BY a.id DESC LIMIT 40`,
+        )
+        .all<RecentActivityRow>(),
+    ]);
+
+  const attention: AttentionItem[] = [
+    ...(newLeads.results ?? []).map((row) => ({ kind: "lead_new" as const, ...row })),
+    ...(toReview.results ?? []).map((row) => ({ kind: "review" as const, ...row })),
+    ...(stale.results ?? []).map(({ opened, ...row }) => ({
+      kind: opened ? ("link_stalled" as const) : ("link_unopened" as const),
+      ...row,
+    })),
+  ];
 
   return {
     newLeads: leads?.n ?? 0,
@@ -640,6 +705,7 @@ export async function overview(db: D1Database): Promise<Overview> {
     waitingOnClient: waiting?.n ?? 0,
     needsReview: review?.n ?? 0,
     building: building?.n ?? 0,
+    attention,
     recent: recent.results ?? [],
   };
 }
