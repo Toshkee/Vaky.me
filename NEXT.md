@@ -22,22 +22,17 @@ Bilješka za nastavak. Stanje na dan 16. septembra 2026. Repo je
 - `node scripts/workflow-check.mjs --reset` provjerava djelatnost, brief
   odmah poslije upitnika i njegove sekcije. Sve prolazi.
 
-## Prije deploya: migracija 0003 na produkciju
+## Migracija 0003 je na produkciji
 
-Kod piše kolonu `trade`. Bez migracije pravljenje, pretvaranje i čuvanje
-projekta u produkciji pucaju. Zato prvo:
-
-```bash
-npx wrangler d1 migrations apply vibelab-onboarding --remote -c <config sa pravim database_id>
-```
-
-Detalji u `docs/onboarding-setup.md`, sekcija "Applying the migrations".
-Postojećim projektima djelatnost se bira ručno na projektu.
+Primijenjena 16. septembra, poslije deploya. Do tad je prihvatanje upita u
+produkciji padalo sa "Nema veze sa serverom", jer kolona `trade` nije
+postojala. `wrangler d1 migrations list --remote` sad kaže da nema ništa za
+primijeniti. Postojećim projektima djelatnost se bira ručno na projektu.
 
 ## I dalje otvoreno
 
-- U produkcijskoj bazi je test upit **"Pekara Zlatno Zrno (TEST)"**. Obriši ga
-  iz dashboarda.
+- U produkcijskoj bazi su test upiti **"Pekara Zlatno Zrno (TEST)"** i
+  **"Frizerski salon Lana (TEST)"**. Obriši ih iz dashboarda.
 - Cloudflare: domeni `vibelab.it.com` i `www` su i dalje vezani za Pages
   projekat `vibelab`. Odluka: skinuti ih, zonu zadržati do isteka kod
   Namecheapa. (Nije rađeno, po dogovoru.)
