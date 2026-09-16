@@ -34,8 +34,15 @@ export const me = {
   },
 
   work: {
-    title: "Kako bi tvoj sajt mogao da izgleda",
-    sub: "Izaberi čime se baviš. Neki primjeri su sajtovi koji već rade uživo, ostali su koncepti napravljeni za konkretan biznis — otvori ih i probaj na svom telefonu.",
+    title: "Šta smo napravili",
+    /* Two halves, and the visitor is never left to work out which is which:
+       the sites running for real clients come first, on their own domains;
+       the concepts follow under their own heading. */
+    liveTitle: "Sajtovi uživo",
+    liveSub: "Rade za prave klijente, na svom domenu.",
+    conceptsTitle: "Koncepti za tvoju branšu",
+    conceptsSub:
+      "Napravljeni za konkretne biznise iz Crne Gore, da vidiš kako bi tvoj sajt mogao da izgleda. Otvori ih na telefonu.",
     /* The eyebrow above a project's name. A site that is live for a real
        client says so and prints its own domain; everything else is a
        concept and must never be presented as delivered work. */
@@ -279,53 +286,34 @@ export const me = {
   },
   process: {
     title: "Kako radimo",
-    sub: "Od prve poruke do sajta koji radi — cijeli put, korak po korak. Nema skrivenih faza i nema iznenađenja na kraju.",
+    sub: "Od prve poruke do sajta koji radi, bez skrivenih faza.",
     /* Every step here is a thing that actually happens in this codebase or
        in the studio's own routine: the lead form and dashboard, the free
        concept, the private onboarding link with its "Nisam siguran" option,
-       the build brief generated from the answers, the review round the
-       packages promise. Nothing is described that the site cannot do. */
-    windowTitle: "Od poruke do sajta — 8 koraka",
+       the review round the packages promise. Nothing is described that the
+       site cannot do. Payment terms and maintenance are said once each, in
+       the FAQ and under the prices. */
+    windowTitle: "Od poruke do sajta — 4 koraka",
     steps: [
       {
         when: "Dan 1",
         title: "Javiš se",
-        body: "Forma na sajtu, Instagram DM ili email — kako ti je lakše. Kažeš čime se baviš i šta ti treba. Obično odgovorimo istog dana.",
+        body: "Forma na sajtu, Instagram DM ili email — kako ti je lakše. Kažeš čime se baviš i šta ti treba, obično odgovorimo istog dana.",
       },
       {
         when: "Dan 1–2",
         title: "Besplatan koncept",
-        body: "Pogledamo tvoj biznis, Instagram i konkurenciju, pa napravimo prvu skicu sajta. Vidiš pravac dizajna prije nego što platiš i cent.",
-      },
-      {
-        when: "Dogovor",
-        title: "Paket i cijena",
-        body: "Biraš paket — Start, Biznis ili Projekat — i tačno znaš šta ulazi i koliko košta. Pola na početku, pola kad je sajt gotov. Preko sajta se ništa ne plaća.",
-      },
-      {
-        when: "5 minuta",
-        title: "Kratak upitnik",
-        body: "Dobiješ lični link. Pitamo o biznisu, ciljevima, izgledu i onome što sajt treba da radi — bez tehničkih izraza. Logo, fotografije i tekstove šalješ na istom mjestu, a gdje nisi siguran, klikneš „Nisam siguran“.",
-      },
-      {
-        when: "Iza kulisa",
-        title: "Iz odgovora nastaje brief",
-        body: "Tvoje odgovore i materijale pretvaramo u detaljan brief: struktura, ton, boje, šta sajt mora da radi. Iz njega pišemo uputstva i promptove samo za tvoj sajt — ne krećemo od šablona, zato dva naša sajta ne izgledaju isto.",
+        body: "Pogledamo tvoj biznis, Instagram i konkurenciju, pa napravimo prvu skicu sajta. Ako ti se sviđa, biraš paket i tek tada se dogovaramo o cijeni.",
       },
       {
         when: "Dan 3–9",
         title: "Izrada",
-        body: "Dizajn, tekst, fotografije i tehnika. Sajt se pravi prvo za telefon, brz je i spreman za Google. Ti se baviš svojim poslom.",
-      },
-      {
-        when: "Pregled",
-        title: "Ti pregledaš",
-        body: "Dobiješ link na gotov sajt. Skupiš primjedbe, pošalješ ih odjednom i uradimo ih u jednom krugu — Biznis ima dva.",
+        body: "Kroz kratak upitnik nam pošalješ logo, fotografije i tekst — gdje nisi siguran, klikneš „Nisam siguran“. Iz toga nastaje brief samo za tvoj sajt, pa dizajn i tehnika: prvo za telefon, brz i spreman za Google. Na kraju pregledaš i pošalješ primjedbe odjednom.",
       },
       {
         when: "Do 10. dana",
         title: "Online",
-        body: "Sajt radi na tvom domenu i sve je tvoje. Ako ne želiš da misliš o tehnici, hosting, backup i sitne izmjene preuzimamo mi — €20 mjesečno, prvi mjesec gratis.",
+        body: "Sajt radi na tvom domenu i sve je tvoje. Ako ne želiš da misliš o tehnici, hosting i sitne izmjene možemo preuzeti mi.",
       },
     ],
   },
@@ -519,7 +507,7 @@ export const me = {
 
   contact: {
     title: "Spreman za novi sajt?",
-    sub: "Ostavi par podataka — dobijaš besplatan koncept, pa se dogovaramo oko obima i cijene. Obično odgovorimo istog dana.",
+    sub: "Ostavi par podataka, ili nam piši direktno — kako ti je lakše.",
     /* The right-hand column of the contact window: the other ways in, and
        what happens after the visitor writes. */
     direct: {
@@ -532,7 +520,7 @@ export const me = {
       points: [
         "Odgovorimo isti dan, najkasnije sjutra.",
         "Dobiješ besplatan koncept — skicu sajta prije bilo kakve odluke.",
-        "Dogovorimo paket i cijenu. Preko sajta se ništa ne plaća.",
+        "Dogovorimo paket i cijenu.",
       ],
     },
     prefill: "Zdravo! Zanima me sajt za moj biznis. Možemo li da se čujemo oko ponude?",
@@ -576,13 +564,13 @@ export const me = {
       submitInstagram: "Otvori Instagram DM",
       submitInstagramCopied: "Poruka kopirana — otvori Instagram",
       copied: "Poruka je kopirana — samo je nalijepi u Instagram DM.",
-      note: "Preko sajta se ništa ne plaća. Prvo se dogovorimo, pa onda radimo.",
+      note: "Bez obaveze — kad odgovorimo, ti odlučuješ kako dalje.",
       emailFallbackAction: "Pošalji email umjesto toga",
       /* {link} is replaced with whatever the visitor typed */
       prefill: "Zdravo! Ovo je moj biznis: {link} — može ponuda za sajt?",
       /* Vaky's speech bubble beside the form. Split so the offer can be set
          in red without concatenating sentences in the component. */
-      bubble: { pre: "Prvo dobijaš", em: "besplatan koncept", post: ", pa se dogovaramo." },
+      bubble: { pre: "Kaži čime se baviš, ", em: "ostalo", post: " je na nama." },
     },
   },
 

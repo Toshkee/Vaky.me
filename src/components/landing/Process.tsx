@@ -1,36 +1,22 @@
 import type { ReactNode } from "react";
 import type { Dictionary } from "@/i18n";
 import { PixelWindow } from "@/components/ui/PixelWindow";
-import {
-  BubbleIcon,
-  CheckIcon,
-  DocIcon,
-  EuroIcon,
-  FlagIcon,
-  FolderIcon,
-  HammerIcon,
-  RocketIcon,
-  SparkleIcon,
-} from "./icons";
+import { BubbleIcon, FlagIcon, HammerIcon, RocketIcon, SparkleIcon } from "./icons";
 import { SectionHead } from "./SectionHead";
 
 /**
- * The whole road from the first message to a live site, as one list.
+ * The road from the first message to a live site, as one short list.
  *
- * It used to be a stage select — eight stations, one shown at a time — and
- * nobody pressed "next" seven times. Now every step is on the page: number,
- * when it happens, what it is, what goes on. A reader skims the eight
- * titles in a glance and reads the one line they care about; nothing has to
- * be clicked, nothing animates, and a search engine sees all of it.
+ * Four steps, all on the page: when it happens, what it is, what goes on.
+ * It was eight once — the questionnaire, the brief, the review each had a
+ * station — and nobody hires a studio for its internal stages. Those live
+ * inside "Izrada" now. A reader skims four titles in a glance, nothing has
+ * to be clicked, and a search engine sees all of it.
  */
 const STEP_ICONS: ReactNode[] = [
   <BubbleIcon key="bubble" className="w-full" />,
   <SparkleIcon key="sparkle" className="w-full" />,
-  <EuroIcon key="euro" className="w-full" />,
-  <DocIcon key="doc" className="w-full" />,
-  <FolderIcon key="folder" className="w-full" />,
   <HammerIcon key="hammer" className="w-full" />,
-  <CheckIcon key="check" className="w-full" />,
   <RocketIcon key="rocket" className="w-full" />,
 ];
 
@@ -51,9 +37,8 @@ export function Process({ dict }: { dict: Dictionary }) {
                 className="grid grid-cols-[3rem_1fr] gap-x-4 px-5 py-5 sm:grid-cols-[3.5rem_1fr] sm:gap-x-6 sm:px-7"
               >
                 {/* The step's own pixel icon on a tile: a message, a spark,
-                    a euro, a form, a folder, a hammer, a tick, a rocket. The
-                    list is ordered already; a number on top would say the
-                    same thing twice. */}
+                    a hammer, a rocket. The list is ordered already; a number
+                    on top would say the same thing twice. */}
                 <span
                   aria-hidden="true"
                   className="flex h-12 w-12 items-center justify-center border-2 border-ink bg-paper text-ink sm:h-14 sm:w-14"

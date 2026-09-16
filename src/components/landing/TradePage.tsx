@@ -6,7 +6,7 @@ import { Nav } from "./Nav";
 import { Contact } from "./Contact";
 import { Footer } from "./Footer";
 import { SectionHead } from "./SectionHead";
-import { ProjectPhone } from "./ProjectPhone";
+import { ProjectCase } from "./ProjectCase";
 import { ArrowIcon, CheckIcon, EuroIcon, FolderIcon } from "./icons";
 
 export type TradeKey = keyof Dictionary["trades"]["items"];
@@ -16,8 +16,6 @@ export function tradePath(dict: Dictionary, key: TradeKey): string {
   const base = dict.lang === "en" ? "/en/" : "/";
   return `${base}${dict.trades.items[key].slug}/`;
 }
-
-const isLive = (href: string) => href.startsWith("https://");
 
 /**
  * The landing page answered for one kind of business. Same masthead, same
@@ -71,52 +69,9 @@ export function TradePage({ dict, tradeKey }: { dict: Dictionary; tradeKey: Trad
             <p className="mt-3 max-w-lg text-muted">{dict.trades.examplesSub}</p>
 
             <div className="mt-8 grid gap-14 sm:mt-10">
-              {projects.map((item) => {
-                const live = isLive(item.href);
-                const open = live ? dict.work.openLive : dict.work.open;
-                return (
-                  <article
-                    key={item.slug}
-                    className="grid gap-8 sm:grid-cols-[auto_1fr] sm:items-center sm:gap-10 lg:gap-16"
-                  >
-                    <ProjectPhone
-                      href={item.href}
-                      live={live}
-                      label={`${open}: ${item.name}${live ? ` (${dict.work.newTab})` : ""}`}
-                      slug={item.slug}
-                      alt={dict.work.phoneAlt.replace("{name}", item.name)}
-                      className="justify-self-center sm:justify-self-start"
-                    />
-                    <div>
-                      <p className="eyebrow text-red">
-                        {live ? dict.work.liveLabel : dict.work.conceptLabel}
-                        <span aria-hidden="true" className="text-muted"> · </span>
-                        <span className="text-muted">{item.tag}</span>
-                      </p>
-                      <h3 className="headline mt-2 text-2xl sm:text-3xl">{item.name}</h3>
-                      <dl className="mt-5 grid max-w-md gap-x-5 gap-y-1 border-t-2 border-ink pt-4 text-sm leading-snug sm:grid-cols-[5.5rem_1fr] sm:gap-y-3">
-                        <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.briefLabel}</dt>
-                        <dd className="mb-3 sm:mb-0">{item.brief}</dd>
-                        <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.solutionLabel}</dt>
-                        <dd className="mb-3 sm:mb-0">{item.solution}</dd>
-                        <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.includesLabel}</dt>
-                        <dd className="text-muted">{item.includes.join(" · ")}</dd>
-                      </dl>
-                      <Button
-                        href={item.href}
-                        external={live}
-                        variant="secondary"
-                        arrow
-                        event="portfolio_demo_opened"
-                        className="mt-7"
-                      >
-                        {open}
-                        {live && <span className="sr-only"> ({dict.work.newTab})</span>}
-                      </Button>
-                    </div>
-                  </article>
-                );
-              })}
+              {projects.map((item) => (
+                <ProjectCase key={item.slug} project={item} dict={dict} />
+              ))}
             </div>
           </div>
         </section>

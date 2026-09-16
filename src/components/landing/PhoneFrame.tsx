@@ -1,4 +1,6 @@
-import type { ReactNode, Ref } from "react";
+"use client";
+
+import { useState, type ReactNode, type Ref } from "react";
 import Link from "next/link";
 
 /**
@@ -11,16 +13,28 @@ import Link from "next/link";
  * a phone on a real phone is worse than opening it. Captures are regenerated
  * with `node scripts/capture-phone-shots.mjs` against a running dev server.
  *
+ * When `slug` changes, the new capture is fetched behind the one on screen
+ * and swapped in once it has arrived. A visitor switching trades keeps
+ * looking at the last phone until the next is ready, never at an empty one.
+ *
  * `screenRef` and `screenClassName` let the caller attach the in-view scroll
  * animation (`is-live`, see globals.css); `children` is for anything that
  * belongs on the screen but is not shown, such as captures being warmed.
  */
+/* `small` shrinks to its column — two of them share a phone screen — and
+   never grows past a hand-sized phone. */
+const SIZES = {
+  default: "w-[16.5rem] sm:w-[18rem]",
+  small: "w-full max-w-[15rem]",
+} as const;
+
 export function PhoneFrame({
   href,
   live,
   label,
   slug,
   alt,
+  size = "default",
   screenRef,
   screenClassName = "",
   className = "",
@@ -33,11 +47,23 @@ export function PhoneFrame({
   label: string;
   slug: string;
   alt: string;
+  size?: keyof typeof SIZES;
   screenRef?: Ref<HTMLDivElement>;
   screenClassName?: string;
   className?: string;
   children?: ReactNode;
 }) {
+  /* The capture painted on the screen right now. It trails `slug` by exactly
+     the time the next picture takes to arrive. */
+  const [shown, setShown] = useState(slug);
+  const pending = shown !== slug;
+
+  /* `onLoad` covers the network; the ref covers a capture already in the
+     cache, which can be complete before any listener hears about it. */
+  const arrived = (node: HTMLImageElement | null) => {
+    if (node && node.complete && node.naturalWidth > 0) setShown(slug);
+  };
+
   return (
     <Link
       href={href}
@@ -45,7 +71,7 @@ export function PhoneFrame({
       aria-label={label}
       data-umami-event="portfolio_demo_opened"
       data-umami-event-demo={slug}
-      className={`group block w-[16.5rem] transition-transform duration-100 hover:-translate-y-0.5 active:translate-x-1 active:translate-y-1 motion-reduce:transition-none sm:w-[18rem] ${className}`}
+      className={`group block transition-transform duration-100 hover:-translate-y-0.5 active:translate-x-1 active:translate-y-1 motion-reduce:transition-none ${SIZES[size]} ${className}`}
     >
       <div className="px-frame">
         <div className="px-notch relative bg-ink px-[3px] pt-6 pb-5">
@@ -54,16 +80,23 @@ export function PhoneFrame({
             ref={screenRef}
             className={`phone-screen px-notch aspect-[9/17] overflow-hidden bg-paper-2 ${screenClassName}`}
           >
-            <picture>
+            {pending && (
+              <picture>
+                <source type="image/avif" srcSet={`/work/${shown}-phone.avif`} />
+                <img src={`/work/${shown}-phone.webp`} alt="" width={780} className="phone-page" />
+              </picture>
+            )}
+            <picture key={slug}>
               <source type="image/avif" srcSet={`/work/${slug}-phone.avif`} />
               <img
-                key={slug}
+                ref={arrived}
                 src={`/work/${slug}-phone.webp`}
                 alt={alt}
                 width={780}
-                loading="lazy"
+                loading={pending ? "eager" : "lazy"}
                 decoding="async"
-                className="phone-page"
+                onLoad={() => setShown(slug)}
+                className={pending ? "phone-page absolute inset-0 opacity-0" : "phone-page"}
               />
             </picture>
             {children}

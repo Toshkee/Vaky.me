@@ -30,7 +30,7 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
 
   return (
     <>
-      <div className="mt-9 grid items-start gap-6 lg:mt-12 lg:grid-cols-3">
+      <div className="mt-9 grid gap-6 lg:mt-12 lg:grid-cols-3">
         {plans.map((plan, index) => {
           const featured = Boolean(plan.badge);
           return (

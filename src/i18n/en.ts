@@ -28,8 +28,12 @@ export const en: Dictionary = {
   },
 
   work: {
-    title: "What your site could look like",
-    sub: "Pick what you do. Some of these are sites already running live, the rest are concepts built for a specific business — open them and try them on your own phone.",
+    title: "What we have made",
+    liveTitle: "Live sites",
+    liveSub: "Running for real clients, on their own domains.",
+    conceptsTitle: "Concepts for your trade",
+    conceptsSub:
+      "Built for specific businesses in Montenegro, so you can see what your site could look like. Open them on your phone.",
     liveLabel: "Live site",
     conceptLabel: "Design concept",
     briefLabel: "Brief",
@@ -259,48 +263,28 @@ export const en: Dictionary = {
   },
   process: {
     title: "How we work",
-    sub: "From the first message to a site that works — the whole road, step by step. No hidden phases and no surprises at the end.",
-    windowTitle: "From message to site — 8 steps",
+    sub: "From the first message to a site that works, with no hidden phases.",
+    windowTitle: "From message to site — 4 steps",
     steps: [
       {
         when: "Day 1",
         title: "You reach out",
-        body: "The form on this site, an Instagram DM or an email — whatever is easiest. Tell us what your business does and what you need. We usually reply the same day.",
+        body: "The form on this site, an Instagram DM or an email — whatever is easiest. Tell us what your business does and what you need; we usually reply the same day.",
       },
       {
         when: "Day 1–2",
         title: "Free concept",
-        body: "We look at your business, your Instagram and your competition, then sketch the first version of your site. You see the design direction before you pay a cent.",
-      },
-      {
-        when: "Agreement",
-        title: "Package and price",
-        body: "You pick a package — Start, Business or Project — and know exactly what is in it and what it costs. Half up front, half when the site is done. Nothing is paid through the site.",
-      },
-      {
-        when: "5 minutes",
-        title: "A short questionnaire",
-        body: "You get a personal link. We ask about your business, your goals, the look and what the site has to do — no technical terms. Your logo, photos and texts go in the same place, and wherever you are unsure, you tap \"Not sure\".",
-      },
-      {
-        when: "Backstage",
-        title: "Your answers become a brief",
-        body: "We turn your answers and materials into a detailed brief: structure, tone, colours, what the site must do. From it we write instructions and prompts for your site alone — we never start from a template, which is why no two of our sites look alike.",
+        body: "We look at your business, your Instagram and your competition, then sketch the first version of your site. If you like it, you pick a package and only then do we agree on a price.",
       },
       {
         when: "Day 3–9",
         title: "We build",
-        body: "Design, copy, photos and the technical work. The site is built for the phone first, loads fast and is ready for Google. You focus on your business.",
-      },
-      {
-        when: "Review",
-        title: "You review",
-        body: "You get a link to the finished site. Collect your notes, send them in one go and we work through them in a single round — Business gets two.",
+        body: "Through a short questionnaire you send us your logo, photos and text — wherever you are unsure, you tap \"Not sure\". From that comes a brief for your site alone, then the design and the technical work: phone first, fast and ready for Google. At the end you review and send your notes in one go.",
       },
       {
         when: "By day 10",
         title: "Live",
-        body: "The site runs on your domain and all of it is yours. If you would rather not think about the technical side, we take over hosting, backups and small edits — €20 a month, first month free.",
+        body: "The site runs on your domain and all of it is yours. If you would rather not think about the technical side, we can take over hosting and small edits.",
       },
     ],
   },
@@ -486,7 +470,7 @@ export const en: Dictionary = {
 
   contact: {
     title: "Ready for a new website?",
-    sub: "Leave a few details — you get a free concept, then we agree on scope and price. We usually reply the same day.",
+    sub: "Leave a few details, or write to us directly — whichever is easier.",
     direct: {
       title: "Or write directly",
       whatsapp: "WhatsApp",
@@ -497,7 +481,7 @@ export const en: Dictionary = {
       points: [
         "We reply the same day, tomorrow at the latest.",
         "You get a free concept — a sketch of the site before any decision.",
-        "We agree on a package and a price. Nothing is paid through the site.",
+        "We agree on a package and a price.",
       ],
     },
     prefill: "Hi! I'm interested in a website for my business. Could we talk about a quote?",
@@ -537,10 +521,10 @@ export const en: Dictionary = {
       submitInstagram: "Open Instagram DM",
       submitInstagramCopied: "Message copied — open Instagram",
       copied: "Message copied — just paste it into the Instagram DM.",
-      note: "Nothing is paid through the site. We agree on the work first, then build.",
+      note: "No commitment — once we reply, you decide how to go on.",
       emailFallbackAction: "Send an email instead",
       prefill: "Hi! This is my business: {link} — could I get a quote for a website?",
-      bubble: { pre: "You get a", em: "free concept", post: " first, then we talk." },
+      bubble: { pre: "Tell us what you do — ", em: "the rest", post: " is on us." },
     },
   },
 
