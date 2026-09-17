@@ -645,7 +645,8 @@ export function isStyleId(value: unknown): value is StyleId {
 /** How every Vaky site is built and delivered, unless the brief says the
  *  package requires more. */
 export const STACK: readonly string[] = [
-  "TypeScript and Next.js (App Router) with `output: \"export\"` — a static site with no server runtime. If a section of this brief requires a backend (a booking flow, a shop, a form), implement it as Cloudflare Pages Functions and say so in the handover; do not add a server for anything else.",
+  "React — the latest stable release — written in TypeScript, on Next.js (App Router) with `output: \"export\"`: a static site with no server runtime. Every Vaky site is React; do not substitute another framework, plain HTML, or a template engine. If a section of this brief requires a backend (a booking flow, a shop, a form), implement it as Cloudflare Pages Functions and say so in the handover; do not add a server for anything else.",
+  "Components are Server Components by default; `\"use client\"` only on the leaves that genuinely need state or browser APIs — a menu toggle, a gallery, a form. No class components, no legacy patterns (`useEffect` for derived values, manual memoisation everywhere), no `any`.",
   "Tailwind CSS with the design tokens declared once in `globals.css` — colours, type scale, spacing, radius. Components use the tokens; no arbitrary values scattered through class lists.",
   "Fonts through `next/font` — self-hosted, `display: swap`, at most two families, subset to the characters the site uses (Latin Extended for Montenegrin).",
   "Images: source files from the assets folder, exported as AVIF and WebP at several widths by a build script (sharp), served through `<picture>` with explicit `width` and `height`. The hero image eager with `fetchpriority=\"high\"`, everything below the fold `loading=\"lazy\"`. No image served larger than its largest rendered size.",

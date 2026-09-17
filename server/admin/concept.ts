@@ -100,7 +100,7 @@ export function generateConceptBrief({ lead, notes }: ConceptData): string {
     "1. **Three design directions**, each with a name, one paragraph on why it fits this business and its customers, a type pairing, a palette of at most four colours, and a sketch of the hero in words. Recommend one and say why.",
     "2. **The page**, for the recommended direction: one scrolling page, section by section, in order. For every section say what customer question it answers (what do you offer, how much, where, when, how do I book or order, why should I trust you) — a section that answers none is cut.",
     "3. **Tone and three sample headlines**, in the language the client wrote in. Short, specific to this business, no agency phrases.",
-    "4. **A working prototype** of that page as a single HTML file, built for a 390px phone first and presentable on a laptop. Real copy where the research supports it, clearly marked placeholders where it does not. No JavaScript beyond what a menu or a gallery genuinely needs.",
+    "4. **A working prototype** of that page as a small React project: the latest stable React in TypeScript, Next.js (App Router) with `output: \"export\"`, Tailwind — the same stack every Vaky site is built on, so a concept the client likes becomes the start of the build rather than a throwaway. Server Components by default, `\"use client\"` only where a menu or a gallery needs it. Built for a 390px phone first and presentable on a laptop. Real copy where the research supports it, clearly marked placeholders where it does not.",
     "5. **Questions for the client** — at most five, only the ones whose answer would change the design.",
     "6. **What to ask for** before a build could start: logo, photos, price list, texts — as a short list Vaky can forward.",
     "",
@@ -120,7 +120,7 @@ export function generateConceptBrief({ lead, notes }: ConceptData): string {
     "",
     "## Deliver",
     "",
-    "The write-up (directions, page plan, headlines, questions, asset list) as one Markdown document, and the prototype as one HTML file. Keep the write-up short enough to read on a phone — Vaky will paste parts of it into a chat with the client.",
+    "The write-up (directions, page plan, headlines, questions, asset list) as one Markdown document, and the prototype as a runnable React project (`npm run dev` shows it, `npm run build` exports it) with a one-line README on how to start it. Keep the write-up short enough to read on a phone — Vaky will paste parts of it into a chat with the client.",
   ];
 
   return parts.join("\n");
