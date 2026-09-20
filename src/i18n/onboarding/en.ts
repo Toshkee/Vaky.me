@@ -81,6 +81,7 @@ export const en: OnboardingCopy = {
     draftNote: "Your answers are saved on this device until you send them.",
     errorSummary: "Please check the highlighted fields.",
     home: "vaky.me",
+    skip: "Skip to the question",
     packageNotes: {
       start: "Your site is one scrolling page — here we choose what goes on it.",
       business: "Your package covers up to five separate pages.",

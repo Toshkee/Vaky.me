@@ -17,6 +17,7 @@ import {
   studio,
 } from "./data";
 import styles from "./slz.module.css";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 /* Two families with one job each, and the split is the page's typographic
    idea: the serif speaks, the sans lists. Gilda Display — a single 400 weight,
@@ -140,7 +141,8 @@ export default function StudioLjepoteZdravljaPage() {
     <div
       className={`${styles.page} ${display.variable} ${sans.variable} min-h-screen bg-[var(--slz-ivory)] text-[var(--slz-cacao)] [font-family:var(--font-slz-sans),system-ui,sans-serif]`}
     >
-      <VakyBar />
+      <SkipLink href="#vrh">Preskoči na sadržaj</SkipLink>
+    <VakyBar />
 
       {/* A nameplate, not a navigation bar. Nothing here scrolls with the page
           and nothing here is a control: on a one-page concept a sticky header
@@ -152,7 +154,7 @@ export default function StudioLjepoteZdravljaPage() {
         </div>
       </header>
 
-      <main>
+      <main id="vrh" tabIndex={-1} className="focus:outline-none">
         {/* The first screen: the sentence, the two ways forward, and then the
             plate — cropped by its own box and running off the right edge of
             the page, which is the one broken container here. A second one

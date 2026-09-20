@@ -34,6 +34,7 @@ import {
   type QuestionId,
   type StepId,
 } from "@/lib/onboarding/schema";
+import { Checking } from "./Checking";
 import { LanguageGate, LinkProblem, ResumeCard } from "./Gate";
 import { ReviewStep } from "./ReviewStep";
 import { Shell } from "./Shell";
@@ -377,28 +378,18 @@ export function Onboarding({
 
   if (phase === "loading") {
     return shell(
-      <PixelWindow title="VAKY OS">
-        <div className="p-5 sm:p-8">
-          <div className="vaky-ground flex items-end gap-3">
-            <Vaky direction="right" pose="work" scale={0.24} />
-            <p role="status" className="mb-2 text-lg font-semibold">
-              {apiError ? copy.errors.api[apiError] : copy.privateLink.checking}
-            </p>
-          </div>
-          {apiError && (
-            <button
-              type="button"
-              onClick={() => {
+      <Checking
+        copy={copy}
+        message={apiError ? copy.errors.api[apiError] : copy.privateLink.checking}
+        onRetry={
+          apiError
+            ? () => {
                 setApiError(null);
                 setAttempt((current) => current + 1);
-              }}
-              className="px px-btn mt-5 inline-flex min-h-12 items-center bg-paper px-5 py-3 text-[1.0625rem] text-ink transition-colors hover:text-red"
-            >
-              {copy.upload.retry}
-            </button>
-          )}
-        </div>
-      </PixelWindow>,
+              }
+            : undefined
+        }
+      />,
     );
   }
 

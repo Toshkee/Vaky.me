@@ -16,6 +16,7 @@ import {
 import {
   HoldButton,
   DataError,
+  Disclosure,
   EmptyState,
   Panel,
   SelectField,
@@ -73,15 +74,13 @@ export function Files({
         )}
 
         <div>
-          <button
-            type="button"
-            aria-expanded={adding}
-            onClick={() => setAdding((open) => !open)}
-            className={buttonClass}
+          <Disclosure
+            id="add-file"
+            open={adding}
+            onToggle={() => setAdding((open) => !open)}
+            label="Dodaj fajl"
+            closeLabel="Zatvori"
           >
-            {adding ? "Zatvori" : "Dodaj fajl"}
-          </button>
-          {adding && (
             <Upload
               projectId={projectId}
               onUploaded={() => {
@@ -89,7 +88,7 @@ export function Files({
                 onChanged();
               }}
             />
-          )}
+          </Disclosure>
         </div>
       </div>
     </Panel>

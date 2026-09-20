@@ -7,6 +7,7 @@ import { VakyBar } from "@/components/demo/VakyBar";
 import { CalendarIcon, InstagramIcon } from "@/components/demo/ContactIcons";
 import { bookingSteps, hero, lookbook, services, studio, trustLine } from "./data";
 import styles from "./lav.module.css";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 /* Tenor Sans is a single weight with wide, open letterforms — it works set
    large and tracked out, and nowhere else, which is exactly what a lookbook
@@ -43,7 +44,8 @@ export default function LavLavPage() {
     <div
       className={`${styles.page} ${tenor.variable} ${sans.variable} min-h-screen bg-[var(--lav-cream)] pb-[calc(5rem+env(safe-area-inset-bottom))] text-[var(--lav-ink)] [font-family:var(--font-lav-sans),system-ui,sans-serif] md:pb-0`}
     >
-      <VakyBar />
+      <SkipLink href="#vrh">Preskoči na sadržaj</SkipLink>
+    <VakyBar />
 
       <header className="border-b border-[var(--lav-line)]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-5 py-4 sm:px-8">
@@ -86,7 +88,7 @@ export default function LavLavPage() {
         </div>
       </header>
 
-      <main id="vrh">
+      <main id="vrh" tabIndex={-1} className="focus:outline-none">
         <section className="relative isolate mx-auto grid max-w-6xl overflow-hidden pb-0 sm:mx-8 sm:mt-10 sm:border sm:border-[var(--lav-line)] lg:mx-auto lg:mt-0 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:overflow-visible lg:border-0 lg:px-8 lg:pb-16 lg:pt-16">
           <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-24 text-white sm:px-8 sm:pb-24 md:pb-10 lg:static lg:order-1 lg:px-0 lg:pb-0 lg:text-[var(--lav-ink)]">
             <p className={`${label} mb-4 text-white/80 lg:text-[var(--lav-red)]`}>

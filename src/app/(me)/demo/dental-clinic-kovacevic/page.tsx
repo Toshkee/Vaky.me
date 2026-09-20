@@ -6,6 +6,7 @@ import { DemoPhoto } from "@/components/demo/DemoPhoto";
 import { VakyBar } from "@/components/demo/VakyBar";
 import { clinic, fields, photos, steps, team } from "./data";
 import styles from "./dental.module.css";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 /* One superfamily, both halves of it. Source Serif 4 sets every heading, the
    place names and the figure captions; its italic is the page's only change of
@@ -104,7 +105,8 @@ export default function DentalClinicKovacevicPage() {
     <div
       className={`${styles.page} ${serifFont.variable} ${sansFont.variable} min-h-screen bg-[var(--dent-mineral)] text-[var(--dent-navy)] [font-family:var(--font-dent-sans),system-ui,sans-serif]`}
     >
-      <VakyBar />
+      <SkipLink href="#vrh">Preskoči na sadržaj</SkipLink>
+    <VakyBar />
 
       {/* Two-row masthead. The name and the two places sit on the first line the
           way a report prints its title and its place of issue; the contents bar
@@ -135,7 +137,7 @@ export default function DentalClinicKovacevicPage() {
         </nav>
       </header>
 
-      <main id="vrh">
+      <main id="vrh" tabIndex={-1} className="focus:outline-none">
         {/* Title page: no photograph, no badge, no card. A kicker in the margin,
             three lines of type, the trace, and the standing details — in the
             order a printed report puts them. */}

@@ -9,6 +9,7 @@ import { isValidEmail, isValidPhone } from "@/lib/onboarding/schema";
 import { LEAD_NEEDS, type LeadNeed } from "@/lib/workflow";
 import { OsBadge } from "@/components/ui/OsBadge";
 import { PixelWindow } from "@/components/ui/PixelWindow";
+import { useAutoGrow } from "@/components/ui/useAutoGrow";
 import { Vaky } from "@/components/mascot/Vaky";
 import { BubbleIcon, CheckIcon, SparkleIcon } from "./icons";
 import { SectionHead } from "./SectionHead";
@@ -54,6 +55,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
   const [started, setStarted] = useState(false);
   const [jump, setJump] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const messageRef = useAutoGrow(message);
   const c = dict.contact.lead;
   const d = dict.contact;
 
@@ -96,14 +98,24 @@ export function Contact({ dict }: { dict: Dictionary }) {
     };
   }
 
+  /* The same move the brief makes when a step fails (see `focusProblem` in
+     src/components/onboarding/Onboarding.tsx): put the caret on the field that
+     has to change. Without it the status line updates three elements away and
+     a screen-reader or switch user is told something is wrong but not what. */
+  function focusProblem(id: string) {
+    document.getElementById(id)?.focus();
+  }
+
   async function submit(event: React.FormEvent) {
     event.preventDefault();
     if (!valid) {
       setStatus("invalid");
+      focusProblem(name.trim().length < 2 ? "lead-name" : "lead-email");
       return;
     }
     if (phone.trim() && !isValidPhone(phone.trim())) {
       setStatus("phone");
+      focusProblem("lead-phone");
       return;
     }
     if (trap) return; // a bot filled the hidden field; drop it silently
@@ -226,9 +238,23 @@ export function Contact({ dict }: { dict: Dictionary }) {
      or number beside it in grey. Full-width so the whole row is the target. */
   const directButton =
     "px px-btn flex min-h-12 items-center justify-between gap-3 bg-paper px-4 py-2.5 text-[1.0625rem] text-ink transition-colors hover:text-red";
+  /* Split the way the brief's fields are (src/components/onboarding/Field.tsx):
+     a field that failed keeps its red border while focused, so tabbing into
+     the very field you were asked to fix does not repaint it as fine. */
   const field =
-    "mt-1.5 block w-full border-2 border-line bg-paper-2 px-3 py-2.5 text-lg transition-colors placeholder:text-muted focus:border-ink focus:outline-none";
+    "mt-1.5 block w-full border-2 bg-paper-2 px-3 py-2.5 text-lg transition-colors placeholder:text-muted focus:outline-none";
+  const fieldEdge = (invalid: boolean) =>
+    invalid ? "border-red focus:border-red" : "border-line focus:border-ink";
   const fieldLabel = "eyebrow text-muted";
+
+  /* Which field the current status is actually about. `invalid` covers both
+     required fields at once, so each is checked on its own rather than
+     reddening the pair and making the visitor guess which one is wrong. */
+  const problem = {
+    name: status === "invalid" && name.trim().length < 2,
+    email: status === "invalid" && !isValidEmail(email.trim()),
+    phone: status === "phone",
+  };
 
   const say = "px-say w-40 px-3 py-2 text-center text-sm font-semibold leading-snug";
   const bubbleLine = (
@@ -252,6 +278,8 @@ export function Contact({ dict }: { dict: Dictionary }) {
       inputMode?: "email" | "tel" | "url";
       autoComplete?: string;
       required?: boolean;
+      /** True when the status line below is about this field. */
+      invalid?: boolean;
     },
   ) => (
     <div>
@@ -270,6 +298,11 @@ export function Contact({ dict }: { dict: Dictionary }) {
         autoCorrect="off"
         spellCheck={false}
         value={value}
+        aria-invalid={extra.invalid || undefined}
+        /* Only the field the message is about points at it — describing every
+           field with the same sentence would say "check name and email" while
+           the caret sits on the phone number. */
+        aria-describedby={extra.invalid ? "lead-status" : undefined}
         onChange={(event) => {
           typed(set)(event.target.value);
           setCopied(false);
@@ -277,7 +310,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
         onFocus={begin}
         onBlur={() => setFocused(false)}
         placeholder={extra.placeholder}
-        className={field}
+        className={`${field} ${fieldEdge(Boolean(extra.invalid))}`}
       />
     </div>
   );
@@ -303,6 +336,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
                   placeholder: c.namePlaceholder,
                   autoComplete: "name",
                   required: true,
+                  invalid: problem.name,
                 })}
                 {text("lead-business", c.businessLabel, business, setBusiness, {
                   placeholder: c.businessPlaceholder,
@@ -314,12 +348,14 @@ export function Contact({ dict }: { dict: Dictionary }) {
                   inputMode: "email",
                   autoComplete: "email",
                   required: true,
+                  invalid: problem.email,
                 })}
                 {text("lead-phone", c.phoneLabel, phone, setPhone, {
                   placeholder: c.phonePlaceholder,
                   type: "tel",
                   inputMode: "tel",
                   autoComplete: "tel",
+                  invalid: problem.phone,
                 })}
                 {text("lead-link", c.linkLabel, link, setLink, {
                   placeholder: c.linkPlaceholder,
@@ -338,7 +374,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
                     onChange={(event) => typed(setNeed)(event.target.value as LeadNeed | "")}
                     onFocus={begin}
                     onBlur={() => setFocused(false)}
-                    className={field}
+                    className={`${field} ${fieldEdge(false)}`}
                   >
                     <option value="">—</option>
                     {LEAD_NEEDS.map((option) => (
@@ -356,8 +392,10 @@ export function Contact({ dict }: { dict: Dictionary }) {
                   <span className="normal-case"> ({c.optional})</span>
                 </label>
                 <textarea
+                  ref={messageRef}
                   id="lead-message"
                   name="message"
+                  /* The floor, not the ceiling — see useAutoGrow. */
                   rows={2}
                   maxLength={2000}
                   value={message}
@@ -368,7 +406,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
                   onFocus={begin}
                   onBlur={() => setFocused(false)}
                   placeholder={c.messagePlaceholder}
-                  className={`${field} text-base`}
+                  className={`${field} ${fieldEdge(false)} resize-none text-base`}
                 />
               </div>
 
@@ -409,6 +447,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
               </div>
 
               <p
+                id="lead-status"
                 role="status"
                 className={`mt-4 text-xs leading-relaxed ${isError ? "font-semibold text-red" : "text-muted"}`}
               >

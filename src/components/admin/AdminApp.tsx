@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { PixelWindow } from "@/components/ui/PixelWindow";
+import { SkipLink } from "@/components/ui/SkipLink";
 import { SESSION_LOST, getMe, logout } from "@/lib/admin/client";
 import type { ApiErrorCode } from "@/lib/onboarding/schema";
 import { isLeadStatus, type LeadStatus } from "@/lib/workflow";
@@ -145,6 +146,7 @@ export function AdminApp() {
 
   return (
     <GoProvider value={go}>
+      <SkipLink>Preskoči na sadržaj</SkipLink>
       <header className="border-b-2 border-ink bg-paper">
         <div className="shell flex h-14 items-center justify-between gap-3">
           <span className="px text-[1.35rem] leading-none tracking-wide uppercase">
@@ -184,7 +186,7 @@ export function AdminApp() {
         </nav>
       </header>
 
-      <main className="shell w-full flex-1 py-6 sm:py-8">
+      <main id="main" tabIndex={-1} className="shell w-full flex-1 py-6 focus:outline-none sm:py-8">
         <PixelWindow title={TITLES[route.view]}>
           <div className="p-4 sm:p-6">
             {route.view === "overview" && <Overview />}

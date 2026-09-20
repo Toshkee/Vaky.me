@@ -5,6 +5,7 @@ import { Fraunces, Karla } from "next/font/google";
 import { MapEmbed } from "@/components/demo/MapEmbed";
 import { VakyBar } from "@/components/demo/VakyBar";
 import { menuCategories } from "./data";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 const display = Fraunces({ subsets: ["latin", "latin-ext"], display: "swap", variable: "--font-skadar-display", axes: ["opsz", "SOFT", "WONK"] });
 const sans = Karla({ subsets: ["latin", "latin-ext"], display: "swap", variable: "--font-skadar-sans" });
@@ -18,9 +19,10 @@ const primary = `inline-flex min-h-12 items-center justify-center bg-[#dfa15c] p
 
 export default function KonobaSkadarPage() {
   return <div className={`${display.variable} ${sans.variable} min-h-screen bg-[#101d24] pb-20 text-[#f2e9d8] [font-family:var(--font-skadar-sans),Arial,sans-serif] md:pb-0`}>
+    <SkipLink href="#vrh">Preskoči na sadržaj</SkipLink>
     <VakyBar />
     <header className="border-b border-[#f2e9d8]/15 bg-[#101d24]"><div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-5 py-3 sm:px-8"><a href="#vrh" className={`${serif} inline-flex min-h-11 items-center text-xl tracking-tight ${focus}`}>Konoba Skadar</a><nav aria-label="Glavna navigacija" className="hidden items-center gap-7 md:flex"><a href="#jelovnik" className={`${label} hover:text-[#dfa15c] ${focus}`}>Jelovnik</a><a href="#prica" className={`${label} hover:text-[#dfa15c] ${focus}`}>O nama</a><a href="#lokacija" className={`${label} hover:text-[#dfa15c] ${focus}`}>Lokacija</a></nav><a href="tel:+38267000000" className={`hidden min-h-10 items-center border border-[#dfa15c]/70 px-4 text-xs font-bold text-[#dfa15c] transition-colors hover:bg-[#dfa15c] hover:text-[#1b2a33] sm:inline-flex ${focus}`}>Rezerviši sto</a></div></header>
-    <main id="vrh">
+    <main id="vrh" tabIndex={-1} className="focus:outline-none">
       <section className="relative isolate overflow-hidden border-b border-[#dfa15c]/30">
         <Image src="/konoba-skadar-hero.webp" alt="Zavoj Rijeke Crnojevića kroz zelena brda Skadarskog jezera, sa barkom na vodi" width={1600} height={1067} priority className="absolute inset-0 -z-20 h-full w-full object-cover" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(16,29,36,.68)_0%,rgba(16,29,36,.28)_38%,rgba(16,29,36,.62)_72%,rgba(16,29,36,.94)_100%)]" />

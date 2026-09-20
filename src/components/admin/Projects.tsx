@@ -13,6 +13,7 @@ import {
   AsyncView,
   DataError,
   EmptyState,
+  Disclosure,
   Field,
   GoLink,
   PACKAGE_OPTIONS,
@@ -20,7 +21,6 @@ import {
   StatusPill,
   TRADE_OPTIONS,
   When,
-  buttonClass,
   isLiveRequest,
   packageName,
   primaryButtonClass,
@@ -86,23 +86,20 @@ export function Projects({ filter }: { filter: string }) {
       </div>
 
       <div className="mt-6">
-        <button
-          type="button"
-          aria-expanded={adding}
-          onClick={() => setAdding((open) => !open)}
-          className={buttonClass}
+        <Disclosure
+          id="new-project"
+          open={adding}
+          onToggle={() => setAdding((open) => !open)}
+          label="Novi projekat"
+          closeLabel="Zatvori formu"
         >
-          {adding ? "Zatvori formu" : "Novi projekat"}
-        </button>
-
-        {adding && (
           <NewProjectForm
             onCreated={(projectId) => {
               setAdding(false);
               go(`?v=projekat&id=${projectId}`);
             }}
           />
-        )}
+        </Disclosure>
       </div>
 
       <div className="mt-6">

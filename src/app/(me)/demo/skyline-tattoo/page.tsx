@@ -5,6 +5,7 @@ import { DemoPhoto } from "@/components/demo/DemoPhoto";
 import { VakyBar } from "@/components/demo/VakyBar";
 import { brief, heroWork, strands, studio, studioFront, works } from "./data";
 import styles from "./sky.module.css";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 /* Unbounded is the whole display voice and it is used sparingly: the h1, the
    three strand names, the closing line and the wordmark. It is very wide, so
@@ -110,7 +111,8 @@ export default function SkylineTattooPage() {
     <div
       className={`${styles.page} ${display.variable} ${text.variable} min-h-screen bg-[var(--sky-black)] text-[var(--sky-bone)] [font-family:var(--font-sky-text),system-ui,sans-serif]`}
     >
-      <VakyBar />
+      <SkipLink href="#vrh">Preskoči na sadržaj</SkipLink>
+    <VakyBar />
 
       {/* The header carries no controls at all. On a one-screen cinematic
           portfolio a button pinned above the title competes with the title;
@@ -128,7 +130,7 @@ export default function SkylineTattooPage() {
         </div>
       </header>
 
-      <main>
+      <main id="vrh" tabIndex={-1} className="focus:outline-none">
         {/* The work first, then the line that names what the page is about.
             The photograph was shot against black, and this page's ground is
             black to within a shade, so the forearm arrives with no frame, no

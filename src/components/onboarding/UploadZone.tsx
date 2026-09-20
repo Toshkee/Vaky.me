@@ -240,7 +240,20 @@ export function UploadZone({
               </button>
             </div>
             {!item.failed && (
-              <span className="os-bar mt-2 block">
+              /* The same widget as the step progress bar in Shell.tsx, and it
+                 carries the same semantics: identical-looking bars that are a
+                 progressbar in one place and an anonymous box in another are
+                 how a screen reader ends up narrating half a form. Named by
+                 the file it belongs to, so several uploads at once are
+                 distinguishable by ear. */
+              <span
+                role="progressbar"
+                aria-label={`${copy.upload.uploading} ${item.file.name}`}
+                aria-valuenow={Math.round(item.progress * 100)}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                className="os-bar mt-2 block"
+              >
                 <span
                   className="os-bar-fill block"
                   style={{ width: `${Math.round(item.progress * 100)}%` }}

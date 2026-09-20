@@ -14,6 +14,7 @@ import {
   salonServices,
 } from "./data";
 import styles from "./andrea.module.css";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 /* Fraunces is a soft serif with real italics and a slight wonk in its
    display cuts — warm enough for the kids half of the house without turning
@@ -129,7 +130,8 @@ export default function AndreaBeautyHousePage() {
     <div
       className={`${styles.page} ${display.variable} ${sans.variable} min-h-screen bg-[var(--abh-white)] pb-[calc(5.5rem+env(safe-area-inset-bottom))] text-[var(--abh-ink)] [font-family:var(--font-abh-sans),system-ui,sans-serif] md:pb-0`}
     >
-      <VakyBar />
+      <SkipLink href="#vrh">Preskoči na sadržaj</SkipLink>
+    <VakyBar />
 
       {/* The header is the building directory: the name on the left, the three
           rooms as door plates on the right, separated by the thin vertical
@@ -174,7 +176,7 @@ export default function AndreaBeautyHousePage() {
         </div>
       </header>
 
-      <main id="vrh">
+      <main id="vrh" tabIndex={-1} className="focus:outline-none">
         {/* The doorway. One photograph — the house's own pink booth, with its
             name written across it — hung inside an arched opening, with a
             second arch drawn around it like the casing of a real door. The

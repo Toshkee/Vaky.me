@@ -25,7 +25,16 @@ export function PixelWindow({
   pane?: string;
   /** The title bar with its three traffic dots. Decorative — never labelled. */
   chrome?: boolean;
-  /** Optional window name, set in the pixel face beside the dots. */
+  /**
+   * Optional window name, set in the pixel face beside the dots.
+   *
+   * It is painted inside the `aria-hidden` title bar, so it is scenery: a
+   * screen reader never reads it. That is right for "VAKY OS", and it is why
+   * every screen using this component renders its own real heading inside the
+   * pane. Do not let this prop stand in for that heading — a window titled
+   * only here ships with no accessible name at all, and looks perfectly
+   * labelled in the DOM while it does.
+   */
   title?: string;
 }) {
   return (

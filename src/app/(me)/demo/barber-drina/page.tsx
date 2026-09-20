@@ -5,6 +5,7 @@ import { MapEmbed } from "@/components/demo/MapEmbed";
 import { VakyBar } from "@/components/demo/VakyBar";
 import { BookingPlanner } from "./BookingPlanner";
 import { priceGroups, publicDetails } from "./data";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 export const metadata: Metadata = {
   title: "Barber Drina — Stari Aerodrom, Podgorica | Dizajn koncept",
@@ -46,7 +47,8 @@ function BrandLockup({ compact = false }: { compact?: boolean }) {
 export default function BarberDrinaPage() {
   return (
     <div className="min-h-screen bg-black pb-24 text-white md:pb-0">
-      <VakyBar />
+      <SkipLink href="#vrh">Preskoči na sadržaj</SkipLink>
+    <VakyBar />
 
       <header className="sticky top-0 z-40 border-b border-white/15 bg-black/95 backdrop-blur">
         <div className="mx-auto flex min-h-14 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
@@ -75,7 +77,7 @@ export default function BarberDrinaPage() {
         </div>
       </header>
 
-      <main id="vrh">
+      <main id="vrh" tabIndex={-1} className="focus:outline-none">
         {/* The logo asset is pure black, so the hero stays one uniform black
             field — a second dark tone behind it shows the JPG's edges as a seam. */}
         <section className="border-b border-white/15 bg-black">

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useAutoGrow } from "@/components/ui/useAutoGrow";
 
 /**
  * The frame every question sits in: a real label, the plain-language hint under
@@ -140,15 +141,19 @@ export function TextArea({
   invalid: boolean;
   describedBy: string;
 } & Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "id" | "value" | "onChange">) {
+  const ref = useAutoGrow(value);
+
   return (
     <textarea
+      ref={ref}
       id={id}
       value={value}
       onChange={(event) => onChange(event.target.value)}
       aria-invalid={invalid || undefined}
       aria-describedby={describedBy}
+      /* The floor, not the ceiling — see useAutoGrow. */
       rows={3}
-      className={`${base} ${edge(invalid)}`}
+      className={`${base} ${edge(invalid)} resize-none`}
       {...rest}
     />
   );

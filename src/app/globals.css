@@ -193,6 +193,48 @@
     min-height: 44px;
   }
 
+  /* ── Skip link ──
+     The first thing in the tab order on every page, parked above the top edge
+     until it takes focus.
+
+     Moved with a transform rather than hidden: `display: none`,
+     `visibility: hidden` and `hidden` all take an element out of the tab
+     order, which is the whole point of this one. It has to stay focusable
+     while it is off screen.
+
+     Parked upward rather than off to the left, because the left edge is the
+     side a right-to-left page would bring it back in from. ── */
+  .skip-link {
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    /* An opaque ink slab rather than anything that borrows the page's own
+       colours: the same class has to stay legible on the studio's cream and
+       on all thirteen demo palettes, from Konoba's dark teal to Andrea's
+       near-white. Deliberately not set in the pixel face for the same
+       reason — a barbershop is not running Vaky OS. */
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-weight: 700;
+    transform: translateY(calc(-100% - 1rem));
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
+    /* The site's red ring only reaches 3.06:1 on near-black, so this one
+       focus state uses the bright red kept for exactly that case. */
+    outline: 2px solid var(--color-red-bright);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .skip-link {
+      transition: transform 0.2s var(--ease-out);
+    }
+  }
+
   /* ── Pixel layer ──────────────────────────────────────────────────────
      Aliased frames, beveled controls and a pixel display face.
 

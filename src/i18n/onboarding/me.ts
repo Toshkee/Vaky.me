@@ -86,6 +86,7 @@ export const me: OnboardingCopy = {
     draftNote: "Odgovori se čuvaju na ovom uređaju dok ne pošaljete.",
     errorSummary: "Provjerite označena polja.",
     home: "vaky.me",
+    skip: "Preskoči na pitanje",
     packageNotes: {
       start: "Vaš sajt je jedna stranica koja se skroluje — ovdje biramo šta sve na njoj ide.",
       business: "Vaš paket pokriva do pet zasebnih stranica.",

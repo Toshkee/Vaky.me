@@ -4,6 +4,7 @@ import { DM_Serif_Display } from "next/font/google";
 import { MapEmbed } from "@/components/demo/MapEmbed";
 import { VakyBar } from "@/components/demo/VakyBar";
 import { barbers, hours, prices } from "./data";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 const dmSerif = DM_Serif_Display({
   variable: "--font-dm-serif",
@@ -92,7 +93,8 @@ export default function Page() {
     <div
       className={`${dmSerif.variable} min-h-screen bg-barber-bg font-sans text-barber-green`}
     >
-      <VakyBar />
+      <SkipLink href="#vrh">Preskoči na sadržaj</SkipLink>
+    <VakyBar />
 
       {/* ── Nav ── */}
       <header className="border-b border-barber-green/15">
@@ -132,7 +134,7 @@ export default function Page() {
         </div>
       </header>
 
-      <main className="pb-20 md:pb-0">
+      <main id="vrh" tabIndex={-1} className="focus:outline-none pb-20 md:pb-0">
         {/* ── Hero — letterhead lockup ── */}
         <section>
           <div className="mx-auto max-w-5xl px-6 pb-16 pt-14 sm:px-8 sm:pb-24 sm:pt-20">

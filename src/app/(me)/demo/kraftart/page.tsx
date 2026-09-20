@@ -7,6 +7,7 @@ import { VakyBar } from "@/components/demo/VakyBar";
 import { InstagramIcon, WhatsAppIcon } from "@/components/demo/ContactIcons";
 import { artists, beforeVisit, hero, services, studio, works } from "./data";
 import styles from "./kraft.module.css";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 /* Archivo is a grotesque with a wide range and no soft edges — it holds a
    headline at 5rem and a caption at 12px without changing character. Plex Mono
@@ -76,7 +77,8 @@ export default function KraftArtPage() {
     <div
       className={`${styles.page} ${sans.variable} ${mono.variable} min-h-screen bg-[var(--kraft-bone)] pb-[calc(5rem+env(safe-area-inset-bottom))] text-[var(--kraft-ink)] [font-family:var(--font-kraft-sans),system-ui,sans-serif] md:pb-0`}
     >
-      <VakyBar />
+      <SkipLink href="#vrh">Preskoči na sadržaj</SkipLink>
+    <VakyBar />
 
       <header className="border-b border-[var(--kraft-ink)]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-5 py-3 sm:px-8">
@@ -116,7 +118,7 @@ export default function KraftArtPage() {
         </div>
       </header>
 
-      <main id="vrh">
+      <main id="vrh" tabIndex={-1} className="focus:outline-none">
         {/* One finished piece, at full height, before a single claim is made. */}
         <section className="border-b border-[var(--kraft-ink)]">
           <div className="mx-auto grid max-w-6xl lg:grid-cols-[1fr_0.8fr]">

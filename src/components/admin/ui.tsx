@@ -619,6 +619,64 @@ export function AsyncView<T>({
   );
 }
 
+/* ── A button that opens a panel under it ─────────────────────────────── */
+
+/**
+ * "Novi projekat" and "Dodaj fajl" both did this by hand, and both stopped at
+ * `aria-expanded`. That tells a screen reader the button opened something but
+ * not what, and nothing moved the caret — so the panel is announced as open
+ * while the operator is still standing on the button, with the form somewhere
+ * below in the tab order.
+ *
+ * `aria-controls` is only set while the panel exists: pointing it at an id
+ * that is not in the document is worse than leaving it off.
+ */
+export function Disclosure({
+  id,
+  open,
+  onToggle,
+  label,
+  closeLabel,
+  children,
+}: {
+  id: string;
+  open: boolean;
+  onToggle: () => void;
+  label: string;
+  /** What the button says once the panel is open. */
+  closeLabel: string;
+  children: ReactNode;
+}) {
+  const panel = useRef<HTMLDivElement>(null);
+  const opened = useRef(open);
+
+  useEffect(() => {
+    /* Only on the transition into open — re-running on every render would
+       snatch focus back from whatever field the operator is typing in. */
+    if (open && !opened.current) panel.current?.focus();
+    opened.current = open;
+  }, [open]);
+
+  return (
+    <>
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={open ? id : undefined}
+        onClick={onToggle}
+        className={buttonClass}
+      >
+        {open ? closeLabel : label}
+      </button>
+      {open && (
+        <div id={id} ref={panel} tabIndex={-1} className="focus:outline-none">
+          {children}
+        </div>
+      )}
+    </>
+  );
+}
+
 /* ── Timeline ─────────────────────────────────────────────────────────── */
 
 const ACTIVITY_TEXT: Record<string, string | undefined> = ACTIVITY_LABELS;

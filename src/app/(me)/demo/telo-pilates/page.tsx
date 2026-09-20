@@ -5,6 +5,7 @@ import { VakyBar } from "@/components/demo/VakyBar";
 import { InstagramIcon } from "@/components/demo/ContactIcons";
 import { firstVisit, formats, languages, method, studio } from "./data";
 import styles from "./telo.module.css";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 /* Libre Caslon Display is the studio's own logotype voice — a high-contrast
    Caslon that only behaves at size, which is exactly how this page uses it:
@@ -109,7 +110,8 @@ export default function TeloPilatesPage() {
     <div
       className={`${styles.page} ${display.variable} ${sans.variable} min-h-screen bg-[var(--telo-chalk)] pb-[calc(4rem+env(safe-area-inset-bottom))] text-[var(--telo-ink)] [font-family:var(--font-telo-sans),system-ui,sans-serif] md:pb-0`}
     >
-      <VakyBar />
+      <SkipLink href="#vrh">Preskoči na sadržaj</SkipLink>
+    <VakyBar />
 
       {/* Header and hero share one butter field — the studio's wordmark tile
           blown up to the width of the page. No centre anchor row: there is one
@@ -136,7 +138,7 @@ export default function TeloPilatesPage() {
         </div>
       </header>
 
-      <main id="vrh">
+      <main id="vrh" tabIndex={-1} className="focus:outline-none">
         <section className="bg-[var(--telo-butter)]">
           <div className="mx-auto max-w-6xl px-5 pt-8 pb-10 sm:px-8 sm:pt-14 sm:pb-14">
             <div className="grid gap-9 lg:grid-cols-[1.05fr_0.85fr] lg:items-end lg:gap-12">

@@ -78,7 +78,14 @@ export function PhoneFrame({
           <span aria-hidden="true" className="absolute top-2.5 left-1/2 block h-1 w-10 -translate-x-1/2 bg-paper-2/40" />
           <div
             ref={screenRef}
-            className={`phone-screen px-notch aspect-[9/17] overflow-hidden bg-paper-2 ${screenClassName}`}
+            /* The dot grid is the screen's empty state, not decoration. The
+               captures below the fold are lazy, so the first thing a visitor
+               scrolling into this section sees is the screen before its
+               picture — and a flat cream rectangle inside a phone reads as a
+               site that failed to load. The grid is the same ground the map
+               placeholder uses, costs no request, and is covered the moment
+               the capture paints over it. */
+            className={`phone-screen px-grid px-notch aspect-[9/17] overflow-hidden bg-paper-2 ${screenClassName}`}
           >
             {pending && (
               <picture>

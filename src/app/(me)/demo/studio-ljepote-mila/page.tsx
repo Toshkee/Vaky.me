@@ -119,7 +119,7 @@ export default function StudioLjepoteMilaPage() {
         </div>
       </header>
 
-      <main id="vrh">
+      <main id="vrh" tabIndex={-1} className="focus:outline-none">
         {/* The cover: text on the left rail, the portrait mounted on a carbon
             panel that bleeds off the right edge of the screen and carries on
             into the running foot underneath. The photograph is the cut between

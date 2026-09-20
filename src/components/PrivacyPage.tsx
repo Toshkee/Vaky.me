@@ -4,6 +4,7 @@ import { hasAnalytics, hasCloudflareAnalytics, hasTurnstile } from "@/config/ser
 import { site } from "@/config/site";
 import { Footer } from "@/components/landing/Footer";
 import { BrandWordmark } from "@/components/BrandWordmark";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 /**
  * The privacy note, built from the same dictionary as the rest of the site and
@@ -33,6 +34,7 @@ export function PrivacyPage({ dict }: { dict: Dictionary }) {
      nothing here. This page gets the mark and the way back instead. */
   return (
     <>
+      <SkipLink>{dict.nav.skip}</SkipLink>
       <header className="border-b-2 border-ink">
         <div className="shell flex h-16 items-center justify-between gap-4">
           <Link href={home} className="tap shrink-0">
@@ -47,7 +49,7 @@ export function PrivacyPage({ dict }: { dict: Dictionary }) {
           </Link>
         </div>
       </header>
-      <main>
+      <main id="main" tabIndex={-1} className="focus:outline-none">
         <div className="shell py-12 sm:py-16">
           <p className="eyebrow text-muted">{dict.privacy.updated}</p>
           <h1 className="headline mt-3 text-[clamp(2rem,4vw,3rem)]">{dict.privacy.title}</h1>

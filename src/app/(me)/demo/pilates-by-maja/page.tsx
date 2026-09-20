@@ -19,6 +19,7 @@ import {
   trainingPhoto,
 } from "./data";
 import styles from "./maja.module.css";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 /* Instrument Serif carries every heading, and it is the whole reason this page
    stopped reading as a men's gym. A condensed grotesque set in caps is what a
@@ -82,7 +83,8 @@ export default function PilatesByMajaPage() {
     <div
       className={`${styles.page} ${display.variable} ${sans.variable} min-h-screen bg-[var(--maja-chalk)] text-[var(--maja-ink)] [font-family:var(--font-maja-sans),system-ui,sans-serif]`}
     >
-      <VakyBar />
+      <SkipLink href="#vrh">Preskoči na sadržaj</SkipLink>
+    <VakyBar />
 
       {/* No bottom bar on this page. The top rail follows the reader instead:
           a 48px chalk strip with the name and the one thing to do, separated
@@ -117,7 +119,7 @@ export default function PilatesByMajaPage() {
         </div>
       </header>
 
-      <main id="vrh">
+      <main id="vrh" tabIndex={-1} className="focus:outline-none">
         {/* The room first, then the sentence. On a phone the photograph runs
             edge to edge under the header and the chalk panel steps up over its
             lower edge — type sits on chalk, never over the picture. From lg the

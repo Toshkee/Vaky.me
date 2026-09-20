@@ -50,24 +50,80 @@ const PAGES = [
   "/demo/skyline-tattoo/",
 ];
 
+/* The dashboard behind the password. Every screen here is one the studio
+   works in every day, and until this existed none of them had ever been
+   scanned — the run stopped at the login form, which is the one admin screen
+   nobody uses twice.
+
+   It needs a server with /api/ in front of it, so it is skipped under a plain
+   `next dev`: point the script at `npm run dev:api` (or pass that base URL)
+   and set ADMIN_PASSWORD to the value in .dev.vars to include them. */
+const ADMIN_VIEWS = [
+  "/admin/?v=pregled",
+  "/admin/?v=upiti",
+  "/admin/?v=projekti",
+];
+
 const browser = await chromium.launch();
 let total = 0;
 
-for (const path of PAGES) {
-  const ctx = await browser.newContext({ reducedMotion: "reduce" });
-  const page = await ctx.newPage();
-  await page.goto(BASE + path, { waitUntil: "networkidle" });
-
+async function scan(page, name) {
   const { violations } = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
     .analyze();
 
   total += violations.length;
-  console.log(`\n=== ${path} — ${violations.length || "no"} violation(s) ===`);
+  console.log(`\n=== ${name} — ${violations.length || "no"} violation(s) ===`);
   for (const violation of violations) {
     console.log(`  ${violation.id} (${violation.impact}) — ${violation.help}`);
     for (const node of violation.nodes.slice(0, 4)) {
       console.log(`    ${node.target.join(" ")}`);
+    }
+  }
+}
+
+for (const path of PAGES) {
+  const ctx = await browser.newContext({ reducedMotion: "reduce" });
+  const page = await ctx.newPage();
+  await page.goto(BASE + path, { waitUntil: "load" });
+  await scan(page, path);
+  await ctx.close();
+}
+
+const password = process.env.ADMIN_PASSWORD;
+if (!password) {
+  console.log(
+    "\n=== /admin/ (logged in) — skipped ===\n" +
+      "  Set ADMIN_PASSWORD and point this at a base URL with /api/ behind it\n" +
+      "  (npm run dev:api) to scan the dashboard rather than its login form.",
+  );
+} else {
+  const ctx = await browser.newContext({ reducedMotion: "reduce" });
+  const page = await ctx.newPage();
+  await page.goto(`${BASE}/admin/`, { waitUntil: "load" });
+  await page.getByLabel(/lozinka/i).fill(password);
+  await page.getByRole("button", { name: /prijav/i }).click();
+
+  /* The dashboard's own nav is the signal that the session took. Deliberately
+     not "wait for an h1": the login screen has one of those too, so that wait
+     would resolve on the form still being on screen and scan it instead. */
+  const landed = await page
+    .getByRole("navigation", { name: "Glavna navigacija" })
+    .waitFor({ timeout: 15_000 })
+    .then(() => true)
+    .catch(() => false);
+
+  if (!landed) {
+    console.log(
+      "\n=== /admin/ (logged in) — could not sign in ===\n" +
+        "  Is /api/ being served, and does ADMIN_PASSWORD match this server's?",
+    );
+    total += 1;
+  } else {
+    for (const view of ADMIN_VIEWS) {
+      await page.goto(BASE + view, { waitUntil: "load" });
+      await page.getByRole("heading", { level: 1 }).first().waitFor({ timeout: 15_000 });
+      await scan(page, view);
     }
   }
 

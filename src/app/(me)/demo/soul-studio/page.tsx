@@ -7,6 +7,7 @@ import { VakyBar } from "@/components/demo/VakyBar";
 import { InstagramIcon, PhoneIcon } from "@/components/demo/ContactIcons";
 import { gallery, hero, practices, studio } from "./data";
 import styles from "./soul.module.css";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 /* Bodoni's hairlines are the whole point at display sizes and unreadable below
    them, so it sets headings only; Manrope carries every word a visitor
@@ -62,7 +63,8 @@ export default function SoulStudioPage() {
     <div
       className={`${styles.page} ${display.variable} ${sans.variable} min-h-screen bg-[var(--soul-bone)] pb-[calc(6rem+env(safe-area-inset-bottom))] text-[var(--soul-ink)] [font-family:var(--font-soul-sans),system-ui,sans-serif] md:pb-0`}
     >
-      <VakyBar />
+      <SkipLink href="#vrh">Preskoči na sadržaj</SkipLink>
+    <VakyBar />
 
       <header className="border-b border-[var(--soul-line)]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4 sm:px-8">
@@ -102,7 +104,7 @@ export default function SoulStudioPage() {
         </div>
       </header>
 
-      <main id="vrh">
+      <main id="vrh" tabIndex={-1} className="focus:outline-none">
         {/* Text on the left rail, one photograph on the right cut into an arch —
             the same arch the studio has built into its own back wall. It is the
             only rounded crop on the page. */}

@@ -5,6 +5,7 @@ import { Barlow, Big_Shoulders } from "next/font/google";
 import { MapEmbed } from "@/components/demo/MapEmbed";
 import { VakyBar } from "@/components/demo/VakyBar";
 import { plans, programs, schedule } from "./data";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 const display = Big_Shoulders({ subsets: ["latin", "latin-ext"], display: "swap", variable: "--font-titan-display" });
 const sans = Barlow({ weight: ["400", "600", "700"], subsets: ["latin", "latin-ext"], display: "swap", variable: "--font-titan-sans" });
@@ -19,9 +20,10 @@ const hazard = "bg-[repeating-linear-gradient(-45deg,#ff5a1f_0,#ff5a1f_12px,tran
 
 export default function TitanGymPage() {
   return <div className={`${display.variable} ${sans.variable} min-h-screen bg-[#0c0d0e] pb-20 text-[#f5f4f2] [font-family:var(--font-titan-sans),Arial,sans-serif] md:pb-0`}>
+    <SkipLink href="#vrh">Preskoči na sadržaj</SkipLink>
     <VakyBar />
     <header className="border-b border-white/15 bg-[#0c0d0e]"><div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-5 py-3 sm:px-8"><a href="#vrh" className={`${title} inline-flex min-h-11 items-center text-2xl tracking-wide ${focus}`}>Titan<span className="text-[#ff5a1f]">.</span></a><nav aria-label="Glavna navigacija" className="hidden items-center gap-7 md:flex"><a href="#programi" className={`${label} hover:text-[#ff5a1f] ${focus}`}>Programi</a><a href="#clanarine" className={`${label} hover:text-[#ff5a1f] ${focus}`}>Članarine</a><a href="#raspored" className={`${label} hover:text-[#ff5a1f] ${focus}`}>Raspored</a></nav><a href="tel:+38267000000" className={`hidden min-h-10 items-center bg-[#ff5a1f] px-4 text-xs font-bold uppercase tracking-wide text-black transition-colors hover:bg-white sm:inline-flex ${focus}`}>Probni trening</a></div></header>
-    <main id="vrh">
+    <main id="vrh" tabIndex={-1} className="focus:outline-none">
       <section className="relative isolate overflow-hidden border-b border-[#ff5a1f]/50">
         <Image src="/titan-gym-hero.webp" alt="Sportista čuči nad šipkom za mrtvo dizanje u polumračnoj teretani" width={1920} height={1280} priority className="absolute inset-0 -z-20 h-full w-full object-cover object-[center_30%]" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(12,13,14,.72)_0%,rgba(12,13,14,.38)_40%,rgba(12,13,14,.86)_82%,rgba(12,13,14,.98)_100%)]" />

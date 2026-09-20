@@ -10,6 +10,7 @@ export const en: Dictionary = {
     contact: "Contact",
     langLabel: "ME",
     langHref: "/",
+    skip: "Skip to content",
   },
 
   hero: {

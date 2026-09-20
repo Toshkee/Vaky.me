@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Dictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
 import { OsBadge } from "@/components/ui/OsBadge";
+import { SkipLink } from "@/components/ui/SkipLink";
 import { Nav } from "./Nav";
 import { Contact } from "./Contact";
 import { Footer } from "./Footer";
@@ -31,8 +32,10 @@ export function TradePage({ dict, tradeKey }: { dict: Dictionary; tradeKey: Trad
 
   return (
     <>
+      <SkipLink>{dict.nav.skip}</SkipLink>
       <Nav dict={dict} />
-      <main>
+      {/* See LandingPage: without tabIndex the skip link only scrolls. */}
+      <main id="main" tabIndex={-1} className="focus:outline-none">
         <section>
           <div className="shell pt-10 pb-12 sm:pt-14 sm:pb-16">
             <OsBadge>{dict.trades.eyebrow}</OsBadge>

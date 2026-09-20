@@ -8,6 +8,7 @@ export const me = {
     contact: "Kontakt",
     langLabel: "EN",
     langHref: "/en/",
+    skip: "Preskoči na sadržaj",
   },
 
   hero: {

@@ -120,6 +120,8 @@ export type OnboardingCopy = {
     draftNote: string;
     errorSummary: string;
     home: string;
+    /** The skip link that jumps the masthead and lands on the question. */
+    skip: string;
     /** What the chosen package means for the number of pages, said once. */
     packageNotes: Record<PackageId, string>;
   };
