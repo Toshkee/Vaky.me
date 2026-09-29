@@ -389,10 +389,10 @@ export const en: Dictionary = {
             "How many times we work through your notes after the first version. You collect everything in one round and send it at once, and we do it together. Further rounds are possible and agreed separately.",
         },
         {
-          label: "Shop and online payments",
+          label: "Online shop and orders",
           values: [false, false, true],
           explain:
-            "Cart, card payments and an order overview — for when the site sells rather than just starts a conversation.",
+            "Catalogue, cart and orders that come straight to you — for when the site sells rather than just starts a conversation. Customers pay on delivery, by bank transfer or in person. Card payments are connected once your bank approves online payments.",
         },
         {
           label: "Connections to your systems",

@@ -348,6 +348,7 @@ export const en: OnboardingCopy = {
     },
     payment: {
       label: "How would you like customers to pay?",
+      help: "Card payments need an online payments agreement with your bank. If you don't have one yet, the shop starts with cash on delivery and bank transfer, and we connect cards once the bank approves.",
       options: {
         card: "By card online",
         "on-delivery": "Cash on delivery",

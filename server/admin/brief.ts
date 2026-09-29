@@ -340,6 +340,7 @@ export function generateBrief(data: BriefData): string {
       line("Order notifications to the owner", single(answers, "orderNotify")),
       "",
       "Note: 'payment methods wanted' describes the CLIENT'S shop checkout. It has nothing to do with paying Vaky — the Vaky site itself never processes payments.",
+      "Card payments in Montenegro run through the client's own bank e-commerce agreement and that bank's payment gateway; Stripe and similar services do not onboard Montenegrin businesses. Build the checkout around cash on delivery, bank transfer and in-store payment. If card is wanted and the bank gateway is not yet approved, leave card out, do not fake a card form, and say in the handover that card payments are connected once the bank approves.",
     ]);
   }
 

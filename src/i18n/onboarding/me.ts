@@ -353,6 +353,7 @@ export const me: OnboardingCopy = {
     },
     payment: {
       label: "Kako želite da kupci plaćaju?",
+      help: "Za plaćanje karticom potreban je ugovor o online naplati sa vašom bankom. Ako ga još nemate, prodavnica kreće sa pouzećem i uplatom, a karticu povezujemo kad banka odobri.",
       options: {
         card: "Karticom online",
         "on-delivery": "Pouzećem, prilikom preuzimanja",

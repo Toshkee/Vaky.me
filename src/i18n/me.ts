@@ -424,10 +424,10 @@ export const me = {
             "Koliko puta prolazimo kroz tvoje primjedbe poslije prve verzije. Sve u jednom krugu skupljaš i pošalješ odjednom, pa ih uradimo zajedno. Dodatni krugovi su mogući, dogovaramo se posebno.",
         },
         {
-          label: "Prodavnica i naplata online",
+          label: "Online prodavnica i porudžbine",
           values: [false, false, true],
           explain:
-            "Korpa, plaćanje karticom i pregled porudžbina — kad se sa sajta prodaje, a ne samo dogovara.",
+            "Katalog, korpa i porudžbine koje stižu direktno tebi — kad se sa sajta prodaje, a ne samo dogovara. Kupci plaćaju pouzećem, uplatom na račun ili kod tebe. Plaćanje karticom povezujemo kad tvoja banka odobri online naplatu.",
         },
         {
           label: "Povezivanje sa tvojim sistemima",
