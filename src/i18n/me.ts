@@ -448,9 +448,28 @@ export const me = {
     detailsIncluded: "Uključeno",
     detailsExcluded: "Nije u ovom paketu",
     detailsClose: "Zatvori",
+    /* Not a fourth tier: it sits under the three site packages as its own
+       card, and the note is there to stop it being read as "the cheap Start".
+       The price is prose here, like the add-ons below — a landing page is not
+       a PackageId and has no onboarding of its own. */
+    landing: {
+      eyebrow: "Za kampanju",
+      name: "Landing stranica",
+      price: "€150",
+      tagline:
+        "Jedna stranica za jednu ponudu — akciju, otvaranje, upis ili događaj. Na nju vodiš ljude iz oglasa i sa Instagrama, i sve na njoj vodi do jednog dugmeta.",
+      includes: [
+        "Jedna ponuda, jedan poziv na akciju",
+        "Dizajn po mjeri tvog brenda",
+        "Kontakt dugmad po izboru",
+        "Domen i hosting uključeni u cijenu",
+        "Jedan krug izmjena",
+      ],
+      note: "Nije zamjena za sajt: Start je stalna adresa tvog biznisa, a landing stranica traje koliko i kampanja. Ako sajt već imaš kod nas, pravimo je u istom stilu.",
+    },
     maintenance: {
       title: "Održavanje i hosting",
-      optional: "Opciono",
+      badge: "Opciono",
       price: "€20/mjesec",
       intro:
         "Poslije objave sajt je tvoj i radi na tvom domenu. Ako ne želiš da razmišljaš o tehničkoj strani, tu brigu preuzimamo mi — prvi mjesec gratis, otkazuješ kad hoćeš.",
@@ -461,6 +480,23 @@ export const me = {
         "Sitne izmjene sadržaja",
       ],
       note: "Pod sitnim izmjenama mislimo na tekst, cijene i fotografije — nove stranice i funkcionalnosti dogovaraju se posebno. Domen se naplaćuje zasebno, ~€25 godišnje.",
+    },
+    /* Same shape as `maintenance` — the pricing section renders both with one
+       component. Motion design, not filming: the note says what that means,
+       because "video" alone promises a camera crew. */
+    launchVideos: {
+      title: "Motion design videi",
+      badge: "Jednokratno",
+      price: "€40",
+      intro:
+        "Sajt je gotov — sad treba da ga ljudi vide. Uz bilo koji paket pravimo tri motion design videa za društvene mreže. Jedan najavljuje novi sajt, a druga dva biraš ti: akcija, usluga, cjenovnik ili šta god želiš da istakneš.",
+      includes: [
+        "Tri videa, 20+ sekundi svaki",
+        "Uspravni format: Reels, TikTok, Shorts, Story",
+        "Tvoje fotografije, boje i slova sajta",
+        "Jedan krug izmjena",
+      ],
+      note: "Motion design je animacija — tekst i fotografije sa tvog sajta u pokretu — a ne snimanje u objektu. Muzika po dogovoru: dodajemo je mi, ili video stiže bez zvuka.",
     },
     planAction: "Pitaj za ovaj paket",
     /* Said on the cards, because a price list that looks like a checkout is a

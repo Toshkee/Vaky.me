@@ -413,9 +413,24 @@ export const en: Dictionary = {
     detailsIncluded: "Included",
     detailsExcluded: "Not in this package",
     detailsClose: "Close",
+    landing: {
+      eyebrow: "For a campaign",
+      name: "Landing page",
+      price: "€150",
+      tagline:
+        "One page for one offer — a promotion, an opening, sign-ups or an event. You send people to it from ads and from Instagram, and everything on it leads to a single button.",
+      includes: [
+        "One offer, one call to action",
+        "Design made for your brand",
+        "Contact buttons of your choice",
+        "Domain and hosting included in the price",
+        "One round of revisions",
+      ],
+      note: "Not a replacement for a website: Start is your business's permanent address, while a landing page lasts as long as the campaign. If your site is already ours, we build it in the same style.",
+    },
     maintenance: {
       title: "Maintenance & hosting",
-      optional: "Optional",
+      badge: "Optional",
       price: "€20/month",
       intro:
         "After launch the site is yours and runs on your domain. If you'd rather not think about the technical side, we take that worry over — first month free, cancel any time.",
@@ -426,6 +441,20 @@ export const en: Dictionary = {
         "Small content updates",
       ],
       note: "Small updates cover text, prices and photos — new pages and features are agreed separately. The domain is a separate cost, ~€25/year.",
+    },
+    launchVideos: {
+      title: "Motion design videos",
+      badge: "One-off",
+      price: "€40",
+      intro:
+        "The site is done — now people need to see it. With any package we make three motion design videos for social media. One announces the new site; the other two are yours to choose: a promotion, a service, a price list, or whatever you want to put forward.",
+      includes: [
+        "Three videos, 20+ seconds each",
+        "Vertical format: Reels, TikTok, Shorts, Stories",
+        "Your photos, your site's colours and type",
+        "One round of revisions",
+      ],
+      note: "Motion design means animation — the text and photos from your site, in motion — not a shoot at your premises. Music by arrangement: we add it, or the videos arrive silent.",
     },
     planAction: "Ask about this package",
     planNote: "Nothing is paid through the site — we agree on what you need first.",
