@@ -407,6 +407,7 @@ export const en: Dictionary = {
         },
       ],
     },
+    pickLabel: "Choose a package",
     inherits: "Everything in {plan}, plus:",
     detailsAction: "What do I get?",
     detailsIntro: "Everything in this package, explained without the jargon.",

@@ -442,6 +442,8 @@ export const me = {
         },
       ],
     },
+    /* Names the row of package keys shown below lg, for a screen reader. */
+    pickLabel: "Izaberi paket",
     inherits: "Sve iz paketa {plan}, plus:",
     detailsAction: "Šta tačno dobijaš?",
     detailsIntro: "Sve iz ovog paketa, objašnjeno bez tehničkih riječi.",

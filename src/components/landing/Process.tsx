@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { Dictionary } from "@/i18n";
 import { PixelWindow } from "@/components/ui/PixelWindow";
 import { BubbleIcon, FlagIcon, HammerIcon, RocketIcon, SparkleIcon } from "./icons";
+import { MobileFold } from "./MobileFold";
 import { SectionHead } from "./SectionHead";
 
 /**
@@ -10,8 +11,9 @@ import { SectionHead } from "./SectionHead";
  * Four steps, all on the page: when it happens, what it is, what goes on.
  * It was eight once — the questionnaire, the brief, the review each had a
  * station — and nobody hires a studio for its internal stages. Those live
- * inside "Izrada" now. A reader skims four titles in a glance, nothing has
- * to be clicked, and a search engine sees all of it.
+ * inside "Izrada" now. A reader skims four titles in a glance and a search
+ * engine sees all of it; on a phone the paragraph under each title is one tap
+ * away (see MobileFold), from sm up nothing has to be clicked.
  */
 const STEP_ICONS: ReactNode[] = [
   <BubbleIcon key="bubble" className="w-full" />,
@@ -32,26 +34,36 @@ export function Process({ dict }: { dict: Dictionary }) {
         <PixelWindow title={dict.process.windowTitle} className="mt-8 max-w-3xl sm:mt-10">
           <ol className="divide-y divide-line">
             {steps.map((step, i) => (
-              <li
-                key={step.title}
-                className="grid grid-cols-[3rem_1fr] gap-x-4 px-5 py-5 sm:grid-cols-[3.5rem_1fr] sm:gap-x-6 sm:px-7"
-              >
-                {/* The step's own pixel icon on a tile: a message, a spark,
-                    a hammer, a rocket. The list is ordered already; a number
-                    on top would say the same thing twice. */}
-                <span
-                  aria-hidden="true"
-                  className="flex h-12 w-12 items-center justify-center border-2 border-ink bg-paper text-ink sm:h-14 sm:w-14"
+              <li key={step.title} className="px-5 py-5 sm:px-7">
+                <MobileFold
+                  label={step.title}
+                  head={
+                    <div className="grid grid-cols-[3rem_1fr] gap-x-4 sm:grid-cols-[3.5rem_1fr] sm:gap-x-6">
+                      {/* The step's own pixel icon on a tile: a message, a
+                          spark, a hammer, a rocket. The list is ordered
+                          already; a number on top would say the same thing
+                          twice. */}
+                      <span
+                        aria-hidden="true"
+                        className="flex h-12 w-12 items-center justify-center border-2 border-ink bg-paper text-ink sm:h-14 sm:w-14"
+                      >
+                        <span className="block w-6 sm:w-7">{STEP_ICONS[i]}</span>
+                      </span>
+                      <div className="min-w-0">
+                        <p className="px text-[0.9375rem] leading-none text-red uppercase">
+                          {step.when}
+                        </p>
+                        <h3 className="headline mt-2 text-xl sm:text-2xl">{step.title}</h3>
+                      </div>
+                    </div>
+                  }
                 >
-                  <span className="block w-6 sm:w-7">{STEP_ICONS[i]}</span>
-                </span>
-                <div className="min-w-0">
-                  <p className="px text-[0.9375rem] leading-none text-red uppercase">{step.when}</p>
-                  <h3 className="headline mt-2 text-xl sm:text-2xl">{step.title}</h3>
-                  <p className="mt-2 max-w-prose text-sm leading-relaxed text-muted sm:text-base">
+                  {/* Indented by the icon column and its gap, so it sits under
+                      the title exactly as it did inside that column. */}
+                  <p className="mt-2 max-w-prose pl-16 text-sm leading-relaxed text-muted sm:pl-20 sm:text-base">
                     {step.body}
                   </p>
-                </div>
+                </MobileFold>
               </li>
             ))}
           </ol>

@@ -30,14 +30,56 @@ import { priceLabel } from "@/lib/packages";
 export function PlanMatrix({ dict, children }: { dict: Dictionary; children?: ReactNode }) {
   const { plans, compare } = dict.pricing;
   const [openPlan, setOpenPlan] = useState<number | null>(null);
+  /* Below lg the cards would stack, and the third price sat two screens under
+     the first. There one card shows at a time, starting on the one most
+     people pick, and the row of keys above it carries all three prices. */
+  const [shown, setShown] = useState(Math.max(plans.findIndex((plan) => plan.badge), 0));
+  const lang = dict.lang === "en" ? "en" : "me";
 
   return (
     <>
-      <div className="mt-9 grid gap-6 lg:mt-12 lg:grid-cols-3">
+      {/* Real radios, the key is the label — the same construction as the
+          "what do you need" chips in the enquiry form. Not rendered from lg
+          up, where all three cards are on screen. */}
+      <fieldset className="mt-9 min-w-0 border-0 p-0 lg:hidden">
+        <legend className="sr-only">{dict.pricing.pickLabel}</legend>
+        <div className="grid grid-cols-3 gap-2">
+          {plans.map((plan, index) => {
+            const checked = index === shown;
+            return (
+              <label
+                key={plan.name}
+                className={`pick relative flex min-h-14 cursor-pointer flex-col items-center justify-center gap-1 border-2 border-ink px-1 py-2 text-center transition-colors ${
+                  checked ? "bg-ink text-paper" : "bg-paper text-ink"
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="plan"
+                  checked={checked}
+                  onChange={() => setShown(index)}
+                  className="sr-only"
+                />
+                <span className="headline text-base leading-none">{plan.name}</span>
+                <span className={`tnum text-sm leading-none ${checked ? "" : "text-muted"}`}>
+                  {priceLabel(PLAN_PACKAGES[index], lang)}
+                </span>
+              </label>
+            );
+          })}
+        </div>
+      </fieldset>
+
+      <div className="mt-4 grid gap-6 lg:mt-12 lg:grid-cols-3">
         {plans.map((plan, index) => {
           const featured = Boolean(plan.badge);
           return (
-            <div key={plan.name} className={`relative ${featured ? "lg:-mt-4" : ""}`}>
+            <div
+              key={plan.name}
+              className={`relative ${featured ? "lg:-mt-4" : ""} ${
+                index === shown ? "" : "hidden lg:block"
+              }`}
+            >
               {featured && (
                 <Vaky
                   direction="front"
@@ -66,7 +108,7 @@ export function PlanMatrix({ dict, children }: { dict: Dictionary; children?: Re
                 <div className="border-b border-line p-5 sm:p-6">
                   <h3 className="headline text-xl">{plan.name}</h3>
                   <p className="headline tnum mt-2 text-3xl">
-                    {priceLabel(PLAN_PACKAGES[index], dict.lang === "en" ? "en" : "me")}
+                    {priceLabel(PLAN_PACKAGES[index], lang)}
                   </p>
                   <p className="mt-3 text-sm leading-relaxed text-muted">{plan.tagline}</p>
                 </div>
