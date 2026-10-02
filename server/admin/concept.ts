@@ -38,6 +38,7 @@ function line(label: string, value: string | null): string {
 /** The English wording of the public form's "what do you need" options. */
 const NEED_EN: Record<string, string> = {
   "new-site": "A new website (has none, or nothing worth keeping)",
+  landing: "A landing page — one page for one campaign, not a full site",
   redesign: "A redesign of an existing site",
   shop: "An online shop",
   "something-else": "Something else — see their message",

@@ -578,12 +578,11 @@ export const me = {
       linkLabel: "Sajt ili Instagram",
       linkPlaceholder: "tvoj-sajt.me ili @instagram",
       needLabel: "Šta ti treba",
-      /* Keys are the values in LEAD_NEEDS (src/lib/workflow.ts). */
+      /* Keys are the values in OFFERED_LEAD_NEEDS (src/lib/workflow.ts). */
       needOptions: {
         "new-site": "Novi sajt",
+        landing: "Landing stranica",
         redesign: "Redizajn postojećeg",
-        shop: "Online prodavnica",
-        "something-else": "Nešto drugo",
         "not-sure": "Još ne znam",
       },
       messageLabel: "Ukratko o biznisu",

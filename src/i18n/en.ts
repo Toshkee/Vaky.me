@@ -531,9 +531,8 @@ export const en: Dictionary = {
       needLabel: "What you need",
       needOptions: {
         "new-site": "A new website",
+        landing: "A landing page",
         redesign: "A redesign of an existing one",
-        shop: "An online shop",
-        "something-else": "Something else",
         "not-sure": "Not sure yet",
       },
       messageLabel: "Briefly about the business",

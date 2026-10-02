@@ -6,7 +6,7 @@ import { emailLink, hasPhone, instagramDmLink, phoneDisplay, site, whatsappLink 
 import { hasTurnstile } from "@/config/services";
 import { track } from "@/lib/analytics";
 import { isValidEmail, isValidPhone } from "@/lib/onboarding/schema";
-import { LEAD_NEEDS, type LeadNeed } from "@/lib/workflow";
+import { OFFERED_LEAD_NEEDS, type OfferedLeadNeed } from "@/lib/workflow";
 import { OsBadge } from "@/components/ui/OsBadge";
 import { PixelWindow } from "@/components/ui/PixelWindow";
 import { useAutoGrow } from "@/components/ui/useAutoGrow";
@@ -45,7 +45,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [link, setLink] = useState("");
-  const [need, setNeed] = useState<LeadNeed | "">("");
+  const [need, setNeed] = useState<OfferedLeadNeed | "">("");
   const [message, setMessage] = useState("");
   const [trap, setTrap] = useState("");
   const [token, setToken] = useState("");
@@ -266,7 +266,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
   );
 
   /* Every field shares the same handlers; only the label, the value and the
-     placeholder differ. Written once here rather than six times below. */
+     placeholder differ. Written once here rather than five times below. */
   const text = (
     id: string,
     label: string,
@@ -357,34 +357,71 @@ export function Contact({ dict }: { dict: Dictionary }) {
                   autoComplete: "tel",
                   invalid: problem.phone,
                 })}
+              </div>
+
+              <div className="mt-4">
                 {text("lead-link", c.linkLabel, link, setLink, {
                   placeholder: c.linkPlaceholder,
                   inputMode: "url",
                 })}
-
-                <div>
-                  <label htmlFor="lead-need" className={fieldLabel}>
-                    {c.needLabel}
-                    <span className="normal-case"> ({c.optional})</span>
-                  </label>
-                  <select
-                    id="lead-need"
-                    name="need"
-                    value={need}
-                    onChange={(event) => typed(setNeed)(event.target.value as LeadNeed | "")}
-                    onFocus={begin}
-                    onBlur={() => setFocused(false)}
-                    className={`${field} ${fieldEdge(false)}`}
-                  >
-                    <option value="">—</option>
-                    {LEAD_NEEDS.map((option) => (
-                      <option key={option} value={option}>
-                        {c.needOptions[option]}
-                      </option>
-                    ))}
-                  </select>
-                </div>
               </div>
+
+              {/* Every answer on the table, one tap each, instead of a system
+                  menu that opens in the OS's own grey over a page drawn in ink
+                  and paper. They are real radios — the chip is the label — so
+                  arrow keys and screen readers get a radio group for free. */}
+              <fieldset className="mt-4 min-w-0 border-0 p-0">
+                <legend className={fieldLabel}>
+                  {c.needLabel}
+                  <span className="normal-case"> ({c.optional})</span>
+                </legend>
+                <div className="mt-1.5 flex flex-wrap gap-2">
+                  {OFFERED_LEAD_NEEDS.map((option) => {
+                    const checked = need === option;
+                    return (
+                      <label
+                        key={option}
+                        className={`pick relative flex min-h-11 cursor-pointer items-center border-2 px-3 py-2 leading-snug transition-colors ${
+                          checked
+                            ? "border-ink bg-ink text-paper"
+                            : "border-line bg-paper-2 hover:border-ink"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="need"
+                          value={option}
+                          checked={checked}
+                          onChange={() => {
+                            typed(setNeed)(option);
+                            setCopied(false);
+                          }}
+                          /* The question is optional, and a radio cannot be
+                             unticked on its own: a second tap on the chosen
+                             answer takes it back. Space gets its own handler
+                             because a browser sends no click for it on a
+                             radio that is already checked. */
+                          onClick={() => {
+                            if (!checked) return;
+                            setNeed("");
+                            setCopied(false);
+                          }}
+                          onKeyDown={(event) => {
+                            if (event.key !== " " || !checked) return;
+                            event.preventDefault();
+                            setNeed("");
+                            setCopied(false);
+                          }}
+                          onFocus={begin}
+                          onBlur={() => setFocused(false)}
+                          className="sr-only"
+                        />
+                        {c.needOptions[option]}
+                      </label>
+                    );
+                  })}
+                </div>
+              </fieldset>
 
               <div className="mt-4">
                 <label htmlFor="lead-message" className={fieldLabel}>

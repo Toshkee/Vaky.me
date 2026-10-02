@@ -40,9 +40,20 @@ export type ProjectStatus = (typeof PROJECT_STATUSES)[number];
 export const REQUEST_STATUSES = ["created", "opened", "in_progress", "completed", "cancelled"] as const;
 export type RequestStatus = (typeof REQUEST_STATUSES)[number];
 
-/** What the public lead form lets a visitor say they need. */
-export const LEAD_NEEDS = ["new-site", "redesign", "shop", "something-else", "not-sure"] as const;
+/** Every answer an enquiry can carry for "what do you need". The form no
+ *  longer offers `shop` and `something-else`, but enquiries that already hold
+ *  them still have to read correctly in the dashboard. */
+export const LEAD_NEEDS = ["new-site", "landing", "redesign", "shop", "something-else", "not-sure"] as const;
 export type LeadNeed = (typeof LEAD_NEEDS)[number];
+
+/** The ones the public lead form offers today. */
+export const OFFERED_LEAD_NEEDS = [
+  "new-site",
+  "landing",
+  "redesign",
+  "not-sure",
+] as const satisfies readonly LeadNeed[];
+export type OfferedLeadNeed = (typeof OFFERED_LEAD_NEEDS)[number];
 
 export function isLeadStatus(value: unknown): value is LeadStatus {
   return typeof value === "string" && (LEAD_STATUSES as readonly string[]).includes(value);
@@ -91,6 +102,7 @@ export const REQUEST_STATUS_LABELS: Record<RequestStatus, string> = {
 
 export const LEAD_NEED_LABELS: Record<LeadNeed, string> = {
   "new-site": "Novi sajt",
+  landing: "Landing stranica",
   redesign: "Redizajn postojećeg",
   shop: "Online prodavnica",
   "something-else": "Nešto drugo",
