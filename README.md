@@ -38,7 +38,7 @@ A landing page — one page for one campaign, not a replacement for a site — i
 sold beside the packages for €150, with the domain and hosting included in
 that price. Two optional add-ons follow: a monthly care plan for €20/month, and
 three motion design videos for social media (20+ seconds each; one announces
-the new site, the client picks the subject of the other two) for a one-off €40.
+the new site, the client picks the subject of the other two) for a one-off €30.
 Package and price
 are agreed with Vaky directly through Instagram or email before any work
 starts — there is no checkout on the site itself.

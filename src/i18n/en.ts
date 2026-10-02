@@ -445,7 +445,7 @@ export const en: Dictionary = {
     launchVideos: {
       title: "Motion design videos",
       badge: "One-off",
-      price: "€40",
+      price: "€30",
       intro:
         "The site is done — now people need to see it. With any package we make three motion design videos for social media. One announces the new site; the other two are yours to choose: a promotion, a service, a price list, or whatever you want to put forward.",
       includes: [
@@ -477,7 +477,7 @@ export const en: Dictionary = {
       },
       {
         q: "I already have a website. Can you redesign it?",
-        a: "Yes — redesigns are our specialty. Send us the link and you'll get a free concept of the new site, no strings attached.",
+        a: "Yes — redesigns are our specialty, and one costs the same as a new site: the package sets the price, not the fact that you already have a site. Send us the link and you'll get a free concept of the new site, no strings attached.",
       },
       {
         q: "How does payment work?",

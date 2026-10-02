@@ -487,7 +487,7 @@ export const me = {
     launchVideos: {
       title: "Motion design videi",
       badge: "Jednokratno",
-      price: "€40",
+      price: "€30",
       intro:
         "Sajt je gotov — sad treba da ga ljudi vide. Uz bilo koji paket pravimo tri motion design videa za društvene mreže. Jedan najavljuje novi sajt, a druga dva biraš ti: akcija, usluga, cjenovnik ili šta god želiš da istakneš.",
       includes: [
@@ -521,7 +521,7 @@ export const me = {
       },
       {
         q: "Već imam sajt. Možete li ga prepraviti?",
-        a: "Da — redizajn je naša specijalnost. Pošalji link, dobijaš besplatan koncept novog sajta bez obaveze.",
+        a: "Da — redizajn je naša specijalnost, i košta isto kao novi sajt: cijenu određuje paket, a ne to što sajt već imaš. Pošalji link, dobijaš besplatan koncept novog sajta bez obaveze.",
       },
       {
         q: "Kako izgleda plaćanje?",
