@@ -450,25 +450,6 @@ export const me = {
     detailsIncluded: "Uključeno",
     detailsExcluded: "Nije u ovom paketu",
     detailsClose: "Zatvori",
-    /* Not a fourth tier: it sits under the three site packages as its own
-       card, and the note is there to stop it being read as "the cheap Start".
-       The price is prose here, like the add-ons below — a landing page is not
-       a PackageId and has no onboarding of its own. */
-    landing: {
-      eyebrow: "Za kampanju",
-      name: "Landing stranica",
-      price: "€150",
-      tagline:
-        "Jedna stranica za jednu ponudu — akciju, otvaranje, upis ili događaj. Na nju vodiš ljude iz oglasa i sa Instagrama, i sve na njoj vodi do jednog dugmeta.",
-      includes: [
-        "Jedna ponuda, jedan poziv na akciju",
-        "Dizajn po mjeri tvog brenda",
-        "Kontakt dugmad po izboru",
-        "Domen i hosting uključeni u cijenu",
-        "Jedan krug izmjena",
-      ],
-      note: "Nije zamjena za sajt: Start je stalna adresa tvog biznisa, a landing stranica traje koliko i kampanja. Ako sajt već imaš kod nas, pravimo je u istom stilu.",
-    },
     maintenance: {
       title: "Održavanje i hosting",
       badge: "Opciono",
@@ -583,7 +564,6 @@ export const me = {
       /* Keys are the values in OFFERED_LEAD_NEEDS (src/lib/workflow.ts). */
       needOptions: {
         "new-site": "Novi sajt",
-        landing: "Landing stranica",
         redesign: "Redizajn postojećeg",
         "not-sure": "Još ne znam",
       },

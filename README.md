@@ -34,14 +34,12 @@ Most projects are ready within 10 days once we have the necessary content.
 | Business | €400 | Up to five pages, Montenegrin and English, two revision rounds |
 | Project | From €600 | A custom build — shop, integrations, more languages; scope and final price agreed per project |
 
-A landing page — one page for one campaign, not a replacement for a site — is
-sold beside the packages for €150, with the domain and hosting included in
-that price. Two optional add-ons follow: a monthly care plan for €20/month, and
-three motion design videos for social media (20+ seconds each; one announces
-the new site, the client picks the subject of the other two) for a one-off €30.
-Package and price
-are agreed with Vaky directly through Instagram or email before any work
-starts — there is no checkout on the site itself.
+Two optional add-ons sit beside the packages: a monthly care plan for
+€20/month, and three motion design videos for social media (20+ seconds each;
+one announces the new site, the client picks the subject of the other two) for
+a one-off €30. Package and price are agreed with Vaky directly through
+Instagram or email before any work starts — there is no checkout on the site
+itself.
 
 Every site is responsive and includes direct contact actions, a map/contact area, and the SEO essentials needed for search engines to understand it.
 

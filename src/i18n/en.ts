@@ -414,21 +414,6 @@ export const en: Dictionary = {
     detailsIncluded: "Included",
     detailsExcluded: "Not in this package",
     detailsClose: "Close",
-    landing: {
-      eyebrow: "For a campaign",
-      name: "Landing page",
-      price: "€150",
-      tagline:
-        "One page for one offer — a promotion, an opening, sign-ups or an event. You send people to it from ads and from Instagram, and everything on it leads to a single button.",
-      includes: [
-        "One offer, one call to action",
-        "Design made for your brand",
-        "Contact buttons of your choice",
-        "Domain and hosting included in the price",
-        "One round of revisions",
-      ],
-      note: "Not a replacement for a website: Start is your business's permanent address, while a landing page lasts as long as the campaign. If your site is already ours, we build it in the same style.",
-    },
     maintenance: {
       title: "Maintenance & hosting",
       badge: "Optional",
@@ -532,7 +517,6 @@ export const en: Dictionary = {
       needLabel: "What you need",
       needOptions: {
         "new-site": "A new website",
-        landing: "A landing page",
         redesign: "A redesign of an existing one",
         "not-sure": "Not sure yet",
       },

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/i18n";
 import { Vaky } from "@/components/mascot/Vaky";
 import { CheckIcon, SparkleIcon } from "./icons";
@@ -23,11 +23,8 @@ import { priceLabel } from "@/lib/packages";
  * The action is a link to the enquiry form, not a checkout. Picking a package
  * here buys nothing and commits nobody: it says which conversation to start,
  * and the price is agreed with a person before any work begins.
- *
- * `children` render between the cards and that note — whatever else is sold
- * as a package belongs above the line that says nothing is paid here.
  */
-export function PlanMatrix({ dict, children }: { dict: Dictionary; children?: ReactNode }) {
+export function PlanMatrix({ dict }: { dict: Dictionary }) {
   const { plans, compare } = dict.pricing;
   const [openPlan, setOpenPlan] = useState<number | null>(null);
   /* Below lg the cards would stack, and the third price sat two screens under
@@ -171,8 +168,6 @@ export function PlanMatrix({ dict, children }: { dict: Dictionary; children?: Re
           );
         })}
       </div>
-
-      {children}
 
       {/* The one line that keeps a price list from reading like a checkout. */}
       <p className="mt-6 text-sm text-muted">{dict.pricing.planNote}</p>

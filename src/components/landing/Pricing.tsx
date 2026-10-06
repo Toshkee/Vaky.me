@@ -17,9 +17,7 @@ export function Pricing({ dict }: { dict: Dictionary }) {
         <SectionHead icon={<EuroIcon />} title={dict.pricing.title} />
         <p className="mt-3 max-w-xl text-muted">{dict.pricing.sub}</p>
 
-        <PlanMatrix dict={dict}>
-          <LandingOffer dict={dict} />
-        </PlanMatrix>
+        <PlanMatrix dict={dict} />
 
         {/* The one recurring charge on the page — and an optional one, which
             is the fact this panel exists to make unmissable. It explains the
@@ -33,59 +31,6 @@ export function Pricing({ dict }: { dict: Dictionary }) {
         <AddOn addOn={dict.pricing.launchVideos} />
       </div>
     </section>
-  );
-}
-
-/**
- * The landing page: sold like a package, but not a fourth tier — it is a
- * different thing, not more of the same. So it gets the packages' slab and
- * its own row beneath them, laid on its side so nobody reads it as the next
- * step up from Projekat.
- *
- * On a phone only what it is and what it costs shows until it is opened. The
- * fold lives in the left half, and the right half follows it through
- * `group-has-[…]`: one button, both halves.
- */
-function LandingOffer({ dict }: { dict: Dictionary }) {
-  const landing = dict.pricing.landing;
-
-  return (
-    <div className="px-card group mt-8 grid lg:grid-cols-[1.15fr_0.85fr]">
-      <div className="p-5 sm:p-6">
-        <MobileFold
-          label={landing.name}
-          head={
-            <>
-              <p className="eyebrow text-red">{landing.eyebrow}</p>
-              <h3 className="headline mt-2 text-xl">{landing.name}</h3>
-              <p className="headline tnum mt-2 text-3xl">{landing.price}</p>
-            </>
-          }
-        >
-          <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">{landing.tagline}</p>
-          <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">{landing.note}</p>
-        </MobileFold>
-      </div>
-
-      <div className="hidden flex-col gap-5 border-t border-line p-5 group-has-[[aria-expanded=true]]:flex sm:flex sm:p-6 lg:border-t-0 lg:border-l">
-        <ul className="grid gap-2.5">
-          {landing.includes.map((item) => (
-            <li key={item} className="flex items-baseline gap-2.5 text-sm">
-              <CheckIcon className="w-4 shrink-0 self-center text-red" />
-              {item}
-            </li>
-          ))}
-        </ul>
-        <a
-          href="#kontakt"
-          data-umami-event="plan_enquiry"
-          data-umami-event-plan={landing.name}
-          className="px px-btn tap mt-auto inline-flex min-h-12 items-center justify-center bg-paper px-6 text-[1.0625rem] text-ink transition-colors hover:text-red"
-        >
-          {dict.pricing.planAction}
-        </a>
-      </div>
-    </div>
   );
 }
 
