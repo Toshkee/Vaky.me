@@ -33,7 +33,10 @@ jobs:
       # The Functions are compiled by the Pages build, not by `next build`, so
       # a broken one would only be found at deploy time otherwise.
       - run: npm run build:functions
-      - run: npm audit --audit-level=high
+      # npm audit --audit-level=high, minus the advisories scripts/audit-check.mjs
+      # names and explains: ones with no patched release, on a path that
+      # cannot reach them.
+      - run: node scripts/audit-check.mjs
 
   accessibility:
     runs-on: ubuntu-latest
