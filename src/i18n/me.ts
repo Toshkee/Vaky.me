@@ -101,30 +101,6 @@ export const me = {
         ],
       },
       {
-        key: "restaurant",
-        type: "Restoran",
-        projects: [
-          {
-            name: "Lucky Chopsticks",
-            slug: "lucky-chopsticks",
-            tag: "Azijski restoran · Podgorica",
-            href: "/demo/lucky-chopsticks/",
-            brief: "Gosti traže jelovnik i lokaciju prije nego odluče gdje idu večeras.",
-            solution: "Meni po raspoloženju i izdvojena jela na jednoj stranici.",
-            includes: ["Meni", "Specijaliteti", "Rezervacije"],
-          },
-          {
-            name: "Konoba Skadar",
-            slug: "konoba-skadar",
-            tag: "Konoba · Virpazar",
-            href: "/demo/konoba-skadar/",
-            brief: "Gost bira mjesto sa telefona i traži jelovnik i slobodan sto.",
-            solution: "Jelovnik po kategorijama, poziv i rezervacija na jedan dodir.",
-            includes: ["Jelovnik", "Rezervacije", "Mapa"],
-          },
-        ],
-      },
-      {
         key: "barber",
         type: "Barber",
         projects: [
@@ -145,6 +121,30 @@ export const me = {
             brief: "Zakazivanje ide preko Vibera, a cjenovnik nigdje ne stoji.",
             solution: "Cjenovnik, radno vrijeme i tim na jednoj stranici, Viber na klik.",
             includes: ["Cjenovnik", "Radno vrijeme", "Viber"],
+          },
+        ],
+      },
+      {
+        key: "restaurant",
+        type: "Restoran",
+        projects: [
+          {
+            name: "Lucky Chopsticks",
+            slug: "lucky-chopsticks",
+            tag: "Azijski restoran · Podgorica",
+            href: "/demo/lucky-chopsticks/",
+            brief: "Gosti traže jelovnik i lokaciju prije nego odluče gdje idu večeras.",
+            solution: "Meni po raspoloženju i izdvojena jela na jednoj stranici.",
+            includes: ["Meni", "Specijaliteti", "Rezervacije"],
+          },
+          {
+            name: "Konoba Skadar",
+            slug: "konoba-skadar",
+            tag: "Konoba · Virpazar",
+            href: "/demo/konoba-skadar/",
+            brief: "Gost bira mjesto sa telefona i traži jelovnik i slobodan sto.",
+            solution: "Jelovnik po kategorijama, poziv i rezervacija na jedan dodir.",
+            includes: ["Jelovnik", "Rezervacije", "Mapa"],
           },
         ],
       },

@@ -78,30 +78,6 @@ export const en: Dictionary = {
         ],
       },
       {
-        key: "restaurant",
-        type: "Restaurant",
-        projects: [
-          {
-            name: "Lucky Chopsticks",
-            slug: "lucky-chopsticks",
-            tag: "Asian restaurant · Podgorica",
-            href: "/demo/lucky-chopsticks/",
-            brief: "Guests check the menu and location before picking where to eat.",
-            solution: "A menu by mood and featured dishes on one distinctive page.",
-            includes: ["Menu", "Specials", "Bookings"],
-          },
-          {
-            name: "Konoba Skadar",
-            slug: "konoba-skadar",
-            tag: "Konoba · Virpazar",
-            href: "/demo/konoba-skadar/",
-            brief: "Guests pick a place by phone and want the menu and a free table.",
-            solution: "The menu as text by category, calling and booking one tap away.",
-            includes: ["Menu", "Bookings", "Map"],
-          },
-        ],
-      },
-      {
         key: "barber",
         type: "Barber",
         projects: [
@@ -122,6 +98,30 @@ export const en: Dictionary = {
             brief: "Booking runs over Viber, and prices are nowhere to be found.",
             solution: "Prices, hours and the team on one page, Viber one tap away.",
             includes: ["Price list", "Opening hours", "Viber"],
+          },
+        ],
+      },
+      {
+        key: "restaurant",
+        type: "Restaurant",
+        projects: [
+          {
+            name: "Lucky Chopsticks",
+            slug: "lucky-chopsticks",
+            tag: "Asian restaurant · Podgorica",
+            href: "/demo/lucky-chopsticks/",
+            brief: "Guests check the menu and location before picking where to eat.",
+            solution: "A menu by mood and featured dishes on one distinctive page.",
+            includes: ["Menu", "Specials", "Bookings"],
+          },
+          {
+            name: "Konoba Skadar",
+            slug: "konoba-skadar",
+            tag: "Konoba · Virpazar",
+            href: "/demo/konoba-skadar/",
+            brief: "Guests pick a place by phone and want the menu and a free table.",
+            solution: "The menu as text by category, calling and booking one tap away.",
+            includes: ["Menu", "Bookings", "Map"],
           },
         ],
       },
