@@ -189,8 +189,10 @@ export default function KraftArtPage() {
             </div>
 
             <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-12">
+              {/* Keyed by file name, not `src`: keys ship in the RSC payload,
+                  and Googlebot crawls a bare "/demo/…" path there as a 404. */}
               {works.map((work) => (
-                <li key={work.src} className={WORK_LAYOUT[work.src].span}>
+                <li key={work.src.split("/").pop()} className={WORK_LAYOUT[work.src].span}>
                   <a
                     href={work.source}
                     target="_blank"

@@ -249,9 +249,11 @@ export default function LavLavPage() {
             >
               {lookbook.map((look, index) => (
                 // Every second frame drops half a step, so the row reads as a
-                // lookbook spread rather than a product grid.
+                // lookbook spread rather than a product grid. Keyed by file
+                // name, not `src`: keys ship in the RSC payload, and Googlebot
+                // crawled the bare "/demo/lavlav/maslina" there as a 404 page.
                 <li
-                  key={look.src}
+                  key={look.src.split("/").pop()}
                   className={`w-[78%] shrink-0 sm:w-auto ${index % 2 === 1 ? "sm:mt-10" : ""}`}
                 >
                   <figure className={styles.frame}>

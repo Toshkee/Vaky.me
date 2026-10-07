@@ -268,8 +268,11 @@ export default function SoulStudioPage() {
               <ul className="grid gap-5 sm:grid-cols-2">
                 {gallery.map((photo) => {
                   const layout = GALLERY_LAYOUT[photo.src];
+                  // Keyed by file name, not `src`: keys ship in the RSC
+                  // payload, and Googlebot crawls a bare "/demo/…" path there
+                  // as a 404.
                   return (
-                    <li key={photo.src} className={layout.cell}>
+                    <li key={photo.src.split("/").pop()} className={layout.cell}>
                       <div className={`${styles.reveal} h-full overflow-hidden rounded-sm`}>
                         <DemoPhoto
                           src={photo.src}
