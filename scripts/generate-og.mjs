@@ -66,7 +66,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
       </div>
     </div>
     <div class="bottom">
-      <span>Od <b>€200</b></span><span class="dot">·</span>
+      <span>Od <b>€250</b></span><span class="dot">·</span>
       <span>Rok <b>do 10 dana</b></span><span class="dot">·</span>
       <span>Besplatan koncept</span>
     </div>

@@ -40,6 +40,7 @@ const NEED_EN: Record<string, string> = {
   "new-site": "A new website (has none, or nothing worth keeping)",
   landing: "A landing page — one page for one campaign, not a full site",
   redesign: "A redesign of an existing site",
+  app: "A mobile app (iPhone and Android, in the stores or as a PWA) rather than a website — see their message for what it should do",
   shop: "An online shop",
   "something-else": "Something else — see their message",
   "not-sure": "Not sure yet — the concept is what helps them decide",

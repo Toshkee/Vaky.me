@@ -11,9 +11,9 @@ import type { Language, PackageId } from "./onboarding/schema";
  * build brief all read those facts from here, so a price change is one edit.
  *
  * A few price mentions live outside this module on purpose, as prose: the
- * hero headline, the trade pages and the meta description say "od €200" in a
+ * hero headline, the trade pages and the meta description say "od €250" in a
  * sentence. All mean the entry price — if `start.price.amount` ever changes,
- * change them too (grep for "€200" in src/i18n/).
+ * change them too (grep for "€250" in src/i18n/).
  *
  * Imported by both the browser bundle and the Cloudflare Functions build, so
  * the same rules apply as in `./onboarding/schema`: relative imports only, no
@@ -22,7 +22,7 @@ import type { Language, PackageId } from "./onboarding/schema";
 
 export type PackagePrice = {
   amount: number;
-  /** "fixed" renders as "€200"; "from" as "Od €600" / "From €600" — a
+  /** "fixed" renders as "€250"; "from" as "Od €800" / "From €800" — a
    *  starting price whose final figure depends on scope. */
   kind: "fixed" | "from";
 };
@@ -44,7 +44,7 @@ export type PackageDef = {
 export const PACKAGES: Record<PackageId, PackageDef> = {
   start: {
     id: "start",
-    price: { amount: 200, kind: "fixed" },
+    price: { amount: 250, kind: "fixed" },
     onePage: true,
     maxPages: 1,
     revisionRounds: 1,
@@ -52,7 +52,7 @@ export const PACKAGES: Record<PackageId, PackageDef> = {
   },
   business: {
     id: "business",
-    price: { amount: 400, kind: "fixed" },
+    price: { amount: 500, kind: "fixed" },
     onePage: false,
     maxPages: 5,
     revisionRounds: 2,
@@ -60,7 +60,7 @@ export const PACKAGES: Record<PackageId, PackageDef> = {
   },
   project: {
     id: "project",
-    price: { amount: 600, kind: "from" },
+    price: { amount: 800, kind: "from" },
     onePage: false,
     maxPages: null,
     revisionRounds: null,

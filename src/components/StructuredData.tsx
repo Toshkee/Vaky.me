@@ -58,7 +58,7 @@ export function StructuredData({ dict }: { dict: Dictionary }) {
           name: plan.name,
           description: plan.tagline,
           priceCurrency: "EUR",
-          /* A starting price is not a price. Stating €600 flat for a package
+          /* A starting price is not a price. Stating €800 flat for a package
              whose whole point is that the scope decides would be a promise
              the studio has not made — so it ships as a minimum instead, which
              is the thing schema.org has a field for. */

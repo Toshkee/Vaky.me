@@ -16,7 +16,7 @@ export const en: Dictionary = {
   hero: {
     eyebrow: "Web studio — Montenegro",
     titleA: "A website for your business.",
-    titleB: "From €200, in 10 days.",
+    titleB: "From €250, in 10 days.",
     sub: "Restaurant, salon, barbershop, gym, villa. You get a free concept first, then you decide.",
     ctaPrimary: "Get your free concept",
     ctaSecondary: "See the examples",
@@ -417,7 +417,7 @@ export const en: Dictionary = {
     maintenance: {
       title: "Maintenance & hosting",
       badge: "Optional",
-      price: "€20/month",
+      price: "€25/month",
       intro:
         "After launch the site is yours and runs on your domain. If you'd rather not think about the technical side, we take that worry over — first month free, cancel any time.",
       includes: [
@@ -431,7 +431,7 @@ export const en: Dictionary = {
     launchVideos: {
       title: "Motion design videos",
       badge: "One-off",
-      price: "€30",
+      price: "€50",
       intro:
         "The site is done — now people need to see it. With any package we make three motion design videos for social media. One announces the new site; the other two are yours to choose: a promotion, a service, a price list, or whatever you want to put forward.",
       includes: [
@@ -441,6 +441,20 @@ export const en: Dictionary = {
         "One round of revisions",
       ],
       note: "Motion design means animation — the text and photos from your site, in motion — not a shoot at your premises. Music by arrangement: we add it, or the videos arrive silent.",
+    },
+    mobileApps: {
+      title: "Mobile apps",
+      badge: "Custom",
+      price: "On request",
+      intro:
+        "For when your customers need more than a website — an app on their phone for booking, ordering, a loyalty card or offers sent straight to them. We build it around what your business actually does.",
+      includes: [
+        "For iPhone and Android",
+        "Your brand's colours and type",
+        "On the App Store and Google Play, or as a PWA",
+        "A quote before anything is paid",
+      ],
+      note: "A PWA is an app installed straight from your website, without the App Store or Google Play. The price depends on exactly what you want the app to do — a simple app with a price list and contact details is not the same job as accounts, payments and a link to your till. Tell us what you need and you get a quote before committing to anything.",
     },
     planAction: "Ask about this package",
     planNote: "Nothing is paid through the site — we agree on what you need first.",
@@ -459,7 +473,7 @@ export const en: Dictionary = {
       },
       {
         q: "Do I have to take the maintenance plan?",
-        a: "No. The site is yours and runs on your domain — nothing you have to subscribe to with us. Maintenance at €20/month is an option for those who'd rather not deal with the technical side — hosting, monitoring, backups and small content updates. Cancel whenever you like.",
+        a: "No. The site is yours and runs on your domain — nothing you have to subscribe to with us. Maintenance at €25/month is an option for those who'd rather not deal with the technical side — hosting, monitoring, backups and small content updates. Cancel whenever you like.",
       },
       {
         q: "I already have a website. Can you redesign it?",
@@ -471,7 +485,7 @@ export const en: Dictionary = {
       },
       {
         q: "Can I edit the content myself?",
-        a: "The site has no admin panel — that is what keeps it fast and secure, but it means prices, text and photos do not change on their own. Small edits are part of the €20/month maintenance; without it, you write to us and we agree per change. If you need to manage content yourself every day, that is a Project and we say so up front.",
+        a: "The site has no admin panel — that is what keeps it fast and secure, but it means prices, text and photos do not change on their own. Small edits are part of the €25/month maintenance; without it, you write to us and we agree per change. If you need to manage content yourself every day, that is a Project and we say so up front.",
       },
       {
         q: "Who writes the text and takes the photos?",
@@ -518,6 +532,7 @@ export const en: Dictionary = {
       needOptions: {
         "new-site": "A new website",
         redesign: "A redesign of an existing one",
+        app: "A mobile app",
         "not-sure": "Not sure yet",
       },
       messageLabel: "Briefly about the business",
@@ -640,15 +655,15 @@ export const en: Dictionary = {
     examplesSub: "Some of these are live client sites, the rest are concepts made for a specific business. Open them on your phone.",
     needsTitle: "What such a site has to have",
     priceTitle: "Price and timeline",
-    priceBody: "The Start package is €200 and goes online within 10 days. You get a free concept before paying, so you see what the site would look like before you decide.",
+    priceBody: "The Start package is €250 and goes online within 10 days. You get a free concept before paying, so you see what the site would look like before you decide.",
     priceLink: "See all packages",
     othersTitle: "Other trades",
     items: {
       villa: {
         slug: "website-for-villas",
         title: "A website for a villa or holiday house",
-        metaTitle: "Website for a villa — from €200, online in 10 days | Vaky",
-        description: "Website design for villas and holiday houses in Montenegro. Gallery, location and booking on your own domain, alongside Booking and Airbnb. From €200, free concept.",
+        metaTitle: "Website for a villa — from €250, online in 10 days | Vaky",
+        description: "Website design for villas and holiday houses in Montenegro. Gallery, location and booking on your own domain, alongside Booking and Airbnb. From €250, free concept.",
         intro: "A house rented only through Booking and Airbnb shares a page with a thousand similar ones and pays commission on every night. A site on its own domain is the address a guest remembers and comes back to next summer.",
         needs: [
           { title: "A gallery that sells", body: "Large photos of the house, the garden and the view, in the order a guest looks around." },
@@ -660,8 +675,8 @@ export const en: Dictionary = {
       apartment: {
         slug: "website-for-apartments",
         title: "A website for apartments",
-        metaTitle: "Website for apartments — from €200, online in 10 days | Vaky",
-        description: "Website design for holiday apartments in Montenegro. Gallery, pool and beach, location and booking through Booking or directly. From €200, free concept.",
+        metaTitle: "Website for apartments — from €250, online in 10 days | Vaky",
+        description: "Website design for holiday apartments in Montenegro. Gallery, pool and beach, location and booking through Booking or directly. From €250, free concept.",
         intro: "In a listing an apartment gets lost among a hundred similar ones, and what sets it apart, the view, the pool, the beach nearby, fits in two photos. On its own site that becomes the whole story, and booking still goes wherever suits you.",
         needs: [
           { title: "What sets it apart", body: "The view, the pool, the terrace or the beach five steps away, first and largest on the page." },
@@ -673,8 +688,8 @@ export const en: Dictionary = {
       restaurant: {
         slug: "website-for-restaurants",
         title: "A website for a restaurant",
-        metaTitle: "Website for a restaurant — from €200, online in 10 days | Vaky",
-        description: "Website design for restaurants and taverns in Montenegro. A menu that reads on a phone, one-tap reservations, opening hours and a map. From €200, free concept.",
+        metaTitle: "Website for a restaurant — from €250, online in 10 days | Vaky",
+        description: "Website design for restaurants and taverns in Montenegro. A menu that reads on a phone, one-tap reservations, opening hours and a map. From €250, free concept.",
         intro: "Before coming, a guest looks for three things: the menu, the opening hours and how to book a table. If they have to dig through Instagram for it, they often move on. A site gives all three in one place, on a phone.",
         needs: [
           { title: "A menu that reads on a phone", body: "Dishes and prices as text, not a photo of the menu to zoom into." },
@@ -686,8 +701,8 @@ export const en: Dictionary = {
       barber: {
         slug: "website-for-barbershops",
         title: "A website for a barbershop",
-        metaTitle: "Website for a barbershop — from €200, online in 10 days | Vaky",
-        description: "Website design for barbershops in Montenegro. Work, price list and appointments over Instagram, Viber or online. From €200, free concept.",
+        metaTitle: "Website for a barbershop — from €250, online in 10 days | Vaky",
+        description: "Website design for barbershops in Montenegro. Work, price list and appointments over Instagram, Viber or online. From €250, free concept.",
         intro: "A customer picks a barber by the pictures and books by message. A site brings both together: the work, the price list and a booking button that goes to Instagram, Viber or online appointments.",
         needs: [
           { title: "The work, in a gallery", body: "Cuts and beards at full size, not in an Instagram grid." },
@@ -699,8 +714,8 @@ export const en: Dictionary = {
       hair: {
         slug: "website-for-hair-salons",
         title: "A website for a hair salon",
-        metaTitle: "Website for a hair salon — from €200, online in 10 days | Vaky",
-        description: "Website design for hair salons in Montenegro. Prices by service, work, team and booking by call, Viber or Instagram. From €200, free concept.",
+        metaTitle: "Website for a hair salon — from €250, online in 10 days | Vaky",
+        description: "Website design for hair salons in Montenegro. Prices by service, work, team and booking by call, Viber or Instagram. From €250, free concept.",
         intro: "A hair salon lives on recommendations and on Instagram. The site is where that recommendation leads: prices, work, the team and a booking button, without scrolling through a hundred posts.",
         needs: [
           { title: "Prices by service", body: "Cut, colour, treatments, with prices a client sees before messaging." },
@@ -712,8 +727,8 @@ export const en: Dictionary = {
       beauty: {
         slug: "website-for-beauty-salons",
         title: "A website for a beauty salon",
-        metaTitle: "Website for a beauty salon — from €200, online in 10 days | Vaky",
-        description: "Website design for beauty salons in Montenegro. Treatments and prices, gallery, team and booking over Instagram or Viber. From €200, free concept.",
+        metaTitle: "Website for a beauty salon — from €250, online in 10 days | Vaky",
+        description: "Website design for beauty salons in Montenegro. Treatments and prices, gallery, team and booking over Instagram or Viber. From €250, free concept.",
         intro: "Treatments, prices and who does them, that is what a client wants to know before sending a message. A site lays it out clearly, and booking stays on Instagram or Viber if that suits you.",
         needs: [
           { title: "Treatments and prices", body: "By category, with duration and price, no PDF price list." },
@@ -725,8 +740,8 @@ export const en: Dictionary = {
       tattoo: {
         slug: "website-for-tattoo-studios",
         title: "A website for a tattoo studio",
-        metaTitle: "Website for a tattoo studio — from €200, online in 10 days | Vaky",
-        description: "Website design for tattoo studios in Montenegro. Portfolio by artist and style, prices from, appointment enquiries and aftercare. From €200, free concept.",
+        metaTitle: "Website for a tattoo studio — from €250, online in 10 days | Vaky",
+        description: "Website design for tattoo studios in Montenegro. Portfolio by artist and style, prices from, appointment enquiries and aftercare. From €250, free concept.",
         intro: "For a tattoo studio the portfolio is everything. A site shows it at full size, by artist and by style, and leads to an appointment enquiry, instead of the work getting lost in an Instagram grid.",
         needs: [
           { title: "Portfolio by artist", body: "Each artist with their own work and style, at full size." },
@@ -738,8 +753,8 @@ export const en: Dictionary = {
       pilates: {
         slug: "website-for-pilates-studios",
         title: "A website for a pilates or yoga studio",
-        metaTitle: "Website for a pilates studio — from €200, online in 10 days | Vaky",
-        description: "Website design for pilates and yoga studios in Montenegro. Class schedule, prices and packages, instructors and trial class sign-up. From €200, free concept.",
+        metaTitle: "Website for a pilates studio — from €250, online in 10 days | Vaky",
+        description: "Website design for pilates and yoga studios in Montenegro. Class schedule, prices and packages, instructors and trial class sign-up. From €250, free concept.",
         intro: "A new member first looks for the schedule, the price of a monthly pass and where the studio is. A site answers all three before the message, and shows the instructors and the space the way someone walking in for the first time sees them.",
         needs: [
           { title: "Class schedule", body: "By day and type of class, readable on a phone." },
@@ -751,8 +766,8 @@ export const en: Dictionary = {
       gym: {
         slug: "website-for-gyms",
         title: "A website for a gym",
-        metaTitle: "Website for a gym — from €200, online in 10 days | Vaky",
-        description: "Website design for gyms in Montenegro. Memberships, opening hours, space and equipment, trainers and sign-up. From €200, free concept.",
+        metaTitle: "Website for a gym — from €250, online in 10 days | Vaky",
+        description: "Website design for gyms in Montenegro. Memberships, opening hours, space and equipment, trainers and sign-up. From €250, free concept.",
         intro: "A gym is chosen by price, opening hours and what it looks like inside. A site gives all of that without a phone call: memberships, equipment, trainers and a sign-up button.",
         needs: [
           { title: "Memberships", body: "Monthly, quarterly, student, with prices changed in one place." },
@@ -764,8 +779,8 @@ export const en: Dictionary = {
       dentist: {
         slug: "website-for-dentists",
         title: "A website for a dental practice",
-        metaTitle: "Website for a dentist — from €200, online in 10 days | Vaky",
-        description: "Website design for dental practices in Montenegro. Services and price list, team, appointment booking, location. From €200, free concept.",
+        metaTitle: "Website for a dentist — from €250, online in 10 days | Vaky",
+        description: "Website design for dental practices in Montenegro. Services and price list, team, appointment booking, location. From €250, free concept.",
         intro: "A patient chooses a practice on trust: who the doctor is, which services they do, what it costs and how to book. A site says that calmly and clearly, without a hard sell.",
         needs: [
           { title: "Services and price list", body: "From a check-up to implants, with prices or price ranges." },
@@ -778,9 +793,9 @@ export const en: Dictionary = {
   },
 
   meta: {
-    title: "Website Development Montenegro — from €200, within 10 days | Vaky",
+    title: "Website Development Montenegro — from €250, within 10 days | Vaky",
     description:
-      "Website design and development in Montenegro. A modern site for your business — from €200, live within 10 days. Free concept before you pay. Vaky, Podgorica.",
+      "Website design and development in Montenegro. A modern site for your business — from €250, live within 10 days. Free concept before you pay. Vaky, Podgorica.",
     serviceTypes: ["Website development", "Web design", "Website maintenance"],
   },
 };

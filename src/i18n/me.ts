@@ -17,7 +17,7 @@ export const me = {
        long it takes. Both figures come from src/lib/packages.ts and the
        process section — change them there and here together. */
     titleA: "Sajt za tvoj biznis.",
-    titleB: "Od €200, za 10 dana.",
+    titleB: "Od €250, za 10 dana.",
     sub: "Restoran, salon, barber, teretana, vila. Prvo dobijaš besplatan koncept, pa odlučuješ.",
     ctaPrimary: "Zatraži besplatan koncept",
     ctaSecondary: "Pogledaj primjere",
@@ -453,7 +453,7 @@ export const me = {
     maintenance: {
       title: "Održavanje i hosting",
       badge: "Opciono",
-      price: "€20/mjesec",
+      price: "€25/mjesec",
       intro:
         "Poslije objave sajt je tvoj i radi na tvom domenu. Ako ne želiš da razmišljaš o tehničkoj strani, tu brigu preuzimamo mi — prvi mjesec gratis, otkazuješ kad hoćeš.",
       includes: [
@@ -470,7 +470,7 @@ export const me = {
     launchVideos: {
       title: "Motion design videi",
       badge: "Jednokratno",
-      price: "€30",
+      price: "€50",
       intro:
         "Sajt je gotov — sad treba da ga ljudi vide. Uz bilo koji paket pravimo tri motion design videa za društvene mreže. Jedan najavljuje novi sajt, a druga dva biraš ti: akcija, usluga, cjenovnik ili šta god želiš da istakneš.",
       includes: [
@@ -480,6 +480,23 @@ export const me = {
         "Jedan krug izmjena",
       ],
       note: "Motion design je animacija — tekst i fotografije sa tvog sajta u pokretu — a ne snimanje u objektu. Muzika po dogovoru: dodajemo je mi, ili video stiže bez zvuka.",
+    },
+    /* Same shape again, but not an add-on: a service of its own, with no
+       package and no fixed figure, because the price is whatever the app has
+       to do. The note says so and says what happens next. */
+    mobileApps: {
+      title: "Mobilne aplikacije",
+      badge: "Po mjeri",
+      price: "Po dogovoru",
+      intro:
+        "Kad tvojim klijentima treba više od sajta — aplikacija na telefonu za zakazivanje, porudžbine, karticu lojalnosti ili obavještenja o akcijama. Pravimo je oko onoga što tvoj biznis stvarno radi.",
+      includes: [
+        "Za iPhone i Android",
+        "Boje i slova tvog brenda",
+        "Objava na App Store i Google Play, ili kao PWA",
+        "Ponuda prije bilo kakvog plaćanja",
+      ],
+      note: "PWA je aplikacija koja se instalira direktno sa tvog sajta, bez App Storea i Google Playa. Cijena zavisi od toga šta tačno želiš da aplikacija radi — jednostavna aplikacija sa cjenovnikom i kontaktom nije isti posao kao nalozi, plaćanje i povezivanje sa kasom. Opiši nam šta ti treba, pa dobijaš ponudu prije bilo kakve obaveze.",
     },
     planAction: "Pitaj za ovaj paket",
     /* Said on the cards, because a price list that looks like a checkout is a
@@ -500,7 +517,7 @@ export const me = {
       },
       {
         q: "Da li moram uzeti održavanje?",
-        a: "Ne. Sajt je tvoj i radi na tvom domenu, bez ikakve obavezne pretplate kod nas. Održavanje od €20 mjesečno je opcija za one koji ne žele da se bave tehničkom stranom — hosting, nadzor, backup i sitne izmjene sadržaja. Otkazuješ kad god hoćeš.",
+        a: "Ne. Sajt je tvoj i radi na tvom domenu, bez ikakve obavezne pretplate kod nas. Održavanje od €25 mjesečno je opcija za one koji ne žele da se bave tehničkom stranom — hosting, nadzor, backup i sitne izmjene sadržaja. Otkazuješ kad god hoćeš.",
       },
       {
         q: "Već imam sajt. Možete li ga prepraviti?",
@@ -512,7 +529,7 @@ export const me = {
       },
       {
         q: "Mogu li sam da mijenjam sadržaj?",
-        a: "Sajt nema admin panel — to ga čini brzim i sigurnim, ali znači da se cijene, tekst i fotografije ne mijenjaju sami. Sitne izmjene ulaze u održavanje od €20 mjesečno; bez održavanja, javiš se i dogovorimo se po izmjeni. Ako ti treba da sam upravljaš sadržajem svaki dan, to je Projekat i kažemo ti unaprijed.",
+        a: "Sajt nema admin panel — to ga čini brzim i sigurnim, ali znači da se cijene, tekst i fotografije ne mijenjaju sami. Sitne izmjene ulaze u održavanje od €25 mjesečno; bez održavanja, javiš se i dogovorimo se po izmjeni. Ako ti treba da sam upravljaš sadržajem svaki dan, to je Projekat i kažemo ti unaprijed.",
       },
       {
         q: "Ko piše tekstove i ko slika?",
@@ -565,6 +582,7 @@ export const me = {
       needOptions: {
         "new-site": "Novi sajt",
         redesign: "Redizajn postojećeg",
+        app: "Mobilna aplikacija",
         "not-sure": "Još ne znam",
       },
       messageLabel: "Ukratko o biznisu",
@@ -696,15 +714,15 @@ export const me = {
     examplesSub: "Neki primjeri su sajtovi koji već rade uživo, ostali su koncepti napravljeni za konkretan biznis. Otvori ih na telefonu.",
     needsTitle: "Šta takav sajt treba da ima",
     priceTitle: "Cijena i rok",
-    priceBody: "Start paket je €200 i online je do 10 dana. Prije plaćanja dobijaš besplatan koncept, pa vidiš kako bi sajt izgledao prije nego što odlučiš.",
+    priceBody: "Start paket je €250 i online je do 10 dana. Prije plaćanja dobijaš besplatan koncept, pa vidiš kako bi sajt izgledao prije nego što odlučiš.",
     priceLink: "Pogledaj sve pakete",
     othersTitle: "Druge djelatnosti",
     items: {
       villa: {
         slug: "sajt-za-vile",
         title: "Sajt za vilu ili kuću za odmor",
-        metaTitle: "Sajt za vilu — od €200, online do 10 dana | Vaky",
-        description: "Izrada sajta za vilu ili kuću za odmor u Crnoj Gori. Galerija, lokacija i rezervacija na svom domenu, uz Booking i Airbnb. Od €200, besplatan koncept.",
+        metaTitle: "Sajt za vilu — od €250, online do 10 dana | Vaky",
+        description: "Izrada sajta za vilu ili kuću za odmor u Crnoj Gori. Galerija, lokacija i rezervacija na svom domenu, uz Booking i Airbnb. Od €250, besplatan koncept.",
         intro: "Kuća koja se izdaje samo preko Bookinga i Airbnb-ja dijeli stranicu sa hiljadu sličnih i plaća proviziju na svaku noć. Sajt na svom domenu je adresa koju gost pamti i na koju se vraća sljedeće ljeto.",
         needs: [
           { title: "Galerija koja prodaje", body: "Velike fotografije kuće, dvorišta i pogleda, poređane onako kako gost razgleda." },
@@ -716,8 +734,8 @@ export const me = {
       apartment: {
         slug: "sajt-za-apartmane",
         title: "Sajt za apartmane",
-        metaTitle: "Sajt za apartmane — od €200, online do 10 dana | Vaky",
-        description: "Izrada sajta za apartmane u Crnoj Gori. Galerija, bazen i plaža, lokacija i rezervacija preko Bookinga ili direktno. Od €200, besplatan koncept.",
+        metaTitle: "Sajt za apartmane — od €250, online do 10 dana | Vaky",
+        description: "Izrada sajta za apartmane u Crnoj Gori. Galerija, bazen i plaža, lokacija i rezervacija preko Bookinga ili direktno. Od €250, besplatan koncept.",
         intro: "U oglasu se apartman gubi među stotinu sličnih, a ono što ga izdvaja, pogled, bazen, blizina plaže, stane u dvije fotografije. Na svom sajtu to postaje cijela priča, a rezervacija i dalje ide gdje ti odgovara.",
         needs: [
           { title: "Ono što izdvaja", body: "Pogled, bazen, terasa ili plaža na pet koraka, prvo i najveće na stranici." },
@@ -729,8 +747,8 @@ export const me = {
       restaurant: {
         slug: "sajt-za-restorane",
         title: "Sajt za restoran",
-        metaTitle: "Sajt za restoran — od €200, online do 10 dana | Vaky",
-        description: "Izrada sajta za restoran ili konobu u Crnoj Gori. Meni koji se čita na telefonu, rezervacija na klik, radno vrijeme i mapa. Od €200, besplatan koncept.",
+        metaTitle: "Sajt za restoran — od €250, online do 10 dana | Vaky",
+        description: "Izrada sajta za restoran ili konobu u Crnoj Gori. Meni koji se čita na telefonu, rezervacija na klik, radno vrijeme i mapa. Od €250, besplatan koncept.",
         intro: "Gost prije dolaska traži tri stvari: meni, radno vrijeme i kako da rezerviše sto. Ako to mora da traži po Instagramu, često ode dalje. Sajt to daje na jednom mjestu, i na telefonu.",
         needs: [
           { title: "Meni koji se čita na telefonu", body: "Jela i cijene kao tekst, ne kao fotografija jelovnika koju treba zumirati." },
@@ -742,8 +760,8 @@ export const me = {
       barber: {
         slug: "sajt-za-barbershop",
         title: "Sajt za barbershop",
-        metaTitle: "Sajt za barbershop — od €200, online do 10 dana | Vaky",
-        description: "Izrada sajta za barbershop u Crnoj Gori. Radovi, cjenovnik i zakazivanje termina preko Instagrama, Vibera ili online. Od €200, besplatan koncept.",
+        metaTitle: "Sajt za barbershop — od €250, online do 10 dana | Vaky",
+        description: "Izrada sajta za barbershop u Crnoj Gori. Radovi, cjenovnik i zakazivanje termina preko Instagrama, Vibera ili online. Od €250, besplatan koncept.",
         intro: "Mušterija bira barbera po slikama, a zakazuje porukom. Sajt skupi oboje: radove, cjenovnik i dugme za zakazivanje koje vodi na Instagram, Viber ili online termine.",
         needs: [
           { title: "Radovi u galeriji", body: "Frizure i brade u punoj veličini, ne u Instagram gridu." },
@@ -755,8 +773,8 @@ export const me = {
       hair: {
         slug: "sajt-za-frizere",
         title: "Sajt za frizerski salon",
-        metaTitle: "Sajt za frizerski salon — od €200, online do 10 dana | Vaky",
-        description: "Izrada sajta za frizerski salon u Crnoj Gori. Cjenovnik po uslugama, radovi, tim i zakazivanje preko poziva, Vibera ili Instagrama. Od €200, besplatan koncept.",
+        metaTitle: "Sajt za frizerski salon — od €250, online do 10 dana | Vaky",
+        description: "Izrada sajta za frizerski salon u Crnoj Gori. Cjenovnik po uslugama, radovi, tim i zakazivanje preko poziva, Vibera ili Instagrama. Od €250, besplatan koncept.",
         intro: "Frizerski salon živi od preporuke i od Instagrama. Sajt je mjesto na koje ta preporuka vodi: cjenovnik, radovi, tim i dugme za zakazivanje, bez skrolovanja kroz stotinu objava.",
         needs: [
           { title: "Cjenovnik po uslugama", body: "Šišanje, farbanje, tretmani, sa cijenama koje klijentkinja vidi prije poruke." },
@@ -768,8 +786,8 @@ export const me = {
       beauty: {
         slug: "sajt-za-kozmeticki-salon",
         title: "Sajt za kozmetički salon",
-        metaTitle: "Sajt za kozmetički salon — od €200, online do 10 dana | Vaky",
-        description: "Izrada sajta za kozmetički salon u Crnoj Gori. Tretmani i cijene, galerija, tim i zakazivanje preko Instagrama ili Vibera. Od €200, besplatan koncept.",
+        metaTitle: "Sajt za kozmetički salon — od €250, online do 10 dana | Vaky",
+        description: "Izrada sajta za kozmetički salon u Crnoj Gori. Tretmani i cijene, galerija, tim i zakazivanje preko Instagrama ili Vibera. Od €250, besplatan koncept.",
         intro: "Tretmani, cijene i ko ih radi, to klijentkinja želi da zna prije nego što pošalje poruku. Sajt to složi pregledno, a zakazivanje ostaje na Instagramu ili Viberu ako ti tako odgovara.",
         needs: [
           { title: "Tretmani i cijene", body: "Po kategorijama, sa trajanjem i cijenom, bez PDF cjenovnika." },
@@ -781,8 +799,8 @@ export const me = {
       tattoo: {
         slug: "sajt-za-tattoo-studio",
         title: "Sajt za tattoo studio",
-        metaTitle: "Sajt za tattoo studio — od €200, online do 10 dana | Vaky",
-        description: "Izrada sajta za tattoo studio u Crnoj Gori. Portfolio po artistu i stilu, cijene od, upit za termin i njega tetovaže. Od €200, besplatan koncept.",
+        metaTitle: "Sajt za tattoo studio — od €250, online do 10 dana | Vaky",
+        description: "Izrada sajta za tattoo studio u Crnoj Gori. Portfolio po artistu i stilu, cijene od, upit za termin i njega tetovaže. Od €250, besplatan koncept.",
         intro: "Za tattoo studio portfolio je sve. Sajt ga pokazuje u punoj veličini, po artistu i po stilu, i vodi do upita za termin, umjesto da se radovi gube u Instagram gridu.",
         needs: [
           { title: "Portfolio po artistu", body: "Svaki artist sa svojim radovima i stilom, u punoj veličini." },
@@ -794,8 +812,8 @@ export const me = {
       pilates: {
         slug: "sajt-za-pilates-studio",
         title: "Sajt za pilates ili joga studio",
-        metaTitle: "Sajt za pilates studio — od €200, online do 10 dana | Vaky",
-        description: "Izrada sajta za pilates ili joga studio u Crnoj Gori. Raspored časova, cijene i paketi, instruktori i prijava za probni čas. Od €200, besplatan koncept.",
+        metaTitle: "Sajt za pilates studio — od €250, online do 10 dana | Vaky",
+        description: "Izrada sajta za pilates ili joga studio u Crnoj Gori. Raspored časova, cijene i paketi, instruktori i prijava za probni čas. Od €250, besplatan koncept.",
         intro: "Novi polaznik prvo traži raspored, cijenu mjesečne karte i gdje je studio. Sajt odgovara na sva tri prije poruke, a instruktore i prostor pokazuje onako kako ih vidi neko ko prvi put ulazi.",
         needs: [
           { title: "Raspored časova", body: "Po danima i tipu časa, čitljiv na telefonu." },
@@ -807,8 +825,8 @@ export const me = {
       gym: {
         slug: "sajt-za-teretane",
         title: "Sajt za teretanu",
-        metaTitle: "Sajt za teretanu — od €200, online do 10 dana | Vaky",
-        description: "Izrada sajta za teretanu u Crnoj Gori. Članarine, radno vrijeme, prostor i oprema, treneri i prijava. Od €200, besplatan koncept.",
+        metaTitle: "Sajt za teretanu — od €250, online do 10 dana | Vaky",
+        description: "Izrada sajta za teretanu u Crnoj Gori. Članarine, radno vrijeme, prostor i oprema, treneri i prijava. Od €250, besplatan koncept.",
         intro: "Teretana se bira po cijeni, radnom vremenu i tome kako izgleda unutra. Sajt to daje bez poziva: članarine, sprave, treneri i dugme za prijavu.",
         needs: [
           { title: "Članarine", body: "Mjesečna, tromjesečna, studentska, sa cijenama koje se mijenjaju na jednom mjestu." },
@@ -820,8 +838,8 @@ export const me = {
       dentist: {
         slug: "sajt-za-stomatologe",
         title: "Sajt za stomatološku ordinaciju",
-        metaTitle: "Sajt za stomatologa — od €200, online do 10 dana | Vaky",
-        description: "Izrada sajta za stomatološku ordinaciju u Crnoj Gori. Usluge i cjenovnik, tim, zakazivanje pregleda, lokacija. Od €200, besplatan koncept.",
+        metaTitle: "Sajt za stomatologa — od €250, online do 10 dana | Vaky",
+        description: "Izrada sajta za stomatološku ordinaciju u Crnoj Gori. Usluge i cjenovnik, tim, zakazivanje pregleda, lokacija. Od €250, besplatan koncept.",
         intro: "Pacijent bira ordinaciju po povjerenju: ko je doktor, koje usluge radi, koliko košta i kako da zakaže. Sajt to kaže mirno i jasno, bez agresivne prodaje.",
         needs: [
           { title: "Usluge i cjenovnik", body: "Od pregleda do implantata, sa cijenama ili rasponom cijena." },
@@ -834,9 +852,9 @@ export const me = {
   },
 
   meta: {
-    title: "Izrada sajtova Crna Gora — od €200, online do 10 dana | Vaky",
+    title: "Izrada sajtova Crna Gora — od €250, online do 10 dana | Vaky",
     description:
-      "Izrada sajtova i web dizajn u Crnoj Gori. Moderan sajt za tvoj biznis — od €200, online u roku od 10 dana. Besplatan koncept prije plaćanja. Vaky, Podgorica.",
+      "Izrada sajtova i web dizajn u Crnoj Gori. Moderan sajt za tvoj biznis — od €250, online u roku od 10 dana. Besplatan koncept prije plaćanja. Vaky, Podgorica.",
     /* JSON-LD serviceType entries — what the studio does, for search engines */
     serviceTypes: ["Izrada sajtova", "Web dizajn", "Održavanje sajtova"],
   },

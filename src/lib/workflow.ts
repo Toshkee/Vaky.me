@@ -43,11 +43,11 @@ export type RequestStatus = (typeof REQUEST_STATUSES)[number];
 /** Every answer an enquiry can carry for "what do you need". The form no
  *  longer offers `landing`, `shop` and `something-else`, but enquiries that
  *  already hold them still have to read correctly in the dashboard. */
-export const LEAD_NEEDS = ["new-site", "landing", "redesign", "shop", "something-else", "not-sure"] as const;
+export const LEAD_NEEDS = ["new-site", "landing", "redesign", "app", "shop", "something-else", "not-sure"] as const;
 export type LeadNeed = (typeof LEAD_NEEDS)[number];
 
 /** The ones the public lead form offers today. */
-export const OFFERED_LEAD_NEEDS = ["new-site", "redesign", "not-sure"] as const satisfies readonly LeadNeed[];
+export const OFFERED_LEAD_NEEDS = ["new-site", "redesign", "app", "not-sure"] as const satisfies readonly LeadNeed[];
 export type OfferedLeadNeed = (typeof OFFERED_LEAD_NEEDS)[number];
 
 export function isLeadStatus(value: unknown): value is LeadStatus {
@@ -99,6 +99,7 @@ export const LEAD_NEED_LABELS: Record<LeadNeed, string> = {
   "new-site": "Novi sajt",
   landing: "Landing stranica",
   redesign: "Redizajn postojećeg",
+  app: "Mobilna aplikacija",
   shop: "Online prodavnica",
   "something-else": "Nešto drugo",
   "not-sure": "Nije siguran",

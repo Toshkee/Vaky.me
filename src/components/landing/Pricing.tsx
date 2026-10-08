@@ -29,14 +29,19 @@ export function Pricing({ dict }: { dict: Dictionary }) {
             question: nobody decides against a site over three videos, but
             people do over a monthly bill they were not told is optional. */}
         <AddOn addOn={dict.pricing.launchVideos} />
+
+        {/* Not something added to a site but a separate job, so it comes
+            after everything that is. No figure: the badge says it is built
+            to order, and the price slot says it is agreed, not listed. */}
+        <AddOn addOn={dict.pricing.mobileApps} />
       </div>
     </section>
   );
 }
 
-/** Something a client can add to any package: what it is, what it costs and
-    how it is charged — the badge carries that last part. On a phone that is
-    all it shows until opened; the explanation is one tap away. */
+/** Something sold beside the packages: what it is, what it costs and how it
+    is charged — the badge carries that last part. On a phone that is all it
+    shows until opened; the explanation is one tap away. */
 function AddOn({ addOn }: { addOn: Dictionary["pricing"]["maintenance"] }) {
   return (
     <div className="mt-12 border-t-2 border-ink pt-6">
