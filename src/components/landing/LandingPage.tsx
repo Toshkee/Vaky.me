@@ -1,6 +1,7 @@
 import type { Dictionary } from "@/i18n";
 import { Nav } from "./Nav";
 import { Hero } from "./Hero";
+import { About } from "./About";
 import { Work } from "./Work";
 import { Pricing } from "./Pricing";
 import { Process } from "./Process";
@@ -22,6 +23,7 @@ export function LandingPage({ dict }: { dict: Dictionary }) {
           visitor just asked to skip. */}
       <main id="main" tabIndex={-1} className="focus:outline-none">
         <Hero dict={dict} />
+        <About dict={dict} />
         <Work dict={dict} />
         <Process dict={dict} />
         <Pricing dict={dict} />

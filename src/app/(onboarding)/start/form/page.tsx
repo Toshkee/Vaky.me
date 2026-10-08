@@ -53,11 +53,11 @@ export default function OnboardingFormPage() {
         <div className="shell py-10">
           <div className="border-2 border-ink bg-paper-2 p-5">
             <p className="leading-relaxed">
-              Za popunjavanje ovog upitnika potreban je JavaScript. Ako ne radi, javite nam se
-              direktno — odgovorićemo isto.
+              Za popunjavanje ovog upitnika potreban je JavaScript. Ako ne radi, javite mi se
+              direktno — odgovoriću isto.
             </p>
             <p className="mt-3 leading-relaxed">
-              This form needs JavaScript. If it does not work, write to us directly instead.
+              This form needs JavaScript. If it does not work, write to me directly instead.
             </p>
             <p className="mt-4 font-semibold">
               <a

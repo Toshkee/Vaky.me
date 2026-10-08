@@ -27,15 +27,25 @@ export const me = {
        are counted from `work.items` by the Hero, so the numbers can never
        drift from the portfolio below. */
     facts: [
-      { label: "Radimo", value: "Crna Gora" },
+      { label: "Radim", value: "Crna Gora" },
       { label: "Sajtova uživo", value: "{live}" },
       { label: "Koncepata", value: "{concepts}" },
       { label: "Jezici", value: "MNE + EN" },
     ],
   },
 
+  /* The person behind the studio, right under the hero. The role and the
+     first sentence come from pavletosic.com; keep them in step with it. */
+  about: {
+    title: "Ko stoji iza Vakyja",
+    role: "Software developer",
+    body: "Ja sam Pavle, software developer iz Crne Gore, i pravim web aplikacije od početka do kraja. Vaky radim sam: svaki sajt, aplikaciju i koncept na ovoj stranici osmislio sam i napravio, od prve skice do objave. Kad pišeš Vakyju, odgovaram ti ja, i ja radim tvoj sajt.",
+    link: "Moj portfolio",
+    photoAlt: "Pavle Tošić, crno-bijeli portret: kratka kosa, okrugle naočare i brada, sjedi na drvenoj klupi.",
+  },
+
   work: {
-    title: "Šta smo napravili",
+    title: "Šta sam napravio",
     /* Two halves, and the visitor is never left to work out which is which:
        the sites running for real clients come first, on their own domains;
        the concepts follow under their own heading. */
@@ -319,7 +329,7 @@ export const me = {
     ],
   },
   process: {
-    title: "Kako radimo",
+    title: "Kako radim",
     sub: "Od prve poruke do sajta koji radi, bez skrivenih faza.",
     /* Every step here is a thing that actually happens in this codebase or
        in the studio's own routine: the lead form and dashboard, the free
@@ -332,22 +342,22 @@ export const me = {
       {
         when: "Dan 1",
         title: "Javiš se",
-        body: "Forma na sajtu, Instagram DM ili email — kako ti je lakše. Kažeš čime se baviš i šta ti treba, obično odgovorimo istog dana.",
+        body: "Forma na sajtu, Instagram DM ili email — kako ti je lakše. Kažeš čime se baviš i šta ti treba, obično odgovorim istog dana.",
       },
       {
         when: "Dan 1–2",
         title: "Besplatan koncept",
-        body: "Pogledamo tvoj biznis, Instagram i konkurenciju, pa napravimo prvu skicu sajta. Ako ti se sviđa, biraš paket i tek tada se dogovaramo o cijeni.",
+        body: "Pogledam tvoj biznis, Instagram i konkurenciju, pa napravim prvu skicu sajta. Ako ti se sviđa, biraš paket i tek tada se dogovaramo o cijeni.",
       },
       {
         when: "Dan 3–9",
         title: "Izrada",
-        body: "Kroz kratak upitnik nam pošalješ logo, fotografije i tekst — gdje nisi siguran, klikneš „Nisam siguran“. Iz toga nastaje brief samo za tvoj sajt, pa dizajn i tehnika: prvo za telefon, brz i spreman za Google. Na kraju pregledaš i pošalješ primjedbe odjednom.",
+        body: "Kroz kratak upitnik mi pošalješ logo, fotografije i tekst — gdje nisi siguran, klikneš „Nisam siguran“. Iz toga nastaje brief samo za tvoj sajt, pa dizajn i tehnika: prvo za telefon, brz i spreman za Google. Na kraju pregledaš i pošalješ primjedbe odjednom.",
       },
       {
         when: "Do 10. dana",
         title: "Online",
-        body: "Sajt radi na tvom domenu i sve je tvoje. Ako ne želiš da misliš o tehnici, hosting i sitne izmjene možemo preuzeti mi.",
+        body: "Sajt radi na tvom domenu i sve je tvoje. Ako ne želiš da misliš o tehnici, hosting i sitne izmjene mogu preuzeti ja.",
       },
     ],
   },
@@ -389,7 +399,7 @@ export const me = {
           label: "Dizajn po mjeri tvog brenda",
           values: [true, true, true],
           explain:
-            "Boje, slova i raspored biraju se za tvoj biznis. Ne prilagođavamo gotov šablon — zato dva naša sajta ne izgledaju isto.",
+            "Boje, slova i raspored biraju se za tvoj biznis. Ne prilagođavam gotov šablon — zato dva moja sajta ne izgledaju isto.",
         },
         {
           label: "Savršen na telefonu",
@@ -430,19 +440,19 @@ export const me = {
           label: "Online rezervacije",
           values: [false, true, true],
           explain:
-            "Sajt se povezuje na servis za rezervacije koji već koristiš — DIKIDI, Google rezervacije ili sličan — pa gosti zakazuju bez izlaska sa sajta. Sopstveni sistem rezervacija, sa terminima i osobljem u našoj bazi, radi se kao Projekat.",
+            "Sajt se povezuje na servis za rezervacije koji već koristiš — DIKIDI, Google rezervacije ili sličan — pa gosti zakazuju bez izlaska sa sajta. Sopstveni sistem rezervacija, sa terminima i osobljem u bazi podataka, radi se kao Projekat.",
         },
         {
           label: "Verzija na engleskom",
           values: [false, true, true],
           explain:
-            "Sajt na dva jezika, crnogorskom i engleskom, sa prebacivanjem i odvojenim adresama. Engleski tekst nam šalješ ti; ako ti treba i prevod, dogovaramo se posebno.",
+            "Sajt na dva jezika, crnogorskom i engleskom, sa prebacivanjem i odvojenim adresama. Engleski tekst mi šalješ ti; ako ti treba i prevod, dogovaramo se posebno.",
         },
         {
           label: "Google Business profil",
           values: [false, true, true],
           explain:
-            "Sređujemo tvoj profil na Google mapi — ili ga otvaramo ako ga nemaš: prava kategorija, radno vrijeme, usluge sa cijenama, fotografije i link na sajt. Tako te nađu kad ukucaju „frizer Podgorica“, a ne samo kad znaju tvoje ime.",
+            "Sređujem tvoj profil na Google mapi — ili ga otvaram ako ga nemaš: prava kategorija, radno vrijeme, usluge sa cijenama, fotografije i link na sajt. Tako te nađu kad ukucaju „frizer Podgorica“, a ne samo kad znaju tvoje ime.",
         },
         {
           label: "Broj stranica",
@@ -454,13 +464,13 @@ export const me = {
           label: "Krugovi izmjena",
           values: ["1", "2", "po dogovoru"],
           explain:
-            "Koliko puta prolazimo kroz tvoje primjedbe poslije prve verzije. Sve u jednom krugu skupljaš i pošalješ odjednom, pa ih uradimo zajedno. Dodatni krugovi su mogući, dogovaramo se posebno.",
+            "Koliko puta prolazim kroz tvoje primjedbe poslije prve verzije. Sve u jednom krugu skupljaš i pošalješ odjednom, pa ih uradim sve zajedno. Dodatni krugovi su mogući, dogovaramo se posebno.",
         },
         {
           label: "Online prodavnica i porudžbine",
           values: [false, false, true],
           explain:
-            "Katalog, korpa i porudžbine koje stižu direktno tebi — kad se sa sajta prodaje, a ne samo dogovara. Kupci plaćaju pouzećem, uplatom na račun ili kod tebe. Plaćanje karticom povezujemo kad tvoja banka odobri online naplatu.",
+            "Katalog, korpa i porudžbine koje stižu direktno tebi — kad se sa sajta prodaje, a ne samo dogovara. Kupci plaćaju pouzećem, uplatom na račun ili kod tebe. Plaćanje karticom povezujem kad tvoja banka odobri online naplatu.",
         },
         {
           label: "Povezivanje sa tvojim sistemima",
@@ -488,14 +498,14 @@ export const me = {
       badge: "Opciono",
       price: "€25/mjesec",
       intro:
-        "Poslije objave sajt je tvoj i radi na tvom domenu. Ako ne želiš da razmišljaš o tehničkoj strani, tu brigu preuzimamo mi — prvi mjesec gratis, otkazuješ kad hoćeš.",
+        "Poslije objave sajt je tvoj i radi na tvom domenu. Ako ne želiš da razmišljaš o tehničkoj strani, tu brigu preuzimam ja — prvi mjesec gratis, otkazuješ kad hoćeš.",
       includes: [
         "Hosting i briga o domenu",
         "Nadzor i tehnička ažuriranja",
         "Redovan backup",
         "Sitne izmjene sadržaja",
       ],
-      note: "Pod sitnim izmjenama mislimo na tekst, cijene i fotografije — nove stranice i funkcionalnosti dogovaraju se posebno. Domen se naplaćuje zasebno, ~€25 godišnje.",
+      note: "Pod sitnim izmjenama mislim na tekst, cijene i fotografije — nove stranice i funkcionalnosti dogovaraju se posebno. Domen se naplaćuje zasebno, ~€25 godišnje.",
     },
     /* Same shape as `maintenance` — the pricing section renders both with one
        component. Motion design, not filming: the note says what that means,
@@ -505,14 +515,14 @@ export const me = {
       badge: "Jednokratno",
       price: "€50",
       intro:
-        "Sajt je gotov — sad treba da ga ljudi vide. Uz bilo koji paket pravimo tri motion design videa za društvene mreže. Jedan najavljuje novi sajt, a druga dva biraš ti: akcija, usluga, cjenovnik ili šta god želiš da istakneš.",
+        "Sajt je gotov — sad treba da ga ljudi vide. Uz bilo koji paket pravim tri motion design videa za društvene mreže. Jedan najavljuje novi sajt, a druga dva biraš ti: akcija, usluga, cjenovnik ili šta god želiš da istakneš.",
       includes: [
         "Tri videa, 20+ sekundi svaki",
         "Uspravni format: Reels, TikTok, Shorts, Story",
         "Tvoje fotografije, boje i slova sajta",
         "Jedan krug izmjena",
       ],
-      note: "Motion design je animacija — tekst i fotografije sa tvog sajta u pokretu — a ne snimanje u objektu. Muzika po dogovoru: dodajemo je mi, ili video stiže bez zvuka.",
+      note: "Motion design je animacija — tekst i fotografije sa tvog sajta u pokretu — a ne snimanje u objektu. Muzika po dogovoru: dodajem je ja, ili video stiže bez zvuka.",
     },
     /* Same shape again, but not an add-on: a service of its own, with no
        package and no fixed figure, because the price is whatever the app has
@@ -522,14 +532,14 @@ export const me = {
       badge: "Po mjeri",
       price: "Po dogovoru",
       intro:
-        "Kad tvojim klijentima treba više od sajta — aplikacija na telefonu za zakazivanje, porudžbine, karticu lojalnosti ili obavještenja o akcijama. Pravimo je oko onoga što tvoj biznis stvarno radi.",
+        "Kad tvojim klijentima treba više od sajta — aplikacija na telefonu za zakazivanje, porudžbine, karticu lojalnosti ili obavještenja o akcijama. Pravim je oko onoga što tvoj biznis stvarno radi.",
       includes: [
         "Za iPhone i Android",
         "Boje i slova tvog brenda",
         "Objava na App Store i Google Play, ili kao PWA",
         "Ponuda prije bilo kakvog plaćanja",
       ],
-      note: "PWA je aplikacija koja se instalira direktno sa tvog sajta, bez App Storea i Google Playa. Cijena zavisi od toga šta tačno želiš da aplikacija radi — jednostavna aplikacija sa cjenovnikom i kontaktom nije isti posao kao nalozi, plaćanje i povezivanje sa kasom. Opiši nam šta ti treba, pa dobijaš ponudu prije bilo kakve obaveze.",
+      note: "PWA je aplikacija koja se instalira direktno sa tvog sajta, bez App Storea i Google Playa. Cijena zavisi od toga šta tačno želiš da aplikacija radi — jednostavna aplikacija sa cjenovnikom i kontaktom nije isti posao kao nalozi, plaćanje i povezivanje sa kasom. Opiši mi šta ti treba, pa dobijaš ponudu prije bilo kakve obaveze.",
     },
     planAction: "Pitaj za ovaj paket",
     /* Said on the cards, because a price list that looks like a checkout is a
@@ -542,19 +552,19 @@ export const me = {
     items: [
       {
         q: "Koliko traje izrada?",
-        a: "Do 10 dana od trenutka kada dobijemo materijale (tekst, fotografije, cjenovnik). Jednostavniji sajtovi budu gotovi i ranije; za obimnije projekte rok dogovaramo unaprijed.",
+        a: "Do 10 dana od trenutka kada dobijem materijale (tekst, fotografije, cjenovnik). Jednostavniji sajtovi budu gotovi i ranije; za obimnije projekte rok dogovaramo unaprijed.",
       },
       {
         q: "Treba li mi domen i hosting?",
-        a: "Sve možemo srediti mi: domen je ~€25 godišnje, a hosting je uključen u opciono održavanje. A ako želiš da se o hostingu brineš sam, sajt i domen su tvoji — predamo ti sve što treba.",
+        a: "Sve mogu srediti ja: domen je ~€25 godišnje, a hosting je uključen u opciono održavanje. A ako želiš da se o hostingu brineš sam, sajt i domen su tvoji — predam ti sve što treba.",
       },
       {
         q: "Da li moram uzeti održavanje?",
-        a: "Ne. Sajt je tvoj i radi na tvom domenu, bez ikakve obavezne pretplate kod nas. Održavanje od €25 mjesečno je opcija za one koji ne žele da se bave tehničkom stranom — hosting, nadzor, backup i sitne izmjene sadržaja. Otkazuješ kad god hoćeš.",
+        a: "Ne. Sajt je tvoj i radi na tvom domenu, bez ikakve obavezne pretplate kod mene. Održavanje od €25 mjesečno je opcija za one koji ne žele da se bave tehničkom stranom — hosting, nadzor, backup i sitne izmjene sadržaja. Otkazuješ kad god hoćeš.",
       },
       {
         q: "Već imam sajt. Možete li ga prepraviti?",
-        a: "Da — redizajn je naša specijalnost, i košta isto kao novi sajt: cijenu određuje paket, a ne to što sajt već imaš. Pošalji link, dobijaš besplatan koncept novog sajta bez obaveze.",
+        a: "Da — redizajn je moja specijalnost, i košta isto kao novi sajt: cijenu određuje paket, a ne to što sajt već imaš. Pošalji link, dobijaš besplatan koncept novog sajta bez obaveze.",
       },
       {
         q: "Kako izgleda plaćanje?",
@@ -562,22 +572,22 @@ export const me = {
       },
       {
         q: "Mogu li sam da mijenjam sadržaj?",
-        a: "Sajt nema admin panel — to ga čini brzim i sigurnim, ali znači da se cijene, tekst i fotografije ne mijenjaju sami. Sitne izmjene ulaze u održavanje od €25 mjesečno; bez održavanja, javiš se i dogovorimo se po izmjeni. Ako ti treba da sam upravljaš sadržajem svaki dan, to je Projekat i kažemo ti unaprijed.",
+        a: "Sajt nema admin panel — to ga čini brzim i sigurnim, ali znači da se cijene, tekst i fotografije ne mijenjaju sami. Sitne izmjene ulaze u održavanje od €25 mjesečno; bez održavanja, javiš se i dogovorimo se po izmjeni. Ako ti treba da sam upravljaš sadržajem svaki dan, to je Projekat i kažem ti unaprijed.",
       },
       {
         q: "Ko piše tekstove i ko slika?",
-        a: "Tekst pišemo mi, iz onoga što nam kažeš u upitniku — ti ga samo pregledaš i ispraviš. Fotografije su tvoje: ono što već imaš, sa telefona ili od fotografa. Obradimo ih da se brzo otvaraju. Ako nemaš nijednu, kažemo ti šta i kako da slikaš.",
+        a: "Tekst pišem ja, iz onoga što mi kažeš u upitniku — ti ga samo pregledaš i ispraviš. Fotografije su tvoje: ono što već imaš, sa telefona ili od fotografa. Obradim ih da se brzo otvaraju. Ako nemaš nijednu, kažem ti šta i kako da slikaš.",
       },
       {
         q: "Šta ako nemam logo?",
-        a: "Nije prepreka. Za Start i Biznis napravimo jednostavan tekstualni znak od imena biznisa, u boji i slovima sajta — dovoljno za sajt, Google profil i Instagram. Pravi logo sa više varijanti radi se posebno, ako ti zatreba.",
+        a: "Nije prepreka. Za Start i Biznis napravim jednostavan tekstualni znak od imena biznisa, u boji i slovima sajta — dovoljno za sajt, Google profil i Instagram. Pravi logo sa više varijanti radi se posebno, ako ti zatreba.",
       },
     ],
   },
 
   contact: {
     title: "Spreman za novi sajt?",
-    sub: "Ostavi par podataka, ili nam piši direktno — kako ti je lakše.",
+    sub: "Ostavi par podataka, ili mi piši direktno — kako ti je lakše.",
     /* The right-hand column of the contact window: the other ways in, and
        what happens after the visitor writes. */
     direct: {
@@ -588,7 +598,7 @@ export const me = {
       whatsappPrefill: "Zdravo! Zanima me sajt za moj biznis. Možemo li da se čujemo oko ponude?",
       pointsTitle: "Šta se dešava dalje",
       points: [
-        "Odgovorimo isti dan, najkasnije sjutra.",
+        "Odgovorim isti dan, najkasnije sjutra.",
         "Dobiješ besplatan koncept — skicu sajta prije bilo kakve odluke.",
         "Dogovorimo paket i cijenu.",
       ],
@@ -601,7 +611,7 @@ export const me = {
          this in, and "zatraži ponudu" is honest about what arrives next. */
       eyebrow: "Besplatan koncept",
       nameLabel: "Ime",
-      namePlaceholder: "Kako da te zovemo",
+      namePlaceholder: "Kako da te zovem",
       businessLabel: "Naziv biznisa",
       businessPlaceholder: "Ime radnje, salona, kafane…",
       emailLabel: "Email",
@@ -623,23 +633,23 @@ export const me = {
       optional: "opciono",
       submit: "Zatraži ponudu",
       sending: "Šaljem…",
-      success: "Primljeno. Javimo se na email koji si ostavio, obično istog dana.",
-      errorRequired: "Treba nam tvoje ime i email na koji da ti odgovorimo.",
+      success: "Primljeno. Javim se na email koji si ostavio, obično istog dana.",
+      errorRequired: "Treba mi tvoje ime i email na koji da ti odgovorim.",
       errorPhone: "Provjeri broj telefona, ili ostavi polje prazno.",
       errorChallenge: "Sačekaj sekundu da se provjera završi, pa pošalji ponovo.",
       errorOffline: "Nema veze sa internetom. Provjeri konekciju i probaj ponovo.",
       errorSpam: "Previše pokušaja u kratkom roku. Sačekaj minut i probaj ponovo.",
-      errorProvider: "Slanje trenutno ne radi. Pošalji nam email — sve što si upisao već je unutra.",
+      errorProvider: "Slanje trenutno ne radi. Pošalji mi email — sve što si upisao već je unutra.",
       submitInstagram: "Otvori Instagram DM",
       submitInstagramCopied: "Poruka kopirana — otvori Instagram",
       copied: "Poruka je kopirana — samo je nalijepi u Instagram DM.",
-      note: "Bez obaveze — kad odgovorimo, ti odlučuješ kako dalje.",
+      note: "Bez obaveze — kad odgovorim, ti odlučuješ kako dalje.",
       emailFallbackAction: "Pošalji email umjesto toga",
       /* {link} is replaced with whatever the visitor typed */
       prefill: "Zdravo! Ovo je moj biznis: {link} — može ponuda za sajt?",
       /* Vaky's speech bubble beside the form. Split so the offer can be set
          in red without concatenating sentences in the component. */
-      bubble: { pre: "Kaži čime se baviš, ", em: "ostalo", post: " je na nama." },
+      bubble: { pre: "Kaži čime se baviš, ", em: "ostalo", post: " je na meni." },
     },
   },
 
@@ -656,7 +666,7 @@ export const me = {
     title: "Privatnost",
     updated: "Ažurirano 31. avgusta 2026.",
     intro:
-      "Ovaj sajt je vizit-karta jednog malog studija. Nema naloga, nema prijave i ne prodajemo ništa preko sajta — pa nema ni razloga da o tebi znamo išta više nego što nam sam pošalješ.",
+      "Ovaj sajt je vizit-karta jednog malog studija. Nema naloga, nema prijave i ne prodajem ništa preko sajta — pa nema ni razloga da o tebi znam išta više nego što mi sam pošalješ.",
     sections: [
       {
         when: "always",
@@ -669,9 +679,9 @@ export const me = {
         when: "form",
         title: "Kada pošalješ upit preko sajta",
         body: [
-          "Forma ide na naš server kod Cloudflare-a i upit se čuva u našoj bazi. Šalje se samo ono što si upisao: ime, naziv biznisa, email, telefon, link, šta ti treba i tvoja poruka — plus jezik stranice. Kopiju istog upita dobijemo i na email.",
-          "Koristimo to isključivo da bismo ti odgovorili i napravili ponudu. Ne šaljemo newsletter, ne dijelimo kontakte sa trećim licima i ne koristimo ih za reklame. Upit brišemo kada prepiska bude gotova, najkasnije godinu dana od slanja; brisanje možeš tražiti i ranije, na vakymne@gmail.com.",
-          "Preko sajta se ništa ne plaća i ne tražimo podatke o kartici. Da bismo formu zaštitili od zloupotrebe, bilježimo nepovratno kodiran zapis IP adrese kako bismo ograničili broj pokušaja — iz njega se tvoja adresa ne može pročitati.",
+          "Forma ide na moj server kod Cloudflare-a i upit se čuva u mojoj bazi. Šalje se samo ono što si upisao: ime, naziv biznisa, email, telefon, link, šta ti treba i tvoja poruka — plus jezik stranice. Kopiju istog upita dobijem i na email.",
+          "Koristim to isključivo da bih ti odgovorio i napravio ponudu. Ne šaljem newsletter, ne dijelim kontakte sa trećim licima i ne koristim ih za reklame. Upit brišem kada prepiska bude gotova, najkasnije godinu dana od slanja; brisanje možeš tražiti i ranije, na vakymne@gmail.com.",
+          "Preko sajta se ništa ne plaća i ne tražim podatke o kartici. Da bih formu zaštitio od zloupotrebe, bilježim nepovratno kodiran zapis IP adrese kako bih ograničio broj pokušaja — iz njega se tvoja adresa ne može pročitati.",
         ],
       },
       {
@@ -685,10 +695,10 @@ export const me = {
         when: "always",
         title: "Kada popunjavate obrazac za pokretanje projekta",
         body: [
-          "Kada se dogovorimo oko posla, pošaljemo vam lični link za upitnik i tu nam šaljete podatke potrebne za izradu sajta. Šalje se samo ono što sami upišete i priložite: naziv biznisa, vaše ime, email, telefon, odgovori na pitanja i fajlovi koje odaberete.",
-          "Odgovori se čuvaju u našoj bazi kod Cloudflare-a, a fajlovi u privatnom prostoru za skladištenje kojem se ne može pristupiti sa interneta bez potpisanog linka koji ističe. Koristimo ih isključivo da bismo izradili vaš sajt — ne dijelimo ih ni sa kim i ne koristimo za reklame. Čuvamo ih dok traje saradnja i najviše godinu dana poslije toga; brisanje možete tražiti i ranije, na vakymne@gmail.com.",
+          "Kada se dogovorimo oko posla, pošaljem vam lični link za upitnik i tu mi šaljete podatke potrebne za izradu sajta. Šalje se samo ono što sami upišete i priložite: naziv biznisa, vaše ime, email, telefon, odgovori na pitanja i fajlovi koje odaberete.",
+          "Odgovori se čuvaju u mojoj bazi kod Cloudflare-a, a fajlovi u privatnom prostoru za skladištenje kojem se ne može pristupiti sa interneta bez potpisanog linka koji ističe. Koristim ih isključivo da bih izradio vaš sajt — ne dijelim ih ni sa kim i ne koristim za reklame. Čuvam ih dok traje saradnja i najviše godinu dana poslije toga; brisanje možete tražiti i ranije, na vakymne@gmail.com.",
           "Dok popunjavate, odgovori se čuvaju u memoriji vašeg pregledača da ih ne izgubite ako zatvorite stranicu. To ostaje na vašem uređaju, briše se čim pošaljete, i nije kolačić. Fajlovi se tu nikada ne čuvaju.",
-          "Nikada ne tražimo lozinke. Da bismo obrazac zaštitili od zloupotrebe, bilježimo nepovratno kodiran zapis IP adrese kako bismo ograničili broj pokušaja — iz njega se vaša adresa ne može pročitati i ne povezuje se sa vašim odgovorima.",
+          "Nikada ne tražim lozinke. Da bih obrazac zaštitio od zloupotrebe, bilježim nepovratno kodiran zapis IP adrese kako bih ograničio broj pokušaja — iz njega se vaša adresa ne može pročitati i ne povezuje se sa vašim odgovorima.",
         ],
       },
       {
@@ -702,7 +712,7 @@ export const me = {
         when: "analytics",
         title: "Statistika posjeta",
         body: [
-          "Koristimo Umami — brojač posjeta bez kolačića. Bilježi se koja stranica je otvorena, sa kog sajta si došao, gruba lokacija na nivou države i tip uređaja. Ne bilježi se IP adresa, ne pravi se profil o tebi i ne prati te se sa sajta na sajt.",
+          "Koristim Umami — brojač posjeta bez kolačića. Bilježi se koja stranica je otvorena, sa kog sajta si došao, gruba lokacija na nivou države i tip uređaja. Ne bilježi se IP adresa, ne pravi se profil o tebi i ne prati te se sa sajta na sajt.",
           "Upiti iz adrese (sve poslije znaka ?) se ne čuvaju, a ako je u pregledaču uključen „Do Not Track“, ne bilježi se ništa. Ono što upišeš u formu nikada se ne šalje u statistiku.",
         ],
       },
@@ -743,7 +753,7 @@ export const me = {
      landing page does not already make. `key` matches `work.items[].key`. */
   trades: {
     eyebrow: "Sajt za tvoju djelatnost",
-    examplesTitle: "Šta smo napravili",
+    examplesTitle: "Šta sam napravio",
     examplesSub: "Neki primjeri su sajtovi koji već rade uživo, ostali su koncepti napravljeni za konkretan biznis. Otvori ih na telefonu.",
     needsTitle: "Šta takav sajt treba da ima",
     priceTitle: "Cijena i rok",

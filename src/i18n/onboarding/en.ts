@@ -16,14 +16,14 @@ export const en: OnboardingCopy = {
   meta: {
     title: "Start your project | Vaky",
     description:
-      "A short questionnaire for Vaky clients: tell us about your business, send us your materials, and we start building.",
+      "A short questionnaire for Vaky clients: tell me about your business, send me your materials, and I start building.",
   },
 
   gate: {
     eyebrow: "New project",
     title: "Hello! Let's begin.",
     intro:
-      "A few short questions about your business and the site we're building. No jargon — just tell us what you need.",
+      "A few short questions about your business and the site I'm building. No jargon — just tell me what you need.",
     languageLabel: "Choose a language",
     me: "Crnogorski",
     en: "English",
@@ -34,7 +34,7 @@ export const en: OnboardingCopy = {
 
   resume: {
     title: "Continue where you left off",
-    body: "We have your unfinished answers saved on this device.",
+    body: "Your unfinished answers are saved on this device.",
     action: "Continue",
     restart: "Start over",
     restartConfirm: "Sure? This deletes everything.",
@@ -44,10 +44,10 @@ export const en: OnboardingCopy = {
     checking: "Checking your link…",
     invalidTitle: "This link doesn't work",
     invalidBody:
-      "Check that the whole link was copied, then try again. If it still doesn't work, write to us — we'll send you a new one.",
+      "Check that the whole link was copied, then try again. If it still doesn't work, write to me — I'll send you a new one.",
     completedTitle: "This questionnaire is already complete",
     completedBody:
-      "We've already received your answers and materials for this project. If you'd like to add or change something, just write to us directly — everything reaches us.",
+      "I've already received your answers and materials for this project. If you'd like to add or change something, just write to me directly — everything reaches me.",
   },
 
   info: {
@@ -58,12 +58,12 @@ export const en: OnboardingCopy = {
     fixTitle: "What to do",
     fix: [
       "Go back to the message the link came in, copy the whole address to the last character, and paste it into your browser.",
-      "If it still doesn't work, write to us. We'll send a new link within minutes, and nothing we agreed changes.",
+      "If it still doesn't work, write to me. I'll send a new link within minutes, and nothing we agreed changes.",
     ],
-    dm: "Message us on Instagram",
+    dm: "Message me on Instagram",
     strangerTitle: "No link at all?",
     strangerBody:
-      "The questionnaire is only for clients we've already agreed a project and a price with. If you'd like a site, write to us through the form — we reply the same day.",
+      "The questionnaire is only for clients I've already agreed a project and a price with. If you'd like a site, write to me through the form — I reply the same day.",
     strangerAction: "Ask for a quote",
     action: "Back to the site",
   },
@@ -93,12 +93,12 @@ export const en: OnboardingCopy = {
     business: {
       title: "About your business",
       intro: "The basics — who you are and how to reach you.",
-      vaky: "First, tell us a little about your business.",
+      vaky: "First, tell me a little about your business.",
     },
     custom: {
       title: "What the site should be able to do",
       intro:
-        "Your project is custom-built, so tell us everything it needs to do. You'll only get detailed questions about what you pick.",
+        "Your project is custom-built, so tell me everything it needs to do. You'll only get detailed questions about what you pick.",
     },
     website: {
       title: "What the site should achieve",
@@ -106,7 +106,7 @@ export const en: OnboardingCopy = {
     },
     design: {
       title: "How the site should look",
-      intro: "No design vocabulary needed — just tell us what you like.",
+      intro: "No design vocabulary needed — just tell me what you like.",
       vaky: "Now let's talk about the look.",
     },
     features: {
@@ -115,7 +115,7 @@ export const en: OnboardingCopy = {
     },
     shop: {
       title: "Your shop",
-      intro: "A few questions so we know how selling should work.",
+      intro: "A few questions so I know how selling should work.",
     },
     booking: {
       title: "Bookings and appointments",
@@ -123,12 +123,12 @@ export const en: OnboardingCopy = {
     },
     materials: {
       title: "Materials",
-      intro: "Upload anything you think could help us. You don't need to have everything ready.",
+      intro: "Upload anything you think could help me. You don't need to have everything ready.",
       vaky: "Upload your logo, photos, and anything else that could help.",
     },
     finish: {
       title: "One last thing",
-      intro: "Your domain, and anything else you'd like us to know.",
+      intro: "Your domain, and anything else you'd like me to know.",
     },
   },
 
@@ -139,14 +139,14 @@ export const en: OnboardingCopy = {
     email: {
       label: "Email",
       placeholder: "you@example.com",
-      help: "This is where we reply with the next steps.",
+      help: "This is where I reply with the next steps.",
     },
     phone: { label: "Phone", placeholder: "+382 6X XXX XXX" },
     instagram: { label: "Instagram or Facebook", placeholder: "@yourprofile" },
     existingSite: {
       label: "Existing website",
       placeholder: "your-site.me",
-      help: "If you have a site we're replacing, leave the address.",
+      help: "If you have a site I'm replacing, leave the address.",
     },
     activity: {
       label: "What does your business do?",
@@ -195,7 +195,7 @@ export const en: OnboardingCopy = {
         other: "Something else",
       },
     },
-    goalsOther: { label: "What else?", placeholder: "Tell us briefly." },
+    goalsOther: { label: "What else?", placeholder: "Tell me briefly." },
     sections: {
       label: "What would you like to include on your website?",
       help: "This package includes one scrolling page made up of different sections. Choose what you'd like visitors to see as they scroll.",
@@ -215,7 +215,7 @@ export const en: OnboardingCopy = {
         "not-sure": "I'm not sure — let Vaky suggest the structure",
       },
     },
-    sectionsOther: { label: "What else?", placeholder: "Tell us briefly." },
+    sectionsOther: { label: "What else?", placeholder: "Tell me briefly." },
     pages: {
       label: "Which pages should the site have?",
       help: "Tick everything you think you need.",
@@ -282,10 +282,10 @@ export const en: OnboardingCopy = {
         other: "Something else",
       },
     },
-    featuresOther: { label: "What else?", placeholder: "Tell us briefly." },
+    featuresOther: { label: "What else?", placeholder: "Tell me briefly." },
     siteLanguages: {
       label: "Which languages should the site be in?",
-      help: "Your package covers Montenegrin plus an English version. You supply the English text — we edit it and build it in.",
+      help: "Your package covers Montenegrin plus an English version. You supply the English text — I edit it and build it in.",
       options: {
         "me-only": "Montenegrin only",
         "me-en": "Montenegrin and English",
@@ -329,7 +329,7 @@ export const en: OnboardingCopy = {
     productCategories: {
       label: "What kinds of products do you sell?",
       placeholder: "e.g. clothing, footwear, accessories",
-      help: "Helps us set up the categories in the shop.",
+      help: "Helps me set up the categories in the shop.",
     },
     productReady: {
       label: "What do you already have ready?",
@@ -348,7 +348,7 @@ export const en: OnboardingCopy = {
     },
     payment: {
       label: "How would you like customers to pay?",
-      help: "Card payments need an online payments agreement with your bank. If you don't have one yet, the shop starts with cash on delivery and bank transfer, and we connect cards once the bank approves.",
+      help: "Card payments need an online payments agreement with your bank. If you don't have one yet, the shop starts with cash on delivery and bank transfer, and I connect cards once the bank approves.",
       options: {
         card: "By card online",
         "on-delivery": "Cash on delivery",
@@ -372,7 +372,7 @@ export const en: OnboardingCopy = {
       options: { yes: "Yes", no: "Not needed", "not-sure": "I'm not sure" },
     },
     orderNotify: {
-      label: "How should we let you know about a new order?",
+      label: "How would you like to hear about a new order?",
       options: { email: "By email", phone: "By message to my phone", both: "Both" },
     },
 
@@ -380,7 +380,7 @@ export const en: OnboardingCopy = {
     bookingServices: {
       label: "What can customers book with you?",
       placeholder: "e.g. haircut, beard, colouring…",
-      help: "List everything — we'll turn it into a proper list.",
+      help: "List everything — I'll turn it into a proper list.",
     },
     bookingDuration: {
       label: "How long does one appointment usually take?",
@@ -433,7 +433,7 @@ export const en: OnboardingCopy = {
     },
     bookingCurrentSystem: { label: "Which software do you use?", placeholder: "e.g. DIKIDI" },
     bookingConfirmation: {
-      label: "How should we confirm the appointment to the customer?",
+      label: "How should the customer get the appointment confirmation?",
       options: {
         email: "By email",
         message: "By message to their phone",
@@ -445,7 +445,7 @@ export const en: OnboardingCopy = {
     /* ── Materials ── */
     textsReady: {
       label: "Do you already have the text for the site?",
-      help: "We mean service descriptions, the about text and so on.",
+      help: "I mean service descriptions, the about text and so on.",
       options: {
         all: "Yes, it's all ready",
         some: "I have some of it",
@@ -500,7 +500,7 @@ export const en: OnboardingCopy = {
       options: { yes: "Yes", no: "No", "not-sure": "I'm not sure" },
     },
     notes: {
-      label: "Is there anything else you'd like us to know before we start?",
+      label: "Is there anything else you'd like me to know before I start?",
       placeholder: "Write anything at all.",
     },
   },
@@ -526,7 +526,7 @@ export const en: OnboardingCopy = {
 
   credentials: {
     title: "Never send passwords",
-    body: "Please don't send passwords through this form. If we ever need access to an account, we'll agree a safe way to do that separately.",
+    body: "Please don't send passwords through this form. If I ever need access to an account, we'll agree a safe way to do that separately.",
   },
 
   review: {
@@ -536,16 +536,16 @@ export const en: OnboardingCopy = {
     editLabel: "Edit: {section}",
     unanswered: "Not answered",
     files: "Uploaded materials",
-    noFiles: "You haven't uploaded any files. That's fine — we'll ask if we need something.",
+    noFiles: "You haven't uploaded any files. That's fine — I'll ask if I need something.",
     submit: "Send project to Vaky",
     sending: "Sending…",
   },
 
   success: {
     title: "Everything is ready",
-    body: "Thank you! Your answers and materials have been sent to Vaky. We'll review everything and contact you with the next steps.",
+    body: "Thank you! Your answers and materials have been sent to Vaky. I'll review everything and contact you with the next steps.",
     refLabel: "Your project number",
-    note: "Keep this number — it helps us find you faster if you write to us.",
+    note: "Keep this number — it helps me find you faster if you write to me.",
     home: "Back to vaky.me",
     vaky: "Vaky has everything he needs.",
   },
@@ -563,9 +563,9 @@ export const en: OnboardingCopy = {
       session: "Your session expired. Refresh the page — your answers are saved.",
       "rate-limit": "Too many attempts in a short time. Wait a minute and try again.",
       challenge: "Give the check a second to finish, then send again.",
-      link: "This link isn't valid. Write to us and we'll send you a new one.",
+      link: "This link isn't valid. Write to me and I'll send you a new one.",
       completed: "The questionnaire for this project has already been submitted.",
-      "file-type": "We can't accept this kind of file.",
+      "file-type": "I can't accept this kind of file.",
       "file-size": "That file is too large.",
       "file-count": "You've uploaded too many files.",
       "file-total": "Your files are too large in total.",

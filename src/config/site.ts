@@ -13,6 +13,12 @@ export const site = {
   phone: "38267474438",
 
   city: "Podgorica",
+
+  /* The one person behind the studio, shown under the hero. */
+  founder: {
+    name: "Pavle Tošić",
+    url: "https://pavletosic.com/",
+  },
 } as const;
 
 export function instagramLink(): string {

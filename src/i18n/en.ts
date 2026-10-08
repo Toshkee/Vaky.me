@@ -28,8 +28,16 @@ export const en: Dictionary = {
     ],
   },
 
+  about: {
+    title: "Who is behind Vaky",
+    role: "Software developer",
+    body: "I'm Pavle, a software developer from Montenegro, and I build web apps front to back. I run Vaky on my own: every site, app and concept on this page I designed and built myself, from the first sketch to launch. When you write to Vaky, I am the one who answers, and the one who builds your site.",
+    link: "My portfolio",
+    photoAlt: "Pavle Tošić, black-and-white portrait: short hair, round glasses and a beard, sitting on a wooden bench.",
+  },
+
   work: {
-    title: "What we have made",
+    title: "What I have made",
     liveTitle: "Live for clients",
     liveSub: "Sites and an app, running for real clients.",
     conceptsTitle: "Concepts for your trade",
@@ -291,29 +299,29 @@ export const en: Dictionary = {
     ],
   },
   process: {
-    title: "How we work",
+    title: "How I work",
     sub: "From the first message to a site that works, with no hidden phases.",
     windowTitle: "From message to site — 4 steps",
     steps: [
       {
         when: "Day 1",
         title: "You reach out",
-        body: "The form on this site, an Instagram DM or an email — whatever is easiest. Tell us what your business does and what you need; we usually reply the same day.",
+        body: "The form on this site, an Instagram DM or an email — whatever is easiest. Tell me what your business does and what you need; I usually reply the same day.",
       },
       {
         when: "Day 1–2",
         title: "Free concept",
-        body: "We look at your business, your Instagram and your competition, then sketch the first version of your site. If you like it, you pick a package and only then do we agree on a price.",
+        body: "I look at your business, your Instagram and your competition, then sketch the first version of your site. If you like it, you pick a package and only then do we agree on a price.",
       },
       {
         when: "Day 3–9",
-        title: "We build",
-        body: "Through a short questionnaire you send us your logo, photos and text — wherever you are unsure, you tap \"Not sure\". From that comes a brief for your site alone, then the design and the technical work: phone first, fast and ready for Google. At the end you review and send your notes in one go.",
+        title: "I build",
+        body: "Through a short questionnaire you send me your logo, photos and text — wherever you are unsure, you tap \"Not sure\". From that comes a brief for your site alone, then the design and the technical work: phone first, fast and ready for Google. At the end you review and send your notes in one go.",
       },
       {
         when: "By day 10",
         title: "Live",
-        body: "The site runs on your domain and all of it is yours. If you would rather not think about the technical side, we can take over hosting and small edits.",
+        body: "The site runs on your domain and all of it is yours. If you would rather not think about the technical side, I can take over hosting and small edits.",
       },
     ],
   },
@@ -349,7 +357,7 @@ export const en: Dictionary = {
           label: "Design built for your brand",
           values: [true, true, true],
           explain:
-            "Colours, type and layout are chosen for your business. We don't adapt a template — which is why no two of our sites look alike.",
+            "Colours, type and layout are chosen for your business. I don't adapt a template — which is why no two of my sites look alike.",
         },
         {
           label: "Perfect on phones",
@@ -390,7 +398,7 @@ export const en: Dictionary = {
           label: "Online reservations",
           values: [false, true, true],
           explain:
-            "The site connects to the booking service you already run — DIKIDI, Google reservations or similar — so guests book without leaving it. A booking system of your own, with slots and staff in our database, is a Project.",
+            "The site connects to the booking service you already run — DIKIDI, Google reservations or similar — so guests book without leaving it. A booking system of your own, with slots and staff in its own database, is a Project.",
         },
         {
           label: "English version",
@@ -402,7 +410,7 @@ export const en: Dictionary = {
           label: "Google Business Profile",
           values: [false, true, true],
           explain:
-            "We tidy up your Google Maps listing — or create it if you have none: the right category, opening hours, services with prices, photos and a link to the site. That is how people find you when they search for \"barber Podgorica\" rather than only when they already know your name.",
+            "I tidy up your Google Maps listing — or create it if you have none: the right category, opening hours, services with prices, photos and a link to the site. That is how people find you when they search for \"barber Podgorica\" rather than only when they already know your name.",
         },
         {
           label: "Number of pages",
@@ -414,7 +422,7 @@ export const en: Dictionary = {
           label: "Rounds of revisions",
           values: ["1", "2", "as agreed"],
           explain:
-            "How many times we work through your notes after the first version. You collect everything in one round and send it at once, and we do it together. Further rounds are possible and agreed separately.",
+            "How many times I work through your notes after the first version. You collect everything in one round and send it at once, and I work through it all together. Further rounds are possible and agreed separately.",
         },
         {
           label: "Online shop and orders",
@@ -447,7 +455,7 @@ export const en: Dictionary = {
       badge: "Optional",
       price: "€25/month",
       intro:
-        "After launch the site is yours and runs on your domain. If you'd rather not think about the technical side, we take that worry over — first month free, cancel any time.",
+        "After launch the site is yours and runs on your domain. If you'd rather not think about the technical side, I take that worry over — first month free, cancel any time.",
       includes: [
         "Hosting & domain management",
         "Monitoring & technical updates",
@@ -461,28 +469,28 @@ export const en: Dictionary = {
       badge: "One-off",
       price: "€50",
       intro:
-        "The site is done — now people need to see it. With any package we make three motion design videos for social media. One announces the new site; the other two are yours to choose: a promotion, a service, a price list, or whatever you want to put forward.",
+        "The site is done — now people need to see it. With any package I make three motion design videos for social media. One announces the new site; the other two are yours to choose: a promotion, a service, a price list, or whatever you want to put forward.",
       includes: [
         "Three videos, 20+ seconds each",
         "Vertical format: Reels, TikTok, Shorts, Stories",
         "Your photos, your site's colours and type",
         "One round of revisions",
       ],
-      note: "Motion design means animation — the text and photos from your site, in motion — not a shoot at your premises. Music by arrangement: we add it, or the videos arrive silent.",
+      note: "Motion design means animation — the text and photos from your site, in motion — not a shoot at your premises. Music by arrangement: I add it, or the videos arrive silent.",
     },
     mobileApps: {
       title: "Mobile apps",
       badge: "Custom",
       price: "On request",
       intro:
-        "For when your customers need more than a website — an app on their phone for booking, ordering, a loyalty card or offers sent straight to them. We build it around what your business actually does.",
+        "For when your customers need more than a website — an app on their phone for booking, ordering, a loyalty card or offers sent straight to them. I build it around what your business actually does.",
       includes: [
         "For iPhone and Android",
         "Your brand's colours and type",
         "On the App Store and Google Play, or as a PWA",
         "A quote before anything is paid",
       ],
-      note: "A PWA is an app installed straight from your website, without the App Store or Google Play. The price depends on exactly what you want the app to do — a simple app with a price list and contact details is not the same job as accounts, payments and a link to your till. Tell us what you need and you get a quote before committing to anything.",
+      note: "A PWA is an app installed straight from your website, without the App Store or Google Play. The price depends on exactly what you want the app to do — a simple app with a price list and contact details is not the same job as accounts, payments and a link to your till. Tell me what you need and you get a quote before committing to anything.",
     },
     planAction: "Ask about this package",
     planNote: "Nothing is paid through the site — we agree on what you need first.",
@@ -493,19 +501,19 @@ export const en: Dictionary = {
     items: [
       {
         q: "How long does it take?",
-        a: "Up to 10 days from the moment we have your materials (text, photos, price list). Simpler sites are often ready sooner; for larger projects we agree the deadline up front.",
+        a: "Up to 10 days from the moment I have your materials (text, photos, price list). Simpler sites are often ready sooner; for larger projects we agree the deadline up front.",
       },
       {
         q: "Do I need a domain and hosting?",
-        a: "We can set it all up: the domain is ~€25/year, and hosting is included in the optional maintenance. And if you'd rather look after hosting yourself, the site and domain are yours — we hand over everything you need.",
+        a: "I can set it all up: the domain is ~€25/year, and hosting is included in the optional maintenance. And if you'd rather look after hosting yourself, the site and domain are yours — I hand over everything you need.",
       },
       {
         q: "Do I have to take the maintenance plan?",
-        a: "No. The site is yours and runs on your domain — nothing you have to subscribe to with us. Maintenance at €25/month is an option for those who'd rather not deal with the technical side — hosting, monitoring, backups and small content updates. Cancel whenever you like.",
+        a: "No. The site is yours and runs on your domain — nothing you have to subscribe to with me. Maintenance at €25/month is an option for those who'd rather not deal with the technical side — hosting, monitoring, backups and small content updates. Cancel whenever you like.",
       },
       {
         q: "I already have a website. Can you redesign it?",
-        a: "Yes — redesigns are our specialty, and one costs the same as a new site: the package sets the price, not the fact that you already have a site. Send us the link and you'll get a free concept of the new site, no strings attached.",
+        a: "Yes — redesigns are my specialty, and one costs the same as a new site: the package sets the price, not the fact that you already have a site. Send me the link and you'll get a free concept of the new site, no strings attached.",
       },
       {
         q: "How does payment work?",
@@ -513,22 +521,22 @@ export const en: Dictionary = {
       },
       {
         q: "Can I edit the content myself?",
-        a: "The site has no admin panel — that is what keeps it fast and secure, but it means prices, text and photos do not change on their own. Small edits are part of the €25/month maintenance; without it, you write to us and we agree per change. If you need to manage content yourself every day, that is a Project and we say so up front.",
+        a: "The site has no admin panel — that is what keeps it fast and secure, but it means prices, text and photos do not change on their own. Small edits are part of the €25/month maintenance; without it, you write to me and we agree per change. If you need to manage content yourself every day, that is a Project and I say so up front.",
       },
       {
         q: "Who writes the text and takes the photos?",
-        a: "We write the copy from what you tell us in the questionnaire — you only review and correct it. The photos are yours: what you already have, from a phone or a photographer. We process them so they load fast. If you have none, we tell you what to shoot and how.",
+        a: "I write the copy from what you tell me in the questionnaire — you only review and correct it. The photos are yours: what you already have, from a phone or a photographer. I process them so they load fast. If you have none, I tell you what to shoot and how.",
       },
       {
         q: "What if I have no logo?",
-        a: "Not a problem. For Start and Business we make a simple wordmark from the business name, in the site's colour and type — enough for the site, the Google profile and Instagram. A full logo with variants is separate work, if you ever need it.",
+        a: "Not a problem. For Start and Business I make a simple wordmark from the business name, in the site's colour and type — enough for the site, the Google profile and Instagram. A full logo with variants is separate work, if you ever need it.",
       },
     ],
   },
 
   contact: {
     title: "Ready for a new website?",
-    sub: "Leave a few details, or write to us directly — whichever is easier.",
+    sub: "Leave a few details, or write to me directly — whichever is easier.",
     direct: {
       title: "Or write directly",
       whatsapp: "WhatsApp",
@@ -537,7 +545,7 @@ export const en: Dictionary = {
       whatsappPrefill: "Hi! I'm interested in a website for my business. Could we talk about a quote?",
       pointsTitle: "What happens next",
       points: [
-        "We reply the same day, tomorrow at the latest.",
+        "I reply the same day, tomorrow at the latest.",
         "You get a free concept — a sketch of the site before any decision.",
         "We agree on a package and a price.",
       ],
@@ -547,7 +555,7 @@ export const en: Dictionary = {
     lead: {
       eyebrow: "Free concept",
       nameLabel: "Name",
-      namePlaceholder: "What we should call you",
+      namePlaceholder: "What I should call you",
       businessLabel: "Business name",
       businessPlaceholder: "Your shop, salon, restaurant…",
       emailLabel: "Email",
@@ -568,20 +576,20 @@ export const en: Dictionary = {
       optional: "optional",
       submit: "Request a quote",
       sending: "Sending…",
-      success: "Got it. We'll reply to the email you left, usually the same day.",
-      errorRequired: "We need your name and an email to reply to.",
+      success: "Got it. I'll reply to the email you left, usually the same day.",
+      errorRequired: "I need your name and an email to reply to.",
       errorPhone: "Check the phone number, or leave the field empty.",
       errorChallenge: "Give the check a second to finish, then send again.",
       errorOffline: "You appear to be offline. Check the connection and try again.",
       errorSpam: "Too many attempts in a short time. Wait a minute and try again.",
-      errorProvider: "Sending isn't working right now. Send us an email — everything you typed is already in it.",
+      errorProvider: "Sending isn't working right now. Send me an email — everything you typed is already in it.",
       submitInstagram: "Open Instagram DM",
       submitInstagramCopied: "Message copied — open Instagram",
       copied: "Message copied — just paste it into the Instagram DM.",
-      note: "No commitment — once we reply, you decide how to go on.",
+      note: "No commitment — once I reply, you decide how to go on.",
       emailFallbackAction: "Send an email instead",
       prefill: "Hi! This is my business: {link} — could I get a quote for a website?",
-      bubble: { pre: "Tell us what you do — ", em: "the rest", post: " is on us." },
+      bubble: { pre: "Tell me what you do — ", em: "the rest", post: " is on me." },
     },
   },
 
@@ -595,7 +603,7 @@ export const en: Dictionary = {
     title: "Privacy",
     updated: "Updated 31 August 2026.",
     intro:
-      "This site is a small studio's calling card. There are no accounts, no logins and nothing is sold here — so there is no reason for us to know anything about you beyond what you send us yourself.",
+      "This site is a small studio's calling card. There are no accounts, no logins and nothing is sold here — so there is no reason for me to know anything about you beyond what you send me yourself.",
     sections: [
       {
         when: "always",
@@ -608,9 +616,9 @@ export const en: Dictionary = {
         when: "form",
         title: "When you send an enquiry through the site",
         body: [
-          "The form posts to our own server at Cloudflare and the enquiry is stored in our database. Only what you typed is sent: your name, business name, email, phone, link, what you need and your message — plus the page language. A copy of the same enquiry also reaches us by email.",
-          "We use it to reply to you and to put together a quote, and for nothing else. No newsletter, no sharing with third parties, no advertising. We delete the enquiry once the conversation is over, and within a year at the latest; you can ask for deletion sooner, at vakymne@gmail.com.",
-          "Nothing is paid through the site and we never ask for card details. To protect the form from abuse we record an irreversibly hashed form of your IP address so we can limit repeated attempts — your address cannot be read back from it.",
+          "The form posts to my own server at Cloudflare and the enquiry is stored in my database. Only what you typed is sent: your name, business name, email, phone, link, what you need and your message — plus the page language. A copy of the same enquiry also reaches me by email.",
+          "I use it to reply to you and to put together a quote, and for nothing else. No newsletter, no sharing with third parties, no advertising. I delete the enquiry once the conversation is over, and within a year at the latest; you can ask for deletion sooner, at vakymne@gmail.com.",
+          "Nothing is paid through the site and I never ask for card details. To protect the form from abuse I record an irreversibly hashed form of your IP address so I can limit repeated attempts — your address cannot be read back from it.",
         ],
       },
       {
@@ -624,10 +632,10 @@ export const en: Dictionary = {
         when: "always",
         title: "When you fill in the project start form",
         body: [
-          "Once we have agreed on the work, we send you a private questionnaire link, and that is where you send us what we need to build the site. Only what you type and attach is sent: business name, your name, email, phone, your answers, and the files you choose.",
-          "Answers are stored in our database at Cloudflare, and files in private storage that cannot be reached from the internet without a signed link that expires. We use them solely to build your site — we do not share them with anyone and do not use them for advertising. We keep them for as long as we work together and at most a year after that; you can ask for deletion sooner, at vakymne@gmail.com.",
+          "Once we have agreed on the work, I send you a private questionnaire link, and that is where you send me what I need to build the site. Only what you type and attach is sent: business name, your name, email, phone, your answers, and the files you choose.",
+          "Answers are stored in my database at Cloudflare, and files in private storage that cannot be reached from the internet without a signed link that expires. I use them solely to build your site — I do not share them with anyone and do not use them for advertising. I keep them for as long as we work together and at most a year after that; you can ask for deletion sooner, at vakymne@gmail.com.",
           "While you are filling it in, your answers are kept in your browser's own storage so you do not lose them if you close the page. That stays on your device, is cleared as soon as you send, and is not a cookie. Files are never kept there.",
-          "We never ask for passwords. To protect the form from abuse we record an irreversibly hashed form of your IP address so we can limit repeated attempts — your address cannot be read back from it, and it is not linked to your answers.",
+          "I never ask for passwords. To protect the form from abuse I record an irreversibly hashed form of your IP address so I can limit repeated attempts — your address cannot be read back from it, and it is not linked to your answers.",
         ],
       },
       {
@@ -641,7 +649,7 @@ export const en: Dictionary = {
         when: "analytics",
         title: "Visitor statistics",
         body: [
-          "We use Umami, a cookieless page counter. It records which page was opened, which site you arrived from, a rough country-level location and the type of device. It does not store your IP address, does not build a profile of you and does not follow you between sites.",
+          "I use Umami, a cookieless page counter. It records which page was opened, which site you arrived from, a rough country-level location and the type of device. It does not store your IP address, does not build a profile of you and does not follow you between sites.",
           "Query strings — everything after a ? — are dropped, and if your browser sends Do Not Track, nothing is recorded at all. What you type into the form is never sent to analytics.",
         ],
       },
@@ -679,7 +687,7 @@ export const en: Dictionary = {
   /* One page per kind of business, at /en/website-for-…/. See me.ts. */
   trades: {
     eyebrow: "A website for your trade",
-    examplesTitle: "What we have made",
+    examplesTitle: "What I have made",
     examplesSub: "Some of these are live client sites, the rest are concepts made for a specific business. Open them on your phone.",
     needsTitle: "What such a site has to have",
     priceTitle: "Price and timeline",

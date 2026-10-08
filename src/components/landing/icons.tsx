@@ -245,6 +245,29 @@ export function BubbleIcon(props: IconProps) {
   );
 }
 
+/** Head and shoulders — the "who is behind Vaky" section marker. */
+export function PersonIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        "....####....",
+        "...######...",
+        "...######...",
+        "...######...",
+        "...######...",
+        "....####....",
+        "............",
+        "..########..",
+        ".##########.",
+        ".##########.",
+        ".##########.",
+        ".##########.",
+      ]}
+    />
+  );
+}
+
 /** A sheet with ruled lines — the concept document. */
 export function DocIcon(props: IconProps) {
   return (

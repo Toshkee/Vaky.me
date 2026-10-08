@@ -21,14 +21,14 @@ export const me: OnboardingCopy = {
   meta: {
     title: "Pokretanje projekta | Vaky",
     description:
-      "Kratak upitnik za klijente Vaky-a: recite nam o svom biznisu, pošaljite materijale i krećemo sa izradom sajta.",
+      "Kratak upitnik za klijente Vaky-a: recite mi o svom biznisu, pošaljite materijale i krećem sa izradom sajta.",
   },
 
   gate: {
     eyebrow: "Novi projekat",
     title: "Zdravo! Krenimo.",
     intro:
-      "Nekoliko kratkih pitanja o vašem biznisu i sajtu koji pravimo. Bez tehničkih izraza — samo nam recite šta vam treba.",
+      "Nekoliko kratkih pitanja o vašem biznisu i sajtu koji pravim. Bez tehničkih izraza — samo mi recite šta vam treba.",
     languageLabel: "Izaberite jezik",
     me: "Crnogorski",
     en: "English",
@@ -39,20 +39,20 @@ export const me: OnboardingCopy = {
 
   resume: {
     title: "Nastavite gdje ste stali",
-    body: "Na ovom uređaju imamo vaše nedovršene odgovore.",
+    body: "Na ovom uređaju su sačuvani vaši nedovršeni odgovori.",
     action: "Nastavi",
     restart: "Počni ispočetka",
     restartConfirm: "Sigurno? Sve se briše.",
   },
 
   privateLink: {
-    checking: "Provjeravamo vaš link…",
+    checking: "Provjeravam vaš link…",
     invalidTitle: "Ovaj link ne radi",
     invalidBody:
-      "Provjerite da li je link kopiran cijeli, pa pokušajte ponovo. Ako i dalje ne radi, javite nam se — poslaćemo vam novi.",
+      "Provjerite da li je link kopiran cijeli, pa pokušajte ponovo. Ako i dalje ne radi, javite mi se — poslaću vam novi.",
     completedTitle: "Upitnik je već popunjen",
     completedBody:
-      "Za ovaj projekat smo već primili vaše odgovore i materijale. Ako želite nešto da dopunite ili izmijenite, javite nam se direktno — sve stiže do nas.",
+      "Za ovaj projekat sam već primio vaše odgovore i materijale. Ako želite nešto da dopunite ili izmijenite, javite mi se direktno — sve stiže do mene.",
   },
 
   info: {
@@ -63,12 +63,12 @@ export const me: OnboardingCopy = {
     fixTitle: "Šta sad",
     fix: [
       "Vratite se na poruku u kojoj je link stigao, kopirajte cijelu adresu do posljednjeg znaka i nalijepite je u pretraživač.",
-      "Ako ni tako ne radi, javite nam. Pošaljemo novi link za par minuta i dogovor ostaje isti.",
+      "Ako ni tako ne radi, javite mi. Pošaljem novi link za par minuta i dogovor ostaje isti.",
     ],
-    dm: "Pišite nam na Instagramu",
+    dm: "Pišite mi na Instagramu",
     strangerTitle: "Nemate nikakav link?",
     strangerBody:
-      "Upitnik je samo za klijente sa kojima smo već dogovorili posao i cijenu. Ako želite sajt, pišite nam preko forme — javimo se isti dan.",
+      "Upitnik je samo za klijente sa kojima sam već dogovorio posao i cijenu. Ako želite sajt, pišite mi preko forme — javim se isti dan.",
     strangerAction: "Zatraži ponudu",
     action: "Nazad na sajt",
   },
@@ -97,13 +97,13 @@ export const me: OnboardingCopy = {
   steps: {
     business: {
       title: "O vašem biznisu",
-      intro: "Osnovno — ko ste i gdje da vas nađemo.",
-      vaky: "Hajde prvo da upoznamo vaš biznis.",
+      intro: "Osnovno — ko ste i gdje da vas nađem.",
+      vaky: "Prvo želim da upoznam vaš biznis.",
     },
     custom: {
       title: "Šta sajt treba da može",
       intro:
-        "Vaš projekat pravimo po mjeri, pa nam recite šta sve treba da radi. Detaljnija pitanja dobijate samo za ono što izaberete.",
+        "Vaš projekat pravim po mjeri, pa mi recite šta sve treba da radi. Detaljnija pitanja dobijate samo za ono što izaberete.",
     },
     website: {
       title: "Šta sajt treba da postigne",
@@ -120,7 +120,7 @@ export const me: OnboardingCopy = {
     },
     shop: {
       title: "Vaša prodavnica",
-      intro: "Nekoliko pitanja da znamo kako prodaja treba da funkcioniše.",
+      intro: "Nekoliko pitanja da znam kako prodaja treba da funkcioniše.",
     },
     booking: {
       title: "Rezervacije i termini",
@@ -128,12 +128,12 @@ export const me: OnboardingCopy = {
     },
     materials: {
       title: "Materijali",
-      intro: "Pošaljite sve što mislite da nam može pomoći. Ne morate imati sve spremno.",
+      intro: "Pošaljite sve što mislite da mi može pomoći. Ne morate imati sve spremno.",
       vaky: "Ovdje šaljete logo, slike i ostale materijale.",
     },
     finish: {
       title: "Još samo ovo",
-      intro: "Domen i sve što biste voljeli da nam kažete.",
+      intro: "Domen i sve što biste voljeli da mi kažete.",
     },
   },
 
@@ -144,14 +144,14 @@ export const me: OnboardingCopy = {
     email: {
       label: "Email",
       placeholder: "ime@primjer.com",
-      help: "Ovdje vam se javljamo sa sljedećim koracima.",
+      help: "Ovdje vam se javljam sa sljedećim koracima.",
     },
     phone: { label: "Telefon", placeholder: "+382 6X XXX XXX" },
     instagram: { label: "Instagram ili Facebook", placeholder: "@vasprofil" },
     existingSite: {
       label: "Postojeći sajt",
       placeholder: "vas-sajt.me",
-      help: "Ako imate sajt koji mijenjamo, ostavite adresu.",
+      help: "Ako imate sajt koji mijenjam, ostavite adresu.",
     },
     activity: {
       label: "Čime se bavite?",
@@ -200,7 +200,7 @@ export const me: OnboardingCopy = {
         other: "Nešto drugo",
       },
     },
-    goalsOther: { label: "Šta još?", placeholder: "Recite nam ukratko." },
+    goalsOther: { label: "Šta još?", placeholder: "Recite mi ukratko." },
     sections: {
       label: "Šta želite da bude prikazano na vašem sajtu?",
       help: "Vaš paket uključuje jednu stranicu podijeljenu na više sekcija. Izaberite šta želite da posjetioci vide dok skroluju kroz sajt.",
@@ -220,7 +220,7 @@ export const me: OnboardingCopy = {
         "not-sure": "Nisam siguran — neka Vaky predloži strukturu",
       },
     },
-    sectionsOther: { label: "Šta još?", placeholder: "Recite nam ukratko." },
+    sectionsOther: { label: "Šta još?", placeholder: "Recite mi ukratko." },
     pages: {
       label: "Koje stranice bi sajt trebalo da ima?",
       help: "Označite sve što mislite da vam treba.",
@@ -287,10 +287,10 @@ export const me: OnboardingCopy = {
         other: "Nešto drugo",
       },
     },
-    featuresOther: { label: "Šta još?", placeholder: "Recite nam ukratko." },
+    featuresOther: { label: "Šta još?", placeholder: "Recite mi ukratko." },
     siteLanguages: {
       label: "Na kojim jezicima želite sajt?",
-      help: "Vaš paket pokriva crnogorski i englesku verziju. Tekst na engleskom dostavljate vi — mi ga uređujemo i ubacujemo.",
+      help: "Vaš paket pokriva crnogorski i englesku verziju. Tekst na engleskom dostavljate vi — ja ga uređujem i ubacujem.",
       options: {
         "me-only": "Samo crnogorski",
         "me-en": "Crnogorski i engleski",
@@ -334,7 +334,7 @@ export const me: OnboardingCopy = {
     productCategories: {
       label: "Koje grupe proizvoda prodajete?",
       placeholder: "npr. odjeća, obuća, dodaci",
-      help: "Pomaže nam da složimo kategorije u prodavnici.",
+      help: "Pomaže mi da složim kategorije u prodavnici.",
     },
     productReady: {
       label: "Šta već imate spremno?",
@@ -353,7 +353,7 @@ export const me: OnboardingCopy = {
     },
     payment: {
       label: "Kako želite da kupci plaćaju?",
-      help: "Za plaćanje karticom potreban je ugovor o online naplati sa vašom bankom. Ako ga još nemate, prodavnica kreće sa pouzećem i uplatom, a karticu povezujemo kad banka odobri.",
+      help: "Za plaćanje karticom potreban je ugovor o online naplati sa vašom bankom. Ako ga još nemate, prodavnica kreće sa pouzećem i uplatom, a karticu povezujem kad banka odobri.",
       options: {
         card: "Karticom online",
         "on-delivery": "Pouzećem, prilikom preuzimanja",
@@ -377,7 +377,7 @@ export const me: OnboardingCopy = {
       options: { yes: "Da", no: "Ne treba", "not-sure": "Nisam siguran" },
     },
     orderNotify: {
-      label: "Kako želite da vas obavijestimo o novoj porudžbini?",
+      label: "Kako želite da budete obaviješteni o novoj porudžbini?",
       options: { email: "Emailom", phone: "Porukom na telefon", both: "I jedno i drugo" },
     },
 
@@ -385,7 +385,7 @@ export const me: OnboardingCopy = {
     bookingServices: {
       label: "Šta klijenti mogu da zakažu kod vas?",
       placeholder: "npr. šišanje, brada, farbanje…",
-      help: "Slobodno nabrojte sve — mi ćemo to složiti u listu.",
+      help: "Slobodno nabrojte sve — ja ću to složiti u listu.",
     },
     bookingDuration: {
       label: "Koliko obično traje jedan termin?",
@@ -438,7 +438,7 @@ export const me: OnboardingCopy = {
     },
     bookingCurrentSystem: { label: "Koji program koristite?", placeholder: "npr. DIKIDI" },
     bookingConfirmation: {
-      label: "Kako da javimo klijentu da je termin potvrđen?",
+      label: "Kako da klijent dobije potvrdu termina?",
       options: {
         email: "Emailom",
         message: "Porukom na telefon",
@@ -450,7 +450,7 @@ export const me: OnboardingCopy = {
     /* ── Materijali ── */
     textsReady: {
       label: "Da li već imate tekstove za sajt?",
-      help: "Mislimo na opise usluga, tekst o vama i slično.",
+      help: "Mislim na opise usluga, tekst o vama i slično.",
       options: {
         all: "Da, sve je spremno",
         some: "Imam dio",
@@ -505,7 +505,7 @@ export const me: OnboardingCopy = {
       options: { yes: "Da", no: "Ne", "not-sure": "Nisam siguran" },
     },
     notes: {
-      label: "Postoji li još nešto što biste željeli da znamo prije nego počnemo?",
+      label: "Postoji li još nešto što biste željeli da znam prije nego počnem?",
       placeholder: "Slobodno napišite bilo šta.",
     },
   },
@@ -531,7 +531,7 @@ export const me: OnboardingCopy = {
 
   credentials: {
     title: "Nikad ne šaljite lozinke",
-    body: "Nemojte slati lozinke kroz ovu formu. Ako nam bude potreban pristup nekom nalogu, dogovorićemo siguran način naknadno.",
+    body: "Nemojte slati lozinke kroz ovu formu. Ako mi bude potreban pristup nekom nalogu, dogovorićemo siguran način naknadno.",
   },
 
   review: {
@@ -541,16 +541,16 @@ export const me: OnboardingCopy = {
     editLabel: "Izmijeni: {section}",
     unanswered: "Nije popunjeno",
     files: "Poslati materijali",
-    noFiles: "Niste poslali nijedan fajl. To je u redu — javićemo se ako nam nešto zatreba.",
+    noFiles: "Niste poslali nijedan fajl. To je u redu — javiću se ako mi nešto zatreba.",
     submit: "Pošalji projekat Vaky-u",
     sending: "Šaljem…",
   },
 
   success: {
     title: "Sve je spremno",
-    body: "Hvala! Vaši odgovori i materijali su uspješno poslati Vaky-u. Pregledaćemo sve i javiti vam se sa sljedećim koracima.",
+    body: "Hvala! Vaši odgovori i materijali su uspješno poslati Vaky-u. Pregledaću sve i javiti vam se sa sljedećim koracima.",
     refLabel: "Broj vašeg projekta",
-    note: "Sačuvajte ovaj broj — pomaže nam da vas brže nađemo ako nam pišete.",
+    note: "Sačuvajte ovaj broj — pomaže mi da vas brže nađem ako mi pišete.",
     home: "Nazad na vaky.me",
     vaky: "Vaky ima sve što mu treba.",
   },
@@ -568,9 +568,9 @@ export const me: OnboardingCopy = {
       session: "Sesija je istekla. Osvježite stranicu — odgovori su sačuvani.",
       "rate-limit": "Previše pokušaja u kratkom roku. Sačekajte minut pa probajte ponovo.",
       challenge: "Sačekajte sekundu da se provjera završi, pa pošaljite ponovo.",
-      link: "Ovaj link nije važeći. Javite nam se — poslaćemo vam novi.",
+      link: "Ovaj link nije važeći. Javite mi se — poslaću vam novi.",
       completed: "Upitnik za ovaj projekat je već popunjen.",
-      "file-type": "Ovaj tip fajla ne možemo primiti.",
+      "file-type": "Ovaj tip fajla ne mogu primiti.",
       "file-size": "Fajl je prevelik.",
       "file-count": "Poslali ste previše fajlova.",
       "file-total": "Ukupna veličina fajlova je prevelika.",
