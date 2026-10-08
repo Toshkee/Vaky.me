@@ -73,44 +73,67 @@ export function PhoneFrame({
       data-umami-event-demo={slug}
       className={`group block transition-transform duration-100 hover:-translate-y-0.5 active:translate-x-1 active:translate-y-1 motion-reduce:transition-none ${SIZES[size]} ${className}`}
     >
-      <div className="px-frame">
-        <div className="px-notch relative bg-ink px-[3px] pt-6 pb-5">
-          <span aria-hidden="true" className="absolute top-2.5 left-1/2 block h-1 w-10 -translate-x-1/2 bg-paper-2/40" />
-          <div
-            ref={screenRef}
-            /* The dot grid is the screen's empty state, not decoration. The
-               captures below the fold are lazy, so the first thing a visitor
-               scrolling into this section sees is the screen before its
-               picture — and a flat cream rectangle inside a phone reads as a
-               site that failed to load. The grid is the same ground the map
-               placeholder uses, costs no request, and is covered the moment
-               the capture paints over it. */
-            className={`phone-screen px-grid px-notch aspect-[9/17] overflow-hidden bg-paper-2 ${screenClassName}`}
-          >
-            {pending && (
-              <picture>
-                <source type="image/avif" srcSet={`/work/${shown}-phone.avif`} />
-                <img src={`/work/${shown}-phone.webp`} alt="" width={780} className="phone-page" />
-              </picture>
-            )}
-            <picture key={slug}>
-              <source type="image/avif" srcSet={`/work/${slug}-phone.avif`} />
-              <img
-                ref={arrived}
-                src={`/work/${slug}-phone.webp`}
-                alt={alt}
-                width={780}
-                loading={pending ? "eager" : "lazy"}
-                decoding="async"
-                onLoad={() => setShown(slug)}
-                className={pending ? "phone-page absolute inset-0 opacity-0" : "phone-page"}
-              />
-            </picture>
-            {children}
-          </div>
-          <span aria-hidden="true" className="absolute bottom-2 left-1/2 block h-1 w-16 -translate-x-1/2 bg-paper-2/40" />
-        </div>
-      </div>
+      <PhoneBody screenRef={screenRef} screenClassName={`aspect-[9/17] ${screenClassName}`}>
+        {pending && (
+          <picture>
+            <source type="image/avif" srcSet={`/work/${shown}-phone.avif`} />
+            <img src={`/work/${shown}-phone.webp`} alt="" width={780} className="phone-page" />
+          </picture>
+        )}
+        <picture key={slug}>
+          <source type="image/avif" srcSet={`/work/${slug}-phone.avif`} />
+          <img
+            ref={arrived}
+            src={`/work/${slug}-phone.webp`}
+            alt={alt}
+            width={780}
+            loading={pending ? "eager" : "lazy"}
+            decoding="async"
+            onLoad={() => setShown(slug)}
+            className={pending ? "phone-page absolute inset-0 opacity-0" : "phone-page"}
+          />
+        </picture>
+        {children}
+      </PhoneBody>
     </Link>
+  );
+}
+
+/**
+ * The device on its own: the ink body, the notched screen, the speaker slot
+ * and the home bar. PhoneFrame wraps it in a link; a screen with nothing to
+ * open, like a private client app, uses it bare. The caller sets the screen's
+ * aspect ratio, because a capture of a site and a screen of an app are not
+ * the same shape.
+ */
+export function PhoneBody({
+  screenRef,
+  screenClassName = "",
+  children,
+}: {
+  screenRef?: Ref<HTMLDivElement>;
+  screenClassName?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="px-frame">
+      <div className="px-notch relative bg-ink px-[3px] pt-6 pb-5">
+        <span aria-hidden="true" className="absolute top-2.5 left-1/2 block h-1 w-10 -translate-x-1/2 bg-paper-2/40" />
+        <div
+          ref={screenRef}
+          /* The dot grid is the screen's empty state, not decoration. The
+             captures below the fold are lazy, so the first thing a visitor
+             scrolling into this section sees is the screen before its
+             picture — and a flat cream rectangle inside a phone reads as a
+             site that failed to load. The grid is the same ground the map
+             placeholder uses, costs no request, and is covered the moment
+             the capture paints over it. */
+          className={`phone-screen px-grid px-notch overflow-hidden bg-paper-2 ${screenClassName}`}
+        >
+          {children}
+        </div>
+        <span aria-hidden="true" className="absolute bottom-2 left-1/2 block h-1 w-16 -translate-x-1/2 bg-paper-2/40" />
+      </div>
+    </div>
   );
 }

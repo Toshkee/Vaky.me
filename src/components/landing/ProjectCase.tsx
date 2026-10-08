@@ -79,14 +79,7 @@ export function ProjectCase({
             <dd>{project.solution}</dd>
           </dl>
         ) : (
-          <dl className="mt-5 grid max-w-md gap-x-5 gap-y-1 border-t-2 border-ink pt-4 text-sm leading-snug sm:grid-cols-[5.5rem_1fr] sm:gap-y-3">
-            <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.briefLabel}</dt>
-            <dd className="mb-3 sm:mb-0">{project.brief}</dd>
-            <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.solutionLabel}</dt>
-            <dd className="mb-3 sm:mb-0">{project.solution}</dd>
-            <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.includesLabel}</dt>
-            <dd className="text-muted">{project.includes.join(" · ")}</dd>
-          </dl>
+          <CaseFacts facts={project} dict={dict} />
         )}
 
         {compact ? (
@@ -115,5 +108,26 @@ export function ProjectCase({
         )}
       </div>
     </article>
+  );
+}
+
+/** The situation, the move and what is in it, as a small table: the full
+    telling of a project, shared by every case that has the room for it. */
+export function CaseFacts({
+  facts,
+  dict,
+}: {
+  facts: Pick<Project, "brief" | "solution" | "includes">;
+  dict: Dictionary;
+}) {
+  return (
+    <dl className="mt-5 grid max-w-md gap-x-5 gap-y-1 border-t-2 border-ink pt-4 text-sm leading-snug sm:grid-cols-[5.5rem_1fr] sm:gap-y-3">
+      <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.briefLabel}</dt>
+      <dd className="mb-3 sm:mb-0">{facts.brief}</dd>
+      <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.solutionLabel}</dt>
+      <dd className="mb-3 sm:mb-0">{facts.solution}</dd>
+      <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.includesLabel}</dt>
+      <dd className="text-muted">{facts.includes.join(" · ")}</dd>
+    </dl>
   );
 }

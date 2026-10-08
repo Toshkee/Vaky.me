@@ -30,8 +30,8 @@ export const en: Dictionary = {
 
   work: {
     title: "What we have made",
-    liveTitle: "Live sites",
-    liveSub: "Running for real clients, on their own domains.",
+    liveTitle: "Live for clients",
+    liveSub: "Sites and an app, running for real clients.",
     conceptsTitle: "Concepts for your trade",
     conceptsSub:
       "Built for specific businesses in Montenegro, so you can see what your site could look like. Open them on your phone.",
@@ -46,6 +46,34 @@ export const en: Dictionary = {
     openLive: "Open the site",
     newTab: "opens in a new window",
     phoneAlt: "{name} — the site's opening screens on a phone",
+    app: {
+      label: "Live app",
+      name: "Reform Fitness",
+      tag: "Fitness & pilates · Podgorica",
+      brief: "Classes at two studios were booked by message, over Viber and WhatsApp, straight with the owner.",
+      solution:
+        "One app for the Fitness and the Pilates studio: members book, cancel and move their own classes, and the owner runs members, payments and the schedule from a panel.",
+      includes: ["Bookings", "Notifications", "Owner's panel", "Two studios"],
+      note: "The app is private, for the studio's members only, so there is no link to it here. The screens are from its demo build, with made-up members.",
+      screensLabel: "Screens from the Reform Fitness app",
+      screens: [
+        {
+          slug: "reform-fitness-pocetna",
+          caption: "Home",
+          alt: "A member's home screen: the next class, and the studio's invitation to a free spot with Accept and Decline buttons.",
+        },
+        {
+          slug: "reform-fitness-raspored",
+          caption: "Schedule",
+          alt: "This week's schedule: classes by the hour, how many spots are taken, and the one the member has booked.",
+        },
+        {
+          slug: "reform-fitness-panel",
+          caption: "Owner's panel",
+          alt: "The owner's panel, one member's page: a membership for the Fitness and for the Pilates studio, with payment date and number of classes.",
+        },
+      ],
+    },
     items: [
       {
         key: "villa",

@@ -39,8 +39,8 @@ export const me = {
     /* Two halves, and the visitor is never left to work out which is which:
        the sites running for real clients come first, on their own domains;
        the concepts follow under their own heading. */
-    liveTitle: "Sajtovi uživo",
-    liveSub: "Rade za prave klijente, na svom domenu.",
+    liveTitle: "Uživo kod klijenata",
+    liveSub: "Sajtovi i aplikacija koji rade za prave klijente.",
     conceptsTitle: "Koncepti za tvoju branšu",
     conceptsSub:
       "Napravljeni za konkretne biznise iz Crne Gore, da vidiš kako bi tvoj sajt mogao da izgleda. Otvori ih na telefonu.",
@@ -64,6 +64,39 @@ export const me = {
     newTab: "otvara se u novom prozoru",
     /* {name} is the project's name */
     phoneAlt: "{name} — početne stranice sajta na telefonu",
+    /* A client app that is live but private: only the studio's members can
+       sign in, so there is nothing for a visitor to open and no link. It is
+       shown instead, in three screens from the app's demo build, where every
+       member is made up — never a capture of the real one. The images are
+       /work/<slug>.avif and .webp, 720×1558. */
+    app: {
+      label: "Aplikacija uživo",
+      name: "Reform Fitness",
+      tag: "Fitnes i pilates · Podgorica",
+      brief: "Termini za dva studija dogovarali su se porukama, na Viberu i WhatsAppu, direktno sa vlasnikom.",
+      solution:
+        "Jedna aplikacija za Fitness i Pilates studio: članovi sami rezervišu, otkazuju i premještaju termine, a vlasnik iz panela vodi članove, uplate i raspored.",
+      includes: ["Rezervacije", "Obavještenja", "Panel vlasnika", "Dva studija"],
+      note: "Aplikacija je privatna, samo za članove studija, pa ovdje nema linka. Ekrani su iz demo verzije, sa izmišljenim članovima.",
+      screensLabel: "Ekrani aplikacije Reform Fitness",
+      screens: [
+        {
+          slug: "reform-fitness-pocetna",
+          caption: "Početna",
+          alt: "Početni ekran člana: sljedeći termin i poziv studija na slobodno mjesto, sa dugmadima Prihvati i Odbij.",
+        },
+        {
+          slug: "reform-fitness-raspored",
+          caption: "Raspored",
+          alt: "Raspored za tekuću nedelju: termini po satu, koliko je mjesta zauzeto i termin koji je član rezervisao.",
+        },
+        {
+          slug: "reform-fitness-panel",
+          caption: "Panel vlasnika",
+          alt: "Panel vlasnika, detalj člana: članarina za Fitness i za Pilates studio, sa datumom uplate i brojem termina.",
+        },
+      ],
+    },
     /* Every project on the site lives under a trade, and a trade holds as
        many as belong to it. A visitor answers "čime se baviš" once and sees
        everything made for that kind of business — so a nail studio is not

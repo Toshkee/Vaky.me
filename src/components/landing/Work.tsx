@@ -2,6 +2,7 @@
 
 import { useId, useRef, useState, type KeyboardEvent } from "react";
 import type { Dictionary } from "@/i18n";
+import { AppCase } from "./AppCase";
 import { FolderIcon } from "./icons";
 import { ProjectCase, isLive } from "./ProjectCase";
 import { SectionHead } from "./SectionHead";
@@ -9,8 +10,9 @@ import { SectionHead } from "./SectionHead";
 /**
  * The portfolio, in two honest halves.
  *
- * First the sites that are live for real clients — every one of them, side by
- * side, with its own domain. Then the concepts: a row of trades — restoran,
+ * First the work that is live for real clients: the app, told in three of its
+ * screens because it is private and cannot be opened, then every live site,
+ * side by side, with its own domain. Then the concepts: a row of trades — restoran,
  * barber, tattoo — picks the work imagined for that kind of business, and one
  * phone shows it. A trade whose only project is a live site has nothing to
  * show here; it is up top already.
@@ -84,20 +86,21 @@ export function Work({ dict }: { dict: Dictionary }) {
       <div className="shell py-12 sm:py-16">
         <SectionHead icon={<FolderIcon />} title={dict.work.title} />
 
-        {live.length > 0 && (
-          <div className="mt-8 sm:mt-10">
-            <h3 className="headline text-xl sm:text-2xl">{dict.work.liveTitle}</h3>
-            <p className="mt-1.5 max-w-lg text-muted">{dict.work.liveSub}</p>
-            {/* Two columns at every width: on a phone that is two small
-                phones side by side, which is half the height of two large
-                ones one under the other. */}
-            <div className="mt-7 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-8 lg:gap-x-10">
-              {live.map((project) => (
-                <ProjectCase key={project.slug} project={project} dict={dict} compact />
-              ))}
-            </div>
+        <div className="mt-8 sm:mt-10">
+          <h3 className="headline text-xl sm:text-2xl">{dict.work.liveTitle}</h3>
+          <p className="mt-1.5 max-w-lg text-muted">{dict.work.liveSub}</p>
+
+          <AppCase dict={dict} />
+
+          {/* Two columns at every width: on a phone that is two small
+              phones side by side, which is half the height of two large
+              ones one under the other. */}
+          <div className="mt-12 grid grid-cols-2 gap-x-4 gap-y-10 border-t border-line pt-10 sm:mt-14 sm:gap-x-8 lg:gap-x-10">
+            {live.map((project) => (
+              <ProjectCase key={project.slug} project={project} dict={dict} compact />
+            ))}
           </div>
-        )}
+        </div>
 
         <div className="mt-14 border-t-2 border-ink pt-8 sm:mt-16 sm:pt-10">
           <h3 className="headline text-xl sm:text-2xl">{dict.work.conceptsTitle}</h3>
