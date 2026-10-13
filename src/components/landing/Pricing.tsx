@@ -27,7 +27,7 @@ export function Pricing({ dict }: { dict: Dictionary }) {
 
         {/* Paid once, at launch. It comes second because it is the smaller
             question: nobody decides against a site over three videos, but
-            people do over a monthly bill they were not told is optional. */}
+            people do over a yearly bill they were not told is optional. */}
         <AddOn addOn={dict.pricing.launchVideos} />
 
         {/* Not something added to a site but a separate job, so it comes

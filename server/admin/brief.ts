@@ -73,6 +73,8 @@ const WARNING_EN: Record<string, string> = {
     "The client's goal mentions selling products. This package does NOT include a shop — do not build one.",
   "self-editing":
     "The client would like to edit content themselves. No CMS is in scope — content is edited by Vaky.",
+  "business-self-editing":
+    "The client would like to edit content themselves. A CMS is a paid add-on to this package — build one only if Vaky's notes say it was agreed; otherwise no CMS, content is edited by Vaky.",
   copywriting:
     "The client asked for help with copy. Editing and adapting supplied content is in scope; writing everything from scratch is not — flag missing copy instead of inventing it.",
   "logo-redo":

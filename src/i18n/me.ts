@@ -473,6 +473,12 @@ export const me = {
             "Katalog, korpa i porudžbine koje stižu direktno tebi — kad se sa sajta prodaje, a ne samo dogovara. Kupci plaćaju pouzećem, uplatom na račun ili kod tebe. Plaćanje karticom povezujem kad tvoja banka odobri online naplatu.",
         },
         {
+          label: "Admin panel",
+          values: [false, "doplata €150", true],
+          explain:
+            "Stranica sa lozinkom na kojoj sam mijenjaš cijene, tekst i fotografije, bez da mi pišeš — izmjena je na sajtu za minut. Uz Biznis se doplaćuje jednom, €150, a u Projektu je uključen. Na Start sajtu izmjene radim ja, kroz održavanje.",
+        },
+        {
           label: "Povezivanje sa tvojim sistemima",
           values: [false, false, true],
           explain:
@@ -496,16 +502,16 @@ export const me = {
     maintenance: {
       title: "Održavanje i hosting",
       badge: "Opciono",
-      price: "€25/mjesec",
+      price: "Od €200/godišnje",
       intro:
-        "Poslije objave sajt je tvoj i radi na tvom domenu. Ako ne želiš da razmišljaš o tehničkoj strani, tu brigu preuzimam ja — prvi mjesec gratis, otkazuješ kad hoćeš.",
+        "Poslije objave sajt je tvoj i radi na tvom domenu. Ako ne želiš da razmišljaš o tehničkoj strani, tu brigu preuzimam ja. Plaća se jednom godišnje, sa domenom: €200 za Start, €300 za Biznis, a za Projekat se dogovaramo. Kad ne želiš sljedeću godinu, samo je ne produžiš.",
       includes: [
-        "Hosting i briga o domenu",
+        "Domen i hosting",
         "Nadzor i tehnička ažuriranja",
         "Redovan backup",
         "Sitne izmjene sadržaja",
       ],
-      note: "Pod sitnim izmjenama mislim na tekst, cijene i fotografije — nove stranice i funkcionalnosti dogovaraju se posebno. Domen se naplaćuje zasebno, ~€25 godišnje.",
+      note: "Pod sitnim izmjenama mislim na tekst, cijene i fotografije — nove stranice i funkcionalnosti dogovaraju se posebno. Domen je uključen u cijenu i vodi se na tebe.",
     },
     /* Same shape as `maintenance` — the pricing section renders both with one
        component. Motion design, not filming: the note says what that means,
@@ -556,11 +562,11 @@ export const me = {
       },
       {
         q: "Treba li mi domen i hosting?",
-        a: "Sve mogu srediti ja: domen je ~€25 godišnje, a hosting je uključen u opciono održavanje. A ako želiš da se o hostingu brineš sam, sajt i domen su tvoji — predam ti sve što treba.",
+        a: "Sve mogu srediti ja: domen i hosting su uključeni u opciono održavanje. A ako želiš da se o tome brineš sam, sajt i domen su tvoji — domen je oko €25 godišnje, a ja ti predam sve što treba.",
       },
       {
         q: "Da li moram uzeti održavanje?",
-        a: "Ne. Sajt je tvoj i radi na tvom domenu, bez ikakve obavezne pretplate kod mene. Održavanje od €25 mjesečno je opcija za one koji ne žele da se bave tehničkom stranom — hosting, nadzor, backup i sitne izmjene sadržaja. Otkazuješ kad god hoćeš.",
+        a: "Ne. Sajt je tvoj i radi na tvom domenu, bez ikakve obavezne pretplate kod mene. Održavanje je opcija za one koji ne žele da se bave tehničkom stranom — hosting, nadzor, backup i sitne izmjene sadržaja — i plaća se jednom godišnje, sa domenom: €200 za Start, €300 za Biznis. Kad ne želiš sljedeću godinu, samo je ne produžiš.",
       },
       {
         q: "Već imam sajt. Možete li ga prepraviti?",
@@ -572,7 +578,7 @@ export const me = {
       },
       {
         q: "Mogu li sam da mijenjam sadržaj?",
-        a: "Sajt nema admin panel — to ga čini brzim i sigurnim, ali znači da se cijene, tekst i fotografije ne mijenjaju sami. Sitne izmjene ulaze u održavanje od €25 mjesečno; bez održavanja, javiš se i dogovorimo se po izmjeni. Ako ti treba da sam upravljaš sadržajem svaki dan, to je Projekat i kažem ti unaprijed.",
+        a: "Možeš, uz admin panel: stranicu sa lozinkom na kojoj mijenjaš cijene, tekst i fotografije, a sajt ostaje jednako brz i siguran. Uz Biznis se doplaćuje jednom, €150, a u Projektu je uključen. Start ga nema — tamo sitne izmjene ulaze u održavanje, a bez održavanja se javiš i dogovorimo se po izmjeni.",
       },
       {
         q: "Ko piše tekstove i ko slika?",

@@ -66,11 +66,19 @@ export function scopeWarnings(
     });
   }
 
-  if ((packageId === "start" || packageId === "business") && wantsSelfEditing) {
+  if (packageId === "start" && wantsSelfEditing) {
     out.push({
       id: "self-editing",
       label:
-        "Klijent želi sam da mijenja sadržaj — uređivanje kroz sajt (CMS) nije u ovom paketu; sitne izmjene pokriva održavanje.",
+        "Klijent želi sam da mijenja sadržaj — Start nema admin panel (CMS); to je Biznis uz doplatu, a sitne izmjene pokriva održavanje.",
+    });
+  }
+
+  if (packageId === "business" && wantsSelfEditing) {
+    out.push({
+      id: "business-self-editing",
+      label:
+        "Klijent želi sam da mijenja sadržaj — admin panel (CMS) je doplata €150 uz Biznis. Dogovori prije izrade i zapiši u bilješke.",
     });
   }
 

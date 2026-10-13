@@ -431,6 +431,12 @@ export const en: Dictionary = {
             "Catalogue, cart and orders that come straight to you — for when the site sells rather than just starts a conversation. Customers pay on delivery, by bank transfer or in person. Card payments are connected once your bank approves online payments.",
         },
         {
+          label: "Admin panel",
+          values: [false, "€150 extra", true],
+          explain:
+            "A password-protected page where you change prices, text and photos yourself, without writing to me — the change is live in a minute. With Business it is a one-off €150, and a Project includes it. On a Start site I make those edits, through maintenance.",
+        },
+        {
           label: "Connections to your systems",
           values: [false, false, true],
           explain:
@@ -453,16 +459,16 @@ export const en: Dictionary = {
     maintenance: {
       title: "Maintenance & hosting",
       badge: "Optional",
-      price: "€25/month",
+      price: "From €200/year",
       intro:
-        "After launch the site is yours and runs on your domain. If you'd rather not think about the technical side, I take that worry over — first month free, cancel any time.",
+        "After launch the site is yours and runs on your domain. If you'd rather not think about the technical side, I take that worry over. It is paid once a year, domain included: €200 for Start, €300 for Business, and agreed per Project. If you don't want another year, you simply don't renew.",
       includes: [
-        "Hosting & domain management",
+        "Domain & hosting",
         "Monitoring & technical updates",
         "Regular backups",
         "Small content updates",
       ],
-      note: "Small updates cover text, prices and photos — new pages and features are agreed separately. The domain is a separate cost, ~€25/year.",
+      note: "Small updates cover text, prices and photos — new pages and features are agreed separately. The domain is included in the price and registered to you.",
     },
     launchVideos: {
       title: "Motion design videos",
@@ -505,11 +511,11 @@ export const en: Dictionary = {
       },
       {
         q: "Do I need a domain and hosting?",
-        a: "I can set it all up: the domain is ~€25/year, and hosting is included in the optional maintenance. And if you'd rather look after hosting yourself, the site and domain are yours — I hand over everything you need.",
+        a: "I can set it all up: the domain and hosting are both included in the optional maintenance. And if you'd rather look after that yourself, the site and domain are yours — the domain is about €25/year, and I hand over everything you need.",
       },
       {
         q: "Do I have to take the maintenance plan?",
-        a: "No. The site is yours and runs on your domain — nothing you have to subscribe to with me. Maintenance at €25/month is an option for those who'd rather not deal with the technical side — hosting, monitoring, backups and small content updates. Cancel whenever you like.",
+        a: "No. The site is yours and runs on your domain — nothing you have to subscribe to with me. Maintenance is an option for those who'd rather not deal with the technical side — hosting, monitoring, backups and small content updates — and it is paid once a year, domain included: €200 for Start, €300 for Business. If you don't want another year, you simply don't renew.",
       },
       {
         q: "I already have a website. Can you redesign it?",
@@ -521,7 +527,7 @@ export const en: Dictionary = {
       },
       {
         q: "Can I edit the content myself?",
-        a: "The site has no admin panel — that is what keeps it fast and secure, but it means prices, text and photos do not change on their own. Small edits are part of the €25/month maintenance; without it, you write to me and we agree per change. If you need to manage content yourself every day, that is a Project and I say so up front.",
+        a: "You can, with an admin panel: a password-protected page where you change prices, text and photos, and the site stays just as fast and secure. With Business it is a one-off €150, and a Project includes it. Start does not have one — there small edits are part of maintenance, and without it you write to me and we agree per change.",
       },
       {
         q: "Who writes the text and takes the photos?",

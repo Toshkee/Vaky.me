@@ -31,13 +31,14 @@ Most projects are ready within 10 days once we have the necessary content.
 | Package | Price | Best for |
 |---|---:|---|
 | Start | €250 | One scrolling page covering the essentials — one revision round |
-| Business | €500 | Up to five pages, Montenegrin and English, two revision rounds |
-| Project | From €800 | A custom build — shop, integrations, more languages; scope and final price agreed per project |
+| Business | €500 | Up to five pages, Montenegrin and English, two revision rounds; an admin panel is a one-off €150 extra |
+| Project | From €800 | A custom build — shop, admin panel, integrations, more languages; scope and final price agreed per project |
 
-Two optional add-ons sit beside the packages: a monthly care plan for
-€25/month, and three motion design videos for social media (20+ seconds each;
-one announces the new site, the client picks the subject of the other two) for
-a one-off €50. Mobile apps (iPhone and Android, published to the App Store and
+Two optional add-ons sit beside the packages: a yearly care plan with the
+domain included (€200 for Start, €300 for Business, agreed per Project; paid
+once a year), and three motion design videos for social media (20+ seconds
+each; one announces the new site, the client picks the subject of the other
+two) for a one-off €50. Mobile apps (iPhone and Android, published to the App Store and
 Google Play or shipped as a PWA) are a separate service with no list price —
 each is quoted on what the business needs the app to do. Package and price are agreed with Vaky directly through
 Instagram or email before any work starts — there is no checkout on the site
