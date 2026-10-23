@@ -59,7 +59,7 @@ export function ChoiceGroup({
         return (
           <label
             key={option.value}
-            className={`pick flex min-h-12 cursor-pointer items-center gap-3 border-2 px-3 py-2.5 transition-colors ${
+            className={`pick flex min-h-12 cursor-pointer items-center gap-3 rounded-2xl border-[1.5px] px-3 py-2.5 transition-colors ${
               checked ? "border-ink bg-paper-2" : "border-line bg-paper hover:border-muted"
             }`}
           >
@@ -73,8 +73,8 @@ export function ChoiceGroup({
             />
             <span
               aria-hidden="true"
-              className={`grid h-5 w-5 shrink-0 place-items-center border-2 border-ink ${
-                checked ? "bg-red" : "bg-paper"
+              className={`grid h-5 w-5 shrink-0 place-items-center rounded-md border-[1.5px] border-ink ${
+                checked ? "bg-sun" : "bg-paper"
               } ${multi ? "" : "rounded-full"}`}
             >
               {checked && (

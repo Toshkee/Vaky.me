@@ -1,39 +1,21 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { Libre_Franklin } from "next/font/google";
-import localFont from "next/font/local";
+import { Archivo } from "next/font/google";
 import { site } from "@/config/site";
 import { Analytics } from "@/components/Analytics";
 import { ConsoleGreeting } from "@/components/ConsoleGreeting";
 
-/* Libre Franklin is a revival of ATF Franklin Gothic (1902). It carries the
-   reading layer — body copy, eyebrows, forms, tables — under the pixel
-   headlines. Its caron on š/č stays open, which is where geometric sans faces
-   fail on Montenegrin. */
-const franklin = Libre_Franklin({
-  variable: "--font-franklin",
+/* One family for the whole site. Archivo (Omnibus-Type, SIL OFL) is a
+   grotesque with a width axis as well as a weight axis: body copy sits at its
+   normal width, headlines run heavy and opened up, and the films stretch it
+   further for their captions — one file, three voices. Its Latin Extended
+   cut carries č ć ž š đ with open carons, which is where a lot of geometric
+   faces fail on Montenegrin. */
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin", "latin-ext"],
+  axes: ["wdth"],
   display: "swap",
-});
-
-/* The pixel face. Geist Pixel Square (Vercel, SIL OFL) — a monospace bitmap
-   face drawn on a strict square grid, self-hosted from the `geist` package
-   rather than Google Fonts because the Google build ships a reduced glyph
-   table. This file carries č ć ž š đ and a euro sign that is not an 8, which
-   are the two things that retired Pixelify Sans and then Jersey 10 here —
-   check the cmap, not the specimen, before swapping it again.
-
-   Unlike Jersey 10 it sits in a normal em box (cap height 0.72em), so it is
-   set at text sizes, not inflated ones. */
-const pixel = localFont({
-  src: "./fonts/GeistPixel-Square.woff2",
-  variable: "--font-pixel",
-  weight: "400",
-  display: "swap",
-  /* Not preloaded: it sets buttons and headlines, and the LCP element is
-     the hero paragraph in Franklin. `swap` shows Franklin for the moment
-     before it lands. */
-  preload: false,
 });
 
 /* Both root layouts share everything except the language they declare, so the
@@ -53,7 +35,7 @@ export const sharedMetadata = {
 } satisfies Metadata;
 
 export const viewport: Viewport = {
-  themeColor: "#faf8f4",
+  themeColor: "#f2ede4",
 };
 
 export function RootHtml({
@@ -75,7 +57,7 @@ export function RootHtml({
          can turn it off for the instant of a route change and back on
          after — without this it warns on every navigation in dev. */
       data-scroll-behavior="smooth"
-      className={`${franklin.variable} ${pixel.variable} h-full antialiased`}
+      className={`${archivo.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         {children}

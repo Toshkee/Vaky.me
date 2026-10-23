@@ -62,21 +62,20 @@ export function ProjectCase({
       </ProjectPhone>
 
       <div className="min-w-0">
-        <p className="eyebrow text-red">
+        <p className={`eyebrow ${live ? "eyebrow--dot" : ""}`}>
           {live ? dict.work.liveLabel : dict.work.conceptLabel}
-          <span aria-hidden="true" className="text-muted"> · </span>
-          <span className="text-muted">{project.tag}</span>
         </p>
-        <h3 className={`headline mt-2 ${compact ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl"}`}>
+        <p className="mt-2 text-sm text-muted">{project.tag}</p>
+        <h3 className={`headline mt-3 ${compact ? "text-2xl sm:text-3xl" : "text-3xl sm:text-4xl"}`}>
           {project.name}
         </h3>
 
         {compact ? (
-          <dl className="mt-4 grid gap-y-1 border-t-2 border-ink pt-3 text-sm leading-snug">
-            <dt className="eyebrow text-muted">{dict.work.briefLabel}</dt>
-            <dd className="mb-3">{project.brief}</dd>
-            <dt className="eyebrow text-muted">{dict.work.solutionLabel}</dt>
-            <dd>{project.solution}</dd>
+          <dl className="mt-4 grid gap-y-1 border-t border-line pt-4 text-sm leading-snug">
+            <dt className="font-semibold">{dict.work.briefLabel}</dt>
+            <dd className="mb-3 text-muted">{project.brief}</dd>
+            <dt className="font-semibold">{dict.work.solutionLabel}</dt>
+            <dd className="text-muted">{project.solution}</dd>
           </dl>
         ) : (
           <CaseFacts facts={project} dict={dict} />
@@ -87,11 +86,11 @@ export function ProjectCase({
             href={project.href}
             {...(live ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             data-umami-event="portfolio_demo_opened"
-            className="group mt-5 inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-line decoration-2 underline-offset-[6px] transition-colors hover:text-red hover:decoration-red"
+            className="group mt-5 inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-sun decoration-2 underline-offset-[6px] transition-colors hover:text-sun-ink"
           >
             {open}
             {live && <span className="sr-only"> ({dict.work.newTab})</span>}
-            <ArrowIcon className="w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowIcon className="size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none" />
           </a>
         ) : (
           <Button
@@ -121,13 +120,21 @@ export function CaseFacts({
   dict: Dictionary;
 }) {
   return (
-    <dl className="mt-5 grid max-w-md gap-x-5 gap-y-1 border-t-2 border-ink pt-4 text-sm leading-snug sm:grid-cols-[5.5rem_1fr] sm:gap-y-3">
-      <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.briefLabel}</dt>
-      <dd className="mb-3 sm:mb-0">{facts.brief}</dd>
-      <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.solutionLabel}</dt>
-      <dd className="mb-3 sm:mb-0">{facts.solution}</dd>
-      <dt className="eyebrow text-muted sm:mt-0.5">{dict.work.includesLabel}</dt>
-      <dd className="text-muted">{facts.includes.join(" · ")}</dd>
+    <dl className="mt-6 grid max-w-md gap-x-6 gap-y-1 border-t border-line pt-5 leading-snug sm:grid-cols-[6rem_1fr] sm:gap-y-4">
+      <dt className="text-sm font-semibold">{dict.work.briefLabel}</dt>
+      <dd className="mb-3 text-muted sm:mb-0">{facts.brief}</dd>
+      <dt className="text-sm font-semibold">{dict.work.solutionLabel}</dt>
+      <dd className="mb-3 text-muted sm:mb-0">{facts.solution}</dd>
+      <dt className="text-sm font-semibold">{dict.work.includesLabel}</dt>
+      <dd>
+        <ul className="flex flex-wrap gap-1.5">
+          {facts.includes.map((item) => (
+            <li key={item} className="rounded-full border border-line px-2.5 py-1 text-sm">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </dd>
     </dl>
   );
 }

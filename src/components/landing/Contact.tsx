@@ -1,17 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import type { Dictionary } from "@/i18n";
 import { emailLink, hasPhone, instagramDmLink, phoneDisplay, site, whatsappLink } from "@/config/site";
 import { hasTurnstile } from "@/config/services";
 import { track } from "@/lib/analytics";
 import { isValidEmail, isValidPhone } from "@/lib/onboarding/schema";
 import { OFFERED_LEAD_NEEDS, type OfferedLeadNeed } from "@/lib/workflow";
-import { OsBadge } from "@/components/ui/OsBadge";
-import { PixelWindow } from "@/components/ui/PixelWindow";
+import { Tag } from "@/components/ui/Tag";
 import { useAutoGrow } from "@/components/ui/useAutoGrow";
-import { Vaky } from "@/components/mascot/Vaky";
-import { BubbleIcon, CheckIcon, SparkleIcon } from "./icons";
+import { ArrowIcon } from "./icons";
 import { SectionHead } from "./SectionHead";
 import { Turnstile } from "./Turnstile";
 
@@ -31,11 +29,9 @@ import { Turnstile } from "./Turnstile";
  * exist) the visitor is not left holding a dead button: Instagram sits beside
  * the submit, and an email with everything they typed is one link away.
  *
- * Vaky watches the form. He faces the page by default, turns toward the fields
- * while they have the visitor's attention, ticks the enquiry off once it looks
- * real, and jumps once when it goes. Pose swaps are held frames, not
- * animations, so they survive reduced-motion; only the jump is a real
- * animation and that one is gated in CSS.
+ * It closes the page on the ink band: the promise and the direct lines on the
+ * left, the form on a paper card on the right — the one light surface in the
+ * dark, so the eye has nowhere else to go.
  */
 type Status = "idle" | "sending" | "sent" | "invalid" | "phone" | "challenge" | "offline" | "spam" | "error";
 
@@ -51,17 +47,10 @@ export function Contact({ dict }: { dict: Dictionary }) {
   const [token, setToken] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [copied, setCopied] = useState(false);
-  const [focused, setFocused] = useState(false);
   const [started, setStarted] = useState(false);
-  const [jump, setJump] = useState(false);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const messageRef = useAutoGrow(message);
   const c = dict.contact.lead;
   const d = dict.contact;
-
-  useEffect(() => () => {
-    if (timer.current) clearTimeout(timer.current);
-  }, []);
 
   const valid = name.trim().length >= 2 && isValidEmail(email.trim());
 
@@ -78,14 +67,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
     return lines.join("\n");
   };
 
-  function celebrate() {
-    setJump(true);
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => setJump(false), 1000);
-  }
-
   function begin() {
-    setFocused(true);
     if (started) return;
     setStarted(true);
     track("lead_form_started", { lang: dict.lang });
@@ -145,7 +127,6 @@ export function Contact({ dict }: { dict: Dictionary }) {
 
       if (response.ok) {
         setStatus("sent");
-        celebrate();
         track("lead_form_submitted", { lang: dict.lang, transport: "form" });
         /* Emptied only once the server has said yes: it confirms the enquiry
            went somewhere, and a second press of the button then cannot quietly
@@ -204,7 +185,6 @@ export function Contact({ dict }: { dict: Dictionary }) {
    */
   async function sendInstagram() {
     if (!name.trim() || copied) {
-      celebrate();
       track("lead_form_submitted", { lang: dict.lang, transport: "instagram" });
       window.open(instagramDmLink(), "_blank", "noopener,noreferrer");
       return;
@@ -217,7 +197,6 @@ export function Contact({ dict }: { dict: Dictionary }) {
     }
   }
 
-  const attentive = focused || name.trim().length > 0;
   const sending = status === "sending";
 
   const statusMessage = {
@@ -234,18 +213,18 @@ export function Contact({ dict }: { dict: Dictionary }) {
   const isError = ["invalid", "phone", "challenge", "offline", "spam", "error"].includes(status);
   const failed = ["offline", "spam", "error"].includes(status);
 
-  /* One row per channel: the channel's name in the pixel face, the handle
-     or number beside it in grey. Full-width so the whole row is the target. */
+  /* One row per channel: the channel's name, the handle or number beside it.
+     Full-width so the whole row is the target. */
   const directButton =
-    "px px-btn flex min-h-12 items-center justify-between gap-3 bg-paper px-4 py-2.5 text-[1.0625rem] text-ink transition-colors hover:text-red";
+    "group flex min-h-14 items-center justify-between gap-3 border-b border-ink-2 py-3 text-lg font-semibold transition-colors hover:text-sun";
   /* Split the way the brief's fields are (src/components/onboarding/Field.tsx):
-     a field that failed keeps its red border while focused, so tabbing into
+     a field that failed keeps its error edge while focused, so tabbing into
      the very field you were asked to fix does not repaint it as fine. */
   const field =
-    "mt-1.5 block w-full border-2 bg-paper-2 px-3 py-2.5 text-lg transition-colors placeholder:text-muted focus:outline-none";
+    "mt-2 block w-full rounded-xl border-[1.5px] bg-white px-4 py-3 text-lg transition-colors placeholder:text-muted focus:outline-none";
   const fieldEdge = (invalid: boolean) =>
-    invalid ? "border-red focus:border-red" : "border-line focus:border-ink";
-  const fieldLabel = "eyebrow text-muted";
+    invalid ? "border-danger focus:border-danger" : "border-line-strong focus:border-ink";
+  const fieldLabel = "text-sm font-semibold";
 
   /* Which field the current status is actually about. `invalid` covers both
      required fields at once, so each is checked on its own rather than
@@ -255,15 +234,6 @@ export function Contact({ dict }: { dict: Dictionary }) {
     email: status === "invalid" && !isValidEmail(email.trim()),
     phone: status === "phone",
   };
-
-  const say = "px-say w-40 px-3 py-2 text-center text-sm font-semibold leading-snug";
-  const bubbleLine = (
-    <>
-      {c.bubble.pre} <span className="text-red">{c.bubble.em}</span>
-      {c.bubble.post}
-      {valid && <CheckIcon className="ml-1.5 inline w-4 align-[-0.125rem] text-ok" />}
-    </>
-  );
 
   /* Every field shares the same handlers; only the label, the value and the
      placeholder differ. Written once here rather than five times below. */
@@ -285,7 +255,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
     <div>
       <label htmlFor={id} className={fieldLabel}>
         {label}
-        {!extra.required && <span className="normal-case"> ({c.optional})</span>}
+        {!extra.required && <span className="font-normal text-muted"> ({c.optional})</span>}
       </label>
       <input
         id={id}
@@ -308,7 +278,6 @@ export function Contact({ dict }: { dict: Dictionary }) {
           setCopied(false);
         }}
         onFocus={begin}
-        onBlur={() => setFocused(false)}
         placeholder={extra.placeholder}
         className={`${field} ${fieldEdge(Boolean(extra.invalid))}`}
       />
@@ -316,292 +285,252 @@ export function Contact({ dict }: { dict: Dictionary }) {
   );
 
   return (
-    <section id="kontakt" className="scroll-mt-24 border-t border-line bg-paper-warm">
-      <div className="shell py-12 sm:py-16">
-        <SectionHead icon={<BubbleIcon />} title={dict.contact.title} />
-        <p className="mt-3 max-w-xl text-muted">{dict.contact.sub}</p>
+    <section id="kontakt" className="on-ink scroll-mt-24 bg-ink text-paper">
+      <div className="shell py-20 sm:py-28">
+        <SectionHead title={d.title} mark={d.titleMark} sub={d.sub} tone="ink" />
 
-        <PixelWindow title="VAKY OS" className="mt-7">
-          <div className="grid gap-4 p-5 sm:p-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10">
-            <form onSubmit={submit} noValidate>
-              <p>
-                <OsBadge tone="red">
-                  <SparkleIcon className="w-3.5" />
-                  {c.eyebrow}
-                </OsBadge>
-              </p>
+        <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+          {/* The other ways in, and what happens after. On a phone this sits
+              under the form; from lg up it is the left column. */}
+          <aside className="order-2 lg:order-1">
+            <p className="headline text-3xl sm:text-4xl">
+              {c.bubble.pre}
+              <span className="text-sun">{c.bubble.em}</span>
+              {c.bubble.post}
+            </p>
 
-              <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                {text("lead-name", c.nameLabel, name, setName, {
-                  placeholder: c.namePlaceholder,
-                  autoComplete: "name",
-                  required: true,
-                  invalid: problem.name,
-                })}
-                {text("lead-business", c.businessLabel, business, setBusiness, {
-                  placeholder: c.businessPlaceholder,
-                  autoComplete: "organization",
-                })}
-                {text("lead-email", c.emailLabel, email, setEmail, {
-                  placeholder: c.emailPlaceholder,
-                  type: "email",
-                  inputMode: "email",
-                  autoComplete: "email",
-                  required: true,
-                  invalid: problem.email,
-                })}
-                {text("lead-phone", c.phoneLabel, phone, setPhone, {
-                  placeholder: c.phonePlaceholder,
-                  type: "tel",
-                  inputMode: "tel",
-                  autoComplete: "tel",
-                  invalid: problem.phone,
-                })}
-              </div>
-
-              <div className="mt-4">
-                {text("lead-link", c.linkLabel, link, setLink, {
-                  placeholder: c.linkPlaceholder,
-                  inputMode: "url",
-                })}
-              </div>
-
-              {/* Every answer on the table, one tap each, instead of a system
-                  menu that opens in the OS's own grey over a page drawn in ink
-                  and paper. They are real radios — the chip is the label — so
-                  arrow keys and screen readers get a radio group for free. */}
-              <fieldset className="mt-4 min-w-0 border-0 p-0">
-                <legend className={fieldLabel}>
-                  {c.needLabel}
-                  <span className="normal-case"> ({c.optional})</span>
-                </legend>
-                <div className="mt-1.5 flex flex-wrap gap-2">
-                  {OFFERED_LEAD_NEEDS.map((option) => {
-                    const checked = need === option;
-                    return (
-                      <label
-                        key={option}
-                        className={`pick relative flex min-h-11 cursor-pointer items-center border-2 px-3 py-2 leading-snug transition-colors ${
-                          checked
-                            ? "border-ink bg-ink text-paper"
-                            : "border-line bg-paper-2 hover:border-ink"
-                        }`}
-                      >
-                        <input
-                          type="radio"
-                          name="need"
-                          value={option}
-                          checked={checked}
-                          onChange={() => {
-                            typed(setNeed)(option);
-                            setCopied(false);
-                          }}
-                          /* The question is optional, and a radio cannot be
-                             unticked on its own: a second tap on the chosen
-                             answer takes it back. Space gets its own handler
-                             because a browser sends no click for it on a
-                             radio that is already checked. */
-                          onClick={() => {
-                            if (!checked) return;
-                            setNeed("");
-                            setCopied(false);
-                          }}
-                          onKeyDown={(event) => {
-                            if (event.key !== " " || !checked) return;
-                            event.preventDefault();
-                            setNeed("");
-                            setCopied(false);
-                          }}
-                          onFocus={begin}
-                          onBlur={() => setFocused(false)}
-                          className="sr-only"
-                        />
-                        {c.needOptions[option]}
-                      </label>
-                    );
-                  })}
-                </div>
-              </fieldset>
-
-              <div className="mt-4">
-                <label htmlFor="lead-message" className={fieldLabel}>
-                  {c.messageLabel}
-                  <span className="normal-case"> ({c.optional})</span>
-                </label>
-                <textarea
-                  ref={messageRef}
-                  id="lead-message"
-                  name="message"
-                  /* The floor, not the ceiling — see useAutoGrow. */
-                  rows={2}
-                  maxLength={2000}
-                  value={message}
-                  onChange={(event) => {
-                    setMessage(event.target.value);
-                    setCopied(false);
-                  }}
-                  onFocus={begin}
-                  onBlur={() => setFocused(false)}
-                  placeholder={c.messagePlaceholder}
-                  className={`${field} ${fieldEdge(false)} resize-none text-base`}
-                />
-              </div>
-
-              {/* Bait. A person never sees this; a form-filling bot fills
-                  everything it finds, and anything that arrives with this set
-                  is answered with a cheerful 200 and stored nowhere. */}
-              <input
-                type="text"
-                name="website"
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden="true"
-                value={trap}
-                onChange={(event) => setTrap(event.target.value)}
-                className="hidden"
-              />
-
-              {hasTurnstile && started && <Turnstile onToken={setToken} />}
-
-              <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                <button
-                  type="submit"
-                  disabled={sending}
-                  aria-busy={sending}
-                  className="px px-btn px-btn--primary block min-h-12 bg-red px-6 py-3 text-center text-[1.0625rem] text-white hover:bg-red-deep disabled:opacity-70"
-                >
-                  {sending ? c.sending : c.submit}
-                </button>
-                {site.instagram && (
-                  <button
-                    type="button"
-                    onClick={sendInstagram}
-                    className="px px-btn block min-h-12 bg-paper px-6 py-3 text-center text-[1.0625rem] text-ink transition-colors hover:text-red"
-                  >
-                    {copied ? c.submitInstagramCopied : c.submitInstagram}
-                  </button>
-                )}
-              </div>
-
-              <p
-                id="lead-status"
-                role="status"
-                className={`mt-4 text-xs leading-relaxed ${isError ? "font-semibold text-red" : "text-muted"}`}
-              >
-                {statusMessage}
-              </p>
-
-              {/* The way out when the enquiry could not be sent — and it is a
-                  button, not a footnote. A visitor who has just filled seven
-                  fields and been told it failed will not hunt for an underline.
-                  The mail opens with everything they typed already in it, so
-                  nothing is retyped.
-
-                  Always in the tree, even while empty: a live region only
-                  reliably announces content that changes INSIDE an element
-                  screen readers already know about. Mounting the region
-                  together with its message is exactly the pattern they miss —
-                  and the person this line exists for would hear nothing. */}
-              <p role="status" className={failed ? "mt-3" : undefined}>
-                {failed && (
-                  <a
-                    href={emailLink(dict.contact.emailSubject, written())}
-                    className="px px-btn inline-flex min-h-12 items-center bg-paper px-6 py-3 text-[1.0625rem] text-ink transition-colors hover:text-red"
-                  >
-                    {c.emailFallbackAction}
-                  </a>
-                )}
-              </p>
-            </form>
-
-            {/* The other ways in, and what happens after. On a phone this
-                sits under the form; from lg up it fills the right column,
-                which used to hold nothing but Vaky. */}
-            <aside className="flex flex-col border-t-2 border-line pt-6 lg:border-t-0 lg:border-l-2 lg:pt-0 lg:pl-8">
-              <h3 className="eyebrow text-ink">{d.direct.title}</h3>
-              <ul className="mt-3 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-1">
-                {hasPhone && (
-                  <li>
-                    <a
-                      href={whatsappLink(d.direct.whatsappPrefill)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-umami-event="lead_form_submitted"
-                      data-umami-event-transport="whatsapp"
-                      className={directButton}
-                    >
-                      {d.direct.whatsapp}
-                      <span className="text-muted">{phoneDisplay()}</span>
-                    </a>
-                  </li>
-                )}
-                {site.instagram && (
-                  <li>
-                    <a
-                      href={instagramDmLink()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={directButton}
-                    >
-                      {d.direct.instagram}
-                      <span className="text-muted">@{site.instagram}</span>
-                    </a>
-                  </li>
-                )}
+            <h3 className="eyebrow mt-12 text-muted-dark">{d.direct.title}</h3>
+            <ul className="mt-3 border-t border-ink-2">
+              {hasPhone && (
                 <li>
                   <a
-                    href={emailLink(dict.contact.emailSubject, dict.contact.prefill)}
+                    href={whatsappLink(d.direct.whatsappPrefill)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-umami-event="lead_form_submitted"
+                    data-umami-event-transport="whatsapp"
                     className={directButton}
                   >
-                    {d.direct.email}
-                    <span className="truncate text-muted">{site.email}</span>
+                    {d.direct.whatsapp}
+                    <span className="text-base font-normal text-muted-dark group-hover:text-sun">{phoneDisplay()}</span>
                   </a>
                 </li>
-              </ul>
+              )}
+              {site.instagram && (
+                <li>
+                  <a href={instagramDmLink()} target="_blank" rel="noopener noreferrer" className={directButton}>
+                    {d.direct.instagram}
+                    <span className="text-base font-normal text-muted-dark group-hover:text-sun">@{site.instagram}</span>
+                  </a>
+                </li>
+              )}
+              <li>
+                <a href={emailLink(dict.contact.emailSubject, dict.contact.prefill)} className={directButton}>
+                  {d.direct.email}
+                  <span className="truncate text-base font-normal text-muted-dark group-hover:text-sun">{site.email}</span>
+                </a>
+              </li>
+            </ul>
 
-              <h3 className="eyebrow mt-7 text-ink">{d.direct.pointsTitle}</h3>
-              <ol className="mt-3 grid gap-2 text-sm leading-relaxed text-muted">
-                {d.direct.points.map((point, i) => (
-                  <li key={point} className="grid grid-cols-[1.25rem_1fr] gap-2">
-                    <span className="px text-[0.9375rem] leading-[1.6] text-red">{i + 1}.</span>
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ol>
+            <h3 className="eyebrow mt-12 text-muted-dark">{d.direct.pointsTitle}</h3>
+            <ol className="mt-4 grid gap-3 leading-relaxed text-muted-dark">
+              {d.direct.points.map((point, i) => (
+                <li key={point} className="grid grid-cols-[2rem_1fr] gap-2">
+                  <span className="tnum flex size-7 items-center justify-center rounded-full border-[1.5px] border-sun text-sm font-semibold text-sun">
+                    {i + 1}
+                  </span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ol>
+          </aside>
 
-              {/* Vaky at his post, feet on a drawn ground line at the bottom
-                  of the column, however tall the form beside him grows. */}
-              <div aria-hidden="true" className="mt-8 flex flex-1 flex-col justify-end">
-              <div className="vaky-track w-full justify-center">
-                {/* Below lg there is no room at Vaky's side, so the bubble
-                    hangs over his head — in flow, so it makes its own space
-                    instead of landing on the form's status line. */}
-                <span className="flex flex-col items-center gap-4 lg:hidden">
-                  <span className={`${say} px-say--down`}>{bubbleLine}</span>
-                  <Vaky
-                    direction={jump ? "front" : attentive ? "left" : "front"}
-                    pose={jump ? "jump" : "idle"}
-                    scale={0.4}
-                  />
-                </span>
-                {/* From lg up it stands beside him, anchored to Vaky rather
-                    than the column so the tail stays at his head at every
-                    window width — pulled a step toward the form because
-                    centered it would clip the window edge at the narrow end
-                    of lg. */}
-                <span className="relative hidden -translate-x-8 lg:block">
-                  <span className={`${say} absolute bottom-14 left-full ml-3`}>{bubbleLine}</span>
-                  <Vaky
-                    direction={jump ? "front" : attentive ? "left" : "front"}
-                    pose={jump ? "jump" : "idle"}
-                    scale={0.55}
-                  />
-                </span>
+          <form
+            onSubmit={submit}
+            noValidate
+            className="on-paper order-1 rounded-[1.75rem] bg-paper p-6 text-ink sm:p-9 lg:order-2"
+          >
+            <Tag tone="sun">{c.eyebrow}</Tag>
+
+            <div className="mt-7 grid gap-5 sm:grid-cols-2">
+              {text("lead-name", c.nameLabel, name, setName, {
+                placeholder: c.namePlaceholder,
+                autoComplete: "name",
+                required: true,
+                invalid: problem.name,
+              })}
+              {text("lead-business", c.businessLabel, business, setBusiness, {
+                placeholder: c.businessPlaceholder,
+                autoComplete: "organization",
+              })}
+              {text("lead-email", c.emailLabel, email, setEmail, {
+                placeholder: c.emailPlaceholder,
+                type: "email",
+                inputMode: "email",
+                autoComplete: "email",
+                required: true,
+                invalid: problem.email,
+              })}
+              {text("lead-phone", c.phoneLabel, phone, setPhone, {
+                placeholder: c.phonePlaceholder,
+                type: "tel",
+                inputMode: "tel",
+                autoComplete: "tel",
+                invalid: problem.phone,
+              })}
+            </div>
+
+            <div className="mt-5">
+              {text("lead-link", c.linkLabel, link, setLink, {
+                placeholder: c.linkPlaceholder,
+                inputMode: "url",
+              })}
+            </div>
+
+            {/* Every answer on the table, one tap each, instead of a system
+                menu that opens in the OS's own grey. They are real radios —
+                the chip is the label — so arrow keys and screen readers get a
+                radio group for free. */}
+            <fieldset className="mt-5 min-w-0 border-0 p-0">
+              <legend className={fieldLabel}>
+                {c.needLabel}
+                <span className="font-normal text-muted"> ({c.optional})</span>
+              </legend>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {OFFERED_LEAD_NEEDS.map((option) => {
+                  const checked = need === option;
+                  return (
+                    <label
+                      key={option}
+                      className={`pick relative flex min-h-11 cursor-pointer items-center rounded-full border-[1.5px] px-4 py-2 leading-snug transition-colors ${
+                        checked ? "border-ink bg-ink text-paper" : "border-line-strong bg-white hover:border-ink"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="need"
+                        value={option}
+                        checked={checked}
+                        onChange={() => {
+                          typed(setNeed)(option);
+                          setCopied(false);
+                        }}
+                        /* The question is optional, and a radio cannot be
+                           unticked on its own: a second tap on the chosen
+                           answer takes it back. Space gets its own handler
+                           because a browser sends no click for it on a radio
+                           that is already checked. */
+                        onClick={() => {
+                          if (!checked) return;
+                          setNeed("");
+                          setCopied(false);
+                        }}
+                        onKeyDown={(event) => {
+                          if (event.key !== " " || !checked) return;
+                          event.preventDefault();
+                          setNeed("");
+                          setCopied(false);
+                        }}
+                        onFocus={begin}
+                        className="sr-only"
+                      />
+                      {c.needOptions[option]}
+                    </label>
+                  );
+                })}
               </div>
-              </div>
-            </aside>
-          </div>
-        </PixelWindow>
+            </fieldset>
+
+            <div className="mt-5">
+              <label htmlFor="lead-message" className={fieldLabel}>
+                {c.messageLabel}
+                <span className="font-normal text-muted"> ({c.optional})</span>
+              </label>
+              <textarea
+                ref={messageRef}
+                id="lead-message"
+                name="message"
+                /* The floor, not the ceiling — see useAutoGrow. */
+                rows={3}
+                maxLength={2000}
+                value={message}
+                onChange={(event) => {
+                  setMessage(event.target.value);
+                  setCopied(false);
+                }}
+                onFocus={begin}
+                placeholder={c.messagePlaceholder}
+                className={`${field} ${fieldEdge(false)} resize-none text-base`}
+              />
+            </div>
+
+            {/* Bait. A person never sees this; a form-filling bot fills
+                everything it finds, and anything that arrives with this set
+                is answered with a cheerful 200 and stored nowhere. */}
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              value={trap}
+              onChange={(event) => setTrap(event.target.value)}
+              className="hidden"
+            />
+
+            {hasTurnstile && started && <Turnstile onToken={setToken} />}
+
+            <div className="mt-7 grid gap-3 sm:grid-cols-2">
+              <button
+                type="submit"
+                disabled={sending}
+                aria-busy={sending}
+                className="btn btn-primary group inline-flex min-h-13 items-center justify-center gap-2.5 bg-sun px-6 py-3 text-ink hover:bg-sun-hover disabled:opacity-70"
+              >
+                {sending ? c.sending : c.submit}
+                {!sending && (
+                  <ArrowIcon className="size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transition-none" />
+                )}
+              </button>
+              {site.instagram && (
+                <button
+                  type="button"
+                  onClick={sendInstagram}
+                  className="btn inline-flex min-h-13 items-center justify-center bg-transparent px-6 py-3 text-ink hover:bg-ink hover:text-paper"
+                >
+                  {copied ? c.submitInstagramCopied : c.submitInstagram}
+                </button>
+              )}
+            </div>
+
+            <p
+              id="lead-status"
+              role="status"
+              className={`mt-4 text-sm leading-relaxed ${isError ? "font-semibold text-danger" : "text-muted"}`}
+            >
+              {statusMessage}
+            </p>
+
+            {/* The way out when the enquiry could not be sent — and it is a
+                button, not a footnote. A visitor who has just filled seven
+                fields and been told it failed will not hunt for an underline.
+                The mail opens with everything they typed already in it.
+
+                Always in the tree, even while empty: a live region only
+                reliably announces content that changes INSIDE an element
+                screen readers already know about. */}
+            <p role="status" className={failed ? "mt-3" : undefined}>
+              {failed && (
+                <a
+                  href={emailLink(dict.contact.emailSubject, written())}
+                  className="btn inline-flex min-h-12 items-center bg-transparent px-6 py-3 text-ink hover:bg-ink hover:text-paper"
+                >
+                  {c.emailFallbackAction}
+                </a>
+              )}
+            </p>
+          </form>
+        </div>
       </div>
     </section>
   );

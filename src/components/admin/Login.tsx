@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { PixelWindow } from "@/components/ui/PixelWindow";
+import { Frame } from "@/components/ui/Frame";
 import { getMe, login } from "@/lib/admin/client";
 import type { ApiErrorCode } from "@/lib/onboarding/schema";
 import { apiText, inputClass, primaryButtonClass } from "./ui";
@@ -54,7 +54,7 @@ export function Login({ onIn }: { onIn: () => void }) {
   return (
     <main className="shell flex w-full flex-1 items-center justify-center py-10">
       <div className="w-full max-w-sm">
-        <PixelWindow title="Vaky Admin">
+        <Frame title="Vaky Admin">
           <form onSubmit={submit} className="grid gap-4 p-5">
             <h1 className="headline text-xl">Prijava</h1>
 
@@ -81,12 +81,12 @@ export function Login({ onIn }: { onIn: () => void }) {
                 arrives instead of appearing in a region nothing is watching. */}
             <p
               role="status"
-              className={problem ? "text-sm leading-relaxed font-semibold text-red" : undefined}
+              className={problem ? "text-sm leading-relaxed font-semibold text-sun-ink" : undefined}
             >
               {problem}
             </p>
           </form>
-        </PixelWindow>
+        </Frame>
       </div>
     </main>
   );

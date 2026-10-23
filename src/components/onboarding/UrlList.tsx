@@ -52,8 +52,8 @@ export function UrlList({
             aria-label={`${label} — ${index + 1}`}
             aria-invalid={broken || undefined}
             aria-describedby={`${id}-help ${id}-error`}
-            className={`block w-full border-2 bg-paper-2 px-3 py-3 text-base transition-colors placeholder:text-muted focus:outline-none ${
-              broken ? "border-red focus:border-red" : "border-line focus:border-ink"
+            className={`block w-full rounded-xl border-[1.5px] bg-white px-4 py-3 text-base transition-colors placeholder:text-muted focus:outline-none ${
+              broken ? "border-danger focus:border-danger" : "border-line-strong focus:border-ink"
             }`}
           />
         );

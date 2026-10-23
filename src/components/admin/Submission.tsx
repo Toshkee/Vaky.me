@@ -94,13 +94,13 @@ export function Submission({
     <Panel title="Odgovori klijenta">
       <p className="text-sm text-muted">{meta.join(" · ")}</p>
       {submission.notifyError && (
-        <p className="mt-1 text-sm font-semibold text-red">
+        <p className="mt-1 text-sm font-semibold text-sun-ink">
           Obavještenje nije stiglo mejlom: {mailErrorText(submission.notifyError)}
         </p>
       )}
 
       {answers === null || packageId === null ? (
-        <p role="alert" className="mt-4 border-l-2 border-red bg-paper-2 px-4 py-3 leading-relaxed">
+        <p role="alert" className="mt-4 border-l-2 border-sun-ink bg-paper-2 px-4 py-3 leading-relaxed">
           Odgovori se ne mogu pročitati.{" "}
           {answers === null
             ? "Sačuvani zapis nije ispravan JSON."

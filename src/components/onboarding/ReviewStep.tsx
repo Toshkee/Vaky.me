@@ -69,13 +69,13 @@ export function ReviewStep({
 
         return (
           <section key={step.id}>
-            <div className="flex items-baseline justify-between gap-4 border-b-2 border-ink pb-2">
+            <div className="flex items-baseline justify-between gap-4 border-b border-line pb-2">
               <h2 className="headline text-lg">{copy.steps[step.id].title}</h2>
               <button
                 type="button"
                 onClick={() => onEdit(step.id)}
                 aria-label={fill(copy.review.editLabel, { section: copy.steps[step.id].title })}
-                className="tap shrink-0 text-sm font-semibold underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
+                className="tap shrink-0 text-sm font-semibold underline decoration-sun decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
               >
                 {copy.review.edit}
               </button>
@@ -100,13 +100,13 @@ export function ReviewStep({
       })}
 
       <section>
-        <div className="flex items-baseline justify-between gap-4 border-b-2 border-ink pb-2">
+        <div className="flex items-baseline justify-between gap-4 border-b border-line pb-2">
           <h2 className="headline text-lg">{copy.review.files}</h2>
           <button
             type="button"
             onClick={() => onEdit("materials")}
             aria-label={fill(copy.review.editLabel, { section: copy.review.files })}
-            className="tap shrink-0 text-sm font-semibold underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
+            className="tap shrink-0 text-sm font-semibold underline decoration-sun decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
           >
             {copy.review.edit}
           </button>

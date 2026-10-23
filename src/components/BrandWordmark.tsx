@@ -1,33 +1,60 @@
-import Image from "next/image";
+import { useId } from "react";
 import { site } from "@/config/site";
 
 /**
- * The Vaky.me lockup: the window mark, then the name set live in the pixel
- * face. The mark is pixel art and ships as a raster cut from the original
- * lockup (`scripts/wordmark-asset.mjs`); the name used to be part of that
- * raster and is text now, so it is selectable, readable by a crawler, and in
- * the same face as every headline on the page.
+ * The Vaky mark: a sun going down into the Adriatic. One disc, one wave —
+ * it holds at 16px as an orange circle with a dark foot, and it is the same
+ * shape the films open and close on.
  *
- * `className` sets the height of the mark; the name is sized to match. The
- * mark is ink and brand red on transparency, so it needs a light ground.
+ * On the ink band the sea turns to foam, or it would vanish into the ground.
  */
-export function BrandWordmark({ className = "" }: { className?: string }) {
+export function BrandMark({
+  tone = "ink",
+  className = "",
+}: {
+  tone?: "ink" | "paper";
+  className?: string;
+}) {
+  const clip = useId();
   return (
-    <span className="inline-flex items-center gap-2">
-      <Image
-        src="/vaky-mark.png"
-        alt=""
-        width={87}
-        height={96}
-        priority
-        className={`w-auto ${className}`}
-      />
-      {/* The face has one weight. A 1px shadow in the same colour doubles
-          every stroke on the pixel grid, which is how bitmap fonts were
-          always emboldened; it stays crisp where a stroke would blur. */}
-      <span className="px text-[1.5rem] leading-none whitespace-nowrap text-ink [text-shadow:1px_0_currentColor]">
-        {site.name}
-        <span className="text-[0.95rem] text-red">.me</span>
+    <svg viewBox="0 0 40 40" aria-hidden="true" className={className}>
+      <defs>
+        <clipPath id={clip}>
+          <circle cx="20" cy="20" r="20" />
+        </clipPath>
+      </defs>
+      <g clipPath={`url(#${clip})`}>
+        <rect width="40" height="40" fill="var(--color-sun)" />
+        <path
+          d="M0 25c6.7-3.6 13.3-3.6 20 0s13.3 3.6 20 0V40H0Z"
+          fill={tone === "ink" ? "var(--color-ink)" : "var(--color-foam)"}
+        />
+      </g>
+    </svg>
+  );
+}
+
+/**
+ * The lockup: the mark, then the name set live in Archivo at full width and
+ * weight, so it is selectable, readable by a crawler, and the same face as
+ * every headline. Size it with font-size on the caller; the mark follows.
+ */
+export function BrandWordmark({
+  tone = "ink",
+  className = "",
+}: {
+  tone?: "ink" | "paper";
+  className?: string;
+}) {
+  return (
+    <span className={`inline-flex items-center gap-[0.35em] leading-none ${className}`}>
+      <BrandMark tone={tone} className="size-[1.1em] shrink-0" />
+      <span
+        className={`font-black tracking-[-0.045em] whitespace-nowrap [font-stretch:125%] ${
+          tone === "ink" ? "text-ink" : "text-paper"
+        }`}
+      >
+        {site.name.toLowerCase()}
       </span>
     </span>
   );

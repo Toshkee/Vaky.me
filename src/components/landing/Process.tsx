@@ -1,76 +1,57 @@
-import type { ReactNode } from "react";
 import type { Dictionary } from "@/i18n";
-import { PixelWindow } from "@/components/ui/PixelWindow";
-import { BubbleIcon, FlagIcon, HammerIcon, RocketIcon, SparkleIcon } from "./icons";
+import { site } from "@/config/site";
 import { MobileFold } from "./MobileFold";
 import { ProcessStage } from "./ProcessStage";
 import { SectionHead } from "./SectionHead";
 
 /**
- * The road from the first message to a live site, as one short list.
+ * The road from the first message to a live site, as one short list on the
+ * ink band — the page's one dark section before the close.
  *
- * Four steps, all on the page: when it happens, what it is, what goes on.
- * It was eight once — the questionnaire, the brief, the review each had a
- * station — and nobody hires a studio for its internal stages. Those live
- * inside "Izrada" now. A reader skims four titles in a glance and a search
- * engine sees all of it; on a phone the paragraph under each title is one tap
- * away (see MobileFold), from sm up nothing has to be clicked. From lg up the
- * same four steps play as an animation beside the list (see ProcessStage).
+ * Four steps: when it happens, what it is, what goes on. A reader skims four
+ * titles in a glance and a search engine sees all of it; on a phone the
+ * paragraph under each title is one tap away (see MobileFold). From lg up the
+ * same four steps play as a film beside the list, and the step on screen
+ * lights in it (see ProcessStage).
  */
-const STEP_ICONS: ReactNode[] = [
-  <BubbleIcon key="bubble" className="w-full" />,
-  <SparkleIcon key="sparkle" className="w-full" />,
-  <HammerIcon key="hammer" className="w-full" />,
-  <RocketIcon key="rocket" className="w-full" />,
-];
-
 export function Process({ dict }: { dict: Dictionary }) {
   const { steps } = dict.process;
 
   return (
-    <section className="px-rule">
-      <div className="shell py-12 sm:py-16">
-        <SectionHead icon={<FlagIcon />} title={dict.process.title} />
-        <p className="mt-3 max-w-lg text-muted">{dict.process.sub}</p>
+    <section className="on-ink bg-ink text-paper">
+      <div className="shell py-20 sm:py-28">
+        <SectionHead title={dict.process.title} sub={dict.process.sub} tone="ink" />
 
-        <ProcessStage steps={steps} motion={dict.motion}>
-          <PixelWindow title={dict.process.windowTitle} className="max-w-3xl">
-            <ol className="divide-y divide-line">
-              {steps.map((step, i) => (
-                <li key={step.title} className="process-step px-5 py-5 sm:px-7">
-                  <MobileFold
-                    label={step.title}
-                    head={
-                      <div className="grid grid-cols-[3rem_1fr] gap-x-4 sm:grid-cols-[3.5rem_1fr] sm:gap-x-6">
-                        {/* The step's own pixel icon on a tile: a message, a
-                            spark, a hammer, a rocket. The list is ordered
-                            already; a number on top would say the same thing
-                            twice. */}
-                        <span
-                          aria-hidden="true"
-                          className="process-tile flex h-12 w-12 items-center justify-center border-2 border-ink sm:h-14 sm:w-14"
-                        >
-                          <span className="block w-6 sm:w-7">{STEP_ICONS[i]}</span>
-                        </span>
-                        <div className="min-w-0">
-                          <p className="px text-[0.9375rem] leading-none text-red uppercase">
-                            {step.when}
-                          </p>
-                          <h3 className="headline mt-2 text-xl sm:text-2xl">{step.title}</h3>
-                        </div>
+        <ProcessStage motion={dict.motion} handle={site.instagram}>
+          <ol className="divide-y divide-ink-2 border-y border-ink-2">
+            {steps.map((step, i) => (
+              <li key={step.title} className="process-step py-6 sm:py-8">
+                <MobileFold
+                  label={step.title}
+                  head={
+                    <div className="grid grid-cols-[2.75rem_1fr] items-start gap-x-5 sm:grid-cols-[3rem_1fr] sm:gap-x-7">
+                      <span
+                        aria-hidden="true"
+                        className="process-num tnum mt-0.5 flex size-11 items-center justify-center rounded-full text-lg font-semibold sm:size-12"
+                      >
+                        {i + 1}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold tracking-[0.12em] text-sun uppercase">{step.when}</p>
+                        <h3 className="headline mt-2 text-2xl sm:text-3xl">{step.title}</h3>
                       </div>
-                    }
-                  >
-                    {/* Indented by the icon column and its gap, so it sits under
-                        the title exactly as it did inside that column. */}
-                    <p className="mt-2 max-w-prose pl-16 text-sm leading-relaxed text-muted sm:pl-20 sm:text-base">
-                      {step.body}
-                    </p>
-                  </MobileFold>
-                </li>
-              ))}
-            </ol>
-          </PixelWindow>
+                    </div>
+                  }
+                >
+                  {/* Indented by the number column and its gap, so it sits
+                      under the title. */}
+                  <p className="mt-3 max-w-prose pl-16 leading-relaxed text-muted-dark sm:pl-[4.75rem] sm:text-lg">
+                    {step.body}
+                  </p>
+                </MobileFold>
+              </li>
+            ))}
+          </ol>
         </ProcessStage>
       </div>
     </section>

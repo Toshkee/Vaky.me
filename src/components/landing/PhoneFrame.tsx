@@ -4,9 +4,8 @@ import { useState, type ReactNode, type Ref } from "react";
 import Link from "next/link";
 
 /**
- * A project's opening screens inside a phone: an ink body with a stepped
- * corner, a paper screen with the same notch, a speaker slot above and a
- * home bar below. The whole device is one link that opens the project.
+ * A project's opening screens inside a phone: an ink body and a rounded
+ * screen. The whole device is one link that opens the project.
  *
  * The phone is a tall capture, not a live frame: `_headers` forbids framing
  * the site anywhere, including here, and a demo running inside a picture of
@@ -71,7 +70,7 @@ export function PhoneFrame({
       aria-label={label}
       data-umami-event="portfolio_demo_opened"
       data-umami-event-demo={slug}
-      className={`group block transition-transform duration-100 hover:-translate-y-0.5 active:translate-x-1 active:translate-y-1 motion-reduce:transition-none ${SIZES[size]} ${className}`}
+      className={`group block rounded-[2.4rem] transition-transform duration-300 hover:-translate-y-1 motion-reduce:transition-none ${SIZES[size]} ${className}`}
     >
       <PhoneBody screenRef={screenRef} screenClassName={`aspect-[9/17] ${screenClassName}`}>
         {pending && (
@@ -100,8 +99,8 @@ export function PhoneFrame({
 }
 
 /**
- * The device on its own: the ink body, the notched screen, the speaker slot
- * and the home bar. PhoneFrame wraps it in a link; a screen with nothing to
+ * The device on its own: the ink body and the screen. PhoneFrame wraps it in
+ * a link; a screen with nothing to
  * open, like a private client app, uses it bare. The caller sets the screen's
  * aspect ratio, because a capture of a site and a screen of an app are not
  * the same shape.
@@ -116,23 +115,14 @@ export function PhoneBody({
   children: ReactNode;
 }) {
   return (
-    <div className="px-frame">
-      <div className="px-notch relative bg-ink px-[3px] pt-6 pb-5">
-        <span aria-hidden="true" className="absolute top-2.5 left-1/2 block h-1 w-10 -translate-x-1/2 bg-paper-2/40" />
-        <div
-          ref={screenRef}
-          /* The dot grid is the screen's empty state, not decoration. The
-             captures below the fold are lazy, so the first thing a visitor
-             scrolling into this section sees is the screen before its
-             picture — and a flat cream rectangle inside a phone reads as a
-             site that failed to load. The grid is the same ground the map
-             placeholder uses, costs no request, and is covered the moment
-             the capture paints over it. */
-          className={`phone-screen px-grid px-notch overflow-hidden bg-paper-2 ${screenClassName}`}
-        >
-          {children}
-        </div>
-        <span aria-hidden="true" className="absolute bottom-2 left-1/2 block h-1 w-16 -translate-x-1/2 bg-paper-2/40" />
+    <div className="rounded-[2.4rem] bg-ink p-[7px]">
+      <div
+        ref={screenRef}
+        /* The sand is the screen's empty state: the captures below the fold
+           are lazy, and it is covered the moment the capture paints. */
+        className={`phone-screen overflow-hidden rounded-[1.95rem] bg-paper-2 ${screenClassName}`}
+      >
+        {children}
       </div>
     </div>
   );

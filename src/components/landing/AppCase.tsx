@@ -17,14 +17,11 @@ export function AppCase({ dict }: { dict: Dictionary }) {
   const { app } = dict.work;
 
   return (
-    <article className="mt-7 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:items-center lg:gap-16">
+    <article className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:items-center lg:gap-16">
       <div className="min-w-0">
-        <p className="eyebrow text-red">
-          {app.label}
-          <span aria-hidden="true" className="text-muted"> · </span>
-          <span className="text-muted">{app.tag}</span>
-        </p>
-        <h3 className="headline mt-2 text-2xl sm:text-3xl">{app.name}</h3>
+        <p className="eyebrow eyebrow--dot">{app.label}</p>
+        <p className="mt-2 text-sm text-muted">{app.tag}</p>
+        <h3 className="headline mt-3 text-3xl sm:text-4xl">{app.name}</h3>
         <CaseFacts facts={app} dict={dict} />
         <p className="mt-5 max-w-md text-sm leading-relaxed text-muted">{app.note}</p>
       </div>
@@ -53,7 +50,7 @@ export function AppCase({ dict }: { dict: Dictionary }) {
                   />
                 </picture>
               </PhoneBody>
-              <figcaption className="eyebrow mt-3 text-center text-muted">{screen.caption}</figcaption>
+              <figcaption className="mt-3 text-center text-sm font-medium text-muted">{screen.caption}</figcaption>
             </figure>
           </li>
         ))}

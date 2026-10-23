@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { PixelWindow } from "@/components/ui/PixelWindow";
+import { Frame } from "@/components/ui/Frame";
 import { SkipLink } from "@/components/ui/SkipLink";
 import { SESSION_LOST, getMe, logout } from "@/lib/admin/client";
 import type { ApiErrorCode } from "@/lib/onboarding/schema";
@@ -147,9 +147,9 @@ export function AdminApp() {
   return (
     <GoProvider value={go}>
       <SkipLink>Preskoči na sadržaj</SkipLink>
-      <header className="border-b-2 border-ink bg-paper">
+      <header className="border-b border-line bg-paper">
         <div className="shell flex h-14 items-center justify-between gap-3">
-          <span className="px text-[1.35rem] leading-none tracking-wide uppercase">
+          <span className="text-[1.35rem] leading-none tracking-wide uppercase">
             Vaky Admin
           </span>
           <button type="button" onClick={() => void signOut()} className={buttonClass}>
@@ -157,7 +157,7 @@ export function AdminApp() {
           </button>
         </div>
 
-        <nav aria-label="Glavna navigacija" className="border-t-2 border-ink">
+        <nav aria-label="Glavna navigacija" className="border-t border-line-strong">
           <ul className="shell flex gap-1">
             {NAV.map((item) => {
               const active = item.views.includes(route.view);
@@ -173,8 +173,8 @@ export function AdminApp() {
                     }}
                     className={`inline-flex min-h-11 items-center px-3 text-sm font-semibold transition-colors ${
                       active
-                        ? "text-red underline decoration-red decoration-2 underline-offset-8"
-                        : "hover:text-red"
+                        ? "text-sun-ink underline decoration-sun decoration-2 underline-offset-8"
+                        : "hover:text-sun-ink"
                     }`}
                   >
                     {item.label}
@@ -187,7 +187,7 @@ export function AdminApp() {
       </header>
 
       <main id="main" tabIndex={-1} className="shell w-full flex-1 py-6 focus:outline-none sm:py-8">
-        <PixelWindow title={TITLES[route.view]}>
+        <Frame title={TITLES[route.view]}>
           <div className="p-4 sm:p-6">
             {route.view === "overview" && <Overview />}
             {route.view === "leads" && <Leads status={route.status} />}
@@ -197,7 +197,7 @@ export function AdminApp() {
             {route.view === "projects" && <Projects filter={route.filter} />}
             {route.view === "project" && <ProjectDetail key={route.id} id={route.id} />}
           </div>
-        </PixelWindow>
+        </Frame>
       </main>
     </GoProvider>
   );

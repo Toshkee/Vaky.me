@@ -5,6 +5,7 @@ import { About } from "./About";
 import { Work } from "./Work";
 import { Pricing } from "./Pricing";
 import { Process } from "./Process";
+import { Reels } from "./Reels";
 import { Faq } from "./Faq";
 import { Contact } from "./Contact";
 import { Footer } from "./Footer";
@@ -26,6 +27,7 @@ export function LandingPage({ dict }: { dict: Dictionary }) {
         <About dict={dict} />
         <Work dict={dict} />
         <Process dict={dict} />
+        <Reels dict={dict} />
         <Pricing dict={dict} />
         <Faq dict={dict} />
         <Contact dict={dict} />

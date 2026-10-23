@@ -1,14 +1,14 @@
 import Link from "next/link";
 import type { Dictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
-import { OsBadge } from "@/components/ui/OsBadge";
 import { SkipLink } from "@/components/ui/SkipLink";
 import { Nav } from "./Nav";
 import { Contact } from "./Contact";
 import { Footer } from "./Footer";
 import { SectionHead } from "./SectionHead";
 import { ProjectCase } from "./ProjectCase";
-import { ArrowIcon, CheckIcon, EuroIcon, FolderIcon } from "./icons";
+import { ArrowIcon } from "./icons";
+import { heroFacts } from "./Hero";
 
 export type TradeKey = keyof Dictionary["trades"]["items"];
 
@@ -37,41 +37,40 @@ export function TradePage({ dict, tradeKey }: { dict: Dictionary; tradeKey: Trad
       {/* See LandingPage: without tabIndex the skip link only scrolls. */}
       <main id="main" tabIndex={-1} className="focus:outline-none">
         <section>
-          <div className="shell pt-10 pb-12 sm:pt-14 sm:pb-16">
-            <OsBadge>{dict.trades.eyebrow}</OsBadge>
-            <h1 className="headline mt-5 max-w-3xl text-[clamp(2.1rem,4.6vw,3.5rem)]">{trade.title}</h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed">{trade.intro}</p>
+          <div className="shell pt-12 pb-16 sm:pt-20 sm:pb-24">
+            <p className="eyebrow eyebrow--dot">{dict.trades.eyebrow}</p>
+            <h1 className="headline display mt-6 max-w-4xl text-[clamp(2.6rem,6.4vw,5rem)]">{trade.title}</h1>
+            <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">{trade.intro}</p>
 
-            <div className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-4">
+            <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
               <Button href="#kontakt" arrow event="trade_primary_cta">
                 {dict.hero.ctaPrimary}
               </Button>
               <a
                 href="#primjeri"
-                className="group inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-line decoration-2 underline-offset-[6px] transition-colors hover:text-red hover:decoration-red"
+                className="group inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-sun decoration-2 underline-offset-[6px] transition-colors hover:text-sun-ink"
               >
                 {dict.hero.ctaSecondary}
-                <ArrowIcon className="w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowIcon className="size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none" />
               </a>
             </div>
 
-            <dl className="mt-9 grid max-w-lg grid-cols-2 border-t-2 border-ink pt-4 sm:grid-cols-4">
-              {dict.hero.facts.map((fact) => (
-                <div key={fact.label} className="py-1">
-                  <dt className="eyebrow text-muted">{fact.label}</dt>
-                  <dd className="headline tnum mt-1 text-lg">{fact.value}</dd>
+            <dl className="mt-12 grid max-w-xl grid-cols-2 gap-x-6 gap-y-5 border-t border-line pt-6 sm:grid-cols-4">
+              {heroFacts(dict).map((fact) => (
+                <div key={fact.label}>
+                  <dt className="text-sm text-muted">{fact.label}</dt>
+                  <dd className="headline tnum mt-1.5 text-xl">{fact.value}</dd>
                 </div>
               ))}
             </dl>
           </div>
         </section>
 
-        <section id="primjeri" className="scroll-mt-24 border-t border-line">
-          <div className="shell py-12 sm:py-16">
-            <SectionHead icon={<FolderIcon />} title={dict.trades.examplesTitle} />
-            <p className="mt-3 max-w-lg text-muted">{dict.trades.examplesSub}</p>
+        <section id="primjeri" className="scroll-mt-24 bg-paper-2">
+          <div className="shell py-20 sm:py-28">
+            <SectionHead title={dict.trades.examplesTitle} sub={dict.trades.examplesSub} />
 
-            <div className="mt-8 grid gap-14 sm:mt-10">
+            <div className="mt-14 grid gap-16 sm:mt-16">
               {projects.map((item) => (
                 <ProjectCase key={item.slug} project={item} dict={dict} />
               ))}
@@ -79,34 +78,29 @@ export function TradePage({ dict, tradeKey }: { dict: Dictionary; tradeKey: Trad
           </div>
         </section>
 
-        <section className="border-t border-line bg-paper-warm">
-          <div className="shell py-12 sm:py-16">
-            <SectionHead icon={<CheckIcon />} title={dict.trades.needsTitle} />
-            <dl className="mt-8 grid gap-x-10 gap-y-7 sm:grid-cols-2">
+        <section>
+          <div className="shell py-20 sm:py-28">
+            <SectionHead title={dict.trades.needsTitle} />
+            <dl className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2">
               {trade.needs.map((need) => (
-                <div key={need.title} className="border-t-2 border-ink pt-4">
-                  <dt className="headline text-xl">{need.title}</dt>
-                  <dd className="mt-2 max-w-sm leading-relaxed text-muted">{need.body}</dd>
+                <div key={need.title} className="border-t border-line-strong pt-6">
+                  <dt className="headline text-2xl">{need.title}</dt>
+                  <dd className="mt-3 max-w-md leading-relaxed text-muted">{need.body}</dd>
                 </div>
               ))}
             </dl>
 
-            <div className="mt-12 grid gap-x-10 gap-y-5 border-t-2 border-ink pt-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+            <div className="mt-16 grid gap-x-10 gap-y-6 rounded-[1.75rem] bg-paper-2 p-7 sm:p-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
               <div>
-                <div className="flex items-center gap-3">
-                  <span aria-hidden="true" className="w-6 shrink-0 text-ink">
-                    <EuroIcon />
-                  </span>
-                  <h2 className="headline text-2xl">{dict.trades.priceTitle}</h2>
-                </div>
+                <h2 className="headline text-3xl">{dict.trades.priceTitle}</h2>
                 <p className="mt-3 max-w-xl leading-relaxed text-muted">{dict.trades.priceBody}</p>
               </div>
               <Link
                 href={`${home}#cijene`}
-                className="group inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-line decoration-2 underline-offset-[6px] transition-colors hover:text-red hover:decoration-red lg:justify-self-end"
+                className="group inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-sun decoration-2 underline-offset-[6px] transition-colors hover:text-sun-ink lg:justify-self-end"
               >
                 {dict.trades.priceLink}
-                <ArrowIcon className="w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowIcon className="size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none" />
               </Link>
             </div>
           </div>
@@ -114,15 +108,15 @@ export function TradePage({ dict, tradeKey }: { dict: Dictionary; tradeKey: Trad
 
         <Contact dict={dict} />
 
-        <section className="border-t border-line">
-          <div className="shell py-10 sm:py-12">
-            <p className="eyebrow text-muted">{dict.trades.othersTitle}</p>
+        <section className="on-ink bg-ink text-paper">
+          <div className="shell border-t border-ink-2 py-12">
+            <p className="eyebrow text-muted-dark">{dict.trades.othersTitle}</p>
             <ul className="mt-4 flex flex-wrap gap-2">
               {others.map((key) => (
                 <li key={key}>
                   <Link
                     href={tradePath(dict, key)}
-                    className="px inline-flex min-h-11 items-center border-2 border-ink bg-paper px-4 text-[1.0625rem] leading-none text-ink uppercase transition-colors hover:text-red"
+                    className="inline-flex min-h-11 items-center rounded-full border-[1.5px] border-paper px-4 font-medium transition-colors hover:border-sun hover:bg-sun hover:text-ink"
                   >
                     {dict.work.items.find((item) => item.key === key)?.type}
                   </Link>

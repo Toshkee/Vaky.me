@@ -17,6 +17,7 @@ export const en: Dictionary = {
     eyebrow: "Web studio — Montenegro",
     titleA: "A website for your business.",
     titleB: "From €250, in 10 days.",
+    titleMark: "10 days.",
     sub: "Restaurant, salon, barbershop, gym, villa. You get a free concept first, then you decide.",
     ctaPrimary: "Get your free concept",
     ctaSecondary: "See the examples",
@@ -33,6 +34,11 @@ export const en: Dictionary = {
     role: "Software developer",
     body: "I'm Pavle, a software developer from Montenegro, and I build web apps front to back. I run Vaky on my own: every site, app and concept on this page I designed and built myself, from the first sketch to launch. When you write to Vaky, I am the one who answers, and the one who builds your site.",
     link: "My portfolio",
+    film: {
+      note: "My portfolio is an AI chat: ask it about my work and it answers.",
+      question: "What have you built?",
+      label: "pavletosic.com",
+    },
     photoAlt: "Pavle Tošić, black-and-white portrait: short hair, round glasses and a beard, sitting on a wooden bench.",
   },
 
@@ -326,6 +332,20 @@ export const en: Dictionary = {
     ],
   },
 
+  reels: {
+    eyebrow: "Motion design",
+    title: "Three videos with your site, for €50.",
+    titleMark: "€50.",
+    formats: [
+      { name: "Site launch", source: "Concept: Konoba Skadar" },
+      { name: "Price list", source: "Concept: Barber Drina, prices from their Instagram" },
+      { name: "Timetable", source: "Concept: Titan Gym" },
+    ],
+    launch: { lines: ["New", "site."], cta: "Take a look" },
+    prices: { kicker: "Price list", place: "Stari Aerodrom · Podgorica" },
+    schedule: { kicker: "Today", cta: "Trial session" },
+  },
+
   motion: {
     domain: "yourbusiness.me",
     screen: {
@@ -559,6 +579,7 @@ export const en: Dictionary = {
 
   contact: {
     title: "Ready for a new website?",
+    titleMark: "new website?",
     sub: "Leave a few details, or write to me directly — whichever is easier.",
     direct: {
       title: "Or write directly",

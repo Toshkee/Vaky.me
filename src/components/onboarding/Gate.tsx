@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import type { OnboardingCopy } from "@/i18n/onboarding";
-import { Vaky } from "@/components/mascot/Vaky";
-import { OsBadge } from "@/components/ui/OsBadge";
-import { PixelWindow } from "@/components/ui/PixelWindow";
+import { Note } from "@/components/ui/Note";
+import { Tag } from "@/components/ui/Tag";
+import { Frame } from "@/components/ui/Frame";
 import { emailLink, site } from "@/config/site";
 import { LANGUAGES, type Language } from "@/lib/onboarding/schema";
 
@@ -20,7 +20,7 @@ import { LANGUAGES, type Language } from "@/lib/onboarding/schema";
  */
 
 const tile =
-  "pick flex min-h-14 cursor-pointer items-center gap-3 border-2 px-4 py-3 text-left transition-colors";
+  "pick flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl border-[1.5px] px-4 py-3 text-left transition-colors";
 
 export function LanguageGate({
   copy,
@@ -34,10 +34,10 @@ export function LanguageGate({
   onStart: () => void;
 }) {
   return (
-    <PixelWindow title="VAKY OS">
+    <Frame>
       <div className="grid gap-6 p-5 sm:p-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
         <div>
-          <OsBadge tone="red">{copy.gate.eyebrow}</OsBadge>
+          <Tag tone="sun">{copy.gate.eyebrow}</Tag>
           <h1 id="ob-heading" tabIndex={-1} className="headline mt-4 text-3xl outline-none sm:text-4xl">
             {copy.gate.title}
           </h1>
@@ -63,8 +63,8 @@ export function LanguageGate({
                     />
                     <span
                       aria-hidden="true"
-                      className={`grid h-5 w-5 shrink-0 place-items-center rounded-full border-2 border-ink ${
-                        checked ? "bg-red" : "bg-paper"
+                      className={`grid h-5 w-5 shrink-0 place-items-center rounded-full border-[1.5px] border-ink ${
+                        checked ? "bg-sun" : "bg-paper"
                       }`}
                     >
                       {checked && <span className="block h-1.5 w-1.5 rounded-full bg-paper" />}
@@ -81,7 +81,7 @@ export function LanguageGate({
               type="button"
               onClick={onStart}
               disabled={!language}
-              className="px px-btn px-btn--primary inline-flex min-h-12 items-center bg-red px-7 py-3 text-[1.0625rem] text-white hover:bg-red-deep disabled:opacity-50"
+              className="btn btn-primary inline-flex min-h-12 items-center bg-sun px-7 py-3 text-ink hover:bg-sun-hover disabled:opacity-50"
             >
               {copy.gate.action}
             </button>
@@ -89,18 +89,13 @@ export function LanguageGate({
           </div>
         </div>
 
-        {/* Vaky's one appearance before the form: the line that tells a client
-            it is fine not to know an answer. */}
-        <div aria-hidden="true" className="vaky-ground hidden items-end justify-center lg:flex">
-          <div className="relative">
-            <span className="px-say absolute bottom-24 left-full ml-3 w-48 px-3 py-2 text-sm leading-snug font-semibold">
-              {copy.gate.vaky}
-            </span>
-            <Vaky direction="front" pose="look" scale={0.55} />
-          </div>
+        {/* The studio's one aside before the form: the line that tells a
+            client it is fine not to know an answer. */}
+        <div className="flex items-end lg:justify-center">
+          <Note>{copy.gate.vaky}</Note>
         </div>
       </div>
-    </PixelWindow>
+    </Frame>
   );
 }
 
@@ -119,9 +114,9 @@ export function ResumeCard({
   const [confirming, setConfirming] = useState(false);
 
   return (
-    <PixelWindow title="VAKY OS">
+    <Frame>
       <div className="p-5 sm:p-8">
-        <OsBadge tone="red">{copy.gate.eyebrow}</OsBadge>
+        <Tag tone="sun">{copy.gate.eyebrow}</Tag>
         <h1 id="ob-heading" tabIndex={-1} className="headline mt-4 text-2xl outline-none sm:text-3xl">
           {copy.resume.title}
         </h1>
@@ -131,7 +126,7 @@ export function ResumeCard({
           <button
             type="button"
             onClick={onContinue}
-            className="px px-btn px-btn--primary inline-flex min-h-12 items-center bg-red px-7 py-3 text-[1.0625rem] text-white hover:bg-red-deep"
+            className="btn btn-primary inline-flex min-h-12 items-center bg-sun px-7 py-3 text-ink hover:bg-sun-hover"
           >
             {copy.resume.action}
           </button>
@@ -139,14 +134,14 @@ export function ResumeCard({
             type="button"
             onClick={() => (confirming ? onRestart() : setConfirming(true))}
             className={`tap text-sm font-semibold underline decoration-2 underline-offset-4 transition-colors ${
-              confirming ? "text-red" : "text-muted hover:text-red"
+              confirming ? "text-sun-ink" : "text-muted hover:text-sun-ink"
             }`}
           >
             {confirming ? copy.resume.restartConfirm : copy.resume.restart}
           </button>
         </div>
       </div>
-    </PixelWindow>
+    </Frame>
   );
 }
 
@@ -167,9 +162,9 @@ export function LinkProblem({
   const body = kind === "invalid" ? copy.privateLink.invalidBody : copy.privateLink.completedBody;
 
   return (
-    <PixelWindow title="VAKY OS">
+    <Frame>
       <div className="p-5 sm:p-8">
-        <OsBadge tone="red">{copy.gate.eyebrow}</OsBadge>
+        <Tag tone="sun">{copy.gate.eyebrow}</Tag>
         <h1 id="ob-heading" tabIndex={-1} className="headline mt-4 text-2xl outline-none sm:text-3xl">
           {title}
         </h1>
@@ -178,12 +173,12 @@ export function LinkProblem({
         <p className="mt-6 font-semibold">
           <a
             href={emailLink(title, "")}
-            className="inline-flex min-h-11 items-center underline decoration-2 underline-offset-4 transition-colors hover:text-red"
+            className="inline-flex min-h-11 items-center underline decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
           >
             {site.email}
           </a>
         </p>
       </div>
-    </PixelWindow>
+    </Frame>
   );
 }

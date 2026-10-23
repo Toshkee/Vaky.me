@@ -89,7 +89,7 @@ export function StepView({
           Said once, where it changes the answer, instead of in a banner
           nobody reads. */}
       {step.id === "website" && (
-        <p className="border-l-2 border-red bg-paper-2 px-4 py-3 text-sm leading-relaxed">
+        <p className="border-l-2 border-sun-ink bg-paper-2 px-4 py-3 text-sm leading-relaxed">
           {copy.chrome.packageNotes[packageId]}
         </p>
       )}
@@ -114,8 +114,8 @@ export function StepView({
       {/* Beside the domain and hosting questions on purpose: this is the step
           where somebody would otherwise type a password into a text box. */}
       {step.id === "finish" && (
-        <div className="border-2 border-ink bg-paper-2 p-4">
-          <p className="eyebrow text-red">{copy.credentials.title}</p>
+        <div className="rounded-2xl bg-paper-2 p-4">
+          <p className="eyebrow text-sun-ink">{copy.credentials.title}</p>
           <p className="mt-2 text-sm leading-relaxed">{copy.credentials.body}</p>
         </div>
       )}

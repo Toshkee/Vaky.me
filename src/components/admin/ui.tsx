@@ -10,7 +10,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { OsBadge } from "@/components/ui/OsBadge";
+import { Tag } from "@/components/ui/Tag";
 import type { ActivityRow, ApiResult } from "@/lib/admin/client";
 import { TRADE_IDS, TRADE_PLAYBOOK } from "@/lib/build-playbook";
 import { priceLabel } from "@/lib/packages";
@@ -191,11 +191,11 @@ function statusLabel(kind: StatusKind, value: string): string {
 /* Colour answers one question — whose move is it? Red: the studio's, today.
    Amber: the client has it. Green: nobody's, it is done. Everything else is
    ink, so a screen full of pills still has one or two that stand out. */
-const TONES: Record<string, "red" | "amber" | "ok"> = {
-  "lead:new": "red",
+const TONES: Record<string, "sun" | "amber" | "ok"> = {
+  "lead:new": "sun",
   "lead:accepted": "ok",
   "project:onboarding_sent": "amber",
-  "project:onboarding_completed": "red",
+  "project:onboarding_completed": "sun",
   "project:client_review": "amber",
   "project:completed": "ok",
   "request:created": "amber",
@@ -206,15 +206,15 @@ const TONES: Record<string, "red" | "amber" | "ok"> = {
 
 export function StatusPill({ kind, value }: { kind: StatusKind; value: string }) {
   return (
-    <OsBadge tone={TONES[`${kind}:${value}`] ?? "ink"}>{statusLabel(kind, value)}</OsBadge>
+    <Tag tone={TONES[`${kind}:${value}`] ?? "ink"}>{statusLabel(kind, value)}</Tag>
   );
 }
 
 /** "Since you last opened the overview." */
 export function NewMark() {
   return (
-    <span className="px inline-flex items-center gap-1.5 text-[0.85rem] leading-none text-red uppercase">
-      <span aria-hidden="true" className="block h-2 w-2 bg-red" />
+    <span className="inline-flex items-center gap-1.5 text-[0.85rem] leading-none text-sun-ink uppercase">
+      <span aria-hidden="true" className="block size-2 rounded-full bg-sun" />
       Novo
     </span>
   );
@@ -272,22 +272,22 @@ export function isLiveRequest(status: string | null): boolean {
 /* Fields sit one step below the pane so a form reads as fields on paper, not
    as outlines; keys are the site's own — paper slab, ink bevel, red fill. */
 export const inputClass =
-  "min-h-11 w-full border-2 border-ink bg-paper-2 px-3 py-2 text-base text-ink";
+  "min-h-11 w-full rounded-xl border-[1.5px] border-line-strong bg-white px-3 py-2 text-base text-ink";
 
 /* Split at the type size because the two textareas on the dashboard disagree
    about it, and two `text-*` utilities on one element are settled by
    stylesheet order rather than by the order they are written. */
-const textareaBase = "w-full border-2 border-ink bg-paper-2 px-3 py-2 leading-relaxed text-ink";
+const textareaBase = "w-full rounded-xl border-[1.5px] border-line-strong bg-white px-3 py-2 leading-relaxed text-ink";
 export const textareaClass = `${textareaBase} text-base`;
 /** The build brief: a prompt about to be pasted into a coding session, not
  *  prose, so it is monospaced and a step smaller. */
 export const textareaMonoClass = `${textareaBase} font-mono text-sm`;
 
 export const buttonClass =
-  "px px-btn inline-flex min-h-11 items-center justify-center bg-paper px-4 py-2 text-[0.95rem] text-ink transition-colors hover:text-red disabled:opacity-50";
+  "btn inline-flex min-h-11 items-center justify-center bg-paper px-4 py-2 text-[0.95rem] text-ink transition-colors hover:text-sun-ink disabled:opacity-50";
 
 export const primaryButtonClass =
-  "px px-btn px-btn--primary inline-flex min-h-11 items-center justify-center bg-red px-4 py-2 text-center text-[0.95rem] text-white hover:bg-red-deep disabled:opacity-70";
+  "btn btn-primary inline-flex min-h-11 items-center justify-center bg-sun px-4 py-2 text-center text-[0.95rem] text-ink hover:bg-sun-hover disabled:opacity-70";
 
 export function Field({
   id,
@@ -476,15 +476,15 @@ export function Panel({
 
   if (folded) {
     return (
-      <details className="group border-t-2 border-ink pt-4">
+      <details className="group border-t border-line-strong pt-4">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
           <h2 className="headline text-lg">{title}</h2>
-          <span aria-hidden="true" className="px text-xl leading-none text-muted group-open:hidden">
+          <span aria-hidden="true" className="text-xl leading-none text-muted group-open:hidden">
             +
           </span>
           <span
             aria-hidden="true"
-            className="px hidden text-xl leading-none text-muted group-open:inline"
+            className="hidden text-xl leading-none text-muted group-open:inline"
           >
             −
           </span>
@@ -495,7 +495,7 @@ export function Panel({
   }
 
   return (
-    <section aria-labelledby={headingId} className="border-t-2 border-ink pt-4">
+    <section aria-labelledby={headingId} className="border-t border-line-strong pt-4">
       <h2 id={headingId} className="headline text-lg">
         {title}
       </h2>
@@ -581,8 +581,8 @@ export function EmptyState({ children }: { children: ReactNode }) {
 
 export function DataError({ code, onRetry }: { code: ApiErrorCode; onRetry?: () => void }) {
   return (
-    <div role="alert" className="border-l-2 border-red bg-paper-2 px-4 py-3">
-      <p className="leading-relaxed font-semibold text-red">{apiText(code)}</p>
+    <div role="alert" className="border-l-2 border-sun-ink bg-paper-2 px-4 py-3">
+      <p className="leading-relaxed font-semibold text-sun-ink">{apiText(code)}</p>
       {onRetry && (
         <button type="button" onClick={onRetry} className={`${buttonClass} mt-3`}>
           Pokušaj ponovo

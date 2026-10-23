@@ -51,7 +51,7 @@ export default function OnboardingFormPage() {
           to Vaky. */}
       <noscript>
         <div className="shell py-10">
-          <div className="border-2 border-ink bg-paper-2 p-5">
+          <div className="rounded-2xl bg-paper-2 p-5">
             <p className="leading-relaxed">
               Za popunjavanje ovog upitnika potreban je JavaScript. Ako ne radi, javite mi se
               direktno — odgovoriću isto.

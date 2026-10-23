@@ -65,7 +65,7 @@ const STATUS_OPTIONS = PROJECT_STATUSES.map((status) => ({
   label: PROJECT_STATUS_LABELS[status],
 }));
 
-const linkClass = "underline decoration-line underline-offset-4 hover:text-red";
+const linkClass = "underline decoration-line underline-offset-4 hover:text-sun-ink";
 
 export function ProjectDetail({ id }: { id: string }) {
   const load = useCallback(() => getProject(id), [id]);
@@ -210,8 +210,8 @@ function DeleteBlock({ projectId, hasFiles }: { projectId: string; hasFiles: boo
  *  here is shown to them. */
 function Warnings({ warnings }: { warnings: readonly ScopeWarning[] }) {
   return (
-    <section aria-labelledby="scope-warnings" className="border-2 border-red bg-paper p-4">
-      <h2 id="scope-warnings" className="headline text-lg text-red">
+    <section aria-labelledby="scope-warnings" className="rounded-2xl border-[1.5px] border-sun-ink bg-paper p-4">
+      <h2 id="scope-warnings" className="headline text-lg text-sun-ink">
         Provjeri obim
       </h2>
       <p className="mt-1 text-sm leading-relaxed text-muted">
@@ -375,7 +375,7 @@ function ProjectForm({ project, onSaved }: { project: ProjectRow; onSaved: () =>
         </div>
 
         {problem && (
-          <p role="alert" className="text-sm font-semibold text-red">
+          <p role="alert" className="text-sm font-semibold text-sun-ink">
             {problem}
           </p>
         )}
@@ -455,7 +455,7 @@ function OnboardingBlock({
   return (
     <Panel title="Onboarding link" folded={settled}>
       {url && (
-        <div className="mb-4 border-2 border-ink bg-paper-2 p-4">
+        <div className="mb-4 rounded-2xl bg-paper-2 p-4">
           <p className="leading-relaxed font-semibold">
             Link se vidi samo sada — server čuva samo njegov otisak. Pošalji ga klijentu odmah;
             izgubljen se ne vraća, pravi se novi.

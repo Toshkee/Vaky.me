@@ -1,9 +1,9 @@
 import type { OnboardingCopy } from "@/i18n/onboarding";
-import { PixelWindow } from "@/components/ui/PixelWindow";
-import { Vaky } from "@/components/mascot/Vaky";
+import { Frame } from "@/components/ui/Frame";
+import { BrandMark } from "@/components/BrandWordmark";
 
 /**
- * Vaky at the desk while the link is being checked.
+ * The studio's mark, and one line, while the link is being checked.
  *
  * Its own component because two different moments need the identical frame:
  * the server build, which cannot read the token out of the address bar and so
@@ -23,11 +23,11 @@ export function Checking({
   onRetry?: () => void;
 }) {
   return (
-    <PixelWindow title="VAKY OS">
+    <Frame>
       <div className="p-5 sm:p-8">
-        <div className="vaky-ground flex items-end gap-3">
-          <Vaky direction="right" pose="work" scale={0.24} />
-          <p role="status" className="mb-2 text-lg font-semibold">
+        <div className="flex items-center gap-4">
+          <BrandMark className="size-10 shrink-0 motion-safe:animate-pulse" />
+          <p role="status" className="text-lg font-semibold">
             {message}
           </p>
         </div>
@@ -35,12 +35,12 @@ export function Checking({
           <button
             type="button"
             onClick={onRetry}
-            className="px px-btn mt-5 inline-flex min-h-12 items-center bg-paper px-5 py-3 text-[1.0625rem] text-ink transition-colors hover:text-red"
+            className="btn mt-5 inline-flex min-h-12 items-center bg-transparent px-5 py-3 text-ink hover:bg-ink hover:text-paper"
           >
             {copy.upload.retry}
           </button>
         )}
       </div>
-    </PixelWindow>
+    </Frame>
   );
 }

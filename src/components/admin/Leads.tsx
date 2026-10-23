@@ -54,7 +54,7 @@ export function Leads({ status }: { status: LeadStatus | null }) {
             data.leads.length === 0 ? (
               <EmptyState>Nema upita u ovom statusu.</EmptyState>
             ) : (
-              <ul className="border-t-2 border-ink">
+              <ul className="border-t border-line-strong">
                 {data.leads.map((lead) => (
                   <li key={lead.id} className="border-b border-line">
                     <GoLink

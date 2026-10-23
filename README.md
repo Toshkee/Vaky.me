@@ -73,8 +73,16 @@ or at [vakymne@gmail.com](mailto:vakymne@gmail.com).
 
 This repository contains the Vaky website. It is bilingual (Montenegrin and English), built as a static Next.js export, and designed to be fast, accessible, and inexpensive to host.
 
-The pixel animations on the homepage — the site being built on the hero's
-monitor, and the four process steps — are [Remotion](https://www.remotion.dev)
-compositions in `src/components/motion/`, played live in the page by
-`@remotion/player`. They load only from the `lg` breakpoint up, once their
-section is on screen; phones never download them.
+The films on the homepage are [Remotion](https://www.remotion.dev)
+compositions in `src/components/motion/films/`, played live in the page by
+`@remotion/player`: the hero's showreel of the live client work, the
+pavletosic.com portfolio, the four process steps, and three vertical motion
+design formats. Each loads only when it comes near the screen, pauses off
+screen, has a pause button, and rests on a still frame under reduced motion.
+Their sizes and still frames live in `src/components/motion/specs.ts`, so the
+page reserves their space before Remotion arrives.
+
+The brand is "Jadran": warm paper, deep sea ink and one sun, set in Archivo.
+The tokens are the `@theme` block in `src/app/globals.css`; the mark is
+`BrandMark` in `src/components/BrandWordmark.tsx`, and
+`node scripts/brand-assets.mjs` redraws the favicons from it.

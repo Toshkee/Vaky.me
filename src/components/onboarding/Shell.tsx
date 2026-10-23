@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import type { OnboardingCopy } from "@/i18n/onboarding";
-import { OsBadge } from "@/components/ui/OsBadge";
+import { Tag } from "@/components/ui/Tag";
 import { BrandWordmark } from "@/components/BrandWordmark";
 import { SkipLink } from "@/components/ui/SkipLink";
 import { fill } from "./copy";
@@ -41,23 +41,23 @@ export function Shell({
   return (
     <>
       <SkipLink>{copy.chrome.skip}</SkipLink>
-      <header className="border-b-2 border-ink bg-paper">
+      <header className="border-b border-line bg-paper">
         <div className="shell flex h-14 items-center justify-between gap-3 sm:h-16">
           <Link href="/" className="tap shrink-0">
-            <BrandWordmark className="h-6 sm:h-7" />
+            <BrandWordmark className="text-[1.35rem] sm:text-[1.5rem]" />
           </Link>
 
           <div className="flex items-center gap-2 sm:gap-3">
             {packageName && (
-              <OsBadge>
+              <Tag>
                 {copy.chrome.packageLabel}: {packageName}
-              </OsBadge>
+              </Tag>
             )}
             <button
               type="button"
               onClick={onLanguage}
               aria-label={`${copy.chrome.languageLabel}: ${copy.chrome.otherLanguage}`}
-              className="tap px-1 text-sm font-bold transition-colors hover:text-red"
+              className="tap px-1 text-sm font-bold transition-colors hover:text-sun-ink"
             >
               {copy.chrome.otherLanguage}
             </button>
@@ -77,10 +77,10 @@ export function Shell({
               aria-valuenow={progress.current}
               aria-valuemin={1}
               aria-valuemax={progress.total}
-              className="os-bar mt-2"
+              className="meter mt-2"
             >
               <div
-                className="os-bar-fill"
+                className="meter-fill"
                 style={{ width: `${(progress.current / progress.total) * 100}%` }}
               />
             </div>
@@ -96,7 +96,7 @@ export function Shell({
           {showHome && (
             <Link
               href="/"
-              className="inline-flex min-h-11 items-center underline decoration-line underline-offset-4 hover:text-red"
+              className="inline-flex min-h-11 items-center underline decoration-line underline-offset-4 hover:text-sun-ink"
             >
               {copy.chrome.home}
             </Link>

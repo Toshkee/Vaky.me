@@ -39,8 +39,9 @@ export type QuestionCopy = {
 export type StepCopy = {
   title: string;
   intro: string;
-  /** A line from the mascot. Only a few steps get one — he is a guide, not a
-   *  narrator, and a bubble on every screen stops being friendly. */
+  /** A line from the studio, set as a message. Only a few steps get one — it
+   *  is a guide, not a narrator, and a bubble on every screen stops being
+   *  friendly. */
   vaky?: string;
 };
 

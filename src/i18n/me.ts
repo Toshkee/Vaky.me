@@ -18,6 +18,8 @@ export const me = {
        process section — change them there and here together. */
     titleA: "Sajt za tvoj biznis.",
     titleB: "Od €250, za 10 dana.",
+    /* The part of titleB drawn over with the sun marker. */
+    titleMark: "10 dana.",
     sub: "Restoran, salon, barber, teretana, vila. Prvo dobijaš besplatan koncept, pa odlučuješ.",
     ctaPrimary: "Zatraži besplatan koncept",
     ctaSecondary: "Pogledaj primjere",
@@ -41,6 +43,13 @@ export const me = {
     role: "Software developer",
     body: "Ja sam Pavle, software developer iz Crne Gore, i pravim web aplikacije od početka do kraja. Vaky radim sam: svaki sajt, aplikaciju i koncept na ovoj stranici osmislio sam i napravio, od prve skice do objave. Kad pišeš Vakyju, odgovaram ti ja, i ja radim tvoj sajt.",
     link: "Moj portfolio",
+    /* The film of pavletosic.com beside the bio. The question is typed into
+       the portfolio's own English chat field, so it stays in English. */
+    film: {
+      note: "Moj portfolio je AI chat: pitaš ga o mom radu, on odgovara.",
+      question: "What have you built?",
+      label: "pavletosic.com",
+    },
     photoAlt: "Pavle Tošić, crno-bijeli portret: kratka kosa, okrugle naočare i brada, sjedi na drvenoj klupi.",
   },
 
@@ -362,6 +371,24 @@ export const me = {
     ],
   },
 
+  /* The motion design videos, shown as three live films of the formats they
+     come in. What they cost and include is `pricing.launchVideos`; this is
+     only what the films and their captions say. Each film is built from a
+     concept on this site, and says so. */
+  reels: {
+    eyebrow: "Motion design",
+    title: "Tri videa uz sajt, za €50.",
+    titleMark: "€50.",
+    formats: [
+      { name: "Najava sajta", source: "Koncept: Konoba Skadar" },
+      { name: "Cjenovnik", source: "Koncept: Barber Drina, cijene sa njihovog Instagrama" },
+      { name: "Raspored", source: "Koncept: Titan Gym" },
+    ],
+    launch: { lines: ["Novi", "sajt."], cta: "Pogledaj" },
+    prices: { kicker: "Cjenovnik", place: "Stari Aerodrom · Podgorica" },
+    schedule: { kicker: "Danas", cta: "Probni trening" },
+  },
+
   /* Words inside the Remotion animations: the hero's screen and the
      process story. Not shown as text on the page — the steps and the hero
      say all of it in words — but they are read on screen, so they are
@@ -614,6 +641,7 @@ export const me = {
 
   contact: {
     title: "Spreman za novi sajt?",
+    titleMark: "novi sajt?",
     sub: "Ostavi par podataka, ili mi piši direktno — kako ti je lakše.",
     /* The right-hand column of the contact window: the other ways in, and
        what happens after the visitor writes. */
@@ -674,8 +702,8 @@ export const me = {
       emailFallbackAction: "Pošalji email umjesto toga",
       /* {link} is replaced with whatever the visitor typed */
       prefill: "Zdravo! Ovo je moj biznis: {link} — može ponuda za sajt?",
-      /* Vaky's speech bubble beside the form. Split so the offer can be set
-         in red without concatenating sentences in the component. */
+      /* The line over the direct channels. Split so the offer can be set
+         in the sun without concatenating sentences in the component. */
       bubble: { pre: "Kaži čime se baviš, ", em: "ostalo", post: " je na meni." },
     },
   },

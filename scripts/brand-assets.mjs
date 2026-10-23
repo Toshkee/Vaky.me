@@ -1,103 +1,53 @@
-import { chromium } from "playwright";
 import fs from "node:fs";
 import sharp from "sharp";
 
 /**
- * One-off processing of the Vaky mascot PNG (exported with a flat white ground
- * and generous padding) into the shipped asset:
+ * The browser icons, drawn from the Vaky mark: a sun going down into the
+ * Adriatic (src/components/BrandWordmark.tsx). The mark is two shapes, so it
+ * is written out here as SVG and rasterised — no source file to keep in sync
+ * beyond the path below, which must match `BrandMark`.
  *
- *   public/vaky-head.png    — trimmed head mark, transparent, 96px tall.
- *                             The footer shows it at 24px.
+ *   src/app/icon.png        256 px, transparent — tabs and bookmarks
+ *   src/app/apple-icon.png  180 px, on paper — iOS fills transparency black
+ *   public/favicon.ico      32 px, a PNG inside an ICO container
  *
- * The wordmark and the icons are not made here: they are cut from the Vaky.me
- * lockup by `scripts/wordmark-asset.mjs`, which owns them.
- *
- * Usage: node scripts/brand-assets.mjs <head.png>
+ * Usage: node scripts/brand-assets.mjs
  */
-const [headSrc] = process.argv.slice(2);
+const SUN = "#ff6a2b";
+const INK = "#0a2e2b";
+const PAPER = "#f2ede4";
 
-const browser = await chromium.launch();
-const page = await browser.newPage();
+const mark = (size, inset = 0, ground = null) => {
+  const r = 20 - inset;
+  return Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 40 40">
+  ${ground ? `<rect width="40" height="40" fill="${ground}"/>` : ""}
+  <clipPath id="c"><circle cx="20" cy="20" r="${r}"/></clipPath>
+  <g clip-path="url(#c)">
+    <rect width="40" height="40" fill="${SUN}"/>
+    <path d="M0 25c6.7-3.6 13.3-3.6 20 0s13.3 3.6 20 0V40H0Z" fill="${INK}"/>
+  </g>
+</svg>`);
+};
 
-async function process_(srcPath, opts) {
-  const data = fs.readFileSync(srcPath).toString("base64");
-  const out = await page.evaluate(
-    async ({ data, opts }) => {
-      const img = new Image();
-      img.src = "data:image/png;base64," + data;
-      await img.decode();
+await sharp(mark(256)).png().toFile("src/app/icon.png");
+await sharp(mark(180, 4, PAPER)).png().toFile("src/app/apple-icon.png");
 
-      const c = document.createElement("canvas");
-      c.width = img.width;
-      c.height = img.height;
-      const ctx = c.getContext("2d");
-      ctx.drawImage(img, 0, 0);
-      const px = ctx.getImageData(0, 0, c.width, c.height);
-      const d = px.data;
+/* An ICO is a 6-byte header, one 16-byte directory entry, then the image —
+   and the image may be a whole PNG file, which every browser reads. */
+const png = await sharp(mark(32)).png().toBuffer();
+const header = Buffer.alloc(6);
+header.writeUInt16LE(0, 0);
+header.writeUInt16LE(1, 2);
+header.writeUInt16LE(1, 4);
+const entry = Buffer.alloc(16);
+entry.writeUInt8(32, 0);
+entry.writeUInt8(32, 1);
+entry.writeUInt8(0, 2);
+entry.writeUInt8(0, 3);
+entry.writeUInt16LE(1, 4);
+entry.writeUInt16LE(32, 6);
+entry.writeUInt32LE(png.length, 8);
+entry.writeUInt32LE(6 + 16, 12);
+fs.writeFileSync("public/favicon.ico", Buffer.concat([header, entry, png]));
 
-      // white (and near-white halo) -> transparent, and find the content box
-      let minX = c.width, minY = c.height, maxX = 0, maxY = 0;
-      for (let y = 0; y < c.height; y++) {
-        for (let x = 0; x < c.width; x++) {
-          const i = (y * c.width + x) * 4;
-          const white = d[i] > 248 && d[i + 1] > 248 && d[i + 2] > 248;
-          if (white || d[i + 3] < 10) {
-            d[i + 3] = 0;
-          } else {
-            if (x < minX) minX = x;
-            if (x > maxX) maxX = x;
-            if (y < minY) minY = y;
-            if (y > maxY) maxY = y;
-          }
-        }
-      }
-      ctx.putImageData(px, 0, 0);
-
-      const w = maxX - minX + 1;
-      const h = maxY - minY + 1;
-
-      let outW, outH, padX = 0, padY = 0;
-      if (opts.square) {
-        const side = Math.max(w, h);
-        outW = outH = opts.size;
-        padX = ((side - w) / 2 / side) * opts.size;
-        padY = ((side - h) / 2 / side) * opts.size;
-      } else {
-        outH = opts.height;
-        outW = Math.round((w / h) * outH);
-      }
-
-      const o = document.createElement("canvas");
-      o.width = outW;
-      o.height = outH;
-      const octx = o.getContext("2d");
-      if (opts.bg) {
-        octx.fillStyle = opts.bg;
-        octx.fillRect(0, 0, outW, outH);
-      }
-      octx.imageSmoothingQuality = "high";
-      if (opts.square) {
-        const side = Math.max(w, h);
-        const scale = opts.size / side;
-        octx.drawImage(img === null ? c : c, minX, minY, w, h, padX, padY, w * scale, h * scale);
-      } else {
-        octx.drawImage(c, minX, minY, w, h, 0, 0, outW, outH);
-      }
-      return o.toDataURL("image/png").split(",")[1];
-    },
-    { data, opts },
-  );
-  /* Canvas writes a full 8-bit RGBA PNG. These marks are flat pixel art with
-     a handful of colours, so a palette costs nothing visible and cut the
-     favicon from 62KB to 11KB — a file every visitor fetches on every page. */
-  const compressed = await sharp(Buffer.from(out, "base64"))
-    .png({ compressionLevel: 9, palette: true })
-    .toBuffer();
-  fs.writeFileSync(opts.out, compressed);
-  const kb = Math.round(fs.statSync(opts.out).size / 1024);
-  console.log(`${opts.out}: ${kb}KB`);
-}
-
-await process_(headSrc, { out: "public/vaky-head.png", height: 96 });
-
-await browser.close();
+console.log("Wrote src/app/icon.png, src/app/apple-icon.png, public/favicon.ico");

@@ -7,18 +7,13 @@ import { BrandWordmark } from "@/components/BrandWordmark";
 
 /**
  * A masthead, not a floating nav bar: Vaky's mark and the name on the left,
- * sections on the right, one heavy rule under the lot. The sticky treatment
+ * sections on the right, a hairline under the lot. The sticky treatment
  * keeps the work, pricing and contact sections within reach without turning
- * the masthead into a large app bar. The one loud thing in it is the red
- * concept button — the same action the whole page funnels toward.
+ * the masthead into a large app bar.
  *
- * The section you are in is marked with a red rule under the label, drawn in
+ * The section you are in is marked with a sun rule under the label, drawn in
  * CSS off `aria-current` so the indicator and the announced state can never
  * disagree.
- *
- * Labels are NOT set in the pixel face, though the button is. Rendered at 4x,
- * pixel faces proved ambiguous at nav sizes — a brand name that misreads is
- * not a trade worth making for texture.
  */
 export function Nav({ dict }: { dict: Dictionary }) {
   const home = dict.lang === "en" ? "/en/" : "/";
@@ -92,18 +87,18 @@ export function Nav({ dict }: { dict: Dictionary }) {
   }, [home]);
 
   const linkClass = (href: string) =>
-    `nav-link inline-flex min-h-11 items-center px-2 font-semibold transition-colors ${
-      active === href ? "text-red" : "hover:text-red"
+    `nav-link inline-flex min-h-11 items-center px-3 font-medium transition-colors ${
+      active === href ? "text-ink" : "text-muted hover:text-ink"
     }`;
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-ink bg-paper/95 backdrop-blur-sm">
-      <div className="shell flex h-16 items-center justify-between gap-4">
-        <Link href={home} className="tap shrink-0">
-          <BrandWordmark className="h-7 sm:h-8" />
+    <header className="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur-md">
+      <div className="shell flex h-16 items-center justify-between gap-4 sm:h-[4.5rem]">
+        <Link href={home} className="tap shrink-0 text-[1.6rem]">
+          <BrandWordmark />
         </Link>
 
-        <nav className="hidden items-center gap-5 text-sm md:flex">
+        <nav className="hidden items-center gap-2 text-[0.9375rem] md:flex">
           {links.map((l) => (
             <a
               key={l.href}
@@ -114,13 +109,13 @@ export function Nav({ dict }: { dict: Dictionary }) {
               {l.label}
             </a>
           ))}
-          {/* No call to action up here. It pointed at #kontakt, which is
-              exactly where the hero's button already goes — two red buttons
-              on one screen competing for the same click, and the masthead is
-              for finding your way, not for closing. */}
+          {/* No call to action up here: it would point at #kontakt, exactly
+              where the hero's button already goes — two pills on one screen
+              competing for the same click. The masthead is for finding your
+              way, not for closing. */}
           <Link
             href={dict.nav.langHref}
-            className="tap font-bold transition-colors hover:text-red"
+            className="tap ml-3 inline-flex h-9 items-center rounded-full border-[1.5px] border-ink px-3.5 text-sm font-semibold transition-colors hover:bg-ink hover:text-paper"
             aria-label={dict.lang === "en" ? "Crnogorski" : "English"}
           >
             {dict.nav.langLabel}
@@ -128,7 +123,7 @@ export function Nav({ dict }: { dict: Dictionary }) {
         </nav>
       </div>
 
-      <nav className="grid grid-cols-4 border-t border-line px-3 text-center text-xs md:hidden">
+      <nav className="grid grid-cols-4 border-t border-line px-3 text-center text-sm md:hidden">
         {links.map((link) => (
           <a
             key={link.href}
@@ -143,7 +138,7 @@ export function Nav({ dict }: { dict: Dictionary }) {
         ))}
         <Link
           href={dict.nav.langHref}
-          className="inline-flex min-h-11 items-center justify-center border-b-2 border-transparent font-bold transition-colors hover:text-red"
+          className="inline-flex min-h-11 items-center justify-center font-semibold"
           aria-label={dict.lang === "en" ? "Crnogorski" : "English"}
         >
           {dict.nav.langLabel}

@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { PixelWindow } from "@/components/ui/PixelWindow";
-import { Vaky } from "@/components/mascot/Vaky";
+import { Frame } from "@/components/ui/Frame";
+import { Note } from "@/components/ui/Note";
 import { onboardingCopy } from "@/i18n/onboarding";
 import { track } from "@/lib/analytics";
 import {
@@ -458,7 +458,7 @@ export function Onboarding({
 
   return shell(
     <>
-      <PixelWindow title="VAKY OS">
+      <Frame>
         <div className="p-5 sm:p-8">
           {phase === "review" ? (
             <>
@@ -490,18 +490,13 @@ export function Onboarding({
                 <p className="mt-2 leading-relaxed text-muted">{stepCopy.intro}</p>
 
                 {stepCopy.vaky && (
-                  <div className="vaky-ground mt-5 flex items-end gap-3">
-                    <Vaky direction="right" pose="work" scale={0.24} />
-                    <p className="px-say mb-2 px-3 py-2 text-sm leading-snug font-semibold">
-                      {stepCopy.vaky}
-                    </p>
-                  </div>
+                  <Note className="mt-6">{stepCopy.vaky}</Note>
                 )}
 
                 {showErrorSummary && (
                   <p
                     role="alert"
-                    className="mt-6 border-l-2 border-red bg-paper-2 px-4 py-3 text-sm font-semibold text-red"
+                    className="mt-6 rounded-xl border-l-4 border-danger bg-paper-2 px-4 py-3 text-sm font-semibold text-danger"
                   >
                     {copy.chrome.errorSummary}
                   </p>
@@ -526,14 +521,14 @@ export function Onboarding({
             )
           )}
         </div>
-      </PixelWindow>
+      </Frame>
 
       {/* Mounted while empty as well as while set, so the message a client is
           waiting for is announced when it arrives rather than appearing in a
           region a screen reader has never seen. */}
       <p
         role="status"
-        className={apiError ? "mt-4 text-sm font-semibold text-red" : undefined}
+        className={apiError ? "mt-4 text-sm font-semibold text-danger" : undefined}
       >
         {apiError && copy.errors.api[apiError]}
       </p>
@@ -541,12 +536,12 @@ export function Onboarding({
       {/* Bleeds to the window edges on the way past the shell's gutter, so the
           bar reads as a bar rather than as two buttons floating over the
           content scrolling behind them. */}
-      <div className="sticky bottom-0 z-10 -mx-5 mt-6 flex gap-3 border-t-2 border-ink bg-paper px-5 py-3 sm:-mx-8 sm:px-8">
+      <div className="sticky bottom-0 z-10 -mx-5 mt-6 flex gap-3 border-t border-line-strong bg-paper px-5 py-3 sm:-mx-8 sm:px-8">
         <button
           type="button"
           onClick={goBack}
           disabled={phase === "form" && index === 0}
-          className="px px-btn inline-flex min-h-12 items-center bg-paper px-5 py-3 text-[1.0625rem] text-ink transition-colors hover:text-red disabled:opacity-40"
+          className="btn inline-flex min-h-12 items-center bg-transparent px-5 py-3 text-ink hover:bg-ink hover:text-paper disabled:opacity-40"
         >
           {copy.chrome.back}
         </button>
@@ -557,7 +552,7 @@ export function Onboarding({
             onClick={() => void submit()}
             disabled={sending}
             aria-busy={sending}
-            className="px px-btn px-btn--primary inline-flex min-h-12 flex-1 items-center justify-center bg-red px-5 py-3 text-center text-[1.0625rem] text-white hover:bg-red-deep disabled:opacity-70"
+            className="btn btn-primary inline-flex min-h-12 flex-1 items-center justify-center bg-sun px-5 py-3 text-center text-ink hover:bg-sun-hover disabled:opacity-70"
           >
             {sending ? copy.review.sending : copy.review.submit}
           </button>
@@ -565,7 +560,7 @@ export function Onboarding({
           <button
             type="button"
             onClick={goNext}
-            className="px px-btn px-btn--primary inline-flex min-h-12 flex-1 items-center justify-center bg-red px-5 py-3 text-center text-[1.0625rem] text-white hover:bg-red-deep"
+            className="btn btn-primary inline-flex min-h-12 flex-1 items-center justify-center bg-sun px-5 py-3 text-center text-ink hover:bg-sun-hover"
           >
             {index === steps.length - 1 ? copy.chrome.toReview : copy.chrome.next}
           </button>

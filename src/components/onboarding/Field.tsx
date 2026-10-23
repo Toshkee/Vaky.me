@@ -59,7 +59,7 @@ export function Field({
     <p
       id={`${id}-error`}
       role="status"
-      className={error ? "mt-2 text-sm font-semibold text-red" : undefined}
+      className={error ? "mt-2 text-sm font-semibold text-danger" : undefined}
     >
       {error}
     </p>
@@ -96,9 +96,9 @@ export function Field({
    default `focus:border-ink` would otherwise repaint it the moment the client
    tabbed into the very field they were being asked to fix. */
 const base =
-  "block w-full border-2 bg-paper-2 px-3 py-3 text-base transition-colors placeholder:text-muted focus:outline-none";
+  "block w-full rounded-xl border-[1.5px] bg-white px-4 py-3 text-base transition-colors placeholder:text-muted focus:outline-none";
 const edge = (invalid: boolean) =>
-  invalid ? "border-red focus:border-red" : "border-line focus:border-ink";
+  invalid ? "border-danger focus:border-danger" : "border-line-strong focus:border-ink";
 
 export function TextInput({
   id,

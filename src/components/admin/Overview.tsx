@@ -138,10 +138,10 @@ export function Overview() {
                 the block reads as one table rather than five cards. Five cells
                 in two columns leave a hole in the last row, and the hole would
                 show that ground — so the last one takes the whole row. */}
-            <ul className="grid grid-cols-2 gap-px border-2 border-ink bg-ink sm:grid-cols-5">
+            <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-5">
               {COUNTS.map((count) => {
                 const value = data[count.key];
-                const tone = value === 0 ? "text-muted" : count.hot ? "text-red" : "";
+                const tone = value === 0 ? "text-muted" : count.hot ? "text-sun-ink" : "";
                 return (
                   <li key={count.key} className="bg-paper last:col-span-2 sm:last:col-span-1">
                     <GoLink to={count.to} className="block px-3 py-3 hover:bg-paper-2">

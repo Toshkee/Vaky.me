@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PixelWindow } from "@/components/ui/PixelWindow";
-import { OsBadge } from "@/components/ui/OsBadge";
-import { Vaky } from "@/components/mascot/Vaky";
+import { Frame } from "@/components/ui/Frame";
+import { Tag } from "@/components/ui/Tag";
 import { onboardingCopy } from "@/i18n/onboarding";
 import { emailLink, instagramDmLink, site } from "@/config/site";
 
@@ -36,87 +35,77 @@ export const metadata: Metadata = {
 export default function StartPage() {
   return (
     <main className="shell w-full py-10 sm:py-16">
-      <PixelWindow title="VAKY OS">
+      <Frame>
         <div className="p-5 sm:p-8">
-          {/* Only the recovery half is two columns — that is where the mascot
-              belongs, beside the thing the visitor came to solve. The blocks
-              under it run full width; a column kept open for him alongside
-              them would be a tall empty gutter. */}
-          <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
-            <div>
-              <OsBadge tone="red">{me.eyebrow}</OsBadge>
+          <div>
+            <Tag tone="sun">{me.eyebrow}</Tag>
 
-              <h1 className="headline mt-4 text-3xl sm:text-4xl">{me.title}</h1>
-              <p className="mt-3 max-w-lg leading-relaxed text-muted">{me.body}</p>
+            <h1 className="headline mt-4 text-3xl sm:text-4xl">{me.title}</h1>
+            <p className="mt-3 max-w-lg leading-relaxed text-muted">{me.body}</p>
 
-              <h2 className="eyebrow mt-8 text-muted">{me.fixTitle}</h2>
-              <ol className="mt-3 max-w-lg space-y-2">
-                {me.fix.map((line, index) => (
-                  <li key={line} className="flex gap-3 leading-relaxed">
-                    {/* Fixed width and tabular figures so the second step's
-                        text starts exactly where the first one's does. */}
-                    <span aria-hidden="true" className="tnum w-4 shrink-0 font-bold text-red">
-                      {index + 1}.
-                    </span>
-                    {line}
-                  </li>
-                ))}
-              </ol>
+            <h2 className="mt-8 font-semibold">{me.fixTitle}</h2>
+            <ol className="mt-3 max-w-lg space-y-2">
+              {me.fix.map((line, index) => (
+                <li key={line} className="flex gap-3 leading-relaxed">
+                  {/* Fixed width and tabular figures so the second step's
+                      text starts exactly where the first one's does. */}
+                  <span aria-hidden="true" className="tnum w-4 shrink-0 font-bold text-sun-ink">
+                    {index + 1}.
+                  </span>
+                  {line}
+                </li>
+              ))}
+            </ol>
 
-              {/* Instagram first: most links go out in a DM, so replying there
-                  is one tap and lands in the thread the link came from. */}
-              <div className="mt-7 flex flex-wrap items-center gap-4">
-                <a
-                  href={instagramDmLink()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px px-btn px-btn--primary inline-flex min-h-12 items-center bg-red px-7 py-3 text-[1.0625rem] text-white hover:bg-red-deep"
-                >
-                  {me.dm}
-                </a>
-                <Link
-                  href="/"
-                  className="px px-btn inline-flex min-h-12 items-center bg-paper px-5 py-3 text-[1.0625rem] text-ink transition-colors hover:text-red"
-                >
-                  {me.action}
-                </Link>
-              </div>
-
-              <p className="mt-4 font-semibold">
-                <a
-                  href={emailLink("Link za upitnik ne radi")}
-                  className="underline decoration-2 underline-offset-4 transition-colors hover:text-red"
-                >
-                  {site.email}
-                </a>
-              </p>
+            {/* Instagram first: most links go out in a DM, so replying there
+                is one tap and lands in the thread the link came from. */}
+            <div className="mt-7 flex flex-wrap items-center gap-4">
+              <a
+                href={instagramDmLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary inline-flex min-h-12 items-center bg-sun px-7 py-3 text-ink hover:bg-sun-hover"
+              >
+                {me.dm}
+              </a>
+              <Link
+                href="/"
+                className="btn inline-flex min-h-12 items-center bg-transparent px-5 py-3 text-ink hover:bg-ink hover:text-paper"
+              >
+                {me.action}
+              </Link>
             </div>
 
-            <div aria-hidden="true" className="vaky-ground hidden items-end justify-center lg:flex">
-              <Vaky direction="front" pose="look" scale={0.6} />
-            </div>
+            <p className="mt-4 font-semibold">
+              <a
+                href={emailLink("Link za upitnik ne radi")}
+                className="underline decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
+              >
+                {site.email}
+              </a>
+            </p>
           </div>
 
-          <div className="mt-9 border-t-2 border-line pt-6">
+          <div className="mt-9 border-t border-line pt-6">
             <h2 className="text-lg font-bold">{me.strangerTitle}</h2>
             <p className="mt-2 max-w-lg leading-relaxed text-muted">{me.strangerBody}</p>
             <p className="mt-3 font-semibold">
               <Link
                 href="/#kontakt"
-                className="underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
+                className="underline decoration-sun decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
               >
                 {me.strangerAction}
               </Link>
             </p>
           </div>
 
-          <div lang="en" className="mt-9 border-t-2 border-line pt-6">
+          <div lang="en" className="mt-9 border-t border-line pt-6">
             <h2 className="text-lg font-bold">{en.title}</h2>
             <p className="mt-2 max-w-lg leading-relaxed text-muted">{en.body}</p>
             <p className="mt-3 max-w-lg font-semibold">{en.fix[1]}</p>
           </div>
         </div>
-      </PixelWindow>
+      </Frame>
     </main>
   );
 }

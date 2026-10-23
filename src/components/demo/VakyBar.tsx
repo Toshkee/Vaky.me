@@ -5,8 +5,8 @@ import Link from "next/link";
  * Vaky. Rendered at the very top of each demo page.
  *
  * It is the one element repeated across every demo, so it takes its colours
- * from the studio's tokens rather than hardcoding them — and from
- * `red-bright`, because the brand red is unreadable on this ground.
+ * from the studio's tokens rather than hardcoding them; the sun reads 5.11:1
+ * on this ink.
  */
 export function VakyBar() {
   return (
@@ -21,7 +21,7 @@ export function VakyBar() {
       <span className="hidden sm:inline">
         Svaki demo je dizajn koncept sa ilustrativnim podacima o biznisu.
       </span>
-      <span className="font-semibold text-red-bright underline-offset-2 group-hover:underline">
+      <span className="font-semibold text-sun underline-offset-2 group-hover:underline">
         Vaky <span aria-hidden="true">→</span>
       </span>
     </Link>

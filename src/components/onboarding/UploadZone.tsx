@@ -156,8 +156,8 @@ export function UploadZone({
           setDragging(false);
           if (!full) void accept(Array.from(event.dataTransfer.files));
         }}
-        className={`mt-3 border-2 border-dashed px-4 py-5 text-center transition-colors ${
-          dragging ? "border-red bg-paper-2" : "border-line bg-paper-2/60"
+        className={`mt-3 rounded-2xl border-[1.5px] border-dashed px-4 py-5 text-center transition-colors ${
+          dragging ? "border-sun-ink bg-paper-2" : "border-line bg-paper-2/60"
         }`}
       >
         <p className="hidden text-sm text-muted sm:block">{copy.upload.drop}</p>
@@ -176,8 +176,8 @@ export function UploadZone({
         />
         <label
           htmlFor={inputId}
-          className={`px px-btn tap mt-0 inline-flex min-h-11 cursor-pointer items-center bg-paper px-5 py-2 text-[0.95rem] text-ink transition-colors sm:mt-3 ${
-            full ? "pointer-events-none opacity-50" : "hover:text-red"
+          className={`btn tap mt-0 inline-flex min-h-11 cursor-pointer items-center bg-paper px-5 py-2 text-[0.95rem] text-ink transition-colors sm:mt-3 ${
+            full ? "pointer-events-none opacity-50" : "hover:text-sun-ink"
           }`}
         >
           {copy.upload.browse}
@@ -187,7 +187,7 @@ export function UploadZone({
         </p>
       </div>
 
-      {full && <p className="mt-2 text-sm font-semibold text-red">{copy.upload.tooMany}</p>}
+      {full && <p className="mt-2 text-sm font-semibold text-danger">{copy.upload.tooMany}</p>}
 
       <ul role="status" className="mt-3 grid gap-2">
         {uploaded.map((file) => (
@@ -205,7 +205,7 @@ export function UploadZone({
               type="button"
               onClick={() => void drop(file.id)}
               aria-label={fill(copy.upload.removeLabel, { name: file.name })}
-              className="tap shrink-0 px-2 py-1 text-sm font-semibold text-muted underline decoration-2 underline-offset-4 transition-colors hover:text-red"
+              className="tap shrink-0 px-2 py-1 text-sm font-semibold text-muted underline decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
             >
               {copy.upload.remove}
             </button>
@@ -217,7 +217,7 @@ export function UploadZone({
             <div className="flex items-center gap-3">
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-sm font-semibold">{item.file.name}</span>
-                <span className={`text-xs ${item.failed ? "text-red" : "text-muted"}`}>
+                <span className={`text-xs ${item.failed ? "text-danger" : "text-muted"}`}>
                   {item.failed
                     ? `${copy.upload.failed} — ${copy.errors.api[item.failed]}`
                     : `${copy.upload.uploading} ${Math.round(item.progress * 100)}%`}
@@ -234,7 +234,7 @@ export function UploadZone({
                   item.cancel?.();
                   setPending((items) => items.filter((entry) => entry.key !== item.key));
                 }}
-                className="tap shrink-0 px-2 py-1 text-sm font-semibold text-muted underline decoration-2 underline-offset-4 transition-colors hover:text-red"
+                className="tap shrink-0 px-2 py-1 text-sm font-semibold text-muted underline decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
               >
                 {item.failed ? copy.upload.retry : copy.upload.remove}
               </button>
@@ -252,10 +252,10 @@ export function UploadZone({
                 aria-valuenow={Math.round(item.progress * 100)}
                 aria-valuemin={0}
                 aria-valuemax={100}
-                className="os-bar mt-2 block"
+                className="meter mt-2 block"
               >
                 <span
-                  className="os-bar-fill block"
+                  className="meter-fill block"
                   style={{ width: `${Math.round(item.progress * 100)}%` }}
                 />
               </span>

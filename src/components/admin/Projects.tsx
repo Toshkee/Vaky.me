@@ -109,7 +109,7 @@ export function Projects({ filter }: { filter: string }) {
             if (rows.length === 0) return <EmptyState>Nema projekata u ovom filteru.</EmptyState>;
 
             return (
-              <ul className="border-t-2 border-ink">
+              <ul className="border-t border-line-strong">
                 {rows.map((row) => (
                   <li key={row.id} className="border-b border-line">
                     <GoLink
@@ -189,7 +189,7 @@ function NewProjectForm({ onCreated }: { onCreated: (projectId: string) => void 
   }
 
   return (
-    <form onSubmit={submit} className="mt-4 grid gap-4 border-2 border-ink p-4">
+    <form onSubmit={submit} className="mt-4 grid gap-4 rounded-2xl border border-line p-4">
       <div className="grid items-start gap-4 sm:grid-cols-2">
         <Field
           id="new-business"
@@ -265,7 +265,7 @@ function NewProjectForm({ onCreated }: { onCreated: (projectId: string) => void 
       </button>
 
       {problem && (
-        <p role="alert" className="text-sm font-semibold text-red">
+        <p role="alert" className="text-sm font-semibold text-sun-ink">
           {problem}
         </p>
       )}

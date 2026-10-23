@@ -41,11 +41,13 @@ export function MobileFold({
           onClick={() => setOpen(!open)}
           className="-mr-3.5 flex h-11 w-11 shrink-0 items-center justify-center after:absolute after:inset-0 sm:hidden"
         >
-          <PlusIcon
-            className={`w-4 text-red transition-transform duration-200 motion-reduce:transition-none ${
+          <span
+            className={`flex size-8 items-center justify-center rounded-full border-[1.5px] border-current transition-transform duration-200 motion-reduce:transition-none ${
               open ? "rotate-45" : ""
             }`}
-          />
+          >
+            <PlusIcon className="size-4" />
+          </span>
         </button>
       </div>
       <div id={bodyId} className={open ? undefined : "hidden sm:block"}>

@@ -2,10 +2,19 @@ import type { ReactNode } from "react";
 import { ArrowIcon } from "@/components/landing/icons";
 
 /**
- * The two CTAs of the pixel layer. `primary` is the solid red slab, beveled
- * and sitting on its own shadow; `secondary` is the same slab in paper and
- * ink. Both physically depress into their shadow when pressed.
+ * The site's link-buttons, as pills.
+ *
+ *   primary    the sun, with ink on it (5.11:1). One per screen: it is the
+ *              action the page is asking for.
+ *   secondary  an ink outline that fills on hover.
+ *   inverse    paper on the ink band, where an outline would disappear.
  */
+const LOOKS = {
+  primary: "btn-primary bg-sun text-ink hover:bg-sun-hover",
+  secondary: "bg-transparent text-ink hover:bg-ink hover:text-paper",
+  inverse: "border-paper bg-paper text-ink hover:border-sun hover:bg-sun",
+} as const;
+
 export function Button({
   href,
   children,
@@ -18,27 +27,24 @@ export function Button({
   href: string;
   children: ReactNode;
   external?: boolean;
-  variant?: "primary" | "secondary";
-  /** Trailing pixel arrow, for the actions that go somewhere. */
+  variant?: keyof typeof LOOKS;
+  /** Trailing arrow, for the actions that go somewhere. */
   arrow?: boolean;
   className?: string;
   /** Analytics event name. Umami reads it off the element; no handler needed. */
   event?: string;
 }) {
-  const look =
-    variant === "primary"
-      ? "px-btn--primary bg-red text-white hover:bg-red-deep"
-      : "bg-paper text-ink transition-colors hover:text-red";
-
   return (
     <a
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       {...(event ? { "data-umami-event": event } : {})}
-      className={`px px-btn inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-[1.0625rem] ${look} ${className}`}
+      className={`btn group inline-flex min-h-12 items-center justify-center gap-2.5 px-6 py-3 text-base ${LOOKS[variant]} ${className}`}
     >
       {children}
-      {arrow && <ArrowIcon className="w-4 shrink-0" />}
+      {arrow && (
+        <ArrowIcon className="size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transition-none" />
+      )}
     </a>
   );
 }

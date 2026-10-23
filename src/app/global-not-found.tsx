@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { emailLink } from "@/config/site";
 import { Button } from "@/components/ui/Button";
-import { Vaky } from "@/components/mascot/Vaky";
+import { BrandMark } from "@/components/BrandWordmark";
 import { RootHtml } from "./root-html";
 import "./globals.css";
 
@@ -15,11 +15,10 @@ export default function GlobalNotFound() {
   return (
     <RootHtml lang="sr-ME">
       <main className="flex min-h-screen flex-col items-center justify-center px-6 text-center">
-        {/* Facing away, walking off. The one page where his back is the point. */}
-        <Vaky direction="back" pose="walk" scale={0.44} className="mb-2" />
+        <BrandMark className="size-16" />
 
-        <p className="headline text-8xl text-red sm:text-9xl">404</p>
-        <h1 className="headline mt-6 text-3xl sm:text-5xl">Ova stranica ne postoji.</h1>
+        <p className="headline display mt-8 text-[clamp(6rem,22vw,11rem)]">404</p>
+        <h1 className="headline mt-4 text-3xl sm:text-5xl">Ova stranica ne postoji.</h1>
         <p className="mt-5 max-w-md text-lg text-muted">
           Kao ni tvoj sajt… <span className="font-semibold text-ink">još.</span>
         </p>
@@ -29,7 +28,7 @@ export default function GlobalNotFound() {
           </Button>
           <Link
             href="/"
-            className="font-semibold underline decoration-red decoration-2 underline-offset-8 transition-colors hover:text-red"
+            className="font-semibold underline decoration-sun decoration-2 underline-offset-8 transition-colors hover:text-sun-ink"
           >
             Nazad na početnu
           </Link>

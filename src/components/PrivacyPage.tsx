@@ -35,14 +35,14 @@ export function PrivacyPage({ dict }: { dict: Dictionary }) {
   return (
     <>
       <SkipLink>{dict.nav.skip}</SkipLink>
-      <header className="border-b-2 border-ink">
+      <header className="border-b border-line">
         <div className="shell flex h-16 items-center justify-between gap-4">
           <Link href={home} className="tap shrink-0">
-            <BrandWordmark className="h-7 sm:h-8" />
+            <BrandWordmark className="text-[1.5rem]" />
           </Link>
           <Link
             href={dict.lang === "en" ? "/privacy/" : "/en/privacy/"}
-            className="tap font-bold transition-colors hover:text-red"
+            className="tap font-bold transition-colors hover:text-sun-ink"
             aria-label={dict.lang === "en" ? "Crnogorski" : "English"}
           >
             {dict.nav.langLabel}
@@ -55,7 +55,7 @@ export function PrivacyPage({ dict }: { dict: Dictionary }) {
           <h1 className="headline mt-3 text-[clamp(2rem,4vw,3rem)]">{dict.privacy.title}</h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed">{dict.privacy.intro}</p>
 
-          <div className="mt-10 grid gap-8 border-t-2 border-ink pt-8">
+          <div className="mt-10 grid gap-8 border-t border-line-strong pt-8">
             {sections.map((section) => (
               <section key={section.title} className="max-w-2xl">
                 <h2 className="headline text-xl sm:text-2xl">{section.title}</h2>
@@ -71,7 +71,7 @@ export function PrivacyPage({ dict }: { dict: Dictionary }) {
           <p className="mt-12 border-t border-line pt-5">
             <Link
               href={home}
-              className="font-semibold underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
+              className="font-semibold underline decoration-sun decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
             >
               ← {site.name}
             </Link>

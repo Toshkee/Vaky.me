@@ -3,7 +3,6 @@
 import { useId, useRef, useState, type KeyboardEvent } from "react";
 import type { Dictionary } from "@/i18n";
 import { AppCase } from "./AppCase";
-import { FolderIcon } from "./icons";
 import { ProjectCase, isLive } from "./ProjectCase";
 import { SectionHead } from "./SectionHead";
 
@@ -82,34 +81,34 @@ export function Work({ dict }: { dict: Dictionary }) {
   };
 
   return (
-    <section id="radovi" className="scroll-mt-24 border-t border-line">
-      <div className="shell py-12 sm:py-16">
-        <SectionHead icon={<FolderIcon />} title={dict.work.title} />
+    <section id="radovi" className="scroll-mt-24">
+      <div className="shell py-20 sm:py-28">
+        <SectionHead title={dict.work.title} />
 
-        <div className="mt-8 sm:mt-10">
-          <h3 className="headline text-xl sm:text-2xl">{dict.work.liveTitle}</h3>
-          <p className="mt-1.5 max-w-lg text-muted">{dict.work.liveSub}</p>
+        <div className="mt-14 sm:mt-16">
+          <h3 className="headline text-2xl sm:text-3xl">{dict.work.liveTitle}</h3>
+          <p className="mt-2 max-w-lg text-muted">{dict.work.liveSub}</p>
 
           <AppCase dict={dict} />
 
           {/* Two columns at every width: on a phone that is two small
               phones side by side, which is half the height of two large
               ones one under the other. */}
-          <div className="mt-12 grid grid-cols-2 gap-x-4 gap-y-10 border-t border-line pt-10 sm:mt-14 sm:gap-x-8 lg:gap-x-10">
+          <div className="mt-14 grid grid-cols-2 gap-x-4 gap-y-10 border-t border-line pt-12 sm:mt-16 sm:gap-x-8 lg:gap-x-12">
             {live.map((project) => (
               <ProjectCase key={project.slug} project={project} dict={dict} compact />
             ))}
           </div>
         </div>
 
-        <div className="mt-14 border-t-2 border-ink pt-8 sm:mt-16 sm:pt-10">
-          <h3 className="headline text-xl sm:text-2xl">{dict.work.conceptsTitle}</h3>
-          <p className="mt-1.5 max-w-lg text-muted">{dict.work.conceptsSub}</p>
+        <div className="mt-20 rounded-[2rem] bg-paper-2 px-5 py-10 sm:mt-24 sm:px-10 sm:py-14 lg:px-14">
+          <h3 className="headline text-2xl sm:text-3xl">{dict.work.conceptsTitle}</h3>
+          <p className="mt-2 max-w-lg text-muted">{dict.work.conceptsSub}</p>
 
           {/* The question, then the answers. One row that scrolls on a phone
               and wraps from sm up; the chosen one is the ink key, the rest are
               paper. */}
-          <p id={`${baseId}-question`} className="eyebrow mt-7 text-red">
+          <p id={`${baseId}-question`} className="mt-8 font-semibold">
             {dict.work.tabsLabel}
           </p>
           <div
@@ -137,8 +136,8 @@ export function Work({ dict }: { dict: Dictionary }) {
                   onFocus={() => prefetch(trade.projects[0].slug)}
                   data-umami-event="portfolio_demo_switched"
                   data-umami-event-demo={trade.projects[0].slug}
-                  className={`px inline-flex min-h-11 shrink-0 items-center border-2 border-ink px-4 text-[1.0625rem] leading-none uppercase transition-colors ${
-                    selected ? "bg-ink text-paper" : "bg-paper text-ink hover:text-red"
+                  className={`inline-flex min-h-11 shrink-0 items-center rounded-full border-[1.5px] border-ink px-4 font-medium transition-colors ${
+                    selected ? "bg-ink text-paper" : "bg-paper text-ink hover:bg-ink hover:text-paper"
                   }`}
                 >
                   {trade.type}
@@ -177,10 +176,10 @@ export function Work({ dict }: { dict: Dictionary }) {
                       onFocus={() => prefetch(project.slug)}
                       data-umami-event="portfolio_demo_switched"
                       data-umami-event-demo={project.slug}
-                      className={`headline inline-flex min-h-11 items-center text-lg underline decoration-2 underline-offset-[6px] transition-colors ${
+                      className={`inline-flex min-h-11 items-center text-lg font-semibold underline decoration-2 underline-offset-[6px] transition-colors ${
                         selected
-                          ? "text-ink decoration-red"
-                          : "text-muted decoration-transparent hover:text-red"
+                          ? "text-ink decoration-sun"
+                          : "text-muted decoration-transparent hover:text-ink"
                       }`}
                     >
                       {project.name}
