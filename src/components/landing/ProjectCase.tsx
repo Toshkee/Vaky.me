@@ -3,17 +3,9 @@ import type { Dictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
 import { ArrowIcon } from "./icons";
 import { ProjectPhone } from "./ProjectPhone";
+import { isLive } from "./facts";
 
 type Project = Dictionary["work"]["items"][number]["projects"][number];
-
-/**
- * A project whose href leaves this site is a real client site that is live on
- * its own domain; everything under /demo/ is a concept. The distinction is the
- * only thing separating work we delivered from work we imagined, so it is read
- * off the destination rather than carried as a flag two dictionaries have to
- * keep in sync.
- */
-export const isLive = (href: string) => href.startsWith("https://");
 
 /**
  * One project, told the same way every time: the phone with its opening
@@ -62,7 +54,7 @@ export function ProjectCase({
       </ProjectPhone>
 
       <div className="min-w-0">
-        <p className={`eyebrow ${live ? "eyebrow--dot" : ""}`}>
+        <p className={`eyebrow ${live ? "rec" : ""}`}>
           {live ? dict.work.liveLabel : dict.work.conceptLabel}
         </p>
         <p className="mt-2 text-sm text-muted">{project.tag}</p>
@@ -86,7 +78,7 @@ export function ProjectCase({
             href={project.href}
             {...(live ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             data-umami-event="portfolio_demo_opened"
-            className="group mt-5 inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-sun decoration-2 underline-offset-[6px] transition-colors hover:text-sun-ink"
+            className="group mt-5 inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-red decoration-2 underline-offset-[6px] transition-colors hover:text-red"
           >
             {open}
             {live && <span className="sr-only"> ({dict.work.newTab})</span>}

@@ -8,7 +8,7 @@ import { Footer } from "./Footer";
 import { SectionHead } from "./SectionHead";
 import { ProjectCase } from "./ProjectCase";
 import { ArrowIcon } from "./icons";
-import { heroFacts } from "./Hero";
+import { heroFacts } from "./facts";
 
 export type TradeKey = keyof Dictionary["trades"]["items"];
 
@@ -38,7 +38,7 @@ export function TradePage({ dict, tradeKey }: { dict: Dictionary; tradeKey: Trad
       <main id="main" tabIndex={-1} className="focus:outline-none">
         <section>
           <div className="shell pt-12 pb-16 sm:pt-20 sm:pb-24">
-            <p className="eyebrow eyebrow--dot">{dict.trades.eyebrow}</p>
+            <p className="eyebrow">{dict.trades.eyebrow}</p>
             <h1 className="headline display mt-6 max-w-4xl text-[clamp(2.6rem,6.4vw,5rem)]">{trade.title}</h1>
             <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">{trade.intro}</p>
 
@@ -48,7 +48,7 @@ export function TradePage({ dict, tradeKey }: { dict: Dictionary; tradeKey: Trad
               </Button>
               <a
                 href="#primjeri"
-                className="group inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-sun decoration-2 underline-offset-[6px] transition-colors hover:text-sun-ink"
+                className="group inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-red decoration-2 underline-offset-[6px] transition-colors hover:text-red"
               >
                 {dict.hero.ctaSecondary}
                 <ArrowIcon className="size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none" />
@@ -97,7 +97,7 @@ export function TradePage({ dict, tradeKey }: { dict: Dictionary; tradeKey: Trad
               </div>
               <Link
                 href={`${home}#cijene`}
-                className="group inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-sun decoration-2 underline-offset-[6px] transition-colors hover:text-sun-ink lg:justify-self-end"
+                className="group inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-red decoration-2 underline-offset-[6px] transition-colors hover:text-red lg:justify-self-end"
               >
                 {dict.trades.priceLink}
                 <ArrowIcon className="size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none" />
@@ -116,7 +116,7 @@ export function TradePage({ dict, tradeKey }: { dict: Dictionary; tradeKey: Trad
                 <li key={key}>
                   <Link
                     href={tradePath(dict, key)}
-                    className="inline-flex min-h-11 items-center rounded-full border-[1.5px] border-paper px-4 font-medium transition-colors hover:border-sun hover:bg-sun hover:text-ink"
+                    className="inline-flex min-h-11 items-center rounded-full border-[1.5px] border-paper px-4 font-medium transition-colors hover:border-red hover:bg-red hover:text-ink"
                   >
                     {dict.work.items.find((item) => item.key === key)?.type}
                   </Link>

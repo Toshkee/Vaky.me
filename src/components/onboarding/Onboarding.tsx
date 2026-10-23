@@ -552,7 +552,7 @@ export function Onboarding({
             onClick={() => void submit()}
             disabled={sending}
             aria-busy={sending}
-            className="btn btn-primary inline-flex min-h-12 flex-1 items-center justify-center bg-sun px-5 py-3 text-center text-ink hover:bg-sun-hover disabled:opacity-70"
+            className="btn btn-primary inline-flex min-h-12 flex-1 items-center justify-center bg-red px-5 py-3 text-center text-white hover:bg-red-deep disabled:opacity-70"
           >
             {sending ? copy.review.sending : copy.review.submit}
           </button>
@@ -560,7 +560,7 @@ export function Onboarding({
           <button
             type="button"
             onClick={goNext}
-            className="btn btn-primary inline-flex min-h-12 flex-1 items-center justify-center bg-sun px-5 py-3 text-center text-ink hover:bg-sun-hover"
+            className="btn btn-primary inline-flex min-h-12 flex-1 items-center justify-center bg-red px-5 py-3 text-center text-white hover:bg-red-deep"
           >
             {index === steps.length - 1 ? copy.chrome.toReview : copy.chrome.next}
           </button>

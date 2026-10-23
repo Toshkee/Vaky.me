@@ -371,23 +371,55 @@ export const me = {
     ],
   },
 
-  /* The motion design videos, shown as three live films of the formats they
-     come in. What they cost and include is `pricing.launchVideos`; this is
-     only what the films and their captions say. Each film is built from a
-     concept on this site, and says so. */
-  reels: {
-    eyebrow: "Motion design",
-    title: "Tri videa uz sajt, za €50.",
-    titleMark: "€50.",
-    formats: [
-      { name: "Najava sajta", source: "Koncept: Konoba Skadar" },
-      { name: "Cjenovnik", source: "Koncept: Barber Drina, cijene sa njihovog Instagrama" },
-      { name: "Raspored", source: "Koncept: Titan Gym" },
-    ],
-    launch: { lines: ["Novi", "sajt."], cta: "Pogledaj" },
-    prices: { kicker: "Cjenovnik", place: "Stari Aerodrom · Podgorica" },
-    schedule: { kicker: "Danas", cta: "Probni trening" },
+  /* The landing page as a film: the opening titles, the scene names in the
+     corner, and the words of the scenes that have no section of their own
+     elsewhere in this dictionary. */
+  film: {
+    intro: {
+      presents: "Vaky predstavlja",
+      words: ["Sajtovi.", "Aplikacije.", "Motion design."],
+      place: "Podgorica · Crna Gora",
+      skip: "Preskoči uvod",
+    },
+    scene: "Scena",
+    scenes: {
+      hero: "Uvod",
+      reel: "Showreel",
+      about: "Ko stoji iza",
+      expertise: "Ekspertiza",
+      process: "Proces",
+      work: "Radovi",
+      pricing: "Cijene",
+      faq: "Pitanja",
+      contact: "Kontakt",
+    },
+    reel: { label: "Showreel", sub: "Pravi radovi, uživo kod klijenata", portfolio: "Moj portfolio", portfolioTag: "AI portfolio, pitaj ga o mom radu" },
+    starring: "U glavnim ulogama",
+    live: "uživo",
+    credits: { role: "Režija, dizajn i kod", studio: "Studio" },
+    expertise: {
+      title: "Tri žanra. Jedan reditelj.",
+      mark: "Jedan reditelj.",
+      genre: "Žanr",
+      ask: "Pitaj za ovo",
+      sites: {
+        name: "Sajtovi",
+        price: "Od €250",
+        intro:
+          "Restoran, salon, barber, teretana, vila. Sajt koji se odmah otvara na telefonu, sa cjenovnikom, mapom i dugmetom za poruku. Prvo dobijaš besplatan koncept, a sajt je gotov za 10 dana.",
+        includes: ["Dizajn po mjeri tvog brenda", "Savršen na telefonu", "Google mapa i kontakt", "SEO i brzina"],
+      },
+    },
+    work: { all: "Sve", live: "Uživo", view: "Pogledaj", private: "Privatna aplikacija, samo za članove" },
+    cta: "Piši mi",
   },
+
+  /* The words inside the motion design genre's film. What the videos cost
+     and include is `pricing.launchVideos`. */
+  reels: {
+    launch: { lines: ["Novi", "sajt."], cta: "Pogledaj" },
+  },
+
 
   /* Words inside the Remotion animations: the hero's screen and the
      process story. Not shown as text on the page — the steps and the hero

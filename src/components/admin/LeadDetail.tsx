@@ -62,7 +62,7 @@ function isSettable(value: string): value is Exclude<LeadStatus, "accepted"> {
   return (SETTABLE as readonly string[]).includes(value);
 }
 
-const linkClass = "underline decoration-line underline-offset-4 hover:text-sun-ink";
+const linkClass = "underline decoration-line underline-offset-4 hover:text-red";
 
 export function LeadDetail({ id }: { id: string }) {
   const go = useGo();
@@ -134,7 +134,7 @@ export function LeadDetail({ id }: { id: string }) {
                   </div>
                   <p className="mt-2 text-sm text-muted">{meta.join(" · ")}</p>
                   {lead.notify_error && (
-                    <p className="mt-1 text-sm font-semibold text-sun-ink">
+                    <p className="mt-1 text-sm font-semibold text-red">
                       Obavještenje o upitu nije stiglo mejlom: {mailErrorText(lead.notify_error)}
                     </p>
                   )}
@@ -177,7 +177,7 @@ export function LeadDetail({ id }: { id: string }) {
                               value={option}
                               checked={packageId === option}
                               onChange={() => setPackageId(option)}
-                              className="accent-sun-ink"
+                              className="accent-red"
                             />
                             <span>{packageText(option)}</span>
                           </label>

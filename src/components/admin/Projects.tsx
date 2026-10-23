@@ -265,7 +265,7 @@ function NewProjectForm({ onCreated }: { onCreated: (projectId: string) => void 
       </button>
 
       {problem && (
-        <p role="alert" className="text-sm font-semibold text-sun-ink">
+        <p role="alert" className="text-sm font-semibold text-red">
           {problem}
         </p>
       )}

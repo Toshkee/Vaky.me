@@ -10,7 +10,7 @@ import { OFFERED_LEAD_NEEDS, type OfferedLeadNeed } from "@/lib/workflow";
 import { Tag } from "@/components/ui/Tag";
 import { useAutoGrow } from "@/components/ui/useAutoGrow";
 import { ArrowIcon } from "./icons";
-import { SectionHead } from "./SectionHead";
+import { SceneLabel } from "./SectionHead";
 import { Turnstile } from "./Turnstile";
 
 /**
@@ -29,9 +29,8 @@ import { Turnstile } from "./Turnstile";
  * exist) the visitor is not left holding a dead button: Instagram sits beside
  * the submit, and an email with everything they typed is one link away.
  *
- * It closes the page on the ink band: the promise and the direct lines on the
- * left, the form on a paper card on the right — the one light surface in the
- * dark, so the eye has nowhere else to go.
+ * It follows the red closing scene: the promise and the direct lines on the
+ * left, the form on its own card on the right.
  */
 type Status = "idle" | "sending" | "sent" | "invalid" | "phone" | "challenge" | "offline" | "spam" | "error";
 
@@ -216,7 +215,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
   /* One row per channel: the channel's name, the handle or number beside it.
      Full-width so the whole row is the target. */
   const directButton =
-    "group flex min-h-14 items-center justify-between gap-3 border-b border-ink-2 py-3 text-lg font-semibold transition-colors hover:text-sun";
+    "group flex min-h-14 items-center justify-between gap-3 border-b border-line py-3 text-lg font-semibold transition-colors hover:text-red";
   /* Split the way the brief's fields are (src/components/onboarding/Field.tsx):
      a field that failed keeps its error edge while focused, so tabbing into
      the very field you were asked to fix does not repaint it as fine. */
@@ -285,22 +284,22 @@ export function Contact({ dict }: { dict: Dictionary }) {
   );
 
   return (
-    <section id="kontakt" className="on-ink scroll-mt-24 bg-ink text-paper">
-      <div className="shell py-20 sm:py-28">
-        <SectionHead title={d.title} mark={d.titleMark} sub={d.sub} tone="ink" />
+    <section id="kontakt" data-scene={dict.film.scenes.contact} className="scroll-mt-20 py-24 sm:py-32">
+      <div className="shell">
+        <SceneLabel word={dict.film.scene} n={9} name={dict.film.scenes.contact} />
+        <h2 className="display mt-6 max-w-4xl text-[clamp(2.75rem,6.5vw,6rem)]">
+          {c.bubble.pre}
+          <span className="text-red">{c.bubble.em}</span>
+          {c.bubble.post}
+        </h2>
+        <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">{d.sub}</p>
 
         <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
           {/* The other ways in, and what happens after. On a phone this sits
               under the form; from lg up it is the left column. */}
           <aside className="order-2 lg:order-1">
-            <p className="headline text-3xl sm:text-4xl">
-              {c.bubble.pre}
-              <span className="text-sun">{c.bubble.em}</span>
-              {c.bubble.post}
-            </p>
-
-            <h3 className="eyebrow mt-12 text-muted-dark">{d.direct.title}</h3>
-            <ul className="mt-3 border-t border-ink-2">
+            <h3 className="eyebrow text-muted">{d.direct.title}</h3>
+            <ul className="mt-3 border-t border-line">
               {hasPhone && (
                 <li>
                   <a
@@ -312,7 +311,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
                     className={directButton}
                   >
                     {d.direct.whatsapp}
-                    <span className="text-base font-normal text-muted-dark group-hover:text-sun">{phoneDisplay()}</span>
+                    <span className="text-base font-normal text-muted group-hover:text-red">{phoneDisplay()}</span>
                   </a>
                 </li>
               )}
@@ -320,23 +319,23 @@ export function Contact({ dict }: { dict: Dictionary }) {
                 <li>
                   <a href={instagramDmLink()} target="_blank" rel="noopener noreferrer" className={directButton}>
                     {d.direct.instagram}
-                    <span className="text-base font-normal text-muted-dark group-hover:text-sun">@{site.instagram}</span>
+                    <span className="text-base font-normal text-muted group-hover:text-red">@{site.instagram}</span>
                   </a>
                 </li>
               )}
               <li>
                 <a href={emailLink(dict.contact.emailSubject, dict.contact.prefill)} className={directButton}>
                   {d.direct.email}
-                  <span className="truncate text-base font-normal text-muted-dark group-hover:text-sun">{site.email}</span>
+                  <span className="truncate text-base font-normal text-muted group-hover:text-red">{site.email}</span>
                 </a>
               </li>
             </ul>
 
-            <h3 className="eyebrow mt-12 text-muted-dark">{d.direct.pointsTitle}</h3>
-            <ol className="mt-4 grid gap-3 leading-relaxed text-muted-dark">
+            <h3 className="eyebrow mt-12 text-muted">{d.direct.pointsTitle}</h3>
+            <ol className="mt-4 grid gap-3 leading-relaxed text-muted">
               {d.direct.points.map((point, i) => (
                 <li key={point} className="grid grid-cols-[2rem_1fr] gap-2">
-                  <span className="tnum flex size-7 items-center justify-center rounded-full border-[1.5px] border-sun text-sm font-semibold text-sun">
+                  <span className="tnum flex size-7 items-center justify-center rounded-full border-[1.5px] border-red text-sm font-semibold text-red">
                     {i + 1}
                   </span>
                   <span>{point}</span>
@@ -348,9 +347,9 @@ export function Contact({ dict }: { dict: Dictionary }) {
           <form
             onSubmit={submit}
             noValidate
-            className="on-paper order-1 rounded-[1.75rem] bg-paper p-6 text-ink sm:p-9 lg:order-2"
+            className="on-paper order-1 rounded-[1.75rem] bg-paper-2 p-6 text-ink sm:p-9 lg:order-2"
           >
-            <Tag tone="sun">{c.eyebrow}</Tag>
+            <Tag tone="red">{c.eyebrow}</Tag>
 
             <div className="mt-7 grid gap-5 sm:grid-cols-2">
               {text("lead-name", c.nameLabel, name, setName, {
@@ -485,7 +484,7 @@ export function Contact({ dict }: { dict: Dictionary }) {
                 type="submit"
                 disabled={sending}
                 aria-busy={sending}
-                className="btn btn-primary group inline-flex min-h-13 items-center justify-center gap-2.5 bg-sun px-6 py-3 text-ink hover:bg-sun-hover disabled:opacity-70"
+                className="btn btn-primary group inline-flex min-h-13 items-center justify-center gap-2.5 bg-red px-6 py-3 text-white hover:bg-red-deep disabled:opacity-70"
               >
                 {sending ? c.sending : c.submit}
                 {!sending && (

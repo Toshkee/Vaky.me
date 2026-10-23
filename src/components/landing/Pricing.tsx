@@ -2,20 +2,24 @@ import type { Dictionary } from "@/i18n";
 import { Tag } from "@/components/ui/Tag";
 import { CheckIcon } from "./icons";
 import { MobileFold } from "./MobileFold";
-import { SectionHead } from "./SectionHead";
+import { SceneLabel, SectionHead } from "./SectionHead";
 import { PlanMatrix } from "./PlanMatrix";
 
 /**
  * Real prices, set at package weight. The cards live in PlanMatrix, which has
  * to be interactive for the detail dialog; everything around them stays
- * server-rendered. The motion design videos are priced in their own section,
- * beside the films, rather than said twice.
+ * server-rendered. Apps and the motion design videos are priced on their own
+ * cards in the expertise scene, beside their films, rather than said twice.
  */
 export function Pricing({ dict }: { dict: Dictionary }) {
   return (
-    <section id="cijene" className="scroll-mt-24 bg-paper-2">
-      <div className="shell py-20 sm:py-28">
-        <SectionHead title={dict.pricing.title} sub={dict.pricing.sub} />
+    <section id="cijene" data-scene={dict.film.scenes.pricing} className="scroll-mt-20 bg-paper-2">
+      <div className="shell py-24 sm:py-32">
+        <SectionHead
+          slate={<SceneLabel word={dict.film.scene} n={7} name={dict.film.scenes.pricing} />}
+          title={dict.pricing.title}
+          sub={dict.pricing.sub}
+        />
 
         <PlanMatrix dict={dict} />
 
@@ -24,11 +28,6 @@ export function Pricing({ dict }: { dict: Dictionary }) {
             service instead of selling it: the site is the client's either
             way, and the badge says so before the price does. */}
         <AddOn addOn={dict.pricing.maintenance} />
-
-        {/* Not something added to a site but a separate job, so it comes
-            after everything that is. No figure: the badge says it is built
-            to order, and the price slot says it is agreed, not listed. */}
-        <AddOn addOn={dict.pricing.mobileApps} />
       </div>
     </section>
   );
@@ -39,7 +38,7 @@ export function Pricing({ dict }: { dict: Dictionary }) {
     shows until opened; the explanation is one tap away. */
 function AddOn({ addOn }: { addOn: Dictionary["pricing"]["maintenance"] }) {
   return (
-    <div className="mt-14 border-t border-line-strong pt-8">
+    <div data-reveal className="mt-14 border-t border-line-strong pt-8">
       <MobileFold
         label={addOn.title}
         head={
@@ -57,7 +56,7 @@ function AddOn({ addOn }: { addOn: Dictionary["pricing"]["maintenance"] }) {
           <ul className="grid content-start gap-x-6 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-1">
             {addOn.includes.map((item) => (
               <li key={item} className="flex items-start gap-3">
-                <CheckIcon className="mt-0.5 size-5 shrink-0 text-sun-ink" />
+                <CheckIcon className="mt-0.5 size-5 shrink-0 text-red" />
                 {item}
               </li>
             ))}

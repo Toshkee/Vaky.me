@@ -141,7 +141,7 @@ export function Overview() {
             <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-5">
               {COUNTS.map((count) => {
                 const value = data[count.key];
-                const tone = value === 0 ? "text-muted" : count.hot ? "text-sun-ink" : "";
+                const tone = value === 0 ? "text-muted" : count.hot ? "text-red" : "";
                 return (
                   <li key={count.key} className="bg-paper last:col-span-2 sm:last:col-span-1">
                     <GoLink to={count.to} className="block px-3 py-3 hover:bg-paper-2">

@@ -81,7 +81,7 @@ export function Login({ onIn }: { onIn: () => void }) {
                 arrives instead of appearing in a region nothing is watching. */}
             <p
               role="status"
-              className={problem ? "text-sm leading-relaxed font-semibold text-sun-ink" : undefined}
+              className={problem ? "text-sm leading-relaxed font-semibold text-red" : undefined}
             >
               {problem}
             </p>

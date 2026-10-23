@@ -74,7 +74,7 @@ export function ChoiceGroup({
             <span
               aria-hidden="true"
               className={`grid h-5 w-5 shrink-0 place-items-center rounded-md border-[1.5px] border-ink ${
-                checked ? "bg-sun" : "bg-paper"
+                checked ? "bg-red" : "bg-paper"
               } ${multi ? "" : "rounded-full"}`}
             >
               {checked && (

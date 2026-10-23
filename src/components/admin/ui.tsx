@@ -191,11 +191,11 @@ function statusLabel(kind: StatusKind, value: string): string {
 /* Colour answers one question — whose move is it? Red: the studio's, today.
    Amber: the client has it. Green: nobody's, it is done. Everything else is
    ink, so a screen full of pills still has one or two that stand out. */
-const TONES: Record<string, "sun" | "amber" | "ok"> = {
-  "lead:new": "sun",
+const TONES: Record<string, "red" | "amber" | "ok"> = {
+  "lead:new": "red",
   "lead:accepted": "ok",
   "project:onboarding_sent": "amber",
-  "project:onboarding_completed": "sun",
+  "project:onboarding_completed": "red",
   "project:client_review": "amber",
   "project:completed": "ok",
   "request:created": "amber",
@@ -213,8 +213,8 @@ export function StatusPill({ kind, value }: { kind: StatusKind; value: string })
 /** "Since you last opened the overview." */
 export function NewMark() {
   return (
-    <span className="inline-flex items-center gap-1.5 text-[0.85rem] leading-none text-sun-ink uppercase">
-      <span aria-hidden="true" className="block size-2 rounded-full bg-sun" />
+    <span className="inline-flex items-center gap-1.5 text-[0.85rem] leading-none text-red uppercase">
+      <span aria-hidden="true" className="block size-2 rounded-full bg-red" />
       Novo
     </span>
   );
@@ -284,10 +284,10 @@ export const textareaClass = `${textareaBase} text-base`;
 export const textareaMonoClass = `${textareaBase} font-mono text-sm`;
 
 export const buttonClass =
-  "btn inline-flex min-h-11 items-center justify-center bg-paper px-4 py-2 text-[0.95rem] text-ink transition-colors hover:text-sun-ink disabled:opacity-50";
+  "btn inline-flex min-h-11 items-center justify-center bg-paper px-4 py-2 text-[0.95rem] text-ink transition-colors hover:text-red disabled:opacity-50";
 
 export const primaryButtonClass =
-  "btn btn-primary inline-flex min-h-11 items-center justify-center bg-sun px-4 py-2 text-center text-[0.95rem] text-ink hover:bg-sun-hover disabled:opacity-70";
+  "btn btn-primary inline-flex min-h-11 items-center justify-center bg-red px-4 py-2 text-center text-[0.95rem] text-white hover:bg-red-deep disabled:opacity-70";
 
 export function Field({
   id,
@@ -581,8 +581,8 @@ export function EmptyState({ children }: { children: ReactNode }) {
 
 export function DataError({ code, onRetry }: { code: ApiErrorCode; onRetry?: () => void }) {
   return (
-    <div role="alert" className="border-l-2 border-sun-ink bg-paper-2 px-4 py-3">
-      <p className="leading-relaxed font-semibold text-sun-ink">{apiText(code)}</p>
+    <div role="alert" className="border-l-2 border-red bg-paper-2 px-4 py-3">
+      <p className="leading-relaxed font-semibold text-red">{apiText(code)}</p>
       {onRetry && (
         <button type="button" onClick={onRetry} className={`${buttonClass} mt-3`}>
           Pokušaj ponovo

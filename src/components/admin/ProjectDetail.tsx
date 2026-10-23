@@ -65,7 +65,7 @@ const STATUS_OPTIONS = PROJECT_STATUSES.map((status) => ({
   label: PROJECT_STATUS_LABELS[status],
 }));
 
-const linkClass = "underline decoration-line underline-offset-4 hover:text-sun-ink";
+const linkClass = "underline decoration-line underline-offset-4 hover:text-red";
 
 export function ProjectDetail({ id }: { id: string }) {
   const load = useCallback(() => getProject(id), [id]);
@@ -210,8 +210,8 @@ function DeleteBlock({ projectId, hasFiles }: { projectId: string; hasFiles: boo
  *  here is shown to them. */
 function Warnings({ warnings }: { warnings: readonly ScopeWarning[] }) {
   return (
-    <section aria-labelledby="scope-warnings" className="rounded-2xl border-[1.5px] border-sun-ink bg-paper p-4">
-      <h2 id="scope-warnings" className="headline text-lg text-sun-ink">
+    <section aria-labelledby="scope-warnings" className="rounded-2xl border-[1.5px] border-red bg-paper p-4">
+      <h2 id="scope-warnings" className="headline text-lg text-red">
         Provjeri obim
       </h2>
       <p className="mt-1 text-sm leading-relaxed text-muted">
@@ -375,7 +375,7 @@ function ProjectForm({ project, onSaved }: { project: ProjectRow; onSaved: () =>
         </div>
 
         {problem && (
-          <p role="alert" className="text-sm font-semibold text-sun-ink">
+          <p role="alert" className="text-sm font-semibold text-red">
             {problem}
           </p>
         )}

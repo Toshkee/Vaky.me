@@ -4,15 +4,15 @@ import { ArrowIcon } from "@/components/landing/icons";
 /**
  * The site's link-buttons, as pills.
  *
- *   primary    the sun, with ink on it (5.11:1). One per screen: it is the
+ *   primary    the red, with white on it (6.22:1). One per screen: it is the
  *              action the page is asking for.
  *   secondary  an ink outline that fills on hover.
- *   inverse    paper on the ink band, where an outline would disappear.
+ *   inverse    paper in a dark or red scene, where an outline would vanish.
  */
 const LOOKS = {
-  primary: "btn-primary bg-sun text-ink hover:bg-sun-hover",
+  primary: "btn-primary bg-red text-white hover:bg-red-deep",
   secondary: "bg-transparent text-ink hover:bg-ink hover:text-paper",
-  inverse: "border-paper bg-paper text-ink hover:border-sun hover:bg-sun",
+  inverse: "border-paper bg-paper text-ink hover:border-ink hover:bg-ink hover:text-paper",
 } as const;
 
 export function Button({

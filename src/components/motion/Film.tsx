@@ -5,30 +5,34 @@ import dynamic from "next/dynamic";
 import type { PlayerRef } from "@remotion/player";
 import { PauseIcon, PlayIcon } from "@/components/landing/icons";
 import type { FilmControls } from "./FilmPlayer";
-import { HERO_FILM, PORTFOLIO_FILM, PROCESS_FILM, REEL_FILM, type FilmSpec } from "./specs";
-import type { HeroFilmProps } from "./films/HeroFilm";
+import { APP_FILM, PORTFOLIO_FILM, REEL_FILM, SHOWREEL_FILM, SITE_FILM, type FilmSpec } from "./specs";
+import type { AppFilmProps } from "./films/AppFilm";
 import type { PortfolioFilmProps } from "./films/PortfolioFilm";
-import type { ProcessFilmProps } from "./films/ProcessFilm";
 import type { ReelFilmProps } from "./films/ReelFilm";
+import type { ShowreelFilmProps } from "./films/ShowreelFilm";
+import type { SiteFilmProps } from "./films/SiteFilm";
 
 /* One chunk per film, fetched the first time that film nears the screen. */
 const PLAYERS = {
-  hero: dynamic(() => import("./films/HeroFilm").then((m) => m.HeroPlayer), { ssr: false }),
-  process: dynamic(() => import("./films/ProcessFilm").then((m) => m.ProcessPlayer), { ssr: false }),
+  showreel: dynamic(() => import("./films/ShowreelFilm").then((m) => m.ShowreelPlayer), { ssr: false }),
+  site: dynamic(() => import("./films/SiteFilm").then((m) => m.SitePlayer), { ssr: false }),
+  app: dynamic(() => import("./films/AppFilm").then((m) => m.AppPlayer), { ssr: false }),
   reel: dynamic(() => import("./films/ReelFilm").then((m) => m.ReelPlayer), { ssr: false }),
   portfolio: dynamic(() => import("./films/PortfolioFilm").then((m) => m.PortfolioPlayer), { ssr: false }),
 };
 
 const SPECS: Record<keyof typeof PLAYERS, FilmSpec> = {
-  hero: HERO_FILM,
-  process: PROCESS_FILM,
+  showreel: SHOWREEL_FILM,
+  site: SITE_FILM,
+  app: APP_FILM,
   reel: REEL_FILM,
   portfolio: PORTFOLIO_FILM,
 };
 
 export type FilmSource =
-  | { kind: "hero"; inputProps: HeroFilmProps }
-  | { kind: "process"; inputProps: ProcessFilmProps }
+  | { kind: "showreel"; inputProps: ShowreelFilmProps }
+  | { kind: "site"; inputProps: SiteFilmProps }
+  | { kind: "app"; inputProps: AppFilmProps }
   | { kind: "reel"; inputProps: ReelFilmProps }
   | { kind: "portfolio"; inputProps: PortfolioFilmProps };
 
@@ -140,7 +144,7 @@ export function Film({
           type="button"
           onClick={toggle}
           aria-label={playing ? labels.pause : labels.play}
-          className={`absolute flex size-11 items-center justify-center rounded-full bg-ink text-paper transition-colors hover:bg-sun hover:text-ink ${controlsClassName}`}
+          className={`absolute flex size-11 items-center justify-center rounded-full bg-ink text-paper transition-colors hover:bg-red ${controlsClassName}`}
         >
           {playing ? <PauseIcon className="size-4" /> : <PlayIcon className="size-4 translate-x-px" />}
         </button>
@@ -152,10 +156,12 @@ export function Film({
 /** The union narrowed one kind at a time, so each player gets its own props. */
 function FilmFor({ source, controls }: { source: FilmSource; controls: FilmControls }) {
   switch (source.kind) {
-    case "hero":
-      return <PLAYERS.hero {...controls} inputProps={source.inputProps} />;
-    case "process":
-      return <PLAYERS.process {...controls} inputProps={source.inputProps} />;
+    case "showreel":
+      return <PLAYERS.showreel {...controls} inputProps={source.inputProps} />;
+    case "site":
+      return <PLAYERS.site {...controls} inputProps={source.inputProps} />;
+    case "app":
+      return <PLAYERS.app {...controls} inputProps={source.inputProps} />;
     case "reel":
       return <PLAYERS.reel {...controls} inputProps={source.inputProps} />;
     case "portfolio":

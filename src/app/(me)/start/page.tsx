@@ -38,7 +38,7 @@ export default function StartPage() {
       <Frame>
         <div className="p-5 sm:p-8">
           <div>
-            <Tag tone="sun">{me.eyebrow}</Tag>
+            <Tag tone="red">{me.eyebrow}</Tag>
 
             <h1 className="headline mt-4 text-3xl sm:text-4xl">{me.title}</h1>
             <p className="mt-3 max-w-lg leading-relaxed text-muted">{me.body}</p>
@@ -49,7 +49,7 @@ export default function StartPage() {
                 <li key={line} className="flex gap-3 leading-relaxed">
                   {/* Fixed width and tabular figures so the second step's
                       text starts exactly where the first one's does. */}
-                  <span aria-hidden="true" className="tnum w-4 shrink-0 font-bold text-sun-ink">
+                  <span aria-hidden="true" className="tnum w-4 shrink-0 font-bold text-red">
                     {index + 1}.
                   </span>
                   {line}
@@ -64,7 +64,7 @@ export default function StartPage() {
                 href={instagramDmLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-primary inline-flex min-h-12 items-center bg-sun px-7 py-3 text-ink hover:bg-sun-hover"
+                className="btn btn-primary inline-flex min-h-12 items-center bg-red px-7 py-3 text-white hover:bg-red-deep"
               >
                 {me.dm}
               </a>
@@ -79,7 +79,7 @@ export default function StartPage() {
             <p className="mt-4 font-semibold">
               <a
                 href={emailLink("Link za upitnik ne radi")}
-                className="underline decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
+                className="underline decoration-2 underline-offset-4 transition-colors hover:text-red"
               >
                 {site.email}
               </a>
@@ -92,7 +92,7 @@ export default function StartPage() {
             <p className="mt-3 font-semibold">
               <Link
                 href="/#kontakt"
-                className="underline decoration-sun decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
+                className="underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
               >
                 {me.strangerAction}
               </Link>

@@ -2,14 +2,14 @@ import type { ReactNode } from "react";
 
 /**
  * A small label, never larger than a line, always carrying real information
- * (BESPLATAN KONCEPT, OPCIONO, a dashboard status). `sun` is the filled one,
+ * (BESPLATAN KONCEPT, OPCIONO, a dashboard status). `red` is the filled one,
  * for the single thing on a screen that should be noticed; the two status
  * tones belong to the dashboard — amber for "the client has it", green for
  * "done" — and mean nothing anywhere else.
  */
 const TONES = {
   ink: "border-ink text-ink",
-  sun: "border-sun bg-sun text-ink",
+  red: "border-red bg-red text-white",
   amber: "border-amber text-amber",
   ok: "border-ok text-ok",
 } as const;

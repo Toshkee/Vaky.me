@@ -75,7 +75,7 @@ export function ReviewStep({
                 type="button"
                 onClick={() => onEdit(step.id)}
                 aria-label={fill(copy.review.editLabel, { section: copy.steps[step.id].title })}
-                className="tap shrink-0 text-sm font-semibold underline decoration-sun decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
+                className="tap shrink-0 text-sm font-semibold underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
               >
                 {copy.review.edit}
               </button>
@@ -106,7 +106,7 @@ export function ReviewStep({
             type="button"
             onClick={() => onEdit("materials")}
             aria-label={fill(copy.review.editLabel, { section: copy.review.files })}
-            className="tap shrink-0 text-sm font-semibold underline decoration-sun decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
+            className="tap shrink-0 text-sm font-semibold underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
           >
             {copy.review.edit}
           </button>

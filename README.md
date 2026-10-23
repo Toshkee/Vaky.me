@@ -73,16 +73,26 @@ or at [vakymne@gmail.com](mailto:vakymne@gmail.com).
 
 This repository contains the Vaky website. It is bilingual (Montenegrin and English), built as a static Next.js export, and designed to be fast, accessible, and inexpensive to host.
 
-The films on the homepage are [Remotion](https://www.remotion.dev)
-compositions in `src/components/motion/films/`, played live in the page by
-`@remotion/player`: the hero's showreel of the live client work, the
-pavletosic.com portfolio, the four process steps, and three vertical motion
-design formats. Each loads only when it comes near the screen, pauses off
-screen, has a pause button, and rests on a still frame under reduced motion.
-Their sizes and still frames live in `src/components/motion/specs.ts`, so the
+The homepage is cut as a film ("kadar po kadar"): opening titles on the
+first page of a visit, a poster-style title card, a showreel in a camera
+viewfinder that grows as it is scrolled into, a credits marquee, a statement
+that darkens word by word, three stacked expertise cards, the process as a
+pinned editing timeline with a playhead, a filterable work grid and a red
+closing scene. The scroll choreography is GSAP (ScrollTrigger, SplitText,
+Flip) with Lenis smooth scrolling, in the client components under
+`src/components/landing/`; every scene is server-rendered and readable
+without it, and none of it runs under reduced motion.
+
+The films are [Remotion](https://www.remotion.dev) compositions in
+`src/components/motion/films/`, played live by `@remotion/player`: the
+showreel of the real client work, the websites and apps genres, a motion
+design format, and the pavletosic.com portfolio. Each loads only near the
+screen, pauses off it, has a pause button, and rests on a still frame under
+reduced motion. Their sizes live in `src/components/motion/specs.ts`, so the
 page reserves their space before Remotion arrives.
 
-The brand is "Jadran": warm paper, deep sea ink and one sun, set in Archivo.
-The tokens are the `@theme` block in `src/app/globals.css`; the mark is
-`BrandMark` in `src/components/BrandWordmark.tsx`, and
-`node scripts/brand-assets.mjs` redraws the favicons from it.
+The brand is red and white on the studio's original red: the tokens are the
+`@theme` block in `src/app/globals.css`, the mark is `BrandMark` in
+`src/components/BrandWordmark.tsx`, `node scripts/brand-assets.mjs` redraws
+the favicons from it and `node scripts/work-thumbs.mjs` cuts the work grid's
+tiles from the phone captures.

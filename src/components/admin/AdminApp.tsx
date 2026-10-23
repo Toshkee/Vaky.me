@@ -173,8 +173,8 @@ export function AdminApp() {
                     }}
                     className={`inline-flex min-h-11 items-center px-3 text-sm font-semibold transition-colors ${
                       active
-                        ? "text-sun-ink underline decoration-sun decoration-2 underline-offset-8"
-                        : "hover:text-sun-ink"
+                        ? "text-red underline decoration-red decoration-2 underline-offset-8"
+                        : "hover:text-red"
                     }`}
                   >
                     {item.label}

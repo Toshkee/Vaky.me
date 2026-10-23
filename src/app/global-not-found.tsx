@@ -28,7 +28,7 @@ export default function GlobalNotFound() {
           </Button>
           <Link
             href="/"
-            className="font-semibold underline decoration-sun decoration-2 underline-offset-8 transition-colors hover:text-sun-ink"
+            className="font-semibold underline decoration-red decoration-2 underline-offset-8 transition-colors hover:text-red"
           >
             Nazad na početnu
           </Link>

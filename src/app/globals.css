@@ -1,40 +1,39 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── Vaky — "Jadran". Warm paper, deep sea ink, and one sun. The sun is a
-     fill, never a line of text on paper: it reaches only 2.48:1 there. Where
-     the accent has to be read as text, it is `sun-ink`. ── */
-  --color-paper: #f2ede4;
-  /* the one tinted surface: alternating sections, fields, phone screens */
-  --color-paper-2: #e8e0d2;
-  /* 12.52:1 on paper */
-  --color-ink: #0a2e2b;
-  /* a raised surface on the ink band — cards inside the dark sections */
-  --color-ink-2: #123b37;
-  /* 5.80:1 on paper, 5.16:1 on paper-2 */
-  --color-muted: #4d5f5b;
-  /* body copy on the ink band: 7.41:1 on ink, 6.25:1 on ink-2 */
-  --color-muted-dark: #a9bdb8;
+  /* ── Vaky — "Kadar po kadar". The site as a film: warm white stock, black
+     for the type and the dark scenes, and one red — the studio's red from
+     the first vaky.me. White on the red is 6.22:1, so a whole scene can be
+     red with white type on it. ── */
+  --color-paper: #faf8f4;
+  /* the one tinted surface: alternating scenes, fields, phone screens */
+  --color-paper-2: #f1ede6;
+  /* 17.94:1 on paper */
+  --color-ink: #101010;
+  /* a raised surface inside the dark scenes */
+  --color-ink-2: #1c1b1a;
+  /* 6.33:1 on paper, 5.76:1 on paper-2 */
+  --color-muted: #5c5c58;
+  /* body copy in the dark scenes: 7.37:1 on ink, 6.66:1 on ink-2 */
+  --color-muted-dark: #a3a19b;
   /* decorative hairlines only; a border that has to be seen is line-strong */
-  --color-line: #c9c0b0;
-  /* 3.17:1 on paper, the non-text minimum for a field's edge */
-  --color-line-strong: #8c8475;
+  --color-line: #e2ded6;
+  /* 3.33:1 on paper, the non-text minimum for a field's edge */
+  --color-line-strong: #8c8880;
 
-  /* The sun. Ink on it is 5.11:1, so a sun button carries ink, not white. */
-  --color-sun: #ff6a2b;
-  /* hover for a sun fill: lighter, so ink on it rises to 6.03:1 */
-  --color-sun-hover: #ff8450;
-  /* the accent as text: 5.46:1 on paper, 4.86:1 on paper-2, white on it 6.37:1 */
-  --color-sun-ink: #a93a0c;
-  /* sea foam: shapes and highlights; 9.23:1 under ink text */
-  --color-foam: #9ed9cf;
+  /* The red. 5.87:1 as text on paper, and white on it is 6.22:1. */
+  --color-red: #c1121f;
+  /* pressed and hovered red; white on it is 9.38:1 */
+  --color-red-deep: #8f0d18;
+  /* red as text on black, where the brand red only reaches 3.06:1: 5.11:1 */
+  --color-red-bright: #ef4550;
 
   /* Errors and nothing else. 5.64:1 on paper. */
   --color-danger: #b42318;
-  /* status green: the ONLINE light and "done". 5.54:1 on paper. */
-  --color-ok: #276b3a;
-  /* "waiting on the client" on the dashboard. 5.94:1 on paper. */
-  --color-amber: #7a5200;
+  /* status green: the ONLINE light and "done". 4.79:1 on paper. */
+  --color-ok: #2e7d44;
+  /* "waiting on the client" on the dashboard. 4.98:1 on paper-2. */
+  --color-amber: #8a5c00;
 
   --font-sans: var(--font-archivo);
 
@@ -47,8 +46,7 @@
 }
 
 /* Everything below lives in `base` or `components` on purpose: unlayered CSS
-   outranks ALL of Tailwind's layered utilities regardless of specificity, so
-   an unlayered `.headline { line-height: 1 }` would defeat `leading-snug`. */
+   outranks ALL of Tailwind's layered utilities regardless of specificity. */
 
 @layer base {
   :root {
@@ -57,6 +55,21 @@
 
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Lenis drives the scroll on the landing page; the browser's own smoothing
+     would fight it. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: clip;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -73,86 +86,114 @@
   }
 
   ::selection {
-    background: var(--color-sun);
-    color: var(--color-ink);
+    background: var(--color-red);
+    color: #ffffff;
   }
 
-  /* Keyboard focus. Ink on paper, sun on the ink band. The demo sites each
-     define their own ring in their own palette. */
+  /* Keyboard focus: ink on paper, the bright red in the dark scenes, white
+     on the red ones. The demo sites each define their own. */
   :focus-visible {
     outline: 2px solid var(--color-ink);
     outline-offset: 3px;
   }
 
   .on-ink :focus-visible {
-    outline-color: var(--color-sun);
+    outline-color: var(--color-red-bright);
   }
 
-  /* A paper card set on the ink band (the contact form) is paper again. */
+  .on-red :focus-visible {
+    outline-color: #ffffff;
+  }
+
+  /* A paper card set inside a dark scene is paper again. */
   .on-paper :focus-visible {
     outline-color: var(--color-ink);
   }
 }
 
 @layer components {
-  /* ── Headlines ──
-     Archivo at its heavy end, opened up on the width axis. It is one family
-     with the body copy, so the contrast comes from weight, width and size
-     rather than from a second face. */
-  .headline {
+  /* ── Type ──
+     One family, Archivo, used two ways. `display` is the poster: capitals,
+     narrowed on the width axis, heavy and packed tight, the way film titles
+     are set. `headline` is the reading heading under it, at normal width. */
+  .display {
     font-family: var(--font-sans);
-    font-weight: 800;
-    font-stretch: 110%;
-    line-height: 1.02;
-    letter-spacing: -0.025em;
+    font-weight: 850;
+    font-stretch: 68%;
+    line-height: 0.86;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
     text-wrap: balance;
   }
 
-  /* The hero and the section titles: the same face pushed further, tighter. */
-  .display {
-    font-weight: 850;
-    font-stretch: 115%;
-    line-height: 0.95;
-    letter-spacing: -0.045em;
+  .headline {
+    font-family: var(--font-sans);
+    font-weight: 750;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
   }
 
-  /* ── The marker ──
-     The one accent a headline gets: a block of sun behind a word or two,
-     drawn left to right. It is the same move the motion design videos use on
-     their captions, so the site and the videos sell in one voice.
-
-     Drawn as soon as it scrolls into view where the browser can tie an
-     animation to scrolling; everywhere else, and under reduced motion, it is
-     simply there. `mark--now` draws it once on load instead, for the hero,
-     which is in view before anyone scrolls. */
-  .mark {
-    position: relative;
-    z-index: 0;
-    padding-inline: 0.1em;
-    margin-inline: -0.02em;
-    color: var(--color-ink);
-    /* a marker is a word or two; split over two lines it would draw one
-       block across both */
-    white-space: nowrap;
-    view-timeline-name: --mark;
+  /* Film-credit small caps: labels, scene numbers, the fine print of a
+     poster. */
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
   }
 
-  .mark::before {
+  /* A recording light in front of a label. It pulses only where motion is
+     welcome. */
+  .rec::before {
     content: "";
-    position: absolute;
-    inset: 0.1em 0 0.02em;
-    z-index: -1;
-    background: var(--color-sun);
-    transform-origin: left center;
+    display: inline-block;
+    width: 0.6em;
+    height: 0.6em;
+    margin-right: 0.7em;
+    border-radius: 50%;
+    background: var(--color-red);
+    vertical-align: 0.05em;
+  }
+
+  .on-ink .rec::before {
+    background: var(--color-red-bright);
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .mark--now::before {
+    .rec::before {
+      animation: rec-blink 1.6s steps(1) infinite;
+    }
+  }
+
+  /* ── The marker ──
+     The one accent a headline gets: a red block behind a phrase, white type
+     on it, drawn left to right. The type stays ink until the block is under
+     it, so the phrase is never white on white while it draws. `mark--now`
+     draws on load (the hero); the rest draw as they scroll into view where
+     the browser ties animations to scrolling, and are simply there
+     everywhere else. */
+  .mark {
+    padding-inline: 0.06em;
+    color: #ffffff;
+    background: linear-gradient(var(--color-red), var(--color-red)) no-repeat left center / 100% 92%;
+    /* on a narrow phone the phrase may break; each line gets its own block */
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    view-timeline-name: --mark;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mark--now {
       animation: mark-wipe 0.8s var(--ease-out) 0.35s both;
     }
 
+    html[data-intro="play"] .mark--now {
+      animation-delay: 2.7s;
+    }
+
     @supports (animation-timeline: view()) {
-      .mark:not(.mark--now)::before {
+      .mark:not(.mark--now) {
         animation: mark-wipe linear both;
         animation-timeline: --mark;
         animation-range: entry 40% cover 40%;
@@ -160,18 +201,15 @@
     }
   }
 
-  /* Prices and figures line up in columns */
   .tnum {
     font-variant-numeric: tabular-nums lining-nums;
   }
 
-  /* ── The page rail ──
-     One width and one gutter for the masthead, every section and the footer,
-     so the left edge of the site is a single unbroken line down the page. */
+  /* ── The page rail ── */
   .shell {
     margin-inline: auto;
     width: 100%;
-    max-width: 76rem;
+    max-width: 80rem;
     padding-inline: 1.25rem;
   }
 
@@ -181,37 +219,11 @@
     }
   }
 
-  /* Small caps label, with the sun as its bullet. */
-  .eyebrow {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  .eyebrow--dot {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6em;
-  }
-
-  .eyebrow--dot::before {
-    content: "";
-    width: 0.55em;
-    height: 0.55em;
-    border-radius: 50%;
-    background: var(--color-sun);
-    flex: none;
-  }
-
-  /* ── Buttons ──
-     A pill. The colours come from utilities at the call site; this only
-     carries the shape, the edge and the press. */
+  /* ── Buttons ── a pill; colours come from utilities at the call site. */
   .btn {
     border: 1.5px solid var(--color-ink);
     border-radius: 999px;
     font-weight: 600;
-    letter-spacing: -0.005em;
     transition:
       background-color 0.2s ease,
       color 0.2s ease,
@@ -223,23 +235,25 @@
     scale: 0.97;
   }
 
-  /* The sun button. The ink edge is what keeps it from melting into the sun
-     shapes around it in the films. */
   .btn-primary {
-    border-color: var(--color-ink);
+    border-color: var(--color-red);
   }
 
-  .on-ink .btn {
-    border-color: var(--color-paper);
+  .on-ink .btn,
+  .on-red .btn {
+    border-color: currentColor;
   }
 
   .on-ink .btn-primary {
-    border-color: var(--color-sun);
+    border-color: var(--color-red);
   }
 
-  .on-paper .btn,
-  .on-paper .btn-primary {
+  .on-paper .btn {
     border-color: var(--color-ink);
+  }
+
+  .on-paper .btn-primary {
+    border-color: var(--color-red);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -252,18 +266,13 @@
     }
   }
 
-  /* A surface that needs a frame: paper, a hairline, soft corners. Cards are
-     never nested; a card inside a card is a section that lost its way. */
   .card {
     border: 1px solid var(--color-line);
     border-radius: 1.25rem;
     background: var(--color-paper);
   }
 
-  /* ── Nav section indicator ──
-     The section you are in gets a short sun rule under its label. It is the
-     one place in the masthead where motion does real work: the rule slides
-     between labels, so the eye follows one object instead of two blinking. */
+  /* ── Nav section indicator ── a short red rule under the current label. */
   .nav-link {
     position: relative;
   }
@@ -271,13 +280,11 @@
   .nav-link::after {
     content: "";
     position: absolute;
-    inset-inline: 0.5rem;
-    bottom: 0.4rem;
+    inset-inline: 0.75rem;
+    bottom: 0.45rem;
     height: 2px;
-    border-radius: 2px;
-    background: var(--color-sun);
+    background: var(--color-red);
     transform: scaleX(0);
-    transform-origin: center;
   }
 
   .nav-link[aria-current]::after {
@@ -290,8 +297,7 @@
     }
   }
 
-  /* ── Tap target: expands the hit area to 44px without moving the text.
-     Uses ::before so it never collides with an underline drawn on ::after. ── */
+  /* ── Tap target: expands the hit area to 44px without moving the text. ── */
   .tap {
     position: relative;
   }
@@ -308,8 +314,6 @@
     min-height: 44px;
   }
 
-  /* Same guarantee for nav links and one-tap contact links across every page,
-     including the demo sites — phones need 44px even when the text is 12px. */
   :where(nav a, a[href^="tel:"], a[href^="viber:"], a[href*="wa.me"]) {
     position: relative;
   }
@@ -326,11 +330,7 @@
     min-height: 44px;
   }
 
-  /* ── Skip link ──
-     The first thing in the tab order on every page, parked above the top edge
-     until it takes focus. Moved with a transform rather than hidden: anything
-     that hides it also takes it out of the tab order. It stays an opaque ink
-     slab so it reads on the studio's paper and on every demo palette. */
+  /* ── Skip link ── parked above the top edge until it takes focus. */
   .skip-link {
     position: fixed;
     top: 0.5rem;
@@ -346,7 +346,7 @@
 
   .skip-link:focus-visible {
     transform: translateY(0);
-    outline: 2px solid var(--color-sun);
+    outline: 2px solid var(--color-red-bright);
     outline-offset: 2px;
   }
 
@@ -356,11 +356,8 @@
     }
   }
 
-  /* ── Choice tiles ──
-     The radio or checkbox inside a tile is visually hidden but still the real
-     control, so the ring has to be drawn on the tile that stands in for it.
-     `:has()` rather than `:focus-within` on purpose: the latter also fires on
-     a mouse click, which would ring every option somebody taps. */
+  /* ── Choice tiles: the ring is drawn on the tile standing in for the real
+     radio or checkbox inside it. ── */
   .pick:has(:focus-visible) {
     outline: 2px solid var(--color-ink);
     outline-offset: 3px;
@@ -379,17 +376,18 @@
   details.faq-item .faq-toggle {
     transition:
       transform 0.25s var(--ease-out),
-      background-color 0.2s ease;
+      background-color 0.2s ease,
+      color 0.2s ease;
   }
 
   details.faq-item[open] .faq-toggle {
     transform: rotate(45deg);
-    background: var(--color-sun);
+    background: var(--color-red);
+    border-color: var(--color-red);
+    color: #ffffff;
   }
 
-  /* ── A line someone says ──
-     The onboarding's asides, set as a chat bubble: the same shape the films
-     use for a message, so a note from the studio looks like one. */
+  /* ── A line someone says (the onboarding's asides) ── */
   .say {
     position: relative;
     border-radius: 1.1rem 1.1rem 1.1rem 0.3rem;
@@ -397,7 +395,7 @@
     color: var(--color-paper);
   }
 
-  /* ── Progress bars ── (onboarding steps, uploads) */
+  /* ── Progress bars ── */
   .meter {
     height: 0.5rem;
     border-radius: 999px;
@@ -408,7 +406,7 @@
   .meter-fill {
     height: 100%;
     border-radius: 999px;
-    background: var(--color-sun);
+    background: var(--color-red);
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -417,12 +415,7 @@
     }
   }
 
-  /* ── The hold-to-confirm button ──
-     A destructive action is confirmed by holding the button down, not by
-     pressing it twice. While it is held, a band along the bottom fills left
-     to right, and the action fires when it reaches the end. Let go early and
-     it snaps back. The band is the feedback, so it plays under every motion
-     setting: a progress bar is information, not decoration. */
+  /* ── The hold-to-confirm button (dashboard) ── */
   .hold-btn {
     position: relative;
     isolation: isolate;
@@ -448,41 +441,7 @@
     animation: hold-fill var(--hold-ms) steps(8, end) forwards;
   }
 
-  /* ── The process list ──
-     While the process film plays, the step it is on lights in the list
-     (FilmStage sets data-step). Set here rather than as utilities because
-     utilities would outrank the lit state. */
-  .process-num {
-    background: transparent;
-    color: var(--color-paper);
-    border: 1.5px solid color-mix(in srgb, var(--color-paper) 35%, transparent);
-  }
-
-  .process-stage[data-step="0"] .process-step:nth-child(1) .process-num,
-  .process-stage[data-step="1"] .process-step:nth-child(2) .process-num,
-  .process-stage[data-step="2"] .process-step:nth-child(3) .process-num,
-  .process-stage[data-step="3"] .process-step:nth-child(4) .process-num {
-    background: var(--color-sun);
-    border-color: var(--color-sun);
-    color: var(--color-ink);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .process-num {
-      transition:
-        background-color 0.3s ease,
-        border-color 0.3s ease,
-        color 0.3s ease;
-    }
-  }
-
-  /* ── The Radovi phone ──
-     A site's opening screens, as one tall capture behind a phone-shaped
-     window. The screen is a size container so the page can slide up by
-     exactly its own overhang. It plays only once the phone is on screen
-     (`is-live`, set by `useInView`), rests at each end, and holds still under
-     the pointer. Without JavaScript, or with less motion asked for, it is a
-     still of the top of the page. ── */
+  /* ── The phone captures (trade pages, the work grid) ── */
   .phone-screen {
     container-type: size;
     position: relative;
@@ -503,14 +462,60 @@
       animation-play-state: paused;
     }
   }
+
+  /* ════════════════════════════════════════════════════════════════════
+     The film. Everything below belongs to the landing page's scenes.
+     ════════════════════════════════════════════════════════════════════ */
+
+  /* ── The opening titles ──
+     Hidden unless the inline gate in LandingPage decided this visit gets
+     them (first page of the session, motion welcome). If the script that
+     plays them never runs, they still get out of the way on their own. */
+  .intro {
+    display: none;
+  }
+
+  html[data-intro="play"] .intro {
+    display: block;
+    animation: intro-failsafe 0.01s 6s forwards;
+  }
+
+  /* ── The viewfinder: four corner brackets around a frame ── */
+  .viewfinder-corner {
+    position: absolute;
+    width: clamp(1rem, 2.4vw, 2.25rem);
+    height: clamp(1rem, 2.4vw, 2.25rem);
+    border-color: currentColor;
+    pointer-events: none;
+  }
+
+  /* ── The work grid's cursor ── fine pointers only; touch never sees it. */
+  .cursor {
+    display: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cursor {
+      display: flex;
+    }
+  }
+
+  /* ── The scene card stack (Ekspertiza) ── */
+  .scene-card {
+    position: sticky;
+    top: 5.5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scene-card {
+      position: relative;
+      top: auto;
+    }
+  }
 }
 
 @layer base {
-  /* ── The dashboard's ground ──
-     /admin sits on the sand one step below the cards, which is what lifts
-     each panel off the ground without a shadow doing the work. The
-     `html:has()` arm carries the ground onto the document, so an overscroll
-     bounce is the same colour as the page. */
+  /* ── The dashboard's ground ── */
   [data-surface="admin"],
   html:has([data-surface="admin"]) {
     background: var(--color-paper-2);
@@ -521,10 +526,33 @@
 
 @keyframes mark-wipe {
   from {
-    transform: scaleX(0);
+    background-size: 0% 92%;
+    color: var(--color-ink);
+  }
+  65% {
+    color: var(--color-ink);
   }
   to {
-    transform: scaleX(1);
+    background-size: 100% 92%;
+    color: #ffffff;
+  }
+}
+
+@keyframes rec-blink {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  61%,
+  100% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes intro-failsafe {
+  to {
+    visibility: hidden;
+    pointer-events: none;
   }
 }
 
@@ -534,8 +562,6 @@
   }
 }
 
-/* The Radovi phone paging through a site: hold at the top, travel the
-   overhang, hold at the bottom; `alternate` brings it back the same way. */
 @keyframes phone-scroll {
   0%,
   12% {
@@ -548,8 +574,7 @@
   }
 }
 
-/* Lucky Chopsticks menu: each category moves like a fresh page sliding into
-   an opened menu, while reduced-motion users receive the new content plainly. */
+/* Lucky Chopsticks menu (its demo page) */
 @keyframes lucky-page {
   from {
     opacity: 0;

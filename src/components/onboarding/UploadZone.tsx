@@ -157,7 +157,7 @@ export function UploadZone({
           if (!full) void accept(Array.from(event.dataTransfer.files));
         }}
         className={`mt-3 rounded-2xl border-[1.5px] border-dashed px-4 py-5 text-center transition-colors ${
-          dragging ? "border-sun-ink bg-paper-2" : "border-line bg-paper-2/60"
+          dragging ? "border-red bg-paper-2" : "border-line bg-paper-2/60"
         }`}
       >
         <p className="hidden text-sm text-muted sm:block">{copy.upload.drop}</p>
@@ -177,7 +177,7 @@ export function UploadZone({
         <label
           htmlFor={inputId}
           className={`btn tap mt-0 inline-flex min-h-11 cursor-pointer items-center bg-paper px-5 py-2 text-[0.95rem] text-ink transition-colors sm:mt-3 ${
-            full ? "pointer-events-none opacity-50" : "hover:text-sun-ink"
+            full ? "pointer-events-none opacity-50" : "hover:text-red"
           }`}
         >
           {copy.upload.browse}
@@ -205,7 +205,7 @@ export function UploadZone({
               type="button"
               onClick={() => void drop(file.id)}
               aria-label={fill(copy.upload.removeLabel, { name: file.name })}
-              className="tap shrink-0 px-2 py-1 text-sm font-semibold text-muted underline decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
+              className="tap shrink-0 px-2 py-1 text-sm font-semibold text-muted underline decoration-2 underline-offset-4 transition-colors hover:text-red"
             >
               {copy.upload.remove}
             </button>
@@ -234,7 +234,7 @@ export function UploadZone({
                   item.cancel?.();
                   setPending((items) => items.filter((entry) => entry.key !== item.key));
                 }}
-                className="tap shrink-0 px-2 py-1 text-sm font-semibold text-muted underline decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
+                className="tap shrink-0 px-2 py-1 text-sm font-semibold text-muted underline decoration-2 underline-offset-4 transition-colors hover:text-red"
               >
                 {item.failed ? copy.upload.retry : copy.upload.remove}
               </button>

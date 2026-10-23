@@ -123,7 +123,7 @@ export function PortfolioFilm({ url, question, label }: PortfolioFilmProps) {
             width: 56,
             height: 56,
             borderRadius: "50%",
-            border: `4px solid ${C.sun}`,
+            border: `4px solid ${C.red}`,
             opacity: 1 - click,
             transform: `scale(${0.4 + click})`,
           }}
@@ -146,7 +146,7 @@ export function PortfolioFilm({ url, question, label }: PortfolioFilmProps) {
               fontWeight: 600,
             }}
           >
-            <span style={{ width: 16, height: 16, borderRadius: "50%", background: C.sun }} />
+            <span style={{ width: 16, height: 16, borderRadius: "50%", background: C.redBright }} />
             {label}
           </div>
         </FadeUp>

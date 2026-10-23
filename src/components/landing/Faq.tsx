@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/i18n";
 import { PlusIcon } from "./icons";
+import { SceneLabel } from "./SectionHead";
 
 /**
  * Native <details> rows: keyboard, screen readers and find-in-page work
@@ -8,12 +9,11 @@ import { PlusIcon } from "./icons";
  */
 export function Faq({ dict }: { dict: Dictionary }) {
   return (
-    <section>
-      <div className="shell grid gap-10 py-20 sm:py-28 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
-        <div>
-          <h2 className="headline display text-[clamp(2.25rem,5.2vw,4.25rem)] lg:sticky lg:top-28">
-            {dict.faq.title}
-          </h2>
+    <section data-scene={dict.film.scenes.faq}>
+      <div className="shell grid gap-10 py-24 sm:py-32 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          <SceneLabel word={dict.film.scene} n={8} name={dict.film.scenes.faq} />
+          <h2 className="display mt-6 text-[clamp(3rem,7vw,6.5rem)]">{dict.faq.title}</h2>
         </div>
 
         <div className="border-t border-line-strong">

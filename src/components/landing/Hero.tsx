@@ -1,115 +1,70 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import type { Dictionary } from "@/i18n";
 import { Button } from "@/components/ui/Button";
-import { Film } from "@/components/motion/Film";
-import type { HeroFilmProject } from "@/components/motion/films/HeroFilm";
+import { INTRO_REVEAL, SplitText, gsap } from "@/components/motion/gsap";
 import { ArrowIcon } from "./icons";
-import { isLive } from "./ProjectCase";
-import { Marked } from "./SectionHead";
+import { Marked, SceneLabel } from "./SectionHead";
 
 /**
- * The hero's facts with their counts filled in. Counted from the portfolio,
- * not typed in: a project with an absolute href is a client site running on
- * its own domain, everything else is a concept on this site. The trade pages
- * print the same facts.
+ * Scene one: the title card. The promise set as a film poster, in capitals
+ * across the whole width, with the deadline under the red marker.
+ *
+ * When the opening titles play, the poster's lines rise out of their own
+ * baselines as the curtain opens; on any later page of the visit the poster
+ * is simply there.
  */
-export function heroFacts(dict: Dictionary) {
-  const projects = dict.work.items.flatMap((item) => item.projects);
-  const live = projects.filter((project) => isLive(project.href)).length;
-  const counts: Record<string, string> = { "{live}": String(live), "{concepts}": String(projects.length - live) };
-  return dict.hero.facts.map((fact) => ({ label: fact.label, value: counts[fact.value] ?? fact.value }));
-}
-
 export function Hero({ dict }: { dict: Dictionary }) {
-  const live = dict.work.items.flatMap((item) => item.projects).filter((project) => isLive(project.href));
+  const title = useRef<HTMLHeadingElement>(null);
+  const rest = useRef<HTMLDivElement>(null);
 
-  /* The film shows the same live work the portfolio lists, captioned in the
-     portfolio's own words. */
-  const site = (project: (typeof live)[number]): HeroFilmProject => ({
-    slug: project.slug,
-    label: dict.work.liveLabel,
-    name: project.name,
-    tag: project.tag,
-  });
-  const { app } = dict.work;
+  useEffect(() => {
+    if (document.documentElement.dataset.intro !== "play" || !title.current) return;
+    const split = SplitText.create(title.current, { type: "lines", mask: "lines" });
+    gsap.set(split.lines, { yPercent: 110 });
+    gsap.set(rest.current, { opacity: 0, y: 30 });
+    const play = () => {
+      gsap.to(split.lines, { yPercent: 0, duration: 1.2, stagger: 0.08, ease: "expo.out", delay: 0.15 });
+      gsap.to(rest.current, { opacity: 1, y: 0, duration: 1, ease: "expo.out", delay: 0.5 });
+    };
+    window.addEventListener(INTRO_REVEAL, play, { once: true });
+    return () => {
+      window.removeEventListener(INTRO_REVEAL, play);
+      split.revert();
+    };
+  }, []);
 
   return (
-    <section className="overflow-hidden">
-      <div className="shell grid gap-10 pt-10 pb-14 sm:pt-16 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-center lg:gap-10 lg:pt-12 lg:pb-20">
-        <div className="relative z-10">
-          <p className="eyebrow eyebrow--dot">{dict.hero.eyebrow}</p>
+    <section data-scene={dict.film.scenes.hero} className="pt-8 sm:pt-12">
+      <div className="shell">
+        <div className="flex items-center justify-between gap-4 border-b border-line pb-4">
+          <p className="eyebrow rec">{dict.hero.eyebrow}</p>
+          <SceneLabel word={dict.film.scene} n={1} name={dict.film.scenes.hero} className="hidden sm:block" />
+        </div>
 
-          <h1 className="headline display mt-6 text-[clamp(2.75rem,6.2vw,5.4rem)]">
-            {dict.hero.titleA}
-            <br />
-            <Marked text={dict.hero.titleB} mark={dict.hero.titleMark} now />
-          </h1>
+        <h1 ref={title} className="display mt-8 text-[clamp(3.25rem,10.4vw,10.75rem)] sm:mt-10">
+          {dict.hero.titleA} <Marked text={dict.hero.titleB} mark={dict.hero.titleMark} now />
+        </h1>
 
-          <p className="mt-7 max-w-[32ch] text-lg leading-relaxed text-muted sm:text-xl">{dict.hero.sub}</p>
-
-          {/* One action carries the page. "See the work" is the same journey
-              one scroll further down, so it is a link, not a second pill
-              competing with the thing the page wants pressed. */}
-          <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
+        <div ref={rest} className="mt-10 grid gap-8 sm:mt-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+          <p className="max-w-[40ch] text-lg leading-relaxed text-muted sm:text-xl">{dict.hero.sub}</p>
+          {/* One action carries the page; the work is the same journey one
+              scroll further down, so it is a link, not a second button. */}
+          <div className="flex flex-wrap items-center gap-x-7 gap-y-4">
             <Button href="#kontakt" arrow event="hero_primary_cta">
               {dict.hero.ctaPrimary}
             </Button>
             <a
               href="#radovi"
-              className="group inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-sun decoration-2 underline-offset-[6px] transition-colors hover:text-sun-ink"
+              className="group inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-red decoration-2 underline-offset-[6px] transition-colors hover:text-red"
             >
               {dict.hero.ctaSecondary}
               <ArrowIcon className="size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none" />
             </a>
           </div>
-
-          {/* Where, how much is live, how much is drawn, which languages —
-              set as a table, not as claims. */}
-          <dl className="mt-12 grid max-w-xl grid-cols-2 gap-x-6 gap-y-5 border-t border-line pt-6 sm:grid-cols-4">
-            {heroFacts(dict).map((fact) => (
-              <div key={fact.label}>
-                <dt className="text-sm text-muted">{fact.label}</dt>
-                <dd className="headline tnum mt-1.5 text-xl">{fact.value}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
-
-        <Film
-          source={{
-            kind: "hero",
-            inputProps: {
-              sites: [site(live[0]), site(live[1])],
-              app: {
-                label: app.label,
-                name: app.name,
-                tag: app.tag,
-                screens: [app.screens[0].slug, app.screens[1].slug, app.screens[2].slug],
-              },
-            },
-          }}
-          labels={{ play: dict.motion.play, pause: dict.motion.pause }}
-          poster={<SeaPoster />}
-          className="mx-auto w-full max-w-[34rem] overflow-hidden rounded-[2rem] bg-paper-2 lg:mr-0 lg:max-w-none"
-          controlsClassName="right-4 top-4"
-        />
       </div>
     </section>
-  );
-}
-
-/** The film's opening frame — calm sea under an empty sky — drawn in the
-    page itself, so the box is never blank while the film loads. */
-function SeaPoster() {
-  return (
-    <svg viewBox="0 0 1080 1200" className="size-full" preserveAspectRatio="none">
-      <path d="M0 905c90-14 180-14 270 0s180 14 270 0 180-14 270 0 180 14 270 0V1200H0Z" fill="var(--color-ink)" />
-      <path
-        d="M0 951c90-10 180-10 270 0s180 10 270 0 180-10 270 0 180 10 270 0"
-        fill="none"
-        stroke="var(--color-foam)"
-        strokeWidth="8"
-        strokeLinecap="round"
-      />
-    </svg>
   );
 }

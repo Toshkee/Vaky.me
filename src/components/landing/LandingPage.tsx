@@ -1,38 +1,57 @@
 import type { Dictionary } from "@/i18n";
-import { Nav } from "./Nav";
-import { Hero } from "./Hero";
-import { About } from "./About";
-import { Work } from "./Work";
-import { Pricing } from "./Pricing";
-import { Process } from "./Process";
-import { Reels } from "./Reels";
-import { Faq } from "./Faq";
-import { Contact } from "./Contact";
-import { Footer } from "./Footer";
 import { StructuredData } from "@/components/StructuredData";
 import { SkipLink } from "@/components/ui/SkipLink";
+import { Contact } from "./Contact";
+import { CtaBand } from "./CtaBand";
+import { Expertise } from "./Expertise";
+import { Faq } from "./Faq";
+import { FilmCursor } from "./FilmCursor";
+import { Footer } from "./Footer";
+import { Hero } from "./Hero";
+import { INTRO_GATE, IntroCredits } from "./IntroCredits";
+import { Nav } from "./Nav";
+import { Pricing } from "./Pricing";
+import { ScrollStage } from "./ScrollStage";
+import { Showreel } from "./Showreel";
+import { Starring } from "./Starring";
+import { Statement } from "./Statement";
+import { Timeline } from "./Timeline";
+import { WorkGrid } from "./WorkGrid";
 
+/**
+ * The landing page, cut as a film: opening titles, a title card, the
+ * showreel, the cast, then one scene per thing a visitor needs — who, what,
+ * how, what has been made, what it costs — and the red closing scene before
+ * the credits. Every scene is server-rendered and readable without a line of
+ * script; the motion is laid over it on the client.
+ */
 export function LandingPage({ dict }: { dict: Dictionary }) {
   return (
     <>
+      {/* Before anything paints: does this visit get the opening titles? */}
+      <script dangerouslySetInnerHTML={{ __html: INTRO_GATE }} />
+      <IntroCredits copy={dict.film.intro} />
       <StructuredData dict={dict} />
       <SkipLink>{dict.nav.skip}</SkipLink>
       <Nav dict={dict} />
-      {/* `tabIndex={-1}` is what makes the skip link work rather than merely
-          scroll: without it the browser moves the viewport and leaves focus on
-          <body>, so the next Tab goes straight back into the masthead the
-          visitor just asked to skip. */}
+      {/* `tabIndex={-1}` is what makes the skip link move focus, not just
+          the viewport. */}
       <main id="main" tabIndex={-1} className="focus:outline-none">
         <Hero dict={dict} />
-        <About dict={dict} />
-        <Work dict={dict} />
-        <Process dict={dict} />
-        <Reels dict={dict} />
+        <Showreel dict={dict} />
+        <Starring dict={dict} />
+        <Statement dict={dict} />
+        <Expertise dict={dict} />
+        <Timeline dict={dict} />
+        <WorkGrid dict={dict} />
         <Pricing dict={dict} />
         <Faq dict={dict} />
+        <CtaBand dict={dict} />
         <Contact dict={dict} />
       </main>
       <Footer dict={dict} />
+      <ScrollStage word={dict.film.scene} />
+      <FilmCursor />
     </>
   );
 }

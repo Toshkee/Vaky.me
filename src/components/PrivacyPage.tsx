@@ -42,7 +42,7 @@ export function PrivacyPage({ dict }: { dict: Dictionary }) {
           </Link>
           <Link
             href={dict.lang === "en" ? "/privacy/" : "/en/privacy/"}
-            className="tap font-bold transition-colors hover:text-sun-ink"
+            className="tap font-bold transition-colors hover:text-red"
             aria-label={dict.lang === "en" ? "Crnogorski" : "English"}
           >
             {dict.nav.langLabel}
@@ -71,7 +71,7 @@ export function PrivacyPage({ dict }: { dict: Dictionary }) {
           <p className="mt-12 border-t border-line pt-5">
             <Link
               href={home}
-              className="font-semibold underline decoration-sun decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
+              className="font-semibold underline decoration-red decoration-2 underline-offset-4 transition-colors hover:text-red"
             >
               ← {site.name}
             </Link>

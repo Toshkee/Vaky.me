@@ -35,7 +35,7 @@ export const sharedMetadata = {
 } satisfies Metadata;
 
 export const viewport: Viewport = {
-  themeColor: "#f2ede4",
+  themeColor: "#faf8f4",
 };
 
 export function RootHtml({
@@ -53,6 +53,9 @@ export function RootHtml({
   return (
     <html
       lang={lang}
+      /* The landing page's inline gate sets data-intro on this element before
+         React hydrates it; that one attribute is expected to differ. */
+      suppressHydrationWarning
       /* globals.css sets scroll-behavior: smooth. Next wants to know, so it
          can turn it off for the instant of a route change and back on
          after — without this it warns on every navigation in dev. */

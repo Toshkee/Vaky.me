@@ -15,17 +15,12 @@ export type FilmSpec = {
   still: number;
 };
 
-export const HERO_FILM: FilmSpec = { width: 1080, height: 1200, fps: 30, durationInFrames: 420, still: 120 };
+/** Four shots of real work, 120 frames each. */
+export const SHOWREEL_FILM: FilmSpec = { width: 1920, height: 1080, fps: 30, durationInFrames: 480, still: 70 };
 
-/** Four scenes of `PROCESS_SCENE` frames, one per step of the list beside it. */
-export const PROCESS_SCENE = 90;
-export const PROCESS_FILM: FilmSpec = {
-  width: 1000,
-  height: 1000,
-  fps: 30,
-  durationInFrames: PROCESS_SCENE * 4,
-  still: PROCESS_SCENE * 4 - 1,
-};
+/** The expertise cards: a site being built, the app being used. */
+export const SITE_FILM: FilmSpec = { width: 1000, height: 1000, fps: 30, durationInFrames: 240, still: 170 };
+export const APP_FILM: FilmSpec = { width: 1000, height: 1000, fps: 30, durationInFrames: 270, still: 40 };
 
 /** Vertical, the format the motion design videos are sold in. */
 export const REEL_FILM: FilmSpec = { width: 1080, height: 1920, fps: 30, durationInFrames: 240, still: 150 };

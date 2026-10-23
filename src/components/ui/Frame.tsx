@@ -25,7 +25,7 @@ export function Frame({
   return (
     <div className={`overflow-hidden rounded-[1.25rem] border border-line ${pane} ${className}`}>
       {title && (
-        <div aria-hidden="true" className="eyebrow eyebrow--dot border-b border-line px-5 py-3 text-muted">
+        <div aria-hidden="true" className="eyebrow border-b border-line px-5 py-3 text-muted">
           {title}
         </div>
       )}

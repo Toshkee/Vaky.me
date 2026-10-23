@@ -14,17 +14,27 @@ import { Easing, Img, interpolate, spring, useCurrentFrame, useVideoConfig } fro
  * tokens in globals.css — change one, change the other.
  */
 export const C = {
-  paper: "#f2ede4",
-  paper2: "#e8e0d2",
-  ink: "#0a2e2b",
-  ink2: "#123b37",
-  muted: "#4d5f5b",
-  mutedDark: "#a9bdb8",
-  line: "#c9c0b0",
-  sun: "#ff6a2b",
-  foam: "#9ed9cf",
-  ok: "#276b3a",
+  paper: "#faf8f4",
+  paper2: "#f1ede6",
+  ink: "#101010",
+  ink2: "#1c1b1a",
+  muted: "#5c5c58",
+  mutedDark: "#a3a19b",
+  line: "#e2ded6",
+  red: "#c1121f",
+  redDeep: "#8f0d18",
+  redBright: "#ef4550",
+  ok: "#2e7d44",
   white: "#ffffff",
+} as const;
+
+/** The poster face: Archivo narrowed on its width axis, in capitals. */
+export const POSTER = {
+  fontFamily: "var(--font-archivo), system-ui, sans-serif",
+  fontWeight: 850,
+  fontStretch: "68%",
+  textTransform: "uppercase",
+  lineHeight: 0.86,
 } as const;
 
 /** Archivo, loaded once by the root layout and inherited by the Player. */
@@ -98,28 +108,6 @@ export function FadeUp({
   );
 }
 
-/**
- * The sun's block behind a word, drawn left to right — the same marker the
- * site's headlines carry, so a film and the page around it speak alike.
- */
-export function Marker({ at, children }: { at: number; children: ReactNode }) {
-  const draw = useEntrance(at, 18);
-  return (
-    <span style={{ position: "relative", display: "inline-block", padding: "0 0.12em" }}>
-      <span
-        style={{
-          position: "absolute",
-          inset: "0.1em 0 0.02em",
-          background: C.sun,
-          transform: `scaleX(${draw})`,
-          transformOrigin: "left center",
-        }}
-      />
-      <span style={{ position: "relative" }}>{children}</span>
-    </span>
-  );
-}
-
 /** Text that types itself in, one character every `every` frames from `at`. */
 export function typed(text: string, frame: number, at: number, every = 2) {
   const count = Math.max(0, Math.min(text.length, Math.floor((frame - at) / every)));
@@ -134,12 +122,15 @@ export function Phone({
   width,
   height,
   screen = C.paper2,
+  body = C.ink,
   style,
   children,
 }: {
   width: number;
   height: number;
   screen?: string;
+  /** The bezel: ink on light grounds, paper on the dark ones. */
+  body?: string;
   style?: CSSProperties;
   children?: ReactNode;
 }) {
@@ -152,7 +143,7 @@ export function Phone({
         height,
         padding: bezel,
         borderRadius: width * 0.14,
-        background: C.ink,
+        background: body,
         ...style,
       }}
     >
@@ -199,43 +190,5 @@ export function Capture({
         transform: `translateY(${-travel * progress}px)`,
       }}
     />
-  );
-}
-
-/** A small rounded label: a coloured dot, then the words. */
-export function Chip({
-  children,
-  dot = C.sun,
-  tone = "light",
-  size = 34,
-  style,
-}: {
-  children: ReactNode;
-  dot?: string;
-  tone?: "light" | "dark";
-  size?: number;
-  style?: CSSProperties;
-}) {
-  return (
-    <div
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: size * 0.45,
-        padding: `${size * 0.42}px ${size * 0.7}px`,
-        borderRadius: 999,
-        background: tone === "light" ? C.paper : C.ink,
-        color: tone === "light" ? C.ink : C.paper,
-        fontFamily: FONT,
-        fontSize: size,
-        fontWeight: 600,
-        letterSpacing: "-0.01em",
-        whiteSpace: "nowrap",
-        ...style,
-      }}
-    >
-      <span style={{ width: size * 0.42, height: size * 0.42, borderRadius: "50%", background: dot, flex: "none" }} />
-      {children}
-    </div>
   );
 }

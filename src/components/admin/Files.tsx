@@ -129,7 +129,7 @@ function FileGroup({
             <span className="break-all">
               <a
                 href={fileHref(file.id)}
-                className="font-semibold underline decoration-line underline-offset-4 hover:text-sun-ink"
+                className="font-semibold underline decoration-line underline-offset-4 hover:text-red"
               >
                 {file.original_name}
               </a>
@@ -232,7 +232,7 @@ function Upload({ projectId, onUploaded }: { projectId: string; onUploaded: () =
       </div>
 
       {problem && (
-        <p role="alert" className="text-sm font-semibold text-sun-ink sm:col-span-2">
+        <p role="alert" className="text-sm font-semibold text-red sm:col-span-2">
           {problem}
         </p>
       )}

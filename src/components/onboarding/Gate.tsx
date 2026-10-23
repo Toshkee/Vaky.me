@@ -37,7 +37,7 @@ export function LanguageGate({
     <Frame>
       <div className="grid gap-6 p-5 sm:p-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
         <div>
-          <Tag tone="sun">{copy.gate.eyebrow}</Tag>
+          <Tag tone="red">{copy.gate.eyebrow}</Tag>
           <h1 id="ob-heading" tabIndex={-1} className="headline mt-4 text-3xl outline-none sm:text-4xl">
             {copy.gate.title}
           </h1>
@@ -64,7 +64,7 @@ export function LanguageGate({
                     <span
                       aria-hidden="true"
                       className={`grid h-5 w-5 shrink-0 place-items-center rounded-full border-[1.5px] border-ink ${
-                        checked ? "bg-sun" : "bg-paper"
+                        checked ? "bg-red" : "bg-paper"
                       }`}
                     >
                       {checked && <span className="block h-1.5 w-1.5 rounded-full bg-paper" />}
@@ -81,7 +81,7 @@ export function LanguageGate({
               type="button"
               onClick={onStart}
               disabled={!language}
-              className="btn btn-primary inline-flex min-h-12 items-center bg-sun px-7 py-3 text-ink hover:bg-sun-hover disabled:opacity-50"
+              className="btn btn-primary inline-flex min-h-12 items-center bg-red px-7 py-3 text-white hover:bg-red-deep disabled:opacity-50"
             >
               {copy.gate.action}
             </button>
@@ -116,7 +116,7 @@ export function ResumeCard({
   return (
     <Frame>
       <div className="p-5 sm:p-8">
-        <Tag tone="sun">{copy.gate.eyebrow}</Tag>
+        <Tag tone="red">{copy.gate.eyebrow}</Tag>
         <h1 id="ob-heading" tabIndex={-1} className="headline mt-4 text-2xl outline-none sm:text-3xl">
           {copy.resume.title}
         </h1>
@@ -126,7 +126,7 @@ export function ResumeCard({
           <button
             type="button"
             onClick={onContinue}
-            className="btn btn-primary inline-flex min-h-12 items-center bg-sun px-7 py-3 text-ink hover:bg-sun-hover"
+            className="btn btn-primary inline-flex min-h-12 items-center bg-red px-7 py-3 text-white hover:bg-red-deep"
           >
             {copy.resume.action}
           </button>
@@ -134,7 +134,7 @@ export function ResumeCard({
             type="button"
             onClick={() => (confirming ? onRestart() : setConfirming(true))}
             className={`tap text-sm font-semibold underline decoration-2 underline-offset-4 transition-colors ${
-              confirming ? "text-sun-ink" : "text-muted hover:text-sun-ink"
+              confirming ? "text-red" : "text-muted hover:text-red"
             }`}
           >
             {confirming ? copy.resume.restartConfirm : copy.resume.restart}
@@ -164,7 +164,7 @@ export function LinkProblem({
   return (
     <Frame>
       <div className="p-5 sm:p-8">
-        <Tag tone="sun">{copy.gate.eyebrow}</Tag>
+        <Tag tone="red">{copy.gate.eyebrow}</Tag>
         <h1 id="ob-heading" tabIndex={-1} className="headline mt-4 text-2xl outline-none sm:text-3xl">
           {title}
         </h1>
@@ -173,7 +173,7 @@ export function LinkProblem({
         <p className="mt-6 font-semibold">
           <a
             href={emailLink(title, "")}
-            className="inline-flex min-h-11 items-center underline decoration-2 underline-offset-4 transition-colors hover:text-sun-ink"
+            className="inline-flex min-h-11 items-center underline decoration-2 underline-offset-4 transition-colors hover:text-red"
           >
             {site.email}
           </a>

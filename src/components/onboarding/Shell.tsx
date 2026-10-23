@@ -57,7 +57,7 @@ export function Shell({
               type="button"
               onClick={onLanguage}
               aria-label={`${copy.chrome.languageLabel}: ${copy.chrome.otherLanguage}`}
-              className="tap px-1 text-sm font-bold transition-colors hover:text-sun-ink"
+              className="tap px-1 text-sm font-bold transition-colors hover:text-red"
             >
               {copy.chrome.otherLanguage}
             </button>
@@ -96,7 +96,7 @@ export function Shell({
           {showHome && (
             <Link
               href="/"
-              className="inline-flex min-h-11 items-center underline decoration-line underline-offset-4 hover:text-sun-ink"
+              className="inline-flex min-h-11 items-center underline decoration-line underline-offset-4 hover:text-red"
             >
               {copy.chrome.home}
             </Link>

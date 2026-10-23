@@ -84,7 +84,7 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
                 <div className={`border-b p-6 sm:p-7 ${featured ? "border-ink-2" : "border-line"}`}>
                   <div className="flex items-center justify-between gap-3">
                     <h3 className="headline text-2xl">{plan.name}</h3>
-                    {featured && <Tag tone="sun">{plan.badge}</Tag>}
+                    {featured && <Tag tone="red">{plan.badge}</Tag>}
                   </div>
                   <p className="headline display tnum mt-4 text-5xl">
                     {priceLabel(PLAN_PACKAGES[index], lang)}
@@ -113,7 +113,7 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
                       if (previous === value) return null;
                       return (
                         <li key={row.label} className="flex items-start gap-3 text-[0.9375rem] leading-snug">
-                          <CheckIcon className={`mt-px size-[1.1rem] shrink-0 ${featured ? "text-sun" : "text-sun-ink"}`} />
+                          <CheckIcon className={`mt-px size-[1.1rem] shrink-0 ${featured ? "text-red-bright" : "text-red"}`} />
                           <span>
                             {row.label}
                             {typeof value === "string" && (
@@ -133,7 +133,7 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
                     data-umami-event-plan={plan.name}
                     className={`btn tap inline-flex min-h-12 items-center justify-center px-6 ${
                       featured
-                        ? "btn-primary bg-sun text-ink hover:bg-sun-hover"
+                        ? "btn-primary bg-red text-white hover:bg-red-deep"
                         : "bg-transparent text-ink hover:bg-ink hover:text-paper"
                     }`}
                   >
@@ -142,8 +142,8 @@ export function PlanMatrix({ dict }: { dict: Dictionary }) {
                   <button
                     type="button"
                     onClick={() => setOpenPlan(index)}
-                    className={`tap mx-auto inline-flex min-h-11 items-center justify-center text-sm font-semibold underline decoration-sun decoration-2 underline-offset-4 transition-colors ${
-                      featured ? "hover:text-sun" : "hover:text-sun-ink"
+                    className={`tap mx-auto inline-flex min-h-11 items-center justify-center text-sm font-semibold underline decoration-red decoration-2 underline-offset-4 transition-colors ${
+                      featured ? "hover:text-red-bright" : "hover:text-red"
                     }`}
                   >
                     {dict.pricing.detailsAction}
@@ -229,14 +229,14 @@ function PlanDialog({
         </div>
 
         <div className="px-5 py-5">
-          <p className="eyebrow eyebrow--dot">{dict.pricing.detailsIncluded}</p>
+          <p className="eyebrow">{dict.pricing.detailsIncluded}</p>
           <dl className="mt-3 grid gap-4">
             {included.map((row) => {
               const value = row.values[planIndex];
               return (
                 <div key={row.label}>
                   <dt className="flex items-start gap-2.5 font-semibold">
-                    <CheckIcon className="mt-0.5 size-4 shrink-0 text-sun-ink" />
+                    <CheckIcon className="mt-0.5 size-4 shrink-0 text-red" />
                     <span>
                       {row.label}
                       {typeof value === "string" && (
@@ -273,7 +273,7 @@ function PlanDialog({
               onClick={onClose}
               data-umami-event="plan_enquiry"
               data-umami-event-plan={plan.name}
-              className="btn btn-primary tap inline-flex min-h-12 w-full items-center justify-center bg-sun px-6 text-ink hover:bg-sun-hover"
+              className="btn btn-primary tap inline-flex min-h-12 w-full items-center justify-center bg-red px-6 text-white hover:bg-red-deep"
             >
               {dict.pricing.planAction}
             </a>

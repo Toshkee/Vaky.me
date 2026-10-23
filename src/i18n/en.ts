@@ -332,19 +332,50 @@ export const en: Dictionary = {
     ],
   },
 
-  reels: {
-    eyebrow: "Motion design",
-    title: "Three videos with your site, for €50.",
-    titleMark: "€50.",
-    formats: [
-      { name: "Site launch", source: "Concept: Konoba Skadar" },
-      { name: "Price list", source: "Concept: Barber Drina, prices from their Instagram" },
-      { name: "Timetable", source: "Concept: Titan Gym" },
-    ],
-    launch: { lines: ["New", "site."], cta: "Take a look" },
-    prices: { kicker: "Price list", place: "Stari Aerodrom · Podgorica" },
-    schedule: { kicker: "Today", cta: "Trial session" },
+  film: {
+    intro: {
+      presents: "Vaky presents",
+      words: ["Websites.", "Apps.", "Motion design."],
+      place: "Podgorica · Montenegro",
+      skip: "Skip intro",
+    },
+    scene: "Scene",
+    scenes: {
+      hero: "Opening",
+      reel: "Showreel",
+      about: "Behind it",
+      expertise: "Expertise",
+      process: "Process",
+      work: "Work",
+      pricing: "Pricing",
+      faq: "Questions",
+      contact: "Contact",
+    },
+    reel: { label: "Showreel", sub: "Real work, live for clients", portfolio: "My portfolio", portfolioTag: "An AI portfolio, ask it about my work" },
+    starring: "Starring",
+    live: "live",
+    credits: { role: "Directed, designed and coded by", studio: "Studio" },
+    expertise: {
+      title: "Three genres. One director.",
+      mark: "One director.",
+      genre: "Genre",
+      ask: "Ask about this",
+      sites: {
+        name: "Websites",
+        price: "From €250",
+        intro:
+          "Restaurant, salon, barber, gym, villa. A site that opens at once on a phone, with the price list, the map and a button to message you. You get a free concept first, and the site is done in 10 days.",
+        includes: ["Design made for your brand", "Perfect on a phone", "Google map and contact", "SEO and speed"],
+      },
+    },
+    work: { all: "All", live: "Live", view: "View", private: "Private app, members only" },
+    cta: "Write to me",
   },
+
+  reels: {
+    launch: { lines: ["New", "site."], cta: "Take a look" },
+  },
+
 
   motion: {
     domain: "yourbusiness.me",
