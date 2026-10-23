@@ -65,6 +65,15 @@ export function PlusIcon(props: IconProps) {
   return <PixelGlyph {...props} d="M7 3h2v10H7zM3 7h10v2H3z" />;
 }
 
+/** A stepped triangle, each column two units narrower than the last. */
+export function PlayIcon(props: IconProps) {
+  return <PixelGlyph {...props} d="M4 2h2v12H4zM6 3h2v10H6zM8 4h2v8H8zM10 5h2v6h-2zM12 6h2v4h-2z" />;
+}
+
+export function PauseIcon(props: IconProps) {
+  return <PixelGlyph {...props} d="M4 3h3v10H4zM9 3h3v10H9z" />;
+}
+
 /* ── 12-grid pixel art ─────────────────────────────────────────────────── */
 
 const PALETTE: Record<string, string> = {
@@ -125,6 +134,29 @@ export function SparkleIcon(props: IconProps) {
         ".....##.....",
         ".....##.....",
         ".....##.....",
+      ]}
+    />
+  );
+}
+
+/** Magnifier — the search field on the hero's screen. */
+export function SearchIcon(props: IconProps) {
+  return (
+    <PixelArt
+      {...props}
+      rows={[
+        "..####......",
+        ".#....#.....",
+        "#......#....",
+        "#......#....",
+        "#......#....",
+        "#......#....",
+        ".#....#.....",
+        "..####.#....",
+        ".......##...",
+        "........##..",
+        ".........##.",
+        "..........##",
       ]}
     />
   );

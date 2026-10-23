@@ -1,9 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { PixelWindow } from "@/components/ui/PixelWindow";
 import { VakyPlay } from "@/components/mascot/VakyPlay";
+import type { SiteBuildCopy } from "@/components/motion/SiteBuild";
 import { CheckIcon, MugIcon } from "./icons";
+
+const loadScreen = () => import("@/components/motion/SiteBuildPlayer");
+const SiteBuildPlayer = dynamic(loadScreen, { ssr: false });
 
 /**
  * The hero scene: Vaky beside his monitor, building a site.
@@ -20,6 +25,13 @@ import { CheckIcon, MugIcon } from "./icons";
  * reduced-motion: there the checks are simply already done when the scene is
  * reached, and the click resolves instantly.
  *
+ * The monitor shows the site itself being made: a Remotion composition
+ * (components/motion/SiteBuild) that the phases play a stretch at a time, so
+ * the page on screen and the status lights below it always agree. Its code
+ * is fetched when the desk comes into view, and the build waits for it — up
+ * to a moment, never for good — so the first block and the first light land
+ * together.
+ *
  * Status strings stay in terminal English on both locales on purpose — they
  * are the machine talking, not the studio.
  */
@@ -28,7 +40,7 @@ const STATUSES = ["DESIGN", "MOBILE", "SEO", "ONLINE"];
 /** How many statuses the build does on its own. The last one waits for DEPLOY. */
 const BUILT = STATUSES.length - 1;
 
-type Phase = "idle" | "building" | "ready" | "deploying" | "online";
+export type Phase = "idle" | "building" | "ready" | "deploying" | "online";
 
 const SCREEN: Record<Phase, string> = {
   idle: "STANDBY",
@@ -40,8 +52,12 @@ const SCREEN: Record<Phase, string> = {
 
 const quiet = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-export function Workstation() {
+/** The longest the build waits for the screen's code before starting without it. */
+const SCREEN_WAIT = 1500;
+
+export function Workstation({ screen }: { screen: SiteBuildCopy }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [seen, setSeen] = useState(false);
   const [phase, setPhase] = useState<Phase>("idle");
   const [lit, setLit] = useState(0);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -54,12 +70,15 @@ export function Workstation() {
     const node = ref.current;
     if (!node) return;
 
+    let gone = false;
+
     // The build starts when the desk is actually on screen, and only ever
     // once — so the visitor sees it happen rather than arriving after it did.
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         observer.disconnect();
+        setSeen(true);
 
         if (quiet()) {
           setLit(BUILT);
@@ -67,9 +86,15 @@ export function Workstation() {
           return;
         }
 
-        setPhase("building");
-        for (let i = 1; i <= BUILT; i++) after(i * 620, () => setLit(i));
-        after(BUILT * 620 + 500, () => setPhase("ready"));
+        const waited = new Promise((resolve) => after(SCREEN_WAIT, () => resolve(null)));
+        Promise.race([loadScreen(), waited])
+          .catch(() => {})
+          .then(() => {
+            if (gone) return;
+            setPhase("building");
+            for (let i = 1; i <= BUILT; i++) after(i * 620, () => setLit(i));
+            after(BUILT * 620 + 500, () => setPhase("ready"));
+          });
       },
       { rootMargin: "0px 0px -15% 0px" },
     );
@@ -77,6 +102,7 @@ export function Workstation() {
 
     const running = timers.current;
     return () => {
+      gone = true;
       observer.disconnect();
       running.forEach(clearTimeout);
     };
@@ -128,6 +154,12 @@ export function Workstation() {
 
               <div aria-hidden="true" className="os-bar mt-3">
                 <div className="os-bar-fill" style={{ width: `${progress}%` }} />
+              </div>
+
+              {/* The screen is sized before its code arrives, and shows the
+                  dot grid until then, so nothing shifts when it does. */}
+              <div aria-hidden="true" className="px-grid mt-4 aspect-[612/384] border-2 border-ink bg-paper">
+                {seen && <SiteBuildPlayer phase={phase} copy={screen} />}
               </div>
 
               <ul aria-hidden="true" className="mt-4 grid gap-2.5">

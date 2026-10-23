@@ -739,6 +739,24 @@
     background: var(--color-line);
   }
 
+  /* The process steps' icon tiles. Their colours are set here rather than as
+     utilities because utilities would outrank the lit state below. */
+  .process-tile {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  /* The step the process animation is showing (ProcessStage sets data-step
+     while it plays): that step's icon tile lights red, like a status light
+     coming on. Nothing else in the list moves. */
+  .process-stage[data-step="0"] .process-step:nth-child(1) .process-tile,
+  .process-stage[data-step="1"] .process-step:nth-child(2) .process-tile,
+  .process-stage[data-step="2"] .process-step:nth-child(3) .process-tile,
+  .process-stage[data-step="3"] .process-step:nth-child(4) .process-tile {
+    background: var(--color-red);
+    color: #ffffff;
+  }
+
   .os-caret {
     opacity: 1;
   }

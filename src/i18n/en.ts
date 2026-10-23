@@ -326,6 +326,23 @@ export const en: Dictionary = {
     ],
   },
 
+  motion: {
+    domain: "yourbusiness.me",
+    screen: {
+      query: "salon podgorica",
+      result: "Your business — Podgorica",
+    },
+    story: {
+      message: "Hi! I need a website for my salon.",
+      reply: "Sure! Your concept arrives tomorrow.",
+      stamp: "Free concept",
+      checklist: ["Logo", "Photos", "Copy"],
+      live: "Online",
+    },
+    play: "Play animation",
+    pause: "Pause animation",
+  },
+
   pricing: {
     title: "Pricing",
     sub: "Clear prices, no fine print.",

@@ -19,6 +19,9 @@ const eslintConfig = defineConfig([
     ".wrangler/**",
     // Scratch: screenshots and one-off probes, not part of the site.
     ".tmp/**",
+    // The Remotion project that renders the videos: its own packages, its
+    // own tsconfig, and none of it shipped to the browser.
+    "video/**",
   ]),
 ]);
 

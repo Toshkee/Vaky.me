@@ -362,6 +362,27 @@ export const me = {
     ],
   },
 
+  /* Words inside the Remotion animations: the hero's screen and the
+     process story. Not shown as text on the page — the steps and the hero
+     say all of it in words — but they are read on screen, so they are
+     translated like everything else. */
+  motion: {
+    domain: "tvojbiznis.me",
+    screen: {
+      query: "salon podgorica",
+      result: "Tvoj biznis — Podgorica",
+    },
+    story: {
+      message: "Zdravo! Treba mi sajt za salon.",
+      reply: "Može! Sutra ti šaljem koncept.",
+      stamp: "Besplatan koncept",
+      checklist: ["Logo", "Fotografije", "Tekst"],
+      live: "Online",
+    },
+    play: "Pusti animaciju",
+    pause: "Zaustavi animaciju",
+  },
+
   pricing: {
     title: "Cijene",
     sub: "Jasne cijene, bez sitnih slova.",

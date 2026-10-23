@@ -62,7 +62,7 @@ export function Hero({ dict }: { dict: Dictionary }) {
         <div className="px-grid relative hidden px-3 pt-8 pb-0 sm:px-6 sm:pt-10 lg:block">
           <SparkleIcon className="absolute top-2 left-4 w-4 text-red" />
           <SparkleIcon className="absolute top-8 right-8 w-3 text-ink" />
-          <Workstation />
+          <Workstation screen={{ ...dict.motion.screen, domain: dict.motion.domain }} />
         </div>
       </div>
     </section>

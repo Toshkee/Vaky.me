@@ -73,3 +73,8 @@ or at [vakymne@gmail.com](mailto:vakymne@gmail.com).
 
 This repository contains the Vaky website. It is bilingual (Montenegrin and English), built as a static Next.js export, and designed to be fast, accessible, and inexpensive to host.
 
+The pixel animations on the homepage — the site being built on the hero's
+monitor, and the four process steps — are [Remotion](https://www.remotion.dev)
+compositions in `src/components/motion/`, played live in the page by
+`@remotion/player`. They load only from the `lg` breakpoint up, once their
+section is on screen; phones never download them.
