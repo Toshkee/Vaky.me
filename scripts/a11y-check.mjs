@@ -18,6 +18,8 @@ const PAGES = [
   "/",
   "/en/",
   "/privacy/",
+  "/koncepti/",
+  "/en/concepts/",
   "/en/privacy/",
   /* One trade page per language stands for all ten: they share one
      component and differ only in copy. */

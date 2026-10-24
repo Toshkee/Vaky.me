@@ -3,31 +3,31 @@ import { chromium } from "playwright";
 
 /* The capture is inlined rather than fetched: a data URI is the one image
    source a page built from a string can load without a server. */
-const capture = readFileSync("public/work/villa-vucje-phone.webp").toString("base64");
+const capture = readFileSync("public/work/reform-fitness-pocetna.webp").toString("base64");
 
 /**
  * The share card (public/og.png, 1200x630) as the landing page's title card:
- * warm white, the red mark, the promise set as a film poster with the
+ * warm white, the red mark, the promise set in the title face with the
  * deadline under the red marker, and the showreel's first shot in a camera
- * viewfinder — a client site that is live. Archivo comes from Google Fonts
- * with its width axis.
+ * viewfinder — the client app, live. Bricolage Grotesque comes from Google
+ * Fonts with its width and optical-size axes.
  *
  * Usage: node scripts/generate-og.mjs
  */
 const html = `<!doctype html><html><head><meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; box-sizing: border-box; }
   body { width: 1200px; height: 630px; background: #faf8f4; color: #101010;
-         font-family: "Archivo", sans-serif; overflow: hidden; position: relative; }
+         font-family: "Bricolage Grotesque", sans-serif; overflow: hidden; position: relative; }
   .lockup { position: absolute; left: 64px; top: 56px; display: flex; align-items: center; gap: 14px;
-            font-size: 40px; font-weight: 900; font-stretch: 110%; letter-spacing: -0.04em; line-height: 1; }
+            font-size: 40px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
   .lockup svg { width: 44px; height: 44px; }
   .eyebrow { position: absolute; left: 64px; top: 136px; font-size: 18px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
   .eyebrow::before { content: ""; display: inline-block; width: 11px; height: 11px; margin-right: 12px; border-radius: 50%; background: #c1121f; }
-  h1 { position: absolute; left: 64px; top: 182px; width: 620px; font-size: 92px; font-weight: 850;
-       font-stretch: 68%; line-height: .86; text-transform: uppercase; }
+  h1 { position: absolute; left: 64px; top: 186px; width: 640px; font-size: 84px; font-weight: 800;
+       font-stretch: 80%; line-height: .95; letter-spacing: -.025em; }
   .mark { background: #c1121f; color: #fff; padding: 0 .06em; white-space: nowrap; }
   .facts { position: absolute; left: 64px; bottom: 56px; display: flex; gap: 22px; font-size: 17px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
   .facts i { width: 8px; height: 8px; background: #c1121f; transform: rotate(45deg); align-self: center; }
@@ -44,7 +44,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
     vaky
   </div>
   <p class="eyebrow">Web studio — Crna Gora</p>
-  <h1>Sajt za tvoj<br>biznis. Od €250,<br>za <span class="mark">10 dana.</span></h1>
+  <h1>Sajt za tvoj biznis.<br>Od €250,<br>za <span class="mark">10 dana.</span></h1>
   <div class="facts"><span>Besplatan koncept</span><i></i><span>MNE + EN</span><i></i><span>vaky.me</span></div>
 
   <div class="reel">

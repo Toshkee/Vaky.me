@@ -1,20 +1,19 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { Archivo } from "next/font/google";
+import { Bricolage_Grotesque } from "next/font/google";
 import { site } from "@/config/site";
 import { Analytics } from "@/components/Analytics";
 import { ConsoleGreeting } from "@/components/ConsoleGreeting";
 
-/* One family for the whole site. Archivo (Omnibus-Type, SIL OFL) is a
-   grotesque with a width axis as well as a weight axis: body copy sits at its
-   normal width, headlines run heavy and opened up, and the films stretch it
-   further for their captions — one file, three voices. Its Latin Extended
-   cut carries č ć ž š đ with open carons, which is where a lot of geometric
-   faces fail on Montenegrin. */
-const archivo = Archivo({
-  variable: "--font-archivo",
+/* One family for the whole site. Bricolage Grotesque (SIL OFL) has an
+   optical-size axis as well as width and weight: at body size it opens up and
+   reads plainly, at title size the same file tightens and gets its quirks,
+   so one face carries both voices. Headlines also narrow it on the width
+   axis. Its Latin Extended cut carries č ć ž š đ. */
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin", "latin-ext"],
-  axes: ["wdth"],
+  axes: ["opsz", "wdth"],
   display: "swap",
 });
 
@@ -60,7 +59,7 @@ export function RootHtml({
          can turn it off for the instant of a route change and back on
          after — without this it warns on every navigation in dev. */
       data-scroll-behavior="smooth"
-      className={`${archivo.variable} h-full antialiased`}
+      className={`${bricolage.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         {children}

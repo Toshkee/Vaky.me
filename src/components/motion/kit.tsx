@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import { Easing, Img, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 
 /**
  * What every film on the site is made of: the palette, the face, and four
@@ -28,17 +28,19 @@ export const C = {
   white: "#ffffff",
 } as const;
 
-/** The poster face: Archivo narrowed on its width axis, in capitals. */
+/** The title face in the films: Bricolage Grotesque at its full width and
+    a bold rather than black weight, so a name read at a glance in a moving
+    frame is read without effort. */
 export const POSTER = {
-  fontFamily: "var(--font-archivo), system-ui, sans-serif",
-  fontWeight: 850,
-  fontStretch: "68%",
-  textTransform: "uppercase",
-  lineHeight: 0.86,
+  fontFamily: "var(--font-bricolage), system-ui, sans-serif",
+  fontWeight: 700,
+  letterSpacing: "-0.03em",
+  lineHeight: 1,
 } as const;
 
-/** Archivo, loaded once by the root layout and inherited by the Player. */
-export const FONT = "var(--font-archivo), system-ui, sans-serif";
+/** Bricolage Grotesque, loaded once by the root layout and inherited by the
+    Player. */
+export const FONT = "var(--font-bricolage), system-ui, sans-serif";
 
 /** The page's own ease-out, cubic-bezier(0.16, 1, 0.3, 1). */
 const EASE = Easing.bezier(0.16, 1, 0.3, 1);
@@ -180,7 +182,7 @@ export function Capture({
 }) {
   const travel = Math.max(0, pageHeight - screenHeight);
   return (
-    <Img
+    <Still
       src={src}
       style={{
         position: "absolute",
@@ -191,4 +193,16 @@ export function Capture({
       }}
     />
   );
+}
+
+/**
+ * A picture in a film. These films only ever play in the page, through the
+ * Player, so a plain image is all they need: Remotion's <Img> holds a server
+ * render until its picture is decoded, which never happens here, and under
+ * React's double mount in development its first decode is aborted and
+ * logged as an EncodingError.
+ */
+export function Still({ src, style }: { src: string; style?: CSSProperties }) {
+  // eslint-disable-next-line @next/next/no-img-element -- a frame of a film, not page content
+  return <img src={src} alt="" decoding="async" draggable={false} style={style} />;
 }

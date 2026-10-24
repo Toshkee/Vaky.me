@@ -4,6 +4,7 @@ const BASE = (process.argv[2] ?? "http://localhost:3001").replace(/\/$/, "");
 const targets = [
   { name: "home", path: "/" },
   { name: "en", path: "/en/" },
+  { name: "koncepti", path: "/koncepti/" },
   { name: "start", path: "/start/" },
   { name: "start-form", path: "/start/form/" },
   { name: "admin", path: "/admin/" },

@@ -5,9 +5,15 @@ export const en: Dictionary = {
   htmlLang: "en",
 
   nav: {
-    work: "Examples",
+    label: "Main menu",
+    work: "Work",
+    videos: "Video",
     pricing: "Pricing",
     contact: "Contact",
+    cta: "Free concept",
+    menu: "Menu",
+    close: "Close",
+    langName: "Crnogorski",
     langLabel: "ME",
     langHref: "/",
     skip: "Skip to content",
@@ -32,13 +38,30 @@ export const en: Dictionary = {
   about: {
     title: "Who is behind Vaky",
     role: "Software developer",
-    body: "I'm Pavle, a software developer from Montenegro, and I build web apps front to back. I run Vaky on my own: every site, app and concept on this page I designed and built myself, from the first sketch to launch. When you write to Vaky, I am the one who answers, and the one who builds your site.",
-    link: "My portfolio",
-    film: {
-      note: "My portfolio is an AI chat: ask it about my work and it answers.",
-      question: "What have you built?",
-      label: "pavletosic.com",
+    lead: "I'm Pavle, a software developer from Montenegro, and I build web apps front to back.",
+    body: "I run Vaky on my own: every site, app and concept on this page I designed and built myself, from the first sketch to launch. When you write to Vaky, I am the one who answers, and the one who builds your site.",
+    skills: {
+      title: "What I do",
+      items: [
+        {
+          name: "Design",
+          body: "A look made for your business, phone first: colours, type, layout.",
+          tags: ["Brand", "Typography", "Mobile first"],
+        },
+        {
+          name: "Code",
+          body: "I write the site or the app myself, from the first line to launch on your domain.",
+          tags: ["Next.js", "React", "TypeScript"],
+        },
+        {
+          name: "Motion design",
+          body: "Animation for the site and videos for social media, made from your photos and words.",
+          tags: ["Remotion", "GSAP", "Reels"],
+        },
+      ],
     },
+    link: "My portfolio",
+    portfolioNote: "My portfolio is an AI chat: ask it about my work and it answers.",
     photoAlt: "Pavle Tošić, black-and-white portrait: short hair, round glasses and a beard, sitting on a wooden bench.",
   },
 
@@ -49,13 +72,20 @@ export const en: Dictionary = {
     conceptsTitle: "Concepts for your trade",
     conceptsSub:
       "Built for specific businesses in Montenegro, so you can see what your site could look like. Open them on your phone.",
+    conceptsCount: { one: "{n} concept", few: "{n} concepts", other: "{n} concepts" },
+    conceptsAll: "See all concepts",
+    conceptsPage: {
+      metaTitle: "Website concepts by trade | Vaky",
+      description:
+        "Website design concepts for restaurants, salons, barbers, gyms and other businesses in Montenegro. Open them on your phone and see what your site could look like.",
+      indexLabel: "Trades",
+      tradeLink: "A site for this trade",
+    },
     liveLabel: "Live site",
     conceptLabel: "Design concept",
     briefLabel: "Brief",
     solutionLabel: "Approach",
     includesLabel: "Includes",
-    tabsLabel: "What do you do?",
-    pickLabel: "Projects",
     open: "Open the demo",
     openLive: "Open the site",
     newTab: "opens in a new window",
@@ -302,6 +332,21 @@ export const en: Dictionary = {
           },
         ],
       },
+      {
+        key: "software",
+        type: "Software company",
+        projects: [
+          {
+            name: "Infostream",
+            slug: "infostream",
+            tag: "infostream.co.me · Podgorica",
+            href: "https://infostream.co.me/",
+            brief: "A software house with more than 20 years of information systems for public institutions, an Oracle and Microsoft partner, ISO 27001 — and all of it had to fit on one clear page.",
+            solution: "A corporate site in two languages: expertise, process, clients, technology and standards.",
+            includes: ["Two languages", "Expertise", "Clients"],
+          },
+        ],
+      },
     ],
   },
   process: {
@@ -334,31 +379,63 @@ export const en: Dictionary = {
 
   film: {
     intro: {
-      presents: "Vaky presents",
-      words: ["Websites.", "Apps.", "Motion design."],
-      place: "Podgorica · Montenegro",
       skip: "Skip intro",
     },
-    scene: "Scene",
     scenes: {
-      hero: "Opening",
-      reel: "Showreel",
-      about: "Behind it",
       expertise: "Expertise",
       process: "Process",
       work: "Work",
       pricing: "Pricing",
       faq: "Questions",
       contact: "Contact",
+      videos: "Motion design",
     },
-    reel: { label: "Showreel", sub: "Real work, live for clients", portfolio: "My portfolio", portfolioTag: "An AI portfolio, ask it about my work" },
-    starring: "Starring",
+    videos: {
+      title: "Motion design for your socials",
+      mark: "your socials",
+      sub: "With any package I make three vertical videos for Reels, TikTok and Stories. One launches the site, you pick the other two. Here are videos for clients, my own promo for apps, and three for the Barber Drina concept.",
+      price: "Three videos · {price} with any package",
+      ask: "Ask about videos",
+      more: "Watch the videos",
+      play: "Play video",
+      pause: "Pause video",
+      soundOn: "Turn sound on",
+      prev: "Previous videos",
+      next: "Next videos",
+      soundOff: "Turn sound off",
+      items: [
+        {
+          file: "reform-fitness-prica",
+          kind: "Client",
+          title: "Reform Fitness",
+          line: "From messages at seven in the morning to an app members run themselves.",
+          sound: true,
+        },
+        {
+          file: "infostream-reel",
+          kind: "Brand video",
+          title: "Infostream",
+          line: "Brand video: complex processes, simple software, twenty years of experience.",
+          sound: true,
+        },
+        {
+          file: "vaky-aplikacija-po-mjeri",
+          kind: "Vaky promo",
+          title: "An app made for you",
+          line: "Orders, notifications and your brand's colours, on the App Store or as a PWA.",
+          sound: false,
+        },
+        { file: "barber-drina-najava", kind: "Design concept", title: "Barber Drina · launch", line: "What you do, where you are, and the link in bio.", sound: false },
+        { file: "barber-drina-cjenovnik", kind: "Design concept", title: "Barber Drina · price list", line: "Your prices, row by row.", sound: false },
+        { file: "barber-drina-termin", kind: "Design concept", title: "Barber Drina · booking", line: "How to book, step by step.", sound: false },
+      ],
+    },
+    reel: { label: "Showreel", portfolio: "My portfolio", portfolioTag: "An AI portfolio, ask it about my work" },
     live: "live",
     credits: { role: "Directed, designed and coded by", studio: "Studio" },
     expertise: {
       title: "Three genres. One director.",
       mark: "One director.",
-      genre: "Genre",
       ask: "Ask about this",
       sites: {
         name: "Websites",
@@ -368,7 +445,7 @@ export const en: Dictionary = {
         includes: ["Design made for your brand", "Perfect on a phone", "Google map and contact", "SEO and speed"],
       },
     },
-    work: { all: "All", live: "Live", view: "View", private: "Private app, members only" },
+    work: { view: "View", private: "Private app, members only" },
     cta: "Write to me",
   },
 
@@ -517,7 +594,6 @@ export const en: Dictionary = {
         },
       ],
     },
-    pickLabel: "Choose a package",
     inherits: "Everything in {plan}, plus:",
     detailsAction: "What do I get?",
     detailsIntro: "Everything in this package, explained without the jargon.",
@@ -611,7 +687,6 @@ export const en: Dictionary = {
   contact: {
     title: "Ready for a new website?",
     titleMark: "new website?",
-    sub: "Leave a few details, or write to me directly — whichever is easier.",
     direct: {
       title: "Or write directly",
       whatsapp: "WhatsApp",

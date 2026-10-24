@@ -74,25 +74,33 @@ or at [vakymne@gmail.com](mailto:vakymne@gmail.com).
 This repository contains the Vaky website. It is bilingual (Montenegrin and English), built as a static Next.js export, and designed to be fast, accessible, and inexpensive to host.
 
 The homepage is cut as a film ("kadar po kadar"): opening titles on the
-first page of a visit, a poster-style title card, a showreel in a camera
-viewfinder that grows as it is scrolled into, a credits marquee, a statement
-that darkens word by word, three stacked expertise cards, the process as a
-pinned editing timeline with a playhead, a filterable work grid and a red
-closing scene. The scroll choreography is GSAP (ScrollTrigger, SplitText,
-Flip) with Lenis smooth scrolling, in the client components under
+first page of a visit, in which the name is set letter by letter on black
+and flies into the masthead as the curtain rises; the hero with the three services and their prices; a showreel with
+captions that follow the film; a credits marquee; who is behind it, with three columns of
+skills; three stacked expertise cards; the process as a pinned editing
+timeline with a playhead; the live client work, with the concepts on a page
+of their own (`/koncepti/`, `/en/concepts/`); three motion design videos;
+the packages as a price
+list with drawn leaders; questions whose dividers lean toward the mouse; and
+the contact scene with a magnetic round button. The scroll choreography is GSAP (ScrollTrigger, SplitText)
+with Lenis smooth scrolling, in the client components under
 `src/components/landing/`; every scene is server-rendered and readable
 without it, and none of it runs under reduced motion.
 
 The films are [Remotion](https://www.remotion.dev) compositions in
 `src/components/motion/films/`, played live by `@remotion/player`: the
-showreel of the real client work, the websites and apps genres, a motion
-design format, and the pavletosic.com portfolio. Each loads only near the
+showreel of the real work (the client app, the live sites and the
+pavletosic.com portfolio), the websites and apps genres, and a motion design
+format. The motion design videos are real MP4s in `public/video/`, rendered
+from the Remotion project in `video/` (`npx remotion render <id> ...` there).
+Each film loads only near the
 screen, pauses off it, has a pause button, and rests on a still frame under
 reduced motion. Their sizes live in `src/components/motion/specs.ts`, so the
 page reserves their space before Remotion arrives.
 
-The brand is red and white on the studio's original red: the tokens are the
-`@theme` block in `src/app/globals.css`, the mark is `BrandMark` in
-`src/components/BrandWordmark.tsx`, `node scripts/brand-assets.mjs` redraws
+The brand is red and white on the studio's original red, set in Bricolage
+Grotesque: the tokens are the `@theme` block in `src/app/globals.css`, the
+mark is `BrandMark` in `src/components/BrandWordmark.tsx`, the robot is
+`VakyHead` in `src/components/VakyHead.tsx`, `node scripts/brand-assets.mjs` redraws
 the favicons from it and `node scripts/work-thumbs.mjs` cuts the work grid's
 tiles from the phone captures.

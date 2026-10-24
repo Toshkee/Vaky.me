@@ -39,8 +39,8 @@ export function TradePage({ dict, tradeKey }: { dict: Dictionary; tradeKey: Trad
         <section>
           <div className="shell pt-12 pb-16 sm:pt-20 sm:pb-24">
             <p className="eyebrow">{dict.trades.eyebrow}</p>
-            <h1 className="headline display mt-6 max-w-4xl text-[clamp(2.6rem,6.4vw,5rem)]">{trade.title}</h1>
-            <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">{trade.intro}</p>
+            <h1 className="display mt-5 max-w-4xl text-poster-lg">{trade.title}</h1>
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">{trade.intro}</p>
 
             <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
               <Button href="#kontakt" arrow event="trade_primary_cta">

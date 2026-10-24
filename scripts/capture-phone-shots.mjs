@@ -35,6 +35,7 @@ fs.mkdirSync(OUT, { recursive: true });
 const projects = [
   { slug: "villa-vucje", url: "https://villavucje.me/" },
   { slug: "mandarina", url: "https://mandarinapt.me/" },
+  { slug: "infostream", url: "https://infostream.co.me/mne" },
   "lucky-chopsticks",
   "konoba-skadar",
   "barber-drina",

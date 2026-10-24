@@ -5,8 +5,7 @@ import { site } from "@/config/site";
 export const MARK_V = "M8.5 10.5h7.2l4.3 13.4 4.3-13.4h7.2L23.4 30.5h-6.8Z";
 
 /**
- * The Vaky mark: a red tile with a white "v" cut from the same heavy Archivo
- * the titles are set in. It holds at 16px, and it is the studio's red from
+ * The Vaky mark: a red tile with a heavy white "v". It holds at 16px, and it is the studio's red from
  * the first vaky.me.
  */
 export function BrandMark({ className = "" }: { className?: string }) {
@@ -19,7 +18,7 @@ export function BrandMark({ className = "" }: { className?: string }) {
 }
 
 /**
- * The lockup: the mark, then the name set live in Archivo, so it is
+ * The lockup: the mark, then the name set live in the site face, so it is
  * selectable, readable by a crawler, and the same face as every headline.
  * Size it with font-size on the caller; the mark follows.
  */
@@ -34,7 +33,7 @@ export function BrandWordmark({
     <span className={`inline-flex items-center gap-[0.32em] leading-none ${className}`}>
       <BrandMark className="size-[1.05em] shrink-0" />
       <span
-        className={`font-black tracking-[-0.04em] whitespace-nowrap [font-stretch:110%] ${
+        className={`font-extrabold tracking-[-0.04em] whitespace-nowrap ${
           tone === "ink" ? "text-ink" : "text-paper"
         }`}
       >

@@ -1,6 +1,6 @@
-import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { APP_FILM } from "../specs";
-import { C, FONT, Phone, glide } from "../kit";
+import { C, FONT, Phone, Still, glide } from "../kit";
 import { FilmPlayer, type FilmControls } from "../FilmPlayer";
 
 /**
@@ -31,10 +31,10 @@ export function AppFilm({ screens }: AppFilmProps) {
     <AbsoluteFill style={{ background: C.red, fontFamily: FONT }}>
       <Phone width={PHONE.width} height={PHONE.height} body={C.ink} screen={C.paper} style={{ left: PHONE.left, top: PHONE.top }}>
         <div style={{ position: "absolute", inset: 0, transform: `translateX(${-slide * 100}%)` }}>
-          <Img src={staticFile(`work/${screens[index].slug}.avif`)} style={{ width: "100%" }} />
+          <Still src={staticFile(`work/${screens[index].slug}.avif`)} style={{ width: "100%" }} />
         </div>
         <div style={{ position: "absolute", inset: 0, transform: `translateX(${(1 - slide) * 100}%)` }}>
-          <Img src={staticFile(`work/${screens[next].slug}.avif`)} style={{ width: "100%" }} />
+          <Still src={staticFile(`work/${screens[next].slug}.avif`)} style={{ width: "100%" }} />
         </div>
         {tap !== null && (
           <div

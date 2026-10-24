@@ -61,7 +61,7 @@ export function Timeline({ dict }: { dict: Dictionary }) {
           .fromTo(head, { left: "0%" }, { left: "100%", ease: "none" }, 0)
           .to(row.firstElementChild, { x: () => -travel(), ease: "none" }, 0);
       });
-    }, section);
+    }, section.current);
     return () => ctx.revert();
   }, []);
 
@@ -69,12 +69,12 @@ export function Timeline({ dict }: { dict: Dictionary }) {
     <section
       ref={section}
       id="proces"
-      data-scene={dict.film.scenes.process}
+     
       className="on-ink overflow-hidden bg-ink text-paper lg:flex lg:h-screen lg:flex-col lg:justify-center"
     >
-      <div className="shell pt-24 lg:pt-0">
+      <div className="shell pt-16 lg:pt-0">
         <SectionHead
-          slate={<SceneLabel word={dict.film.scene} n={5} name={dict.film.scenes.process} tone="ink" />}
+          slate={<SceneLabel name={dict.film.scenes.process} tone="ink" />}
           title={dict.process.title}
           sub={dict.process.sub}
           tone="ink"
@@ -82,7 +82,7 @@ export function Timeline({ dict }: { dict: Dictionary }) {
       </div>
 
       {/* The edit: a ruler of days, one track of clips, the playhead. */}
-      <div aria-hidden="true" className="shell mt-12">
+      <div aria-hidden="true" className="shell mt-10">
         <div className="relative">
           <div className="relative h-4 text-[0.625rem] font-semibold tracking-[0.2em] text-muted-dark uppercase">
             {Array.from({ length: DAYS }, (_, i) => (
@@ -96,7 +96,7 @@ export function Timeline({ dict }: { dict: Dictionary }) {
               <span
                 key={steps[i].title}
                 data-clip
-                className="absolute inset-y-1.5 flex items-center overflow-hidden rounded-md border border-white/15 bg-white/5 px-3 text-xs font-semibold whitespace-nowrap text-muted-dark transition-colors duration-300 data-active:border-red data-active:bg-red data-active:text-white"
+                className="absolute inset-y-1.5 flex items-center overflow-hidden rounded-md border border-white/15 bg-white/5 px-3 text-xs font-semibold whitespace-nowrap text-muted-dark max-sm:text-transparent transition-colors duration-300 data-active:border-red data-active:bg-red data-active:text-white"
                 style={{ left: `calc(${a * 100}% + 2px)`, width: `calc(${(b - a) * 100}% - 4px)` }}
               >
                 {steps[i].title}
@@ -109,19 +109,19 @@ export function Timeline({ dict }: { dict: Dictionary }) {
         </div>
       </div>
 
-      <div data-steps className="mt-12 overflow-hidden pb-24 lg:pb-0">
+      <div data-steps className="mt-10 overflow-hidden pb-16 lg:pb-0">
         <ol className="shell grid gap-5 sm:grid-cols-2 lg:flex lg:w-max lg:max-w-none lg:gap-6 lg:px-[max(2rem,calc((100vw_-_80rem)/2_+_2rem))]">
-          {steps.map((step, i) => (
+          {steps.map((step) => (
             <li
               key={step.title}
               data-step
-              className="rounded-2xl border border-white/10 bg-ink-2 p-6 transition-colors duration-300 data-active:border-red-bright lg:w-[26rem] lg:p-8"
+              className="rounded-xl border border-white/10 bg-ink-2 p-6 transition-colors duration-300 data-active:border-red-bright lg:w-[24rem]"
             >
               <p className="eyebrow text-red-bright">
-                {String(i + 1).padStart(2, "0")} · {step.when}
+                {step.when}
               </p>
-              <h3 className="headline mt-4 text-3xl">{step.title}</h3>
-              <p className="mt-4 leading-relaxed text-muted-dark">{step.body}</p>
+              <h3 className="headline mt-3 text-2xl">{step.title}</h3>
+              <p className="mt-3 leading-relaxed text-muted-dark">{step.body}</p>
             </li>
           ))}
         </ol>

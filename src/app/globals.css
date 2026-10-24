@@ -35,7 +35,15 @@
   /* "waiting on the client" on the dashboard. 4.98:1 on paper-2. */
   --color-amber: #8a5c00;
 
-  --font-sans: var(--font-archivo);
+  --font-sans: var(--font-bricolage);
+
+  /* ── The poster sizes ── four steps, and every title on the site is one
+     of them: the hero and the red closing scene; a scene title; a card
+     title or a name; a counter. Nothing is sized by hand. */
+  --text-poster-xl: clamp(2.75rem, 6.6vw, 6.5rem);
+  --text-poster-lg: clamp(2.25rem, 4.8vw, 4.5rem);
+  --text-poster-md: clamp(1.75rem, 3.2vw, 3rem);
+  --text-poster-sm: clamp(1.5rem, 2.4vw, 2.25rem);
 
   /* Barbershop demo palette (used only under /demo/barbershop-stari-grad) */
   --color-barber-bg: #f5efe4;
@@ -113,24 +121,25 @@
 
 @layer components {
   /* ── Type ──
-     One family, Archivo, used two ways. `display` is the poster: capitals,
-     narrowed on the width axis, heavy and packed tight, the way film titles
-     are set. `headline` is the reading heading under it, at normal width. */
+     One family, Bricolage Grotesque, used two ways. `display` is the title:
+     heavy, narrowed on the width axis and packed tight, in sentence case; the
+     optical-size axis follows the font size on its own, so a title gets the
+     sharp cut and body copy the open one. `headline` is the reading heading
+     under it, at full width. */
   .display {
     font-family: var(--font-sans);
-    font-weight: 850;
-    font-stretch: 68%;
-    line-height: 0.86;
-    letter-spacing: -0.005em;
-    text-transform: uppercase;
+    font-weight: 800;
+    font-stretch: 80%;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
     text-wrap: balance;
   }
 
   .headline {
     font-family: var(--font-sans);
-    font-weight: 750;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.015em;
     text-wrap: balance;
   }
 
@@ -141,6 +150,19 @@
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
+  }
+
+  /* The slate a scene opens on: its name behind a short red rule, the way
+     a clapperboard is labelled. `--slate` recolours the rule on dark and
+     red ground. */
+  .slate::before {
+    content: "";
+    display: inline-block;
+    width: 1.25rem;
+    height: 2px;
+    margin-right: 0.75em;
+    vertical-align: 0.25em;
+    background: var(--slate, var(--color-red));
   }
 
   /* A recording light in front of a label. It pulses only where motion is
@@ -188,8 +210,9 @@
       animation: mark-wipe 0.8s var(--ease-out) 0.35s both;
     }
 
+    /* While the titles run the marker waits, and draws once they are gone. */
     html[data-intro="play"] .mark--now {
-      animation-delay: 2.7s;
+      animation-play-state: paused;
     }
 
     @supports (animation-timeline: view()) {
@@ -272,28 +295,15 @@
     background: var(--color-paper);
   }
 
-  /* ── Nav section indicator ── a short red rule under the current label. */
-  .nav-link {
-    position: relative;
-  }
-
-  .nav-link::after {
-    content: "";
-    position: absolute;
-    inset-inline: 0.75rem;
-    bottom: 0.45rem;
-    height: 2px;
-    background: var(--color-red);
-    transform: scaleX(0);
-  }
-
-  .nav-link[aria-current]::after {
-    transform: scaleX(1);
+  /* ── The phone's menu ── it fades down into place, and the page behind
+     it holds still while it is open. */
+  html:has(.nav-menu[open]) {
+    overflow: hidden;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .nav-link::after {
-      transition: transform 0.32s var(--ease-out);
+    .nav-menu[open] {
+      animation: menu-in 0.35s var(--ease-out);
     }
   }
 
@@ -477,7 +487,23 @@
 
   html[data-intro="play"] .intro {
     display: block;
-    animation: intro-failsafe 0.01s 6s forwards;
+    animation: intro-failsafe 0.01s 8s forwards;
+  }
+
+  /* The masthead's logo waits for the one flying in from the titles, and
+     shows on its own if they never run. */
+  html[data-intro="play"] [data-nav-logo] {
+    visibility: hidden;
+    animation: intro-failsafe-show 0.01s 8s forwards;
+  }
+
+  /* The head blinks now and then, where motion is welcome. */
+  @media (prefers-reduced-motion: no-preference) {
+    .vaky-head [data-eye] {
+      transform-box: fill-box;
+      transform-origin: 50% 100%;
+      animation: head-blink 6s infinite;
+    }
   }
 
   /* ── The viewfinder: four corner brackets around a frame ── */
@@ -497,6 +523,35 @@
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
     .cursor {
       display: flex;
+    }
+  }
+
+  /* ── The hand of concept cards ──
+     Five cards about a common centre, each offset and tilted by its place in
+     the hand (--o, from -2 to 2). Fanned unless the script has stacked them
+     to deal them in; spread a little further under the pointer. */
+  .fan-card {
+    --fan-x: 34%;
+    --fan-r: 7deg;
+    transform: translate(-50%, -50%) translateX(calc(var(--o) * var(--fan-x))) rotate(calc(var(--o) * var(--fan-r)));
+    transition: transform 1s var(--ease-out);
+  }
+
+  [data-fan="closed"] .fan-card {
+    --fan-x: 0%;
+    --fan-r: 0deg;
+  }
+
+  @media (hover: hover) {
+    .group:hover .fan-card {
+      --fan-x: 42%;
+      --fan-r: 9deg;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fan-card {
+      transition: none;
     }
   }
 
@@ -553,6 +608,30 @@
   to {
     visibility: hidden;
     pointer-events: none;
+  }
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes intro-failsafe-show {
+  to {
+    visibility: visible;
+  }
+}
+
+@keyframes head-blink {
+  0%,
+  94%,
+  100% {
+    transform: scaleY(1);
+  }
+  97% {
+    transform: scaleY(0.12);
   }
 }
 

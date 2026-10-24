@@ -5,9 +5,8 @@ import dynamic from "next/dynamic";
 import type { PlayerRef } from "@remotion/player";
 import { PauseIcon, PlayIcon } from "@/components/landing/icons";
 import type { FilmControls } from "./FilmPlayer";
-import { APP_FILM, PORTFOLIO_FILM, REEL_FILM, SHOWREEL_FILM, SITE_FILM, type FilmSpec } from "./specs";
+import { APP_FILM, REEL_FILM, SHOWREEL_FILM, SITE_FILM, type FilmSpec } from "./specs";
 import type { AppFilmProps } from "./films/AppFilm";
-import type { PortfolioFilmProps } from "./films/PortfolioFilm";
 import type { ReelFilmProps } from "./films/ReelFilm";
 import type { ShowreelFilmProps } from "./films/ShowreelFilm";
 import type { SiteFilmProps } from "./films/SiteFilm";
@@ -18,7 +17,6 @@ const PLAYERS = {
   site: dynamic(() => import("./films/SiteFilm").then((m) => m.SitePlayer), { ssr: false }),
   app: dynamic(() => import("./films/AppFilm").then((m) => m.AppPlayer), { ssr: false }),
   reel: dynamic(() => import("./films/ReelFilm").then((m) => m.ReelPlayer), { ssr: false }),
-  portfolio: dynamic(() => import("./films/PortfolioFilm").then((m) => m.PortfolioPlayer), { ssr: false }),
 };
 
 const SPECS: Record<keyof typeof PLAYERS, FilmSpec> = {
@@ -26,15 +24,13 @@ const SPECS: Record<keyof typeof PLAYERS, FilmSpec> = {
   site: SITE_FILM,
   app: APP_FILM,
   reel: REEL_FILM,
-  portfolio: PORTFOLIO_FILM,
 };
 
 export type FilmSource =
   | { kind: "showreel"; inputProps: ShowreelFilmProps }
   | { kind: "site"; inputProps: SiteFilmProps }
   | { kind: "app"; inputProps: AppFilmProps }
-  | { kind: "reel"; inputProps: ReelFilmProps }
-  | { kind: "portfolio"; inputProps: PortfolioFilmProps };
+  | { kind: "reel"; inputProps: ReelFilmProps };
 
 /**
  * A film in the page.
@@ -164,7 +160,5 @@ function FilmFor({ source, controls }: { source: FilmSource; controls: FilmContr
       return <PLAYERS.app {...controls} inputProps={source.inputProps} />;
     case "reel":
       return <PLAYERS.reel {...controls} inputProps={source.inputProps} />;
-    case "portfolio":
-      return <PLAYERS.portfolio {...controls} inputProps={source.inputProps} />;
   }
 }

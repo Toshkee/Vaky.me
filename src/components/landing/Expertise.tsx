@@ -4,6 +4,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import type { Dictionary } from "@/i18n";
 import { Film, type FilmSource } from "@/components/motion/Film";
 import { gsap, reducedMotion } from "@/components/motion/gsap";
+import { SERVICE_IDS, VIDEOS_ID } from "./facts";
 import { ArrowIcon, CheckIcon } from "./icons";
 import { SceneLabel, SectionHead } from "./SectionHead";
 
@@ -13,6 +14,8 @@ type Genre = {
   intro: string;
   includes: readonly string[];
   note?: string;
+  /** A link down to where this genre can be watched. */
+  more?: string;
   film: FilmSource;
   look: { card: string; tone: "ink" | "red" | "paper"; media: string };
 };
@@ -59,6 +62,7 @@ export function Expertise({ dict }: { dict: Dictionary }) {
       intro: launchVideos.intro,
       includes: launchVideos.includes,
       note: launchVideos.note,
+      more: dict.film.videos.more,
       film: {
         kind: "reel",
         inputProps: {
@@ -74,7 +78,8 @@ export function Expertise({ dict }: { dict: Dictionary }) {
   ];
 
   useEffect(() => {
-    if (reducedMotion()) return;
+    const scope = section.current;
+    if (reducedMotion() || !scope) return;
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
       mm.add("(min-width: 64rem)", () => {
@@ -87,37 +92,35 @@ export function Expertise({ dict }: { dict: Dictionary }) {
           gsap.to(card.querySelector("[data-shade]"), { opacity: 0.45, ease: "none", scrollTrigger: { ...trigger } });
         });
       });
-    }, section);
+    }, scope);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={section} id="ekspertiza" data-scene={dict.film.scenes.expertise} className="scroll-mt-20 py-24 sm:py-32">
+    <section ref={section} id="ekspertiza" className="scroll-mt-20 py-16 sm:py-24">
       <div className="shell">
         <SectionHead
-          slate={<SceneLabel word={dict.film.scene} n={4} name={dict.film.scenes.expertise} />}
+          slate={<SceneLabel name={dict.film.scenes.expertise} />}
           title={expertise.title}
           mark={expertise.mark}
         />
       </div>
 
-      <div className="shell mt-14 grid gap-6 sm:mt-16 lg:gap-10">
+      <div className="shell mt-10 grid gap-5 sm:mt-12 lg:gap-8">
         {genres.map((genre, i) => (
           <article
             key={genre.name}
+            id={SERVICE_IDS[i]}
             data-card
-            className={`relative origin-top overflow-hidden rounded-[1.75rem] lg:sticky ${genre.look.card}`}
+            className={`relative origin-top scroll-mt-24 overflow-hidden rounded-2xl lg:sticky ${genre.look.card}`}
             style={{ top: `calc(5.5rem + ${i * 1.25}rem)` }}
           >
-            <div className="grid min-h-[min(46rem,82vh)] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-              <div className="flex flex-col p-7 sm:p-10 lg:p-14">
-                <p className="eyebrow">
-                  {expertise.genre} {String(i + 1).padStart(2, "0")}
-                </p>
-                <h3 className="display mt-5 text-[clamp(3.25rem,7vw,6.5rem)]">{genre.name}</h3>
-                <p className="headline mt-4 text-2xl">{genre.price}</p>
-                <p className="mt-6 max-w-xl text-lg leading-relaxed">{genre.intro}</p>
-                <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+            <div className="grid min-h-[min(40rem,76vh)] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+              <div className="flex flex-col p-6 sm:p-8 lg:p-10">
+                <h3 className="display text-poster-md">{genre.name}</h3>
+                <p className="headline mt-3 text-xl">{genre.price}</p>
+                <p className="mt-5 max-w-xl leading-relaxed">{genre.intro}</p>
+                <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
                   {genre.includes.map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <CheckIcon className="mt-0.5 size-5 shrink-0" />
@@ -126,16 +129,27 @@ export function Expertise({ dict }: { dict: Dictionary }) {
                   ))}
                 </ul>
                 {genre.note && <p className="mt-6 max-w-xl text-sm leading-relaxed">{genre.note}</p>}
-                <Ask href="#kontakt" tone={genre.look.tone}>
-                  {expertise.ask}
-                </Ask>
+                <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3">
+                  <Ask href="#kontakt" tone={genre.look.tone}>
+                    {expertise.ask}
+                  </Ask>
+                  {genre.more && (
+                    <a
+                      href={`#${VIDEOS_ID}`}
+                      className="group inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-red decoration-2 underline-offset-[6px] transition-colors hover:text-red"
+                    >
+                      {genre.more}
+                      <ArrowIcon className="size-4 rotate-90 transition-transform duration-300 group-hover:translate-y-0.5 motion-reduce:transition-none" />
+                    </a>
+                  )}
+                </div>
               </div>
 
               <div className={`relative flex items-center justify-center p-6 sm:p-10 ${genre.look.media}`}>
                 <Film
                   source={genre.film}
                   labels={{ play: dict.motion.play, pause: dict.motion.pause }}
-                  className={`w-full overflow-hidden rounded-[1.25rem] ${genre.film.kind === "reel" ? "max-w-[18rem]" : "max-w-[30rem]"}`}
+                  className={`w-full overflow-hidden rounded-xl ${genre.film.kind === "reel" ? "max-w-[18rem]" : "max-w-[30rem]"}`}
                   controlsClassName="right-3 bottom-3"
                   delay={300}
                 />
@@ -153,7 +167,7 @@ function Ask({ href, tone, children }: { href: string; tone: Genre["look"]["tone
   const look =
     tone === "paper" ? "btn-primary bg-red text-white hover:bg-red-deep" : "bg-paper text-ink hover:bg-ink hover:text-paper";
   return (
-    <a href={href} className={`btn group mt-10 inline-flex min-h-12 w-fit items-center gap-2.5 px-6 py-3 ${look}`}>
+    <a href={href} className={`btn group inline-flex min-h-12 w-fit items-center gap-2.5 px-6 py-3 ${look}`}>
       {children}
       <ArrowIcon className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transition-none" />
     </a>

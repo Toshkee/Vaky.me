@@ -21,3 +21,11 @@ export function heroFacts(dict: Dictionary) {
   return dict.hero.facts.map((fact) => ({ label: fact.label, value: counts[fact.value] ?? fact.value }));
 }
 
+
+/** The anchors of the three expertise cards — sites, apps, motion design —
+    which the hero's services row links to, in that order. */
+export const SERVICE_IDS = ["usluga-web", "usluga-app", "usluga-motion"] as const;
+
+/** The motion design scene, where the hero's third service and the video
+    card in the expertise scene send the visitor to watch the videos. */
+export const VIDEOS_ID = "motion-design";

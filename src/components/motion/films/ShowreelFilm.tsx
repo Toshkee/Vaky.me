@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
-import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { SHOWREEL_FILM } from "../specs";
-import { C, Capture, FONT, FadeUp, LineReveal, POSTER, Phone, glide, typed } from "../kit";
+import { C, Capture, FONT, FadeUp, LineReveal, POSTER, Phone, Still, glide, typed } from "../kit";
 import { FilmPlayer, type FilmControls } from "../FilmPlayer";
 
 /**
- * The showreel: four pieces of real work, one after another, cut together
- * with a red wipe — the two client sites live on their own domains, the
- * client app in three of its screens, and the AI portfolio.
+ * The showreel: five pieces of real work, one after another, cut together
+ * with a red wipe, in whatever order the page hands them over — the client
+ * app in three of its screens, sites live on their own domains in a phone,
+ * and the AI portfolio in a browser window.
  *
  * Nothing in it is invented. Every screen is a capture of the real thing
  * (the app's from its demo build, where every member is made up) and every
@@ -15,37 +16,49 @@ import { FilmPlayer, type FilmControls } from "../FilmPlayer";
  * under the wipe it ends on, so it never visibly restarts.
  */
 type Caption = { label: string; name: string; tag: string };
-export type ShowreelFilmProps = {
-  sites: [Caption & { slug: string }, Caption & { slug: string }];
-  app: Caption & { screens: [string, string, string] };
-  portfolio: Caption & { url: string };
-};
+type Site = Caption & { slug: string };
+type App = Caption & { screens: [string, string, string] };
+type Web = Caption & { url: string };
+export type ReelShot = (App & { kind: "app" }) | (Site & { kind: "site" }) | (Web & { kind: "web" });
+export type ShowreelFilmProps = { shots: ReelShot[] };
 
 const W = SHOWREEL_FILM.width;
 const H = SHOWREEL_FILM.height;
 const SHOT = 120;
-const CUTS = [0, SHOT, SHOT * 2, SHOT * 3, SHOT * 4];
+const SHOTS = SHOWREEL_FILM.durationInFrames / SHOT;
+const CUTS = Array.from({ length: SHOTS + 1 }, (_, i) => i * SHOT);
 /* The wipe covers the frame for its middle: in over 12 frames, out over 12. */
 const HALF = 12;
 
 const PHONE = { width: 430, height: 880 };
 const PAGE_H = (6400 / 780) * (PHONE.width - 30);
 
-export function ShowreelFilm({ sites, app, portfolio }: ShowreelFilmProps) {
+export function ShowreelFilm({ shots }: ShowreelFilmProps) {
   const frame = useCurrentFrame();
-  const shot = Math.min(3, Math.floor(frame / SHOT));
-  const local = frame - shot * SHOT;
-
   return (
     <AbsoluteFill style={{ background: C.ink, overflow: "hidden", fontFamily: FONT, color: C.paper }}>
-      <FilmGrain frame={frame} />
-      {shot === 0 && <SiteShot local={local} caption={sites[0]} index={1} />}
-      {shot === 1 && <SiteShot local={local} caption={sites[1]} index={2} />}
-      {shot === 2 && <AppShot local={local} app={app} />}
-      {shot === 3 && <WebShot local={local} portfolio={portfolio} />}
+      {/* Each shot in its own Sequence, so its clock — and the clock every
+          caption animation inside it reads — starts at its own cut. */}
+      {shots.slice(0, SHOTS).map((shot, i) => (
+        <Sequence key={shot.name} from={i * SHOT} durationInFrames={SHOT}>
+          <Shot shot={shot} />
+        </Sequence>
+      ))}
       <Wipe frame={frame} />
     </AbsoluteFill>
   );
+}
+
+function Shot({ shot }: { shot: ReelShot }) {
+  const local = useCurrentFrame();
+  switch (shot.kind) {
+    case "app":
+      return <AppShot local={local} app={shot} />;
+    case "site":
+      return <SiteShot local={local} site={shot} />;
+    case "web":
+      return <WebShot local={local} portfolio={shot} />;
+  }
 }
 
 /** The cut: a red panel crossing the frame left to right. */
@@ -56,33 +69,29 @@ function Wipe({ frame }: { frame: number }) {
   return <div style={{ position: "absolute", inset: 0, background: C.red, transform: `translateX(${x}px)` }} />;
 }
 
-/** A slow drift of light lines, so the black reads as a screen, not a hole. */
-function FilmGrain({ frame }: { frame: number }) {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        opacity: 0.08,
-        backgroundImage: `repeating-linear-gradient(90deg, ${C.paper} 0 1px, transparent 1px 160px)`,
-        transform: `translateX(${-(frame % 160)}px)`,
-      }}
-    />
-  );
-}
-
-/** The left half of every shot: shot number, label, name, line. */
-function Credits({ index, caption, at, size = 210 }: { index: number; caption: Caption; at: number; size?: number }) {
+/** The left half of every shot: what it is, the name, where. */
+function Credits({ caption, at, size = 150 }: { caption: Caption; at: number; size?: number }) {
   const out = SHOT - 14;
   return (
     <div style={{ position: "absolute", left: 130, top: 0, bottom: 0, width: 860, display: "flex", flexDirection: "column", justifyContent: "center" }}>
       <FadeUp at={at} out={out}>
-        <div style={{ display: "flex", alignItems: "center", gap: 26, fontSize: 30, fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase" }}>
-          <span style={{ color: C.mutedDark }}>{String(index).padStart(2, "0")} / 04</span>
-          <span style={{ padding: "10px 22px", borderRadius: 999, background: C.red, color: C.white }}>{caption.label}</span>
-        </div>
+        <span
+          style={{
+            display: "inline-block",
+            padding: "10px 22px",
+            borderRadius: 999,
+            background: C.red,
+            color: C.white,
+            fontSize: 30,
+            fontWeight: 600,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+          }}
+        >
+          {caption.label}
+        </span>
       </FadeUp>
-      <div style={{ ...POSTER, marginTop: 34, fontSize: size }}>
+      <div style={{ ...POSTER, marginTop: 34, fontSize: size, maxWidth: 860 }}>
         <LineReveal at={at + 4} out={out}>
           {caption.name}
         </LineReveal>
@@ -101,11 +110,11 @@ function useEnter(local: number) {
   return { y: enter * 220 - leave * 120, opacity: 1 - enter * 0.4, rotate: enter * 6 };
 }
 
-function SiteShot({ local, caption, index }: { local: number; caption: Caption & { slug: string }; index: number }) {
+function SiteShot({ local, site }: { local: number; site: Site }) {
   const { y, rotate } = useEnter(local);
   return (
     <>
-      <Credits index={index} caption={caption} at={HALF + 2} />
+      <Credits caption={site} at={HALF + 2} />
       <Phone
         width={PHONE.width}
         height={PHONE.height}
@@ -113,7 +122,7 @@ function SiteShot({ local, caption, index }: { local: number; caption: Caption &
         style={{ left: 1300, top: (H - PHONE.height) / 2 + y, transform: `rotate(${rotate}deg)` }}
       >
         <Capture
-          src={staticFile(`work/${caption.slug}-phone.avif`)}
+          src={staticFile(`work/${site.slug}-phone.avif`)}
           progress={glide(local, [HALF + 20, SHOT], [0, 0.32])}
           pageHeight={PAGE_H}
           screenHeight={PHONE.height - 30}
@@ -123,10 +132,10 @@ function SiteShot({ local, caption, index }: { local: number; caption: Caption &
   );
 }
 
-function AppShot({ local, app }: { local: number; app: ShowreelFilmProps["app"] }) {
+function AppShot({ local, app }: { local: number; app: App }) {
   const { y } = useEnter(local);
   const fan = glide(local, [HALF + 18, HALF + 46], [0, 1]) * (1 - glide(local, [SHOT - 20, SHOT - 4], [0, 1]));
-  const screen = (slug: string): ReactNode => <Img src={staticFile(`work/${slug}.avif`)} style={{ width: "100%" }} />;
+  const screen = (slug: string): ReactNode => <Still src={staticFile(`work/${slug}.avif`)} style={{ width: "100%" }} />;
   const side = (dir: -1 | 1, slug: string) => (
     <Phone
       width={PHONE.width}
@@ -143,7 +152,7 @@ function AppShot({ local, app }: { local: number; app: ShowreelFilmProps["app"] 
   );
   return (
     <>
-      <Credits index={3} caption={app} at={HALF + 2} />
+      <Credits caption={app} at={HALF + 2} />
       {side(-1, app.screens[1])}
       {side(1, app.screens[2])}
       <Phone width={PHONE.width} height={PHONE.height} body={C.paper} style={{ left: 1300, top: (H - PHONE.height) / 2 + y }}>
@@ -153,12 +162,12 @@ function AppShot({ local, app }: { local: number; app: ShowreelFilmProps["app"] 
   );
 }
 
-function WebShot({ local, portfolio }: { local: number; portfolio: ShowreelFilmProps["portfolio"] }) {
+function WebShot({ local, portfolio }: { local: number; portfolio: Web }) {
   const { y } = useEnter(local);
   const win = { width: 900, height: 600, bar: 56 };
   return (
     <>
-      <Credits index={4} caption={portfolio} at={HALF + 2} size={128} />
+      <Credits caption={portfolio} at={HALF + 2} size={104} />
       <div
         style={{
           position: "absolute",
@@ -178,7 +187,7 @@ function WebShot({ local, portfolio }: { local: number; portfolio: ShowreelFilmP
             {typed(portfolio.url, local, HALF + 12, 1.5)}
           </div>
         </div>
-        <Img src={staticFile("work/pavletosic-com.avif")} style={{ width: "100%", display: "block" }} />
+        <Still src={staticFile("work/pavletosic-com.avif")} style={{ width: "100%", display: "block" }} />
       </div>
     </>
   );

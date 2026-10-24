@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { Dictionary } from "@/i18n";
 import { emailLink, hasPhone, instagramDmLink, phoneDisplay, site, whatsappLink } from "@/config/site";
 import { hasTurnstile } from "@/config/services";
@@ -9,8 +9,9 @@ import { isValidEmail, isValidPhone } from "@/lib/onboarding/schema";
 import { OFFERED_LEAD_NEEDS, type OfferedLeadNeed } from "@/lib/workflow";
 import { Tag } from "@/components/ui/Tag";
 import { useAutoGrow } from "@/components/ui/useAutoGrow";
+import { useMagnets } from "@/components/motion/magnet";
 import { ArrowIcon } from "./icons";
-import { SceneLabel } from "./SectionHead";
+import { Marked, SceneLabel } from "./SectionHead";
 import { Turnstile } from "./Turnstile";
 
 /**
@@ -29,8 +30,9 @@ import { Turnstile } from "./Turnstile";
  * exist) the visitor is not left holding a dead button: Instagram sits beside
  * the submit, and an email with everything they typed is one link away.
  *
- * It follows the red closing scene: the promise and the direct lines on the
- * left, the form on its own card on the right.
+ * It opens with the question set large and one round red button that leans
+ * toward the mouse, the direct lines as pills under it, and then the form on
+ * its own card with what happens next beside it.
  */
 type Status = "idle" | "sending" | "sent" | "invalid" | "phone" | "challenge" | "offline" | "spam" | "error";
 
@@ -48,6 +50,8 @@ export function Contact({ dict }: { dict: Dictionary }) {
   const [copied, setCopied] = useState(false);
   const [started, setStarted] = useState(false);
   const messageRef = useAutoGrow(message);
+  const scene = useRef<HTMLElement>(null);
+  useMagnets(scene);
   const c = dict.contact.lead;
   const d = dict.contact;
 
@@ -212,15 +216,15 @@ export function Contact({ dict }: { dict: Dictionary }) {
   const isError = ["invalid", "phone", "challenge", "offline", "spam", "error"].includes(status);
   const failed = ["offline", "spam", "error"].includes(status);
 
-  /* One row per channel: the channel's name, the handle or number beside it.
-     Full-width so the whole row is the target. */
-  const directButton =
-    "group flex min-h-14 items-center justify-between gap-3 border-b border-line py-3 text-lg font-semibold transition-colors hover:text-red";
+  /* One pill per channel: the channel's name, the handle or number beside it. */
+  const pill =
+    "group inline-flex min-h-12 items-center gap-3 rounded-full border-[1.5px] border-ink px-5 py-2 font-semibold transition-colors hover:bg-ink hover:text-paper";
+  const pillValue = "min-w-0 text-sm font-normal text-muted transition-colors group-hover:text-muted-dark";
   /* Split the way the brief's fields are (src/components/onboarding/Field.tsx):
      a field that failed keeps its error edge while focused, so tabbing into
      the very field you were asked to fix does not repaint it as fine. */
   const field =
-    "mt-2 block w-full rounded-xl border-[1.5px] bg-white px-4 py-3 text-lg transition-colors placeholder:text-muted focus:outline-none";
+    "mt-2 block w-full rounded-xl border-[1.5px] bg-white px-4 py-3 transition-colors placeholder:text-muted focus:outline-none";
   const fieldEdge = (invalid: boolean) =>
     invalid ? "border-danger focus:border-danger" : "border-line-strong focus:border-ink";
   const fieldLabel = "text-sm font-semibold";
@@ -284,60 +288,78 @@ export function Contact({ dict }: { dict: Dictionary }) {
   );
 
   return (
-    <section id="kontakt" data-scene={dict.film.scenes.contact} className="scroll-mt-20 py-24 sm:py-32">
+    <section ref={scene} id="kontakt" className="scroll-mt-20 py-16 sm:py-24">
       <div className="shell">
-        <SceneLabel word={dict.film.scene} n={9} name={dict.film.scenes.contact} />
-        <h2 className="display mt-6 max-w-4xl text-[clamp(2.75rem,6.5vw,6rem)]">
-          {c.bubble.pre}
-          <span className="text-red">{c.bubble.em}</span>
-          {c.bubble.post}
-        </h2>
-        <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">{d.sub}</p>
+        <SceneLabel name={dict.film.scenes.contact} />
+        <div className="mt-4 flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
+          <div className="max-w-4xl">
+            <h2 className="display text-poster-xl">
+              <Marked text={d.title} mark={d.titleMark} />
+            </h2>
+            <p className="headline mt-5 text-xl sm:text-2xl">
+              {c.bubble.pre}
+              <span className="text-red">{c.bubble.em}</span>
+              {c.bubble.post}
+            </p>
+          </div>
+          {/* The one round button on the page: it leans toward the mouse and
+              takes the visitor to the first field of the form. */}
+          <a
+            href="#forma"
+            data-magnet="0.35"
+            data-umami-event="contact_round_button"
+            onClick={() => window.setTimeout(() => document.getElementById("lead-name")?.focus({ preventScroll: true }), 700)}
+            className="flex size-32 shrink-0 items-center justify-center rounded-full bg-red p-4 text-center font-semibold text-white transition-colors hover:bg-ink sm:size-40 sm:text-lg"
+          >
+            {dict.film.cta} →
+          </a>
+        </div>
 
-        <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
-          {/* The other ways in, and what happens after. On a phone this sits
-              under the form; from lg up it is the left column. */}
-          <aside className="order-2 lg:order-1">
-            <h3 className="eyebrow text-muted">{d.direct.title}</h3>
-            <ul className="mt-3 border-t border-line">
-              {hasPhone && (
-                <li>
-                  <a
-                    href={whatsappLink(d.direct.whatsappPrefill)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-umami-event="lead_form_submitted"
-                    data-umami-event-transport="whatsapp"
-                    className={directButton}
-                  >
-                    {d.direct.whatsapp}
-                    <span className="text-base font-normal text-muted group-hover:text-red">{phoneDisplay()}</span>
-                  </a>
-                </li>
-              )}
-              {site.instagram && (
-                <li>
-                  <a href={instagramDmLink()} target="_blank" rel="noopener noreferrer" className={directButton}>
-                    {d.direct.instagram}
-                    <span className="text-base font-normal text-muted group-hover:text-red">@{site.instagram}</span>
-                  </a>
-                </li>
-              )}
+        {/* The direct lines, as pills that lean toward the mouse. */}
+        <div className="mt-10 border-t border-ink pt-6">
+          <h3 className="eyebrow text-muted">{d.direct.title}</h3>
+          <ul className="mt-4 flex flex-wrap gap-3">
+            {site.instagram && (
               <li>
-                <a href={emailLink(dict.contact.emailSubject, dict.contact.prefill)} className={directButton}>
-                  {d.direct.email}
-                  <span className="truncate text-base font-normal text-muted group-hover:text-red">{site.email}</span>
+                <a href={instagramDmLink()} target="_blank" rel="noopener noreferrer" data-magnet className={pill}>
+                  {d.direct.instagram}
+                  <span className={pillValue}>@{site.instagram}</span>
                 </a>
               </li>
-            </ul>
+            )}
+            {hasPhone && (
+              <li>
+                <a
+                  href={whatsappLink(d.direct.whatsappPrefill)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-magnet
+                  data-umami-event="lead_form_submitted"
+                  data-umami-event-transport="whatsapp"
+                  className={pill}
+                >
+                  {d.direct.whatsapp}
+                  <span className={pillValue}>{phoneDisplay()}</span>
+                </a>
+              </li>
+            )}
+            <li className="min-w-0">
+              <a href={emailLink(dict.contact.emailSubject, dict.contact.prefill)} data-magnet className={`${pill} max-w-full`}>
+                {d.direct.email}
+                <span className={`${pillValue} truncate`}>{site.email}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
 
-            <h3 className="eyebrow mt-12 text-muted">{d.direct.pointsTitle}</h3>
+        <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-16">
+          {/* What happens after. On a phone it sits under the form. */}
+          <aside className="order-2 lg:pt-2">
+            <h3 className="eyebrow text-muted">{d.direct.pointsTitle}</h3>
             <ol className="mt-4 grid gap-3 leading-relaxed text-muted">
               {d.direct.points.map((point, i) => (
-                <li key={point} className="grid grid-cols-[2rem_1fr] gap-2">
-                  <span className="tnum flex size-7 items-center justify-center rounded-full border-[1.5px] border-red text-sm font-semibold text-red">
-                    {i + 1}
-                  </span>
+                <li key={point} className="grid grid-cols-[1.5rem_1fr] gap-2">
+                  <span className="tnum font-semibold text-red">{i + 1}.</span>
                   <span>{point}</span>
                 </li>
               ))}
@@ -345,9 +367,10 @@ export function Contact({ dict }: { dict: Dictionary }) {
           </aside>
 
           <form
+            id="forma"
             onSubmit={submit}
             noValidate
-            className="on-paper order-1 rounded-[1.75rem] bg-paper-2 p-6 text-ink sm:p-9 lg:order-2"
+            className="on-paper order-1 scroll-mt-28 rounded-2xl bg-paper-2 p-6 text-ink sm:p-8"
           >
             <Tag tone="red">{c.eyebrow}</Tag>
 

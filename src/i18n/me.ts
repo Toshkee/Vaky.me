@@ -3,9 +3,15 @@ export const me = {
   htmlLang: "sr-ME",
 
   nav: {
-    work: "Primjeri",
+    label: "Glavni meni",
+    work: "Radovi",
+    videos: "Video",
     pricing: "Cijene",
     contact: "Kontakt",
+    cta: "Besplatan koncept",
+    menu: "Meni",
+    close: "Zatvori",
+    langName: "English",
     langLabel: "EN",
     langHref: "/en/",
     skip: "Preskoči na sadržaj",
@@ -41,15 +47,34 @@ export const me = {
   about: {
     title: "Ko stoji iza Vakyja",
     role: "Software developer",
-    body: "Ja sam Pavle, software developer iz Crne Gore, i pravim web aplikacije od početka do kraja. Vaky radim sam: svaki sajt, aplikaciju i koncept na ovoj stranici osmislio sam i napravio, od prve skice do objave. Kad pišeš Vakyju, odgovaram ti ja, i ja radim tvoj sajt.",
-    link: "Moj portfolio",
-    /* The film of pavletosic.com beside the bio. The question is typed into
-       the portfolio's own English chat field, so it stays in English. */
-    film: {
-      note: "Moj portfolio je AI chat: pitaš ga o mom radu, on odgovara.",
-      question: "What have you built?",
-      label: "pavletosic.com",
+    /* The bio in two parts: the line set large, then the rest under it. */
+    lead: "Ja sam Pavle, software developer iz Crne Gore, i pravim web aplikacije od početka do kraja.",
+    body: "Vaky radim sam: svaki sajt, aplikaciju i koncept na ovoj stranici osmislio sam i napravio, od prve skice do objave. Kad pišeš Vakyju, odgovaram ti ja, i ja radim tvoj sajt.",
+    /* What I do with my own hands, three columns. The tags are tools and
+       skills, not services: the services and their prices are a scene
+       further down. */
+    skills: {
+      title: "Šta umijem",
+      items: [
+        {
+          name: "Dizajn",
+          body: "Izgled po mjeri tvog biznisa, prvo za telefon: boje, slova, raspored.",
+          tags: ["Brend", "Tipografija", "Mobilno prvo"],
+        },
+        {
+          name: "Kod",
+          body: "Sajt ili aplikaciju pišem sam, od prve linije do objave na tvom domenu.",
+          tags: ["Next.js", "React", "TypeScript"],
+        },
+        {
+          name: "Motion design",
+          body: "Animacije za sajt i videi za mreže, od tvojih fotografija i teksta.",
+          tags: ["Remotion", "GSAP", "Reels"],
+        },
+      ],
     },
+    link: "Moj portfolio",
+    portfolioNote: "Moj portfolio je AI chat: pitaš ga o mom radu, on odgovara.",
     photoAlt: "Pavle Tošić, crno-bijeli portret: kratka kosa, okrugle naočare i brada, sjedi na drvenoj klupi.",
   },
 
@@ -63,6 +88,17 @@ export const me = {
     conceptsTitle: "Koncepti za tvoju branšu",
     conceptsSub:
       "Napravljeni za konkretne biznise iz Crne Gore, da vidiš kako bi tvoj sajt mogao da izgleda. Otvori ih na telefonu.",
+    /* How many concepts there are, in the three forms the number takes. */
+    conceptsCount: { one: "{n} koncept", few: "{n} koncepta", other: "{n} koncepata" },
+    conceptsAll: "Pogledaj sve koncepte",
+    /* The page of all concepts, grouped by trade: /koncepti/. */
+    conceptsPage: {
+      metaTitle: "Koncepti sajtova po branšama | Vaky",
+      description:
+        "Dizajn koncepti sajtova za restorane, salone, barbere, teretane i druge biznise u Crnoj Gori. Otvori ih na telefonu i vidi kako bi tvoj sajt mogao da izgleda.",
+      indexLabel: "Branše",
+      tradeLink: "Sajt za ovu branšu",
+    },
     /* The eyebrow above a project's name. A site that is live for a real
        client says so and prints its own domain; everything else is a
        concept and must never be presented as delivered work. */
@@ -71,12 +107,6 @@ export const me = {
     briefLabel: "Zadatak",
     solutionLabel: "Rješenje",
     includesLabel: "Sadrži",
-    /* The question above the tab row, and the tablist's accessible name.
-       `type` on each item is the answer: a barber has to be able to find
-       "Barber" before reading a word. */
-    tabsLabel: "Čime se baviš?",
-    /* The second row, shown only for a trade with more than one project. */
-    pickLabel: "Projekti",
     open: "Otvori demo",
     openLive: "Otvori sajt",
     /* Appended to the accessible name of a link that leaves the site. */
@@ -335,6 +365,21 @@ export const me = {
           },
         ],
       },
+      {
+        key: "software",
+        type: "Softverska kompanija",
+        projects: [
+          {
+            name: "Infostream",
+            slug: "infostream",
+            tag: "infostream.co.me · Podgorica",
+            href: "https://infostream.co.me/",
+            brief: "Softverska kuća sa više od 20 godina rada na informacionim sistemima za javne institucije, Oracle i Microsoft partner, ISO 27001 — i sve to treba da stane na jednu jasnu stranicu.",
+            solution: "Korporativni sajt na dva jezika: ekspertiza, proces, klijenti, tehnologije i standardi.",
+            includes: ["Dva jezika", "Ekspertiza", "Klijenti"],
+          },
+        ],
+      },
     ],
   },
   process: {
@@ -371,36 +416,74 @@ export const me = {
     ],
   },
 
-  /* The landing page as a film: the opening titles, the scene names in the
-     corner, and the words of the scenes that have no section of their own
+  /* The landing page as a film: the opening titles, the scene names on the
+     slates, and the words of the scenes that have no section of their own
      elsewhere in this dictionary. */
   film: {
     intro: {
-      presents: "Vaky predstavlja",
-      words: ["Sajtovi.", "Aplikacije.", "Motion design."],
-      place: "Podgorica · Crna Gora",
       skip: "Preskoči uvod",
     },
-    scene: "Scena",
     scenes: {
-      hero: "Uvod",
-      reel: "Showreel",
-      about: "Ko stoji iza",
       expertise: "Ekspertiza",
       process: "Proces",
       work: "Radovi",
       pricing: "Cijene",
       faq: "Pitanja",
       contact: "Kontakt",
+      videos: "Motion design",
     },
-    reel: { label: "Showreel", sub: "Pravi radovi, uživo kod klijenata", portfolio: "Moj portfolio", portfolioTag: "AI portfolio, pitaj ga o mom radu" },
-    starring: "U glavnim ulogama",
+    /* The motion design scene: example videos made for a concept, so the
+       add-on can be watched instead of described. Each file is
+       public/video/<file>.mp4 with a poster at <file>.jpg, rendered from the
+       video/ project. {price} is the add-on's price from pricing.launchVideos. */
+    videos: {
+      title: "Motion design za tvoje mreže",
+      mark: "tvoje mreže",
+      sub: "Uz bilo koji paket pravim tri vertikalna videa za Reels, TikTok i Story. Jedan najavljuje sajt, druga dva biraš ti. Ovdje su videi za klijente, moj promo za aplikacije i tri za koncept Barber Drina.",
+      price: "Tri videa · {price} uz bilo koji paket",
+      ask: "Pitaj za videe",
+      more: "Pogledaj videe",
+      play: "Pusti video",
+      pause: "Zaustavi video",
+      soundOn: "Uključi zvuk",
+      prev: "Prethodni videi",
+      next: "Sljedeći videi",
+      soundOff: "Isključi zvuk",
+      /* `kind` is what the video is, said on it so a concept is never taken
+         for a client's; `sound` marks a file with a soundtrack. */
+      items: [
+        {
+          file: "reform-fitness-prica",
+          kind: "Klijent",
+          title: "Reform Fitness",
+          line: "Od poruka u sedam ujutro do aplikacije koju članovi koriste sami.",
+          sound: true,
+        },
+        {
+          file: "infostream-reel",
+          kind: "Brend video",
+          title: "Infostream",
+          line: "Brend video: složeni procesi, jednostavan softver, dvadeset godina iskustva.",
+          sound: true,
+        },
+        {
+          file: "vaky-aplikacija-po-mjeri",
+          kind: "Vaky promo",
+          title: "Aplikacija po mjeri",
+          line: "Porudžbine, obavještenja i boje tvog brenda, na App Storeu ili kao PWA.",
+          sound: false,
+        },
+        { file: "barber-drina-najava", kind: "Dizajn koncept", title: "Barber Drina · najava", line: "Šta radiš, gdje si i link u bio.", sound: false },
+        { file: "barber-drina-cjenovnik", kind: "Dizajn koncept", title: "Barber Drina · cjenovnik", line: "Tvoje cijene, red po red.", sound: false },
+        { file: "barber-drina-termin", kind: "Dizajn koncept", title: "Barber Drina · termin", line: "Kako se zakazuje, korak po korak.", sound: false },
+      ],
+    },
+    reel: { label: "Showreel", portfolio: "Moj portfolio", portfolioTag: "AI portfolio, pitaj ga o mom radu" },
     live: "uživo",
     credits: { role: "Režija, dizajn i kod", studio: "Studio" },
     expertise: {
       title: "Tri žanra. Jedan reditelj.",
       mark: "Jedan reditelj.",
-      genre: "Žanr",
       ask: "Pitaj za ovo",
       sites: {
         name: "Sajtovi",
@@ -410,7 +493,7 @@ export const me = {
         includes: ["Dizajn po mjeri tvog brenda", "Savršen na telefonu", "Google mapa i kontakt", "SEO i brzina"],
       },
     },
-    work: { all: "Sve", live: "Uživo", view: "Pogledaj", private: "Privatna aplikacija, samo za članove" },
+    work: { view: "Pogledaj", private: "Privatna aplikacija, samo za članove" },
     cta: "Piši mi",
   },
 
@@ -571,8 +654,6 @@ export const me = {
         },
       ],
     },
-    /* Names the row of package keys shown below lg, for a screen reader. */
-    pickLabel: "Izaberi paket",
     inherits: "Sve iz paketa {plan}, plus:",
     detailsAction: "Šta tačno dobijaš?",
     detailsIntro: "Sve iz ovog paketa, objašnjeno bez tehničkih riječi.",
@@ -674,7 +755,6 @@ export const me = {
   contact: {
     title: "Spreman za novi sajt?",
     titleMark: "novi sajt?",
-    sub: "Ostavi par podataka, ili mi piši direktno — kako ti je lakše.",
     /* The right-hand column of the contact window: the other ways in, and
        what happens after the visitor writes. */
     direct: {

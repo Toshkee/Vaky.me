@@ -1,10 +1,10 @@
-import { ArrowRight, ArrowUpRight, Check, Pause, Play, Plus } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, Pause, Play, Plus, Volume2, VolumeX } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 /**
  * The landing pages' icons: Lucide, at one stroke weight, and only the few
  * that carry meaning — the arrow on an action, the tick in a price list, the
- * plus that opens a row, play and pause on the films. Sections have no icon
+ * plus that opens a row, play, pause and sound on the films. Sections have no icon
  * markers; the headline is the marker.
  *
  * Semantics are the caller's: an icon is presentational unless it is given a
@@ -40,3 +40,5 @@ export const CheckIcon = icon(Check);
 export const PlusIcon = icon(Plus);
 export const PlayIcon = icon(Play);
 export const PauseIcon = icon(Pause);
+export const SoundOnIcon = icon(Volume2);
+export const SoundOffIcon = icon(VolumeX);

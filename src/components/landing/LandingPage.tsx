@@ -2,7 +2,6 @@ import type { Dictionary } from "@/i18n";
 import { StructuredData } from "@/components/StructuredData";
 import { SkipLink } from "@/components/ui/SkipLink";
 import { Contact } from "./Contact";
-import { CtaBand } from "./CtaBand";
 import { Expertise } from "./Expertise";
 import { Faq } from "./Faq";
 import { FilmCursor } from "./FilmCursor";
@@ -13,16 +12,16 @@ import { Nav } from "./Nav";
 import { Pricing } from "./Pricing";
 import { ScrollStage } from "./ScrollStage";
 import { Showreel } from "./Showreel";
-import { Starring } from "./Starring";
 import { Statement } from "./Statement";
 import { Timeline } from "./Timeline";
-import { WorkGrid } from "./WorkGrid";
+import { MotionVideos } from "./MotionVideos";
+import { Work } from "./Work";
 
 /**
  * The landing page, cut as a film: opening titles, a title card, the
  * showreel, the cast, then one scene per thing a visitor needs — who, what,
- * how, what has been made, what it costs — and the red closing scene before
- * the credits. Every scene is server-rendered and readable without a line of
+ * how, what has been made, what it costs — and the contact scene before the
+ * credits. Every scene is server-rendered and readable without a line of
  * script; the motion is laid over it on the client.
  */
 export function LandingPage({ dict }: { dict: Dictionary }) {
@@ -39,18 +38,17 @@ export function LandingPage({ dict }: { dict: Dictionary }) {
       <main id="main" tabIndex={-1} className="focus:outline-none">
         <Hero dict={dict} />
         <Showreel dict={dict} />
-        <Starring dict={dict} />
         <Statement dict={dict} />
         <Expertise dict={dict} />
         <Timeline dict={dict} />
-        <WorkGrid dict={dict} />
+        <Work dict={dict} />
+        <MotionVideos dict={dict} />
         <Pricing dict={dict} />
         <Faq dict={dict} />
-        <CtaBand dict={dict} />
         <Contact dict={dict} />
       </main>
       <Footer dict={dict} />
-      <ScrollStage word={dict.film.scene} />
+      <ScrollStage />
       <FilmCursor />
     </>
   );

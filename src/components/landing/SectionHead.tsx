@@ -18,29 +18,27 @@ export function Marked({ text, mark, now = false }: { text: string; mark?: strin
   );
 }
 
-/** "Scena 04 — Ekspertiza": the slate every scene opens on. */
+/** The slate every scene opens on: its name, behind a short red rule. */
 export function SceneLabel({
-  word,
-  n,
   name,
   tone = "paper",
+  as: Tag = "p",
+  id,
   className = "",
 }: {
-  word: string;
-  n: number;
   name: string;
+  /** The ground it sits on, which decides the colour of the rule. */
   tone?: "paper" | "ink" | "red";
+  /** h2 where the slate is the only heading a scene has. */
+  as?: "p" | "h2";
+  id?: string;
   className?: string;
 }) {
-  const accent = tone === "ink" ? "text-red-bright" : tone === "red" ? "text-white" : "text-red";
+  const rule = tone === "ink" ? "[--slate:var(--color-red-bright)]" : tone === "red" ? "[--slate:#fff]" : "";
   return (
-    <p className={`eyebrow ${className}`}>
-      <span className={accent}>
-        {word} {String(n).padStart(2, "0")}
-      </span>
-      <span aria-hidden="true"> — </span>
+    <Tag id={id} className={`eyebrow slate ${rule} ${className}`}>
       {name}
-    </p>
+    </Tag>
   );
 }
 
@@ -71,11 +69,11 @@ export function SectionHead({
     <div className={`flex flex-wrap items-end justify-between gap-x-10 gap-y-6 ${className}`}>
       <div className="max-w-4xl">
         {slate}
-        <h2 className="display mt-6 text-[clamp(3rem,8vw,7.5rem)]">
+        <h2 className="display mt-4 text-poster-lg">
           <Marked text={title} mark={mark} />
         </h2>
         {sub && (
-          <p className={`mt-6 max-w-xl text-lg leading-relaxed ${tone === "ink" ? "text-muted-dark" : "text-muted"}`}>
+          <p className={`mt-5 max-w-xl text-base leading-relaxed sm:text-lg ${tone === "ink" ? "text-muted-dark" : "text-muted"}`}>
             {sub}
           </p>
         )}

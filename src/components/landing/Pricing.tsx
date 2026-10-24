@@ -3,25 +3,25 @@ import { Tag } from "@/components/ui/Tag";
 import { CheckIcon } from "./icons";
 import { MobileFold } from "./MobileFold";
 import { SceneLabel, SectionHead } from "./SectionHead";
-import { PlanMatrix } from "./PlanMatrix";
+import { PriceWall } from "./PriceWall";
 
 /**
- * Real prices, set at package weight. The cards live in PlanMatrix, which has
- * to be interactive for the detail dialog; everything around them stays
+ * Real prices, written up as a price list. The list lives in PriceWall, which
+ * has to be interactive for the detail dialog; everything around it stays
  * server-rendered. Apps and the motion design videos are priced on their own
  * cards in the expertise scene, beside their films, rather than said twice.
  */
 export function Pricing({ dict }: { dict: Dictionary }) {
   return (
-    <section id="cijene" data-scene={dict.film.scenes.pricing} className="scroll-mt-20 bg-paper-2">
-      <div className="shell py-24 sm:py-32">
+    <section id="cijene" className="scroll-mt-20 bg-paper-2">
+      <div className="shell py-16 sm:py-24">
         <SectionHead
-          slate={<SceneLabel word={dict.film.scene} n={7} name={dict.film.scenes.pricing} />}
+          slate={<SceneLabel name={dict.film.scenes.pricing} />}
           title={dict.pricing.title}
           sub={dict.pricing.sub}
         />
 
-        <PlanMatrix dict={dict} />
+        <PriceWall dict={dict} />
 
         {/* The one recurring charge on the page — and an optional one, which
             is the fact this panel exists to make unmissable. It explains the
@@ -38,7 +38,7 @@ export function Pricing({ dict }: { dict: Dictionary }) {
     shows until opened; the explanation is one tap away. */
 function AddOn({ addOn }: { addOn: Dictionary["pricing"]["maintenance"] }) {
   return (
-    <div data-reveal className="mt-14 border-t border-line-strong pt-8">
+    <div data-reveal className="mt-12 border-t border-line-strong pt-8">
       <MobileFold
         label={addOn.title}
         head={
@@ -52,7 +52,7 @@ function AddOn({ addOn }: { addOn: Dictionary["pricing"]["maintenance"] }) {
         }
       >
         <div className="mt-6 grid gap-x-12 gap-y-6 lg:grid-cols-[1.15fr_0.85fr]">
-          <p className="max-w-xl text-lg leading-relaxed text-muted">{addOn.intro}</p>
+          <p className="max-w-xl leading-relaxed text-muted">{addOn.intro}</p>
           <ul className="grid content-start gap-x-6 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-1">
             {addOn.includes.map((item) => (
               <li key={item} className="flex items-start gap-3">
